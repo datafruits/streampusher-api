@@ -14,5 +14,6 @@ gem 'spring',        group: :development
 gem 'devise'
 gem 'cancancan'
 gem 'stripe'
+gem 'docker-api', require: 'docker'
 
 gem 'rspec-rails', :group => [:development, :test]
