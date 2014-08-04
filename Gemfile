@@ -15,5 +15,6 @@ gem 'devise'
 gem 'cancancan'
 gem 'stripe'
 gem 'docker-api', require: 'docker'
+gem 'sidekiq'
 
 gem 'rspec-rails', :group => [:development, :test]
