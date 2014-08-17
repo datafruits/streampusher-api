@@ -16,5 +16,8 @@ gem 'cancancan'
 gem 'stripe'
 gem 'docker-api', require: 'docker'
 gem 'sidekiq'
+gem 'therubyracer'
+gem 'less-rails'
+gem 'twitter-bootstrap-rails'
 
 gem 'rspec-rails', :group => [:development, :test]
