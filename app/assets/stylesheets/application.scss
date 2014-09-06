@@ -13,3 +13,22 @@
  *= require_tree .
  *= require_self
  */
+
+$yurakucho: #EDBA0F;
+$oedo: #DA006E;
+$marunochi: #E6040F;
+$chiyoda: #049B4E;
+
+.navbar-inner {
+  background: $chiyoda;
+}
+
+.navbar .brand {
+  color: #fff;
+  text-shadow: 0 1px 0 #333;
+}
+
+.navbar .nav > li > a {
+  color: #fff;
+  text-shadow: 0 1px 0 #333;
+}
