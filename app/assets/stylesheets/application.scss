@@ -26,9 +26,24 @@ $chiyoda: #049B4E;
 .navbar .brand {
   color: #fff;
   text-shadow: 0 1px 0 #333;
+  font-size: 25px
 }
 
 .navbar .nav > li > a {
   color: #fff;
   text-shadow: 0 1px 0 #333;
+  font-size: 18px;
+}
+
+.navbar .nav > li > a:hover {
+  color: #ddd;
+  text-decoration: underline;
+}
+
+body {
+  padding-top: 70px;
+}
+
+#odometer {
+  font-size: 60px;
 }

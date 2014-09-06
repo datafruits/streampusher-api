@@ -13,4 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= require countUp.js
 //= require_tree .
+
+$(document).ready(function(){
+  var counter = new countUp('odometer', 0, 128, 0, 2.5);
+  counter.start();
+});

@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+source 'https://rails-assets.org'
 
 gem 'rails', '4.1.2.rc1'
 gem 'sqlite3'
@@ -19,5 +19,7 @@ gem 'sidekiq'
 gem 'therubyracer'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
+gem 'rails-assets'
+gem 'rails-assets-countUp.js'
 
 gem 'rspec-rails', :group => [:development, :test]
