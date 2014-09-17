@@ -22,5 +22,6 @@ gem 'twitter-bootstrap-rails'
 gem 'rails-assets'
 gem 'rails-assets-countUp.js'
 gem 'rails-assets-nvd3'
+gem 'rails-assets-fullcalendar'
 
 gem 'rspec-rails', :group => [:development, :test]
