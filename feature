@@ -1,5 +1,3 @@
-
-
 User
   has_one :subscription
 
