@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :subscriptions
+
   resources :radio_servers
 
   devise_for :users
