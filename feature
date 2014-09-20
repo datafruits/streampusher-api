@@ -20,3 +20,5 @@ services
   NewRadioServer
     * boot via docker
       probably a sidekiq job?
+
+user sign up, choose plan, create radio server
