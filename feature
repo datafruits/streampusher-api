@@ -1,3 +1,21 @@
+FIRST FEATURES
+----------------
+* hosted icecast/liquidsoap
+* stats
+  * realtime listener count
+  * listeners per day?
+* auto dj
+  * upload mp3s
+  * create playlist
+
+* dj scheduling
+* browser based broadcast
+* easy to use embeddable widgets
+  * player
+  * stats
+  * schedule/calendar
+
+--------------
 User
   has_one :subscription
 
