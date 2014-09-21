@@ -1,6 +1,6 @@
 class RadioServer < ActiveRecord::Base
   def boot_radio
-    container = Docker::Container.create( 'Image' => 'radio', 'ExposedPorts' => ["8000/tcp"] )
-    container.start("PortBindings" => { "8000/tcp" => ["HostPort"=>8000 ] })
+    container_id = RadioBooter.perform_async
+    self.update docker_container_id: container_id
   end
 end
