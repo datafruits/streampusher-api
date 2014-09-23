@@ -18,6 +18,7 @@
 //= require nvd3
 //= require moment
 //= require fullcalendar/fullcalendar.js
+//= require creditly.js
 //= require_tree .
 
 var data = function() {
@@ -45,8 +46,8 @@ var data = function() {
 
 
 $(document).ready(function(){
-  var counter = new countUp('odometer', 0, 128, 0, 2.5);
-  counter.start();
+  //var counter = new countUp('odometer', 0, 128, 0, 2.5);
+  //counter.start();
 
   nv.addGraph(function() {
     var chart = nv.models.lineChart()
@@ -73,5 +74,11 @@ $(document).ready(function(){
 
     return chart;
   });
+
+  var creditly = Creditly.initialize(
+      '.creditly-wrapper .expiration-month-and-year',
+      '.creditly-wrapper .credit-card-number',
+      '.creditly-wrapper .security-code',
+      '.creditly-wrapper .card-type');
 
 });

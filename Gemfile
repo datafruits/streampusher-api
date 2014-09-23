@@ -25,4 +25,6 @@ gem 'rails-assets-nvd3'
 gem 'rails-assets-moment'
 gem 'rails-assets-fullcalendar'
 
+gem 'font-awesome-sass', '~> 4.2.0'
+
 gem 'rspec-rails', :group => [:development, :test]

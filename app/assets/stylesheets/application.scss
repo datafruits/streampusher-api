@@ -11,9 +11,12 @@
  * file per style scope.
  *
  *= require fullcalendar/fullcalendar.css
+ *= require creditly.css
  *= require_tree .
  *= require_self
  */
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
 $yurakucho: #EDBA0F;
 $oedo: #DA006E;
@@ -82,4 +85,33 @@ body {
 
 .signup form label {
   line-height: 0.3rem;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.signup form .button {
+  background: $chiyoda;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 6px;
+  padding: 15px;
+  width: 50%;
+  border: 0;
+  box-shadow: 0 2px 0 darken($chiyoda, 20%);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.signup form .button:hover {
+  background: darken($chiyoda, 10%);
+  box-shadow: 0 2px 0 darken($chiyoda, 30%);
+}
+
+.signup .action {
+  text-align: center;
+}
+
+.creditly-wrapper {
+  border-top: 1.5px solid #d9ecec;
 }
