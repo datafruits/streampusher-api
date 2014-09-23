@@ -4,11 +4,13 @@ FIRST FEATURES
 * stats
   * realtime listener count
   * listeners per day?
+
 * auto dj
   * upload mp3s
   * create playlist
 
 * dj scheduling
+
 * browser based broadcast
 * easy to use embeddable widgets
   * player

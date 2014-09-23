@@ -19,6 +19,7 @@ $yurakucho: #EDBA0F;
 $oedo: #DA006E;
 $marunochi: #E6040F;
 $chiyoda: #049B4E;
+$blue: #03B4F7;
 
 .navbar-inner {
   background: $chiyoda;
@@ -42,7 +43,6 @@ $chiyoda: #049B4E;
 }
 
 body {
-  padding-top: 70px;
 }
 
 #odometer {
@@ -52,4 +52,34 @@ body {
 #chart svg {
   height: 400px;
   width: 600px;
+}
+
+.signup {
+  margin: 0 auto;
+  max-width: 31.25rem;
+  text-align: center;
+}
+
+.signup form {
+  background:lighten($blue, 40%);
+  padding: 0;
+  border-radius: 5px;
+  text-align: left;
+}
+
+.signup form .content {
+  padding: 15px;
+  width: 90%;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+}
+
+.signup form input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+}
+
+.signup form label {
+  line-height: 0.3rem;
 }

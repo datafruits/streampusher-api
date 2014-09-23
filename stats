@@ -1,0 +1,9 @@
+listen
+-------
+  radio_server_id
+  time
+  ip_address
+  referrer?
+  current_track/current_dj # maybe add this later
+
+  index on radio_server_id

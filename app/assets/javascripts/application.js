@@ -16,6 +16,7 @@
 //= require countUp.js
 //= require d3
 //= require nvd3
+//= require moment
 //= require fullcalendar/fullcalendar.js
 //= require_tree .
 
