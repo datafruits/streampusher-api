@@ -206,6 +206,7 @@ DEPENDENCIES
   rails-assets
   rails-assets-countUp.js
   rails-assets-fullcalendar
+  rails-assets-moment
   rails-assets-nvd3
   rspec-rails
   sass-rails (~> 4.0.3)
