@@ -18,13 +18,11 @@ gem 'docker-api', require: 'docker'
 gem 'sidekiq'
 gem 'therubyracer'
 gem 'less-rails'
-gem 'twitter-bootstrap-rails'
+gem 'twitter-bootstrap-rails', '~> 3.2.0'
 gem 'rails-assets'
 gem 'rails-assets-countUp.js'
 gem 'rails-assets-nvd3'
 gem 'rails-assets-moment'
 gem 'rails-assets-fullcalendar'
-
-gem 'font-awesome-sass', '~> 4.2.0'
 
 gem 'rspec-rails', :group => [:development, :test]
