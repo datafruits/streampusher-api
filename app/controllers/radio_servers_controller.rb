@@ -1,2 +1,0 @@
-class RadioServersController < ApplicationController
-end

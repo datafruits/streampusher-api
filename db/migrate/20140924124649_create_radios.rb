@@ -1,6 +1,6 @@
-class CreateRadioServers < ActiveRecord::Migration
+class CreateRadios < ActiveRecord::Migration
   def change
-    create_table :radio_servers do |t|
+    create_table :radios do |t|
       t.integer :user_id, null: false
       t.integer :docker_container_id
 
