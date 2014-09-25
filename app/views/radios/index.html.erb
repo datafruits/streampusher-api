@@ -1,0 +1,13 @@
+<table>
+  <th>docker container id</th>
+  </th>status</th>
+  <tbody>
+    <% @radios.each do |radio| %>
+    <tr>
+      <td>
+        <%= radio.docker_container_id %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

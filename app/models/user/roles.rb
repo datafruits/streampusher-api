@@ -1,10 +1,5 @@
-class User < ActiveRecord::Base
-  # include User::Roles
+module User::Roles
   ROLES = %w[admin dj]
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
   validate :valid_role
 
   def valid_role
