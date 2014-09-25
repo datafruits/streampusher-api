@@ -22,14 +22,15 @@ $marunochi: #E6040F;
 $chiyoda: #049B4E;
 $blue: #03B4F7;
 
-.navbar-inner {
+.navbar {
   background: $chiyoda;
 }
 
 .navbar .brand {
   color: #fff;
   text-shadow: 0 1px 0 #333;
-  font-size: 25px
+  font-size: 25px;
+  text-decoration: none;
 }
 
 .navbar .nav > li > a {
@@ -39,8 +40,8 @@ $blue: #03B4F7;
 }
 
 .navbar .nav > li > a:hover {
-  color: #ddd;
-  text-decoration: underline;
+  background-color: lighten($chiyoda, 20%);
+  text-decoration: none;
 }
 
 body {
