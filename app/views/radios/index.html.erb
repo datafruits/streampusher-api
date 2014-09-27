@@ -1,15 +1,18 @@
 <%= form_for @radio do |f| %>
   <%= f.submit "Start new radio" %>
 <% end %>
-<table>
-  <th>docker container id</th>
-  </th>status</th>
+<table class="table">
+  <thead>
+    <th>docker container id</th>
+    <th>status</th>
+  </thead>
   <tbody>
     <% @radios.each do |radio| %>
     <tr>
       <td>
         <%= radio.docker_container_id %>
       </td>
+      <td></td>
     </tr>
     <% end %>
   </tbody>

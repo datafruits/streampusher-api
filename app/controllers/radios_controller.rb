@@ -3,10 +3,13 @@ class RadiosController < ApplicationController
   def index
     @radio = Radio.new
   end
+  def boot
+
+  end
   def create
     @radio.user_id = current_user.id
     if @radio.save
-      redirect_to 'index'
+      redirect_to radios_path
     else
       render 'index'
     end

@@ -1,6 +1,6 @@
 module User::Roles
   ROLES = %w[admin dj]
-  validate :valid_role
+  #validate :valid_role
 
   def valid_role
     if !role.to_s.blank?
