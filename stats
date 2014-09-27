@@ -1,5 +1,6 @@
 listen
 -------
+  belongs_to :stream
   radio_server_id
   time
   ip_address

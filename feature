@@ -29,10 +29,16 @@ RadioServer
   belongs_to :user
   belongs_to :subscription
 
-  status, blahblah
+  status: booting, running, stopped
+
+  boot, stop, restart
+
+  port
+    persist port to haproxy?
 
 Stream
   belongs_to :radio_server
+  has_many :listens
   url
 
 services
