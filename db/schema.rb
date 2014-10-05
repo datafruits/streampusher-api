@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140927162121) do
+ActiveRecord::Schema.define(version: 20141001155219) do
 
   create_table "plans", force: true do |t|
     t.decimal  "price"
@@ -26,11 +26,12 @@ ActiveRecord::Schema.define(version: 20140927162121) do
   end
 
   create_table "radios", force: true do |t|
-    t.integer  "user_id",             null: false
+    t.integer  "user_id",                          null: false
     t.string   "docker_container_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "virtual_host"
+    t.string   "name",                default: "", null: false
   end
 
   create_table "subscriptions", force: true do |t|

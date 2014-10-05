@@ -15,6 +15,8 @@ gem 'devise'
 gem 'cancancan'
 gem 'stripe'
 gem 'docker-api', require: 'docker'
+gem 'simple_form'
+
 gem 'sidekiq'
 gem 'therubyracer'
 gem 'less-rails'

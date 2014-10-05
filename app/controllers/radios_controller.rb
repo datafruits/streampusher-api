@@ -3,9 +3,7 @@ class RadiosController < ApplicationController
   def index
     @radio = Radio.new
   end
-  def boot
 
-  end
   def create
     @radio.user_id = current_user.id
     if @radio.save
@@ -13,5 +11,10 @@ class RadiosController < ApplicationController
     else
       render 'index'
     end
+  end
+
+  private
+  def create_params
+    params.require(:radio).permit(:name, :virtual_host)
   end
 end

@@ -1,9 +1,13 @@
-<%= form_for @radio do |f| %>
+<%= simple_form_for @radio, html: {class: 'form-horizontal' } do |f| %>
+  <%= f.input :name %>
+  <%= f.input :virtual_host %>
   <%= f.submit "Start new radio" %>
 <% end %>
 <table class="table">
   <thead>
     <th>docker container id</th>
+    <th>name</th>
+    <th>virtual hostname</th>
     <th>status</th>
   </thead>
   <tbody>
@@ -13,6 +17,8 @@
         <%= radio.docker_container_id %>
       </td>
       <td></td>
+      <td><%= radio.name %></td>
+      <td><%= radio.try(:virtual_host) %></td>
     </tr>
     <% end %>
   </tbody>
