@@ -29,3 +29,5 @@ gem 'rails-assets-moment'
 gem 'rails-assets-fullcalendar'
 
 gem 'rspec-rails', :group => [:development, :test]
+
+gem 'dotenv-rails'
