@@ -1,3 +1,17 @@
 // Place all the styles related to the landing controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+$blue: #03B4F7;
+
+body {
+  background: $blue;
+}
+
+div.container {
+  background: #eee;
+}
+
+#header {
+  text-align: center;
+}
