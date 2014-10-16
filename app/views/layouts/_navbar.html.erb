@@ -11,14 +11,16 @@
     </div>
 
     <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li><%= link_to "Dashboard" %></li>
-        <li><%= link_to "Stats" %></li>
-        <li><%= link_to "Schedule" %></li>
-        <li><%= link_to "Auto DJ/Playlists", playlists_path %></li>
-        <li><%= link_to "DJs" %></li>
-        <li><%= link_to "Archives/Podcast" %></li>
-      </ul>
+      <% if user_signed_in? %>
+        <ul class="nav navbar-nav">
+          <li><%= link_to "Dashboard" %></li>
+          <li><%= link_to "Stats" %></li>
+          <li><%= link_to "Schedule" %></li>
+          <li><%= link_to "Auto DJ/Playlists", playlists_path %></li>
+          <li><%= link_to "DJs" %></li>
+          <li><%= link_to "Archives/Podcast" %></li>
+        </ul>
+      <% end %>
 
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
