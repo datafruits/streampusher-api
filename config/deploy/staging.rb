@@ -43,7 +43,7 @@ set :full_app_name, "#{fetch(:application)}_#{fetch(:stage)}"
 #   }
 # dont try and infer something as important as environment from
 # stage name.
-set :rails_env, :production
+set :rails_env, :staging
 
 # number of unicorn workers, this will be reflected in
 # the unicorn.rb and the monit configs
