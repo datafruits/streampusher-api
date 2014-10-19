@@ -18,7 +18,7 @@
 //= require nvd3
 //= require moment
 //= require fullcalendar/fullcalendar.js
-//= require creditly.js
+//= require jquery.payment
 //= require_tree .
 
 var data = function() {
@@ -49,36 +49,30 @@ $(document).ready(function(){
   //var counter = new countUp('odometer', 0, 128, 0, 2.5);
   //counter.start();
 
-  nv.addGraph(function() {
-    var chart = nv.models.lineChart()
-      .useInteractiveGuideline(true)
-      ;
-
-    chart.xAxis
-      .axisLabel('Time (ms)')
-      .tickFormat(d3.format(',r'))
-      ;
-
-    chart.yAxis
-      .axisLabel('Voltage (v)')
-      .tickFormat(d3.format('.02f'))
-      ;
-
-    d3.select('#chart svg')
-      .datum(data())
-      .transition().duration(500)
-      .call(chart)
-      ;
-
-    nv.utils.windowResize(chart.update);
-
-    return chart;
-  });
-
-  var creditly = Creditly.initialize(
-      '.creditly-wrapper .expiration-month-and-year',
-      '.creditly-wrapper .credit-card-number',
-      '.creditly-wrapper .security-code',
-      '.creditly-wrapper .card-type');
+//   nv.addGraph(function() {
+//     var chart = nv.models.lineChart()
+//       .useInteractiveGuideline(true)
+//       ;
+//
+//     chart.xAxis
+//       .axisLabel('Time (ms)')
+//       .tickFormat(d3.format(',r'))
+//       ;
+//
+//     chart.yAxis
+//       .axisLabel('Voltage (v)')
+//       .tickFormat(d3.format('.02f'))
+//       ;
+//
+//     d3.select('#chart svg')
+//       .datum(data())
+//       .transition().duration(500)
+//       .call(chart)
+//       ;
+//
+//     nv.utils.windowResize(chart.update);
+//
+//     return chart;
+//   });
 
 });

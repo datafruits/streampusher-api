@@ -5,7 +5,7 @@
   <h2>Sign up instantly</h2>
   <i>Start broadcasting right away</i>
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), id: 'new_subscription') do |f| %>
     <%= devise_error_messages! %>
 
     <div class="content">
@@ -27,7 +27,7 @@
         <div class="first-row form-group">
           <div class="col-sm-8 controls">
             <label class="control-label">Card Number</label>
-            <input class="number credit-card-number form-control"
+            <input id="card_number" class="number credit-card-number form-control"
               type="text" name="number"
               pattern="\d*"
               inputmode="numeric" autocomplete="cc-number" autocompletetype="cc-number" x-autocompletetype="cc-number"
@@ -35,7 +35,7 @@
           </div>
           <div class="col-sm-4 controls">
             <label class="control-label">CVV</label>
-            <input class="security-code form-control"·
+            <input id="card_code" class="security-code form-control"·
               inputmode="numeric"
               pattern="\d*"
               type="text" name="security-code"
