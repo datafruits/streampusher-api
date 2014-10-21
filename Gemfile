@@ -22,7 +22,6 @@ gem 'therubyracer'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails', '~> 3.2.0'
 gem 'font-awesome-sass', '~> 4.2.0'
-gem 'rails-assets'
 gem 'rails-assets-countUp.js'
 gem 'rails-assets-nvd3'
 gem 'rails-assets-moment'
@@ -39,3 +38,7 @@ gem 'capistrano', '~> 3.2.1'
 gem 'capistrano-rails', '~> 1.1.2'
 gem 'capistrano-bundler'
 gem 'capistrano-rbenv', "~>2.0"
+
+group :test, :development do
+  gem 'pry'
+end
