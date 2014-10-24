@@ -12,7 +12,7 @@ role :app, %w{deploy@192.168.50.4}
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-server '192.168.50.4', user: 'deploy', roles: %w{app}, my_property: :my_value
+server '192.168.50.4', user: 'deploy', roles: %w{app}
 
 set :full_app_name, "#{fetch(:application)}_#{fetch(:stage)}"
 
