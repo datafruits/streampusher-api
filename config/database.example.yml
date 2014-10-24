@@ -1,0 +1,21 @@
+development:
+  adapter: postgresql
+  database: streamify_dev
+  pool: 5
+  timeout: 5000
+  username: streamify
+  password: password
+
+production:
+  adapter: postgresql
+  database: streamify_production
+  pool: 5
+  timeout: 5000
+
+test:
+  adapter: postgresql
+  database: streamify_test
+  pool: 5
+  timeout: 5000
+  username: streamify
+  password: password
