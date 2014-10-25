@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  has_one :subscription
+  has_many :radios
+
   # include User::Roles
   ROLES = %w[admin dj]
   # Include default devise modules. Others available are:

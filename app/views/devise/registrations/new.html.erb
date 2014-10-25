@@ -1,12 +1,19 @@
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-<%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
-
 <section class="signup">
   <h2>Sign up instantly</h2>
   <i>Start broadcasting right away</i>
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), id: 'new_subscription') do |f| %>
-    <%= devise_error_messages! %>
+  <%= form_for(@signup_form, url: registration_path(resource_name), html: { id: 'new_subscription' }) do |f| %>
+    <% if @signup_form.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@signup_form.errors.count, "error") %> prohibited this conference from being saved:</h2>
+
+        <ul>
+        <% @signup_form.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
 
     <div class="content">
       <div><%= f.label :email %><br />
@@ -29,8 +36,7 @@
             <label class="control-label">Card Number</label>
             <input id="card_number" class="number credit-card-number form-control"
               type="text" name="number"
-              pattern="\d*"
-              inputmode="numeric" autocomplete="cc-number" autocompletetype="cc-number" x-autocompletetype="cc-number"
+              inputmode="numeric"
               placeholder="&#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149;">
           </div>
           <div class="col-sm-4 controls">
@@ -52,6 +58,7 @@
           <div class="col-sm-4 controls">
             <label class="control-label">Expiration</label>
             <input class="expiration-month-and-year form-control"
+              id="card_exp"
               type="text" name="expiration-month-and-year"
               placeholder="MM / YY">
           </div>
