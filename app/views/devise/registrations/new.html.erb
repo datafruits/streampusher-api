@@ -22,8 +22,15 @@
       <div><%= f.label :password %><br />
         <%= f.password_field :password, autocomplete: "off", placeholder: "Make it a good one" %></div>
 
-      <div><%= f.label :radio_name %><br />
-        <%= text_field_tag :radio_name, nil, placeholder: "My Awesome Radio Station" %></div>
+      <%= f.fields_for :radios do |r| %>
+        <div><%= r.label :radio_name %><br />
+          <%= r.text_field :radio_name, placeholder: "My Awesome Radio Station" %></div>
+      <% end %>
+
+      <%= f.fields_for :subscription do |s| %>
+        <%= s.hidden_field :stripe_card_token %>
+        <%= s.hidden_field :plan_id, value: 1 %>
+      <% end %>
 
     <section class="creditly-wrapper">
           <h3><%= icon('lock') %> Secure Credit Card Payment</h3>

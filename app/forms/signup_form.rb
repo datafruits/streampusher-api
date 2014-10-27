@@ -8,16 +8,6 @@ class SignupForm < ActiveForm::Base
   end
 
   association :subscription do
-    attributes :plan_id, required: true
-  end
-
-  def save
-    if valid?
-      model.subscription.save_with_payment
-      model.save
-      true
-    else
-      false
-    end
+    attributes :plan_id, :stripe_card_token, required: true
   end
 end

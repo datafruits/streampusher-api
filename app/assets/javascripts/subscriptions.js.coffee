@@ -34,6 +34,7 @@ subscription =
   handleStripeResponse: (status, response) ->
     if status == 200
       alert(response.id)
+      $('#user_subscription_attributes_stripe_card_token').val(response.id)
       $('#new_subscription')[0].submit()
     else
       alert(response.error.message)
