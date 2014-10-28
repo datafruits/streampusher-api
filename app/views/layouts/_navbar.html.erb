@@ -13,11 +13,11 @@
     <div class="collapse navbar-collapse">
       <% if user_signed_in? %>
         <ul class="nav navbar-nav">
-          <li><%= link_to "Dashboard" %></li>
+          <li><%= link_to "Dashboard", radios_path %></li>
           <li><%= link_to "Stats" %></li>
           <li><%= link_to "Schedule" %></li>
           <li><%= link_to "Auto DJ/Playlists", playlists_path %></li>
-          <li><%= link_to "DJs" %></li>
+          <li><%= link_to "DJ Management" %></li>
           <li><%= link_to "Archives/Podcast" %></li>
         </ul>
       <% end %>

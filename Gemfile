@@ -23,10 +23,10 @@ gem 'less-rails'
 gem 'twitter-bootstrap-rails', '~> 3.2.0'
 gem 'font-awesome-sass', '~> 4.2.0'
 gem 'rails-assets-countUp.js'
-gem 'rails-assets-nvd3'
 gem 'rails-assets-moment'
 gem 'rails-assets-fullcalendar'
 gem 'rails-assets-jquery.payment'
+gem 'rails-assets-flot'
 
 gem 'rspec-rails', :group => [:development, :test]
 
