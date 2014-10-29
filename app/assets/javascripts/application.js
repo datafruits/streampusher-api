@@ -19,10 +19,3 @@
 //= require jquery.payment
 //= require flot
 //= require_tree .
-
-
-$(document).ready(function(){
-  var counter = new countUp('odometer', 0, 128, 0, 2.5);
-  counter.start();
-
-});
