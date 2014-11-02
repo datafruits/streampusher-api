@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141026061315) do
+ActiveRecord::Schema.define(version: 20141101094816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,12 +29,12 @@ ActiveRecord::Schema.define(version: 20141026061315) do
   end
 
   create_table "radios", force: true do |t|
-    t.integer  "user_id",                          null: false
     t.string   "docker_container_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "virtual_host"
     t.string   "name",                default: "", null: false
+    t.integer  "subscription_id",                  null: false
   end
 
   create_table "subscriptions", force: true do |t|
@@ -43,6 +43,13 @@ ActiveRecord::Schema.define(version: 20141026061315) do
     t.datetime "updated_at"
     t.string   "stripe_customer_token"
     t.integer  "user_id",               null: false
+  end
+
+  create_table "user_radios", force: true do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "radio_id",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

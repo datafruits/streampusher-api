@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   has_one :subscription
-  has_many :radios
+  has_many :radios, through: :user_radios
 
   # include User::Roles
   ROLES = %w[admin dj]
@@ -9,6 +9,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   validate :valid_role
+
+  def managable_radios
+    self.subscription.radios
+  end
 
   def valid_role
     if !role.to_s.blank?

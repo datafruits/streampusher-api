@@ -1,0 +1,2 @@
+module DjsHelper
+end

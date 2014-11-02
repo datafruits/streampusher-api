@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   resources :subscriptions
 
+  resources :djs
+
   devise_for :users, controllers: { registrations: 'registrations' }
 
   #root 'home#index'

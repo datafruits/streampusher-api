@@ -2,6 +2,7 @@ class Subscription < ActiveRecord::Base
   belongs_to :plan
   validates_presence_of :plan_id
   belongs_to :user
+  has_many :radios
   attr_accessor :stripe_card_token
 
   def save(*)

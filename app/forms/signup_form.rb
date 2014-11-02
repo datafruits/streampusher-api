@@ -3,11 +3,10 @@ class SignupForm < ActiveForm::Base
   attributes :email, :password
   validates :email, :password, presence: true
 
-  association :radios do
-    attributes :name
-  end
-
   association :subscription do
     attributes :plan_id, :stripe_card_token, required: true
+    association :radios do
+      attributes :name
+    end
   end
 end
