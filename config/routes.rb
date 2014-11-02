@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :recordings
+
   resources :shows
 
   resources :stats, only: [:index]

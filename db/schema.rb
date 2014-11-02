@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141102052646) do
+ActiveRecord::Schema.define(version: 20141102053146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,14 @@ ActiveRecord::Schema.define(version: 20141102052646) do
     t.string   "virtual_host"
     t.string   "name",                default: "", null: false
     t.integer  "subscription_id",                  null: false
+  end
+
+  create_table "recordings", force: true do |t|
+    t.integer  "radio_id"
+    t.integer  "dj_id"
+    t.integer  "show_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "shows", force: true do |t|
