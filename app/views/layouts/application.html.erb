@@ -12,6 +12,11 @@
 
 <%= render 'layouts/navbar' %>
 <div class="container">
+  <% flash.each do |name, msg| %>
+    <div id="<%= name %>">
+      <%= msg %>
+    </div>
+  <% end %>
   <%= yield %>
 </div>
 
