@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_one :subscription
   has_many :radios, through: :user_radios
+  has_many :user_radios
 
   # include User::Roles
   ROLES = %w[admin dj]
