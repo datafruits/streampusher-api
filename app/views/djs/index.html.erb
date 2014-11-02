@@ -1,2 +1,19 @@
-<% @djs.each do |dj| %>
+<%= simple_form_for @dj, url: djs_path, html: {class: 'form-horizontal'} do |f| %>
+  <%= f.input :email %>
+  <%= f.input :username %>
+
+  <%= f.submit "Signup new dj" %>
 <% end %>
+
+<table class="table table-striped">
+  <thead>
+    <th>username</th>
+  </thead>
+  <tbody>
+    <% @djs.each do |dj| %>
+      <tr>
+        <td><%= dj.username %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
