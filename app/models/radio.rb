@@ -2,6 +2,7 @@ class Radio < ActiveRecord::Base
   after_create :boot_radio
   has_many :user_radios
   has_many :users, through: :user_radios
+  has_many :shows
 
   def djs
     self.users

@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20141102053146) do
   create_table "shows", force: true do |t|
     t.string   "title",       default: "", null: false
     t.integer  "dj_id",                    null: false
+    t.integer  "radio_id",                 null: false
     t.datetime "start_at",                 null: false
     t.datetime "end_at",                   null: false
     t.text     "description", default: "", null: false

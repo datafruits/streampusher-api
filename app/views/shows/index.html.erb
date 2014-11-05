@@ -1,0 +1,9 @@
+<%= simple_form_for @show, html: {class: 'form-horizontal'} do |f| %>
+  <%= f.input :dj, collection: @current_radio.djs, label_method: :username, value_method: :id  %>
+  <%= f.input :start_time %>
+  <%= f.input :end_time %>
+
+  <%= f.submit 'Add show' %>
+<% end %>
+<div id="calendar">
+</div>

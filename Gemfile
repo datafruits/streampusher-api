@@ -44,3 +44,4 @@ group :test, :development do
 end
 
 gem 'active_form', git: 'https://github.com/rails/activeform'
+gem 'paperclip'

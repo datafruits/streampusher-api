@@ -8,4 +8,3 @@ $('.main-dashboard').ready ->
   #counter = new countUp('odometer', 0, 128, 0, 2.5)
   #counter.start()
 
-  #$('#calendar').fullCalendar({})
