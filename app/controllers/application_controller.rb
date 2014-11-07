@@ -10,4 +10,8 @@ class ApplicationController < ActionController::Base
       user.subscription.radio
     end
   end
+
+  def current_ability
+    @current_ability ||= Ability.new(current_user, current_radio)
+  end
 end
