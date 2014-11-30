@@ -6,7 +6,7 @@ class RadiosController < ApplicationController
   end
 
   def create
-    @radio.user_id = current_user.id
+    @radio.subscription_id = current_user.subscription.id
     if @radio.save
       redirect_to radios_path
     else

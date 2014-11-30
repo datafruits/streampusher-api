@@ -6,7 +6,9 @@ class Ability
     if user.admin?
       can :manage, :all
     else
-      can :manage, Radio, user_id: user.id
+      can :manage, Radio do |radio|
+        can_manage_radio?(user, radio)
+      end
       can :manage, Show if can_manage_radio?(user, radio)
     end
   end
