@@ -1,0 +1,26 @@
+<table class="table table-striped">
+  <thead>
+    <th>subscription id</th>
+    <th>user</th>
+    <th>radios</th>
+  </thead>
+  <tbody>
+    <% @subscriptions.each do |subscription| %>
+      <tr>
+        <td><%= subscription.id %></td>
+        <td><%= subscription.user.email %></td>
+        <table class="table">
+          <th>name</th>
+          <th>icecast docker container id</th>
+          <th>liquidsoap docker container id</th>
+          <% subscription.radios.each do |radio| %>
+            <tr>
+              <td><%= radio.name %></td>
+            </tr>
+          <% end %>
+        </table>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

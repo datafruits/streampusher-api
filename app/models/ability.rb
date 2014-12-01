@@ -4,6 +4,7 @@ class Ability
   def initialize(user, radio)
     user ||= User.new # guest user (not logged in)
     if user.admin?
+      can :admin, :dashboard
       can :manage, :all
     else
       can :manage, Radio do |radio|
