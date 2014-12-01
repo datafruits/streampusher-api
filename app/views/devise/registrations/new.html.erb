@@ -23,9 +23,9 @@
         <%= f.password_field :password, autocomplete: "off", placeholder: "Make it a good one" %></div>
 
       <%= f.fields_for :subscription do |s| %>
-        <%= f.fields_for :radios do |r| %>
+        <%= s.fields_for :radios do |r| %>
           <div><%= r.label :radio_name %><br />
-            <%= r.text_field :radio_name, placeholder: "My Awesome Radio Station" %></div>
+            <%= r.text_field :name, placeholder: "My Awesome Radio Station" %></div>
         <% end %>
 
         <%= s.hidden_field :stripe_card_token %>

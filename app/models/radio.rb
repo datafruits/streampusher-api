@@ -3,6 +3,7 @@ class Radio < ActiveRecord::Base
   has_many :user_radios
   has_many :users, through: :user_radios
   has_many :shows
+  belongs_to :subscription
 
   def djs
     self.users

@@ -19,6 +19,6 @@ class RegistrationsController < Devise::RegistrationsController
     @signup_form = SignupForm.new(User.new)
   end
   def user_params
-    params.require(:user).permit(:email, :password, radios_attributes: [:name], subscription_attributes: [:plan_id, :stripe_card_token])
+    params.require(:user).permit(:email, :password, subscription_attributes: [:plan_id, :stripe_card_token, radios_attributes: [:name]])
   end
 end

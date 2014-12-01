@@ -5,7 +5,7 @@ class SignupForm < ActiveForm::Base
 
   association :subscription do
     attributes :plan_id, :stripe_card_token, required: true
-    association :radios do
+    association :radios, records: 1 do
       attributes :name
     end
   end
