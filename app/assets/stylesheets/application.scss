@@ -62,6 +62,12 @@ body {
   text-align: center;
 }
 
+.signin {
+  margin: 0 auto;
+  max-width: 45.25rem;
+  text-align: center;
+}
+
 .signup form {
   background:lighten($blue, 40%);
   padding: 0;
@@ -88,7 +94,7 @@ body {
   display: inline-block;
 }
 
-.signup form .button {
+.big-cta-btn {
   background: $chiyoda;
   color: white;
   font-weight: bold;
@@ -116,3 +122,7 @@ body {
 }
 
 #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+
+.btn-success {
+  background: $chiyoda;
+}

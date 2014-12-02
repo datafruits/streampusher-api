@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 $blue: #03B4F7;
+$chiyoda: #049B4E;
 
 body {
   background: $blue;
@@ -14,4 +15,47 @@ div.container {
 
 #header {
   text-align: center;
+}
+
+#newsletter {
+  margin: 0 auto;
+  max-width: 45.25rem;
+  text-align: center;
+}
+
+#mc_embed_signup form {
+  text-align: center;
+  padding: 0;
+}
+
+#mc_embed_signup input {
+  padding: 8px 0;
+  font-size: 20px;
+  border-radius: 6px;
+  padding: 15px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#mc_embed_signup input.email {
+  width: 80%;
+  font-weight: normal;
+  margin-bottom: 5px;
+}
+
+#mc_embed_signup input.submit {
+  font-weight: bold;
+  border: 0;
+}
+
+p.price {
+  text-align: center;
+  font-size: 36px;
+  color: lighten($chiyoda, 5%);
+  text-shadow: 0 1px 0 #333;
+}
+
+h1, h2, h3 {
+  text-shadow: 1px 1px 0 #aaa;
 }
