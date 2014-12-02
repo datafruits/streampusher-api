@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   get 'admin', to: 'admin#index'
 
+  resources :tracks, only: [:create]
+
   #root 'home#index'
   root 'landing#index'
 end

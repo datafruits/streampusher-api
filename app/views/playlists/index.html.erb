@@ -1,15 +1,25 @@
 <h1>playlists</h1>
 <div class="row">
   <div class="col-md-8">
-    <h3>songs</h3>
-    <input type='file'>
+    <h3>tracks</h3>
     <ul>
-      <li>三毛猫ホームレス - インタネット</li>
-      <li>Avec Avec - Marmalade Boogie</li>
-      <li>ZONE - secret base</li>
+      <% @tracks.each do |track| %>
+        <li class="track"><%= track.audio_file_name %></li>
+      <% end %>
+      <li class="track">三毛猫ホームレス - インタネット</li>
+      <li class="track">Avec Avec - Marmalade Boogie</li>
+      <li class="track">ZONE - secret base</li>
     </ul>
+    <h3>upload new track</h3>
+    <%= simple_form_for @track, remote: true, html: { class: 'form-horizontal' }  do |f| %>
+        <%= f.input :audio_file_name, as: :file  %>
+        <%= f.submit %>
+      <% end %>
   </div>
   <div class="col-md-4">
     <h3>playlist</h3>
+    <%= link_to '+ new playlist', '', class: 'btn btn-success' %>
+    <% @playlists.each do |playlist| %>
+    <% end %>
   </div>
 </div>

@@ -5,7 +5,8 @@
 <% end %>
 <table class="table">
   <thead>
-    <th>docker container id</th>
+    <th>icecast container id</th>
+    <th>liquidsoap container id</th>
     <th>name</th>
     <th>virtual hostname</th>
     <th>status</th>
@@ -14,9 +15,11 @@
     <% @radios.each do |radio| %>
     <tr>
       <td>
-        <%= radio.docker_container_id %>
+        <%= radio.icecast_container_id %>
       </td>
-      <td></td>
+      <td>
+        <%= radio.liquidsoap_container_id %>
+      </td>
       <td><%= radio.name %></td>
       <td><%= radio.try(:virtual_host) %></td>
     </tr>
