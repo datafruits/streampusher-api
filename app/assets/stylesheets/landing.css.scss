@@ -9,14 +9,6 @@ body {
   background: $blue;
 }
 
-div.container {
-  background: #eee;
-}
-
-#header {
-  text-align: center;
-}
-
 #newsletter {
   margin: 0 auto;
   max-width: 45.25rem;
@@ -56,6 +48,39 @@ p.price {
   text-shadow: 0 1px 0 #333;
 }
 
-h1, h2, h3 {
-  text-shadow: 1px 1px 0 #aaa;
+.white {
+  background: #fff;
+}
+
+section#header {
+  text-align: center;
+  color: white;
+  h1,h2 {
+    text-shadow: 2px 2px 1px #222;
+  }
+}
+
+h1.lead-copy-1 {
+  font-size:50px;
+}
+
+h1.lead-copy-2 {
+  font-size:80px;
+}
+
+h2.lead-copy {
+  font-size:40px;
+}
+
+.blue {
+}
+
+div.landing {
+  font-size: 20px;
+  h2 {
+    font-size: 50px;
+  }
+  h1, h2, h3 {
+    text-shadow: 1px 1px 0 #aaa;
+  }
 }
