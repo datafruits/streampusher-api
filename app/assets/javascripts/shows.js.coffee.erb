@@ -4,4 +4,9 @@
 #
 #
 $('#calendar').ready ->
-  $('#calendar').fullCalendar({})
+  $('#calendar').fullCalendar({
+    editable: true
+    eventSources: [
+      '/shows.json'
+    ]
+  })

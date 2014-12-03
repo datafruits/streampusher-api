@@ -126,3 +126,8 @@ body {
 .btn-success {
   background: $chiyoda;
 }
+
+form input[type=submit] {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
