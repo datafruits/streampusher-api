@@ -19,6 +19,8 @@
   <% end %>
   <%= yield %>
 </div>
-<%= render 'layouts/ga' %>
+<% if ENV['RAILS_ENV'] == 'production' %>
+  <%= render 'layouts/ga' %>
+<% end %>
 </body>
 </html>
