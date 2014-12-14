@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-md-8">
     <h3>tracks</h3>
-    <ul>
+    <ul id="tracks">
       <% @tracks.each do |track| %>
         <li class="track"><%= track.audio_file_name %></li>
       <% end %>
@@ -11,10 +11,20 @@
       <li class="track">ZONE - secret base</li>
     </ul>
     <h3>upload new track</h3>
-    <%= simple_form_for @track, remote: true, html: { class: 'form-horizontal' }  do |f| %>
-        <%= f.input :audio_file_name, as: :file  %>
-        <%= f.submit %>
-      <% end %>
+      <%= s3_uploader_form callback_url: tracks_url(format: :js),
+                           callback_param: "track[audio_file_name]",
+                           key_starts_with: "",
+                           key: "${filename}",
+                           id: "track-uploader" do %>
+      <%= file_field_tag :file %>
+    <% end %>
+    <div id="status"></div>
+    <script id="template-upload" type="text/x-tmpl">
+    <div id="file-{%=o.unique_id%}" class="upload">
+      {%=o.name%}
+        <div class="progress"><div class="bar" style="width: 0%"></div></div>
+        </div>
+    </script>
   </div>
   <div class="col-md-4">
     <h3>playlist</h3>

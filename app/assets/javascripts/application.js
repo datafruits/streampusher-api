@@ -18,4 +18,5 @@
 //= require fullcalendar/fullcalendar.js
 //= require jquery.payment
 //= require flot
+//= require s3_direct_upload
 //= require_tree .

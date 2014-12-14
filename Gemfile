@@ -45,4 +45,4 @@ group :test, :development do
 end
 
 gem 'active_form', git: 'https://github.com/rails/activeform'
-gem 'carrierwave'
+gem 's3_direct_upload'
