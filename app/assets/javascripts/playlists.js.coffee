@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 #
-$ ->
+$('[data-controller=playlists]').ready ->
   $('#track-uploader').S3Uploader
     allow_multiple_files: false
     remove_completed_progress_bar: false

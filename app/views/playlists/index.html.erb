@@ -4,11 +4,8 @@
     <h3>tracks</h3>
     <ul id="tracks">
       <% @tracks.each do |track| %>
-        <li class="track"><%= track.audio_file_name %></li>
+        <li class="track"><%= track.file_basename %></li>
       <% end %>
-      <li class="track">三毛猫ホームレス - インタネット</li>
-      <li class="track">Avec Avec - Marmalade Boogie</li>
-      <li class="track">ZONE - secret base</li>
     </ul>
     <h3>upload new track</h3>
       <%= s3_uploader_form callback_url: tracks_url(format: :js),
