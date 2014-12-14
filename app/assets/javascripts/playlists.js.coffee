@@ -20,3 +20,13 @@ $('[data-controller=playlists]').ready ->
   $('#track-uploader').on  "ajax:error", (e, data) ->
     $("#status").html("error! :(")
     console.log("there was an error; responded with "+data)
+
+  $('#tracks').sortable({
+    revert: true
+    connectWith: '.playlist-tracks'
+  }).disableSelection()
+
+
+  $('.playlist-tracks').sortable({
+    revert: true
+  }).disableSelection()

@@ -1,0 +1,8 @@
+<li class="playlist">
+  <span><%= playlist.name %></span>
+  <ul class="playlist-tracks">
+    <% playlist.tracks.each do |track| %>
+      <button class="btn btn-danger"><i class="fa fa-times-circle"></i></button><li class='track'><%= track.file_basename %></li>
+    <% end %>
+  </ul>
+</li>

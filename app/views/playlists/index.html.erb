@@ -25,8 +25,14 @@
   </div>
   <div class="col-md-4">
     <h3>playlist</h3>
-    <%= link_to '+ new playlist', '', class: 'btn btn-success' %>
-    <% @playlists.each do |playlist| %>
+    <ul id="playlists">
+      <% @playlists.each do |playlist| %>
+        <%= render playlist %>
+      <% end %>
+    </ul>
+    <%= simple_form_for @playlist, remote: true do |f| %>
+      <%= f.text_field :name %>
+      <%= f.submit '+ new playlist', class: 'btn btn-success' %>
     <% end %>
   </div>
 </div>
