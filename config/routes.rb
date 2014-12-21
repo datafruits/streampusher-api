@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :playlists do
     member do
       post 'add_track'
+      post 'remove_track'
     end
   end
 

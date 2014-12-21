@@ -24,6 +24,16 @@ class PlaylistsController < ApplicationController
     end
   end
 
+  def remove_track
+    @playlist = current_radio.playlists.find(params[:id])
+    @track = current_radio.tracks.find params[:track][:id]
+    if @playlist.tracks.delete(@track)
+      render 'remove_track_success'
+    else
+      render ' remove_track_error'
+    end
+  end
+
   private
   def create_params
     params.require(:playlist).permit(:name)
