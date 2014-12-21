@@ -5,3 +5,26 @@
 ul.playlist-tracks {
   min-height: 100px;
 }
+
+li.playlist {
+  list-style:none;
+  border-radius:5px;
+  background: orange;
+  margin: 5px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+}
+
+li.track {
+  list-style:none;
+  border-radius:5px;
+  background: yellow;
+  margin: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  max-width: 415px;
+  button {
+    padding: 3px;
+    margin: 5px;
+  }
+}

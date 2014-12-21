@@ -38,6 +38,9 @@ GEM
     archive-tar-minitar (0.5.2)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
+    bourbon (3.2.1)
+      sass (~> 3.2)
+      thor
     builder (3.2.2)
     byebug (3.5.1)
       columnize (~> 0.8)
@@ -249,6 +252,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_form!
+  bourbon
   byebug
   cancancan
   capistrano (~> 3.2.1)
