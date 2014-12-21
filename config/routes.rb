@@ -7,7 +7,11 @@ Rails.application.routes.draw do
 
   resources :radios
 
-  resources :playlists
+  resources :playlists do
+    member do
+      post 'add_track'
+    end
+  end
 
   resources :subscriptions
 

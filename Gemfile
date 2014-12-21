@@ -46,3 +46,4 @@ end
 
 gem 'active_form', git: 'https://github.com/rails/activeform'
 gem 's3_direct_upload'
+gem 'byebug'

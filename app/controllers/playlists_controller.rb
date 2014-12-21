@@ -14,6 +14,16 @@ class PlaylistsController < ApplicationController
     end
   end
 
+  def add_track
+    @playlist = current_radio.playlists.find(params[:id])
+    @track = current_radio.tracks.find params[:track][:id]
+    if @playlist.tracks << @track
+      render 'add_track_success'
+    else
+      render ' add_track_error'
+    end
+  end
+
   private
   def create_params
     params.require(:playlist).permit(:name)
