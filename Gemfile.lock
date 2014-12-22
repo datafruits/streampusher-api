@@ -83,7 +83,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
-    docker-api (1.13.6)
+    docker-api (1.17.0)
       archive-tar-minitar
       excon (>= 0.38.0)
       json
@@ -91,7 +91,7 @@ GEM
     dotenv-rails (1.0.2)
       dotenv (= 1.0.2)
     erubis (2.7.0)
-    excon (0.40.0)
+    excon (0.42.1)
     execjs (2.2.2)
     font-awesome-sass (4.2.1)
       sass (~> 3.2)
