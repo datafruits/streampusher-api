@@ -20,7 +20,9 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: 'registrations' }
 
-  get 'admin', to: 'admin#index'
+  get 'admin', to: 'admin#index', as: 'admin'
+  get 'admin/:id/radios', to: 'admin#radios', as: 'admin_radios'
+  post 'admin/radios/:id/restart', to: 'admin#restart_radio', as: 'admin_restart_radio'
 
   resources :tracks, only: [:create]
 

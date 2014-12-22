@@ -15,7 +15,11 @@ class Radio < ActiveRecord::Base
     RadioBooter.perform_async self.id
   end
 
-  def container
-    Docker::Container.get self.docker_container_id
+  def icecast_container
+    Docker::Container.get self.icecast_container_id
+  end
+
+  def liquidsoap_container
+    Docker::Container.get self.liquidsoap_container_id
   end
 end

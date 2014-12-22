@@ -1,0 +1,21 @@
+<h1><%="#{@subscription.user.email}'s radios"%></h1>
+<table class="table table-striped">
+  <thead>
+    <th>radio id</th>
+    <th>name</th>
+    <th>icecast container id</th>
+    <th>liquidsoap container id</th>
+  </thead>
+  <tbody>
+    <% @radios.each do |radio| %>
+      <tr>
+        <td><%= radio.id %></td>
+        <td><%= radio.name %></td>
+        <td><%= radio.icecast_container_id %></td>
+        <td><%= radio.liquidsoap_container_id %></td>
+        <td><%= link_to 'restart radio', admin_restart_radio_path(radio), method: :post %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

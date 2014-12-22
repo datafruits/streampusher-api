@@ -9,16 +9,7 @@
       <tr>
         <td><%= subscription.id %></td>
         <td><%= subscription.user.email %></td>
-        <table class="table">
-          <th>name</th>
-          <th>icecast docker container id</th>
-          <th>liquidsoap docker container id</th>
-          <% subscription.radios.each do |radio| %>
-            <tr>
-              <td><%= radio.name %></td>
-            </tr>
-          <% end %>
-        </table>
+        <td><%= link_to 'manage radios', admin_radios_path(subscription) %></td>
       </tr>
     <% end %>
   </tbody>

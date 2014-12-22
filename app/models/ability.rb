@@ -5,6 +5,7 @@ class Ability
     user ||= User.new # guest user (not logged in)
     if user.admin?
       can :admin, :dashboard
+      can :admin, :radios
       can :manage, :all
     else
       can :manage, Radio do |radio|

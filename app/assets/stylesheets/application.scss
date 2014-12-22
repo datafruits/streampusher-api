@@ -144,3 +144,11 @@ a {
 a:hover {
   color: #eee;
 }
+
+table a {
+  color: $chiyoda;
+}
+
+table a:hover {
+  color: lighten($chiyoda, 20%);
+}
