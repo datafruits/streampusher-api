@@ -17,7 +17,7 @@ class RadioBooter
       liquidsoap_container = radio.liquidsoap_container
     else
       liquidsoap_container = Docker::Container.create('Image' => 'mcfiredrill/liquidsoap', 'Name' => "#{radio_name}/liquidsoap",
-                                                      "Domainname"=> radio.virtual_host, 'Links' => ["#{radio_name}/icecast:icecast"])
+                                                      "Domainname"=> radio.virtual_host, 'Links' => ["#{radio_name}/icecast:icecast","redis:redis"])
       radio.update liquidsoap_container_id: liquidsoap_container.id
     end
     liquidsoap_container.start("PublishAllPorts" => "true", "Env"=> {"RADIO_NAME"=>radio_name})
