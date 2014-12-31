@@ -12,7 +12,7 @@ class Radio < ActiveRecord::Base
   end
 
   def boot_radio
-    RadioBooter.perform_async self.id
+    RadioBooterWorker.perform_async self.id
   end
 
   def icecast_container
