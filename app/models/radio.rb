@@ -16,10 +16,22 @@ class Radio < ActiveRecord::Base
   end
 
   def icecast_container
-    Docker::Container.get self.icecast_container_id
+    if !self.icecast_container_id.blank?
+      begin
+        Docker::Container.get self.icecast_container_id
+      rescue
+        nil
+      end
+    end
   end
 
   def liquidsoap_container
-    Docker::Container.get self.liquidsoap_container_id
+    if !self.liquidsoap_container_id.blank?
+      begin
+        Docker::Container.get self.liquidsoap_container_id
+      rescue
+        nil
+      end
+    end
   end
 end
