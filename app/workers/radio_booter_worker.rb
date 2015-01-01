@@ -11,7 +11,7 @@ class RadioBooterWorker
     if !radio.icecast_container.blank?
       icecast_container = radio.icecast_container
     else
-      icecast_container = Docker::Container.create('Image' => 'mcfiredrill/icecast', 'name' => "#{radio_name}/icecast")
+      icecast_container = Docker::Container.create('Image' => 'mcfiredrill/icecast', 'name' => "#{radio_name}_icecast")
       radio.update icecast_container_id: icecast_container.id
     end
     icecast_container.start("PublishAllPorts" => "true", )
@@ -20,8 +20,8 @@ class RadioBooterWorker
     if !radio.liquidsoap_container.blank?
       liquidsoap_container = radio.liquidsoap_container
     else
-      liquidsoap_container = Docker::Container.create('Image' => 'mcfiredrill/liquidsoap', 'name' => "#{radio_name}/liquidsoap",
-                                                      "Domainname"=> radio.virtual_host, 'Links' => ["#{radio_name}/icecast:icecast","redis:redis"])
+      liquidsoap_container = Docker::Container.create('Image' => 'mcfiredrill/liquidsoap', 'name' => "#{radio_name}_liquidsoap",
+                                                      "Domainname"=> radio.virtual_host, 'Links' => ["#{radio_name}_icecast:icecast","redis:redis"])
       radio.update liquidsoap_container_id: liquidsoap_container.id
     end
     liquidsoap_container.start("PublishAllPorts" => "true", "Env"=> {"RADIO_NAME"=>radio_name})
