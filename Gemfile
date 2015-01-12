@@ -41,6 +41,11 @@ gem 'capistrano-rails', '~> 1.1.2'
 gem 'capistrano-bundler'
 gem 'capistrano-rbenv', "~>2.0"
 
+group :test do
+  gem 'vcr'
+  gem 'webmock'
+end
+
 group :test, :development do
   gem 'pry'
 end
