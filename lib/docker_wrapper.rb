@@ -16,7 +16,11 @@ class DockerWrapper
     self.new container
   end
 
-  def host_port container
+  def start env={}
+    @container.start("PublishAllPorts" => "true", "Env"=> env)
+  end
+
+  def host_port
     # nice api docker heheh :P
     @container.json["NetworkSettings"]["Ports"]["8000/tcp"].first["HostPort"]
   end
