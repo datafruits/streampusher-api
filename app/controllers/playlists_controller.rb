@@ -17,7 +17,8 @@ class PlaylistsController < ApplicationController
   def add_track
     @playlist = current_radio.playlists.find(params[:id])
     @track = current_radio.tracks.find params[:track][:id]
-    if @playlist.tracks << @track
+    if @playlist.add_track @track
+      SavePlaylistToRedisWorker.perform_async @playlist.id
       render 'add_track_success'
     else
       render ' add_track_error'
@@ -27,7 +28,8 @@ class PlaylistsController < ApplicationController
   def remove_track
     @playlist = current_radio.playlists.find(params[:id])
     @track = current_radio.tracks.find params[:track][:id]
-    if @playlist.tracks.delete(@track)
+    if @playlist.tracks.remove_track @track
+      SavePlaylistToRedisWorker.perform_async @playlist.id
       render 'remove_track_success'
     else
       render ' remove_track_error'
