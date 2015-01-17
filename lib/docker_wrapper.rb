@@ -20,6 +20,10 @@ class DockerWrapper
     @container.start("PublishAllPorts" => "true")
   end
 
+  def stop
+    @container.stop
+  end
+
   def host_port
     # nice api docker heheh :P
     @container.json["NetworkSettings"]["Ports"]["8000/tcp"].first["HostPort"]
