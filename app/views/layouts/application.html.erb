@@ -12,11 +12,13 @@
 
 <%= render 'layouts/navbar' %>
 <div class="container">
-  <% flash.each do |name, msg| %>
-    <div id="<%= name %>">
-      <%= msg %>
-    </div>
-  <% end %>
+  <div id="flash-message">
+    <% flash.each do |name, msg| %>
+      <div id="<%= name %>" class='flash'>
+        <%= msg %>
+      </div>
+    <% end %>
+  </div>
   <%= yield %>
 </div>
 <% if ENV['RAILS_ENV'] == 'production' %>

@@ -152,3 +152,38 @@ table a {
 table a:hover {
   color: lighten($chiyoda, 20%);
 }
+
+@include keyframes(bounce) {
+  0%, 20%, 50%, 80%, 100% {
+    @include transform(translateY(0));
+  }
+  40% {
+    @include transform(translateY(-10px));
+  }
+  60% {
+    @include transform(translateY(-3px));
+  }
+}
+
+.flash {
+  background-size: contain;
+  border-radius: 3px;
+  padding: 5px;
+  color:white;
+  font-weight:bold;
+  font-size: 17px;
+  text-shadow: 3px 3px 3px #333;
+  width: 50%;
+  padding: 7px;
+  box-shadow: 3px 3px 3px #555;
+
+  @include animation(bounce 1s infinite);
+}
+
+.flash#notice {
+    background: lighten($chiyoda, 20%);
+}
+
+.flash#error {
+    background: lighten($marunochi, 20%);
+}
