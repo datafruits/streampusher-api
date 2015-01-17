@@ -1,8 +1,7 @@
 class RadiosController < ApplicationController
   load_and_authorize_resource
   def index
-    @radios = current_user.managable_radios
-    @radio = Radio.new
+    @radio = current_radio
   end
 
   def create

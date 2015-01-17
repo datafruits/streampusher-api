@@ -1,33 +1,11 @@
-<%= simple_form_for @radio, html: {class: 'form-horizontal' } do |f| %>
-  <%= f.input :name %>
-  <%= f.input :virtual_host %>
-  <%= f.submit "Start new radio" %>
-<% end %>
-<table class="table">
-  <thead>
-    <th>icecast container id</th>
-    <th>liquidsoap container id</th>
-    <th>name</th>
-    <th>virtual hostname</th>
-    <th>status</th>
-  </thead>
-  <tbody>
-    <% @radios.each do |radio| %>
-    <tr>
-      <td>
-        <%= radio.icecast_container_id %>
-      </td>
-      <td>
-        <%= radio.liquidsoap_container_id %>
-      </td>
-      <td><%= radio.name %></td>
-      <td><%= radio.try(:virtual_host) %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-
 <div class="main-dashboard">
+  <div class="row">
+    <div class="col-md-6">
+      <%= render 'player' %>
+    </div>
+    <div class="col-md-6">
+    </div>
+  </div>
   <h2>current listeners</h2>
   <span id='odometer'>0</span>
 

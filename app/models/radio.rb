@@ -29,6 +29,10 @@ class Radio < ActiveRecord::Base
     "http://#{self.virtual_host}:8000/"
   end
 
+  def mp3_url
+    "#{self.icecast_panel_url}#{self.name}.mp3"
+  end
+
   def liquidsoap_container
     if !self.liquidsoap_container_id.blank?
       begin
