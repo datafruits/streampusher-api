@@ -28,6 +28,7 @@ gem 'rails-assets-moment'
 gem 'rails-assets-fullcalendar'
 gem 'rails-assets-jquery.payment'
 gem 'rails-assets-flot'
+gem 'rails-assets-jplayer'
 gem 'bourbon'
 
 gem 'rspec-rails', :group => [:development, :test]

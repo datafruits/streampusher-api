@@ -20,4 +20,5 @@
 //= require jquery.payment
 //= require flot
 //= require s3_direct_upload
+//= require jplayer/jquery.jplayer.js
 //= require_tree .

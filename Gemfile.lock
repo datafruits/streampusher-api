@@ -151,6 +151,8 @@ GEM
     rails-assets-fullcalendar (2.1.1)
       rails-assets-jquery (>= 1.7.1)
       rails-assets-moment (>= 2.5.0)
+    rails-assets-jplayer (2.9.2)
+      rails-assets-jquery (>= 1.7.2)
     rails-assets-jquery (2.1.1)
     rails-assets-jquery.payment (1.1.4)
       rails-assets-jquery (>= 1.5)
@@ -281,6 +283,7 @@ DEPENDENCIES
   rails-assets-countUp.js
   rails-assets-flot
   rails-assets-fullcalendar
+  rails-assets-jplayer
   rails-assets-jquery.payment
   rails-assets-moment
   rspec-rails
