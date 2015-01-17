@@ -4,7 +4,7 @@
     <h3>tracks</h3>
     <ul id="tracks">
       <% @tracks.each do |track| %>
-        <li class="track" data-track-id="<%=track.id%>"><%= track.file_basename %></li>
+        <%= render track %>
       <% end %>
     </ul>
     <h3>upload new track</h3>
