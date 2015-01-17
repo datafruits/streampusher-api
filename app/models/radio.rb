@@ -25,6 +25,10 @@ class Radio < ActiveRecord::Base
     end
   end
 
+  def icecast_panel_url
+    "http://#{self.virtual_host}:8000/"
+  end
+
   def liquidsoap_container
     if !self.liquidsoap_container_id.blank?
       begin
