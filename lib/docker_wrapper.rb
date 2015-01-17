@@ -7,22 +7,26 @@ class DockerWrapper
     @container = container
   end
 
-  def self.find_or_create image, name, links=[]
+  def self.find_or_create image, name, env=[], links=[]
     begin
       container = Docker::Container.get name
     rescue Docker::Error::NotFoundError
-      container = Docker::Container.create('Image' => image, 'name' => name, 'Links' => links)
+      container = Docker::Container.create('Image' => image, 'name' => name, 'Env' => env, 'HostConfig' => { 'Links' => links })
     end
     self.new container
   end
 
-  def start env={}
-    @container.start("PublishAllPorts" => "true", "Env"=> env)
+  def start
+    @container.start("PublishAllPorts" => "true")
   end
 
   def host_port
     # nice api docker heheh :P
     @container.json["NetworkSettings"]["Ports"]["8000/tcp"].first["HostPort"]
+  end
+
+  def env
+    @container.info["Config"]["Env"]
   end
 
   def id

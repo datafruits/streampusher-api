@@ -21,4 +21,11 @@ describe DockerWrapper do
       expect(container1.id).to eq container2.id
     end
   end
+  it "sets the env" do
+    VCR.use_cassette "set_env" do
+      container = DockerWrapper.find_or_create 'mcfiredrill/icecast', 'coolradio_icecast2'
+      container.start "RADIO_NAME"=>'coolradio'
+      expect(container.env.include?("RADIO_NAME=coolradio")).to eq true
+    end
+  end
 end
