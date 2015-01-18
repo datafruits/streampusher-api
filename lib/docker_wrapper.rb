@@ -30,7 +30,11 @@ class DockerWrapper
   end
 
   def env
-    @container.info["Config"]["Env"]
+    @container.json["Config"]["Env"]
+  end
+
+  def links
+    @container.json["HostConfig"]["Links"]
   end
 
   def id

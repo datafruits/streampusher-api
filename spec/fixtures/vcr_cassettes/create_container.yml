@@ -13,19 +13,131 @@ http_interactions:
       - text/plain
   response:
     status:
-      code: 200
+      code: 404
+      message: ''
+    headers:
+      Content-Type:
+      - text/plain; charset=utf-8
+      Date:
+      - Sun, 18 Jan 2015 15:48:28 GMT
+      Content-Length:
+      - '37'
+    body:
+      encoding: UTF-8
+      string: |
+        No such container: coolradio_icecast
+    http_version: 
+  recorded_at: Sun, 18 Jan 2015 15:48:28 GMT
+- request:
+    method: get
+    uri: https://192.168.59.103:2376/v1.15/containers/coolradio_icecast/json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swipely/Docker-API 1.17.0
+      Content-Type:
+      - text/plain
+  response:
+    status:
+      code: 404
+      message: ''
+    headers:
+      Content-Type:
+      - text/plain; charset=utf-8
+      Date:
+      - Sun, 18 Jan 2015 15:48:28 GMT
+      Content-Length:
+      - '37'
+    body:
+      encoding: UTF-8
+      string: |
+        No such container: coolradio_icecast
+    http_version: 
+  recorded_at: Sun, 18 Jan 2015 15:48:28 GMT
+- request:
+    method: get
+    uri: https://192.168.59.103:2376/v1.15/containers/coolradio_icecast/json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swipely/Docker-API 1.17.0
+      Content-Type:
+      - text/plain
+  response:
+    status:
+      code: 404
+      message: ''
+    headers:
+      Content-Type:
+      - text/plain; charset=utf-8
+      Date:
+      - Sun, 18 Jan 2015 15:48:28 GMT
+      Content-Length:
+      - '37'
+    body:
+      encoding: UTF-8
+      string: |
+        No such container: coolradio_icecast
+    http_version: 
+  recorded_at: Sun, 18 Jan 2015 15:48:28 GMT
+- request:
+    method: get
+    uri: https://192.168.59.103:2376/v1.15/containers/coolradio_icecast/json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swipely/Docker-API 1.17.0
+      Content-Type:
+      - text/plain
+  response:
+    status:
+      code: 404
+      message: ''
+    headers:
+      Content-Type:
+      - text/plain; charset=utf-8
+      Date:
+      - Sun, 18 Jan 2015 15:48:28 GMT
+      Content-Length:
+      - '37'
+    body:
+      encoding: UTF-8
+      string: |
+        No such container: coolradio_icecast
+    http_version: 
+  recorded_at: Sun, 18 Jan 2015 15:48:28 GMT
+- request:
+    method: post
+    uri: https://192.168.59.103:2376/v1.15/containers/create?name=coolradio_icecast
+    body:
+      encoding: UTF-8
+      string: '{"Image":"mcfiredrill/icecast","Env":[],"HostConfig":{"Links":[]}}'
+    headers:
+      User-Agent:
+      - Swipely/Docker-API 1.17.0
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 201
       message: ''
     headers:
       Content-Type:
       - application/json
       Date:
-      - Mon, 12 Jan 2015 05:04:11 GMT
+      - Sun, 18 Jan 2015 15:48:29 GMT
       Content-Length:
-      - '1702'
+      - '90'
     body:
       encoding: UTF-8
       string: |
-        {"AppArmorProfile":"","Args":["-c","icecast2 -c /icecast.xml"],"Config":{"AttachStderr":false,"AttachStdin":false,"AttachStdout":false,"Cmd":["/bin/sh","-c","icecast2 -c /icecast.xml"],"CpuShares":0,"Cpuset":"","Domainname":"","Entrypoint":null,"Env":["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","LANG=en_US.UTF-8","DEBIAN_FRONTEND=noninteractive"],"ExposedPorts":{"8000/tcp":{}},"Hostname":"dd3e11dd5897","Image":"mcfiredrill/icecast","MacAddress":"","Memory":0,"MemorySwap":0,"NetworkDisabled":false,"OnBuild":null,"OpenStdin":false,"PortSpecs":null,"StdinOnce":false,"Tty":false,"User":"icecast2","Volumes":null,"WorkingDir":""},"Created":"2015-01-12T04:41:09.308955838Z","Driver":"aufs","ExecDriver":"native-0.2","HostConfig":{"Binds":null,"CapAdd":null,"CapDrop":null,"ContainerIDFile":"","Devices":null,"Dns":null,"DnsSearch":null,"ExtraHosts":null,"IpcMode":"","Links":null,"LxcConf":null,"NetworkMode":"","PortBindings":null,"Privileged":false,"PublishAllPorts":false,"RestartPolicy":{"MaximumRetryCount":0,"Name":""},"SecurityOpt":null,"VolumesFrom":null},"HostnamePath":"","HostsPath":"","Id":"dd3e11dd58973eda9cc415bd0cbe52aa652f9283d6dcc87670c1eac52dfdae4e","Image":"1eae2df3c0c44798aba28c11cd33a12dc2f209e0cdf9f9eb76a1d66bbd01e133","MountLabel":"","Name":"/coolradio_icecast","NetworkSettings":{"Bridge":"","Gateway":"","IPAddress":"","IPPrefixLen":0,"MacAddress":"","PortMapping":null,"Ports":null},"Path":"/bin/sh","ProcessLabel":"","ResolvConfPath":"","State":{"Error":"","ExitCode":0,"FinishedAt":"0001-01-01T00:00:00Z","OOMKilled":false,"Paused":false,"Pid":0,"Restarting":false,"Running":false,"StartedAt":"0001-01-01T00:00:00Z"},"Volumes":{},"VolumesRW":{}}
+        {"Id":"2c5a19d199f535bd6e0f5dd8683be728c01f75c6ee5247f0b9e673bf5ec7ab45","Warnings":null}
     http_version: 
-  recorded_at: Mon, 12 Jan 2015 05:04:11 GMT
+  recorded_at: Sun, 18 Jan 2015 15:48:28 GMT
 recorded_with: VCR 2.9.3
