@@ -11,7 +11,7 @@ class DockerWrapper
     begin
       container = Docker::Container.get name
     rescue Docker::Error::NotFoundError
-      container = Docker::Container.create('Image' => image, 'name' => name, 'Env' => env, 'HostConfig' => { 'Links' => links })
+      container = Docker::Container.create('Image' => image, 'name' => name, 'Env' => env, 'HostConfig' => { 'Links' => links, 'ExtraHosts' => ["hostmachine:#{get_local_ip}"] })
     end
     self.new container
   end
@@ -39,5 +39,10 @@ class DockerWrapper
 
   def id
     @container.id
+  end
+
+  private
+  def self.get_local_ip
+    `ifconfig en0 | ag 'inet ' | cut -d ' ' -f2`.chop
   end
 end
