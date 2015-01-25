@@ -18,7 +18,13 @@ Rails.application.routes.draw do
 
   resources :djs
 
-  devise_for :users, controllers: { registrations: 'registrations' }
+  devise_for :users, controllers: { registrations: 'registrations', sessions: 'sessions' }
+
+  as :user do
+    get "/login" => "sessions#new"
+    post "/login" => "sessions#create"
+    delete "/logout" => "sessions#destroy"
+  end
 
   get 'admin', to: 'admin#index', as: 'admin'
   get 'admin/:id/radios', to: 'admin#radios', as: 'admin_radios'
