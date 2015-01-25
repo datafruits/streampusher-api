@@ -8,6 +8,7 @@ class DockerWrapper
   end
 
   def self.find_or_create image, name, env=[], links=[]
+    @links = links
     begin
       container = Docker::Container.get name
     rescue Docker::Error::NotFoundError
@@ -24,9 +25,9 @@ class DockerWrapper
     @container.stop
   end
 
-  def host_port
+  def host_port port
     # nice api docker heheh :P
-    @container.json["NetworkSettings"]["Ports"]["8000/tcp"].first["HostPort"]
+    @container.json["NetworkSettings"]["Ports"]["#{port}/tcp"].first["HostPort"]
   end
 
   def env
