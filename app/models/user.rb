@@ -10,6 +10,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   validate :valid_role
+  validates_presence_of :username
+  validates_uniqueness_of :username
+
+  before_validation :set_username
 
   def managable_radios
     self.subscription.radios
@@ -37,5 +41,27 @@ class User < ActiveRecord::Base
 
   def roles
     self.role.to_s.split(' ')
+  end
+
+  def login=(login)
+    @login = login
+  end
+
+  def login
+    @login || self.username || self.email
+  end
+
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+    else
+      where(conditions).first
+    end
+  end
+
+  private
+  def set_username
+    username = email.split('@').first if username.blank?
   end
 end
