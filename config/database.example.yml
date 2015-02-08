@@ -1,21 +1,21 @@
 development:
   adapter: postgresql
-  database: streamify_dev
+  database: stream_pusher_dev
   pool: 5
   timeout: 5000
-  username: streamify
+  username: stream_pusher
   password: password
 
 production:
   adapter: postgresql
-  database: streamify_production
+  database: stream_pusher_production
   pool: 5
   timeout: 5000
 
 test:
   adapter: postgresql
-  database: streamify_test
+  database: stream_pusher_test
   pool: 5
   timeout: 5000
-  username: streamify
+  username: stream_pusher
   password: password
