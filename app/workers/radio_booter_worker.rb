@@ -20,5 +20,8 @@ class RadioBooterWorker
     liquidsoap_container.stop
     liquidsoap_container.start
     redis.hset 'proxy-domain', "#{radio.virtual_host}/liquidsoap", liquidsoap_container.host_port(9000)
+    radio.playlists.each do |playlist|
+      SavePlaylistToRedisWorker.perform_async playlist.id
+    end
   end
 end
