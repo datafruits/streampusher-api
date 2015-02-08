@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require jquery-readyselector
 //= require twitter/bootstrap
 //= require countUp.js
 //= require moment
