@@ -17,5 +17,3 @@ test:
   database: stream_pusher_test
   pool: 5
   timeout: 5000
-  username: stream_pusher
-  password: password
