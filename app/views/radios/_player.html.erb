@@ -1,4 +1,8 @@
-<div id="jquery_jplayer_1" class="jp-jplayer" data-mp3="<%= @radio.mp3_url =%>"></div>
+<div id="jquery_jplayer_1" class="jp-jplayer"
+  data-mp3="<%= @radio.mp3_url =%>"
+  data-radio-name="<%= @radio.name %>"
+  data-icecast-json="<%= @radio.icecast_json %>" >
+</div>
 <div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
   <div class="jp-type-single">
     <div class="jp-gui jp-interface">

@@ -29,6 +29,10 @@ class Radio < ActiveRecord::Base
     "http://#{self.virtual_host}:8000/"
   end
 
+  def icecast_json
+    "#{icecast_panel_url}status-json.xsl"
+  end
+
   def mp3_url
     "#{self.icecast_panel_url}#{self.name}.mp3"
   end
