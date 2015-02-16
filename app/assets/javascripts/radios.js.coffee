@@ -10,12 +10,16 @@ radioTitle = () ->
     title = data.icestats.source[0].title
     console.log(title)
     $('.jp-title').html(title)
+    listeners = 0
+    $.each data.icestats.source, (key, data) ->
+      listeners += data.listeners
+      counter = new countUp('odometer', 0, listeners, 0, 2.5)
+      counter.start()
+    console.log('listeners: '+listeners)
 
 $('[data-controller=radios]').ready ->
   console.log('radios controller')
 
-  #counter = new countUp('odometer', 0, 128, 0, 2.5)
-  #counter.start()
   mp3 = $(".jp-jplayer").data('mp3').toString()
   $("#jquery_jplayer_1").jPlayer({
     ready: () ->
