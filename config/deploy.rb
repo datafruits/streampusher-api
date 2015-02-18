@@ -34,6 +34,8 @@ set :linked_files, %w{config/database.yml config/application.yml}
 # Default value for linked_dirs is []
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
+set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
+
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
@@ -49,6 +51,8 @@ set(:config_files, %w(
   database.example.yml
   log_rotation
   monit
+  sidekiq_init.sh
+  sidekiq.yml
   unicorn.rb
   unicorn_init.sh
 ))
@@ -57,6 +61,7 @@ set(:config_files, %w(
 # by deploy:setup_config
 set(:executable_config_files, %w(
   unicorn_init.sh
+  sidekiq_init.sh
 ))
 
 
@@ -81,6 +86,10 @@ set(:symlinks, [
   {
     source: "monit",
     link: "/etc/monit/conf.d/{{full_app_name}}.conf"
+  },
+  {
+    source: "sidekiq_init.sh",
+    link: "/etc/init.d/sidekiq_{{full_app_name}}"
   }
 ])
 
