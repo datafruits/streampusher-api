@@ -1,12 +1,12 @@
 # config valid only for Capistrano 3.1
 lock '3.2.1'
 
-set :application, 'streamify'
-set :repo_url, 'git@bitbucket.org:streamify/streamify.git'
+set :application, 'stream_pusher'
+set :repo_url, 'git@bitbucket.org:streampusher/stream_pusher.git'
 
 # setup rvm.
 set :rbenv_type, :system
-set :rbenv_ruby, '2.1.3'
+set :rbenv_ruby, '2.2.0'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 
