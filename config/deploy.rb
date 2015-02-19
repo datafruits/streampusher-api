@@ -66,7 +66,6 @@ set(:executable_config_files, %w(
   sidekiq_init.sh
 ))
 
-
 # files which need to be symlinked to other parts of the
 # filesystem. For example nginx virtualhosts, log rotation
 # init scripts etc. The full_app_name variable isn't
@@ -115,10 +114,12 @@ namespace :deploy do
       # end
     end
   end
+
   before :deploy, "deploy:check_revision"
+  before 'deploy:setup_config', 'nginx:remove_default_vhost'
+
   after 'deploy:symlink:shared', 'deploy:compile_assets_locally'
   after :finishing, 'deploy:cleanup'
-  before 'deploy:setup_config', 'nginx:remove_default_vhost'
   after 'deploy:setup_config', 'nginx:reload'
   after 'deploy:setup_config', 'monit:restart'
 end

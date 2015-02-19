@@ -4,7 +4,7 @@
 # is considered to be the first unless any hosts have the primary
 # property set.  Don't declare `role :all`, it's a meta role.
 
-role :app, %w{deploy@109.74.198.24}
+# role :app, %w{deploy@streampusher.com}
 
 # Extended Server Syntax
 # ======================
@@ -13,7 +13,7 @@ role :app, %w{deploy@109.74.198.24}
 # used to set extended properties on the server.
 set :server_name, "streampusher.com"
 
-server 'streampusher.com', user: 'deploy', roles: %w{app}
+server 'streampusher.com', user: 'deploy', roles: %w{web app db}, primary: true
 
 set :full_app_name, "#{fetch(:application)}_#{fetch(:stage)}"
 
