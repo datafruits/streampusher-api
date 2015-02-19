@@ -10,6 +10,8 @@ set :rbenv_ruby, '2.2.0'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 
+set :slack_webhook, 'https://hooks.slack.com/services/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'
+
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
