@@ -11,8 +11,9 @@ role :app, %w{deploy@109.74.198.24}
 # This can be used to drop a more detailed server definition into the
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
+set :server_name, "streampusher.com"
 
-server '109.74.198.24', user: 'deploy', roles: %w{app}
+server 'streampusher.com', user: 'deploy', roles: %w{app}
 
 set :full_app_name, "#{fetch(:application)}_#{fetch(:stage)}"
 

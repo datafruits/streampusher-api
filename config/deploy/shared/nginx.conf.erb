@@ -3,6 +3,7 @@ upstream unicorn {
 }
 
 server {
+  server_name <%= fetch(:server_name) %>;
   listen 80 default deferred;
   root <%= fetch(:deploy_to) %>/current/public;
 
