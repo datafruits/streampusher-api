@@ -42,7 +42,7 @@ set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
 # Default value for keep_releases is 5
-# set :keep_releases, 5
+set :keep_releases, 5
 #
 # which config files should be copied by deploy:setup_config
 # see documentation in lib/capistrano/tasks/setup_config.cap
@@ -115,5 +115,6 @@ namespace :deploy do
       # end
     end
   end
-
+  before :deploy, "deploy:check_revision"
+  after :finishing, 'deploy:cleanup'
 end
