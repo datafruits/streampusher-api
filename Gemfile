@@ -55,4 +55,4 @@ end
 gem 'active_form', git: 'https://github.com/rails/activeform'
 gem 's3_direct_upload'
 gem 'byebug'
-gem 'slackistrano'
+gem 'slackistrano', require: false
