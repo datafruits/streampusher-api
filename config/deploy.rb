@@ -116,5 +116,9 @@ namespace :deploy do
     end
   end
   before :deploy, "deploy:check_revision"
+  after 'deploy:symlink:shared', 'deploy:compile_assets_locally'
   after :finishing, 'deploy:cleanup'
+  before 'deploy:setup_config', 'nginx:remove_default_vhost'
+  after 'deploy:setup_config', 'nginx:reload'
+  after 'deploy:setup_config', 'monit:restart'
 end
