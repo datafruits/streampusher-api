@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :shows
 
   resources :stats, only: [:index]
+  resources :listens, only: [:index]
 
   resources :radios
 

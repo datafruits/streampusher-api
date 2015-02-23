@@ -49,12 +49,14 @@ gem 's3_direct_upload'
 gem 'byebug'
 gem 'slackistrano', require: false
 
+gem 'groupdate'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-countUp.js'
   gem 'rails-assets-moment'
   gem 'rails-assets-fullcalendar'
   gem 'rails-assets-jquery.payment'
-  gem 'rails-assets-flot'
   gem 'rails-assets-jplayer'
+  gem 'rails-assets-chartjs'
+  gem 'rails-assets-underscore'
 end
-

@@ -45,3 +45,23 @@ $('[data-controller=radios]').ready ->
     radioTitle()
   , 10000
 
+  ctx = document.getElementById("listensChart").getContext("2d")
+  options = {}
+  $.get "/listens.json", (listens) ->
+    data = {
+      labels: _.keys(listens)
+      datasets: [
+          {
+              label: "listens",
+              fillColor: "rgba(220,220,220,0.2)",
+              strokeColor: "rgba(220,220,220,1)",
+              pointColor: "rgba(220,220,220,1)",
+              pointStrokeColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(220,220,220,1)",
+              data: _.values(listens)
+          },
+      ]
+
+    }
+    listensChart = new Chart(ctx).Line(data, options)

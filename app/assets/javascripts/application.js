@@ -19,7 +19,8 @@
 //= require moment
 //= require fullcalendar/fullcalendar.js
 //= require jquery.payment
-//= require flot
+//= require chartjs
 //= require s3_direct_upload
 //= require jplayer/jquery.jplayer.js
+//= require underscore
 //= require_tree .
