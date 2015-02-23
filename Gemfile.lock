@@ -287,12 +287,12 @@ DEPENDENCIES
   pg
   pry
   rails (= 4.1.8)
-  rails-assets-countUp.js
-  rails-assets-flot
-  rails-assets-fullcalendar
-  rails-assets-jplayer
-  rails-assets-jquery.payment
-  rails-assets-moment
+  rails-assets-countUp.js!
+  rails-assets-flot!
+  rails-assets-fullcalendar!
+  rails-assets-jplayer!
+  rails-assets-jquery.payment!
+  rails-assets-moment!
   rspec-rails
   s3_direct_upload
   sass-rails (~> 4.0.3)
