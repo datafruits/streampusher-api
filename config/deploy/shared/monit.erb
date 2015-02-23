@@ -23,7 +23,5 @@ check process unicorn
 
 check process sidekiq_worker
 with pidfile <%= current_path %>/tmp/pids/sidekiq.pid
-start program = "/etc/init.d/sidekiq_<%=application%>_<%= fetch(:rails_env)\
-%> start"
-stop program = "/etc/init.d/sidekiq_<%=application%>_<%= fetch(:rails_env)%\
-> stop"
+start program = "/etc/init.d/sidekiq_<%=application%>_<%= fetch(:rails_env) %> start"
+stop program = "/etc/init.d/sidekiq_<%=application%>_<%= fetch(:rails_env) %> stop"
