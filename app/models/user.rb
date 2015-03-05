@@ -62,6 +62,6 @@ class User < ActiveRecord::Base
 
   private
   def set_username
-    username = email.split('@').first if username.blank?
+    self.username = email.split('@').first if self.username.blank?
   end
 end
