@@ -52,4 +52,7 @@
   <br />
   <br />
 </div>
+<% if Rails.env.production? %>
+  <%= render 'layouts/ga' %>
+<% end %>
 <%= render 'olark' %>
