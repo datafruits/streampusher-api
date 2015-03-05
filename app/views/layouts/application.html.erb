@@ -21,7 +21,7 @@
   </div>
   <%= yield %>
 </div>
-<% if ENV['RAILS_ENV'] == 'production' %>
+<% if Rails.env.production? %>
   <%= render 'layouts/ga' %>
 <% end %>
 </body>
