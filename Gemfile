@@ -48,6 +48,7 @@ gem 'active_form', git: 'https://github.com/rails/activeform'
 gem 's3_direct_upload'
 gem 'byebug'
 gem 'slackistrano', require: false
+gem 'exception_notification'
 
 gem 'groupdate'
 
