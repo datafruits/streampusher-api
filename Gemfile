@@ -14,7 +14,7 @@ gem 'spring',        group: :development
 gem 'devise'
 gem 'cancancan'
 gem 'stripe'
-gem 'docker-api', require: 'docker'
+gem 'docker-api', '~> 1.20.0', require: 'docker'
 gem 'simple_form'
 
 gem 'sidekiq'
@@ -44,7 +44,11 @@ group :test, :development do
   gem 'pry'
 end
 
-gem 'active_form', git: 'https://github.com/rails/activeform'
+group :production do
+  gem 'remote_syslog_logger'
+end
+
+gem 'actionform', git: 'https://github.com/rails/actionform'
 gem 's3_direct_upload'
 gem 'byebug'
 gem 'slackistrano', require: false

@@ -1,4 +1,4 @@
-class SignupForm < ActiveForm::Base
+class SignupForm < ActionForm::Base
   self.main_model = :user
   attributes :email, :password
   validates :email, :password, presence: true

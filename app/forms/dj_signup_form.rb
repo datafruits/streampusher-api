@@ -1,2 +1,2 @@
-class DjSignupForm < ActiveForm::Base
+class DjSignupForm < ActionForm::Base
 end
