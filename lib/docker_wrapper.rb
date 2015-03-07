@@ -15,6 +15,8 @@ class DockerWrapper
       container.remove
       container = Docker::Container.create('Image' => image, 'name' => name, 'Env' => env, 'HostConfig' => { 'Links' => links } )
     rescue Docker::Error::NotFoundError
+      # image is not pulled yet
+      Docker::Image.create('fromImage' => image)
       container = Docker::Container.create('Image' => image, 'name' => name, 'Env' => env, 'HostConfig' => { 'Links' => links } )
     end
     self.new container
