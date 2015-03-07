@@ -26,7 +26,7 @@ class Radio < ActiveRecord::Base
   end
 
   def icecast_panel_url
-    "http://#{self.virtual_host}.streampusher.com:8000/"
+    "http://#{self.virtual_host}:8000/"
   end
 
   def icecast_json
