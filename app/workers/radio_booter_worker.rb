@@ -7,8 +7,10 @@ class RadioBooterWorker
   def perform radio_id
     radio = Radio.find radio_id
     radio_name = radio.name
-    if ENV['RAILS_ENV'] == 'development'
+    if ::Rails.env.development?
       redis = Redis.new host: URI.parse(ENV['DOCKER_HOST']).hostname
+    else
+      redis = Redis.new
     end
 
     icecast_container = DockerWrapper.find_or_create 'mcfiredrill/icecast:latest', "#{radio_name}_icecast"
