@@ -65,6 +65,10 @@ GEM
       sidekiq
     celluloid (0.16.0)
       timers (~> 4.0.0)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.7)
+      climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -285,6 +289,7 @@ DEPENDENCIES
   capistrano-rails (~> 1.1.2)
   capistrano-rbenv (~> 2.0)
   capistrano-sidekiq
+  cocaine
   coffee-rails (~> 4.0.0)
   devise
   docker-api (~> 1.20.0)
