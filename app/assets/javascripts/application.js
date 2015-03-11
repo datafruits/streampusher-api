@@ -20,7 +20,6 @@
 //= require fullcalendar/fullcalendar.js
 //= require jquery.payment
 //= require chartjs
-//= require s3_direct_upload
 //= require jplayer/jquery.jplayer.js
 //= require underscore
 //= require_tree .

@@ -14,6 +14,7 @@
                            key: "${filename}",
                            id: "track-uploader" do %>
       <%= file_field_tag :file %>
+      <div id="dropzone" class="fade well">Drop files here</div>
     <% end %>
     <div id="status"></div>
     <script id="template-upload" type="text/x-tmpl">
