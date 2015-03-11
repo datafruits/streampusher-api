@@ -1,6 +1,7 @@
 // Place all the styles related to the playlists controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "bourbon";
 
 ul.playlist-tracks {
   min-height: 100px;
@@ -33,7 +34,6 @@ li.track {
     background: palegreen;
     width: 150px;
     height: 50px;
-    line-height: 50px;
     text-align: center;
     font-weight: bold;
 }
@@ -47,10 +47,6 @@ li.track {
     background: lawngreen;
 }
 #dropzone.fade {
-    -webkit-transition: all 0.3s ease-out;
-    -moz-transition: all 0.3s ease-out;
-    -ms-transition: all 0.3s ease-out;
-    -o-transition: all 0.3s ease-out;
-    transition: all 0.3s ease-out;
+    @include transition(all 0.3s ease-out);
     opacity: 1;
 }
