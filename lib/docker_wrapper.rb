@@ -32,7 +32,9 @@ class DockerWrapper
 
   def host_port port
     # nice api docker heheh :P
-    @container.json["NetworkSettings"]["Ports"]["#{port}/tcp"].first["HostPort"]
+    if port
+      @container.json["NetworkSettings"]["Ports"]["#{port}/tcp"].first["HostPort"]
+    end
   end
 
   def env
