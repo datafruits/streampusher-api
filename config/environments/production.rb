@@ -70,7 +70,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     :address        => 'smtp.mandrillapp.com',
     :port           => 25,
-    :authentication => :plain,
+    :authentication => :login,
     :user_name      => ENV['MANDRILL_USERNAME'],
     :password       => ENV['MANDRILL_PASSWORD'],
     :domain         => 'streampusher.com',
