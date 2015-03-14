@@ -2,13 +2,13 @@
 http_interactions:
 - request:
     method: get
-    uri: https://192.168.59.103:2376/v1.15/containers/coolradio_icecast1/json
+    uri: https://192.168.59.103:2376/v1.16/containers/coolradio_icecast1/json
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.17.0
+      - Swipely/Docker-API 1.20.0
       Content-Type:
       - text/plain
   response:
@@ -19,7 +19,7 @@ http_interactions:
       Content-Type:
       - text/plain; charset=utf-8
       Date:
-      - Sun, 18 Jan 2015 15:48:30 GMT
+      - Sat, 14 Mar 2015 07:02:34 GMT
       Content-Length:
       - '38'
     body:
@@ -27,16 +27,16 @@ http_interactions:
       string: |
         No such container: coolradio_icecast1
     http_version: 
-  recorded_at: Sun, 18 Jan 2015 15:48:29 GMT
+  recorded_at: Sat, 14 Mar 2015 07:02:34 GMT
 - request:
     method: get
-    uri: https://192.168.59.103:2376/v1.15/containers/coolradio_icecast1/json
+    uri: https://192.168.59.103:2376/v1.16/containers/coolradio_icecast1/json
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.17.0
+      - Swipely/Docker-API 1.20.0
       Content-Type:
       - text/plain
   response:
@@ -47,7 +47,7 @@ http_interactions:
       Content-Type:
       - text/plain; charset=utf-8
       Date:
-      - Sun, 18 Jan 2015 15:48:30 GMT
+      - Sat, 14 Mar 2015 07:02:35 GMT
       Content-Length:
       - '38'
     body:
@@ -55,16 +55,16 @@ http_interactions:
       string: |
         No such container: coolradio_icecast1
     http_version: 
-  recorded_at: Sun, 18 Jan 2015 15:48:29 GMT
+  recorded_at: Sat, 14 Mar 2015 07:02:35 GMT
 - request:
     method: get
-    uri: https://192.168.59.103:2376/v1.15/containers/coolradio_icecast1/json
+    uri: https://192.168.59.103:2376/v1.16/containers/coolradio_icecast1/json
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.17.0
+      - Swipely/Docker-API 1.20.0
       Content-Type:
       - text/plain
   response:
@@ -75,7 +75,7 @@ http_interactions:
       Content-Type:
       - text/plain; charset=utf-8
       Date:
-      - Sun, 18 Jan 2015 15:48:30 GMT
+      - Sat, 14 Mar 2015 07:02:35 GMT
       Content-Length:
       - '38'
     body:
@@ -83,16 +83,16 @@ http_interactions:
       string: |
         No such container: coolradio_icecast1
     http_version: 
-  recorded_at: Sun, 18 Jan 2015 15:48:29 GMT
+  recorded_at: Sat, 14 Mar 2015 07:02:35 GMT
 - request:
     method: get
-    uri: https://192.168.59.103:2376/v1.15/containers/coolradio_icecast1/json
+    uri: https://192.168.59.103:2376/v1.16/containers/coolradio_icecast1/json
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.17.0
+      - Swipely/Docker-API 1.20.0
       Content-Type:
       - text/plain
   response:
@@ -103,7 +103,7 @@ http_interactions:
       Content-Type:
       - text/plain; charset=utf-8
       Date:
-      - Sun, 18 Jan 2015 15:48:30 GMT
+      - Sat, 14 Mar 2015 07:02:35 GMT
       Content-Length:
       - '38'
     body:
@@ -111,16 +111,71 @@ http_interactions:
       string: |
         No such container: coolradio_icecast1
     http_version: 
-  recorded_at: Sun, 18 Jan 2015 15:48:29 GMT
+  recorded_at: Sat, 14 Mar 2015 07:02:35 GMT
 - request:
     method: post
-    uri: https://192.168.59.103:2376/v1.15/containers/create?name=coolradio_icecast1
+    uri: https://192.168.59.103:2376/v1.16/images/create?fromImage=mcfiredrill/icecast
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swipely/Docker-API 1.20.0
+      Content-Type:
+      - text/plain
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 14 Mar 2015 07:02:35 GMT
+    body:
+      encoding: UTF-8
+      string: "{\"status\":\"Pulling repository mcfiredrill/icecast\"}\r\n{\"status\":\"Pulling
+        image (latest) from mcfiredrill/icecast\",\"progressDetail\":{},\"id\":\"c0b00183e276\"}{\"status\":\"Pulling
+        image (latest) from mcfiredrill/icecast, endpoint: https://registry-1.docker.io/v1/\",\"progressDetail\":{},\"id\":\"c0b00183e276\"}{\"status\":\"Pulling
+        dependent layers\",\"progressDetail\":{},\"id\":\"c0b00183e276\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"511136ea3c5a\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"ac5159eeb0a3\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"d96760d4a0ed\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"100a1992ec48\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"76ca2fd90787\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"a4c4b3037bcb\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"de62ff5fbcc3\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"a19f9ef3f878\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"78208629e5e3\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"f66dad2086e2\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"8ec5a80f8aa1\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"48816ed8e940\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"ae8509468110\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"8b0f39ec850f\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"1e32ce6e33bb\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"037bffcfb9d9\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"3e367ed3a9a6\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"7c51aded2622\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"b096d3bd595a\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"3a2df149a8b5\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"55efa2fcf816\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"c45425553838\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"224f4a23124e\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"95846b662ba3\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"c0b00183e276\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"c0b00183e276\"}{\"status\":\"Status:
+        Image is up to date for mcfiredrill/icecast\"}\r\n"
+    http_version: 
+  recorded_at: Sat, 14 Mar 2015 07:02:38 GMT
+- request:
+    method: post
+    uri: https://192.168.59.103:2376/v1.16/containers/create?name=coolradio_icecast1
     body:
       encoding: UTF-8
       string: '{"Image":"mcfiredrill/icecast","Env":[],"HostConfig":{"Links":[]}}'
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.17.0
+      - Swipely/Docker-API 1.20.0
       Content-Type:
       - application/json
   response:
@@ -131,24 +186,24 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 18 Jan 2015 15:48:30 GMT
+      - Sat, 14 Mar 2015 07:02:38 GMT
       Content-Length:
       - '90'
     body:
       encoding: UTF-8
       string: |
-        {"Id":"8eb995dda82835de34817d67d9603b52e3c4e5ff555a42e1ba8c642a247a34f7","Warnings":null}
+        {"Id":"26dcedd50d6d7a58f908db0e900f8facee7e925533a1761bc1f22ef2a232faf4","Warnings":null}
     http_version: 
-  recorded_at: Sun, 18 Jan 2015 15:48:29 GMT
+  recorded_at: Sat, 14 Mar 2015 07:02:38 GMT
 - request:
     method: get
-    uri: https://192.168.59.103:2376/v1.15/containers/coolradio_icecast2/json
+    uri: https://192.168.59.103:2376/v1.16/containers/coolradio_icecast2/json
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.17.0
+      - Swipely/Docker-API 1.20.0
       Content-Type:
       - text/plain
   response:
@@ -159,7 +214,7 @@ http_interactions:
       Content-Type:
       - text/plain; charset=utf-8
       Date:
-      - Sun, 18 Jan 2015 15:48:30 GMT
+      - Sat, 14 Mar 2015 07:02:38 GMT
       Content-Length:
       - '38'
     body:
@@ -167,16 +222,16 @@ http_interactions:
       string: |
         No such container: coolradio_icecast2
     http_version: 
-  recorded_at: Sun, 18 Jan 2015 15:48:30 GMT
+  recorded_at: Sat, 14 Mar 2015 07:02:39 GMT
 - request:
     method: get
-    uri: https://192.168.59.103:2376/v1.15/containers/coolradio_icecast2/json
+    uri: https://192.168.59.103:2376/v1.16/containers/coolradio_icecast2/json
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.17.0
+      - Swipely/Docker-API 1.20.0
       Content-Type:
       - text/plain
   response:
@@ -187,7 +242,7 @@ http_interactions:
       Content-Type:
       - text/plain; charset=utf-8
       Date:
-      - Sun, 18 Jan 2015 15:48:30 GMT
+      - Sat, 14 Mar 2015 07:02:39 GMT
       Content-Length:
       - '38'
     body:
@@ -195,16 +250,16 @@ http_interactions:
       string: |
         No such container: coolradio_icecast2
     http_version: 
-  recorded_at: Sun, 18 Jan 2015 15:48:30 GMT
+  recorded_at: Sat, 14 Mar 2015 07:02:39 GMT
 - request:
     method: get
-    uri: https://192.168.59.103:2376/v1.15/containers/coolradio_icecast2/json
+    uri: https://192.168.59.103:2376/v1.16/containers/coolradio_icecast2/json
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.17.0
+      - Swipely/Docker-API 1.20.0
       Content-Type:
       - text/plain
   response:
@@ -215,7 +270,7 @@ http_interactions:
       Content-Type:
       - text/plain; charset=utf-8
       Date:
-      - Sun, 18 Jan 2015 15:48:30 GMT
+      - Sat, 14 Mar 2015 07:02:39 GMT
       Content-Length:
       - '38'
     body:
@@ -223,16 +278,16 @@ http_interactions:
       string: |
         No such container: coolradio_icecast2
     http_version: 
-  recorded_at: Sun, 18 Jan 2015 15:48:30 GMT
+  recorded_at: Sat, 14 Mar 2015 07:02:39 GMT
 - request:
     method: get
-    uri: https://192.168.59.103:2376/v1.15/containers/coolradio_icecast2/json
+    uri: https://192.168.59.103:2376/v1.16/containers/coolradio_icecast2/json
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.17.0
+      - Swipely/Docker-API 1.20.0
       Content-Type:
       - text/plain
   response:
@@ -243,7 +298,7 @@ http_interactions:
       Content-Type:
       - text/plain; charset=utf-8
       Date:
-      - Sun, 18 Jan 2015 15:48:30 GMT
+      - Sat, 14 Mar 2015 07:02:39 GMT
       Content-Length:
       - '38'
     body:
@@ -251,16 +306,71 @@ http_interactions:
       string: |
         No such container: coolradio_icecast2
     http_version: 
-  recorded_at: Sun, 18 Jan 2015 15:48:30 GMT
+  recorded_at: Sat, 14 Mar 2015 07:02:39 GMT
 - request:
     method: post
-    uri: https://192.168.59.103:2376/v1.15/containers/create?name=coolradio_icecast2
+    uri: https://192.168.59.103:2376/v1.16/images/create?fromImage=mcfiredrill/icecast
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swipely/Docker-API 1.20.0
+      Content-Type:
+      - text/plain
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 14 Mar 2015 07:02:39 GMT
+    body:
+      encoding: UTF-8
+      string: "{\"status\":\"Pulling repository mcfiredrill/icecast\"}\r\n{\"status\":\"Pulling
+        image (latest) from mcfiredrill/icecast\",\"progressDetail\":{},\"id\":\"c0b00183e276\"}{\"status\":\"Pulling
+        image (latest) from mcfiredrill/icecast, endpoint: https://registry-1.docker.io/v1/\",\"progressDetail\":{},\"id\":\"c0b00183e276\"}{\"status\":\"Pulling
+        dependent layers\",\"progressDetail\":{},\"id\":\"c0b00183e276\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"511136ea3c5a\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"ac5159eeb0a3\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"d96760d4a0ed\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"100a1992ec48\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"76ca2fd90787\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"a4c4b3037bcb\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"de62ff5fbcc3\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"a19f9ef3f878\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"78208629e5e3\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"f66dad2086e2\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"8ec5a80f8aa1\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"48816ed8e940\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"ae8509468110\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"8b0f39ec850f\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"1e32ce6e33bb\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"037bffcfb9d9\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"3e367ed3a9a6\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"7c51aded2622\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"b096d3bd595a\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"3a2df149a8b5\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"55efa2fcf816\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"c45425553838\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"224f4a23124e\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"95846b662ba3\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"c0b00183e276\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"c0b00183e276\"}{\"status\":\"Status:
+        Image is up to date for mcfiredrill/icecast\"}\r\n"
+    http_version: 
+  recorded_at: Sat, 14 Mar 2015 07:02:42 GMT
+- request:
+    method: post
+    uri: https://192.168.59.103:2376/v1.16/containers/create?name=coolradio_icecast2
     body:
       encoding: UTF-8
       string: '{"Image":"mcfiredrill/icecast","Env":[],"HostConfig":{"Links":[]}}'
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.17.0
+      - Swipely/Docker-API 1.20.0
       Content-Type:
       - application/json
   response:
@@ -271,24 +381,24 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 18 Jan 2015 15:48:30 GMT
+      - Sat, 14 Mar 2015 07:02:43 GMT
       Content-Length:
       - '90'
     body:
       encoding: UTF-8
       string: |
-        {"Id":"a8731dab124a90251b969795b1b5d02304619feea0c655f96448808307db935a","Warnings":null}
+        {"Id":"0a3f02359a82e4f55b6adb12c888ebb8cbac6fa509dd8430bb90c6a1d9fe6802","Warnings":null}
     http_version: 
-  recorded_at: Sun, 18 Jan 2015 15:48:30 GMT
+  recorded_at: Sat, 14 Mar 2015 07:02:43 GMT
 - request:
     method: get
-    uri: https://192.168.59.103:2376/v1.15/containers/coolradio_icecast_with_links/json
+    uri: https://192.168.59.103:2376/v1.16/containers/coolradio_icecast_with_links/json
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.17.0
+      - Swipely/Docker-API 1.20.0
       Content-Type:
       - text/plain
   response:
@@ -299,7 +409,7 @@ http_interactions:
       Content-Type:
       - text/plain; charset=utf-8
       Date:
-      - Sun, 18 Jan 2015 15:48:30 GMT
+      - Sat, 14 Mar 2015 07:02:43 GMT
       Content-Length:
       - '48'
     body:
@@ -307,16 +417,16 @@ http_interactions:
       string: |
         No such container: coolradio_icecast_with_links
     http_version: 
-  recorded_at: Sun, 18 Jan 2015 15:48:30 GMT
+  recorded_at: Sat, 14 Mar 2015 07:02:43 GMT
 - request:
     method: get
-    uri: https://192.168.59.103:2376/v1.15/containers/coolradio_icecast_with_links/json
+    uri: https://192.168.59.103:2376/v1.16/containers/coolradio_icecast_with_links/json
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.17.0
+      - Swipely/Docker-API 1.20.0
       Content-Type:
       - text/plain
   response:
@@ -327,7 +437,7 @@ http_interactions:
       Content-Type:
       - text/plain; charset=utf-8
       Date:
-      - Sun, 18 Jan 2015 15:48:30 GMT
+      - Sat, 14 Mar 2015 07:02:43 GMT
       Content-Length:
       - '48'
     body:
@@ -335,16 +445,16 @@ http_interactions:
       string: |
         No such container: coolradio_icecast_with_links
     http_version: 
-  recorded_at: Sun, 18 Jan 2015 15:48:30 GMT
+  recorded_at: Sat, 14 Mar 2015 07:02:43 GMT
 - request:
     method: get
-    uri: https://192.168.59.103:2376/v1.15/containers/coolradio_icecast_with_links/json
+    uri: https://192.168.59.103:2376/v1.16/containers/coolradio_icecast_with_links/json
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.17.0
+      - Swipely/Docker-API 1.20.0
       Content-Type:
       - text/plain
   response:
@@ -355,7 +465,7 @@ http_interactions:
       Content-Type:
       - text/plain; charset=utf-8
       Date:
-      - Sun, 18 Jan 2015 15:48:30 GMT
+      - Sat, 14 Mar 2015 07:02:43 GMT
       Content-Length:
       - '48'
     body:
@@ -363,16 +473,16 @@ http_interactions:
       string: |
         No such container: coolradio_icecast_with_links
     http_version: 
-  recorded_at: Sun, 18 Jan 2015 15:48:30 GMT
+  recorded_at: Sat, 14 Mar 2015 07:02:43 GMT
 - request:
     method: get
-    uri: https://192.168.59.103:2376/v1.15/containers/coolradio_icecast_with_links/json
+    uri: https://192.168.59.103:2376/v1.16/containers/coolradio_icecast_with_links/json
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.17.0
+      - Swipely/Docker-API 1.20.0
       Content-Type:
       - text/plain
   response:
@@ -383,7 +493,7 @@ http_interactions:
       Content-Type:
       - text/plain; charset=utf-8
       Date:
-      - Sun, 18 Jan 2015 15:48:31 GMT
+      - Sat, 14 Mar 2015 07:02:43 GMT
       Content-Length:
       - '48'
     body:
@@ -391,16 +501,71 @@ http_interactions:
       string: |
         No such container: coolradio_icecast_with_links
     http_version: 
-  recorded_at: Sun, 18 Jan 2015 15:48:30 GMT
+  recorded_at: Sat, 14 Mar 2015 07:02:43 GMT
 - request:
     method: post
-    uri: https://192.168.59.103:2376/v1.15/containers/create?name=coolradio_icecast_with_links
+    uri: https://192.168.59.103:2376/v1.16/images/create?fromImage=mcfiredrill/icecast
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swipely/Docker-API 1.20.0
+      Content-Type:
+      - text/plain
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 14 Mar 2015 07:02:43 GMT
+    body:
+      encoding: UTF-8
+      string: "{\"status\":\"Pulling repository mcfiredrill/icecast\"}\r\n{\"status\":\"Pulling
+        image (latest) from mcfiredrill/icecast\",\"progressDetail\":{},\"id\":\"c0b00183e276\"}{\"status\":\"Pulling
+        image (latest) from mcfiredrill/icecast, endpoint: https://registry-1.docker.io/v1/\",\"progressDetail\":{},\"id\":\"c0b00183e276\"}{\"status\":\"Pulling
+        dependent layers\",\"progressDetail\":{},\"id\":\"c0b00183e276\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"511136ea3c5a\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"ac5159eeb0a3\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"d96760d4a0ed\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"100a1992ec48\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"76ca2fd90787\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"a4c4b3037bcb\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"de62ff5fbcc3\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"a19f9ef3f878\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"78208629e5e3\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"f66dad2086e2\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"8ec5a80f8aa1\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"48816ed8e940\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"ae8509468110\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"8b0f39ec850f\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"1e32ce6e33bb\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"037bffcfb9d9\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"3e367ed3a9a6\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"7c51aded2622\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"b096d3bd595a\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"3a2df149a8b5\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"55efa2fcf816\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"c45425553838\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"224f4a23124e\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"95846b662ba3\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"c0b00183e276\"}{\"status\":\"Download
+        complete\",\"progressDetail\":{},\"id\":\"c0b00183e276\"}{\"status\":\"Status:
+        Image is up to date for mcfiredrill/icecast\"}\r\n"
+    http_version: 
+  recorded_at: Sat, 14 Mar 2015 07:02:47 GMT
+- request:
+    method: post
+    uri: https://192.168.59.103:2376/v1.16/containers/create?name=coolradio_icecast_with_links
     body:
       encoding: UTF-8
       string: '{"Image":"mcfiredrill/icecast","Env":[],"HostConfig":{"Links":["coolradio_icecast1:icecast1","coolradio_icecast2:icecast2"]}}'
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.17.0
+      - Swipely/Docker-API 1.20.0
       Content-Type:
       - application/json
   response:
@@ -411,24 +576,24 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 18 Jan 2015 15:48:31 GMT
+      - Sat, 14 Mar 2015 07:02:47 GMT
       Content-Length:
       - '90'
     body:
       encoding: UTF-8
       string: |
-        {"Id":"272784e9f16044070d77bdc2d1d1b67a9f166705baafb8ac885ddcb47421d467","Warnings":null}
+        {"Id":"f0efcb570e2ad39286ecd2fe40f1cc13d366c391a493037bcfba8e00e2df1904","Warnings":null}
     http_version: 
-  recorded_at: Sun, 18 Jan 2015 15:48:30 GMT
+  recorded_at: Sat, 14 Mar 2015 07:02:47 GMT
 - request:
     method: get
-    uri: https://192.168.59.103:2376/v1.15/containers/272784e9f16044070d77bdc2d1d1b67a9f166705baafb8ac885ddcb47421d467/json
+    uri: https://192.168.59.103:2376/v1.16/containers/f0efcb570e2ad39286ecd2fe40f1cc13d366c391a493037bcfba8e00e2df1904/json
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.17.0
+      - Swipely/Docker-API 1.20.0
       Content-Type:
       - text/plain
   response:
@@ -439,24 +604,24 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 18 Jan 2015 15:48:31 GMT
+      - Sat, 14 Mar 2015 07:02:47 GMT
       Content-Length:
-      - '1831'
+      - '2014'
     body:
       encoding: UTF-8
       string: |
-        {"AppArmorProfile":"","Args":["-c","icecast2 -c /icecast.xml"],"Config":{"AttachStderr":false,"AttachStdin":false,"AttachStdout":false,"Cmd":["/bin/sh","-c","icecast2 -c /icecast.xml"],"CpuShares":0,"Cpuset":"","Domainname":"","Entrypoint":null,"Env":["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","LANG=en_US.UTF-8","DEBIAN_FRONTEND=noninteractive"],"ExposedPorts":{"8000/tcp":{}},"Hostname":"272784e9f160","Image":"mcfiredrill/icecast","MacAddress":"","Memory":0,"MemorySwap":0,"NetworkDisabled":false,"OnBuild":null,"OpenStdin":false,"PortSpecs":null,"StdinOnce":false,"Tty":false,"User":"icecast2","Volumes":null,"WorkingDir":""},"Created":"2015-01-18T15:48:31.13041052Z","Driver":"aufs","ExecDriver":"native-0.2","HostConfig":{"Binds":null,"CapAdd":null,"CapDrop":null,"ContainerIDFile":"","Devices":null,"Dns":null,"DnsSearch":null,"ExtraHosts":null,"IpcMode":"","Links":["/coolradio_icecast1:/coolradio_icecast_with_links/icecast1","/coolradio_icecast2:/coolradio_icecast_with_links/icecast2"],"LxcConf":null,"NetworkMode":"","PortBindings":null,"Privileged":false,"PublishAllPorts":false,"RestartPolicy":{"MaximumRetryCount":0,"Name":""},"SecurityOpt":null,"VolumesFrom":null},"HostnamePath":"","HostsPath":"","Id":"272784e9f16044070d77bdc2d1d1b67a9f166705baafb8ac885ddcb47421d467","Image":"1eae2df3c0c44798aba28c11cd33a12dc2f209e0cdf9f9eb76a1d66bbd01e133","MountLabel":"","Name":"/coolradio_icecast_with_links","NetworkSettings":{"Bridge":"","Gateway":"","IPAddress":"","IPPrefixLen":0,"MacAddress":"","PortMapping":null,"Ports":null},"Path":"/bin/sh","ProcessLabel":"","ResolvConfPath":"","State":{"Error":"","ExitCode":0,"FinishedAt":"0001-01-01T00:00:00Z","OOMKilled":false,"Paused":false,"Pid":0,"Restarting":false,"Running":false,"StartedAt":"0001-01-01T00:00:00Z"},"Volumes":{},"VolumesRW":{}}
+        {"AppArmorProfile":"","Args":["-c","icecast -c /icecast.xml"],"Config":{"AttachStderr":false,"AttachStdin":false,"AttachStdout":false,"Cmd":["/bin/sh","-c","icecast -c /icecast.xml"],"CpuShares":0,"Cpuset":"","Domainname":"","Entrypoint":null,"Env":["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","LANG=en_US.UTF-8","DEBIAN_FRONTEND=noninteractive"],"ExposedPorts":{"8000/tcp":{}},"Hostname":"f0efcb570e2a","Image":"mcfiredrill/icecast","MacAddress":"","Memory":0,"MemorySwap":0,"NetworkDisabled":false,"OnBuild":null,"OpenStdin":false,"PortSpecs":null,"StdinOnce":false,"Tty":false,"User":"icecast","Volumes":null,"WorkingDir":""},"Created":"2015-03-14T07:02:47.163288671Z","Driver":"aufs","ExecDriver":"native-0.2","ExecIDs":null,"HostConfig":{"Binds":null,"CapAdd":null,"CapDrop":null,"ContainerIDFile":"","Devices":null,"Dns":null,"DnsSearch":null,"ExtraHosts":null,"IpcMode":"","Links":["/coolradio_icecast1:/coolradio_icecast_with_links/icecast1","/coolradio_icecast2:/coolradio_icecast_with_links/icecast2"],"LxcConf":null,"NetworkMode":"","PidMode":"","PortBindings":null,"Privileged":false,"PublishAllPorts":false,"ReadonlyRootfs":false,"RestartPolicy":{"MaximumRetryCount":0,"Name":""},"SecurityOpt":null,"VolumesFrom":null},"HostnamePath":"","HostsPath":"","Id":"f0efcb570e2ad39286ecd2fe40f1cc13d366c391a493037bcfba8e00e2df1904","Image":"c0b00183e2764a98de365feb3dbd0632b2cf5a2272d4219d2bd420b4329916f2","MountLabel":"","Name":"/coolradio_icecast_with_links","NetworkSettings":{"Bridge":"","Gateway":"","GlobalIPv6Address":"","GlobalIPv6PrefixLen":0,"IPAddress":"","IPPrefixLen":0,"IPv6Gateway":"","LinkLocalIPv6Address":"","LinkLocalIPv6PrefixLen":0,"MacAddress":"","PortMapping":null,"Ports":null},"Path":"/bin/sh","ProcessLabel":"","ResolvConfPath":"","RestartCount":0,"State":{"Error":"","ExitCode":0,"FinishedAt":"0001-01-01T00:00:00Z","OOMKilled":false,"Paused":false,"Pid":0,"Restarting":false,"Running":false,"StartedAt":"0001-01-01T00:00:00Z"},"Volumes":{},"VolumesRW":{}}
     http_version: 
-  recorded_at: Sun, 18 Jan 2015 15:48:30 GMT
+  recorded_at: Sat, 14 Mar 2015 07:02:47 GMT
 - request:
     method: get
-    uri: https://192.168.59.103:2376/v1.15/containers/272784e9f16044070d77bdc2d1d1b67a9f166705baafb8ac885ddcb47421d467/json
+    uri: https://192.168.59.103:2376/v1.16/containers/f0efcb570e2ad39286ecd2fe40f1cc13d366c391a493037bcfba8e00e2df1904/json
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.17.0
+      - Swipely/Docker-API 1.20.0
       Content-Type:
       - text/plain
   response:
@@ -467,13 +632,13 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 18 Jan 2015 15:48:31 GMT
+      - Sat, 14 Mar 2015 07:02:47 GMT
       Content-Length:
-      - '1831'
+      - '2014'
     body:
       encoding: UTF-8
       string: |
-        {"AppArmorProfile":"","Args":["-c","icecast2 -c /icecast.xml"],"Config":{"AttachStderr":false,"AttachStdin":false,"AttachStdout":false,"Cmd":["/bin/sh","-c","icecast2 -c /icecast.xml"],"CpuShares":0,"Cpuset":"","Domainname":"","Entrypoint":null,"Env":["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","LANG=en_US.UTF-8","DEBIAN_FRONTEND=noninteractive"],"ExposedPorts":{"8000/tcp":{}},"Hostname":"272784e9f160","Image":"mcfiredrill/icecast","MacAddress":"","Memory":0,"MemorySwap":0,"NetworkDisabled":false,"OnBuild":null,"OpenStdin":false,"PortSpecs":null,"StdinOnce":false,"Tty":false,"User":"icecast2","Volumes":null,"WorkingDir":""},"Created":"2015-01-18T15:48:31.13041052Z","Driver":"aufs","ExecDriver":"native-0.2","HostConfig":{"Binds":null,"CapAdd":null,"CapDrop":null,"ContainerIDFile":"","Devices":null,"Dns":null,"DnsSearch":null,"ExtraHosts":null,"IpcMode":"","Links":["/coolradio_icecast1:/coolradio_icecast_with_links/icecast1","/coolradio_icecast2:/coolradio_icecast_with_links/icecast2"],"LxcConf":null,"NetworkMode":"","PortBindings":null,"Privileged":false,"PublishAllPorts":false,"RestartPolicy":{"MaximumRetryCount":0,"Name":""},"SecurityOpt":null,"VolumesFrom":null},"HostnamePath":"","HostsPath":"","Id":"272784e9f16044070d77bdc2d1d1b67a9f166705baafb8ac885ddcb47421d467","Image":"1eae2df3c0c44798aba28c11cd33a12dc2f209e0cdf9f9eb76a1d66bbd01e133","MountLabel":"","Name":"/coolradio_icecast_with_links","NetworkSettings":{"Bridge":"","Gateway":"","IPAddress":"","IPPrefixLen":0,"MacAddress":"","PortMapping":null,"Ports":null},"Path":"/bin/sh","ProcessLabel":"","ResolvConfPath":"","State":{"Error":"","ExitCode":0,"FinishedAt":"0001-01-01T00:00:00Z","OOMKilled":false,"Paused":false,"Pid":0,"Restarting":false,"Running":false,"StartedAt":"0001-01-01T00:00:00Z"},"Volumes":{},"VolumesRW":{}}
+        {"AppArmorProfile":"","Args":["-c","icecast -c /icecast.xml"],"Config":{"AttachStderr":false,"AttachStdin":false,"AttachStdout":false,"Cmd":["/bin/sh","-c","icecast -c /icecast.xml"],"CpuShares":0,"Cpuset":"","Domainname":"","Entrypoint":null,"Env":["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","LANG=en_US.UTF-8","DEBIAN_FRONTEND=noninteractive"],"ExposedPorts":{"8000/tcp":{}},"Hostname":"f0efcb570e2a","Image":"mcfiredrill/icecast","MacAddress":"","Memory":0,"MemorySwap":0,"NetworkDisabled":false,"OnBuild":null,"OpenStdin":false,"PortSpecs":null,"StdinOnce":false,"Tty":false,"User":"icecast","Volumes":null,"WorkingDir":""},"Created":"2015-03-14T07:02:47.163288671Z","Driver":"aufs","ExecDriver":"native-0.2","ExecIDs":null,"HostConfig":{"Binds":null,"CapAdd":null,"CapDrop":null,"ContainerIDFile":"","Devices":null,"Dns":null,"DnsSearch":null,"ExtraHosts":null,"IpcMode":"","Links":["/coolradio_icecast2:/coolradio_icecast_with_links/icecast2","/coolradio_icecast1:/coolradio_icecast_with_links/icecast1"],"LxcConf":null,"NetworkMode":"","PidMode":"","PortBindings":null,"Privileged":false,"PublishAllPorts":false,"ReadonlyRootfs":false,"RestartPolicy":{"MaximumRetryCount":0,"Name":""},"SecurityOpt":null,"VolumesFrom":null},"HostnamePath":"","HostsPath":"","Id":"f0efcb570e2ad39286ecd2fe40f1cc13d366c391a493037bcfba8e00e2df1904","Image":"c0b00183e2764a98de365feb3dbd0632b2cf5a2272d4219d2bd420b4329916f2","MountLabel":"","Name":"/coolradio_icecast_with_links","NetworkSettings":{"Bridge":"","Gateway":"","GlobalIPv6Address":"","GlobalIPv6PrefixLen":0,"IPAddress":"","IPPrefixLen":0,"IPv6Gateway":"","LinkLocalIPv6Address":"","LinkLocalIPv6PrefixLen":0,"MacAddress":"","PortMapping":null,"Ports":null},"Path":"/bin/sh","ProcessLabel":"","ResolvConfPath":"","RestartCount":0,"State":{"Error":"","ExitCode":0,"FinishedAt":"0001-01-01T00:00:00Z","OOMKilled":false,"Paused":false,"Pid":0,"Restarting":false,"Running":false,"StartedAt":"0001-01-01T00:00:00Z"},"Volumes":{},"VolumesRW":{}}
     http_version: 
-  recorded_at: Sun, 18 Jan 2015 15:48:30 GMT
+  recorded_at: Sat, 14 Mar 2015 07:02:47 GMT
 recorded_with: VCR 2.9.3
