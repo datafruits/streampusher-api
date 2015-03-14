@@ -17,6 +17,7 @@ gem 'stripe'
 gem 'docker-api', '~> 1.20.0', require: 'docker'
 gem 'simple_form'
 gem 'cocaine'
+gem 'lograge'
 
 gem 'sidekiq'
 gem 'therubyracer'
