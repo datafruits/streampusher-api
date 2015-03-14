@@ -2,8 +2,8 @@ require 'uri'
 require_relative '../../lib/docker_wrapper'
 require_relative '../../lib/ufw'
 
-class RadioBooterWorker
-  include Sidekiq::Worker
+class RadioBooterWorker < ActiveJob::Base
+  queue_as :default
 
   def perform radio_id
     radio = Radio.find radio_id
@@ -41,7 +41,7 @@ class RadioBooterWorker
       UFW.open_port liquidsoap_container.host_port(9000)
     end
     radio.playlists.each do |playlist|
-      SavePlaylistToRedisWorker.perform_async playlist.id
+      SavePlaylistToRedisWorker.perform_later playlist.id
     end
   end
 end
