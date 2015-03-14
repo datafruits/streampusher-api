@@ -1,7 +1,7 @@
 class DjAccountMailer < ActionMailer::Base
   default from: "from@example.com"
 
-  def dj_account_welcome user, password, radio
+  def welcome_email user, password, radio
     @user = user
     @password = password
     @radio = radio

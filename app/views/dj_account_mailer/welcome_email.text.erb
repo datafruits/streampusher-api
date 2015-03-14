@@ -1,11 +1,11 @@
-<%= "Hey #{@user.username}, %>
+<%= "Hey #{@user.username}," %>
 
 Your account on <%= @radio.name %> has been created.
 
 Your password is <%= @password %>. Be sure to change it after you login.
 
 You can log in here.
-<%= user_sign_in_path %>
+<%== login_url(host: @radio.virtual_host) %>
 
 You can stream to the station using the same login and password from your source client.
 
