@@ -1,5 +1,5 @@
 class DjAccountMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "info@streampusher.com"
 
   def welcome_email user, password, radio
     @user = user
