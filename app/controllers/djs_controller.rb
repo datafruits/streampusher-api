@@ -13,7 +13,7 @@ class DjsController < ApplicationController
     password = Devise.friendly_token.first(8)
     @dj.password = password
     if @dj.save
-      DjAccountMailer.welcome_email(@user, password, current_radio).deliver_later
+      DjAccountMailer.welcome_email(@dj, password, current_radio).deliver_later
       redirect_to djs_path
     else
       @djs = current_radio.djs

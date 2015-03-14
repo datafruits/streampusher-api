@@ -6,6 +6,6 @@ class DjAccountMailer < ActionMailer::Base
     @password = password
     @radio = radio
 
-    mail subject: "Your dj account on #{radio.name} has been created", to: user.email
+    mail subject: "Your dj account on #{@radio.name} has been created", to: @user.email
   end
 end
