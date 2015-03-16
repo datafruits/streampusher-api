@@ -32,8 +32,9 @@ class DockerWrapper
 
   def host_port port
     # nice api docker heheh :P
-    if !port.blank?
-      @container.json["NetworkSettings"]["Ports"]["#{port}/tcp"].first["HostPort"]
+    ports = @container.json["NetworkSettings"].fetch("Ports")
+    if ports
+      ports.fetch("#{port}/tcp").try(:first).fetch("HostPort")
     end
   end
 
