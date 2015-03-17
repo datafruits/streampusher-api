@@ -19,7 +19,7 @@
           <li><%= link_to "Auto DJ/Playlists", playlists_path %></li>
           <% if current_user.admin? %>
             <li><%= link_to "DJ Management", djs_path %></li>
-          <% else %>
+          <% end %>
           <li><%= link_to "Archives/Podcast", recordings_path %></li>
         </ul>
       <% end %>
