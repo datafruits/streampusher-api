@@ -39,6 +39,14 @@ li.track {
   }
 }
 
+li.track.ui-draggable:hover {
+  cursor: pointer;
+}
+
+li.track.ui-draggable-dragging:hover {
+  cursor: move;
+}
+
 #dropzone {
     background: palegreen;
     width: 150px;

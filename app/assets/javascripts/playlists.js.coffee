@@ -24,6 +24,7 @@ $('[data-controller=playlists]').ready ->
   $('#tracks li.track').draggable({
     revert: true
     revertDuration: 0
+    cursor: 'move'
   })
 
   $(document).on 'click', "ul.playlist-tracks button.delete-from-playlist", () ->
