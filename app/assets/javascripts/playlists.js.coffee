@@ -21,12 +21,6 @@ $('[data-controller=playlists]').ready ->
     $("#status").html("error! :(")
     console.log("there was an error; responded with "+data)
 
-  $('#tracks li.track').draggable({
-    revert: true
-    revertDuration: 0
-    cursor: 'move'
-  })
-
   $(document).on 'click', "ul.playlist-tracks button.delete-from-playlist", () ->
     playlistId = $(this).parent('li').parent('ul').data('playlist-id')
     trackId = $(this).data('track-id')

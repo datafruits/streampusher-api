@@ -3,3 +3,10 @@
     <i class="fa fa-times-circle"></i>
   </button><%= track.file_basename %>
 </li>
+<%= coffee_script_tag do %>
+  $('#tracks li.track').draggable({
+    revert: true
+    revertDuration: 0
+    cursor: 'move'
+  })
+<% end %>
