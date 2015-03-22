@@ -11,7 +11,7 @@ class Playlist < ActiveRecord::Base
     self.tracks << track
   end
 
-  def remove_track track
-    self.tracks.delete(track)
+  def remove_track playlist_track
+    playlist_track.destroy
   end
 end

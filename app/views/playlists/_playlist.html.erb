@@ -35,8 +35,10 @@
   })
 
   $('ul.playlist-tracks').sortable({
+    items: 'li.track'
+    cursor: 'move'
     update: (event, ui) ->
-      playlistTrackId = ui.item.data('track-id')
+      playlistTrackId = ui.item.data('playlist-track-id')
       console.log(playlistTrackId)
       position = ui.item.index()
       console.log(position)

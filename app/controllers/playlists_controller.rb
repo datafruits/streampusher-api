@@ -29,14 +29,14 @@ class PlaylistsController < ApplicationController
 
   def remove_track
     @playlist = current_radio.playlists.find(params[:id])
-    @track = current_radio.tracks.find params[:track][:id]
-    if @playlist.remove_track @track
+    @playlist_track = @playlist.playlist_tracks.find params[:playlist_track][:id]
+    if @playlist.remove_track @playlist_track
       SavePlaylistToRedisWorker.perform_later @playlist.id
       flash[:notice] = 'removed track from playlist!'
       render 'remove_track_success'
     else
       flash[:error] = 'error removing track from playlist :('
-      render ' remove_track_error'
+      render 'remove_track_error'
     end
   end
 

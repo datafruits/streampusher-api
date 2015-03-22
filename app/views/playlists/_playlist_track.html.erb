@@ -1,5 +1,5 @@
-<li data-type="playlist_track" data-track-id="<%= playlist_track.id %>" class='track'>
-  <button data-track-id="<%= playlist_track.id %>" class="delete-from-playlist btn btn-danger">
+<li data-type="playlist_track" data-playlist-track-id="<%=playlist_track.id%>" data-track-id="<%= playlist_track.track.id %>" class='track'>
+  <button class="delete-from-playlist btn btn-danger">
     <i class="fa fa-times-circle"></i>
   </button><%= playlist_track.track.file_basename %>
 </li>

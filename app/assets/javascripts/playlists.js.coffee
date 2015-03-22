@@ -23,13 +23,13 @@ $('[data-controller=playlists]').ready ->
 
   $(document).on 'click', "ul.playlist-tracks button.delete-from-playlist", () ->
     playlistId = $(this).parent('li').parent('ul').data('playlist-id')
-    trackId = $(this).data('track-id')
+    playlistTrackId = $(this).parent('li').data('playlist-track-id')
     $.ajax
       type: 'POST'
       url: "/playlists/#{playlistId}/remove_track"
       data:
-        track:
-          id: trackId
+        playlist_track:
+          id: playlistTrackId
       success: (data) ->
         console.log(data)
       error: (data) ->
