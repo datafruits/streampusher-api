@@ -58,6 +58,7 @@ gem 'exception_notification'
 
 gem 'groupdate'
 gem 'coffeebeans'
+gem 'ranked-model'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-countUp.js'

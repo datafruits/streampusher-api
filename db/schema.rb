@@ -11,48 +11,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150307074344) do
+ActiveRecord::Schema.define(version: 20150322094730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "listens", force: true do |t|
+  create_table "listens", force: :cascade do |t|
     t.integer  "radio_id"
-    t.string   "ip_address"
+    t.string   "ip_address", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "plans", force: true do |t|
+  create_table "plans", force: :cascade do |t|
     t.decimal  "price"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "playlist_tracks", force: true do |t|
+  create_table "playlist_tracks", force: :cascade do |t|
     t.integer  "track_id",    null: false
     t.integer  "playlist_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position"
   end
 
-  create_table "playlists", force: true do |t|
-    t.integer  "radio_id",   null: false
+  create_table "playlists", force: :cascade do |t|
+    t.integer  "radio_id",               null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
+    t.string   "name",       limit: 255
   end
 
-  create_table "radios", force: true do |t|
-    t.string   "icecast_container_id"
+  create_table "radios", force: :cascade do |t|
+    t.string   "icecast_container_id",    limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name",                    default: "", null: false
-    t.integer  "subscription_id",                      null: false
-    t.string   "liquidsoap_container_id"
+    t.string   "name",                    limit: 255, default: "", null: false
+    t.integer  "subscription_id",                                  null: false
+    t.string   "liquidsoap_container_id", limit: 255
   end
 
-  create_table "recordings", force: true do |t|
+  create_table "recordings", force: :cascade do |t|
     t.integer  "radio_id"
     t.integer  "dj_id"
     t.integer  "show_id"
@@ -60,56 +61,56 @@ ActiveRecord::Schema.define(version: 20150307074344) do
     t.datetime "updated_at"
   end
 
-  create_table "shows", force: true do |t|
-    t.string   "title",       default: "", null: false
-    t.integer  "dj_id",                    null: false
-    t.integer  "radio_id",                 null: false
-    t.datetime "start_at",                 null: false
-    t.datetime "end_at",                   null: false
-    t.text     "description", default: "", null: false
+  create_table "shows", force: :cascade do |t|
+    t.string   "title",       limit: 255, default: "", null: false
+    t.integer  "dj_id",                                null: false
+    t.integer  "radio_id",                             null: false
+    t.datetime "start_at",                             null: false
+    t.datetime "end_at",                               null: false
+    t.text     "description",             default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "subscriptions", force: true do |t|
+  create_table "subscriptions", force: :cascade do |t|
     t.integer  "plan_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "stripe_customer_token"
-    t.integer  "user_id",               null: false
+    t.string   "stripe_customer_token", limit: 255
+    t.integer  "user_id",                           null: false
   end
 
-  create_table "tracks", force: true do |t|
-    t.string   "artist"
-    t.string   "title"
-    t.string   "audio_file_name"
+  create_table "tracks", force: :cascade do |t|
+    t.string   "artist",          limit: 255
+    t.string   "title",           limit: 255
+    t.string   "audio_file_name", limit: 255
     t.integer  "radio_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "user_radios", force: true do |t|
+  create_table "user_radios", force: :cascade do |t|
     t.integer  "user_id",    null: false
     t.integer  "radio_id",   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "role"
-    t.string   "username",               default: "", null: false
+    t.string   "role",                   limit: 255
+    t.string   "username",               limit: 255, default: "", null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

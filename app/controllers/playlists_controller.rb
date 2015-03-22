@@ -40,7 +40,19 @@ class PlaylistsController < ApplicationController
     end
   end
 
+  def update_order
+    @playlist_track = PlaylistTrack.find(playlist_track_params[:playlist_track_id])
+    @playlist_track.position = playlist_track_params[:position]
+    @playlist_track.save
+
+    render nothing: true # this is a POST action, updates sent via AJAX, no view rendered
+  end
+
   private
+  def playlist_track_params
+    params.require(:playlist_track).permit(:playlist_track_id, :position)
+  end
+
   def create_params
     params.require(:playlist).permit(:name)
   end

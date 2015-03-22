@@ -1,9 +1,7 @@
 <li class="playlist" data-playlist-id="<%=playlist.id%>">
   <span><%= playlist.name %></span>
   <ul class="playlist-tracks" data-playlist-id="<%=playlist.id%>">
-    <% playlist.tracks.each do |track| %>
-      <%= render track %>
-    <% end %>
+    <%= render partial: 'playlist_track', collection: playlist.playlist_tracks.rank(:position) %>
   </ul>
 </li>
 <%= coffee_script_tag do %>
@@ -11,19 +9,44 @@
     activeClass: "playlist-state-default"
     hoverClass: "playlist-state-hover"
     drop: (event, ui) ->
-      playlistId = $(this).data('playlist-id')
-      trackId = ui.draggable.data('track-id')
-      console.log("recevied track #{trackId} on playlist #{playlistId}")
-      $.ajax
-        type: 'POST'
-        url: "/playlists/#{playlistId}/add_track"
-        data:
-          track:
-            id: trackId
-        success: (data) ->
-          console.log(data)
-        error: (data) ->
-          console.log(data)
+      trackType = ui.draggable.data('type')
+      console.log(trackType)
+      switch trackType
+        when 'track'
+          playlistId = $(this).data('playlist-id')
+          trackId = ui.draggable.data('track-id')
+          console.log("recevied track #{trackId} on playlist #{playlistId}")
+          $.ajax
+            type: 'POST'
+            url: "/playlists/#{playlistId}/add_track"
+            data:
+              track:
+                id: trackId
+            success: (data) ->
+              console.log('success!')
+              #console.log(data)
+            error: (data) ->
+              console.log('error!')
+              #console.log(data)
+        when 'playlist_track'
+        else
+          console.log('unknown draggable type')
+
   })
 
+  $('ul.playlist-tracks').sortable({
+    update: (event, ui) ->
+      playlistTrackId = ui.item.data('track-id')
+      console.log(playlistTrackId)
+      position = ui.item.index()
+      console.log(position)
+      playlistId = $(this).data('playlist-id')
+      $.ajax(
+        type: 'POST'
+        url: "/playlists/#{playlistId}/update_order"
+        dataType: 'json'
+        data: { playlist_track: {playlist_track_id: playlistTrackId, position: position } }
+      )
+
+  })
 <% end %>

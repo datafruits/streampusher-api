@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     member do
       post 'add_track'
       post 'remove_track'
+      post 'update_order'
     end
   end
 
