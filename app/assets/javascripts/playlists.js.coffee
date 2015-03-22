@@ -44,7 +44,7 @@ $('[data-controller=playlists]').ready ->
           console.log(data)
   }).disableSelection()
 
-  $("ul.playlist-tracks button.delete-from-playlist").bind 'click', () ->
+  $(document).on 'click', "ul.playlist-tracks button.delete-from-playlist", () ->
     playlistId = $(this).parent('li').parent('ul').data('playlist-id')
     trackId = $(this).data('track-id')
     $.ajax
