@@ -9,7 +9,8 @@ class SavePlaylistToRedisWorker < ActiveJob::Base
       redis = Redis.new
     end
     redis.del playlist.redis_key
-    playlist.tracks.each do |track|
+    playlist.playlist_tracks.rank(:position).reverse.each do |playlist_track|
+      track = Track.find(playlist_track.track_id)
       redis.rpush playlist.redis_key, track.file_basename
     end
   end
