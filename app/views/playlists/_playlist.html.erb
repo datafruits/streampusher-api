@@ -2,7 +2,7 @@
   <span><%= playlist.name %></span>
   <ul class="playlist-tracks" data-playlist-id="<%=playlist.id%>">
     <% playlist.tracks.each do |track| %>
-      <li class='track'><button class="btn btn-danger"><i class="fa fa-times-circle"></i></button><%= track.file_basename %></li>
+      <li data-track-id="<%= track.id %>"class='track'><button data-track-id="<%= track.id %>" class="delete-from-playlist btn btn-danger"><i class="fa fa-times-circle"></i></button><%= track.file_basename %></li>
     <% end %>
   </ul>
 </li>
