@@ -35,7 +35,8 @@ class RadioBooterWorker < ActiveJob::Base
     liquidsoap_container = DockerWrapper.find_or_create 'mcfiredrill/liquidsoap:latest',
       "#{radio_name}_liquidsoap",
       ["RADIO_NAME=#{radio_name}","RAILS_ENV=#{Rails.env}"],
-      ["#{radio_name}_icecast:icecast","streampusher_redis_1:redis"]
+      ["#{radio_name}_icecast:icecast","streampusher_redis_1:redis"],
+      ["#{radio.tracks_directory}:/home/liquidsoap/tracks"]
     radio.update liquidsoap_container_id: liquidsoap_container.id
     if ::Rails.env.production?
       port = liquidsoap_container.host_port(9000)

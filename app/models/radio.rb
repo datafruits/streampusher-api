@@ -50,4 +50,14 @@ class Radio < ActiveRecord::Base
   def virtual_host
     "#{self.name}.streampusher.com"
   end
+
+  def tracks_directory
+    if ::Rails.env.production?
+      dir = "/home/deploy/#{self.name}"
+    else
+      dir = ::Rails.root.join("tmp/#{self.name}").to_s
+    end
+    FileUtils.mkdir_p dir
+    dir
+  end
 end

@@ -10,7 +10,7 @@ class SavePlaylistToRedisWorker < ActiveJob::Base
     end
     redis.del playlist.redis_key
     playlist.tracks.each do |track|
-      redis.rpush playlist.redis_key, track.audio_file_name
+      redis.rpush playlist.redis_key, track.file_basename
     end
   end
 end
