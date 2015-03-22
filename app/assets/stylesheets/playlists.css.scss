@@ -16,7 +16,16 @@ li.playlist {
   padding-bottom: 10px;
 }
 
+.playlist-state-default {
+  background: lighten(orange, 10%);
+}
+
+.playlist-state-hover {
+  background: lighten(orange, 30%);
+}
+
 li.track {
+  z-index: 100;
   list-style:none;
   border-radius:5px;
   background: yellow;

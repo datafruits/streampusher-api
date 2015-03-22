@@ -1,4 +1,4 @@
-<li class="playlist">
+<li class="playlist" data-playlist-id="<%=playlist.id%>">
   <span><%= playlist.name %></span>
   <ul class="playlist-tracks" data-playlist-id="<%=playlist.id%>">
     <% playlist.tracks.each do |track| %>
@@ -6,3 +6,24 @@
     <% end %>
   </ul>
 </li>
+<%= coffee_script_tag do %>
+  $('ul.playlist-tracks').droppable({
+    activeClass: "playlist-state-default"
+    hoverClass: "playlist-state-hover"
+    drop: (event, ui) ->
+      playlistId = $(this).data('playlist-id')
+      trackId = ui.draggable.data('track-id')
+      console.log("recevied track #{trackId} on playlist #{playlistId}")
+      $.ajax
+        type: 'POST'
+        url: "/playlists/#{playlistId}/add_track"
+        data:
+          track:
+            id: trackId
+        success: (data) ->
+          console.log(data)
+        error: (data) ->
+          console.log(data)
+  })
+
+<% end %>

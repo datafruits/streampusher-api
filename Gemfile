@@ -57,6 +57,7 @@ gem 'slackistrano', require: false
 gem 'exception_notification'
 
 gem 'groupdate'
+gem 'coffeebeans'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-countUp.js'

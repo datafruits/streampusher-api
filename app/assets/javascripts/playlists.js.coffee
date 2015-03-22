@@ -21,28 +21,10 @@ $('[data-controller=playlists]').ready ->
     $("#status").html("error! :(")
     console.log("there was an error; responded with "+data)
 
-  $('#tracks').sortable({
+  $('#tracks li.track').draggable({
     revert: true
-    connectWith: '.playlist-tracks'
-  }).disableSelection()
-
-  $('.playlist-tracks').sortable({
-    revert: true
-    receive: (event, ui) ->
-      playlistId = $(this).data('playlistId')
-      trackId = ui.item.data('trackId')
-      console.log("recevied track #{trackId} on playlist #{playlistId}")
-      $.ajax
-        type: 'POST'
-        url: "/playlists/#{playlistId}/add_track"
-        data:
-          track:
-            id: trackId
-        success: (data) ->
-          console.log(data)
-        error: (data) ->
-          console.log(data)
-  }).disableSelection()
+    revertDuration: 0
+  })
 
   $(document).on 'click', "ul.playlist-tracks button.delete-from-playlist", () ->
     playlistId = $(this).parent('li').parent('ul').data('playlist-id')
