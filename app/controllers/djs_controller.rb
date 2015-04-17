@@ -1,6 +1,6 @@
 class DjsController < ApplicationController
   def index
-    @djs = current_radio.djs
+    @djs = current_radio.djs.page(params[:page])
     @dj = @djs.new
   end
 

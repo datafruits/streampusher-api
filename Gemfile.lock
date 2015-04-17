@@ -135,6 +135,9 @@ GEM
     jquery-ui-rails (5.0.3)
       railties (>= 3.2.16)
     json (1.8.2)
+    kaminari (0.16.3)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     kgio (2.9.3)
     less (2.6.0)
       commonjs (~> 0.2.7)
@@ -335,6 +338,7 @@ DEPENDENCIES
   groupdate
   jquery-rails
   jquery-ui-rails
+  kaminari
   less-rails
   lograge
   pg
