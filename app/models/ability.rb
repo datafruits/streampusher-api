@@ -7,8 +7,10 @@ class Ability
       can :admin, :dashboard
       can :admin, :radios
       can :manage, :all
+      can :manage, Podcast
     elsif user.dj?
       cannot :admin
+      cannot :new, :create, :edit, :update, Podcast
     else
       can :manage, Radio do |radio|
         can_manage_radio?(user, radio)

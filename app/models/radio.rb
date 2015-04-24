@@ -5,6 +5,7 @@ class Radio < ActiveRecord::Base
   has_many :shows
   has_many :tracks
   has_many :playlists
+  has_many :podcasts
   belongs_to :subscription
 
   def djs

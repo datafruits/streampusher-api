@@ -1,0 +1,39 @@
+<h1>podcasts</h1>
+<div class="row">
+  <div class="col-md-6">
+    <h3>tracks</h3>
+    <ul id="tracks">
+      <% @tracks.each do |track| %>
+        <%= render track %>
+      <% end %>
+    </ul>
+    <h3>upload new track</h3>
+      <%= s3_uploader_form callback_url: tracks_url(format: :js),
+                           callback_param: "track[audio_file_name]",
+                           key_starts_with: "",
+                           key: "${filename}",
+                           id: "track-uploader" do %>
+      <%= file_field_tag :file %>
+      <div id="dropzone" class="fade well">Drop files here</div>
+    <% end %>
+    <div id="status"></div>
+    <script id="template-upload" type="text/x-tmpl">
+    <div id="file-{%=o.unique_id%}" class="upload">
+      {%=o.name%}
+        <div class="progress"><div class="bar" style="width: 0%"></div></div>
+        </div>
+    </script>
+  </div>
+  <div class="col-md-6">
+    <h3>podcast</h3>
+    <ul id="podcasts">
+      <% @podcasts.each do |podcast| %>
+        <%= render podcast %>
+      <% end %>
+    </ul>
+    <%= simple_form_for @podcast, remote: true do |f| %>
+      <%= f.text_field :name, placeholder: 'enter new podcast name...' %>
+      <%= f.submit '+ new podcast', class: 'btn btn-success' %>
+    <% end %>
+  </div>
+</div>
