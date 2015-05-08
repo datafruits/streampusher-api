@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150424035556) do
+ActiveRecord::Schema.define(version: 20150425042824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,14 +44,6 @@ ActiveRecord::Schema.define(version: 20150424035556) do
     t.string   "name",       limit: 255
   end
 
-  create_table "podcast_items", force: :cascade do |t|
-    t.integer  "podcast_id"
-    t.integer  "track_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "position"
-  end
-
   create_table "podcasts", force: :cascade do |t|
     t.integer  "radio_id"
     t.string   "title"
@@ -64,6 +56,7 @@ ActiveRecord::Schema.define(version: 20150424035556) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name",            default: "", null: false
+    t.integer  "playlist_id"
   end
 
   create_table "radios", force: :cascade do |t|
