@@ -13,14 +13,38 @@
     <div class="collapse navbar-collapse">
       <% if user_signed_in? %>
         <ul class="nav navbar-nav">
-          <li><%= link_to "Dashboard", radios_path %></li>
-          <li><%= link_to "Stats", stats_path %></li>
-          <li><%= link_to "Schedule", shows_path %></li>
-          <li><%= link_to "Playlists", playlists_path %></li>
+          <li>
+            <%= link_to radios_path do %>
+              <i class="fa fa-tachometer"></i>Dashboard
+            <% end %>
+          </li>
           <% if current_user.admin? %>
-            <li><%= link_to "DJ Management", djs_path %></li>
+            <li>
+              <%= link_to djs_path do %>
+                <i class="fa fa-user"></i>Users
+              <% end %>
+            </li>
           <% end %>
-          <li><%= link_to "Podcast", podcasts_path %></li>
+          <li>
+            <%= link_to shows_path do %>
+              <i class="fa fa-calendar"></i>Schedule
+            <% end %>
+          </li>
+          <li>
+            <%= link_to stats_path do %>
+              <i class="fa fa-line-chart"></i>Stats
+            <% end %>
+          </li>
+          <li>
+            <%= link_to playlists_path do %>
+              <i class="fa fa-list"></i>Playlists
+            <% end %>
+          </li>
+          <li>
+            <%= link_to podcasts_path do %>
+              <i class="fa fa-rss"></i>Podcasts
+            <% end %>
+          </li>
         </ul>
       <% end %>
 
