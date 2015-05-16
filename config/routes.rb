@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :recordings
-  resources :podcasts
+  resources :podcasts, only: [:index, :show]
 
   resources :shows
 
