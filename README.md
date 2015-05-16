@@ -4,7 +4,7 @@
 * ruby
 * postgres
 * docker
-* fig
+* docker-compose
 
 ## get these repos
 * streampusher/docker_stack
@@ -12,7 +12,7 @@
 
 ```
 $ cd docker_stack
-$ fig up
+$ docker-compose up
 ```
 
 Run the rails app like normal:
