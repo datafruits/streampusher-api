@@ -60,6 +60,7 @@ gem 'groupdate'
 gem 'coffeebeans'
 gem 'ranked-model'
 gem 'kaminari'
+gem 'active_model_serializers'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-countUp.js'

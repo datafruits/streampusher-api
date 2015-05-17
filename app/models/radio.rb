@@ -3,6 +3,7 @@ class Radio < ActiveRecord::Base
   has_many :user_radios
   has_many :users, through: :user_radios
   has_many :shows
+  has_many :scheduled_shows
   has_many :tracks
   has_many :playlists
   has_many :podcasts

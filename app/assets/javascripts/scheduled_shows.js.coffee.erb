@@ -1,0 +1,14 @@
+$('[data-controller=scheduled_shows]').ready ->
+  $('#calendar').ready ->
+   $('#calendar').fullCalendar({
+     header: {
+       left: 'prev,next today',
+       center: 'title',
+       right: 'month,basicWeek,basicDay'
+     }
+     defaultView: 'basicWeek'
+     editable: true
+     eventSources: [
+       '/scheduled_shows.json'
+     ]
+   })
