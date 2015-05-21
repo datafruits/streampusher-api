@@ -4,7 +4,7 @@ class Playlist < ActiveRecord::Base
   has_many :tracks, through: :playlist_tracks
 
   def redis_key
-    "#{self.radio.name}:playlist"
+    "#{self.radio.name}:playlist:#{name}"
   end
 
   def add_track track

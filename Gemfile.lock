@@ -76,6 +76,7 @@ GEM
       sidekiq
     celluloid (0.16.0)
       timers (~> 4.0.0)
+    chronic (0.10.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.7)
@@ -118,6 +119,11 @@ GEM
       activesupport (>= 3.0.4)
     excon (0.44.4)
     execjs (2.4.0)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
+      railties (>= 3.0.0)
     font-awesome-sass (4.2.1)
       sass (~> 3.2)
     globalid (0.3.3)
@@ -330,6 +336,7 @@ DEPENDENCIES
   capistrano-rails (~> 1.1.2)
   capistrano-rbenv (~> 2.0)
   capistrano-sidekiq
+  chronic
   cocaine
   coffee-rails (~> 4.1.0)
   coffeebeans
@@ -337,6 +344,7 @@ DEPENDENCIES
   docker-api (~> 1.20.0)
   dotenv-rails
   exception_notification
+  factory_girl_rails
   font-awesome-sass (~> 4.2.0)
   groupdate
   jquery-rails

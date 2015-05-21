@@ -38,6 +38,7 @@ gem 'capistrano-rbenv', "~>2.0"
 gem 'capistrano-sidekiq'
 
 group :test do
+  gem 'factory_girl_rails'
   gem 'vcr'
   gem 'webmock'
 end
@@ -61,6 +62,7 @@ gem 'coffeebeans'
 gem 'ranked-model'
 gem 'kaminari'
 gem 'active_model_serializers'
+gem 'chronic'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-countUp.js'

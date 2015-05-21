@@ -11,6 +11,14 @@ class ShowsController < ApplicationController
     end
   end
 
+  def edit
+
+  end
+
+  def update
+
+  end
+
   def create
     if @show.save
       redirect_to shows_path
