@@ -3,11 +3,7 @@ class SavePlaylistToRedisWorker < ActiveJob::Base
 
   def perform playlist_id
     playlist = Playlist.find playlist_id
-    if ::Rails.env.development?
-      redis = Redis.new host: URI.parse(ENV['DOCKER_HOST']).hostname
-    else
-      redis = Redis.new
-    end
+    redis = Redis.current
     redis.del playlist.redis_key
     playlist.playlist_tracks.rank(:position).reverse.each do |playlist_track|
       track = Track.find(playlist_track.track_id)
