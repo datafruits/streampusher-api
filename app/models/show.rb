@@ -4,4 +4,9 @@ class Show < ActiveRecord::Base
   has_many :scheduled_shows
   belongs_to :playlist
   validates_presence_of :playlist_id
+
+  # validates :color, unique: true, scope: radio_id
+
+  def self.colors
+  end
 end
