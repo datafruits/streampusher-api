@@ -6,8 +6,24 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
 
   after_filter :flash_to_headers
+  around_filter :set_time_zone
+
 
   protected
+  def set_time_zone(&block)
+    if current_user
+      Time.use_zone(current_user.time_zone, &block)
+    elsif browser_timezone.present?
+      Time.use_zone(browser_timezone, &block)
+    else
+      yield
+    end
+  end
+
+  def browser_timezone
+    cookies["browser.timezone"]
+  end
+
   def current_radio
     if !request.subdomain.blank?
       Radio.find_by_name request.subdomain

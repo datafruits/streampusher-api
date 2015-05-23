@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   validate :valid_role
   validates_presence_of :username
   validates_uniqueness_of :username
+  validates_presence_of :time_zone
+  validates_inclusion_of :time_zone, :in => ActiveSupport::TimeZone.all.map { |m| m.name }, :message => "is not a valid Time Zone"
 
   before_validation :set_username
 
