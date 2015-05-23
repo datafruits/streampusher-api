@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe ScheduledShow, :type => :model do
   before do
     @radio = Radio.create name: 'datafruits', subscription_id: 1
-    dj = User.create role: 'dj', username: 'dakota', email: "dakota@gmail.com", password: "2boobies"
+    dj = User.create role: 'dj', username: 'dakota', email: "dakota@gmail.com", password: "2boobies", time_zone: "UTC"
     playlist = Playlist.create radio: @radio, name: "big tunes"
     show = Show.create dj: dj, radio: @radio, playlist: playlist
     start_at = Chronic.parse("today at 1:15 pm").utc
