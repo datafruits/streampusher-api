@@ -31,6 +31,6 @@ class ShowsController < ApplicationController
 
   private
   def create_params
-    params.require(:show).permit(:title, :dj_id, :radio_id)
+    params.require(:show).permit(:title, :dj_id, :radio_id, :playlist_id)
   end
 end

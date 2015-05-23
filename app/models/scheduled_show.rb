@@ -1,6 +1,7 @@
 class ScheduledShow < ActiveRecord::Base
   belongs_to :radio
   belongs_to :show
+  belongs_to :playlist
 
   validates_presence_of :start_at, :end_at
   validates_presence_of :show_id
