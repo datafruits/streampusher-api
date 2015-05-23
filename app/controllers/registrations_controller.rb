@@ -46,7 +46,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :current_password,
+    params.require(:user).permit(:email, :password, :password_confirmation, :current_password, :time_zone,
                                  subscription_attributes: [:plan_id, :stripe_card_token,
                                  radios_attributes: [:name]])
   end
