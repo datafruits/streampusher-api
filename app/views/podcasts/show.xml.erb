@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
   <channel>
-    <title><%= podcast.name %></title>
+    <title><%= @podcast.name %></title>
     <link>http://www.datafruits.fm</link>
     <description>datafruits.fm podcast j-pop chip garage skweee</description>
     <language>en-us</language>
@@ -23,11 +23,11 @@
       <item>
         <title><%=track.title%></title>
         <description>
-          <%=track.description.to_s%>
+          <%=track.try(:description).to_s%>
         </description>
         <pubDate><%=track.created_at.strftime("%a, %d %b %Y %H:%M:%S %Z")%></pubDate>
-        <enclosure url="<%=track.mp3_url%>" length="" type="audio/mpeg"/>
-        <guid><%=track.mp3_url%></guid>
+        <enclosure url="<%=track.audio_file_name%>" length="" type="audio/mpeg"/>
+        <guid><%=track.audio_file_name%></guid>
       </item>
     <% end %>
   </channel>
