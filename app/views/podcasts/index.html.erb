@@ -1,7 +1,27 @@
 <h1>podcasts</h1>
 <div class="row">
-  <p>Select one of your playlists to export to a podcast.</p>
-  <div class="col-md-6">
-    <h3>playlists</h3>
-  </div>
+  <%= simple_form_for @podcast, html: {class: 'form-horizontal'} do |f| %>
+    <%= f.input :radio_id, input_html: { value: @current_radio.id }, as: :hidden %>
+    <%= f.input :playlist_id, collection: @current_radio.playlists, label_method: :name, value_method: :id  %>
+    <%= f.input :name %>
+
+    <%= f.submit 'Create Podcast', class: 'btn btn-success' %>
+  <% end %>
 </div>
+
+<table class="table table-striped">
+  <thead>
+    <th>name</th>
+    <th>playlist</th>
+    <th>XML feed</th>
+  </thead>
+  <tbody>
+    <% @podcasts.each do |podcast| %>
+      <tr>
+        <td><%= podcast.name %></td>
+        <td><%= podcast.playlist.try(:name) %></td>
+        <td><%= link_to 'xml feed', podcast_path(podcast, format: :xml) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

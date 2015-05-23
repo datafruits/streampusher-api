@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :recordings
-  resources :podcasts, only: [:index, :show]
+  resources :podcasts, only: [:index, :show, :create]
 
   resources :shows
   resources :scheduled_shows

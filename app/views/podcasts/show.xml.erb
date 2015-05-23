@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+  <channel>
+    <title><%= podcast.name %></title>
+    <link>http://www.datafruits.fm</link>
+    <description>datafruits.fm podcast j-pop chip garage skweee</description>
+    <language>en-us</language>
+    <copyright/>
+    <lastBuildDate>Tue, 16 Jul 2013 11:54:39 PDT</lastBuildDate>
+    <ttl>1</ttl>
+    <atom:link href="http://www.datafruits.fm/podcast.xml" rel="self" type="application/rss+xml"/>
+    <itunes:image href="http://www.datafruits.fm/assets/podcast.jpg"/>
+    <itunes:summary>
+      DATAFRUITS.FM podcast latest mixes from datafruits.fm internet radio station
+    </itunes:summary>
+    <itunes:category text="Music"/>
+    <itunes:explicit>No</itunes:explicit>
+    <itunes:owner>
+      <itunes:name>Various Artists</itunes:name>
+      <itunes:email>info@datafruits.fm (Tony Miller)</itunes:email>
+    </itunes:owner>
+    <% @podcast.playlist.tracks.each do |track| %>
+      <item>
+        <title><%=track.title%></title>
+        <description>
+          <%=track.description.to_s%>
+        </description>
+        <pubDate><%=track.created_at.strftime("%a, %d %b %Y %H:%M:%S %Z")%></pubDate>
+        <enclosure url="<%=track.mp3_url%>" length="" type="audio/mpeg"/>
+        <guid><%=track.mp3_url%></guid>
+      </item>
+    <% end %>
+  </channel>
+</rss>
