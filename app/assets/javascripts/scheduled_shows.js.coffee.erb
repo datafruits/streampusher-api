@@ -9,6 +9,6 @@ $('[data-controller=scheduled_shows]').ready ->
      defaultView: 'basicWeek'
      editable: true
      eventSources: [
-       '/scheduled_shows.json'
+       "/scheduled_shows.json?timezone=<%=Time.zone.name%>"
      ]
    })
