@@ -27,9 +27,9 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def time_keys
-    cur_time = self.start_at
+    cur_time = self.start_at.utc
     time_keys = []
-    while cur_time < self.end_at do
+    while cur_time < self.end_at.utc do
       date = cur_time.strftime("%m%d%Y")
       hours_mins = cur_time.strftime("%Hh%Mm")
       time_keys << "#{date}:#{hours_mins}"
