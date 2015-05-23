@@ -1,0 +1,5 @@
+<div><%= form.label :email %><br />
+<%= form.email_field :email, autofocus: true %></div>
+
+<div><%= form.label :time_zone %></br />
+<%= form.time_zone_select :time_zone, ActiveSupport::TimeZone.all.sort, selected: Time.zone %></div>
