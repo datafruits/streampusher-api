@@ -8,6 +8,8 @@ class ScheduledShow < ActiveRecord::Base
   alias_attribute :start, :start_at
   alias_attribute :end, :end_at
 
+  after_save :persist_to_redis
+
   # TODO
   # validate :time_is_in_15_min_intervals
 
@@ -37,16 +39,12 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def redis_keys
-    time_keys.map{|key| "#{self.radio.name}:schedule:#{self.id}:#{key}"}
+    time_keys.map{|key| "#{self.radio.name}:schedule:#{key}"}
   end
 
   def persist_to_redis redis=nil
     unless redis.present?
-      if ::Rails.env.development?
-        redis = Redis.new host: URI.parse(ENV['DOCKER_HOST']).hostname
-      else
-        redis = Redis.new
-      end
+      redis = Redis.current
     end
     redis_keys.each do |key|
       redis.set key, self.show.playlist.redis_key

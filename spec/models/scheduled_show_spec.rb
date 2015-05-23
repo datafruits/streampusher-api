@@ -19,14 +19,14 @@ RSpec.describe ScheduledShow, :type => :model do
   end
 
   it "gets redis keys" do
-    expect(@scheduled_show.redis_keys).to eq ["#{@radio.name}:schedule:#{@scheduled_show.id}:#{@date}:04h15m",
-                                              "#{@radio.name}:schedule:#{@scheduled_show.id}:#{@date}:04h30m",
-                                              "#{@radio.name}:schedule:#{@scheduled_show.id}:#{@date}:04h45m",
-                                              "#{@radio.name}:schedule:#{@scheduled_show.id}:#{@date}:05h00m",
-                                              "#{@radio.name}:schedule:#{@scheduled_show.id}:#{@date}:05h15m",
-                                              "#{@radio.name}:schedule:#{@scheduled_show.id}:#{@date}:05h30m",
-                                              "#{@radio.name}:schedule:#{@scheduled_show.id}:#{@date}:05h45m",
-                                              "#{@radio.name}:schedule:#{@scheduled_show.id}:#{@date}:06h00m"]
+    expect(@scheduled_show.redis_keys).to eq ["#{@radio.name}:schedule:#{@date}:04h15m",
+                                              "#{@radio.name}:schedule:#{@date}:04h30m",
+                                              "#{@radio.name}:schedule:#{@date}:04h45m",
+                                              "#{@radio.name}:schedule:#{@date}:05h00m",
+                                              "#{@radio.name}:schedule:#{@date}:05h15m",
+                                              "#{@radio.name}:schedule:#{@date}:05h30m",
+                                              "#{@radio.name}:schedule:#{@date}:05h45m",
+                                              "#{@radio.name}:schedule:#{@date}:06h00m"]
   end
 
   it "persists to redis" do
