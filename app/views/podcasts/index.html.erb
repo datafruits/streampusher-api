@@ -1,12 +1,6 @@
 <h1>podcasts</h1>
 <div class="row">
-  <%= simple_form_for @podcast, html: {class: 'form-horizontal'} do |f| %>
-    <%= f.input :radio_id, input_html: { value: @current_radio.id }, as: :hidden %>
-    <%= f.input :playlist_id, collection: @current_radio.playlists, label_method: :name, value_method: :id  %>
-    <%= f.input :name %>
-
-    <%= f.submit 'Create Podcast', class: 'btn btn-success' %>
-  <% end %>
+  <%= render 'form' %>
 </div>
 
 <table class="table table-striped">
