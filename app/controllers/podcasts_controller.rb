@@ -1,5 +1,5 @@
 class PodcastsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:show]
   def index
     @current_radio = current_radio
     @podcasts = @current_radio.podcasts
@@ -17,6 +17,7 @@ class PodcastsController < ApplicationController
   end
 
   def show
+    @podcast = current_radio.podcasts.find_by_name(params[:id])
     respond_to do |format|
       format.xml { render 'show', layout: false }
     end
