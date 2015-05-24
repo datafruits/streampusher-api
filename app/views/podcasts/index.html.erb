@@ -20,7 +20,7 @@
       <tr>
         <td><%= podcast.name %></td>
         <td><%= podcast.playlist.try(:name) %></td>
-        <td><%= link_to 'xml feed', podcast_path(podcast, format: :xml) %></td>
+        <td><%= link_to 'xml feed', podcast_path(id: podcast.name, format: :xml) %></td>
       </tr>
     <% end %>
   </tbody>
