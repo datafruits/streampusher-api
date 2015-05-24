@@ -18,7 +18,7 @@ class PodcastsController < ApplicationController
 
   def show
     respond_to do |format|
-      format.xml
+      format.xml { render 'show', layout: false }
     end
   end
   private
