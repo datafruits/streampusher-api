@@ -1,6 +1,7 @@
 class Podcast < ActiveRecord::Base
   belongs_to :radio
   belongs_to :playlist
+  serialize :extra_tags, Hash
 
   has_attached_file :image,
     styles: { medium: "300x300>", thumb: "100x100>" },

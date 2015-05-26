@@ -19,6 +19,9 @@
       <itunes:name>Various Artists</itunes:name>
       <itunes:email>info@datafruits.fm (Tony Miller)</itunes:email>
     </itunes:owner>
+    <% @podcast.extra_tags.each do |key,value| %>
+      <<%=key%>><%=value%></<%=key%>>
+    <% end %>
     <% @podcast.playlist.tracks.each do |track| %>
       <item>
         <title><%=track.title%></title>
