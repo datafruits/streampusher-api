@@ -2,6 +2,7 @@
   <%= f.input :radio_id, input_html: { value: @current_radio.id }, as: :hidden %>
   <%= f.input :playlist_id, collection: @current_radio.playlists, label_method: :name, value_method: :id  %>
   <%= f.input :name %>
+  <%= f.input :image, as: :file %>
 
   <%= f.submit 'Save Podcast', class: 'btn btn-success' %>
 <% end %>

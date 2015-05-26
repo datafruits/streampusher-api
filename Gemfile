@@ -63,6 +63,8 @@ gem 'ranked-model'
 gem 'kaminari'
 gem 'active_model_serializers'
 gem 'chronic'
+gem 'aws-sdk', '< 2.0'
+gem 'paperclip'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-countUp.js'
