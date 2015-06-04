@@ -22,4 +22,5 @@
 //= require chartjs
 //= require jplayer/jquery.jplayer.js
 //= require underscore
+//= require chosen-jquery
 //= require_tree .

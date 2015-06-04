@@ -6,8 +6,14 @@ gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 
+# assets gems
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'less-rails'
+gem 'twitter-bootstrap-rails', '~> 3.2.0'
+gem 'font-awesome-sass', '~> 4.2.0'
+gem 'bourbon'
+gem 'chosen-rails'
 
 gem 'spring',        group: :development
 
@@ -21,11 +27,6 @@ gem 'lograge'
 
 gem 'sidekiq'
 gem 'therubyracer'
-gem 'less-rails'
-gem 'twitter-bootstrap-rails', '~> 3.2.0'
-gem 'font-awesome-sass', '~> 4.2.0'
-gem 'bourbon'
-
 gem 'rspec-rails', :group => [:development, :test]
 
 gem 'dotenv-rails'
