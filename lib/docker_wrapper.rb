@@ -25,7 +25,7 @@ class DockerWrapper
 
   def start
     if ::Rails.env.development?
-      @container.start("PublishAllPorts" => "true", 'ExposedPorts' => { "3000/http": [{ "HostPort": "3000" }] },'ExtraHosts' => ["docker:#{local_private_ip}"])
+      @container.start("PublishAllPorts" => "true", 'ExposedPorts' => { "3000/http" => [{ "HostPort": "3000" }] },'ExtraHosts' => ["docker:#{local_private_ip}"])
     else
       @container.start("PublishAllPorts" => "true", 'ExtraHosts' => ["docker:#{local_private_ip}"])
     end
