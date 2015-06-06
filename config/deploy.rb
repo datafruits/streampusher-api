@@ -29,12 +29,12 @@ set :slack_webhook, 'https://hooks.slack.com/services/T03HKP2J8/B03NLRJ0D/MYmLKm
 
 # Default value for :pty is false
 # set :pty, true
-
+#
 # Default value for :linked_files is []
 set :linked_files, %w{config/database.yml config/application.yml}
 
 # Default value for linked_dirs is []
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
 
