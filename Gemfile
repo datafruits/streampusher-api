@@ -32,7 +32,7 @@ gem 'rspec-rails', :group => [:development, :test]
 gem 'dotenv-rails'
 gem 'unicorn'
 
-gem 'capistrano', '~> 3.2.1'
+gem 'capistrano', '~> 3.4.0'
 gem 'capistrano-rails', '~> 1.1.2'
 gem 'capistrano-bundler'
 gem 'capistrano-rbenv', "~>2.0"
