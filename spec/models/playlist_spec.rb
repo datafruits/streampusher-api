@@ -1,6 +1,11 @@
 require 'rails_helper'
+require 'sidekiq/testing'
 
 RSpec.describe Playlist, :type => :model do
+  before do
+    Sidekiq::Testing.fake!
+  end
+
   it 'adds a track to the playlist' do
     playlist = Playlist.create radio_id: 1
     track = Track.create radio_id: 1

@@ -1,7 +1,9 @@
 require 'rails_helper'
+require 'sidekiq/testing'
 
 RSpec.describe ScheduledShow, :type => :model do
   before do
+    Sidekiq::Testing.fake!
     @radio = Radio.create name: 'datafruits', subscription_id: 1
     dj = User.create role: 'dj', username: 'dakota', email: "dakota@gmail.com", password: "2boobies", time_zone: "UTC"
     playlist = Playlist.create radio: @radio, name: "big tunes"
