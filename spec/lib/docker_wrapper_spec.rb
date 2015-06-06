@@ -5,8 +5,11 @@ require 'vcr'
 VCR.configure do |config|
   config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
   config.hook_into :webmock # or :fakeweb
-end
 
+  config.define_cassette_placeholder("<DOCKER_HOST>") do
+    "#{URI(ENV['DOCKER_HOST']).host}:#{URI(ENV['DOCKER_HOST']).port}"
+  end
+end
 describe DockerWrapper do
   it "creates a new docker container" do
     VCR.use_cassette "create_container" do
@@ -14,6 +17,7 @@ describe DockerWrapper do
       expect(container.id).to_not eq nil
     end
   end
+
   it "sets the env" do
     VCR.use_cassette "set_env" do
       container = DockerWrapper.find_or_create 'mcfiredrill/icecast', 'coolradio_icecast_with_env', ["RADIO_NAME=coolradio"]
@@ -21,6 +25,7 @@ describe DockerWrapper do
       expect(container.env.include?("RADIO_NAME=coolradio")).to eq true
     end
   end
+
   it "sets links" do
     VCR.use_cassette "set_links" do
       container1 = DockerWrapper.find_or_create 'mcfiredrill/icecast', 'coolradio_icecast1', []
