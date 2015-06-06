@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://<DOCKER_HOST>/v1.16/containers/coolradio_icecast1/json
+    uri: "<DOCKER_HOST>/v1.16/containers/coolradio_icecast1/json"
     body:
       encoding: US-ASCII
       string: ''
@@ -19,16 +19,16 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 06 Jun 2015 13:51:52 GMT
+      - Sat, 06 Jun 2015 14:01:50 GMT
     body:
       encoding: UTF-8
       string: |
-        {"AppArmorProfile":"","Args":["-c","icecast -c /icecast.xml"],"Config":{"AttachStderr":false,"AttachStdin":false,"AttachStdout":false,"Cmd":["/bin/sh","-c","icecast -c /icecast.xml"],"CpuShares":0,"Cpuset":"","Domainname":"","Entrypoint":null,"Env":["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","LANG=en_US.UTF-8","DEBIAN_FRONTEND=noninteractive"],"ExposedPorts":{"8000/tcp":{}},"Hostname":"5b2a9cc0e683","Image":"mcfiredrill/icecast","Labels":{},"MacAddress":"","Memory":0,"MemorySwap":0,"NetworkDisabled":false,"OnBuild":null,"OpenStdin":false,"PortSpecs":null,"StdinOnce":false,"Tty":false,"User":"icecast","Volumes":null,"WorkingDir":""},"Created":"2015-06-06T13:46:35.009218117Z","Driver":"aufs","ExecDriver":"native-0.2","ExecIDs":null,"HostConfig":{"Binds":[],"CapAdd":null,"CapDrop":null,"CgroupParent":"","ContainerIDFile":"","CpuShares":0,"CpusetCpus":"","Devices":null,"Dns":null,"DnsSearch":null,"ExtraHosts":null,"IpcMode":"","Links":null,"LogConfig":{"Config":null,"Type":"json-file"},"LxcConf":null,"Memory":0,"MemorySwap":0,"NetworkMode":"","PidMode":"","PortBindings":null,"Privileged":false,"PublishAllPorts":false,"ReadonlyRootfs":false,"RestartPolicy":{"MaximumRetryCount":0,"Name":""},"SecurityOpt":null,"Ulimits":null,"VolumesFrom":null},"HostnamePath":"","HostsPath":"","Id":"5b2a9cc0e68356aad50bc205c51df40d78a6bc8872f23ad4942a7ea0c4927710","Image":"c0b00183e2764a98de365feb3dbd0632b2cf5a2272d4219d2bd420b4329916f2","LogPath":"","MountLabel":"","Name":"/coolradio_icecast1","NetworkSettings":{"Bridge":"","Gateway":"","GlobalIPv6Address":"","GlobalIPv6PrefixLen":0,"IPAddress":"","IPPrefixLen":0,"IPv6Gateway":"","LinkLocalIPv6Address":"","LinkLocalIPv6PrefixLen":0,"MacAddress":"","PortMapping":null,"Ports":null},"Path":"/bin/sh","ProcessLabel":"","ResolvConfPath":"","RestartCount":0,"State":{"Dead":false,"Error":"","ExitCode":0,"FinishedAt":"0001-01-01T00:00:00Z","OOMKilled":false,"Paused":false,"Pid":0,"Restarting":false,"Running":false,"StartedAt":"0001-01-01T00:00:00Z"},"Volumes":{},"VolumesRW":{}}
+        {"AppArmorProfile":"","Args":["-c","icecast -c /icecast.xml"],"Config":{"AttachStderr":false,"AttachStdin":false,"AttachStdout":false,"Cmd":["/bin/sh","-c","icecast -c /icecast.xml"],"CpuShares":0,"Cpuset":"","Domainname":"","Entrypoint":null,"Env":["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","LANG=en_US.UTF-8","DEBIAN_FRONTEND=noninteractive"],"ExposedPorts":{"8000/tcp":{}},"Hostname":"e0755991d23f","Image":"mcfiredrill/icecast","Labels":{},"MacAddress":"","Memory":0,"MemorySwap":0,"NetworkDisabled":false,"OnBuild":null,"OpenStdin":false,"PortSpecs":null,"StdinOnce":false,"Tty":false,"User":"icecast","Volumes":null,"WorkingDir":""},"Created":"2015-06-06T13:51:53.106569586Z","Driver":"aufs","ExecDriver":"native-0.2","ExecIDs":null,"HostConfig":{"Binds":[],"CapAdd":null,"CapDrop":null,"CgroupParent":"","ContainerIDFile":"","CpuShares":0,"CpusetCpus":"","Devices":null,"Dns":null,"DnsSearch":null,"ExtraHosts":null,"IpcMode":"","Links":null,"LogConfig":{"Config":null,"Type":"json-file"},"LxcConf":null,"Memory":0,"MemorySwap":0,"NetworkMode":"","PidMode":"","PortBindings":null,"Privileged":false,"PublishAllPorts":false,"ReadonlyRootfs":false,"RestartPolicy":{"MaximumRetryCount":0,"Name":""},"SecurityOpt":null,"Ulimits":null,"VolumesFrom":null},"HostnamePath":"","HostsPath":"","Id":"e0755991d23f4be4bf66e0065bdf54a4e8fc11f523f5ade1e7ee5e1e4831b054","Image":"c0b00183e2764a98de365feb3dbd0632b2cf5a2272d4219d2bd420b4329916f2","LogPath":"","MountLabel":"","Name":"/coolradio_icecast1","NetworkSettings":{"Bridge":"","Gateway":"","GlobalIPv6Address":"","GlobalIPv6PrefixLen":0,"IPAddress":"","IPPrefixLen":0,"IPv6Gateway":"","LinkLocalIPv6Address":"","LinkLocalIPv6PrefixLen":0,"MacAddress":"","PortMapping":null,"Ports":null},"Path":"/bin/sh","ProcessLabel":"","ResolvConfPath":"","RestartCount":0,"State":{"Dead":false,"Error":"","ExitCode":0,"FinishedAt":"0001-01-01T00:00:00Z","OOMKilled":false,"Paused":false,"Pid":0,"Restarting":false,"Running":false,"StartedAt":"0001-01-01T00:00:00Z"},"Volumes":{},"VolumesRW":{}}
     http_version: 
-  recorded_at: Sat, 06 Jun 2015 13:51:54 GMT
+  recorded_at: Sat, 06 Jun 2015 14:01:51 GMT
 - request:
     method: post
-    uri: https://<DOCKER_HOST>/v1.16/containers/5b2a9cc0e68356aad50bc205c51df40d78a6bc8872f23ad4942a7ea0c4927710/stop
+    uri: "<DOCKER_HOST>/v1.16/containers/e0755991d23f4be4bf66e0065bdf54a4e8fc11f523f5ade1e7ee5e1e4831b054/stop"
     body:
       encoding: UTF-8
       string: "{}"
@@ -43,15 +43,15 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Sat, 06 Jun 2015 13:51:52 GMT
+      - Sat, 06 Jun 2015 14:01:50 GMT
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sat, 06 Jun 2015 13:51:54 GMT
+  recorded_at: Sat, 06 Jun 2015 14:01:51 GMT
 - request:
     method: delete
-    uri: https://<DOCKER_HOST>/v1.16/containers/5b2a9cc0e68356aad50bc205c51df40d78a6bc8872f23ad4942a7ea0c4927710
+    uri: "<DOCKER_HOST>/v1.16/containers/e0755991d23f4be4bf66e0065bdf54a4e8fc11f523f5ade1e7ee5e1e4831b054"
     body:
       encoding: US-ASCII
       string: ''
@@ -66,15 +66,15 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Sat, 06 Jun 2015 13:51:53 GMT
+      - Sat, 06 Jun 2015 14:01:50 GMT
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sat, 06 Jun 2015 13:51:54 GMT
+  recorded_at: Sat, 06 Jun 2015 14:01:51 GMT
 - request:
     method: post
-    uri: https://<DOCKER_HOST>/v1.16/containers/create?name=coolradio_icecast1
+    uri: "<DOCKER_HOST>/v1.16/containers/create?name=coolradio_icecast1"
     body:
       encoding: UTF-8
       string: '{"Image":"mcfiredrill/icecast","Env":[],"HostConfig":{"Links":[],"Binds":[]}}'
@@ -91,18 +91,18 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 06 Jun 2015 13:51:53 GMT
+      - Sat, 06 Jun 2015 14:01:50 GMT
       Content-Length:
       - '90'
     body:
       encoding: UTF-8
       string: |
-        {"Id":"e0755991d23f4be4bf66e0065bdf54a4e8fc11f523f5ade1e7ee5e1e4831b054","Warnings":null}
+        {"Id":"996a381f184ff613fe542ec335cb1b754e9ccf02c7f746b1f5d5ac2d6125f17d","Warnings":null}
     http_version: 
-  recorded_at: Sat, 06 Jun 2015 13:51:54 GMT
+  recorded_at: Sat, 06 Jun 2015 14:01:51 GMT
 - request:
     method: get
-    uri: https://<DOCKER_HOST>/v1.16/containers/coolradio_icecast2/json
+    uri: "<DOCKER_HOST>/v1.16/containers/coolradio_icecast2/json"
     body:
       encoding: US-ASCII
       string: ''
@@ -119,16 +119,16 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 06 Jun 2015 13:51:53 GMT
+      - Sat, 06 Jun 2015 14:01:50 GMT
     body:
       encoding: UTF-8
       string: |
-        {"AppArmorProfile":"","Args":["-c","icecast -c /icecast.xml"],"Config":{"AttachStderr":false,"AttachStdin":false,"AttachStdout":false,"Cmd":["/bin/sh","-c","icecast -c /icecast.xml"],"CpuShares":0,"Cpuset":"","Domainname":"","Entrypoint":null,"Env":["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","LANG=en_US.UTF-8","DEBIAN_FRONTEND=noninteractive"],"ExposedPorts":{"8000/tcp":{}},"Hostname":"b79185659958","Image":"mcfiredrill/icecast","Labels":{},"MacAddress":"","Memory":0,"MemorySwap":0,"NetworkDisabled":false,"OnBuild":null,"OpenStdin":false,"PortSpecs":null,"StdinOnce":false,"Tty":false,"User":"icecast","Volumes":null,"WorkingDir":""},"Created":"2015-06-06T13:46:35.368903112Z","Driver":"aufs","ExecDriver":"native-0.2","ExecIDs":null,"HostConfig":{"Binds":[],"CapAdd":null,"CapDrop":null,"CgroupParent":"","ContainerIDFile":"","CpuShares":0,"CpusetCpus":"","Devices":null,"Dns":null,"DnsSearch":null,"ExtraHosts":null,"IpcMode":"","Links":null,"LogConfig":{"Config":null,"Type":"json-file"},"LxcConf":null,"Memory":0,"MemorySwap":0,"NetworkMode":"","PidMode":"","PortBindings":null,"Privileged":false,"PublishAllPorts":false,"ReadonlyRootfs":false,"RestartPolicy":{"MaximumRetryCount":0,"Name":""},"SecurityOpt":null,"Ulimits":null,"VolumesFrom":null},"HostnamePath":"","HostsPath":"","Id":"b79185659958dca76a33f2ddbeddab19ffa668b06ddecbd201ec69bb2b526057","Image":"c0b00183e2764a98de365feb3dbd0632b2cf5a2272d4219d2bd420b4329916f2","LogPath":"","MountLabel":"","Name":"/coolradio_icecast2","NetworkSettings":{"Bridge":"","Gateway":"","GlobalIPv6Address":"","GlobalIPv6PrefixLen":0,"IPAddress":"","IPPrefixLen":0,"IPv6Gateway":"","LinkLocalIPv6Address":"","LinkLocalIPv6PrefixLen":0,"MacAddress":"","PortMapping":null,"Ports":null},"Path":"/bin/sh","ProcessLabel":"","ResolvConfPath":"","RestartCount":0,"State":{"Dead":false,"Error":"","ExitCode":0,"FinishedAt":"0001-01-01T00:00:00Z","OOMKilled":false,"Paused":false,"Pid":0,"Restarting":false,"Running":false,"StartedAt":"0001-01-01T00:00:00Z"},"Volumes":{},"VolumesRW":{}}
+        {"AppArmorProfile":"","Args":["-c","icecast -c /icecast.xml"],"Config":{"AttachStderr":false,"AttachStdin":false,"AttachStdout":false,"Cmd":["/bin/sh","-c","icecast -c /icecast.xml"],"CpuShares":0,"Cpuset":"","Domainname":"","Entrypoint":null,"Env":["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","LANG=en_US.UTF-8","DEBIAN_FRONTEND=noninteractive"],"ExposedPorts":{"8000/tcp":{}},"Hostname":"68dc4529801d","Image":"mcfiredrill/icecast","Labels":{},"MacAddress":"","Memory":0,"MemorySwap":0,"NetworkDisabled":false,"OnBuild":null,"OpenStdin":false,"PortSpecs":null,"StdinOnce":false,"Tty":false,"User":"icecast","Volumes":null,"WorkingDir":""},"Created":"2015-06-06T13:51:53.441507764Z","Driver":"aufs","ExecDriver":"native-0.2","ExecIDs":null,"HostConfig":{"Binds":[],"CapAdd":null,"CapDrop":null,"CgroupParent":"","ContainerIDFile":"","CpuShares":0,"CpusetCpus":"","Devices":null,"Dns":null,"DnsSearch":null,"ExtraHosts":null,"IpcMode":"","Links":null,"LogConfig":{"Config":null,"Type":"json-file"},"LxcConf":null,"Memory":0,"MemorySwap":0,"NetworkMode":"","PidMode":"","PortBindings":null,"Privileged":false,"PublishAllPorts":false,"ReadonlyRootfs":false,"RestartPolicy":{"MaximumRetryCount":0,"Name":""},"SecurityOpt":null,"Ulimits":null,"VolumesFrom":null},"HostnamePath":"","HostsPath":"","Id":"68dc4529801d7aade404889e727cd13ef7ffe8fc858cfb4ec8c58e0aa62f9c3d","Image":"c0b00183e2764a98de365feb3dbd0632b2cf5a2272d4219d2bd420b4329916f2","LogPath":"","MountLabel":"","Name":"/coolradio_icecast2","NetworkSettings":{"Bridge":"","Gateway":"","GlobalIPv6Address":"","GlobalIPv6PrefixLen":0,"IPAddress":"","IPPrefixLen":0,"IPv6Gateway":"","LinkLocalIPv6Address":"","LinkLocalIPv6PrefixLen":0,"MacAddress":"","PortMapping":null,"Ports":null},"Path":"/bin/sh","ProcessLabel":"","ResolvConfPath":"","RestartCount":0,"State":{"Dead":false,"Error":"","ExitCode":0,"FinishedAt":"0001-01-01T00:00:00Z","OOMKilled":false,"Paused":false,"Pid":0,"Restarting":false,"Running":false,"StartedAt":"0001-01-01T00:00:00Z"},"Volumes":{},"VolumesRW":{}}
     http_version: 
-  recorded_at: Sat, 06 Jun 2015 13:51:54 GMT
+  recorded_at: Sat, 06 Jun 2015 14:01:52 GMT
 - request:
     method: post
-    uri: https://<DOCKER_HOST>/v1.16/containers/b79185659958dca76a33f2ddbeddab19ffa668b06ddecbd201ec69bb2b526057/stop
+    uri: "<DOCKER_HOST>/v1.16/containers/68dc4529801d7aade404889e727cd13ef7ffe8fc858cfb4ec8c58e0aa62f9c3d/stop"
     body:
       encoding: UTF-8
       string: "{}"
@@ -143,15 +143,15 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Sat, 06 Jun 2015 13:51:53 GMT
+      - Sat, 06 Jun 2015 14:01:50 GMT
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sat, 06 Jun 2015 13:51:54 GMT
+  recorded_at: Sat, 06 Jun 2015 14:01:52 GMT
 - request:
     method: delete
-    uri: https://<DOCKER_HOST>/v1.16/containers/b79185659958dca76a33f2ddbeddab19ffa668b06ddecbd201ec69bb2b526057
+    uri: "<DOCKER_HOST>/v1.16/containers/68dc4529801d7aade404889e727cd13ef7ffe8fc858cfb4ec8c58e0aa62f9c3d"
     body:
       encoding: US-ASCII
       string: ''
@@ -166,15 +166,15 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Sat, 06 Jun 2015 13:51:53 GMT
+      - Sat, 06 Jun 2015 14:01:50 GMT
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sat, 06 Jun 2015 13:51:54 GMT
+  recorded_at: Sat, 06 Jun 2015 14:01:52 GMT
 - request:
     method: post
-    uri: https://<DOCKER_HOST>/v1.16/containers/create?name=coolradio_icecast2
+    uri: "<DOCKER_HOST>/v1.16/containers/create?name=coolradio_icecast2"
     body:
       encoding: UTF-8
       string: '{"Image":"mcfiredrill/icecast","Env":[],"HostConfig":{"Links":[],"Binds":[]}}'
@@ -191,18 +191,18 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 06 Jun 2015 13:51:53 GMT
+      - Sat, 06 Jun 2015 14:01:51 GMT
       Content-Length:
       - '90'
     body:
       encoding: UTF-8
       string: |
-        {"Id":"68dc4529801d7aade404889e727cd13ef7ffe8fc858cfb4ec8c58e0aa62f9c3d","Warnings":null}
+        {"Id":"760c9958ebef2a5879bcd420ed14252f7b0c8d94c052fdcc6724782003f1caef","Warnings":null}
     http_version: 
-  recorded_at: Sat, 06 Jun 2015 13:51:54 GMT
+  recorded_at: Sat, 06 Jun 2015 14:01:52 GMT
 - request:
     method: get
-    uri: https://<DOCKER_HOST>/v1.16/containers/coolradio_icecast_with_links/json
+    uri: "<DOCKER_HOST>/v1.16/containers/coolradio_icecast_with_links/json"
     body:
       encoding: US-ASCII
       string: ''
@@ -219,16 +219,16 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 06 Jun 2015 13:51:53 GMT
+      - Sat, 06 Jun 2015 14:01:51 GMT
     body:
       encoding: UTF-8
       string: |
-        {"AppArmorProfile":"","Args":["-c","icecast -c /icecast.xml"],"Config":{"AttachStderr":false,"AttachStdin":false,"AttachStdout":false,"Cmd":["/bin/sh","-c","icecast -c /icecast.xml"],"CpuShares":0,"Cpuset":"","Domainname":"","Entrypoint":null,"Env":["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","LANG=en_US.UTF-8","DEBIAN_FRONTEND=noninteractive"],"ExposedPorts":{"8000/tcp":{}},"Hostname":"ae5bb9a66ce6","Image":"mcfiredrill/icecast","Labels":{},"MacAddress":"","Memory":0,"MemorySwap":0,"NetworkDisabled":false,"OnBuild":null,"OpenStdin":false,"PortSpecs":null,"StdinOnce":false,"Tty":false,"User":"icecast","Volumes":null,"WorkingDir":""},"Created":"2015-06-06T13:46:35.747216959Z","Driver":"aufs","ExecDriver":"native-0.2","ExecIDs":null,"HostConfig":{"Binds":[],"CapAdd":null,"CapDrop":null,"CgroupParent":"","ContainerIDFile":"","CpuShares":0,"CpusetCpus":"","Devices":null,"Dns":null,"DnsSearch":null,"ExtraHosts":null,"IpcMode":"","Links":null,"LogConfig":{"Config":null,"Type":"json-file"},"LxcConf":null,"Memory":0,"MemorySwap":0,"NetworkMode":"","PidMode":"","PortBindings":null,"Privileged":false,"PublishAllPorts":false,"ReadonlyRootfs":false,"RestartPolicy":{"MaximumRetryCount":0,"Name":""},"SecurityOpt":null,"Ulimits":null,"VolumesFrom":null},"HostnamePath":"","HostsPath":"","Id":"ae5bb9a66ce62055c6cb6952e35d86437578305ce6fbc07538362ee35f9eac7a","Image":"c0b00183e2764a98de365feb3dbd0632b2cf5a2272d4219d2bd420b4329916f2","LogPath":"","MountLabel":"","Name":"/coolradio_icecast_with_links","NetworkSettings":{"Bridge":"","Gateway":"","GlobalIPv6Address":"","GlobalIPv6PrefixLen":0,"IPAddress":"","IPPrefixLen":0,"IPv6Gateway":"","LinkLocalIPv6Address":"","LinkLocalIPv6PrefixLen":0,"MacAddress":"","PortMapping":null,"Ports":null},"Path":"/bin/sh","ProcessLabel":"","ResolvConfPath":"","RestartCount":0,"State":{"Dead":false,"Error":"","ExitCode":0,"FinishedAt":"0001-01-01T00:00:00Z","OOMKilled":false,"Paused":false,"Pid":0,"Restarting":false,"Running":false,"StartedAt":"0001-01-01T00:00:00Z"},"Volumes":{},"VolumesRW":{}}
+        {"AppArmorProfile":"","Args":["-c","icecast -c /icecast.xml"],"Config":{"AttachStderr":false,"AttachStdin":false,"AttachStdout":false,"Cmd":["/bin/sh","-c","icecast -c /icecast.xml"],"CpuShares":0,"Cpuset":"","Domainname":"","Entrypoint":null,"Env":["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","LANG=en_US.UTF-8","DEBIAN_FRONTEND=noninteractive"],"ExposedPorts":{"8000/tcp":{}},"Hostname":"8de06a4d75d6","Image":"mcfiredrill/icecast","Labels":{},"MacAddress":"","Memory":0,"MemorySwap":0,"NetworkDisabled":false,"OnBuild":null,"OpenStdin":false,"PortSpecs":null,"StdinOnce":false,"Tty":false,"User":"icecast","Volumes":null,"WorkingDir":""},"Created":"2015-06-06T13:51:53.853547646Z","Driver":"aufs","ExecDriver":"native-0.2","ExecIDs":null,"HostConfig":{"Binds":[],"CapAdd":null,"CapDrop":null,"CgroupParent":"","ContainerIDFile":"","CpuShares":0,"CpusetCpus":"","Devices":null,"Dns":null,"DnsSearch":null,"ExtraHosts":null,"IpcMode":"","Links":null,"LogConfig":{"Config":null,"Type":"json-file"},"LxcConf":null,"Memory":0,"MemorySwap":0,"NetworkMode":"","PidMode":"","PortBindings":null,"Privileged":false,"PublishAllPorts":false,"ReadonlyRootfs":false,"RestartPolicy":{"MaximumRetryCount":0,"Name":""},"SecurityOpt":null,"Ulimits":null,"VolumesFrom":null},"HostnamePath":"","HostsPath":"","Id":"8de06a4d75d699fa282e9113d0e7bd0fd2057032afa61e2ea79738eee2215d67","Image":"c0b00183e2764a98de365feb3dbd0632b2cf5a2272d4219d2bd420b4329916f2","LogPath":"","MountLabel":"","Name":"/coolradio_icecast_with_links","NetworkSettings":{"Bridge":"","Gateway":"","GlobalIPv6Address":"","GlobalIPv6PrefixLen":0,"IPAddress":"","IPPrefixLen":0,"IPv6Gateway":"","LinkLocalIPv6Address":"","LinkLocalIPv6PrefixLen":0,"MacAddress":"","PortMapping":null,"Ports":null},"Path":"/bin/sh","ProcessLabel":"","ResolvConfPath":"","RestartCount":0,"State":{"Dead":false,"Error":"","ExitCode":0,"FinishedAt":"0001-01-01T00:00:00Z","OOMKilled":false,"Paused":false,"Pid":0,"Restarting":false,"Running":false,"StartedAt":"0001-01-01T00:00:00Z"},"Volumes":{},"VolumesRW":{}}
     http_version: 
-  recorded_at: Sat, 06 Jun 2015 13:51:54 GMT
+  recorded_at: Sat, 06 Jun 2015 14:01:52 GMT
 - request:
     method: post
-    uri: https://<DOCKER_HOST>/v1.16/containers/ae5bb9a66ce62055c6cb6952e35d86437578305ce6fbc07538362ee35f9eac7a/stop
+    uri: "<DOCKER_HOST>/v1.16/containers/8de06a4d75d699fa282e9113d0e7bd0fd2057032afa61e2ea79738eee2215d67/stop"
     body:
       encoding: UTF-8
       string: "{}"
@@ -243,15 +243,15 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Sat, 06 Jun 2015 13:51:53 GMT
+      - Sat, 06 Jun 2015 14:01:51 GMT
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sat, 06 Jun 2015 13:51:54 GMT
+  recorded_at: Sat, 06 Jun 2015 14:01:52 GMT
 - request:
     method: delete
-    uri: https://<DOCKER_HOST>/v1.16/containers/ae5bb9a66ce62055c6cb6952e35d86437578305ce6fbc07538362ee35f9eac7a
+    uri: "<DOCKER_HOST>/v1.16/containers/8de06a4d75d699fa282e9113d0e7bd0fd2057032afa61e2ea79738eee2215d67"
     body:
       encoding: US-ASCII
       string: ''
@@ -266,15 +266,15 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Sat, 06 Jun 2015 13:51:53 GMT
+      - Sat, 06 Jun 2015 14:01:51 GMT
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sat, 06 Jun 2015 13:51:55 GMT
+  recorded_at: Sat, 06 Jun 2015 14:01:52 GMT
 - request:
     method: post
-    uri: https://<DOCKER_HOST>/v1.16/containers/create?name=coolradio_icecast_with_links
+    uri: "<DOCKER_HOST>/v1.16/containers/create?name=coolradio_icecast_with_links"
     body:
       encoding: UTF-8
       string: '{"Image":"mcfiredrill/icecast","Env":[],"HostConfig":{"Links":["coolradio_icecast1:icecast1","coolradio_icecast2:icecast2"],"Binds":[]}}'
@@ -291,18 +291,18 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 06 Jun 2015 13:51:53 GMT
+      - Sat, 06 Jun 2015 14:01:51 GMT
       Content-Length:
       - '90'
     body:
       encoding: UTF-8
       string: |
-        {"Id":"8de06a4d75d699fa282e9113d0e7bd0fd2057032afa61e2ea79738eee2215d67","Warnings":null}
+        {"Id":"b49c9d979ad58abba40c90cbb6fb984a64df7f02ec09662807f237b490a2b4b8","Warnings":null}
     http_version: 
-  recorded_at: Sat, 06 Jun 2015 13:51:55 GMT
+  recorded_at: Sat, 06 Jun 2015 14:01:52 GMT
 - request:
     method: get
-    uri: https://<DOCKER_HOST>/v1.16/containers/8de06a4d75d699fa282e9113d0e7bd0fd2057032afa61e2ea79738eee2215d67/json
+    uri: "<DOCKER_HOST>/v1.16/containers/b49c9d979ad58abba40c90cbb6fb984a64df7f02ec09662807f237b490a2b4b8/json"
     body:
       encoding: US-ASCII
       string: ''
@@ -319,16 +319,16 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 06 Jun 2015 13:51:54 GMT
+      - Sat, 06 Jun 2015 14:01:51 GMT
     body:
       encoding: UTF-8
       string: |
-        {"AppArmorProfile":"","Args":["-c","icecast -c /icecast.xml"],"Config":{"AttachStderr":false,"AttachStdin":false,"AttachStdout":false,"Cmd":["/bin/sh","-c","icecast -c /icecast.xml"],"CpuShares":0,"Cpuset":"","Domainname":"","Entrypoint":null,"Env":["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","LANG=en_US.UTF-8","DEBIAN_FRONTEND=noninteractive"],"ExposedPorts":{"8000/tcp":{}},"Hostname":"8de06a4d75d6","Image":"mcfiredrill/icecast","Labels":{},"MacAddress":"","Memory":0,"MemorySwap":0,"NetworkDisabled":false,"OnBuild":null,"OpenStdin":false,"PortSpecs":null,"StdinOnce":false,"Tty":false,"User":"icecast","Volumes":null,"WorkingDir":""},"Created":"2015-06-06T13:51:53.853547646Z","Driver":"aufs","ExecDriver":"native-0.2","ExecIDs":null,"HostConfig":{"Binds":[],"CapAdd":null,"CapDrop":null,"CgroupParent":"","ContainerIDFile":"","CpuShares":0,"CpusetCpus":"","Devices":null,"Dns":null,"DnsSearch":null,"ExtraHosts":null,"IpcMode":"","Links":["/coolradio_icecast1:/coolradio_icecast_with_links/icecast1","/coolradio_icecast2:/coolradio_icecast_with_links/icecast2"],"LogConfig":{"Config":null,"Type":"json-file"},"LxcConf":null,"Memory":0,"MemorySwap":0,"NetworkMode":"","PidMode":"","PortBindings":null,"Privileged":false,"PublishAllPorts":false,"ReadonlyRootfs":false,"RestartPolicy":{"MaximumRetryCount":0,"Name":""},"SecurityOpt":null,"Ulimits":null,"VolumesFrom":null},"HostnamePath":"","HostsPath":"","Id":"8de06a4d75d699fa282e9113d0e7bd0fd2057032afa61e2ea79738eee2215d67","Image":"c0b00183e2764a98de365feb3dbd0632b2cf5a2272d4219d2bd420b4329916f2","LogPath":"","MountLabel":"","Name":"/coolradio_icecast_with_links","NetworkSettings":{"Bridge":"","Gateway":"","GlobalIPv6Address":"","GlobalIPv6PrefixLen":0,"IPAddress":"","IPPrefixLen":0,"IPv6Gateway":"","LinkLocalIPv6Address":"","LinkLocalIPv6PrefixLen":0,"MacAddress":"","PortMapping":null,"Ports":null},"Path":"/bin/sh","ProcessLabel":"","ResolvConfPath":"","RestartCount":0,"State":{"Dead":false,"Error":"","ExitCode":0,"FinishedAt":"0001-01-01T00:00:00Z","OOMKilled":false,"Paused":false,"Pid":0,"Restarting":false,"Running":false,"StartedAt":"0001-01-01T00:00:00Z"},"Volumes":{},"VolumesRW":{}}
+        {"AppArmorProfile":"","Args":["-c","icecast -c /icecast.xml"],"Config":{"AttachStderr":false,"AttachStdin":false,"AttachStdout":false,"Cmd":["/bin/sh","-c","icecast -c /icecast.xml"],"CpuShares":0,"Cpuset":"","Domainname":"","Entrypoint":null,"Env":["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","LANG=en_US.UTF-8","DEBIAN_FRONTEND=noninteractive"],"ExposedPorts":{"8000/tcp":{}},"Hostname":"b49c9d979ad5","Image":"mcfiredrill/icecast","Labels":{},"MacAddress":"","Memory":0,"MemorySwap":0,"NetworkDisabled":false,"OnBuild":null,"OpenStdin":false,"PortSpecs":null,"StdinOnce":false,"Tty":false,"User":"icecast","Volumes":null,"WorkingDir":""},"Created":"2015-06-06T14:01:51.335842332Z","Driver":"aufs","ExecDriver":"native-0.2","ExecIDs":null,"HostConfig":{"Binds":[],"CapAdd":null,"CapDrop":null,"CgroupParent":"","ContainerIDFile":"","CpuShares":0,"CpusetCpus":"","Devices":null,"Dns":null,"DnsSearch":null,"ExtraHosts":null,"IpcMode":"","Links":["/coolradio_icecast1:/coolradio_icecast_with_links/icecast1","/coolradio_icecast2:/coolradio_icecast_with_links/icecast2"],"LogConfig":{"Config":null,"Type":"json-file"},"LxcConf":null,"Memory":0,"MemorySwap":0,"NetworkMode":"","PidMode":"","PortBindings":null,"Privileged":false,"PublishAllPorts":false,"ReadonlyRootfs":false,"RestartPolicy":{"MaximumRetryCount":0,"Name":""},"SecurityOpt":null,"Ulimits":null,"VolumesFrom":null},"HostnamePath":"","HostsPath":"","Id":"b49c9d979ad58abba40c90cbb6fb984a64df7f02ec09662807f237b490a2b4b8","Image":"c0b00183e2764a98de365feb3dbd0632b2cf5a2272d4219d2bd420b4329916f2","LogPath":"","MountLabel":"","Name":"/coolradio_icecast_with_links","NetworkSettings":{"Bridge":"","Gateway":"","GlobalIPv6Address":"","GlobalIPv6PrefixLen":0,"IPAddress":"","IPPrefixLen":0,"IPv6Gateway":"","LinkLocalIPv6Address":"","LinkLocalIPv6PrefixLen":0,"MacAddress":"","PortMapping":null,"Ports":null},"Path":"/bin/sh","ProcessLabel":"","ResolvConfPath":"","RestartCount":0,"State":{"Dead":false,"Error":"","ExitCode":0,"FinishedAt":"0001-01-01T00:00:00Z","OOMKilled":false,"Paused":false,"Pid":0,"Restarting":false,"Running":false,"StartedAt":"0001-01-01T00:00:00Z"},"Volumes":{},"VolumesRW":{}}
     http_version: 
-  recorded_at: Sat, 06 Jun 2015 13:51:55 GMT
+  recorded_at: Sat, 06 Jun 2015 14:01:52 GMT
 - request:
     method: get
-    uri: https://<DOCKER_HOST>/v1.16/containers/8de06a4d75d699fa282e9113d0e7bd0fd2057032afa61e2ea79738eee2215d67/json
+    uri: "<DOCKER_HOST>/v1.16/containers/b49c9d979ad58abba40c90cbb6fb984a64df7f02ec09662807f237b490a2b4b8/json"
     body:
       encoding: US-ASCII
       string: ''
@@ -345,11 +345,11 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 06 Jun 2015 13:51:54 GMT
+      - Sat, 06 Jun 2015 14:01:51 GMT
     body:
       encoding: UTF-8
       string: |
-        {"AppArmorProfile":"","Args":["-c","icecast -c /icecast.xml"],"Config":{"AttachStderr":false,"AttachStdin":false,"AttachStdout":false,"Cmd":["/bin/sh","-c","icecast -c /icecast.xml"],"CpuShares":0,"Cpuset":"","Domainname":"","Entrypoint":null,"Env":["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","LANG=en_US.UTF-8","DEBIAN_FRONTEND=noninteractive"],"ExposedPorts":{"8000/tcp":{}},"Hostname":"8de06a4d75d6","Image":"mcfiredrill/icecast","Labels":{},"MacAddress":"","Memory":0,"MemorySwap":0,"NetworkDisabled":false,"OnBuild":null,"OpenStdin":false,"PortSpecs":null,"StdinOnce":false,"Tty":false,"User":"icecast","Volumes":null,"WorkingDir":""},"Created":"2015-06-06T13:51:53.853547646Z","Driver":"aufs","ExecDriver":"native-0.2","ExecIDs":null,"HostConfig":{"Binds":[],"CapAdd":null,"CapDrop":null,"CgroupParent":"","ContainerIDFile":"","CpuShares":0,"CpusetCpus":"","Devices":null,"Dns":null,"DnsSearch":null,"ExtraHosts":null,"IpcMode":"","Links":["/coolradio_icecast1:/coolradio_icecast_with_links/icecast1","/coolradio_icecast2:/coolradio_icecast_with_links/icecast2"],"LogConfig":{"Config":null,"Type":"json-file"},"LxcConf":null,"Memory":0,"MemorySwap":0,"NetworkMode":"","PidMode":"","PortBindings":null,"Privileged":false,"PublishAllPorts":false,"ReadonlyRootfs":false,"RestartPolicy":{"MaximumRetryCount":0,"Name":""},"SecurityOpt":null,"Ulimits":null,"VolumesFrom":null},"HostnamePath":"","HostsPath":"","Id":"8de06a4d75d699fa282e9113d0e7bd0fd2057032afa61e2ea79738eee2215d67","Image":"c0b00183e2764a98de365feb3dbd0632b2cf5a2272d4219d2bd420b4329916f2","LogPath":"","MountLabel":"","Name":"/coolradio_icecast_with_links","NetworkSettings":{"Bridge":"","Gateway":"","GlobalIPv6Address":"","GlobalIPv6PrefixLen":0,"IPAddress":"","IPPrefixLen":0,"IPv6Gateway":"","LinkLocalIPv6Address":"","LinkLocalIPv6PrefixLen":0,"MacAddress":"","PortMapping":null,"Ports":null},"Path":"/bin/sh","ProcessLabel":"","ResolvConfPath":"","RestartCount":0,"State":{"Dead":false,"Error":"","ExitCode":0,"FinishedAt":"0001-01-01T00:00:00Z","OOMKilled":false,"Paused":false,"Pid":0,"Restarting":false,"Running":false,"StartedAt":"0001-01-01T00:00:00Z"},"Volumes":{},"VolumesRW":{}}
+        {"AppArmorProfile":"","Args":["-c","icecast -c /icecast.xml"],"Config":{"AttachStderr":false,"AttachStdin":false,"AttachStdout":false,"Cmd":["/bin/sh","-c","icecast -c /icecast.xml"],"CpuShares":0,"Cpuset":"","Domainname":"","Entrypoint":null,"Env":["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","LANG=en_US.UTF-8","DEBIAN_FRONTEND=noninteractive"],"ExposedPorts":{"8000/tcp":{}},"Hostname":"b49c9d979ad5","Image":"mcfiredrill/icecast","Labels":{},"MacAddress":"","Memory":0,"MemorySwap":0,"NetworkDisabled":false,"OnBuild":null,"OpenStdin":false,"PortSpecs":null,"StdinOnce":false,"Tty":false,"User":"icecast","Volumes":null,"WorkingDir":""},"Created":"2015-06-06T14:01:51.335842332Z","Driver":"aufs","ExecDriver":"native-0.2","ExecIDs":null,"HostConfig":{"Binds":[],"CapAdd":null,"CapDrop":null,"CgroupParent":"","ContainerIDFile":"","CpuShares":0,"CpusetCpus":"","Devices":null,"Dns":null,"DnsSearch":null,"ExtraHosts":null,"IpcMode":"","Links":["/coolradio_icecast1:/coolradio_icecast_with_links/icecast1","/coolradio_icecast2:/coolradio_icecast_with_links/icecast2"],"LogConfig":{"Config":null,"Type":"json-file"},"LxcConf":null,"Memory":0,"MemorySwap":0,"NetworkMode":"","PidMode":"","PortBindings":null,"Privileged":false,"PublishAllPorts":false,"ReadonlyRootfs":false,"RestartPolicy":{"MaximumRetryCount":0,"Name":""},"SecurityOpt":null,"Ulimits":null,"VolumesFrom":null},"HostnamePath":"","HostsPath":"","Id":"b49c9d979ad58abba40c90cbb6fb984a64df7f02ec09662807f237b490a2b4b8","Image":"c0b00183e2764a98de365feb3dbd0632b2cf5a2272d4219d2bd420b4329916f2","LogPath":"","MountLabel":"","Name":"/coolradio_icecast_with_links","NetworkSettings":{"Bridge":"","Gateway":"","GlobalIPv6Address":"","GlobalIPv6PrefixLen":0,"IPAddress":"","IPPrefixLen":0,"IPv6Gateway":"","LinkLocalIPv6Address":"","LinkLocalIPv6PrefixLen":0,"MacAddress":"","PortMapping":null,"Ports":null},"Path":"/bin/sh","ProcessLabel":"","ResolvConfPath":"","RestartCount":0,"State":{"Dead":false,"Error":"","ExitCode":0,"FinishedAt":"0001-01-01T00:00:00Z","OOMKilled":false,"Paused":false,"Pid":0,"Restarting":false,"Running":false,"StartedAt":"0001-01-01T00:00:00Z"},"Volumes":{},"VolumesRW":{}}
     http_version: 
-  recorded_at: Sat, 06 Jun 2015 13:51:55 GMT
+  recorded_at: Sat, 06 Jun 2015 14:01:53 GMT
 recorded_with: VCR 2.9.3

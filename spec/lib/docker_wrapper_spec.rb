@@ -7,7 +7,9 @@ VCR.configure do |config|
   config.hook_into :webmock # or :fakeweb
 
   config.define_cassette_placeholder("<DOCKER_HOST>") do
-    "#{URI(ENV['DOCKER_HOST']).host}:#{URI(ENV['DOCKER_HOST']).port}"
+    scheme = "#{URI(ENV['DOCKER_HOST']).scheme}"
+    scheme = "https" if scheme == "tcp"
+    "#{scheme}://#{URI(ENV['DOCKER_HOST']).host}:#{URI(ENV['DOCKER_HOST']).port}"
   end
 end
 describe DockerWrapper do
