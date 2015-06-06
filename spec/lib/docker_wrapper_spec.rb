@@ -22,10 +22,6 @@ VCR.configure do |config|
 end
 
 describe DockerWrapper do
-  before do
-    puts test_docker_uri
-  end
-
   it "creates a new docker container" do
     VCR.use_cassette "create_container" do
       container = DockerWrapper.find_or_create 'mcfiredrill/icecast', 'coolradio_icecast'
