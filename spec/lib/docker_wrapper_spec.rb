@@ -2,17 +2,26 @@ require_relative '../../lib/docker_wrapper'
 require 'spec_helper'
 require 'vcr'
 
+def test_docker_uri
+  scheme = "#{URI(ENV['DOCKER_HOST']).scheme}"
+  scheme = "https" if scheme == "tcp"
+  "#{scheme}://#{URI(ENV['DOCKER_HOST']).host}:#{URI(ENV['DOCKER_HOST']).port}"
+end
+
 VCR.configure do |config|
   config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
   config.hook_into :webmock # or :fakeweb
 
   config.define_cassette_placeholder("<DOCKER_HOST>") do
-    scheme = "#{URI(ENV['DOCKER_HOST']).scheme}"
-    scheme = "https" if scheme == "tcp"
-    "#{scheme}://#{URI(ENV['DOCKER_HOST']).host}:#{URI(ENV['DOCKER_HOST']).port}"
+    test_docker_uri
   end
 end
+
 describe DockerWrapper do
+  before do
+    puts test_docker_uri
+  end
+
   it "creates a new docker container" do
     VCR.use_cassette "create_container" do
       container = DockerWrapper.find_or_create 'mcfiredrill/icecast', 'coolradio_icecast'
