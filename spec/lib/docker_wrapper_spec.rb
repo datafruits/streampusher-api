@@ -5,7 +5,11 @@ require 'vcr'
 def test_docker_uri
   scheme = "#{URI(ENV['DOCKER_HOST']).scheme}"
   scheme = "https" if scheme == "tcp"
-  "#{scheme}://#{URI(ENV['DOCKER_HOST']).host}:#{URI(ENV['DOCKER_HOST']).port}"
+  host = URI(ENV['DOCKER_HOST']).host
+  port = URI(ENV['DOCKER_HOST']).port
+  uri = "#{scheme}://#{URI(ENV['DOCKER_HOST']).host}"
+  uri << ":#{port}" unless port == 80
+  uri
 end
 
 VCR.configure do |config|
