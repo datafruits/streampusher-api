@@ -17,7 +17,7 @@ gem 'chosen-rails'
 
 gem 'spring',        group: :development
 
-gem 'devise', '~> 3.5.0'
+gem 'devise', '~> 3.5.1'
 gem 'cancancan'
 gem 'stripe'
 gem 'docker-api', '~> 1.20.0', require: 'docker'
