@@ -20,7 +20,7 @@ gem 'spring',        group: :development
 gem 'devise', '~> 3.5.1'
 gem 'cancancan'
 gem 'stripe'
-gem 'docker-api', '~> 1.20.0', require: 'docker'
+gem 'docker-api', '~> 1.21.0', require: 'docker'
 gem 'simple_form'
 gem 'cocaine'
 gem 'lograge'

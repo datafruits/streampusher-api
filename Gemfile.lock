@@ -124,7 +124,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
-    docker-api (1.20.0)
+    docker-api (1.21.4)
       excon (>= 0.38.0)
       json
     dotenv (1.0.2)
@@ -134,7 +134,7 @@ GEM
     exception_notification (4.0.1)
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
-    excon (0.44.4)
+    excon (0.45.3)
     execjs (2.5.2)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -365,8 +365,8 @@ DEPENDENCIES
   cocaine
   coffee-rails (~> 4.1.0)
   coffeebeans
-  devise (~> 3.5.0)
-  docker-api (~> 1.20.0)
+  devise (~> 3.5.1)
+  docker-api (~> 1.21.0)
   dotenv-rails
   exception_notification
   factory_girl_rails
