@@ -4,6 +4,8 @@ require 'mock_redis'
 
 RSpec.describe ScheduledShow, :type => :model do
   before do
+    Time.zone = 'UTC'
+    Timecop.freeze Time.local(1990)
     Sidekiq::Testing.fake!
     Redis.current = MockRedis.new
 
@@ -11,11 +13,16 @@ RSpec.describe ScheduledShow, :type => :model do
     dj = User.create role: 'dj', username: 'dakota', email: "dakota@gmail.com", password: "2boobies", time_zone: "UTC"
     playlist = Playlist.create radio: @radio, name: "big tunes"
     show = Show.create dj: dj, radio: @radio, playlist: playlist
-    start_at = Chronic.parse("today at 1:15 pm").utc
-    end_at = Chronic.parse("today at 3:15 pm").utc
+    start_at = Chronic.parse("today at 1:15 pm")
+    end_at = Chronic.parse("today at 3:15 pm")
     @date = Date.today.strftime("%m%d%Y")
 
     @scheduled_show = ScheduledShow.create radio: @radio, show: show, start_at: start_at, end_at: end_at
+
+  end
+
+  after do
+    Timecop.return
   end
 
   it 'gets time keys' do

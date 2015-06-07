@@ -43,6 +43,7 @@ group :test do
   gem 'vcr'
   gem 'webmock'
   gem 'mock_redis'
+  gem 'timecop'
 end
 
 group :test, :development do
