@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   validates_presence_of :time_zone
   validates_inclusion_of :time_zone, :in => ActiveSupport::TimeZone.all.map { |m| m.name }, :message => "is not a valid Time Zone"
 
-  before_validation :set_username
+  before_validation :set_username, :set_time_zone
 
   def managable_radios
     self.subscription.radios
@@ -65,5 +65,9 @@ class User < ActiveRecord::Base
   private
   def set_username
     self.username = email.split('@').first if self.username.blank?
+  end
+
+  def set_time_zone
+    self.time_zone = Time.zone.name
   end
 end
