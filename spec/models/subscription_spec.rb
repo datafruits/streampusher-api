@@ -1,5 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Subscription, :type => :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "permissions" do
+    it "user can manage their other subscription"
+    it "user cannot manage another user's subscription"
+  end
 end

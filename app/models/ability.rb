@@ -16,6 +16,7 @@ class Ability
         can_manage_radio?(user, radio)
       end
       can :manage, Show if can_manage_radio?(user, radio)
+      can :manage, Subscription, user_id: user.id
     end
   end
 

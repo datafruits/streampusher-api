@@ -1,0 +1,7 @@
+<h1>Streampusher Subscription</h1>
+
+<span>You are currently subscribed to the <b><%= @subscription.plan.name %></b> plan. You can change your plan or update your billing info here.</span>
+<%= simple_form_for @subscription do |f| %>
+  <%= f.input :plan_id, collection: Plan.all, label_method: :name, value_method: :id %>
+  <%= f.submit "Update" %>
+<% end %>
