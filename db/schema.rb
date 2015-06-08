@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(version: 20150608105915) do
     t.datetime "updated_at"
     t.string   "stripe_customer_token", limit: 255
     t.integer  "user_id",                           null: false
-    t.integer  "last_4_digits"
+    t.string   "last_4_digits"
     t.integer  "exp_month"
     t.integer  "exp_year"
   end
