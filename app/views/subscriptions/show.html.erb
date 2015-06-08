@@ -15,10 +15,3 @@
     </tr>
   </table>
 <% end %>
-<%= simple_form_for @subscription do |f| %>
-  <%= f.input :plan_id, collection: Plan.all, label_method: :name, value_method: :id %>
-  <%= f.hidden_field :stripe_card_token %>
-  <%= render 'layouts/credit_card' %>
-
-  <%= f.submit "Update" %>
-<% end %>

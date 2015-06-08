@@ -4,7 +4,7 @@ class SignupForm < ActionForm::Base
   validates :email, :password, presence: true
 
   association :subscription do
-    attributes :plan_id, :stripe_card_token, required: true
+    attributes :plan_id, required: true
     association :radios, records: 1 do
       attributes :name
     end
@@ -13,5 +13,10 @@ class SignupForm < ActionForm::Base
   def submit params
     self.model.role = "owner"
     super(params)
+  end
+
+  def save
+    super
+    self.model.subscription.save_with_free_trial
   end
 end

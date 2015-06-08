@@ -28,11 +28,8 @@
             <%= r.text_field :name, placeholder: "My Awesome Radio Station" %></div>
         <% end %>
 
-        <%= s.hidden_field :stripe_card_token %>
         <%= s.hidden_field :plan_id, value: 1 %>
       <% end %>
-
-      <%= render 'layouts/credit_card' %>
 
       <div><%= f.submit "Sign up now", class: 'big-cta-btn' %></div>
     </div>

@@ -5,7 +5,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def update
-    if @subscription.update create_params
+    if @subscription.update_with_new_card create_params
       flash[:notice] = "Updated your subscription successfully."
       redirect_to edit_subscription_path @subscription
     else
@@ -16,6 +16,6 @@ class SubscriptionsController < ApplicationController
 
   private
   def create_params
-    params.require(:subscription).permit(:plan_id)
+    params.require(:subscription).permit(:plan_id, :stripe_card_token)
   end
 end
