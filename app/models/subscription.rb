@@ -1,9 +1,12 @@
 class Subscription < ActiveRecord::Base
   belongs_to :plan
-  validates_presence_of :user_id
-  validates_presence_of :plan_id
   belongs_to :user
   has_many :radios
+
+  validates_presence_of :user_id
+  validates_presence_of :plan_id
+  validates :name, presence: true
+
   attr_accessor :stripe_card_token
 
   def save_without_payment
