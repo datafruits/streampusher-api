@@ -13,6 +13,9 @@ class Subscription < ActiveRecord::Base
     if valid?
       customer = Stripe::Customer.create(description: self.user.email, plan: plan_id, card: stripe_card_token)
       self.stripe_customer_token = customer.id
+      self.last_4_digits = customer.cards.first.last4
+      self.exp_month = customer.cards.first.exp_month
+      self.exp_year = customer.cards.first.exp_year
       save!
     end
   rescue Stripe::InvalidRequestError => e

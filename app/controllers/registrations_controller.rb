@@ -11,7 +11,6 @@ class RegistrationsController < Devise::RegistrationsController
         sign_in :user, @signup_form.model
         format.html { redirect_to radios_path, notice: "user #{@signup_form.email} was successfully created." }
       else
-        byebug
         format.html { render :new }
       end
     end

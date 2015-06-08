@@ -63,6 +63,8 @@
               <li><%= link_to "Settings", "/users/edit" %></li>
               <% if current_user.admin? %>
                 <li><%= link_to "Admin", admin_path %></li>
+              <% end %>
+              <% if current_user.owner? %>
                 <li><%= link_to "Subscription", edit_subscription_path(current_user.subscription) %></li>
               <% end %>
               <li class="divider"></li>

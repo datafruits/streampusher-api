@@ -9,4 +9,9 @@ class SignupForm < ActionForm::Base
       attributes :name
     end
   end
+
+  def submit params
+    self.model.role = "owner"
+    super(params)
+  end
 end

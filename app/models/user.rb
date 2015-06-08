@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_many :user_radios
 
   # include User::Roles
-  ROLES = %w[admin dj]
+  ROLES = %w[owner admin dj]
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
