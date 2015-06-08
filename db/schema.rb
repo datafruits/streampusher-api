@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150608093120) do
+ActiveRecord::Schema.define(version: 20150608105915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,9 @@ ActiveRecord::Schema.define(version: 20150608093120) do
     t.datetime "updated_at"
     t.string   "stripe_customer_token", limit: 255
     t.integer  "user_id",                           null: false
+    t.integer  "last_4_digits"
+    t.integer  "exp_month"
+    t.integer  "exp_year"
   end
 
   create_table "tracks", force: :cascade do |t|
