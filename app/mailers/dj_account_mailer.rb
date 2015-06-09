@@ -1,6 +1,4 @@
-class DjAccountMailer < ActionMailer::Base
-  default from: "info@streampusher.com"
-
+class DjAccountMailer < ApplicationMailer
   def welcome_email user, password, radio
     @user = user
     @password = password
