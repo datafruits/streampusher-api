@@ -45,6 +45,11 @@ class User < ActiveRecord::Base
     self.role.to_s.split(' ')
   end
 
+  def add_role new_role
+    self.role << " #{new_role}"
+    self.save
+  end
+
   def login=(login)
     @login = login
   end
