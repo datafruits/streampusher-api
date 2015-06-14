@@ -9,7 +9,7 @@ class RegistrationsController < Devise::RegistrationsController
     respond_to do |format|
       if @signup_form.save
         sign_in :user, @signup_form.model
-        format.html { redirect_to radios_path, notice: "user #{@signup_form.email} was successfully created." }
+        format.html { redirect_to radios_path, notice: "You have successfully signed up." }
       else
         format.html { render :new }
       end
