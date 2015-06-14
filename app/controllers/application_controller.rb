@@ -8,6 +8,9 @@ class ApplicationController < ActionController::Base
   after_filter :flash_to_headers
   around_filter :set_time_zone
 
+  rescue_from CanCan::AccessDenied do |exception|
+    render :file => "#{Rails.root}/public/403.html", :status => 403
+  end
 
   protected
   def set_time_zone(&block)
@@ -27,8 +30,8 @@ class ApplicationController < ActionController::Base
   def current_radio
     if !request.subdomain.blank?
       Radio.find_by_name request.subdomain
-    else
-      current_user.subscription.radios.first
+    elsif current_user
+      current_user.subscription.try(:radios).first
     end
   end
 

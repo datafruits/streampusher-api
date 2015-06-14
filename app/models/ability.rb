@@ -11,12 +11,14 @@ class Ability
     elsif user.dj?
       cannot :admin
       cannot :new, :create, :edit, :update, Podcast
-    else
+    elsif user.persisted?
       can :manage, Radio do |radio|
         can_manage_radio?(user, radio)
       end
       can :manage, Show if can_manage_radio?(user, radio)
       can :manage, Subscription, user_id: user.id
+    else
+      cannot :admin
     end
   end
 
