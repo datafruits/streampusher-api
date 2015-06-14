@@ -62,4 +62,12 @@ class Radio < ActiveRecord::Base
     FileUtils.mkdir_p dir
     dir
   end
+
+  def icecast_proxy_key
+    "#{self.virtual_host}/icecast"
+  end
+
+  def liquidsoap_proxy_key
+    "#{self.virtual_host}/liquidsoap"
+  end
 end

@@ -17,14 +17,14 @@ class RadioBooterWorker < ActiveJob::Base
     icecast_container = DockerWrapper.find_or_create 'mcfiredrill/icecast:latest', "#{radio_name}_icecast"
     radio.update icecast_container_id: icecast_container.id
     if ::Rails.env.production?
-     port = icecast_container.host_port(8000)
+     port = redis.hget "proxy-domain", radio.icecast_proxy_key
      if port
        UFW.close_port port
      end
     end
     icecast_container.stop
     icecast_container.start
-    redis.hset 'proxy-domain', "#{radio.virtual_host}/icecast", icecast_container.host_port(8000)
+    redis.hset 'proxy-domain', radio.icecast_proxy_key, icecast_container.host_port(8000)
     if ::Rails.env.production?
       port = icecast_container.host_port(8000)
       if port
@@ -39,14 +39,14 @@ class RadioBooterWorker < ActiveJob::Base
       ["#{radio.tracks_directory}:/home/liquidsoap/tracks"]
     radio.update liquidsoap_container_id: liquidsoap_container.id
     if ::Rails.env.production?
-     port = liquidsoap_container.host_port(9000)
+     port = redis.hget "proxy-domain", radio.liquidsoap_proxy_key
      if port
        UFW.close_port port
      end
     end
     liquidsoap_container.stop
     liquidsoap_container.start
-    redis.hset 'proxy-domain', "#{radio.virtual_host}/liquidsoap", liquidsoap_container.host_port(9000)
+    redis.hset 'proxy-domain', radio.liquidsoap_proxy_key, liquidsoap_container.host_port(9000)
     if ::Rails.env.production?
      port = liquidsoap_container.host_port(9000)
      if port
