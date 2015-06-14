@@ -7,7 +7,7 @@ class UFW
   end
 
   def self.close_port port
-    line = Cocaine::CommandLine.new("sudo /usr/sbin/ufw", "deny #{port}")
+    line = Cocaine::CommandLine.new("sudo /usr/sbin/ufw", "delete allow #{port}")
     line.run
   end
 end
