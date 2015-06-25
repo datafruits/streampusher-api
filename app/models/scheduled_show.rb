@@ -43,10 +43,7 @@ class ScheduledShow < ActiveRecord::Base
     time_keys.map{|key| "#{self.radio.name}:schedule:#{key}"}
   end
 
-  def persist_to_redis redis=nil
-    unless redis.present?
-      redis = Redis.current
-    end
+  def persist_to_redis redis=Redis.current
     redis_keys.each do |key|
       redis.set key, self.show.playlist.redis_key
     end
