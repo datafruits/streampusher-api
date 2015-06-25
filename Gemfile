@@ -60,6 +60,7 @@ gem 's3_direct_upload'
 gem 'byebug'
 gem 'slackistrano', require: false
 gem 'exception_notification'
+gem 'slack-notifier'
 
 gem 'groupdate'
 gem 'coffeebeans'

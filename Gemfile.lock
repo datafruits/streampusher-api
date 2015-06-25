@@ -294,6 +294,7 @@ GEM
     simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
+    slack-notifier (1.2.1)
     slackistrano (0.1.4)
       capistrano (>= 3.0.1)
       json
@@ -401,6 +402,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.3)
   sidekiq
   simple_form
+  slack-notifier
   slackistrano
   spring
   stripe
@@ -412,3 +414,6 @@ DEPENDENCIES
   unicorn
   vcr
   webmock
+
+BUNDLED WITH
+   1.10.4
