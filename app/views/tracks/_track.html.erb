@@ -1,7 +1,11 @@
 <li data-type="track" data-track-id="<%= track.id %>" class='track'>
   <button data-track-id="<%= track.id %>" class="delete-from-playlist btn btn-danger">
     <i class="fa fa-times-circle"></i>
-  </button><%= track.file_basename %>
+  </button>
+  <%= track.file_basename %>
+  <%= link_to edit_track_path(track), data: { "track-id" => track.id }, class: "edit-track btn btn-primary", remote: true do %>
+    <i class="fa fa-pencil"></i>
+  <% end %>
 </li>
 <%= coffee_script_tag do %>
   $('#tracks li.track').draggable({

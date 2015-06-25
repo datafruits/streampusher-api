@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   get 'admin/:id/radios', to: 'admin#radios', as: 'admin_radios'
   post 'admin/radios/:id/restart', to: 'admin#restart_radio', as: 'admin_restart_radio'
 
-  resources :tracks, only: [:create]
+  resources :tracks, only: [:create, :edit, :update]
 
   #root 'home#index'
   root 'landing#index'

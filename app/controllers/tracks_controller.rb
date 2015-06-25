@@ -1,5 +1,13 @@
 class TracksController < ApplicationController
   load_and_authorize_resource
+  def edit
+    @track = current_radio.tracks.find params[:id]
+  end
+
+  def update
+
+  end
+
   def create
     @track = current_radio.tracks.new create_params
     if @track.save

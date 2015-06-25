@@ -20,6 +20,8 @@
     <% end %>
   </div>
   <%= yield %>
+  <div class="modal fade" id="modal-holder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  </div>
 </div>
 <% if Rails.env.production? %>
   <%= render 'layouts/ga' %>

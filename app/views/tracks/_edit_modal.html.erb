@@ -1,0 +1,15 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title" id="myModalLabel"><%= @track.file_basename %></h4>
+    </div>
+    <%= simple_form_for @track, remote: true do |f| %>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <%= f.submit "Save changes", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
