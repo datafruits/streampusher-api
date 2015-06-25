@@ -45,6 +45,7 @@ group :test do
   gem 'webmock'
   gem 'mock_redis'
   gem 'timecop'
+  gem 'capybara'
 end
 
 group :test, :development do
@@ -70,6 +71,8 @@ gem 'active_model_serializers'
 gem 'chronic'
 gem 'aws-sdk', '< 2.0'
 gem 'paperclip'
+
+gem "so_id3", github: "mcfiredrill/so_id3"
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-countUp.js'
