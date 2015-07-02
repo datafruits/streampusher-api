@@ -18,7 +18,7 @@ class Ability
       can :manage, Show if can_manage_radio?(user, radio)
       can :manage, Subscription, user_id: user.id
     else
-      can :index, ScheduledShow
+      can :read, ScheduledShow
       cannot :admin
     end
   end
