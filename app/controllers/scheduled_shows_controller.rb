@@ -5,7 +5,10 @@ class ScheduledShowsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: @scheduled_shows, root: false }
+      format.json {
+        response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
+        render json: @scheduled_shows, root: false
+      }
     end
   end
 
