@@ -17,7 +17,7 @@ class DjsController < ApplicationController
       DjAccountMailer.welcome_email(@dj, password, current_radio).deliver_later
       redirect_to djs_path
     else
-      @djs = current_radio.djs
+      @djs = current_radio.djs.page(params[:page])
       render 'index'
     end
   end
