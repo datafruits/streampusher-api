@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150608105915) do
+ActiveRecord::Schema.define(version: 20150704040437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,14 +96,18 @@ ActiveRecord::Schema.define(version: 20150608105915) do
   end
 
   create_table "shows", force: :cascade do |t|
-    t.string   "title",       limit: 255, default: "", null: false
-    t.integer  "dj_id",                                null: false
-    t.integer  "radio_id",                             null: false
-    t.text     "description",             default: "", null: false
+    t.string   "title",              limit: 255, default: "", null: false
+    t.integer  "dj_id",                                       null: false
+    t.integer  "radio_id",                                    null: false
+    t.text     "description",                    default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "playlist_id"
     t.string   "color"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -118,14 +122,17 @@ ActiveRecord::Schema.define(version: 20150608105915) do
   end
 
   create_table "tracks", force: :cascade do |t|
-    t.string   "artist",          limit: 255
-    t.string   "title",           limit: 255
     t.string   "audio_file_name", limit: 255
     t.integer  "radio_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "description",                 default: "", null: false
     t.datetime "publish_date"
+    t.string   "artist"
+    t.string   "title"
+    t.string   "album"
+    t.integer  "year"
+    t.integer  "track"
   end
 
   create_table "user_radios", force: :cascade do |t|

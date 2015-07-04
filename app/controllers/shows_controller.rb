@@ -3,7 +3,7 @@ class ShowsController < ApplicationController
   def index
     @current_radio = current_radio
     @shows = @current_radio.shows
-    @show = @shows.new
+    @show = Show.new
 
     respond_to do |format|
       format.html
@@ -12,11 +12,17 @@ class ShowsController < ApplicationController
   end
 
   def edit
-
+    @current_radio = current_radio
   end
 
   def update
-
+    @show.attributes = create_params
+    if @show.save
+      redirect_to shows_path
+    else
+      @current_radio = current_radio
+      render 'edit'
+    end
   end
 
   def create
@@ -31,6 +37,6 @@ class ShowsController < ApplicationController
 
   private
   def create_params
-    params.require(:show).permit(:title, :dj_id, :radio_id, :playlist_id)
+    params.require(:show).permit(:title, :dj_id, :radio_id, :playlist_id, :image)
   end
 end

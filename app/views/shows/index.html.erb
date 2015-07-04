@@ -1,23 +1,21 @@
-<%= simple_form_for @show, html: {class: 'form-horizontal'} do |f| %>
-  <%= f.input :radio_id, value: @show.radio_id, as: :hidden %>
-  <%= f.input :dj_id, collection: @current_radio.djs, label_method: :username, value_method: :id  %>
-  <%= f.input :playlist_id, collection: @current_radio.playlists, label_method: :name, value_method: :id  %>
-  <%= f.input :title %>
-
-  <%= f.submit 'Add show', class: 'btn btn-success' %>
-<% end %>
+<%= render 'form' %>
 
 <table class="table table-striped">
   <thead>
+    <th></th>
     <th>title</th>
     <th>host DJ</th>
+    <th>playlist</th>
+    <th></th>
   </thead>
   <tbody>
     <% @shows.each do |show| %>
       <tr>
+        <td><%= image_tag show.image.url(:thumb) %></td>
         <td><%= show.title %></td>
         <td><%= show.dj.try(:username) %></td>
         <td><%= show.playlist.try(:name) %></td>
+        <td><%= link_to 'Edit', edit_show_path(show) %></td>
       </tr>
     <% end %>
   </tbody>
