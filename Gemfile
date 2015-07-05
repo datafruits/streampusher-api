@@ -49,7 +49,7 @@ group :test do
 end
 
 group :test, :development do
-  gem 'pry'
+  gem 'pry-byebug'
 end
 
 group :production do

@@ -218,6 +218,9 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-byebug (3.0.1)
+      byebug (~> 3.4)
+      pry (~> 0.10)
     rack (1.6.2)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -412,7 +415,7 @@ DEPENDENCIES
   mock_redis
   paperclip
   pg
-  pry
+  pry-byebug
   rails (= 4.2.2)
   rails-assets-chartjs!
   rails-assets-countUp.js!
