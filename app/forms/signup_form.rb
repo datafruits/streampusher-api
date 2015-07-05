@@ -18,5 +18,6 @@ class SignupForm < ActionForm::Base
   def save
     super
     self.model.subscription.save_with_free_trial
+    self.model.radios << self.model.subscription.radios.first
   end
 end
