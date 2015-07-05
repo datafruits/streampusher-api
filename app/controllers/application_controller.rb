@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
     if !request.subdomain.blank?
       @current_radio = Radio.find_by_name request.subdomain
     elsif current_user
-      @current_radio = current_user.subscription.try(:radios).first
+      @current_radio = current_user.radios.first
     end
   end
 
