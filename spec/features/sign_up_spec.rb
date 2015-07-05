@@ -20,8 +20,9 @@ def click_sign_up_button
   click_button "Sign up now"
 end
 
-def i_should_see_i_signed_up_as email
-  expect(page).to have_content email
+def i_should_see_i_signed_up_as username
+  expect(page).to have_content "You have successfully signed up."
+  expect(page).to have_content username
 end
 
 feature 'signup' do
@@ -31,7 +32,7 @@ feature 'signup' do
       fill_in_sign_up_form_with "steve.aoki@gmail.com", "stevespassword", "BLOCKFM"
       click_sign_up_button
 
-      i_should_see_i_signed_up_as "steve.aoki@gmail.com"
+      i_should_see_i_signed_up_as "steve.aoki"
     end
   end
 end

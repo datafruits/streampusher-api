@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
 
   after_filter :flash_to_headers
   around_filter :set_time_zone
-  before_filter :current_radio
 
   rescue_from CanCan::AccessDenied do |exception|
     render :file => "#{Rails.root}/public/403.html", :status => 403
@@ -30,10 +29,12 @@ class ApplicationController < ActionController::Base
 
   def current_radio
     if !request.subdomain.blank?
-      @current_radio = Radio.find_by_name request.subdomain
-    elsif current_user
-      @current_radio = current_user.radios.first
+      current_radio = Radio.find_by_name request.subdomain
     end
+    unless current_radio
+      current_radio = current_user.radios.first
+    end
+    @current_radio ||= current_radio
   end
 
   def current_ability
