@@ -163,6 +163,7 @@ GEM
       activesupport (>= 4.1.0)
     groupdate (2.4.0)
       activesupport (>= 3)
+    high_voltage (2.3.0)
     hike (1.2.3)
     hitimes (1.2.2)
     i18n (0.7.0)
@@ -402,6 +403,7 @@ DEPENDENCIES
   factory_girl_rails
   font-awesome-sass (~> 4.2.0)
   groupdate
+  high_voltage
   jquery-rails
   jquery-ui-rails
   kaminari

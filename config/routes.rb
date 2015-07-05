@@ -39,6 +39,7 @@ Rails.application.routes.draw do
 
   resources :tracks, only: [:create, :edit, :update]
 
-  #root 'home#index'
+  get '/broadcasting_help' => 'pages#show', :id => "broadcasting_help"
+
   root 'landing#index'
 end

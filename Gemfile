@@ -71,6 +71,7 @@ gem 'active_model_serializers'
 gem 'chronic'
 gem 'aws-sdk', '< 2.0'
 gem 'paperclip'
+gem 'high_voltage'
 
 gem "so_id3", github: "mcfiredrill/so_id3"
 
