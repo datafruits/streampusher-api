@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
 
   after_filter :flash_to_headers
+  before_filter :current_radio
   around_filter :set_time_zone
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -28,13 +29,15 @@ class ApplicationController < ActionController::Base
   end
 
   def current_radio
-    if !request.subdomain.blank?
-      current_radio = Radio.find_by_name request.subdomain
+    if user_signed_in?
+      if !request.subdomain.blank?
+        current_radio = Radio.find_by_name request.subdomain
+      end
+      unless current_radio
+        current_radio = current_user.radios.first
+      end
+      @current_radio ||= current_radio
     end
-    unless current_radio
-      current_radio = current_user.radios.first
-    end
-    @current_radio ||= current_radio
   end
 
   def current_ability
