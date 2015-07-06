@@ -23,7 +23,6 @@ class ScheduledShowsController < ApplicationController
 
   private
   def setup_index
-    @current_radio = current_radio
     @scheduled_shows = @current_radio.scheduled_shows
     @shows = @current_radio.shows
   end
