@@ -29,14 +29,13 @@ class ApplicationController < ActionController::Base
   end
 
   def current_radio
-    if user_signed_in?
-      if !request.subdomain.blank?
-        current_radio = Radio.find_by_name request.subdomain
+    if !request.subdomain.blank?
+      @current_radio ||= Radio.find_by_name request.subdomain
+    end
+    unless @current_radio
+      if user_signed_in?
+        @current_radio ||= current_user.radios.first
       end
-      unless current_radio
-        current_radio = current_user.radios.first
-      end
-      @current_radio ||= current_radio
     end
   end
 
