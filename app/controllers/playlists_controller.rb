@@ -1,12 +1,12 @@
 class PlaylistsController < ApplicationController
   def index
-    @tracks = current_radio.tracks
-    @playlists = current_radio.playlists
-    @playlist = current_radio.playlists.new
+    @tracks = @current_radio.tracks
+    @playlists = @current_radio.playlists
+    @playlist = @current_radio.playlists.new
   end
 
   def create
-    @playlist = current_radio.playlists.new create_params
+    @playlist = @current_radio.playlists.new create_params
     if @playlist.save
       render 'create'
     else
@@ -15,8 +15,8 @@ class PlaylistsController < ApplicationController
   end
 
   def add_track
-    @playlist = current_radio.playlists.find(params[:id])
-    @track = current_radio.tracks.find params[:track][:id]
+    @playlist = @current_radio.playlists.find(params[:id])
+    @track = @current_radio.tracks.find params[:track][:id]
     if @playlist.add_track @track
       SavePlaylistToRedisWorker.perform_later @playlist.id
       flash[:notice] = 'added track to playlist!'
@@ -28,7 +28,7 @@ class PlaylistsController < ApplicationController
   end
 
   def remove_track
-    @playlist = current_radio.playlists.find(params[:id])
+    @playlist = @current_radio.playlists.find(params[:id])
     @playlist_track = @playlist.playlist_tracks.find params[:playlist_track][:id]
     if @playlist.remove_track @playlist_track
       SavePlaylistToRedisWorker.perform_later @playlist.id
