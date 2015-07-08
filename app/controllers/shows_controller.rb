@@ -1,7 +1,6 @@
 class ShowsController < ApplicationController
   load_and_authorize_resource
   def index
-    @current_radio = current_radio
     @shows = @current_radio.shows
     @show = Show.new
 
@@ -12,7 +11,6 @@ class ShowsController < ApplicationController
   end
 
   def edit
-    @current_radio = current_radio
   end
 
   def update
@@ -29,7 +27,6 @@ class ShowsController < ApplicationController
     if @show.save
       redirect_to shows_path
     else
-      @current_radio = current_radio
       @shows = @current_radio.shows
       render 'index'
     end
