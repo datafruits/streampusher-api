@@ -18,6 +18,10 @@ class ScheduledShow < ActiveRecord::Base
     self.show.title
   end
 
+  def dj
+    self.show.dj
+  end
+
   def image_url
     self.show.image.url
   end
