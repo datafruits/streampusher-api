@@ -18,6 +18,10 @@ class ScheduledShow < ActiveRecord::Base
     self.show.title
   end
 
+  def image_url
+    self.show.image.url
+  end
+
   def schedule_cannot_conflict
     self.radio.scheduled_shows.where.not(id: id).each do |show|
       if end_at > show.start_at && start_at < show.end_at

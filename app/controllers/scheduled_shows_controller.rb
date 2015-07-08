@@ -12,6 +12,16 @@ class ScheduledShowsController < ApplicationController
     end
   end
 
+  def show
+    respond_to do |format|
+      format.html
+      format.json {
+        response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
+        render json: @scheduled_show, root: false
+      }
+    end
+  end
+
   def create
     if @scheduled_show.save
       redirect_to scheduled_shows_path
