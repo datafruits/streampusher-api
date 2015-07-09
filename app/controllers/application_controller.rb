@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_ability
-    @current_ability ||= Ability.new(current_user, current_radio)
+    @current_ability ||= Ability.new(current_user, @current_radio)
   end
 
   def flash_to_headers
