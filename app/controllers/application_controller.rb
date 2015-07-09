@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
     if !request.subdomain.blank?
       @current_radio ||= Radio.find_by_name request.subdomain
     end
-    unless @current_radio
+    unless @current_radio.present?
       if user_signed_in?
         @current_radio ||= current_user.radios.first
       end

@@ -19,6 +19,6 @@ class SignupForm < ActionForm::Base
     super
     self.model.subscription.save_with_free_trial
     self.model.radios << self.model.subscription.radios.first
-    UserSignedUpNotifier.notify self
+    UserSignedUpNotifier.notify self.model
   end
 end
