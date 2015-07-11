@@ -23,7 +23,7 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def image_url
-    self.show.image.url
+    self.show.image.url(:thumb)
   end
 
   def schedule_cannot_conflict
