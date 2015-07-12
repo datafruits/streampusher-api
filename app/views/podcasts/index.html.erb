@@ -1,6 +1,8 @@
 <h1>podcasts</h1>
 <div class="row">
-  <%= render 'form' %>
+  <% if can? :create, Podcast %>
+    <%= render 'form' %>
+  <% end %>
 </div>
 
 <table class="table table-striped">
@@ -15,7 +17,9 @@
         <td><%= podcast.name %></td>
         <td><%= podcast.playlist.try(:name) %></td>
         <td><%= link_to 'xml feed', podcast_path(id: podcast.name, format: :xml) %></td>
-        <td><%= link_to 'Edit', edit_podcast_path(podcast) %></td>
+        <% if can? :edit, Podcast %>
+          <td><%= link_to 'Edit', edit_podcast_path(podcast) %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
