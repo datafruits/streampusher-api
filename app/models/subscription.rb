@@ -16,6 +16,8 @@ class Subscription < ActiveRecord::Base
   def save_with_free_trial(*)
     if valid?
       customer = Stripe::Customer.create(description: self.user.email, plan: plan_id)
+      self.on_trial = true
+      self.trial_ends_at = Time.at(customer.subscriptions.data.first.trial_end)
       self.stripe_customer_token = customer.id
       save!
     end

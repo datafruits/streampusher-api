@@ -1,6 +1,7 @@
 <h1>Streampusher Subscription</h1>
 
-<span>You are currently subscribed to the <b><%= @subscription.plan.name %></b> plan. You can change your plan or update your billing info here.</span>
+<span>You are currently subscribed to the <b><%= @subscription.plan.name %></b> plan. <span>
+<span> You can change your plan or update your billing info here.</span>
 
 <% if @subscription.card_present? %>
   Current Billing Information:
