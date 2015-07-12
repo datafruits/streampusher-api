@@ -20,7 +20,24 @@ RSpec.describe Subscription, :type => :model do
     describe "updating the card and/or plan" do
       it "updates the subscription with a new card"
       it "updates the subscription with a new plan"
-      it "updates the subscription with a new card and plan"
+      it "updates the subscription with a new card and plan" do
+        VCR.use_cassette "stripe_save_free_trial" do
+          subscription.save_with_free_trial
+        end
+        VCR.use_cassette "stripe_update_with_new_card" do
+          token = Stripe::Token.create(
+            :card => {
+              :number => "4242424242424242",
+              :exp_month => 7,
+              :exp_year => 2016,
+              :cvc => "314"
+            }
+          )
+          subscription.update_with_new_card plan_id: Plan.find_by_name("Hobbyist").id, stripe_card_token: token.id
+        end
+        subscription.reload
+        expect(subscription.on_trial).to eq false
+      end
       it "doesn't save if the stripe api returned an error"
     end
   end

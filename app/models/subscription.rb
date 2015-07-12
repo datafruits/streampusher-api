@@ -5,6 +5,10 @@ class Subscription < ActiveRecord::Base
   has_many :radios
   attr_accessor :stripe_card_token
 
+  def trial_days_left
+    (Date.parse(Time.at(self.trial_ends_at)) - Date.today).to_i
+  end
+
   def card_present?
     last_4_digits.present? && exp_month.present? && exp_year.present?
   end
@@ -30,6 +34,7 @@ class Subscription < ActiveRecord::Base
   def save_with_card(*)
     if valid?
       customer = Stripe::Customer.create(description: self.user.email, plan: plan_id, card: stripe_card_token)
+      self.on_trial = false
       self.stripe_customer_token = customer.id
       self.last_4_digits = customer.cards.first.last4
       self.exp_month = customer.cards.first.exp_month
@@ -53,6 +58,7 @@ class Subscription < ActiveRecord::Base
         subscription = customer.subscriptions.first
         subscription.plan = plan_id
         customer.save
+        self.on_trial = false
         self.stripe_customer_token = customer.id
         self.last_4_digits = customer.cards.first.last4
         self.exp_month = customer.cards.first.exp_month
