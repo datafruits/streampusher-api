@@ -10,7 +10,11 @@ class ApplicationController < ActionController::Base
   around_filter :set_time_zone
 
   rescue_from CanCan::AccessDenied do |exception|
-    render :file => "#{Rails.root}/public/403.html", :status => 403
+    if user_signed_in?
+      render :file => "#{Rails.root}/public/403.html", :status => 403
+    else
+      redirect_to new_user_session_path, :notice => "You need to login first!"
+    end
   end
 
   protected

@@ -7,15 +7,16 @@ class Ability
       can :admin, :dashboard
       can :admin, :radios
       can :manage, :all
-    elsif user.dj?
-      cannot :admin
-      cannot :new, :create, :edit, :update, Podcast
-    elsif user.persisted?
+    elsif user.owner?
       can :manage, Radio do |radio|
         can_manage_radio?(user, radio)
       end
       can :manage, Show if can_manage_radio?(user, radio)
       can :manage, Subscription, user_id: user.id
+    elsif user.dj?
+      can :read, Podcast
+      can :read, "broadcasting_help"
+      cannot :admin
     else
       can :read, ScheduledShow
       cannot :admin
