@@ -4,7 +4,9 @@
     <h3><%= "Host: #{@scheduled_show.dj.username}" %></h3>
     <%= image_tag @scheduled_show.image_url %>
   </div>
+  <a href="https://twitter.com/share" class="twitter-share-button" data-text="<%=tweet_text(@scheduled_show)%>">Tweet</a>
   <div class="col-md-4">
     <h2><%= "#{@scheduled_show.start} - #{@scheduled_show.end}" %></h2>
   </div>
 </div>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
