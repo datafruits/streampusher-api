@@ -1,5 +1,6 @@
 <%= render 'form' %>
 
+<h2>Shows</h2>
 <table class="table table-striped">
   <thead>
     <th></th>
@@ -15,7 +16,9 @@
         <td><%= show.title %></td>
         <td><%= show.dj.try(:username) %></td>
         <td><%= show.playlist.try(:name) %></td>
-        <td><%= link_to 'Edit', edit_show_path(show) %></td>
+        <% if can? :edit, show %>
+          <td><%= link_to 'Edit', edit_show_path(show) %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

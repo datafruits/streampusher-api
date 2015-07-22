@@ -25,8 +25,10 @@ class ShowsController < ApplicationController
 
   def create
     if @show.save
+      flash[:notice] = "Successfully created show."
       redirect_to shows_path
     else
+      flash[:error] = "There was an error saving this show."
       @shows = @current_radio.shows
       render 'index'
     end

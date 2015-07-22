@@ -6,7 +6,7 @@ class Show < ActiveRecord::Base
   has_attached_file :image, styles: { :thumb => "x120" }
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
-  validates_presence_of :playlist_id
+  # validates_presence_of :playlist_id ??
 
   # validates :color, unique: true, scope: radio_id
 

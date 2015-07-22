@@ -15,6 +15,12 @@ class Ability
       can :manage, Subscription, user_id: user.id
     elsif user.dj?
       can :read, Podcast
+      can :create, Show, dj_id: user.id
+      can :read, Show
+      can :edit, Show, dj_id: user.id
+      can :read, ScheduledShow
+      can :create, ScheduledShow
+      can :edit, ScheduledShow, dj_id: user.id
       can :read, "broadcasting_help"
       cannot :admin
     else

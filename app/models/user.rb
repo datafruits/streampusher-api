@@ -73,6 +73,7 @@ class User < ActiveRecord::Base
   end
 
   def set_initial_time_zone
+    # TODO should set time zone from browser timezone in form
     unless self.time_zone.present?
       self.time_zone = Time.zone.name
     end
