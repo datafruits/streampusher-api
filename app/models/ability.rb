@@ -19,7 +19,7 @@ class Ability
       can :read, Show
       can :edit, Show, dj_id: user.id
       can :read, ScheduledShow
-      can :create, ScheduledShow
+      can :create, ScheduledShow, show_id: user.shows.pluck(:id)
       can :edit, ScheduledShow, dj_id: user.id
       can :read, "broadcasting_help"
       cannot :admin

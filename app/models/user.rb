@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_one :subscription
   has_many :radios, through: :user_radios
   has_many :user_radios
+  has_many :shows, foreign_key: :dj_id
 
   # include User::Roles
   ROLES = %w[owner admin dj]

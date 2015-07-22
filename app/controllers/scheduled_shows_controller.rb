@@ -24,9 +24,11 @@ class ScheduledShowsController < ApplicationController
 
   def create
     if @scheduled_show.save
+      flash[:notice] = "Scheduled show!"
       redirect_to scheduled_shows_path
     else
       setup_index
+      flash[:error] = "Error scheduling show."
       render 'index'
     end
   end
