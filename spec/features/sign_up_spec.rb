@@ -35,4 +35,23 @@ feature 'signup' do
       i_should_see_i_signed_up_as "steve.aoki"
     end
   end
+
+  scenario 'form shows error if no email' do
+    VCR.use_cassette "user_sign_up_no_email" do
+      visit_sign_up_page
+      fill_in_sign_up_form_with "", "stevespassword", "BLOCKFM"
+      click_sign_up_button
+
+      i_should_see_form_errors_on "email"
+    end
+
+  end
+
+  scenario 'form shows error if no password' do
+
+  end
+
+  scenario 'form shows error if no radio name' do
+
+  end
 end
