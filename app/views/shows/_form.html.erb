@@ -9,6 +9,7 @@
     <%= f.input :dj_id, collection: @current_radio.djs, label_method: :username, value_method: :id  %>
   <% end %>
   <%= f.input :playlist_id, collection: @current_radio.playlists, label_method: :name, value_method: :id  %>
+  <p>Optional. This is the playlist that will play if you are unable to do your show for any reason.</p>
   <%= f.input :image, as: :file %>
   <%= f.input :title %>
 
