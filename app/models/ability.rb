@@ -17,7 +17,7 @@ class Ability
       can :read, Podcast
       can :create, Show, dj_id: user.id
       can :read, Show
-      can :edit, Show, dj_id: user.id
+      can :update, Show, dj_id: user.id
       can :read, ScheduledShow
       can :create, ScheduledShow, show_id: user.shows.pluck(:id)
       can :edit, ScheduledShow, dj_id: user.id

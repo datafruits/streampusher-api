@@ -1,4 +1,3 @@
-<h2>Create Show</h2>
 <%= simple_form_for @show, html: {class: 'form-horizontal'} do |f| %>
   <%= f.input :radio_id, as: :hidden, input_html: { value: @current_radio.id }  %>
   <% if current_user.owner? || current_user.admin? %>
