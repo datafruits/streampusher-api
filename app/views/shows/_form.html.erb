@@ -5,7 +5,7 @@
     <label>Dj</label>
     <p><%= current_user.username %></p>
     <%= f.input :dj_id, input_html: { value: current_user.id }, as: :hidden  %>
-  <% else %>
+  <% elsif current_user.owner? %>
     <%= f.input :dj_id, collection: @current_radio.djs, label_method: :username, value_method: :id  %>
   <% end %>
   <%= f.input :playlist_id, collection: @current_radio.playlists, label_method: :name, value_method: :id  %>
