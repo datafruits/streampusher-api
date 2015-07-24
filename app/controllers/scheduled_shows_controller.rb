@@ -33,10 +33,25 @@ class ScheduledShowsController < ApplicationController
     end
   end
 
+  def edit
+    @shows = @current_radio.shows
+  end
+
+  def update
+    if @scheduled_show.save
+      flash[:notice] = "Updated scheduled show!"
+      redirect_to scheduled_shows_path
+    else
+      flash[:error] = "Error updating scheduling show."
+      render 'edit'
+    end
+  end
+
   private
   def setup_index
     @scheduled_shows = @current_radio.scheduled_shows
     @shows = @current_radio.shows
+    @scheduled_show = ScheduledShow.new
   end
 
   def create_params

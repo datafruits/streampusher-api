@@ -11,4 +11,6 @@ $('[data-controller=scheduled_shows]').ready ->
      eventSources: [
        "/scheduled_shows.json?timezone=<%=Time.zone.name%>"
      ]
+     eventClick: (calEvent, jsEvent, view) ->
+       window.location = "/scheduled_shows/#{calEvent.id}"
    })
