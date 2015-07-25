@@ -1,10 +1,13 @@
 <%= simple_form_for @scheduled_show, html: {class: 'form-horizontal'} do |f| %>
-  <%= f.input :radio_id, value: @current_radio.id, as: :hidden %>
+  <%= f.input :radio_id, as: :hidden, input_html: { value: @current_radio.id } %>
   <% if current_user.admin? || current_user.owner? %>
     <%= f.input :show_id, collection: @shows, prompt: "Select a show..." %>
   <% else %>
     <%= f.input :show_id, collection: current_user.shows, prompt: "Select a show..." %>
   <% end %>
+  <div class="note">
+    Your current time zone is set to <%= current_user.time_zone %>. You can change it by <%= link_to 'editing your profile.', "/users/edit" %>
+  </div>
   <%= f.input :start_at, minute_step: 15 %>
   <%= f.input :end_at, minute_step: 15 %>
 
