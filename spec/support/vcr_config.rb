@@ -11,6 +11,8 @@ def test_docker_uri
 end
 
 VCR.configure do |config|
+  # config.ignore_localhost = true
+  config.ignore_hosts '127.0.0.1', 54660
   config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
   config.hook_into :webmock # or :fakeweb
 

@@ -94,6 +94,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-webkit (1.6.0)
+      capybara (>= 2.3.0, < 2.5.0)
+      json
     celluloid (0.16.0)
       timers (~> 4.0.0)
     chosen-rails (1.4.1)
@@ -130,6 +133,7 @@ GEM
     connection_pool (2.2.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
+    database_rewinder (0.5.2)
     debugger-linecache (1.2.0)
     devise (3.5.1)
       bcrypt (~> 3.0)
@@ -395,11 +399,13 @@ DEPENDENCIES
   capistrano-rbenv (~> 2.0)
   capistrano-sidekiq
   capybara
+  capybara-webkit
   chosen-rails
   chronic
   cocaine
   coffee-rails (~> 4.1.0)
   coffeebeans
+  database_rewinder
   devise (~> 3.5.1)
   docker-api (~> 1.21.0)
   dotenv-rails

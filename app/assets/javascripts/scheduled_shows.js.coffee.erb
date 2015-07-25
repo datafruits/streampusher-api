@@ -6,7 +6,7 @@ $('[data-controller=scheduled_shows]').ready ->
        center: 'title',
        right: 'month,basicWeek,basicDay'
      }
-     defaultView: 'basicWeek'
+     defaultView: 'month'
      editable: true
      eventSources: [
        "/scheduled_shows.json?timezone=<%=Time.zone.name%>"
