@@ -38,6 +38,7 @@ class ScheduledShowsController < ApplicationController
   end
 
   def update
+    @scheduled_show.attributes = create_params
     if @scheduled_show.save
       flash[:notice] = "Updated scheduled show!"
       redirect_to scheduled_shows_path
