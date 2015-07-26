@@ -1,6 +1,6 @@
 class DjsController < ApplicationController
   def index
-    @djs = current_radio.djs.page(params[:page])
+    @djs = @current_radio.djs.page(params[:page])
     @dj = @djs.new
   end
 
@@ -9,15 +9,15 @@ class DjsController < ApplicationController
 
   def create
     @dj = User.new dj_params
-    @dj.user_radios.build(radio: current_radio)
+    @dj.user_radios.build(radio: @current_radio)
     password = Devise.friendly_token.first(8)
     @dj.password = password
     @dj.role = 'dj'
     if @dj.save
-      DjAccountMailer.welcome_email(@dj, password, current_radio).deliver_later
+      DjAccountMailer.welcome_email(@dj, password, @current_radio).deliver_later
       redirect_to djs_path
     else
-      @djs = current_radio.djs.page(params[:page])
+      @djs = @current_radio.djs.page(params[:page])
       render 'index'
     end
   end
