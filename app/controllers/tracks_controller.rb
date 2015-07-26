@@ -1,7 +1,7 @@
 class TracksController < ApplicationController
   load_and_authorize_resource
   def edit
-    @track = current_radio.tracks.find params[:id]
+    @track = @current_radio.tracks.find params[:id]
   end
 
   def update
@@ -9,7 +9,7 @@ class TracksController < ApplicationController
   end
 
   def create
-    @track = current_radio.tracks.new create_params
+    @track = @current_radio.tracks.new create_params
     if @track.save
       flash[:notice] = 'track uploaded!'
       render 'create'
