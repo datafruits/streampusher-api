@@ -1,7 +1,7 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user, radio)
+  def initialize(user, radio, format)
     user ||= User.new # guest user (not logged in)
     if user.admin?
       can :admin, :dashboard
@@ -24,7 +24,7 @@ class Ability
       can :read, "broadcasting_help"
       cannot :admin
     else
-      can :read, ScheduledShow
+      can :read, ScheduledShow if format == "json"
       cannot :admin
     end
   end
