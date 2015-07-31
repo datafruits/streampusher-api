@@ -22,6 +22,10 @@ def click_on_show show
   find("span", :text => show.title).click
 end
 
+def i_should_see_my_scheduled_show_deleted
+  expect(page).to have_content "Deleted scheduled show!"
+end
+
 feature 'schedule', :js => true do
   let(:owner) { FactoryGirl.create :user, username: "owner", role: "owner" }
   let(:subscription) { FactoryGirl.create :subscription, user: owner }
@@ -53,5 +57,18 @@ feature 'schedule', :js => true do
     fill_in_schedule_form show, Chronic.parse("today at 5pm"), Chronic.parse("today at 7pm")
     click_save_button
     i_should_see_my_scheduled_show show, Chronic.parse("today at 5pm"), Chronic.parse("today at 7pm")
+  end
+
+  scenario 'dj deletes scheduled show' do
+    login_as dj
+    visit_schedule_path
+    fill_in_schedule_form show, Chronic.parse("today at 3pm"), Chronic.parse("today at 5pm")
+    click_save_button
+    i_should_see_my_scheduled_show show, Chronic.parse("today at 3pm"), Chronic.parse("today at 5pm")
+    click_on_show show
+    click_link "Edit"
+    click_link "Delete"
+
+    i_should_see_my_scheduled_show_deleted
   end
 end

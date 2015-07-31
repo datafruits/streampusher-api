@@ -48,6 +48,12 @@ class ScheduledShowsController < ApplicationController
     end
   end
 
+  def destroy
+    @scheduled_show.destroy
+    flash[:notice] = "Deleted scheduled show!"
+    redirect_to scheduled_shows_path
+  end
+
   private
   def setup_index
     @scheduled_shows = @current_radio.scheduled_shows

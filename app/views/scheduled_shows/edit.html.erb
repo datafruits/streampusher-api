@@ -1,1 +1,3 @@
 <%= render 'form' %>
+
+<%= link_to "Delete", scheduled_show_path(@scheduled_show), method: :delete, data: { confirm: "Are you sure?" } %>
