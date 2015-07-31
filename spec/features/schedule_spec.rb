@@ -54,6 +54,7 @@ feature 'schedule', :js => true do
     click_save_button
     i_should_see_my_scheduled_show show, Chronic.parse("today at 3pm"), Chronic.parse("today at 5pm")
     click_on_show show
+    click_link "Edit"
     fill_in_schedule_form show, Chronic.parse("today at 5pm"), Chronic.parse("today at 7pm")
     click_save_button
     i_should_see_my_scheduled_show show, Chronic.parse("today at 5pm"), Chronic.parse("today at 7pm")
