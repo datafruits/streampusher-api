@@ -2,4 +2,7 @@
   <button class="delete-from-playlist btn btn-danger">
     <i class="fa fa-times-circle"></i>
   </button><%= playlist_track.track.file_basename %>
+  <%= link_to edit_playlist_track_path(playlist_track), data: { "playlist-track-id" => playlist_track.id }, class: "edit-track btn btn-primary", remote: true do %>
+    <i class="fa fa-pencil"></i>
+  <% end %>
 </li>

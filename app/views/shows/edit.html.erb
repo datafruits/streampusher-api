@@ -1,2 +1,3 @@
 <h2>Edit Show</h2>
 <%= render 'form' %>
+<%= link_to "Delete", show_path(@show), method: :delete, data: { confirm: "Are you sure?" } %>

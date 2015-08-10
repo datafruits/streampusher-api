@@ -34,6 +34,12 @@ class ShowsController < ApplicationController
     end
   end
 
+  def destroy
+    @show.destroy
+    flash[:notice] = "Deleted show!"
+    redirect_to shows_path
+  end
+
   private
   def create_params
     params.require(:show).permit(:title, :dj_id, :radio_id, :playlist_id, :image)

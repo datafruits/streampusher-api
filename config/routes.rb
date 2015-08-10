@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   post 'admin/radios/:id/restart', to: 'admin#restart_radio', as: 'admin_restart_radio'
 
   resources :tracks, only: [:create, :edit, :update]
+  resources :playlist_tracks, only: [:edit, :update]
 
   get '/broadcasting_help' => 'help#broadcasting', :id => "broadcasting_help"
 

@@ -24,7 +24,7 @@ def i_should_see_show_created show
   expect(page).to have_content "Successfully created show."
 end
 
-def click_edit_button show
+def click_edit_button
   click_link "Edit"
 end
 
@@ -34,6 +34,10 @@ end
 
 def i_should_see_show_updated new_title
   expect(page).to have_content new_title
+end
+
+def i_should_see_my_show_deleted
+  expect(page).to have_content "Deleted show!"
 end
 
 feature 'shows' do
@@ -62,7 +66,7 @@ feature 'shows' do
     fill_in_shows_form_with show
     click_save_button
     i_should_see_show_created show
-    click_edit_button show
+    click_edit_button
     change_show_title "my cooler show"
     click_save_button
     i_should_see_show_updated "my cooler show"
@@ -82,9 +86,22 @@ feature 'shows' do
     fill_in_shows_form_with show
     click_save_button
     i_should_see_show_created show
-    click_edit_button show
+    click_edit_button
     change_show_title "my cooler show"
     click_save_button
     i_should_see_show_updated "my cooler show"
+  end
+
+  scenario 'dj deletes show' do
+    show = { playlist: playlist, image: "spec/fixtures/images/pineapple.png", title: "my cool show" }
+    login_as dj
+    visit_shows_path
+    fill_in_shows_form_with show
+    click_save_button
+    i_should_see_show_created show
+    click_edit_button
+    click_link "Delete"
+
+    i_should_see_my_show_deleted
   end
 end
