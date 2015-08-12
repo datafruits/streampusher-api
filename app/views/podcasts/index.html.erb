@@ -7,6 +7,7 @@
 
 <table class="table table-striped">
   <thead>
+    <th></th>
     <th>name</th>
     <th>playlist</th>
     <th>XML feed</th>
@@ -14,6 +15,7 @@
   <tbody>
     <% @podcasts.each do |podcast| %>
       <tr>
+        <td><%= image_tag podcast.image.url(:thumb) %></td>
         <td><%= podcast.name %></td>
         <td><%= podcast.playlist.try(:name) %></td>
         <td><%= link_to 'xml feed', podcast_path(id: podcast.name, format: :xml) %></td>
