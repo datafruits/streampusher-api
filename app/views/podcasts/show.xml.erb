@@ -8,7 +8,7 @@
     <copyright/>
     <lastBuildDate>Tue, 16 Jul 2013 11:54:39 PDT</lastBuildDate>
     <ttl>1</ttl>
-    <atom:link href="http://www.datafruits.fm/podcast.xml" rel="self" type="application/rss+xml"/>
+    <atom:link href="<%= podcast_url(id: @podcast.name, format: :xml) %>" rel="self" type="application/rss+xml"/>
     <itunes:image href="<%= @podcast.image.url %>"/>
     <itunes:summary>
       DATAFRUITS.FM podcast latest mixes from datafruits.fm internet radio station
