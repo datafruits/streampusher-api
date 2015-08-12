@@ -22,7 +22,7 @@
     <% @podcast.extra_tags.each do |key,value| %>
       <<%=key%>><%=value%></<%=key%>>
     <% end %>
-    <% @podcast.playlist.playlist_tracks.each do |playlist_track| %>
+    <% @podcast.playlist.playlist_tracks.order("podcast_published_date ASC").each do |playlist_track| %>
       <% track = playlist_track.track %>
       <item>
         <title><%=track.title%></title>
