@@ -15,6 +15,10 @@ module ScheduledShowsHelper
   end
 
   def tweet_text(show)
-    "#{show.dj.username} - #{show.title} on @datafruits #{show.start_at.strftime("%m/%d")} - #{multiple_timezones(show.start_at)}"
+    text = ""
+    if show.dj
+      text <<  "#{show.dj.username} - "
+    end
+    text << "#{show.title} on @datafruits #{show.start_at.strftime("%m/%d")} - #{multiple_timezones(show.start_at)}"
   end
 end
