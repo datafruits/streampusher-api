@@ -25,6 +25,7 @@ gem 'docker-api', '~> 1.21.0', require: 'docker'
 gem 'simple_form'
 gem 'cocaine'
 gem 'lograge'
+gem 'rack-cors', :require => 'rack/cors'
 
 gem 'sidekiq'
 gem 'therubyracer'
