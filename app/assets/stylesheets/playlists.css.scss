@@ -4,6 +4,9 @@
 @import "bourbon";
 
 ul#tracks {
+  height: 400px;
+  overflow-y: scroll;
+  min-height: 100px;
 }
 
 ul.playlist-tracks {
