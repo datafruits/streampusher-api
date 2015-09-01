@@ -52,5 +52,6 @@ class RadioBooterWorker < ActiveJob::Base
     radio.playlists.each do |playlist|
       SavePlaylistToRedisWorker.perform_later playlist.id
     end
+    SaveRadioSettingsToRedisWorker.perform_later radio.id
   end
 end
