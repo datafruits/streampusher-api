@@ -24,6 +24,11 @@
                 <i class="fa fa-user"></i>Users
               <% end %>
             </li>
+            <li>
+              <%= link_to edit_radio_path(@current_radio) do %>
+                <i class="fa fa-cog"></i>Radio Settings
+              <% end %>
+            </li>
           <% end %>
           <li>
             <%= link_to schedule_path do %>

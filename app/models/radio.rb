@@ -8,6 +8,7 @@ class Radio < ActiveRecord::Base
   has_many :playlists
   has_many :podcasts
   belongs_to :subscription
+  belongs_to :default_playlist, class_name: "Playlist"
 
   def djs
     self.users
@@ -69,5 +70,9 @@ class Radio < ActiveRecord::Base
 
   def liquidsoap_proxy_key
     "#{self.virtual_host}/liquidsoap"
+  end
+
+  def default_playlist_key
+    "#{self.radio.name}/:default_playlist"
   end
 end
