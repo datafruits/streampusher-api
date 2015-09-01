@@ -73,6 +73,6 @@ class Radio < ActiveRecord::Base
   end
 
   def default_playlist_key
-    "#{self.radio.name}/:default_playlist"
+    "#{self.name}/:default_playlist"
   end
 end
