@@ -8,7 +8,7 @@ class CheckRadioIsUp < ActiveJob::Base
       if res.body == "yes"
         puts "radio is up"
       elsif res.body == "no"
-        AdminMailer.radio_not_reachable radio
+        AdminMailer.radio_not_reachable(radio).deliver_later
       else
         puts "error: #{res.body}"
       end
