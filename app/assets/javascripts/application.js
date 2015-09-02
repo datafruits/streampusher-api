@@ -23,4 +23,5 @@
 //= require jplayer/jquery.jplayer.js
 //= require underscore
 //= require chosen-jquery
+//= require jQuery-contextMenu
 //= require_tree .
