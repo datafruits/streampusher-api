@@ -1,7 +1,15 @@
 <script>
   window.playlists = {
   <% @playlists.each_with_index do |playlist,index| %>
-    "<%=playlist.name%>": { name: "<%=playlist.name%>"},
+    "<%=playlist.id%>": { name: "<%=playlist.name%>",
+                            callback: function(key, options) {
+                              playlistId = key;
+                              console.log("playlist was clicked: "+playlistId);
+                              trackId = $(this).data("track-id");
+                              console.log("track_id: "+trackId);
+                              window.addToPlaylist(trackId, playlistId);
+                            }
+                          },
   <% end %>
   };
 </script>

@@ -2,6 +2,20 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 #
+window.addToPlaylist = (trackId, playlistId) ->
+  $.ajax
+    type: 'POST'
+    url: "/playlists/#{playlistId}/add_track"
+    data:
+      track:
+        id: trackId
+    success: (data) ->
+      console.log('success!')
+      #console.log(data)
+    error: (data) ->
+      console.log('error!')
+      #console.log(data)
+
 $('[data-controller=playlists]').ready ->
   $.contextMenu
       selector: '.track'

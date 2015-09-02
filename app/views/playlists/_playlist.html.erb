@@ -16,18 +16,7 @@
           playlistId = $(this).data('playlist-id')
           trackId = ui.draggable.data('track-id')
           console.log("recevied track #{trackId} on playlist #{playlistId}")
-          $.ajax
-            type: 'POST'
-            url: "/playlists/#{playlistId}/add_track"
-            data:
-              track:
-                id: trackId
-            success: (data) ->
-              console.log('success!')
-              #console.log(data)
-            error: (data) ->
-              console.log('error!')
-              #console.log(data)
+          window.addToPlaylist(trackId, playlistId)
         when 'playlist_track'
         else
           console.log('unknown draggable type')
