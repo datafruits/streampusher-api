@@ -5,11 +5,11 @@ class CheckRadioIsUp < ActiveJob::Base
   queue_as :default
 
   def perform
-    Radio.each do |radio|
+    Radio.find_each do |radio|
       radio = Radio.find radio_id
       res = Net::HTTP.get_response(URI(radio.icecast_panel_url))
       if res.code.to_i != 200
-        # send alert to admin
+        AdminMailer.radio_not_reachable radio
       else
         puts "radio is up"
       end
