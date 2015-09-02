@@ -10,6 +10,7 @@ class ScheduledShow < ActiveRecord::Base
   alias_attribute :end, :end_at
 
   after_save :persist_to_redis
+  validates :description, length: { maximum: 10000 }
 
   # TODO
   # validate :time_is_in_15_min_intervals

@@ -11,5 +11,7 @@
   <%= f.input :start_at, minute_step: 15 %>
   <%= f.input :end_at, minute_step: 15 %>
 
+  <%= f.input :description, input_html: { cols: 70, rows: 5 }  %>
+
   <%= f.submit 'Add show', class: 'btn btn-success' %>
 <% end %>
