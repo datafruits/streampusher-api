@@ -6,7 +6,6 @@ class CheckRadioIsUp < ActiveJob::Base
 
   def perform
     Radio.find_each do |radio|
-      radio = Radio.find radio_id
       res = Net::HTTP.get_response(URI(radio.icecast_panel_url))
       if res.code.to_i != 200
         AdminMailer.radio_not_reachable radio
