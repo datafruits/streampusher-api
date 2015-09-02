@@ -3,6 +3,26 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 #
 $('[data-controller=playlists]').ready ->
+  $.contextMenu
+      selector: '.track'
+      callback: (key, options) ->
+        if key == "edit"
+          $.get("/tracks/"+$(this).data("track-id")+"/edit/")
+        else if key == "delete"
+          console.log("delete clicked")
+      items:
+          "edit": {name: "Edit", icon: "edit"}
+          "delete": {name: "Delete", icon: "delete"}
+          "sep1": "---------"
+          "fold1":
+            name: "Add to playlist"
+            items:
+              window.playlists
+
+
+  $('.context-menu-one').on 'click', (e) ->
+      console.log('clicked', @)
+
   $('#track-uploader').S3Uploader
     allow_multiple_files: false
     remove_completed_progress_bar: false

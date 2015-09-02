@@ -78,3 +78,34 @@ li.track.ui-draggable-dragging:hover {
     @include transition(all 0.3s ease-out);
     opacity: 1;
 }
+
+.context-menu-list {
+  font-family: inherit !important;
+  font-size: inherit !important;
+}
+.context-menu-item {
+  background: yellow !important;
+}
+.context-menu-item:hover {
+  background-color: #39F !important;
+}
+.context-menu-item.icon-edit {
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: none !important;
+}
+.context-menu-item.icon-delete {
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: none !important;
+}
+.context-menu-item.icon-edit:before { content: "\f040"; }
+.context-menu-item.icon-delete:before { content: "\f057"; }
