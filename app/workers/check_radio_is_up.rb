@@ -2,7 +2,7 @@ class CheckRadioIsUp < ActiveJob::Base
   queue_as :default
 
   def perform
-    Radio.find_each do |radio|
+    Radio.enabled.find_each do |radio|
       url = radio.icecast_panel_url
       res = Net::HTTP.get_response(URI("http://is-this-dongle-working.herokuapp.com/?site=#{url.to_s}"))
       if res.body == "yes"

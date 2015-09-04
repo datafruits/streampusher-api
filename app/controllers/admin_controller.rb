@@ -19,4 +19,12 @@ class AdminController < ApplicationController
     flash[:notice] = 'radio rebooting...'
     redirect_to action: :radios
   end
+
+  def disable_radio
+    authorize! :admin, :restart_radio
+    @radio = Radio.find params[:id]
+    @radio.disable_radio
+    flash[:notice] = 'radio disabled...'
+    redirect_to action: :radios
+  end
 end

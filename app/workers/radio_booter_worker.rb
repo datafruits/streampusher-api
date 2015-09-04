@@ -49,6 +49,7 @@ class RadioBooterWorker < ActiveJob::Base
        UFW.open_port port
      end
     end
+    radio.update enabled: true
     radio.playlists.each do |playlist|
       SavePlaylistToRedisWorker.perform_later playlist.id
     end

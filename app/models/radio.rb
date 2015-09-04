@@ -10,11 +10,17 @@ class Radio < ActiveRecord::Base
   belongs_to :subscription
   belongs_to :default_playlist, class_name: "Playlist"
 
+  scope :enabled, -> { where(enabled: true) }
+
   def djs
     self.users
   end
 
   def boot_radio
+    RadioBooterWorker.perform_later self.id
+  end
+
+  def disable_radio
     RadioBooterWorker.perform_later self.id
   end
 
