@@ -1,6 +1,6 @@
 class Playlist < ActiveRecord::Base
   belongs_to :radio
-  has_many :playlist_tracks, order: "podcast_published_date DESC"
+  has_many :playlist_tracks, -> { order("podcast_published_date" => "DESC") }
   has_many :tracks, through: :playlist_tracks
 
   def redis_key
