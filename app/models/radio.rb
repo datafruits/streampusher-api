@@ -21,7 +21,7 @@ class Radio < ActiveRecord::Base
   end
 
   def disable_radio
-    RadioBooterWorker.perform_later self.id
+    RadioDisableWorker.perform_later self.id
   end
 
   def icecast_container
