@@ -89,3 +89,4 @@ source 'https://rails-assets.org' do
 end
 
 gem 'whenever', require: false
+gem 'sinatra', :require => nil

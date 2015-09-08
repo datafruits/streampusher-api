@@ -69,6 +69,7 @@
               <li><%= link_to "Broadcasting Help", "/broadcasting_help" %></li>
               <% if current_user.admin? %>
                 <li><%= link_to "Admin", admin_path %></li>
+                <li><%= link_to 'Monitoring', sidekiq_web_path %></li>
               <% end %>
               <% if current_user.owner? %>
                 <li><%= link_to "Subscription", edit_subscription_path(current_user.subscription) %></li>
