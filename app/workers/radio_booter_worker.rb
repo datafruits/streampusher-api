@@ -14,7 +14,7 @@ class RadioBooterWorker < ActiveJob::Base
     radio.update icecast_container_id: icecast_container.id
     if ::Rails.env.production?
      port = redis.hget "proxy-domain", radio.icecast_proxy_key
-     if port
+     if port.present?
        UFW.close_port port
      end
     end
@@ -23,7 +23,7 @@ class RadioBooterWorker < ActiveJob::Base
     redis.hset 'proxy-domain', radio.icecast_proxy_key, icecast_container.host_port(8000)
     if ::Rails.env.production?
       port = icecast_container.host_port(8000)
-      if port
+      if port.present?
         UFW.open_port port
       end
     end
@@ -36,7 +36,7 @@ class RadioBooterWorker < ActiveJob::Base
     radio.update liquidsoap_container_id: liquidsoap_container.id
     if ::Rails.env.production?
      port = redis.hget "proxy-domain", radio.liquidsoap_proxy_key
-     if port
+     if port.present?
        UFW.close_port port
      end
     end
@@ -45,7 +45,7 @@ class RadioBooterWorker < ActiveJob::Base
     redis.hset 'proxy-domain', radio.liquidsoap_proxy_key, liquidsoap_container.host_port(9000)
     if ::Rails.env.production?
      port = liquidsoap_container.host_port(9000)
-     if port
+     if port.present?
        UFW.open_port port
      end
     end
