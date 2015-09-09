@@ -1,0 +1,189 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: "<DOCKER_HOST>/v1.16/containers/coolradio_icecast/json"
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swipely/Docker-API 1.22.4
+      Content-Type:
+      - text/plain
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      Server:
+      - Docker/1.8.1 (linux)
+      Date:
+      - Wed, 09 Sep 2015 01:21:02 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"Id":"580f0a6acb033d6aa309a27cb7c10b5ec2fc2b334026992a523b20038fc97fc6","Created":"2015-09-09T01:18:12.715964645Z","Path":"/bin/sh","Args":["-c","icecast -c /icecast.xml"],"State":{"Running":true,"Paused":false,"Restarting":false,"OOMKilled":false,"Dead":false,"Pid":1539,"ExitCode":0,"Error":"","StartedAt":"2015-09-09T01:18:13.38847151Z","FinishedAt":"0001-01-01T00:00:00Z"},"Image":"c0b00183e2764a98de365feb3dbd0632b2cf5a2272d4219d2bd420b4329916f2","NetworkSettings":{"Bridge":"","EndpointID":"d2f94344c15945ebc6b1f076d459d98d3656e34bed29f2a3ba5f0d67f6f761be","Gateway":"172.17.42.1","GlobalIPv6Address":"","GlobalIPv6PrefixLen":0,"HairpinMode":false,"IPAddress":"172.17.0.8","IPPrefixLen":16,"IPv6Gateway":"","LinkLocalIPv6Address":"","LinkLocalIPv6PrefixLen":0,"MacAddress":"02:42:ac:11:00:08","NetworkID":"5e441fdb3e5ff0edffcc267b0e743cdf0144c35a7312641a0dc3f47f9466308c","PortMapping":null,"Ports":{"8000/tcp":[{"HostIp":"0.0.0.0","HostPort":"32768"}]},"SandboxKey":"/var/run/docker/netns/580f0a6acb03","SecondaryIPAddresses":null,"SecondaryIPv6Addresses":null},"ResolvConfPath":"/mnt/sda1/var/lib/docker/containers/580f0a6acb033d6aa309a27cb7c10b5ec2fc2b334026992a523b20038fc97fc6/resolv.conf","HostnamePath":"/mnt/sda1/var/lib/docker/containers/580f0a6acb033d6aa309a27cb7c10b5ec2fc2b334026992a523b20038fc97fc6/hostname","HostsPath":"/mnt/sda1/var/lib/docker/containers/580f0a6acb033d6aa309a27cb7c10b5ec2fc2b334026992a523b20038fc97fc6/hosts","LogPath":"/mnt/sda1/var/lib/docker/containers/580f0a6acb033d6aa309a27cb7c10b5ec2fc2b334026992a523b20038fc97fc6/580f0a6acb033d6aa309a27cb7c10b5ec2fc2b334026992a523b20038fc97fc6-json.log","Name":"/coolradio_icecast","RestartCount":0,"Driver":"aufs","ExecDriver":"native-0.2","MountLabel":"","ProcessLabel":"","AppArmorProfile":"","ExecIDs":null,"HostConfig":{"Binds":[],"ContainerIDFile":"","LxcConf":null,"Memory":0,"MemorySwap":0,"CpuShares":0,"CpuPeriod":0,"CpusetCpus":"","CpusetMems":"","CpuQuota":0,"BlkioWeight":0,"OomKillDisable":false,"MemorySwappiness":null,"Privileged":false,"PortBindings":null,"Links":null,"PublishAllPorts":true,"Dns":null,"DnsSearch":null,"ExtraHosts":["docker:192.168.11.3"],"VolumesFrom":null,"Devices":null,"NetworkMode":"default","IpcMode":"","PidMode":"","UTSMode":"","CapAdd":null,"CapDrop":null,"GroupAdd":null,"RestartPolicy":{"Name":"","MaximumRetryCount":0},"SecurityOpt":null,"ReadonlyRootfs":false,"Ulimits":null,"LogConfig":{"Type":"json-file","Config":{}},"CgroupParent":"","ConsoleSize":[0,0]},"GraphDriver":{"Name":"aufs","Data":null},"Volumes":{},"VolumesRW":{},"Config":{"Hostname":"580f0a6acb03","Domainname":"","User":"icecast","AttachStdin":false,"AttachStdout":false,"AttachStderr":false,"ExposedPorts":{"8000/tcp":{}},"PublishService":"","Tty":false,"OpenStdin":false,"StdinOnce":false,"Env":["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","LANG=en_US.UTF-8","DEBIAN_FRONTEND=noninteractive"],"Cmd":["/bin/sh","-c","icecast -c /icecast.xml"],"Image":"mcfiredrill/icecast","Volumes":null,"VolumeDriver":"","WorkingDir":"","Entrypoint":null,"NetworkDisabled":false,"MacAddress":"","OnBuild":null,"Labels":null,"Memory":0,"MemorySwap":0,"CpuShares":0,"Cpuset":""}}
+    http_version: 
+  recorded_at: Wed, 09 Sep 2015 01:21:05 GMT
+- request:
+    method: post
+    uri: "<DOCKER_HOST>/v1.16/containers/580f0a6acb033d6aa309a27cb7c10b5ec2fc2b334026992a523b20038fc97fc6/stop"
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      User-Agent:
+      - Swipely/Docker-API 1.22.4
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 204
+      message: ''
+    headers:
+      Server:
+      - Docker/1.8.1 (linux)
+      Date:
+      - Wed, 09 Sep 2015 01:21:03 GMT
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Wed, 09 Sep 2015 01:21:06 GMT
+- request:
+    method: delete
+    uri: "<DOCKER_HOST>/v1.16/containers/580f0a6acb033d6aa309a27cb7c10b5ec2fc2b334026992a523b20038fc97fc6"
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swipely/Docker-API 1.22.4
+      Content-Type:
+      - text/plain
+  response:
+    status:
+      code: 204
+      message: ''
+    headers:
+      Server:
+      - Docker/1.8.1 (linux)
+      Date:
+      - Wed, 09 Sep 2015 01:21:03 GMT
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Wed, 09 Sep 2015 01:21:06 GMT
+- request:
+    method: post
+    uri: "<DOCKER_HOST>/v1.16/containers/create?name=coolradio_icecast"
+    body:
+      encoding: UTF-8
+      string: '{"Image":"mcfiredrill/icecast","Env":[],"HostConfig":{"Links":[],"Binds":[],"ExtraHosts":["docker:192.168.11.3"],"PublishAllPorts":true}}'
+    headers:
+      User-Agent:
+      - Swipely/Docker-API 1.22.4
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 201
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      Server:
+      - Docker/1.8.1 (linux)
+      Date:
+      - Wed, 09 Sep 2015 01:21:03 GMT
+      Content-Length:
+      - '90'
+    body:
+      encoding: UTF-8
+      string: |
+        {"Id":"40eda42785aad129acd7508fd1d432dd59690d959d215bd76482634f5773d7dc","Warnings":null}
+    http_version: 
+  recorded_at: Wed, 09 Sep 2015 01:21:06 GMT
+- request:
+    method: post
+    uri: "<DOCKER_HOST>/v1.16/containers/40eda42785aad129acd7508fd1d432dd59690d959d215bd76482634f5773d7dc/start"
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      User-Agent:
+      - Swipely/Docker-API 1.22.4
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 204
+      message: ''
+    headers:
+      Server:
+      - Docker/1.8.1 (linux)
+      Date:
+      - Wed, 09 Sep 2015 01:21:04 GMT
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Wed, 09 Sep 2015 01:21:07 GMT
+- request:
+    method: get
+    uri: "<DOCKER_HOST>/v1.16/containers/40eda42785aad129acd7508fd1d432dd59690d959d215bd76482634f5773d7dc/json"
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swipely/Docker-API 1.22.4
+      Content-Type:
+      - text/plain
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      Server:
+      - Docker/1.8.1 (linux)
+      Date:
+      - Wed, 09 Sep 2015 01:21:04 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"Id":"40eda42785aad129acd7508fd1d432dd59690d959d215bd76482634f5773d7dc","Created":"2015-09-09T01:21:03.520196388Z","Path":"/bin/sh","Args":["-c","icecast -c /icecast.xml"],"State":{"Running":true,"Paused":false,"Restarting":false,"OOMKilled":false,"Dead":false,"Pid":1583,"ExitCode":0,"Error":"","StartedAt":"2015-09-09T01:21:04.255974998Z","FinishedAt":"0001-01-01T00:00:00Z"},"Image":"c0b00183e2764a98de365feb3dbd0632b2cf5a2272d4219d2bd420b4329916f2","NetworkSettings":{"Bridge":"","EndpointID":"d334ff04ce1c87111847284691d44a614deb4624f7803a9334ae2c44e9baee48","Gateway":"172.17.42.1","GlobalIPv6Address":"","GlobalIPv6PrefixLen":0,"HairpinMode":false,"IPAddress":"172.17.0.9","IPPrefixLen":16,"IPv6Gateway":"","LinkLocalIPv6Address":"","LinkLocalIPv6PrefixLen":0,"MacAddress":"02:42:ac:11:00:09","NetworkID":"5e441fdb3e5ff0edffcc267b0e743cdf0144c35a7312641a0dc3f47f9466308c","PortMapping":null,"Ports":{"8000/tcp":[{"HostIp":"0.0.0.0","HostPort":"32769"}]},"SandboxKey":"/var/run/docker/netns/40eda42785aa","SecondaryIPAddresses":null,"SecondaryIPv6Addresses":null},"ResolvConfPath":"/mnt/sda1/var/lib/docker/containers/40eda42785aad129acd7508fd1d432dd59690d959d215bd76482634f5773d7dc/resolv.conf","HostnamePath":"/mnt/sda1/var/lib/docker/containers/40eda42785aad129acd7508fd1d432dd59690d959d215bd76482634f5773d7dc/hostname","HostsPath":"/mnt/sda1/var/lib/docker/containers/40eda42785aad129acd7508fd1d432dd59690d959d215bd76482634f5773d7dc/hosts","LogPath":"/mnt/sda1/var/lib/docker/containers/40eda42785aad129acd7508fd1d432dd59690d959d215bd76482634f5773d7dc/40eda42785aad129acd7508fd1d432dd59690d959d215bd76482634f5773d7dc-json.log","Name":"/coolradio_icecast","RestartCount":0,"Driver":"aufs","ExecDriver":"native-0.2","MountLabel":"","ProcessLabel":"","AppArmorProfile":"","ExecIDs":null,"HostConfig":{"Binds":[],"ContainerIDFile":"","LxcConf":null,"Memory":0,"MemorySwap":0,"CpuShares":0,"CpuPeriod":0,"CpusetCpus":"","CpusetMems":"","CpuQuota":0,"BlkioWeight":0,"OomKillDisable":false,"MemorySwappiness":null,"Privileged":false,"PortBindings":null,"Links":null,"PublishAllPorts":true,"Dns":null,"DnsSearch":null,"ExtraHosts":["docker:192.168.11.3"],"VolumesFrom":null,"Devices":null,"NetworkMode":"default","IpcMode":"","PidMode":"","UTSMode":"","CapAdd":null,"CapDrop":null,"GroupAdd":null,"RestartPolicy":{"Name":"","MaximumRetryCount":0},"SecurityOpt":null,"ReadonlyRootfs":false,"Ulimits":null,"LogConfig":{"Type":"json-file","Config":{}},"CgroupParent":"","ConsoleSize":[0,0]},"GraphDriver":{"Name":"aufs","Data":null},"Volumes":{},"VolumesRW":{},"Config":{"Hostname":"40eda42785aa","Domainname":"","User":"icecast","AttachStdin":false,"AttachStdout":false,"AttachStderr":false,"ExposedPorts":{"8000/tcp":{}},"PublishService":"","Tty":false,"OpenStdin":false,"StdinOnce":false,"Env":["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","LANG=en_US.UTF-8","DEBIAN_FRONTEND=noninteractive"],"Cmd":["/bin/sh","-c","icecast -c /icecast.xml"],"Image":"mcfiredrill/icecast","Volumes":null,"VolumeDriver":"","WorkingDir":"","Entrypoint":null,"NetworkDisabled":false,"MacAddress":"","OnBuild":null,"Labels":null,"Memory":0,"MemorySwap":0,"CpuShares":0,"Cpuset":""}}
+    http_version: 
+  recorded_at: Wed, 09 Sep 2015 01:21:07 GMT
+- request:
+    method: post
+    uri: "<DOCKER_HOST>/v1.16/containers/40eda42785aad129acd7508fd1d432dd59690d959d215bd76482634f5773d7dc/stop"
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      User-Agent:
+      - Swipely/Docker-API 1.22.4
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 204
+      message: ''
+    headers:
+      Server:
+      - Docker/1.8.1 (linux)
+      Date:
+      - Wed, 09 Sep 2015 01:21:04 GMT
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Wed, 09 Sep 2015 01:21:07 GMT
+recorded_with: VCR 2.9.3

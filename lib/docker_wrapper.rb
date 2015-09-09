@@ -9,26 +9,25 @@ class DockerWrapper
   end
 
   def self.find_or_create image, name, env=[], links=[], binds=[]
-    @links = links
     begin
-      container = Docker::Container.get name
-      container.stop
-      container.remove
-      container = Docker::Container.create('Image' => image, 'name' => name, 'Env' => env, 'HostConfig' => { 'Links' => links, 'Binds' => binds } )
+    container = Docker::Container.get name
+    container.stop
+    container.remove
+    rescue Docker::Error::NotFoundError
+      # container doesn't exist, so take no action
+    end
+    begin
+      container = Docker::Container.create('Image' => image, 'name' => name, 'Env' => env, 'HostConfig' => { 'Links' => links, 'Binds' => binds, 'ExtraHosts' => ["docker:#{local_private_ip}"], "PublishAllPorts" => true } )
     rescue Docker::Error::NotFoundError
       # image is not pulled yet
       Docker::Image.create('fromImage' => image)
-      container = Docker::Container.create('Image' => image, 'name' => name, 'Env' => env, 'HostConfig' => { 'Links' => links, 'Binds' => binds } )
+      container = Docker::Container.create('Image' => image, 'name' => name, 'Env' => env, 'HostConfig' => { 'Links' => links, 'Binds' => binds, 'ExtraHosts' => ["docker:#{local_private_ip}"], "PublishAllPorts" => true } )
     end
     self.new container
   end
 
   def start
-    if ::Rails.env.development?
-      @container.start("PublishAllPorts" => "true", 'ExposedPorts' => { "3000/http" => [{ "HostPort" => "3000" }] },'ExtraHosts' => ["docker:#{local_private_ip}"])
-    else
-      @container.start("PublishAllPorts" => "true", 'ExtraHosts' => ["docker:#{local_private_ip}"])
-    end
+    @container.start
   end
 
   def stop
@@ -56,7 +55,8 @@ class DockerWrapper
   end
 
   private
-  def local_private_ip
+
+  def self.local_private_ip
     # probably portable?
     Socket.ip_address_list.detect{|intf| intf.ipv4_private?}.ip_address
   end
