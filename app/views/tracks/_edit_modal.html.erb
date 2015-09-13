@@ -6,6 +6,9 @@
     </div>
     <%= simple_form_for @track, remote: true do |f| %>
       <div class="modal-body">
+        <%= f.input :artist %>
+        <%= f.input :title %>
+        <%= f.input :album %>
       </div>
       <div class="modal-footer">
         <%= f.submit "Save changes", class: "btn btn-primary" %>
