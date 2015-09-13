@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/mcfiredrill/so_id3.git
-  revision: 01234cf12302f0d936b420b915d3083008673b2d
+  revision: 9fdd50f755de642c3e51b99ed6326dcfd307a2cb
   specs:
     so_id3 (0.0.1)
       activerecord
