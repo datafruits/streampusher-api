@@ -109,3 +109,7 @@ li.track.ui-draggable-dragging:hover {
 }
 .context-menu-item.icon-edit:before { content: "\f040"; }
 .context-menu-item.icon-delete:before { content: "\f057"; }
+
+.edit-track .modal-content {
+  background-color: yellow;
+}
