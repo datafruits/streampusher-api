@@ -49,5 +49,8 @@ Rails.application.routes.draw do
 
   get '/broadcasting_help' => 'help#broadcasting', :id => "broadcasting_help"
 
+  authenticated :user do
+    root :to =>  "radios#index", as: :authenticated_root
+  end
   root 'landing#index'
 end
