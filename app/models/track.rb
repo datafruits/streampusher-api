@@ -1,6 +1,7 @@
 class Track < ActiveRecord::Base
+  include SoId3::BackgroundJobs
   belongs_to :radio
-  has_many :playlist_tracks
+  has_many :playlist_tracks, dependent: :destroy
   has_many :playlists, through: :playlist_tracks
   has_tags column: :file_basename, storage: :s3,
            s3_credentials: { bucket: "streampusher",

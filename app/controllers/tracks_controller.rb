@@ -27,6 +27,17 @@ class TracksController < ApplicationController
     end
   end
 
+  def destroy
+    @track = @current_radio.tracks.find params[:id]
+    if @track.destroy
+      flash[:notice] = "removed track!"
+      render 'destroy'
+    else
+      flash[:error] = "error destroying track. try again?"
+      render 'error'
+    end
+  end
+
   private
   def create_params
     params.require(:track).permit(:radio_id, :audio_file_name)

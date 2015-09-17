@@ -1,7 +1,7 @@
 <li data-type="track" data-track-id="<%= track.id %>" class='track js-track-context-menu'>
-  <button data-track-id="<%= track.id %>" class="delete-from-playlist btn btn-danger">
+  <%= link_to track_path(track), data: { "track-id" => track.id, :confirm => "Are you sure? This can't be undone!" }, class: "delete-from-playlist btn btn-danger", remote: true, method: :delete do %>
     <i class="fa fa-times-circle"></i>
-  </button>
+  <% end %>
   <%= track.file_basename %>
   <%= link_to edit_track_path(track), data: { "track-id" => track.id }, class: "edit-track btn btn-primary", remote: true do %>
     <i class="fa fa-pencil"></i>
