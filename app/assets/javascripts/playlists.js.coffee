@@ -18,7 +18,7 @@ window.addToPlaylist = (trackId, playlistId) ->
 
 $('[data-controller=playlists]').ready ->
   $.contextMenu
-      selector: '.track'
+      selector: '.js-track-context-menu'
       callback: (key, options) ->
         if key == "edit"
           $.get("/tracks/"+$(this).data("track-id")+"/edit/")
