@@ -1,8 +1,9 @@
 GIT
   remote: git://github.com/mcfiredrill/so_id3.git
-  revision: 9fdd50f755de642c3e51b99ed6326dcfd307a2cb
+  revision: f3d56639485e4e916783d13fa591df4123a711ca
   specs:
     so_id3 (0.0.1)
+      activejob
       activerecord
       aws-sdk (< 2.0)
       rupeepeethree (~> 0.0.4)

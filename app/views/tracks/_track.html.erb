@@ -2,7 +2,7 @@
   <%= link_to track_path(track), data: { "track-id" => track.id, :confirm => "Are you sure? This can't be undone!" }, class: "delete-from-playlist btn btn-danger", remote: true, method: :delete do %>
     <i class="fa fa-times-circle"></i>
   <% end %>
-  <%= track.file_basename %>
+  <%= track.display_name %>
   <%= link_to edit_track_path(track), data: { "track-id" => track.id }, class: "edit-track btn btn-primary", remote: true do %>
     <i class="fa fa-pencil"></i>
   <% end %>
