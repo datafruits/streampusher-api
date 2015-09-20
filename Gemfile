@@ -47,7 +47,6 @@ group :test do
   gem 'mock_redis'
   gem 'timecop'
   gem 'capybara'
-  gem 'capybara-webkit'
   gem 'database_rewinder'
   gem 'selenium-webdriver'
 end

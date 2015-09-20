@@ -95,9 +95,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-webkit (1.6.0)
-      capybara (>= 2.3.0, < 2.5.0)
-      json
     celluloid (0.17.1.2)
       bundler
       celluloid-essentials
@@ -462,7 +459,6 @@ DEPENDENCIES
   capistrano-rbenv (~> 2.0)
   capistrano-sidekiq
   capybara
-  capybara-webkit
   chosen-rails
   chronic
   cocaine
