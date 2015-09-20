@@ -1,4 +1,5 @@
 class PlaylistsController < ApplicationController
+  load_and_authorize_resource
   def index
     @tracks = @current_radio.tracks
     @playlists = @current_radio.playlists
