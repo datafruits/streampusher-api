@@ -139,6 +139,8 @@ GEM
       nenv
       rspec-logsplit (>= 0.1.2)
       timers (>= 4.1.1)
+    childprocess (0.5.6)
+      ffi (~> 1.0, >= 1.0.11)
     chosen-rails (1.4.1)
       coffee-rails (>= 3.2)
       compass-rails (>= 1.1.2)
@@ -173,7 +175,7 @@ GEM
     connection_pool (2.2.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
-    database_rewinder (0.5.2)
+    database_rewinder (0.5.3)
     debugger-linecache (1.2.0)
     devise (3.5.1)
       bcrypt (~> 3.0)
@@ -200,6 +202,7 @@ GEM
     factory_girl_rails (4.5.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
+    ffi (1.9.10)
     font-awesome-sass (4.2.1)
       sass (~> 3.2)
     fssm (0.2.10)
@@ -344,6 +347,7 @@ GEM
       rspec-mocks (~> 3.3.0)
       rspec-support (~> 3.3.0)
     rspec-support (3.3.0)
+    rubyzip (1.1.7)
     rupeepeethree (0.0.4)
       mime-types
       taglib-ruby
@@ -360,6 +364,11 @@ GEM
       sass (~> 3.2.2)
       sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
+    selenium-webdriver (2.47.1)
+      childprocess (~> 0.5)
+      multi_json (~> 1.0)
+      rubyzip (~> 1.0)
+      websocket (~> 1.0)
     sidekiq (3.5.0)
       celluloid (~> 0.17.0)
       connection_pool (~> 2.2, >= 2.2.0)
@@ -431,6 +440,7 @@ GEM
     webmock (1.20.4)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
+    websocket (1.2.2)
     whenever (0.9.4)
       chronic (>= 0.6.3)
     xpath (2.0.0)
@@ -490,6 +500,7 @@ DEPENDENCIES
   rspec-rails
   s3_direct_upload
   sass-rails (~> 4.0.3)
+  selenium-webdriver
   sidekiq
   simple_form
   sinatra
