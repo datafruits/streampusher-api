@@ -2,7 +2,7 @@ class ScheduledShow < ActiveRecord::Base
   belongs_to :radio
   belongs_to :show
   belongs_to :playlist
-  has_attached_file :image, styles: { :thumb => "x120" }
+  has_attached_file :image, styles: { :thumb => "x300" }
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
   validates_presence_of :start_at, :end_at
@@ -27,9 +27,9 @@ class ScheduledShow < ActiveRecord::Base
 
   def image_url
     if self.image.present?
-      self.image.url(:thumb)
+      self.image.url(:original)
     else
-      self.show.image.url(:thumb)
+      self.show.image.url(:original)
     end
   end
 
