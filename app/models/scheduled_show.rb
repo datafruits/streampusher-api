@@ -2,6 +2,8 @@ class ScheduledShow < ActiveRecord::Base
   belongs_to :radio
   belongs_to :show
   belongs_to :playlist
+  has_attached_file :image, styles: { :thumb => "x120" }
+  validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
   validates_presence_of :start_at, :end_at
   validates_presence_of :show_id
@@ -24,7 +26,7 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def image_url
-    self.show.image.url(:thumb)
+    self.image.url(:thumb) || self.show.image.url(:thumb)
   end
 
   def schedule_cannot_conflict

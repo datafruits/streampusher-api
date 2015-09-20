@@ -7,6 +7,7 @@
   <a href="https://twitter.com/share" class="twitter-share-button" data-text="<%=tweet_text(@scheduled_show)%>">Tweet</a>
   <div class="col-md-4">
     <h2><%= "#{@scheduled_show.start} - #{@scheduled_show.end}" %></h2>
+    <p><%= @scheduled_show.description %></p>
   </div>
   <%= link_to "Edit", edit_scheduled_show_path(@scheduled_show) %>
 </div>
