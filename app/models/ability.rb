@@ -12,6 +12,8 @@ class Ability
         can_manage_radio?(user, radio)
       end
       can :manage, Show if can_manage_radio?(user, radio)
+      can :manage, Track if can_manage_radio?(user, radio)
+      can :manage, Playlist if can_manage_radio?(user, radio)
       can :manage, Subscription, user_id: user.id
     elsif user.dj?
       can :read, Podcast
@@ -36,6 +38,6 @@ class Ability
 
   private
   def can_manage_radio?(user, radio)
-    user.managable_radios.include? radio
+    user.radios.include? radio
   end
 end

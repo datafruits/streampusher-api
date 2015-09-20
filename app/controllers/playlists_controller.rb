@@ -9,8 +9,10 @@ class PlaylistsController < ApplicationController
   def create
     @playlist = @current_radio.playlists.new create_params
     if @playlist.save
+      flash[:notice] = "created playlist"
       render 'create'
     else
+      flash[:error] = "couldn't create playlist"
       render 'error'
     end
   end

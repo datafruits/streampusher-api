@@ -18,10 +18,6 @@ class User < ActiveRecord::Base
 
   before_validation :set_username, :set_initial_time_zone
 
-  def managable_radios
-    self.subscription.radios
-  end
-
   def valid_role
     if !role.to_s.blank?
       self.roles.each do |r|
