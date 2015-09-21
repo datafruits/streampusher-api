@@ -30,6 +30,24 @@ def remove_track_from_playlist
   end
 end
 
+def click_edit_track_button
+  within "ul#tracks" do
+    find("a.edit-track").click
+  end
+end
+
+def edit_id3_tags tags
+  fill_in "track[artist]", with: tags[:artist]
+  click_button "Save changes"
+end
+
+def click_delete_track_button
+  within "ul#tracks" do
+    find("a.delete-track").click
+  end
+  page.accept_alert
+end
+
 feature 'playlists', :js => true do
   before do
     @owner =  FactoryGirl.create :owner
@@ -59,12 +77,21 @@ feature 'playlists', :js => true do
   end
 
   scenario 'edits a track' do
+    login_as @owner
     visit_playlists_path
+    upload_a_track
     click_edit_track_button
+    edit_id3_tags artist: "dj nameko"
+    expect(page).to have_content "dj nameko"
   end
 
   scenario 'deletes a track' do
+    login_as @owner
     visit_playlists_path
+    upload_a_track
+    expect(page).to have_content('track uploaded!')
+    expect(page).to have_content('the_cowbell.mp3')
     click_delete_track_button
+    expect(page).to have_content "removed track!"
   end
 end
