@@ -1,0 +1,3 @@
+var element = $("<li>", { "data-playlist-id": <%= @playlist.id %> } ).addClass("playlist")
+element.html("<%= j render @playlist %>");
+$("ul#playlists").append($(element));

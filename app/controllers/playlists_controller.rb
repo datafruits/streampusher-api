@@ -3,7 +3,7 @@ class PlaylistsController < ApplicationController
   def index
     @tracks = @current_radio.tracks
     @playlists = @current_radio.playlists
-    @playlist = @current_radio.playlists.new
+    @playlist = Playlist.new
   end
 
   def create
@@ -57,6 +57,6 @@ class PlaylistsController < ApplicationController
   end
 
   def create_params
-    params.require(:playlist).permit(:name)
+    params.require(:playlist).permit(:name, :radio_id)
   end
 end

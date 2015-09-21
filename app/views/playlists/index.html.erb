@@ -43,10 +43,13 @@
     <h3>playlist</h3>
     <ul id="playlists">
       <% @playlists.each do |playlist| %>
-        <%= render playlist %>
+        <li class="playlist" data-playlist-id="<%=playlist.id%>">
+          <%= render playlist %>
+        </li>
       <% end %>
     </ul>
     <%= simple_form_for @playlist, remote: true do |f| %>
+      <%= f.input :radio_id, as: :hidden, input_html: { value: @current_radio.id } %>
       <%= f.text_field :name, placeholder: 'enter new playlist name...' %>
       <%= f.submit '+ new playlist', class: 'btn btn-success' %>
     <% end %>

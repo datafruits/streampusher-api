@@ -18,6 +18,18 @@ def create_a_new_playlist
   click_button "+ new playlist"
 end
 
+def drag_track_to_playlist
+  track = page.find_by_id('tracks').find('li.track')
+  playlist = page.find_by_id('playlists').find('li.playlist').find("ul.playlist-tracks")
+  track.drag_to(playlist)
+end
+
+def remove_track_from_playlist
+  within "ul.playlist-tracks" do
+    find("button.delete-from-playlist").click
+  end
+end
+
 feature 'playlists', :js => true do
   before do
     @owner =  FactoryGirl.create :owner
@@ -37,11 +49,13 @@ feature 'playlists', :js => true do
   scenario 'adding and removing tracks to playlists' do
     login_as @owner
     visit_playlists_path
+    upload_a_track
     create_a_new_playlist
     expect(page).to have_content('created playlist')
-    add_track_to_playlist
-    add_track_to_playlist
+    drag_track_to_playlist
+    expect(page).to have_content('added track to playlist!')
     remove_track_from_playlist
+    expect(page).to have_content('removed track from playlist!')
   end
 
   scenario 'edits a track' do

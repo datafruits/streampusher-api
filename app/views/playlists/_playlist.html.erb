@@ -1,9 +1,7 @@
-<li class="playlist" data-playlist-id="<%=playlist.id%>">
-  <span><%= playlist.name %></span>
-  <ul class="playlist-tracks" data-playlist-id="<%=playlist.id%>">
-    <%= render partial: 'playlist_track', collection: playlist.playlist_tracks.rank(:position) %>
-  </ul>
-</li>
+<span><%= playlist.name %></span>
+<ul class="playlist-tracks" data-playlist-id="<%=playlist.id%>">
+  <%= render partial: 'playlist_track', collection: playlist.playlist_tracks.rank(:position) %>
+</ul>
 <%= coffee_script_tag do %>
   $('ul.playlist-tracks').droppable({
     activeClass: "playlist-state-default"
