@@ -1,4 +1,7 @@
 <span><%= playlist.name %></span>
+<%= link_to edit_playlist_path(playlist), class: "edit-playlist btn btn-primary", remote: true do %>
+  <i class="fa fa-pencil"></i>
+<% end %>
 <ul class="playlist-tracks" data-playlist-id="<%=playlist.id%>">
   <%= render partial: 'playlist_track', collection: playlist.playlist_tracks.rank(:position) %>
 </ul>

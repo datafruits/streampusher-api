@@ -48,6 +48,17 @@ def click_delete_track_button
   page.accept_alert
 end
 
+def click_edit_playlist_button
+  within "ul#playlists" do
+    find("a.edit-playlist").click
+  end
+end
+
+def edit_playlist_name new_name
+  fill_in "playlist[name]", with: new_name
+  click_button "Save changes"
+end
+
 feature 'playlists', :js => true do
   before do
     @owner =  FactoryGirl.create :owner
@@ -93,5 +104,15 @@ feature 'playlists', :js => true do
     expect(page).to have_content('the_cowbell.mp3')
     click_delete_track_button
     expect(page).to have_content "removed track!"
+  end
+
+  scenario 'edit playlist' do
+    login_as @owner
+    visit_playlists_path
+    create_a_new_playlist
+    expect(page).to have_content('created playlist')
+    click_edit_playlist_button
+    edit_playlist_name "new playlist name"
+    expect(page).to have_content "new playlist name"
   end
 end

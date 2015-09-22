@@ -17,6 +17,22 @@ class PlaylistsController < ApplicationController
     end
   end
 
+  def edit
+    @playlist = @current_radio.playlists.find params[:id]
+  end
+
+  def update
+    @playlist = @current_radio.playlists.find params[:id]
+    @playlist.attributes = update_params
+    if @playlist.save
+      flash[:notice] = "updated playlist"
+      render "update"
+    else
+      flash[:error] = 'error updating playlist :('
+      render 'error'
+    end
+  end
+
   def add_track
     @playlist = @current_radio.playlists.find(params[:id])
     @track = @current_radio.tracks.find params[:track][:id]
@@ -58,5 +74,9 @@ class PlaylistsController < ApplicationController
 
   def create_params
     params.require(:playlist).permit(:name, :radio_id)
+  end
+
+  def update_params
+    params.require(:playlist).permit(:name)
   end
 end
