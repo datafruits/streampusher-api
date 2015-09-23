@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/mcfiredrill/so_id3.git
-  revision: f3d56639485e4e916783d13fa591df4123a711ca
+  revision: ec6fd0964f087ef6fe50567c16f1475dfadc7b00
   specs:
     so_id3 (0.0.1)
       activejob
@@ -58,9 +58,9 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.7)
     arel (6.0.3)
-    aws-sdk (1.64.0)
-      aws-sdk-v1 (= 1.64.0)
-    aws-sdk-v1 (1.64.0)
+    aws-sdk (1.66.0)
+      aws-sdk-v1 (= 1.66.0)
+    aws-sdk-v1 (1.66.0)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
     bcrypt (3.1.10)
