@@ -3,7 +3,7 @@ class Show < ActiveRecord::Base
   belongs_to :dj, class_name: "User"
   has_many :scheduled_shows
   belongs_to :playlist
-  has_attached_file :image, styles: { :thumb => "x120" }
+  has_attached_file :image, styles: { :thumb => "x300" }
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
   before_validation :set_default_playlist
