@@ -15,8 +15,10 @@ class DjsController < ApplicationController
     @dj.role = 'dj'
     if @dj.save
       DjAccountMailer.welcome_email(@dj, password, @current_radio).deliver_later
+      flash[:notice] = "Created DJ account for #{@dj.email}"
       redirect_to djs_path
     else
+      flash[:error] = "Couldn't create dj account"
       @djs = @current_radio.djs.page(params[:page])
       render 'index'
     end
