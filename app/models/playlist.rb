@@ -4,6 +4,9 @@ class Playlist < ActiveRecord::Base
   has_many :tracks, through: :playlist_tracks
   has_one :interpolated_playlist, class_name: "Playlist", foreign_key: "interpolated_playlist_id"
 
+  validates :interpolated_playlist_track_play_count, presence: true, if: :interpolated_playlist_present?
+  validates :interpolated_playlist_track_interval_count, presence: true, if: :interpolated_playlist_present?
+
   def redis_key
     "#{self.radio.name}:playlist:#{name}"
   end
@@ -14,5 +17,10 @@ class Playlist < ActiveRecord::Base
 
   def remove_track playlist_track
     playlist_track.destroy
+  end
+
+  private
+  def interpolated_playlist_present?
+    self.interpolated_playlist.present?
   end
 end
