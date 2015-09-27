@@ -77,6 +77,6 @@ class PlaylistsController < ApplicationController
   end
 
   def update_params
-    params.require(:playlist).permit(:name)
+    params.require(:playlist).permit(:name, :interpolated_playlist_id, :interpolated_playlist_track_play_count, :interpolated_playlist_track_interval_count)
   end
 end

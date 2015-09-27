@@ -7,6 +7,12 @@
     <%= simple_form_for @playlist, remote: true do |f| %>
       <div class="modal-body">
         <%= f.input :name %>
+        <br />
+        <h4>Interpolate another playlist with this one (for jingles)</h4>
+        <%= f.input :interpolated_playlist_track_play_count, label: "Every "%>
+        <%= f.input :interpolated_playlist_track_interval_count, label: " tracks, play " %>
+        <%= f.input :interpolated_playlist_id, collection: @current_radio.playlists, label_method: :name, value_method: :id, include_blank: "None", label: " tracks from the " %>
+        playlist.
       </div>
       <div class="modal-footer">
         <%= f.submit "Save changes", class: "btn btn-primary" %>
