@@ -18,7 +18,7 @@
               <i class="fa fa-tachometer"></i>Dashboard
             <% end %>
           </li>
-          <% if current_user.admin? %>
+          <% if current_user.owner? %>
             <li>
               <%= link_to djs_path do %>
                 <i class="fa fa-user"></i>Users
