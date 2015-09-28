@@ -7,6 +7,8 @@ class Playlist < ActiveRecord::Base
   validates :interpolated_playlist_track_play_count, presence: true, if: :interpolated_playlist_present?
   validates :interpolated_playlist_track_interval_count, presence: true, if: :interpolated_playlist_present?
 
+  after_save :set_default_playlist
+
   def redis_key
     "#{self.radio.name}:playlist:#{name}"
   end
@@ -22,5 +24,11 @@ class Playlist < ActiveRecord::Base
   private
   def interpolated_playlist_present?
     self.interpolated_playlist.present?
+  end
+
+  def set_default_playlist
+    if !self.radio.default_playlist.present?
+      self.radio.update default_playlist_id: self.id
+    end
   end
 end
