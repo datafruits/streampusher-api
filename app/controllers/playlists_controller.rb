@@ -30,7 +30,7 @@ class PlaylistsController < ApplicationController
       render "update"
     else
       flash[:error] = 'error updating playlist :('
-      render 'error'
+      render 'edit'
     end
   end
 
@@ -78,6 +78,9 @@ class PlaylistsController < ApplicationController
   end
 
   def update_params
-    params.require(:playlist).permit(:name, :interpolated_playlist_id, :interpolated_playlist_track_play_count, :interpolated_playlist_track_interval_count)
+    params.require(:playlist).permit(:name, :interpolated_playlist_id,
+                                     :interpolated_playlist_track_play_count,
+                                     :interpolated_playlist_track_interval_count,
+                                     :interpolated_playlist_enabled)
   end
 end

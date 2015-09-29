@@ -9,6 +9,8 @@
         <%= f.input :name %>
         <br />
         <h4>Interpolate another playlist with this one (for jingles)</h4>
+        <%= f.input :interpolated_playlist_enabled, label: "Enabled" %>
+        <br />
         <%= f.input :interpolated_playlist_track_play_count, label: "Every "%>
         <%= f.input :interpolated_playlist_track_interval_count, label: " tracks, play " %>
         <%= f.input :interpolated_playlist_id, collection: (@current_radio.playlists-[@playlist]), label_method: :name, value_method: :id, include_blank: "None", label: " tracks from the " %>
