@@ -9,6 +9,8 @@ class Track < ActiveRecord::Base
                              secret_access_key: ENV['S3_SECRET'] }
   after_tags_synced :download # will this happen before the update tags job finishes? :(
 
+  default_scope { order(updated_at: :desc) }
+
   def file_basename
     File.basename self.audio_file_name.to_s
   end

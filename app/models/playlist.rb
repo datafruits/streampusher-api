@@ -10,6 +10,8 @@ class Playlist < ActiveRecord::Base
 
   after_save :set_default_playlist
 
+  default_scope { order(updated_at: :desc) }
+
   def redis_key
     "#{self.radio.name}:playlist:#{name}"
   end
