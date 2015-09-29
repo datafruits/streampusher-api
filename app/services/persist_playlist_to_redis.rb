@@ -12,6 +12,9 @@ class PersistPlaylistToRedis
           track = Track.find(playlist.interpolated_playlist.playlist_tracks.rank(:position).reverse[interpolated_playlist_count].track_id)
           redis.rpush playlist.redis_key, track.file_basename
           interpolated_playlist_count += 1
+          if interpolated_playlist_count >= playlist.interpolated_playlist.playlist_tracks.length
+            interpolated_playlist_count = 0
+          end
         end
       end
       count += 1
