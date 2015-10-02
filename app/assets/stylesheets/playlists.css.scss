@@ -22,6 +22,7 @@ li.playlist {
   margin: 5px;
   padding-left: 10px;
   padding-bottom: 10px;
+  position: relative;
 }
 
 .playlist-state-default {
@@ -116,4 +117,17 @@ li.track.ui-draggable-dragging:hover {
 
 .edit-playlist-track .modal-content {
   background-color: orange;
+}
+
+.expand-playlist {
+  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 3rem;
+  padding: 5px;
+}
+
+.expand-playlist:hover {
+  cursor: pointer;
 }

@@ -1,4 +1,4 @@
-<span><%= playlist.name %></span>
+<span><%= playlist.name %></span><i class="fa fa-caret-right expand-playlist" data-playlist-id="<%=playlist.id%>"></i>
 <%= link_to edit_playlist_path(playlist), class: "edit-playlist btn btn-primary", remote: true do %>
   <i class="fa fa-pencil"></i>
 <% end %>

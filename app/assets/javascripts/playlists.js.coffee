@@ -68,3 +68,7 @@ $('[data-controller=playlists]').ready ->
         console.log(data)
       error: (data) ->
         console.log(data)
+
+  $(document).on 'click', '.expand-playlist', () ->
+    playlistId = $(this).data('playlist-id')
+    $("ul[data-playlist-id=#{playlistId}]").toggle()
