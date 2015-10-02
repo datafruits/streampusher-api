@@ -25,6 +25,15 @@ def i_should_see_i_signed_up_as username
   expect(page).to have_content username
 end
 
+def visit_dashboard
+  visit "/"
+end
+
+def click_subscription_link
+  click_link "steve.aoki"
+  click_link "Subscription"
+end
+
 feature 'signup' do
   scenario 'user subscribes' do
     VCR.use_cassette "user_sign_up" do
@@ -44,7 +53,6 @@ feature 'signup' do
 
       i_should_see_form_errors_on "email"
     end
-
   end
 
   scenario 'form shows error if no password' do
@@ -53,5 +61,36 @@ feature 'signup' do
 
   scenario 'form shows error if no radio name' do
 
+  end
+
+  scenario 'free trial expires after 30 days' do
+    VCR.use_cassette "user_sign_up" do
+      visit_sign_up_page
+      fill_in_sign_up_form_with "steve.aoki@gmail.com", "stevespassword", "BLOCKFM"
+      click_sign_up_button
+
+      i_should_see_i_signed_up_as "steve.aoki"
+    end
+    Timecop.travel 30.days.from_now do
+      visit_dashboard
+      expect(page).to have_content("Free trial has expired.")
+    end
+  end
+
+  scenario 'can switch to a paid plan' do
+    VCR.use_cassette "user_sign_up" do
+      visit_sign_up_page
+      fill_in_sign_up_form_with "steve.aoki@gmail.com", "stevespassword", "BLOCKFM"
+      click_sign_up_button
+
+      i_should_see_i_signed_up_as "steve.aoki"
+    end
+    click_subscription_link
+    expect(page).to have_content "You are currently subscribed to the Free Trial plan"
+    select_basic_plan
+    enter_credit_card_info
+    click_purchase_link
+    expect(page).to have_content "Signed up for the basic plan!"
+    expect(page).to have_content "You are currently subscribed to the Basic plan"
   end
 end

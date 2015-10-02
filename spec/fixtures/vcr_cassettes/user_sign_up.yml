@@ -18,9 +18,9 @@ http_interactions:
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
-      - '{"bindings_version":"1.16.0","lang":"ruby","lang_version":"2.2.2 p95 (2015-04-13)","platform":"x86_64-darwin14","publisher":"stripe","uname":"Darwin
-        moguya 14.3.0 Darwin Kernel Version 14.3.0: Mon Mar 23 11:59:05 PDT 2015;
-        root:xnu-2782.20.48~5/RELEASE_X86_64 x86_64"}'
+      - '{"bindings_version":"1.16.0","lang":"ruby","lang_version":"2.2.3 p173 (2015-08-18)","platform":"x86_64-darwin14","publisher":"stripe","uname":"Darwin
+        moguya 14.5.0 Darwin Kernel Version 14.5.0: Wed Jul 29 02:26:53 PDT 2015;
+        root:xnu-2782.40.9~1/RELEASE_X86_64 x86_64"}'
       Content-Length:
       - '41'
   response:
@@ -31,11 +31,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Sun, 05 Jul 2015 10:32:19 GMT
+      - Tue, 22 Sep 2015 16:00:44 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '1833'
+      - '1853'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_6YGxpYNDGUdeeR
+      - req_71x62omknACB0z
       Stripe-Version:
       - '2014-09-08'
       Strict-Transport-Security:
@@ -59,21 +59,22 @@ http_interactions:
       string: |
         {
           "object": "customer",
-          "created": 1436092339,
-          "id": "cus_6YGx4zY3AdjWyK",
+          "created": 1442937644,
+          "id": "cus_71x6BdXkQT6su9",
           "livemode": false,
           "description": "steve.aoki@gmail.com",
           "email": null,
+          "shipping": null,
           "delinquent": false,
           "metadata": {},
           "subscriptions": {
             "object": "list",
             "total_count": 1,
             "has_more": false,
-            "url": "/v1/customers/cus_6YGx4zY3AdjWyK/subscriptions",
+            "url": "/v1/customers/cus_71x6BdXkQT6su9/subscriptions",
             "data": [
               {
-                "id": "sub_6YGxF9MQhTR5aK",
+                "id": "sub_71x6EPTbk0PCpA",
                 "plan": {
                   "interval": "month",
                   "name": "Free Trial",
@@ -90,15 +91,15 @@ http_interactions:
                   "statement_description": "STREAMPUSHER.COM"
                 },
                 "object": "subscription",
-                "start": 1436092339,
+                "start": 1442937644,
                 "status": "trialing",
-                "customer": "cus_6YGx4zY3AdjWyK",
+                "customer": "cus_71x6BdXkQT6su9",
                 "cancel_at_period_end": false,
-                "current_period_start": 1436092339,
-                "current_period_end": 1438684339,
+                "current_period_start": 1442937644,
+                "current_period_end": 1445529644,
                 "ended_at": null,
-                "trial_start": 1436092339,
-                "trial_end": 1438684339,
+                "trial_start": 1442937644,
+                "trial_end": 1445529644,
                 "canceled_at": null,
                 "quantity": 1,
                 "application_fee_percent": null,
@@ -115,7 +116,7 @@ http_interactions:
             "object": "list",
             "total_count": 0,
             "has_more": false,
-            "url": "/v1/customers/cus_6YGx4zY3AdjWyK/cards",
+            "url": "/v1/customers/cus_71x6BdXkQT6su9/cards",
             "data": []
           },
           "default_card": null,
@@ -123,11 +124,11 @@ http_interactions:
             "object": "list",
             "total_count": 0,
             "has_more": false,
-            "url": "/v1/customers/cus_6YGx4zY3AdjWyK/sources",
+            "url": "/v1/customers/cus_71x6BdXkQT6su9/sources",
             "data": []
           },
           "default_source": null
         }
     http_version: 
-  recorded_at: Sun, 05 Jul 2015 10:32:19 GMT
+  recorded_at: Tue, 22 Sep 2015 16:00:44 GMT
 recorded_with: VCR 2.9.3
