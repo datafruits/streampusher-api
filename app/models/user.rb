@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   has_many :user_radios
   has_many :shows, foreign_key: :dj_id
 
+  default_scope { order(created_at: :desc) }
+
   # include User::Roles
   ROLES = %w[owner admin dj]
   # Include default devise modules. Others available are:
