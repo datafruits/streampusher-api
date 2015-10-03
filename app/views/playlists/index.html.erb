@@ -15,22 +15,32 @@
 </script>
 <h1>playlists</h1>
 <div class="row">
-  <h3>upload new track</h3>
-    <%= s3_uploader_form callback_url: tracks_url(format: :js),
-                         callback_param: "track[audio_file_name]",
-                         key_starts_with: "",
-                         key: "${filename}",
-                         id: "track-uploader" do %>
-    <%= file_field_tag :file %>
-    <div id="dropzone" class="drop-fade well">Drop files here</div>
-  <% end %>
-  <div id="status"></div>
-  <script id="template-upload" type="text/x-tmpl">
-  <div id="file-{%=o.unique_id%}" class="upload">
-    {%=o.name%}
-      <div class="progress"><div class="bar" style="width: 0%"></div></div>
-      </div>
-  </script>
+  <div class="col-md-6">
+    <h3>upload new track</h3>
+      <%= s3_uploader_form callback_url: tracks_url(format: :js),
+                           callback_param: "track[audio_file_name]",
+                           key_starts_with: "",
+                           key: "${filename}",
+                           id: "track-uploader" do %>
+      <%= file_field_tag :file %>
+      <div id="dropzone" class="drop-fade well">Drop files here</div>
+    <% end %>
+    <div id="status"></div>
+    <script id="template-upload" type="text/x-tmpl">
+    <div id="file-{%=o.unique_id%}" class="upload">
+      {%=o.name%}
+        <div class="progress"><div class="bar" style="width: 0%"></div></div>
+        </div>
+    </script>
+  </div>
+  <div class="col-md-6">
+    <h3>create new playlist</h3>
+    <%= simple_form_for @playlist, remote: true do |f| %>
+      <%= f.input :radio_id, as: :hidden, input_html: { value: @current_radio.id } %>
+      <%= f.text_field :name, placeholder: 'enter new playlist name...' %>
+      <%= f.submit '+ new playlist', class: 'btn btn-success' %>
+    <% end %>
+  </div>
 </div>
 <div class="row">
   <div class="col-md-6">
@@ -50,10 +60,5 @@
         </li>
       <% end %>
     </ul>
-    <%= simple_form_for @playlist, remote: true do |f| %>
-      <%= f.input :radio_id, as: :hidden, input_html: { value: @current_radio.id } %>
-      <%= f.text_field :name, placeholder: 'enter new playlist name...' %>
-      <%= f.submit '+ new playlist', class: 'btn btn-success' %>
-    <% end %>
   </div>
 </div>
