@@ -7,6 +7,7 @@ class SignupForm
 
   def initialize user=User.new, subscription=Subscription.new, radio=Radio.new
     @user = user
+    @user.role = "owner"
     @subscription = subscription
     @radio = radio
   end
