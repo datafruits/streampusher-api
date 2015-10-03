@@ -191,3 +191,12 @@ table a:hover {
 .flash#error {
     background: lighten($marunochi, 20%);
 }
+
+.bg-warning {
+  padding: 5px;
+  border: 3px solid darken(#fcf8e3, 20%);
+  border-radius: 3px;
+  a {
+    color: $blue;
+  }
+}
