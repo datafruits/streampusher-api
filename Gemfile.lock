@@ -8,13 +8,6 @@ GIT
       aws-sdk (< 2.0)
       rupeepeethree (~> 0.0.4)
 
-GIT
-  remote: https://github.com/rails/actionform
-  revision: b37fe4a2e2d60cc4d8aadad72d4cd86c39899838
-  specs:
-    actionform (0.0.1)
-      rails (~> 4.1)
-
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -447,7 +440,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  actionform!
   active_model_serializers
   aws-sdk (< 2.0)
   bourbon

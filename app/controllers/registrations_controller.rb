@@ -2,15 +2,18 @@ class RegistrationsController < Devise::RegistrationsController
   before_action :create_new_form, only: [:new, :create]
 
   def new
+    @signup_form = SignupForm.new
   end
 
   def create
-    @signup_form.submit user_params
+    @signup_form = SignupForm.new
+    @signup_form.attributes = user_params
     respond_to do |format|
       if @signup_form.save
-        sign_in :user, @signup_form.model
+        sign_in :user, @signup_form.user
         format.html { redirect_to radios_path, notice: "You have successfully signed up." }
       else
+        flash[:error] = "Sorry, there was an error signing up. Please check the form."
         format.html { render :new }
       end
     end
@@ -46,9 +49,9 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :current_password, :time_zone,
-                                 subscription_attributes: [:plan_id, :stripe_card_token,
-                                 radios_attributes: [:name]])
+    params.require(:signup_form).permit(:email, :password, :password_confirmation, :current_password, :time_zone,
+                                 subscription: [:plan_id, :stripe_card_token,
+                                 radios: [:name]])
   end
   # check if we need password to update user data
   # ie if password or email was changed

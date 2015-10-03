@@ -59,7 +59,6 @@ group :production do
   gem 'remote_syslog_logger'
 end
 
-gem 'actionform', git: 'https://github.com/rails/actionform', require: 'action_form'
 gem 's3_direct_upload'
 gem 'byebug'
 gem 'slackistrano', require: false

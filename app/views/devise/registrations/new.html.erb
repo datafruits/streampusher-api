@@ -3,14 +3,18 @@
   <i>Start broadcasting right away</i>
 
   <%= form_for(@signup_form, url: registration_path(resource_name), html: { id: 'new_subscription' }) do |f| %>
-    <% if @signup_form.errors.any? %>
+    <% if @signup_form.any_errors? %>
       <div id="error_explanation">
-        <h2><%= pluralize(@signup_form.errors.count, "error") %> prohibited this conference from being saved:</h2>
-
         <ul>
-        <% @signup_form.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
+          <% @signup_form.user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          <% @signup_form.subscription.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          <% @signup_form.radio.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
         </ul>
       </div>
     <% end %>

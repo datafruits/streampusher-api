@@ -1,25 +1,44 @@
-class SignupForm < ActionForm::Base
-  self.main_model = :user
-  attributes :email, :password
-  validates :email, :password, presence: true
+class SignupForm
+  include ActiveModel::Model
+  attr_reader :user, :subscription, :radio
+  delegate :email, :email=, :password, :password=, to: :user
+  delegate :name, to: :radio
+  delegate :plan_id, to: :subscription
 
-  association :subscription do
-    attributes :plan_id, required: true
-    association :radios, records: 1 do
-      attributes :name
+  def initialize user=User.new, subscription=Subscription.new, radio=Radio.new
+    @user = user
+    @subscription = subscription
+    @radio = radio
+  end
+
+  def any_errors?
+    self.user.errors.any? || self.subscription.errors.any? || self.radio.errors.any?
+  end
+
+  def attributes= attrs
+    attrs.each do |k,v|
+      self.send("#{k}=", v)
     end
   end
 
-  def submit params
-    self.model.role = "owner"
-    super(params)
+  def subscription= attrs
+    @subscription.plan_id = attrs[:plan_id]
+    @subscription.stripe_card_token = attrs[:stripe_card_token]
+    @radio.name = attrs[:radios][:name]
   end
 
   def save
-    if self.model.save
-      self.model.subscription.save_with_free_trial
-      self.model.radios << self.model.subscription.radios.first
-      UserSignedUpNotifier.notify self.model
+    User.transaction do
+      if @user.save
+        @subscription.user_id = @user.id
+        @subscription.radios << @radio
+        if @radio.save
+          @user.subscription = subscription
+          @user.subscription.save_with_free_trial
+          @user.radios << @user.subscription.radios.first
+          UserSignedUpNotifier.notify @user
+        end
+      end
     end
   end
 end
