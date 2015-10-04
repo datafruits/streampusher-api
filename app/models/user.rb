@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :radios, through: :user_radios
   has_many :user_radios
   has_many :shows, foreign_key: :dj_id
+  has_many :recordings
 
   default_scope { order(created_at: :desc) }
 

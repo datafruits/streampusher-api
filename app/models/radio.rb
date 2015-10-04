@@ -1,5 +1,4 @@
 class Radio < ActiveRecord::Base
-  after_create :boot_radio
   has_many :user_radios
   has_many :users, through: :user_radios
   has_many :shows
@@ -7,6 +6,7 @@ class Radio < ActiveRecord::Base
   has_many :tracks
   has_many :playlists
   has_many :podcasts
+  has_many :recordings
   belongs_to :subscription
   belongs_to :default_playlist, class_name: "Playlist"
 

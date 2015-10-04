@@ -39,6 +39,7 @@ class SignupForm
           @user.radios << @user.subscription.radios.first
           ActiveSupport::Notifications.instrument 'user.signup', email: @user.email, radio: @radio.name
           UserSignedUpNotifier.notify @user
+          @radio.boot_radio
         end
       end
     end

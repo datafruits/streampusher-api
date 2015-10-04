@@ -1,0 +1,14 @@
+<h1>Recordings</h1>
+
+<table class="table table-striped">
+  <thead>
+    <th>recording</th>
+  </thead>
+  <tbody>
+    <% @recordings.each do |recording| %>
+      <tr>
+        <td><%= recording.file_file_name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

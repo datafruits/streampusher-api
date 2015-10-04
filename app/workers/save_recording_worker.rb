@@ -1,7 +1,7 @@
 class SaveRecordingWorker < ActiveJob::Base
   queue_as :default
 
-  def perform filename
-    SaveRecording.save filename
+  def perform filename, radio_name
+    SaveRecording.save filename, radio_name
   end
 end

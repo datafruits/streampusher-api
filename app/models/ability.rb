@@ -20,6 +20,7 @@ class Ability
       can :manage, Podcast if can_manage_radio?(user, radio)
       can :read, "broadcasting_help"
       can :read, "embed"
+      can :manage, Recording if can_manage_radio?(user, radio)
     elsif user.dj?
       can :read, Podcast
 
