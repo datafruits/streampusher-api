@@ -1,4 +1,5 @@
 class DjsController < ApplicationController
+  load_and_authorize_resource
   def index
     @djs = @current_radio.djs.page(params[:page])
     @dj = @djs.new
@@ -25,9 +26,19 @@ class DjsController < ApplicationController
   end
 
   def edit
+    @dj = @current_radio.djs.find(params[:id])
   end
 
   def update
+    @dj.attributes = dj_params
+    if @dj.save
+      flash[:notice] = "Updated dj account."
+      redirect_to djs_path
+    else
+      flash[:error] = "Couldn't update dj account"
+      @djs = @current_radio.djs.page(params[:page])
+      render 'edit'
+    end
   end
 
   def destroy
