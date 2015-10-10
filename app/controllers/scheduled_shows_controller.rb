@@ -24,6 +24,7 @@ class ScheduledShowsController < ApplicationController
 
   def create
     if @scheduled_show.save
+      ActiveSupport::Notifications.instrument 'scheduled_show.created', current_user: current_user.email, radio: @current_radio.name, show: @scheduled_show.title
       flash[:notice] = "Scheduled show!"
       redirect_to scheduled_shows_path
     else

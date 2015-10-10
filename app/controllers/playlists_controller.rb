@@ -9,6 +9,7 @@ class PlaylistsController < ApplicationController
   def create
     @playlist = @current_radio.playlists.new create_params
     if @playlist.save
+      ActiveSupport::Notifications.instrument 'playlist.created', current_user: current_user.email, radio: @current_radio.name, playlist: @playlist.name
       flash[:notice] = "created playlist"
       render 'create'
     else

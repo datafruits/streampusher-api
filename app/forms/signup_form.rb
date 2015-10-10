@@ -37,6 +37,7 @@ class SignupForm
           @user.subscription = subscription
           @user.subscription.save_with_free_trial
           @user.radios << @user.subscription.radios.first
+          ActiveSupport::Notifications.instrument 'user.signup', email: @user.email, radio: @radio.name
           UserSignedUpNotifier.notify @user
         end
       end

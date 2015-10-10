@@ -7,6 +7,7 @@ class PodcastsController < ApplicationController
 
   def create
     if @podcast.save
+      ActiveSupport::Notifications.instrument 'podcast.created', current_user: current_user.email, radio: @current_radio.name, podcast: @podcast.name
       redirect_to podcasts_path
     else
       @podcasts = @current_radio.podcasts

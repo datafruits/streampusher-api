@@ -25,6 +25,7 @@ class ShowsController < ApplicationController
 
   def create
     if @show.save
+      ActiveSupport::Notifications.instrument 'show.created', current_user: current_user.email, radio: @current_radio.name, show: @show.title
       flash[:notice] = "Successfully created show."
       redirect_to shows_path
     else

@@ -16,6 +16,7 @@ class DjsController < ApplicationController
     @dj.role = 'dj'
     if @dj.save
       DjAccountMailer.welcome_email(@dj, password, @current_radio).deliver_later
+      ActiveSupport::Notifications.instrument 'dj.created', current_user: current_user.email, radio: @current_radio.name, dj:  @dj.email
       flash[:notice] = "Created DJ account for #{@dj.email}"
       redirect_to djs_path
     else
