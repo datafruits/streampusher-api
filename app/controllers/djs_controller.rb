@@ -1,14 +1,12 @@
 class DjsController < ApplicationController
-  load_and_authorize_resource
   def index
+    authorize! :index, :dj
     @djs = @current_radio.djs.page(params[:page])
     @dj = @djs.new
   end
 
-  def new
-  end
-
   def create
+    authorize! :create, :dj
     @dj = User.new dj_params
     @dj.user_radios.build(radio: @current_radio)
     password = Devise.friendly_token.first(8)
@@ -27,10 +25,12 @@ class DjsController < ApplicationController
   end
 
   def edit
+    authorize! :edit, :dj
     @dj = @current_radio.djs.find(params[:id])
   end
 
   def update
+    authorize! :update, :dj
     @dj.attributes = dj_params
     if @dj.save
       flash[:notice] = "Updated dj account."
@@ -43,6 +43,7 @@ class DjsController < ApplicationController
   end
 
   def destroy
+    authorize! :destroy, :dj
   end
 
   private

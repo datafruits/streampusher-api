@@ -11,6 +11,7 @@ class Ability
       can :manage, Radio do |radio|
         can_manage_radio?(user, radio)
       end
+      can :manage, :dj if can_manage_radio?(user, radio)
       can :manage, Show if can_manage_radio?(user, radio)
       can :manage, Track if can_manage_radio?(user, radio)
       can :manage, Playlist if can_manage_radio?(user, radio)
