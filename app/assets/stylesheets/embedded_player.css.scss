@@ -1,0 +1,17 @@
+/*
+ *= require jplayer
+ *= require jplayer/jplayer.blue.monday
+*/
+
+.jp-audio {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.jp-type-single .jp-details {
+  position: absolute;
+  bottom: 0;
+}

@@ -49,8 +49,15 @@ Rails.application.routes.draw do
 
   get '/broadcasting_help' => 'help#broadcasting', :id => "broadcasting_help"
 
+  resources :embeds, only: [:index] do
+    collection do
+      get 'player'
+    end
+  end
+
   authenticated :user do
     root :to =>  "radios#index", as: :authenticated_root
   end
+
   root 'landing#index'
 end

@@ -19,6 +19,7 @@ class Ability
       can :manage, ScheduledShow if can_manage_radio?(user, radio)
       can :manage, Podcast if can_manage_radio?(user, radio)
       can :read, "broadcasting_help"
+      can :read, "embed"
     elsif user.dj?
       can :read, Podcast
 
@@ -33,6 +34,7 @@ class Ability
       can :destroy, ScheduledShow, show_id: user.shows.pluck(:id)
 
       can :read, "broadcasting_help"
+      can :read, "embed"
       cannot :admin
     else
       can :read, ScheduledShow if format == "json"
