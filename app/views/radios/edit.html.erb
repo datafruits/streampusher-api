@@ -1,6 +1,5 @@
 <h2>Radio Settings</h2>
 <%= simple_form_for @radio, html: {class: 'form-horizontal'} do |f| %>
-  Default playlist: <%= @radio.default_playlist.try(:name) %>
   <%= f.input :default_playlist_id, collection: @current_radio.playlists, label_method: :name, value_method: :id  %>
   <%= f.submit 'Save Settings', class: 'btn btn-success' %>
 <% end %>
