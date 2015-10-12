@@ -11,9 +11,9 @@ def visit_sign_up_page
 end
 
 def fill_in_sign_up_form_with email, password, radio_name
-  fill_in "user[email]", with: email
-  fill_in "user[password]", with: password
-  fill_in "user[subscription_attributes][radios_attributes][0][name]", with: radio_name
+  fill_in "signup_form[email]", with: email
+  fill_in "signup_form[password]", with: password
+  fill_in "signup_form[subscription][radios][name]", with: radio_name
 end
 
 def click_sign_up_button
@@ -51,17 +51,13 @@ feature 'signup' do
       fill_in_sign_up_form_with "", "stevespassword", "BLOCKFM"
       click_sign_up_button
 
-      i_should_see_form_errors_on "email"
+      expect(page).to have_content "Email can't be blank"
     end
   end
 
-  scenario 'form shows error if no password' do
+  scenario 'form shows error if no password'
 
-  end
-
-  scenario 'form shows error if no radio name' do
-
-  end
+  scenario 'form shows error if no radio name'
 
   scenario 'free trial expires after 30 days' do
     VCR.use_cassette "user_sign_up" do
