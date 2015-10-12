@@ -50,6 +50,11 @@
               <i class="fa fa-rss"></i>Podcasts
             <% end %>
           </li>
+          <li>
+            <%= link_to recordings_path do %>
+              <i class="fa fa-file-audio-o"></i>Recordings
+            <% end %>
+          </li>
           <% if current_user.owner? %>
             <li>
               <%= link_to edit_radio_path(@current_radio) do %>
