@@ -7,7 +7,7 @@
   <tbody>
     <% @recordings.each do |recording| %>
       <tr>
-        <td><%= recording.file_file_name %></td>
+        <td><%= link_to recording.file_file_name, recording.file(:original), target: "_blank" %></td>
       </tr>
     <% end %>
   </tbody>
