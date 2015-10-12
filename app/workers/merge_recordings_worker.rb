@@ -11,8 +11,8 @@ class MergeRecordingsWorker < ActiveJob::Base
       filenames = []
       tempfiles = []
       recordings.each do |recording|
-        filename = recording.file(:original)
-        t = Tempfile.new([File.basename(filename, ".*"), File.extname(filename)])
+        uri = URI.parse(recording.file(:original))
+        t = Tempfile.new([File.basename(uri.path, ".*"), File.extname(uri.path)])
         t.binmode
         t.write(URI.parse(recording.file(:original)).open.read)
         filenames << t.path
