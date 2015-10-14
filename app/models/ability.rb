@@ -22,6 +22,7 @@ class Ability
       can :read, "embed"
       can :manage, Recording if can_manage_radio?(user, radio)
     elsif user.dj?
+      can :index, Radio if can_manage_radio?(user, radio)
       can :read, Podcast
 
       can :read, Show
