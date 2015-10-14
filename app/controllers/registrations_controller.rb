@@ -7,7 +7,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     @signup_form = SignupForm.new
-    @signup_form.attributes = user_params
+    @signup_form.attributes = create_params
     respond_to do |format|
       if @signup_form.save
         sign_in :user, @signup_form.user
@@ -23,12 +23,12 @@ class RegistrationsController < Devise::RegistrationsController
     @user = User.find(current_user.id)
 
     successfully_updated = if needs_password?(@user, params)
-      @user.update_with_password(user_params)
+      @user.update_with_password(update_params)
     else
       # remove the virtual current_password attribute, update_without_password
       # doesn't know how to ignore it
       params[:user].delete(:current_password)
-      @user.update_without_password(user_params)
+      @user.update_without_password(update_params)
     end
 
     if successfully_updated
@@ -48,10 +48,14 @@ class RegistrationsController < Devise::RegistrationsController
     @signup_form = SignupForm.new(User.new)
   end
 
-  def user_params
+  def create_params
     params.require(:signup_form).permit(:email, :password, :password_confirmation, :current_password, :time_zone,
                                  subscription: [:plan_id, :stripe_card_token,
                                  radios: [:name]])
+  end
+
+  def update_params
+    params.require(:user).permit(:email, :password, :password_confirmation, :current_password, :time_zone)
   end
   # check if we need password to update user data
   # ie if password or email was changed
