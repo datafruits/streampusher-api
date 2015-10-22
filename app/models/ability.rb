@@ -16,6 +16,7 @@ class Ability
       can :manage, Show if can_manage_radio?(user, radio)
       can :manage, Track if can_manage_radio?(user, radio)
       can :manage, Playlist if can_manage_radio?(user, radio)
+      can :manage, PlaylistTrack if can_manage_radio?(user, radio)
       can :manage, Subscription, user_id: user.id
       can :manage, ScheduledShow if can_manage_radio?(user, radio)
       can :manage, Podcast if can_manage_radio?(user, radio)
