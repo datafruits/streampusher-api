@@ -6,6 +6,7 @@ class Ability
     if user.admin?
       can :admin, :dashboard
       can :admin, :radios
+      can :admin, :sign_in_as
       can :manage, :all
     elsif user.owner?
       can :manage, Radio do |radio|

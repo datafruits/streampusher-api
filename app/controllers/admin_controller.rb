@@ -5,6 +5,12 @@ class AdminController < ApplicationController
     @subscriptions = Subscription.all
   end
 
+  def sign_in_as
+    authorize! :admin, :sign_in_as
+    sign_in(:user, User.find(params[:id]))
+    redirect_to root_url
+  end
+
   def radios
     authorize! :admin, :radios
 

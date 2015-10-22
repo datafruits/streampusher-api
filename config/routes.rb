@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   end
 
   get 'admin', to: 'admin#index', as: 'admin'
+  get 'admin/:id/sign_in', to: 'admin#sign_in_as', as: 'admin_sign_in_as'
   get 'admin/:id/radios', to: 'admin#radios', as: 'admin_radios'
   post 'admin/radios/:id/restart', to: 'admin#restart_radio', as: 'admin_restart_radio'
   post 'admin/radios/:id/disable', to: 'admin#disable_radio', as: 'admin_disable_radio'
