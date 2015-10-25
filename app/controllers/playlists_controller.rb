@@ -40,10 +40,10 @@ class PlaylistsController < ApplicationController
     @track = @current_radio.tracks.find params[:track][:id]
     if @playlist.add_track @track
       SavePlaylistToRedisWorker.perform_later @playlist.id
-      flash[:notice] = 'added track to playlist!'
+      flash[:notice] = "added #{@track.display_name} to playlist #{@playlist.name}!"
       render 'add_track_success'
     else
-      flash[:error] = 'error adding track to playlist :('
+      flash[:error] = "error adding #{@track.display_name} to #{@playlist.name} :("
       render ' add_track_error'
     end
   end
