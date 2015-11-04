@@ -260,6 +260,8 @@ GEM
     pry-byebug (3.0.1)
       byebug (~> 3.4)
       pry (~> 0.10)
+    quiet_assets (1.1.0)
+      railties (>= 3.1, < 5.0)
     rack (1.6.4)
     rack-cors (0.3.1)
     rack-protection (1.5.3)
@@ -473,6 +475,7 @@ DEPENDENCIES
   paperclip
   pg
   pry-byebug
+  quiet_assets
   rack-cors
   rails (= 4.2.4)
   rails-assets-chartjs!
