@@ -10,6 +10,8 @@ class Radio < ActiveRecord::Base
   belongs_to :subscription
   belongs_to :default_playlist, class_name: "Playlist"
 
+  validates :name, format: { with: /a-zA-Z0-9_.-/ }
+
   scope :enabled, -> { where(enabled: true) }
 
   def djs
