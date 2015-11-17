@@ -55,8 +55,10 @@ def click_edit_playlist_button
 end
 
 def edit_playlist_name new_name
-  fill_in "playlist[name]", with: new_name
-  click_button "Save changes"
+  within ".modal-dialog.edit-track" do
+    fill_in "playlist[name]", with: new_name
+    click_button "Save changes"
+  end
 end
 
 feature 'playlists', :js => true do
@@ -81,9 +83,12 @@ feature 'playlists', :js => true do
     upload_a_track
     create_a_new_playlist
     expect(page).to have_content('created playlist')
+    expect(page.find("#playlists .playlist")).to have_content("my new playlist")
     drag_track_to_playlist
-    expect(page).to have_content('added track to playlist!')
+    expect(page).to have_content('added the_cowbell.mp3 to playlist my new playlist!')
+    expect(page.find("#playlists .playlist .playlist-tracks")).to have_content("the_cowbell.mp3")
     remove_track_from_playlist
+    expect(page.find("#playlists .playlist .playlist-tracks")).to have_no_content("the_cowbell.mp3")
     expect(page).to have_content('removed track from playlist!')
   end
 
@@ -113,6 +118,6 @@ feature 'playlists', :js => true do
     expect(page).to have_content('created playlist')
     click_edit_playlist_button
     edit_playlist_name "new playlist name"
-    expect(page).to have_content "new playlist name"
+    expect(page.find("#playlists .playlist")).to have_content "new playlist name"
   end
 end
