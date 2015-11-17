@@ -19,7 +19,7 @@ class Subscription < ActiveRecord::Base
 
   def save_with_free_trial(*)
     if valid?
-      customer = Stripe::Customer.create(description: self.user.email, plan: plan_id)
+      customer = Stripe::Customer.create(description: self.user.email, plan: self.plan.name)
       self.on_trial = true
       self.trial_ends_at = Time.at(customer.subscriptions.data.first.trial_end)
       self.stripe_customer_token = customer.id
@@ -56,7 +56,7 @@ class Subscription < ActiveRecord::Base
         card.save
         customer.default_card = card.id
         subscription = customer.subscriptions.first
-        subscription.plan = plan_id
+        subscription.plan = self.plan.name
         customer.save
         self.on_trial = false
         self.stripe_customer_token = customer.id

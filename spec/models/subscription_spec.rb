@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Subscription, :type => :model do
+  let(:hobbyist_plan) { Plan.create name: "Hobbyist" }
   let(:owner) { FactoryGirl.create :user, username: "owner", role: "owner" }
   let!(:subscription) { FactoryGirl.create :subscription, user: owner }
   describe "#save_with_free_trial" do
@@ -8,8 +9,9 @@ RSpec.describe Subscription, :type => :model do
       VCR.use_cassette "stripe_save_free_trial" do
         subscription.save_with_free_trial
       end
+      subscription.reload
       expect(subscription.on_trial).to eq true
-      expect(subscription.trial_ends_at < 30.days.from_now).to eq true
+      expect(subscription.trial_ends_at < 14.days.from_now).to eq true
     end
   end
   context "adding and updating cards" do
@@ -33,7 +35,7 @@ RSpec.describe Subscription, :type => :model do
               :cvc => "314"
             }
           )
-          subscription.update_with_new_card plan_id: Plan.find_by_name("Hobbyist").id, stripe_card_token: token.id
+          subscription.update_with_new_card plan_id: hobbyist_plan.id, stripe_card_token: token.id
         end
         subscription.reload
         expect(subscription.on_trial).to eq false
