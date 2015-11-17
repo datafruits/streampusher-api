@@ -10,7 +10,8 @@ class Radio < ActiveRecord::Base
   belongs_to :subscription
   belongs_to :default_playlist, class_name: "Playlist"
 
-  validates :name, format: { with: /a-zA-Z0-9_.-/ }
+  validates :name, format: { with: /\A[a-zA-Z0-9_]+\z/ }
+  validates :name, uniqueness: true
 
   scope :enabled, -> { where(enabled: true) }
 
