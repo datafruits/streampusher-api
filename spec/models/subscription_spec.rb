@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Subscription, :type => :model do
   let(:owner) { FactoryGirl.create :user, username: "owner", role: "owner" }
-  let!(:subscription) { FactoryGirl.create :subscription, user: owner, plan: Plan.find_by_name("Free Trial") }
+  let!(:subscription) { FactoryGirl.create :subscription, user: owner }
   describe "#save_with_free_trial" do
     it "sets on trial to true and sets trial_ends_at date" do
       VCR.use_cassette "stripe_save_free_trial" do
