@@ -7,15 +7,15 @@ RSpec.describe Playlist, :type => :model do
   end
 
   it 'adds a track to the playlist' do
-    playlist = Playlist.create radio_id: 1
-    track = Track.create radio_id: 1
+    playlist = FactoryGirl.create :playlist
+    track = FactoryGirl.create :track, radio: playlist.radio
     playlist.add_track track
     expect(playlist.tracks.include?(track)).to eq true
   end
 
   it 'removes a track from a playlist' do
-    playlist = Playlist.create radio_id: 1
-    track = Track.create radio_id: 1
+    playlist = FactoryGirl.create :playlist
+    track = FactoryGirl.create :track, radio: playlist.radio
     playlist.add_track track
     playlist.remove_track track
     expect(playlist.tracks.include?(track)).to eq false
