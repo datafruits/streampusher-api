@@ -10,7 +10,7 @@ def test_docker_uri
     uri << ":#{port}" unless port == 80
     uri
   else
-    "unix:///var/run/docker.sock"
+    "http://unix"
   end
 end
 
