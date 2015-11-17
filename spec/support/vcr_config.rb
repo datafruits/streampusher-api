@@ -23,4 +23,8 @@ VCR.configure do |config|
   config.define_cassette_placeholder("<DOCKER_HOST>") do
     test_docker_uri
   end
+
+  config.define_cassette_placeholder("<STRIPE_KEY>") do
+    ENV['STRIPE_KEY']
+  end
 end
