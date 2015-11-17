@@ -11,7 +11,7 @@
   <%= f.input :start_at, minute_step: 15 %>
   <%= f.input :end_at, minute_step: 15 %>
 
-  <%= f.input :image, as: :file %>
+  <%= f.input :image, as: :file, label: "If you set an image for the show, that image will be used, but you can override it by uploading an image here." %>
   <%= f.input :description, input_html: { cols: 70, rows: 5 }  %>
 
   <%= f.submit 'Add show', class: 'btn btn-success' %>
