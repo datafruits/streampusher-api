@@ -32,7 +32,7 @@
             <%= r.text_field :name, placeholder: "My Awesome Radio Station" %></div>
         <% end %>
 
-        <%= s.hidden_field :plan_id, value: 1 %>
+        <%= s.hidden_field :plan_id, value: @plan.id %>
       <% end %>
 
       <div><%= f.submit "Sign up now", class: 'big-cta-btn' %></div>

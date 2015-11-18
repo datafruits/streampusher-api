@@ -59,7 +59,7 @@ feature 'signup' do
 
   scenario 'form shows error if no radio name'
 
-  scenario 'free trial expires after 30 days' do
+  scenario 'free trial expires after 14 days' do
     VCR.use_cassette "user_sign_up" do
       visit_sign_up_page
       fill_in_sign_up_form_with "steve.aoki@gmail.com", "stevespassword", "BLOCKFM"
@@ -67,7 +67,7 @@ feature 'signup' do
 
       i_should_see_i_signed_up_as "steve.aoki"
     end
-    Timecop.travel 30.days.from_now do
+    Timecop.travel 14.days.from_now do
       visit_dashboard
       expect(page).to have_content("Free trial has expired.")
     end

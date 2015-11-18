@@ -3,11 +3,13 @@ class RegistrationsController < Devise::RegistrationsController
 
   def new
     @signup_form = SignupForm.new
+    @plan = Plan.find_or_create_by name: "Free Trial"
   end
 
   def create
     @signup_form = SignupForm.new
     @signup_form.attributes = create_params
+    @plan = Plan.find_or_create_by name: "Free Trial"
     respond_to do |format|
       if @signup_form.save
         sign_in :user, @signup_form.user
