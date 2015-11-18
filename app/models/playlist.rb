@@ -8,6 +8,8 @@ class Playlist < ActiveRecord::Base
   validates :interpolated_playlist_track_interval_count, presence: true, if: :interpolated_playlist_enabled?
   validates :interpolated_playlist_id, presence: true, if: :interpolated_playlist_enabled?
 
+  validates :name, presence: true
+
   after_save :set_default_playlist
 
   default_scope { order(updated_at: :desc) }
