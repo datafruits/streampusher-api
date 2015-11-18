@@ -33,10 +33,10 @@ subscription =
 
   handleStripeResponse: (status, response) ->
     if status == 200
-      alert(response.id)
+      console.log(response.id)
       $('#subscription_stripe_card_token').val(response.id)
       $('.edit_subscription')[0].submit()
     else
-      alert(response.error.message)
+      console.log(response.error.message)
       $('input[type=submit]').attr('disabled', false)
 

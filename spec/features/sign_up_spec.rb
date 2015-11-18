@@ -1,10 +1,4 @@
 require 'rails_helper'
-require 'vcr'
-
-VCR.configure do |config|
-  config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
-  config.hook_into :webmock # or :fakeweb
-end
 
 def visit_sign_up_page
   visit "/users/sign_up"
@@ -34,7 +28,26 @@ def click_subscription_link
   click_link "Subscription"
 end
 
+def select_basic_plan
+  select "Hobbyist", from: "subscription_plan_id"
+end
+
+def enter_credit_card_info
+  "4242424242424242".split('').each { |c| find_field('card_number').native.send_keys(c) } # https://github.com/stripe/jquery.payment/issues/149#issuecomment-75344077
+  fill_in "card_code", with: "123"
+  fill_in "name", with: "Steve Aoki"
+  "1229".split('').each { |c| find_field('card_exp').native.send_keys(c) }
+end
+
+def click_purchase_link
+  click_button "Update"
+end
+
 feature 'signup' do
+  before do
+    Plan.create name: "Free Trial"
+    Plan.create name: "Hobbyist", price: 19.00
+  end
   scenario 'user subscribes' do
     VCR.use_cassette "user_sign_up" do
       visit_sign_up_page
@@ -73,20 +86,22 @@ feature 'signup' do
     end
   end
 
-  scenario 'can switch to a paid plan' do
-    VCR.use_cassette "user_sign_up" do
+  scenario 'can switch to a paid plan', :js => true do
+    VCR.use_cassette "user_upgrade_plan" do
       visit_sign_up_page
       fill_in_sign_up_form_with "steve.aoki@gmail.com", "stevespassword", "BLOCKFM"
       click_sign_up_button
-
       i_should_see_i_signed_up_as "steve.aoki"
+
+      click_subscription_link
+      expect(page).to have_content "You are currently subscribed to the Free Trial plan"
+
+      select_basic_plan
+      enter_credit_card_info
+      click_purchase_link
+
+      expect(page).to have_content "Updated your subscription successfully."
+      expect(page).to have_content "You are currently subscribed to the Hobbyist plan"
     end
-    click_subscription_link
-    expect(page).to have_content "You are currently subscribed to the Free Trial plan"
-    select_basic_plan
-    enter_credit_card_info
-    click_purchase_link
-    expect(page).to have_content "Signed up for the basic plan!"
-    expect(page).to have_content "You are currently subscribed to the Basic plan"
   end
 end
