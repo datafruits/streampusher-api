@@ -23,6 +23,20 @@ class Ability
       can :read, "broadcasting_help"
       can :read, "embed"
       can :manage, Recording if can_manage_radio?(user, radio)
+    elsif user.manager?
+      can :manage, Radio do |radio|
+        can_manage_radio?(user, radio)
+      end
+      can :manage, :dj if can_manage_radio?(user, radio)
+      can :manage, Show if can_manage_radio?(user, radio)
+      can :manage, Track if can_manage_radio?(user, radio)
+      can :manage, Playlist if can_manage_radio?(user, radio)
+      can :manage, PlaylistTrack if can_manage_radio?(user, radio)
+      can :manage, ScheduledShow if can_manage_radio?(user, radio)
+      can :manage, Podcast if can_manage_radio?(user, radio)
+      can :read, "broadcasting_help"
+      can :read, "embed"
+      can :manage, Recording if can_manage_radio?(user, radio)
     elsif user.dj?
       can :index, Radio if can_manage_radio?(user, radio)
       can :read, Podcast

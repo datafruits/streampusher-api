@@ -1,6 +1,6 @@
 module User::Roles
   extend ActiveSupport::Concern
-  VALID_ROLES = %w[owner admin dj]
+  VALID_ROLES = %w[owner admin dj manager]
 
   included do
     validate :valid_role
