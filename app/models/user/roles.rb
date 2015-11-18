@@ -1,18 +1,12 @@
 module User::Roles
-  ROLES = %w[admin dj]
-  #validate :valid_role
+  extend ActiveSupport::Concern
+  VALID_ROLES = %w[owner admin dj]
 
-  def valid_role
-    if !role.to_s.blank?
-      self.roles.each do |r|
-        if !ROLES.include?(r)
-          errors.add :role, "is not a valid role."
-        end
-      end
-    end
+  included do
+    validate :valid_role
   end
 
-  ROLES.each do |r|
+  VALID_ROLES.each do |r|
     define_method "#{r}?" do
       has_role? r
     end
@@ -24,5 +18,22 @@ module User::Roles
 
   def roles
     self.role.to_s.split(' ')
+  end
+
+  def add_role new_role
+    self.role << " #{new_role}"
+    self.save
+  end
+
+  private
+
+  def valid_role
+    if !role.to_s.blank?
+      self.roles.each do |r|
+        if !VALID_ROLES.include?(r)
+          errors.add :role, "is not a valid role."
+        end
+      end
+    end
   end
 end
