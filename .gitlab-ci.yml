@@ -4,7 +4,7 @@ services:
   - redis
 
 before_script:
-  - cp config/database.example.yml config/database.yml
+  - cp config/database.ci.yml config/database.yml
   - bundle install --jobs $(nproc)
   - bundle exec rake db:create
   - bundle exec rake db:migrate
