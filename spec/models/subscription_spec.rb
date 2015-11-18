@@ -12,6 +12,7 @@ RSpec.describe Subscription, :type => :model do
       subscription.reload
       expect(subscription.on_trial).to eq true
       expect(subscription.trial_ends_at < 14.days.from_now).to eq true
+      expect(subscription.trial_days_left).to eq 13
     end
   end
   context "adding and updating cards" do

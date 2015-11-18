@@ -6,7 +6,7 @@ class Subscription < ActiveRecord::Base
   attr_accessor :stripe_card_token
 
   def trial_days_left
-    (Date.parse(Time.at(self.trial_ends_at)) - Date.today).to_i
+    (Date.parse(Time.at(self.trial_ends_at).to_s) - Date.today).to_i
   end
 
   def card_present?
