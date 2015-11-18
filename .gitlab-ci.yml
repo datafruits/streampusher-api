@@ -1,0 +1,12 @@
+image: ruby:2.2
+services:
+  - postgres
+  - redis
+
+before_script:
+  - bundle install --jobs $(nproc)
+  - bundle exec rake db:create
+  - bundle exec rake db:migrate
+
+rspec:
+  test: "rake spec"
