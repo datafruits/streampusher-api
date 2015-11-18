@@ -4,7 +4,7 @@ describe SaveRecording do
   it "saves a new recording model given a path and radio" do
     radio = FactoryGirl.create :radio, name: "datafruits"
     filename = "/home/liquidsoap/tracks/never_enough.mp3"
-    VCR.use_cassette "save_recording" do
+    VCR.use_cassette "save_recording", :match_requests_on => [:method, :s3_uri_matcher] do
       RadioBooter.boot radio
 
       recording = SaveRecording.save filename, radio.name

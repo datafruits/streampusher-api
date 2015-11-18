@@ -27,4 +27,12 @@ VCR.configure do |config|
   config.define_cassette_placeholder("<STRIPE_KEY>") do
     ENV['STRIPE_KEY']
   end
+
+  config.register_request_matcher :s3_uri_matcher do |request1, request2|
+    uri1 = URI(request1.uri)
+    uri1.query = nil
+    uri2 = URI(request2.uri)
+    uri2.query = nil
+    uri1.to_s.gsub(/\/\d{3}/,"") == uri2.to_s.gsub(/\/\d{3}/,"")
+  end
 end

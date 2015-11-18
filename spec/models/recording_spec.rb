@@ -28,7 +28,7 @@ RSpec.describe Recording, :type => :model do
       bucket: ENV['S3_BUCKET']
     })
 
-    VCR.use_cassette "merge recordings when using S3 storage" do
+    VCR.use_cassette "merge recordings when using S3 storage", :match_requests_on => [:method, :s3_uri_matcher] do
       radio = FactoryGirl.create :radio
       recording1 = FactoryGirl.create :recording, file: File.new("spec/fixtures/the_cowbell.mp3"), radio: radio
       recording2 = FactoryGirl.create :recording, file: File.new("spec/fixtures/wau.mp3"), radio: radio
