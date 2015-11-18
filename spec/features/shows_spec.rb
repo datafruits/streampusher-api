@@ -13,10 +13,6 @@ def fill_in_shows_form_with show
   fill_in "show_title", with: show[:title]
 end
 
-def click_save_button
-  click_button "Save"
-end
-
 def i_should_see_show_created show
   expect(page).to have_content show[:dj]
   expect(page).to have_content show[:playlist].name
@@ -56,7 +52,7 @@ feature 'shows' do
     login_as owner
     visit_shows_path
     fill_in_shows_form_with show
-    click_save_button
+    click_button "Save"
     i_should_see_show_created show
   end
   scenario 'owner can edit shows' do
@@ -64,11 +60,11 @@ feature 'shows' do
     login_as owner
     visit_shows_path
     fill_in_shows_form_with show
-    click_save_button
+    click_button "Save"
     i_should_see_show_created show
     click_edit_button
     change_show_title "my cooler show"
-    click_save_button
+    click_button "Save"
     i_should_see_show_updated "my cooler show"
   end
   scenario 'dj can create shows on their radio' do
@@ -76,7 +72,7 @@ feature 'shows' do
     login_as dj
     visit_shows_path
     fill_in_shows_form_with show
-    click_save_button
+    click_button "Save"
     i_should_see_show_created show
   end
   scenario 'dj can edit shows on their radio' do
@@ -84,11 +80,11 @@ feature 'shows' do
     login_as dj
     visit_shows_path
     fill_in_shows_form_with show
-    click_save_button
+    click_button "Save"
     i_should_see_show_created show
     click_edit_button
     change_show_title "my cooler show"
-    click_save_button
+    click_button "Save"
     i_should_see_show_updated "my cooler show"
   end
 
@@ -97,7 +93,7 @@ feature 'shows' do
     login_as dj
     visit_shows_path
     fill_in_shows_form_with show
-    click_save_button
+    click_button "Save"
     i_should_see_show_created show
     click_edit_button
     click_link "Delete"

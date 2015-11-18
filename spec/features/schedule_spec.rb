@@ -10,10 +10,6 @@ def fill_in_schedule_form show, start_at, end_at
   select_date end_at, from: "scheduled_show_end_at"
 end
 
-def click_save_button
-  click_button "Add show"
-end
-
 def i_should_see_my_scheduled_show show, start_at, end_at
   expect(page).to have_content show.title
 end
@@ -44,19 +40,19 @@ feature 'schedule', :js => true do
     login_as dj
     visit_schedule_path
     fill_in_schedule_form show, Chronic.parse("today at 3pm"), Chronic.parse("today at 5pm")
-    click_save_button
+    click_button "Add show"
     i_should_see_my_scheduled_show show, Chronic.parse("today at 3pm"), Chronic.parse("today at 5pm")
   end
   scenario 'dj can edit their scheduled show' do
     login_as dj
     visit_schedule_path
     fill_in_schedule_form show, Chronic.parse("today at 3pm"), Chronic.parse("today at 5pm")
-    click_save_button
+    click_button "Add show"
     i_should_see_my_scheduled_show show, Chronic.parse("today at 3pm"), Chronic.parse("today at 5pm")
     click_on_show show
     click_link "Edit"
     fill_in_schedule_form show, Chronic.parse("today at 5pm"), Chronic.parse("today at 7pm")
-    click_save_button
+    click_button "Add show"
     i_should_see_my_scheduled_show show, Chronic.parse("today at 5pm"), Chronic.parse("today at 7pm")
   end
 
@@ -64,7 +60,7 @@ feature 'schedule', :js => true do
     login_as dj
     visit_schedule_path
     fill_in_schedule_form show, Chronic.parse("today at 3pm"), Chronic.parse("today at 5pm")
-    click_save_button
+    click_button "Add show"
     i_should_see_my_scheduled_show show, Chronic.parse("today at 3pm"), Chronic.parse("today at 5pm")
     click_on_show show
     click_link "Edit"
