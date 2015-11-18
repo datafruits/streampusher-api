@@ -4,7 +4,6 @@ services:
   - redis
 
 before_script:
-  - "apt-get install -y build-essential libtag1-dev"
   - bundle install --jobs $(nproc)
   - bundle exec rake db:create
   - bundle exec rake db:migrate
