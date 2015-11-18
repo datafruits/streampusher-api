@@ -69,6 +69,7 @@ feature 'schedule', :js => true do
     click_on_show show
     click_link "Edit"
     click_link "Delete"
+    page.accept_alert
 
     i_should_see_my_scheduled_show_deleted
   end
