@@ -35,7 +35,7 @@ gem 'dotenv-rails'
 gem 'unicorn'
 
 gem 'capistrano', '~> 3.4.0'
-gem 'capistrano-rails'
+gem 'capistrano-rails', github: "januszm/capistrano-rails"
 gem 'capistrano-bundler'
 gem 'capistrano-rbenv', "~>2.0"
 gem 'capistrano-sidekiq'

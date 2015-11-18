@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/januszm/capistrano-rails.git
+  revision: d578360fa708faa88de7662870a1615f932d4211
+  specs:
+    capistrano-rails (1.1.3)
+      capistrano (~> 3.1)
+      capistrano-bundler (~> 1.1)
+
+GIT
   remote: git://github.com/mcfiredrill/so_id3.git
   revision: 2a3912cc6af169dfd4cd7f7bc973b15ca52f1837
   specs:
@@ -70,9 +78,6 @@ GEM
     capistrano-bundler (1.1.4)
       capistrano (~> 3.1)
       sshkit (~> 1.2)
-    capistrano-rails (1.1.5)
-      capistrano (~> 3.1)
-      capistrano-bundler (~> 1.1)
     capistrano-rbenv (2.0.2)
       capistrano (~> 3.1)
       sshkit (~> 1.3)
@@ -444,7 +449,7 @@ DEPENDENCIES
   cancancan
   capistrano (~> 3.4.0)
   capistrano-bundler
-  capistrano-rails
+  capistrano-rails!
   capistrano-rbenv (~> 2.0)
   capistrano-sidekiq
   capybara
