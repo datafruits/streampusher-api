@@ -16,9 +16,9 @@ class ScheduledShow < ActiveRecord::Base
 
   after_save :persist_to_redis
 
+  before_save :update_recurring_intervals
   after_create :save_recurrences
   after_update :update_recurrences
-  #after_destroy :destroy_recurrences
 
   enum recurring_interval: [:day, :week, :month, :year]
 
@@ -84,6 +84,10 @@ class ScheduledShow < ActiveRecord::Base
     self.class.where(recurrant_original_id: self.id)
   end
 
+  def destroy_all_recurrences
+    recurrences_to_update.destroy_all
+  end
+
   private
   def start_and_end_recurrences options={}
     recurrence_times(options.merge(starts: self.start)).zip(recurrence_times(options.merge(starts: self.end)))
@@ -118,11 +122,6 @@ class ScheduledShow < ActiveRecord::Base
 
   def update_recurrences
     if update_all_recurrences == true
-      if self.recurrant_original_id.present? # find the original recurrent
-        recurrences_to_update = self.recurrant_original.recurrences
-      else # this is the original recurring show!
-        recurrences_to_update = recurrences
-      end
       recurrences_to_update.each do |r|
         r.attributes = self.attributes.except("id","created_at","updated_at","start_at","end_at")
         new_start_at = DateTime.new r.start_at.year, r.start_at.month, r.start_at.day, self.start_at.hour, self.start_at.min, self.start_at.sec, self.start_at.zone
@@ -131,6 +130,22 @@ class ScheduledShow < ActiveRecord::Base
         r.end_at = new_end_at
         r.save!
       end
+    end
+  end
+
+  def update_recurring_intervals
+    # if the recurring interval was changed, we need to destroy all the recurring shows and call save_recurrences again
+    if self.changes.include?("recurring_interval")
+      self.recurrences.destroy_all
+      save_recurrences
+    end
+  end
+
+  def recurrences_to_update
+    if self.recurrant_original_id.present? # find the original recurrent
+      recurrences_to_update = self.recurrant_original.recurrences
+    else # this is the original recurring show!
+      recurrences_to_update = recurrences
     end
   end
 end

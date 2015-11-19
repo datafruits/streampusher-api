@@ -11,15 +11,15 @@ RSpec.describe ScheduledShow, :type => :model do
     @dj = User.create role: 'dj', username: 'dakota', email: "dakota@gmail.com", password: "2boobies", time_zone: "UTC"
     @playlist = Playlist.create radio: @radio, name: "big tunes"
     @show = Show.create dj: @dj, radio: @radio, playlist: @playlist
-    start_at = Chronic.parse("today at 1:15 pm").utc
-    end_at = Chronic.parse("today at 3:15 pm").utc
+    @start_at = Chronic.parse("today at 1:15 pm").utc
+    @end_at = Chronic.parse("today at 3:15 pm").utc
     @date = Date.today.strftime("%m%d%Y")
   end
   describe "redis persistence" do
     before do
       Time.zone = 'UTC'
       Timecop.freeze Time.local(1990)
-      @scheduled_show = ScheduledShow.create radio: @radio, show: @show, start_at: start_at, end_at: end_at
+      @scheduled_show = ScheduledShow.create radio: @radio, show: @show, start_at: @start_at, end_at: @end_at
     end
 
     after do
@@ -56,11 +56,12 @@ RSpec.describe ScheduledShow, :type => :model do
       Time.zone = 'UTC'
       Timecop.freeze Time.local(2015)
     end
+
     it "saves recurring shows if recurring is true" do
       start_at = Chronic.parse("today at 1:15 pm").utc
       end_at = Chronic.parse("today at 3:15 pm").utc
-      recurring_show = ScheduledShow.create radio: @radio, show: @show, start_at: start_at, end_at: end_at, recurring: true, recurring_interval: "week"
-      expect(recurring_show.recurrences.count).to eq 1201
+      recurring_show = ScheduledShow.create radio: @radio, show: @show, start_at: start_at, end_at: end_at, recurring: true, recurring_interval: "month"
+      expect(recurring_show.recurrences.count).to eq 275
     end
 
     it "updates all recurring shows attributes" do
@@ -75,9 +76,34 @@ RSpec.describe ScheduledShow, :type => :model do
         expect(recurrence.start_at.sec).to eq new_start_at.sec
       end
     end
-    it "updates this recurrance only"
-    it "updates all recurring shows with a new recurrence"
-    it "deletes all recurring shows"
-    it "deletes this recurring show only"
+
+    it "updates this recurrance only" do
+      start_at = Chronic.parse("today at 1:15 pm").utc
+      end_at = Chronic.parse("today at 3:15 pm").utc
+      recurring_show = ScheduledShow.create radio: @radio, show: @show, start_at: start_at, end_at: end_at, recurring: true, recurring_interval: "week"
+      new_start_at = Chronic.parse("today at 11:00 am").utc
+      recurring_show.update start_at: new_start_at, update_all_recurrences: false
+      recurring_show.recurrences.each do |recurrence|
+        expect(recurrence.start_at.hour).to eq start_at.hour
+        expect(recurrence.start_at.min).to eq start_at.min
+        expect(recurrence.start_at.sec).to eq start_at.sec
+      end
+    end
+
+    it "updates all recurring shows with a new recurrence" do
+      start_at = Chronic.parse("today at 1:15 pm").utc
+      end_at = Chronic.parse("today at 3:15 pm").utc
+      recurring_show = ScheduledShow.create radio: @radio, show: @show, start_at: start_at, end_at: end_at, recurring: true, recurring_interval: "week"
+      expect(recurring_show.recurrences.count).to eq 1201
+      recurring_show.update recurring_interval: "month"
+      expect(recurring_show.recurrences.count).to eq 275
+    end
+    it "deletes all recurring shows" do
+      start_at = Chronic.parse("today at 1:15 pm").utc
+      end_at = Chronic.parse("today at 3:15 pm").utc
+      recurring_show = ScheduledShow.create radio: @radio, show: @show, start_at: start_at, end_at: end_at, recurring: true, recurring_interval: "month"
+      recurring_show.destroy_all_recurrences
+      expect(recurring_show.recurrences.count).to eq 0
+    end
   end
 end
