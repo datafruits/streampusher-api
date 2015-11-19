@@ -92,3 +92,5 @@ end
 gem 'whenever', require: false
 gem 'sinatra', :require => nil
 gem 'quiet_assets', group: :development
+
+gem 'recurrence'

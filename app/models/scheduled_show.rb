@@ -14,6 +14,10 @@ class ScheduledShow < ActiveRecord::Base
   after_save :persist_to_redis
   validates :description, length: { maximum: 10000 }
 
+  after_create :save_recurrences
+
+  enum recurring_interval: [:day, :week, :month]
+
   # TODO
   # validate :time_is_in_15_min_intervals
 
@@ -69,6 +73,12 @@ class ScheduledShow < ActiveRecord::Base
   def persist_to_redis redis=Redis.current
     redis_keys.each do |key|
       redis.set key, self.show.playlist.redis_key
+    end
+  end
+
+  private
+  def save_recurrences
+    if self.recurring?
     end
   end
 end

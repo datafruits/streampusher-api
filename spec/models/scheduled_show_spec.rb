@@ -12,12 +12,12 @@ RSpec.describe ScheduledShow, :type => :model do
     @radio = Radio.create name: 'datafruits', subscription_id: 1
     dj = User.create role: 'dj', username: 'dakota', email: "dakota@gmail.com", password: "2boobies", time_zone: "UTC"
     playlist = Playlist.create radio: @radio, name: "big tunes"
-    show = Show.create dj: dj, radio: @radio, playlist: playlist
+    @show = Show.create dj: dj, radio: @radio, playlist: playlist
     start_at = Chronic.parse("today at 1:15 pm").utc
     end_at = Chronic.parse("today at 3:15 pm").utc
     @date = Date.today.strftime("%m%d%Y")
 
-    @scheduled_show = ScheduledShow.create radio: @radio, show: show, start_at: start_at, end_at: end_at
+    @scheduled_show = ScheduledShow.create radio: @radio, show: @show, start_at: start_at, end_at: end_at
 
   end
 
@@ -48,4 +48,15 @@ RSpec.describe ScheduledShow, :type => :model do
     end
     @scheduled_show.persist_to_redis redis
   end
+
+  it "persists recurring shows if recurring is true" do
+    start_at = Chronic.parse("today at 1:15 pm").utc
+    end_at = Chronic.parse("today at 3:15 pm").utc
+    ScheduledShow.create radio: @radio, show: @show, start_at: start_at, end_at: end_at, recurring: true, recurring_interval: "week"
+  end
+
+  it "updates all recurring shows"
+  it "updates this recurrance only"
+  it "deletes all recurring shows"
+  it "deletes this recurring show only"
 end
