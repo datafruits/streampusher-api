@@ -76,6 +76,19 @@ class ScheduledShow < ActiveRecord::Base
     end
   end
 
+  def recurrences options={}
+    options = {:every => self.recurring_interval}.merge(options)
+    options[:on] = case options[:every]
+    when 'year'
+      [options[:starts].month, options[:starts].day]
+    when 'week'
+      options[:starts].strftime('%A').downcase.to_sym
+    when 'day', 'month'
+      options[:starts].day
+    end
+    Recurrence.new(options).events
+  end
+
   private
   def save_recurrences
     if self.recurring?
