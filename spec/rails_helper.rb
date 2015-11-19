@@ -54,5 +54,10 @@ RSpec.configure do |config|
   end
 end
 
-Capybara.javascript_driver = :selenium
+if ENV['CI']
+  Capybara.javascript_driver = :webkit
+else
+  Capybara.javascript_driver = :selenium
+end
+
 Capybara.default_max_wait_time = 5

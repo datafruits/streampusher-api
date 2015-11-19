@@ -10,4 +10,4 @@ before_script:
   - RAILS_ENV=test bundle exec rake db:migrate
 
 job1:
-  script: "rake spec"
+  script: "CI=true rake spec"
