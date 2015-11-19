@@ -20,7 +20,7 @@ class ScheduledShow < ActiveRecord::Base
   after_create :save_recurrences
   after_update :update_recurrences
 
-  enum recurring_interval: [:day, :week, :month, :year]
+  enum recurring_interval: [:not_recurring, :day, :week, :month, :year]
 
   # TODO
   # validate :time_is_in_15_min_intervals
@@ -88,6 +88,10 @@ class ScheduledShow < ActiveRecord::Base
     recurrences_to_update.destroy_all
   end
 
+  def recurring?
+    !self.not_recurring?
+  end
+
   private
   def start_and_end_recurrences options={}
     recurrence_times(options.merge(starts: self.start)).zip(recurrence_times(options.merge(starts: self.end)))
@@ -107,10 +111,10 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def save_recurrences
-    if self.recurring?
+    if recurring?
       start_and_end_recurrences.each do |s,e|
         scheduled_show = self.dup
-        scheduled_show.recurring = false
+        scheduled_show.recurring_interval = "not_recurring"
         scheduled_show.recurrence = true
         scheduled_show.recurrant_original_id = self.id
         scheduled_show.start_at = DateTime.new s.year, s.month, s.day, self.start_at.hour, self.start_at.min, self.start_at.sec, self.start_at.zone
@@ -123,7 +127,7 @@ class ScheduledShow < ActiveRecord::Base
   def update_recurrences
     if update_all_recurrences == true
       recurrences_to_update.each do |r|
-        r.attributes = self.attributes.except("id","created_at","updated_at","start_at","end_at")
+        r.attributes = self.attributes.except("id","created_at","updated_at","start_at","end_at","recurring_interval","recurrence")
         new_start_at = DateTime.new r.start_at.year, r.start_at.month, r.start_at.day, self.start_at.hour, self.start_at.min, self.start_at.sec, self.start_at.zone
         r.start_at = new_start_at
         new_end_at = DateTime.new r.end_at.year, r.end_at.month, r.end_at.day, self.end_at.hour, self.end_at.min, self.end_at.sec, self.end_at.zone
@@ -135,7 +139,7 @@ class ScheduledShow < ActiveRecord::Base
 
   def update_recurring_intervals
     # if the recurring interval was changed, we need to destroy all the recurring shows and call save_recurrences again
-    if self.changes.include?("recurring_interval")
+    if self.changes.include?("recurring_interval") && !self.new_record?
       self.recurrences.destroy_all
       save_recurrences
     end
