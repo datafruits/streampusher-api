@@ -24,6 +24,8 @@ en:
   activerecord:
     attributes:
       scheduled_show:
+        update_all_recurrences: "Update this event and all repeating events in this series"
+        update_only_this_recurrence: "Update only this event"
         recurring_intervals:
           not_recurring: "None"
           day: "Day"

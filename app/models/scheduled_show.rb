@@ -28,6 +28,13 @@ class ScheduledShow < ActiveRecord::Base
     end
   end
 
+  def self.update_all_recurrences_attributes_for_select
+    [
+      [I18n.t("activerecord.attributes.#{model_name.i18n_key}.update_all_recurrences"), true],
+      [I18n.t("activerecord.attributes.#{model_name.i18n_key}.update_only_this_recurrence"), false]
+    ]
+  end
+
   # TODO
   # validate :time_is_in_15_min_intervals
 
