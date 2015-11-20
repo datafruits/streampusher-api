@@ -22,6 +22,12 @@ class ScheduledShow < ActiveRecord::Base
 
   enum recurring_interval: [:not_recurring, :day, :week, :month, :year]
 
+  def self.recurring_interval_attributes_for_select
+    recurring_intervals.map do |recurring_interval, _|
+      [I18n.t("activerecord.attributes.#{model_name.i18n_key}.recurring_intervals.#{recurring_interval}"), recurring_interval]
+    end
+  end
+
   # TODO
   # validate :time_is_in_15_min_intervals
 

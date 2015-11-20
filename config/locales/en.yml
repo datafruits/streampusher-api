@@ -21,3 +21,12 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    attributes:
+      scheduled_show:
+        recurring_intervals:
+          not_recurring: "None"
+          day: "Day"
+          week: "Week"
+          month: "Month"
+          year: "Year"
