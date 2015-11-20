@@ -4,6 +4,13 @@ RSpec.describe Subscription, :type => :model do
   let(:hobbyist_plan) { Plan.create name: "Hobbyist" }
   let(:owner) { FactoryGirl.create :user, username: "owner", role: "owner" }
   let!(:subscription) { FactoryGirl.create :subscription, user: owner }
+  before do
+    Time.zone = 'UTC'
+    Timecop.freeze Time.local(2015,11,20)
+  end
+  after do
+    Timecop.return
+  end
   describe "#save_with_free_trial" do
     it "sets on trial to true and sets trial_ends_at date" do
       VCR.use_cassette "stripe_save_free_trial" do
@@ -11,8 +18,8 @@ RSpec.describe Subscription, :type => :model do
       end
       subscription.reload
       expect(subscription.on_trial).to eq true
-      expect(subscription.trial_ends_at < 14.days.from_now).to eq true
-      expect(subscription.trial_days_left).to eq 13
+      expect(subscription.trial_ends_at < 15.days.from_now).to eq true
+      expect(subscription.trial_days_left).to eq 14
     end
   end
   context "adding and updating cards" do

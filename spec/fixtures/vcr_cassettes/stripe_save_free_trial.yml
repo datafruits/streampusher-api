@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Tue, 17 Nov 2015 13:42:53 GMT
+      - Fri, 20 Nov 2015 04:29:36 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_7MtWQD3u0RPySy
+      - req_7NsHNPgrplotYv
       Stripe-Version:
       - '2014-09-08'
       Strict-Transport-Security:
@@ -58,7 +58,7 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "cus_7MtWICWxJUSais",
+          "id": "cus_7NsH8siLYq5n5k",
           "object": "customer",
           "account_balance": 0,
           "cards": {
@@ -66,9 +66,9 @@ http_interactions:
             "data": [],
             "has_more": false,
             "total_count": 0,
-            "url": "/v1/customers/cus_7MtWICWxJUSais/cards"
+            "url": "/v1/customers/cus_7NsH8siLYq5n5k/cards"
           },
-          "created": 1447767772,
+          "created": 1447993776,
           "currency": "usd",
           "default_card": null,
           "default_source": null,
@@ -84,20 +84,20 @@ http_interactions:
             "data": [],
             "has_more": false,
             "total_count": 0,
-            "url": "/v1/customers/cus_7MtWICWxJUSais/sources"
+            "url": "/v1/customers/cus_7NsH8siLYq5n5k/sources"
           },
           "subscriptions": {
             "object": "list",
             "data": [
               {
-                "id": "sub_7MtWzUFSBuDMMZ",
+                "id": "sub_7NsHStMTe41K1t",
                 "object": "subscription",
                 "application_fee_percent": null,
                 "cancel_at_period_end": false,
                 "canceled_at": null,
-                "current_period_end": 1448977372,
-                "current_period_start": 1447767772,
-                "customer": "cus_7MtWICWxJUSais",
+                "current_period_end": 1449203376,
+                "current_period_start": 1447993776,
+                "customer": "cus_7NsH8siLYq5n5k",
                 "discount": null,
                 "ended_at": null,
                 "metadata": {},
@@ -117,18 +117,18 @@ http_interactions:
                   "statement_description": null
                 },
                 "quantity": 1,
-                "start": 1447767772,
+                "start": 1447993776,
                 "status": "trialing",
                 "tax_percent": null,
-                "trial_end": 1448977372,
-                "trial_start": 1447767772
+                "trial_end": 1449203376,
+                "trial_start": 1447993776
               }
             ],
             "has_more": false,
             "total_count": 1,
-            "url": "/v1/customers/cus_7MtWICWxJUSais/subscriptions"
+            "url": "/v1/customers/cus_7NsH8siLYq5n5k/subscriptions"
           }
         }
     http_version: 
-  recorded_at: Tue, 17 Nov 2015 13:42:53 GMT
-recorded_with: VCR 2.9.3
+  recorded_at: Thu, 19 Nov 2015 15:00:00 GMT
+recorded_with: VCR 3.0.0
