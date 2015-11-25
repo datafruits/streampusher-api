@@ -55,6 +55,10 @@ RSpec.configure do |config|
 end
 
 if ENV['CI']
+  require 'headless'
+
+  headless = Headless.new
+  headless.start
   Capybara.javascript_driver = :webkit
 else
   Capybara.javascript_driver = :selenium

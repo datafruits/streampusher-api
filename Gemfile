@@ -50,6 +50,7 @@ group :test do
   gem 'database_rewinder'
   gem 'selenium-webdriver'
   gem 'capybara-webkit'
+  gem 'headless'
 end
 
 group :test, :development do

@@ -163,6 +163,7 @@ GEM
       activesupport (>= 4.1.0)
     groupdate (2.4.0)
       activesupport (>= 3)
+    headless (2.2.0)
     hike (1.2.3)
     i18n (0.7.0)
     jquery-fileupload-rails (0.4.1)
@@ -422,6 +423,7 @@ DEPENDENCIES
   factory_girl_rails
   font-awesome-sass (~> 4.2.0)
   groupdate
+  headless
   jquery-rails
   jquery-ui-rails
   kaminari
