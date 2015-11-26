@@ -28,6 +28,14 @@ VCR.configure do |config|
     ENV['STRIPE_KEY']
   end
 
+  config.filter_sensitive_data("<S3_KEY>") do
+    ENV.fetch 'S3_KEY', "x"*40
+  end
+
+  config.filter_sensitive_data("<S3_SECRET>") do
+    ENV.fetch 'S3_SECRET', "x"*40
+  end
+
   config.register_request_matcher :s3_uri_matcher do |request1, request2|
     uri1 = URI(request1.uri)
     uri1.query = nil
