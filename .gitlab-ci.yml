@@ -3,6 +3,11 @@ services:
   - postgres
   - redis
 
+variables:
+  CI: true
+  S3_KEY: "xxxxxxxxxxxxxxxxxxxxx"
+  S3_SECRET: "xxxxxxxxxxxxxxxxxxxxx"
+
 before_script:
   - cp config/database.ci.yml config/database.yml
   - bundle install --jobs $(nproc)
@@ -10,4 +15,4 @@ before_script:
   - RAILS_ENV=test bundle exec rake db:migrate
 
 job1:
-  script: "CI=true rake spec"
+  script: "rake spec"
