@@ -49,7 +49,6 @@ group :test do
   gem 'capybara'
   gem 'database_rewinder'
   gem 'selenium-webdriver'
-  gem 'capybara-webkit'
   gem 'headless'
 end
 

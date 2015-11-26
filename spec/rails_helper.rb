@@ -59,9 +59,7 @@ if ENV['CI']
 
   headless = Headless.new
   headless.start
-  Capybara.javascript_driver = :webkit
-else
-  Capybara.javascript_driver = :selenium
 end
 
+Capybara.javascript_driver = :selenium
 Capybara.default_max_wait_time = 5
