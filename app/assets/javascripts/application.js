@@ -41,3 +41,4 @@
 //= require shows
 //= require stats
 //= require subscriptions
+//= require live

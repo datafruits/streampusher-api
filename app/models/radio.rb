@@ -1,3 +1,5 @@
+require_relative '../../lib/docker_wrapper'
+
 class Radio < ActiveRecord::Base
   has_many :user_radios
   has_many :users, through: :user_radios
@@ -84,6 +86,10 @@ class Radio < ActiveRecord::Base
 
   def default_playlist_key
     "#{self.name}:default_playlist"
+  end
+
+  def liquidsoap_harbor_port
+    ::DockerWrapper.new(self.liquidsoap_container).host_port 9000
   end
 
   private

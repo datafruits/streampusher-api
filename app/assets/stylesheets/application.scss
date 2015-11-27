@@ -212,3 +212,12 @@ table a:hover {
     color: $blue;
   }
 }
+
+#live-bar {
+  background: #ddd;
+  display: none;
+}
+
+.live {
+  color: red !important;
+}
