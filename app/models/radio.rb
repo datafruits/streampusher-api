@@ -9,6 +9,7 @@ class Radio < ActiveRecord::Base
   has_many :recordings
   belongs_to :subscription
   belongs_to :default_playlist, class_name: "Playlist"
+  after_create :create_default_playlist
 
   validates :name, format: { with: /\A[a-zA-Z0-9_]+\z/ }
   validates :name, uniqueness: true
@@ -83,5 +84,10 @@ class Radio < ActiveRecord::Base
 
   def default_playlist_key
     "#{self.name}:default_playlist"
+  end
+
+  private
+  def create_default_playlist
+    self.playlists.create name: "default"
   end
 end
