@@ -13,6 +13,14 @@
 
   <%= f.input :image, as: :file, label: "If you set an image for the show, that image will be used, but you can override it by uploading an image here." %>
   <%= f.input :description, input_html: { cols: 70, rows: 5 }  %>
+  <%= f.input :recurring_interval, label: "Repeat", as: :select, collection: ScheduledShow.recurring_interval_attributes_for_select, include_blank: false %>
+  <% if @scheduled_show.persisted? && (@scheduled_show.recurring? || @scheduled_show.recurrence?) %>
+    <%= f.input :update_all_recurrences, label: "You are updating a repeating show. Do you want to update all occurences of this show?", as: :select, collection: ScheduledShow.update_all_recurrences_attributes_for_select, include_blank: false %>
+  <% end %>
 
-  <%= f.submit 'Add show', class: 'btn btn-success' %>
+  <% if @scheduled_show.persisted? %>
+    <%= f.submit 'Update show', class: 'btn btn-success' %>
+  <% else %>
+    <%= f.submit 'Add show', class: 'btn btn-success' %>
+  <% end %>
 <% end %>
