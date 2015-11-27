@@ -5,12 +5,14 @@
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
   <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
 </head>
 <body data-controller="<%= controller.controller_path %>" data-action="<%= controller.action_name %>">
 
 <%= render 'layouts/navbar' %>
+<%= render 'layouts/live' %>
 <div class="container">
   <div id="flash-message">
     <% flash.each do |name, msg| %>
