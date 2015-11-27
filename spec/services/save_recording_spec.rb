@@ -3,7 +3,8 @@ require 'rails_helper'
 describe SaveRecording do
   it "saves a new recording model given a path and radio" do
     radio = FactoryGirl.create :radio, name: "datafruits"
-    filename = "/home/liquidsoap/tracks/never_enough.mp3"
+    filename = "/home/liquidsoap/tracks/unhappy_supermarket_lektro.mp3"
+    FileUtils.copy "spec/fixtures/unhappy_supermarket_lektro.mp3", radio.tracks_directory
     VCR.use_cassette "save_recording", :match_requests_on => [:method, :s3_uri_matcher] do
       RadioBooter.boot radio
 
