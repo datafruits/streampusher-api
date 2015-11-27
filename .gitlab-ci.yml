@@ -8,6 +8,8 @@ variables:
   S3_KEY: "xxxxxxxxxxxxxxxxxxxxx"
   S3_SECRET: "xxxxxxxxxxxxxxxxxxxxx"
   ADMIN_EMAIL: 'info@datafruits.fm'
+  STRIPE_KEY: "xxxxxxxxxxxxxxxxxxxxx"
+  STRIPE_PUBLIC_KEY: "xxxxxxxxxxxxxxxxxxxxx"
 
 before_script:
   - cp config/database.ci.yml config/database.yml
