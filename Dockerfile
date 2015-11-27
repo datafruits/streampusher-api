@@ -21,10 +21,11 @@ RUN git clone https://github.com/sstephenson/ruby-build.git /usr/local/rbenv/plu
 RUN /usr/local/rbenv/plugins/ruby-build/install.sh
 ENV RBENV_ROOT /usr/local/rbenv
 ENV PATH /usr/local/rbenv/bin:$PATH
-RUN echo "export RBENV_ROOT=/usr/local/rbenv" >> /root/.profile
-RUN echo 'export PATH="$RBENV_ROOT/bin:$PATH"' >> /root/.profile
-RUN echo 'eval "$(rbenv init -)"' >> /root/.profile
+RUN echo "export RBENV_ROOT=/usr/local/rbenv" >> /root/.bashrc
+RUN echo 'export PATH="$RBENV_ROOT/bin:$PATH"' >> /root/.bashrc
+RUN echo 'eval "$(rbenv init -)"' >> /root/.bashrc
 
+ENV CONFIGURE_OPTS --disable-install-doc
 RUN rbenv install 2.2.3
 RUN rbenv global 2.2.3
 RUN rbenv exec gem install bundler
