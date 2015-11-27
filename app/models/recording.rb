@@ -7,7 +7,7 @@ class Recording < ActiveRecord::Base
   default_scope { order(created_at: :desc) }
 
   validates_attachment :file, presence: true,
-    content_type: { content_type: [ "audio/mpeg", "audio/mp3"] }
+    content_type: { content_type: [ 'audio/mpeg', 'audio/x-mpeg', 'audio/mp3', 'audio/x-mp3', 'audio/mpeg3', 'audio/x-mpeg3', 'audio/mpg', 'audio/x-mpg', 'audio/x-mpegaudio' ] }
 
   def self.merge *recordings
     new_filename = File.join(Dir::tmpdir, File.basename(recordings.first.file_file_name))
