@@ -8,7 +8,7 @@ ENV LANG en_US.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y build-essential libtag1-dev libqtwebkit-dev qt4-qmake xvfb firefox git curl sox libsox-fmt-mp3
+RUN apt-get install -y build-essential libtag1-dev libqtwebkit-dev qt4-qmake xvfb firefox git curl sox libsox-fmt-mp3 libpq-dev
 
 # for ruby
 RUN apt-get install -y --force-yes libssl-dev libreadline-dev
