@@ -12,6 +12,7 @@ variables:
   STRIPE_PUBLIC_KEY: "xxxxxxxxxxxxxxxxxxxxx"
 
 before_script:
+  - echo $PATH
   - gem install bundler
   - cp config/database.ci.yml config/database.yml
   - bundle install --jobs $(nproc)
