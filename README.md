@@ -1,3 +1,7 @@
+# streampusher rails app
+[![build
+status](https://gitlab.com/ci/projects/4542/status.png?ref=master)](https://gitlab.com/ci/projects/4542?ref=master)
+
 #RUNNING
 
 ## system dependencies:
