@@ -30,3 +30,9 @@ ENV CONFIGURE_OPTS --disable-install-doc
 RUN rbenv install 2.2.3
 RUN rbenv global 2.2.3
 RUN rbenv exec gem install bundler
+
+RUN useradd --create-home -s /bin/bash rails ;\
+  adduser rails sudo
+RUN echo 'eval "$(rbenv init -)"' >> /home/rails/.bashrc
+RUN echo 'gem: --no-rdoc --no-ri' >> /home/rails/.gemrc
+USER rails
