@@ -12,7 +12,7 @@ variables:
   STRIPE_PUBLIC_KEY: "xxxxxxxxxxxxxxxxxxxxx"
 
 before_script:
-  - rbenv
+  - eval "$(rbenv init -)"
   - echo $PATH
   - gem install bundler
   - cp config/database.ci.yml config/database.yml
