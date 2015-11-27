@@ -21,7 +21,7 @@ RUN git clone https://github.com/sstephenson/ruby-build.git /usr/local/rbenv/plu
 RUN /usr/local/rbenv/plugins/ruby-build/install.sh
 ENV RBENV_ROOT /usr/local/rbenv
 ENV PATH /usr/local/rbenv/bin:$PATH
-RUN echo "export RBENV_ROOT=/usr/local/rbenv" >> ~/root/.profile
+RUN echo "export RBENV_ROOT=/usr/local/rbenv" >> /root/.profile
 RUN echo 'export PATH="$RBENV_ROOT/bin:$PATH"' >> /root/.profile
 RUN echo 'eval "$(rbenv init -)"' >> /root/.profile
 
