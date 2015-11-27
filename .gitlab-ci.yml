@@ -4,10 +4,10 @@ services:
   - redis
 
 variables:
-  CI: true
+  CI: "true"
   S3_KEY: "xxxxxxxxxxxxxxxxxxxxx"
   S3_SECRET: "xxxxxxxxxxxxxxxxxxxxx"
-  ADMIN_EMAIL: 'info@datafruits.fm'
+  ADMIN_EMAIL: "info@datafruits.fm"
   STRIPE_KEY: "xxxxxxxxxxxxxxxxxxxxx"
   STRIPE_PUBLIC_KEY: "xxxxxxxxxxxxxxxxxxxxx"
 
