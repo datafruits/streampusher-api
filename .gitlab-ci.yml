@@ -12,6 +12,7 @@ variables:
   STRIPE_PUBLIC_KEY: "xxxxxxxxxxxxxxxxxxxxx"
 
 before_script:
+  - whoami
   - cp config/database.ci.yml config/database.yml
   - bundle install --jobs $(nproc)
   - RAILS_ENV=test bundle exec rake db:create
