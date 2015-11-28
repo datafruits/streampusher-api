@@ -89,7 +89,7 @@ class Radio < ActiveRecord::Base
   end
 
   def liquidsoap_harbor_port
-    ::DockerWrapper.new(self.liquidsoap_container).host_port 9000
+    Redis.current.hget "proxy-domain", liquidsoap_proxy_key
   end
 
   private
