@@ -4,11 +4,10 @@ lock '3.4.0'
 set :application, 'stream_pusher'
 set :repo_url, 'git@bitbucket.org:streampusher/stream_pusher.git'
 
-# setup rvm.
+# setup rbenv
 set :rbenv_type, :system
 set :rbenv_ruby, '2.2.0'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
-set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 
 set :slack_webhook, 'https://hooks.slack.com/services/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'
 
