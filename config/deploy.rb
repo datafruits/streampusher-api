@@ -2,7 +2,7 @@
 lock '3.4.0'
 
 set :application, 'stream_pusher'
-set :repo_url, 'git@bitbucket.org:streampusher/stream_pusher.git'
+set :repo_url, 'git@gitlab.com:streampusher/stream_pusher.git'
 
 # setup rbenv
 set :rbenv_type, :system
