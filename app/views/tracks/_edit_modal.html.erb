@@ -10,6 +10,9 @@
         <%= f.input :title %>
         <%= f.input :album %>
       </div>
+      <%= f.simple_fields_for :labels do |l| %>
+        <%= l.input :name %>
+      <% end %>
       <div class="modal-footer">
         <%= f.submit "Save changes", class: "btn btn-primary" %>
       </div>

@@ -3,6 +3,8 @@ class Track < ActiveRecord::Base
   belongs_to :radio
   has_many :playlist_tracks, dependent: :destroy
   has_many :playlists, through: :playlist_tracks
+  has_many :track_labels, dependent: :destroy
+  has_many :labels, through: :track_labels
   has_tags column: :file_basename, storage: :s3,
            s3_credentials: { bucket: ENV['S3_BUCKET'],
                              access_key_id: ENV['S3_KEY'],
@@ -10,6 +12,8 @@ class Track < ActiveRecord::Base
   after_tags_synced :download # will this happen before the update tags job finishes? :(
 
   default_scope { order(updated_at: :desc) }
+
+  accepts_nested_attributes_for :labels
 
   def file_basename
     File.basename self.audio_file_name.to_s
