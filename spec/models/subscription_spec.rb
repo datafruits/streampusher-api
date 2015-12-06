@@ -22,6 +22,13 @@ RSpec.describe Subscription, :type => :model do
       expect(subscription.trial_days_left).to eq 14
     end
   end
+  describe "free trials" do
+    it "sends the user an email when their free trial is about to end"
+    it "deactivates account when free trial has ended"
+  end
+  describe "deliquent accounts" do
+    it "deactivates account after 10 days if not paid"
+  end
   context "adding and updating cards" do
     describe "saving a new subscription" do
       it "saves the subscription with a new card and plan"
