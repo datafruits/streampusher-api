@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151204075316) do
+ActiveRecord::Schema.define(version: 20151208131934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -156,6 +156,7 @@ ActiveRecord::Schema.define(version: 20151204075316) do
     t.integer  "exp_year"
     t.boolean  "on_trial",                          default: false, null: false
     t.datetime "trial_ends_at"
+    t.boolean  "canceled",                          default: false, null: false
   end
 
   create_table "track_labels", force: :cascade do |t|

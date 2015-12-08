@@ -71,4 +71,8 @@ class Subscription < ActiveRecord::Base
     errors.add :base, "There was a problem with your credit card."
     return false
   end
+
+  def cancel!
+    self.update! canceled: true
+  end
 end
