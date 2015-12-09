@@ -60,5 +60,11 @@ RSpec.describe Subscription, :type => :model do
       subscription.cancel!
       expect(subscription.canceled).to eq true
     end
+    it "disables the radio on the subscription" do
+      radio = double("radio")
+      allow(subscription).to receive(:radios) { [radio] }
+      expect(radio).to receive(:disable_radio)
+      subscription.cancel!
+    end
   end
 end

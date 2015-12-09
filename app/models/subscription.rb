@@ -74,5 +74,8 @@ class Subscription < ActiveRecord::Base
 
   def cancel!
     self.update! canceled: true
+    radios.each do |radio|
+      radio.disable_radio
+    end
   end
 end
