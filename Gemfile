@@ -60,7 +60,7 @@ group :production do
   gem 'remote_syslog_logger'
 end
 
-gem 's3_direct_upload'
+gem 's3_direct_upload' ,github: "waynehoover/s3_direct_upload"
 gem 'byebug'
 gem 'slackistrano', require: false
 gem 'exception_notification'

@@ -8,13 +8,23 @@ GIT
 
 GIT
   remote: git://github.com/mcfiredrill/so_id3.git
-  revision: 2a3912cc6af169dfd4cd7f7bc973b15ca52f1837
+  revision: 7a62480a4847bc9e514231a1bfd548713130d7c5
   specs:
     so_id3 (0.0.1)
       activejob
       activerecord
       aws-sdk (< 2.0)
       rupeepeethree (~> 0.0.4)
+
+GIT
+  remote: git://github.com/waynehoover/s3_direct_upload.git
+  revision: b36ad83b3bb8b78fe0c6cd59c47a63f5cb97f0bb
+  specs:
+    s3_direct_upload (0.1.7)
+      coffee-rails (>= 3.1)
+      jquery-fileupload-rails (~> 0.4.1)
+      rails (>= 3.1)
+      sass-rails (>= 3.1)
 
 GEM
   remote: https://rubygems.org/
@@ -104,13 +114,13 @@ GEM
     cocaine (0.5.7)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
-    coffee-rails (4.1.0)
+    coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
-      railties (>= 4.0.0, < 5.0)
+      railties (>= 4.0.0, < 5.1.x)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
-    coffee-script-source (1.9.1.1)
+    coffee-script-source (1.10.0)
     coffeebeans (1.0.1)
       actionpack (>= 3.0.0)
       coffee-script
@@ -146,7 +156,7 @@ GEM
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
     excon (0.45.4)
-    execjs (2.5.2)
+    execjs (2.6.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.5.0)
@@ -163,9 +173,10 @@ GEM
     headless (2.2.0)
     hike (1.2.3)
     i18n (0.7.0)
-    jquery-fileupload-rails (0.4.1)
+    jquery-fileupload-rails (0.4.6)
       actionpack (>= 3.1)
       railties (>= 3.1)
+      sass (>= 3.2)
     jquery-rails (4.0.4)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
@@ -192,9 +203,9 @@ GEM
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     method_source (0.8.2)
-    mime-types (2.6.2)
+    mime-types (2.99)
     mimemagic (0.3.0)
-    mini_portile (0.6.2)
+    mini_portile2 (2.0.0)
     minitest (5.8.3)
     mock_redis (0.14.1)
     multi_json (1.11.2)
@@ -202,8 +213,8 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (3.0.1)
     netrc (0.10.2)
-    nokogiri (1.6.6.3)
-      mini_portile (~> 0.6.0)
+    nokogiri (1.6.7.1)
+      mini_portile2 (~> 2.0.0.rc2)
     orm_adapter (0.5.0)
     paperclip (4.3.1)
       activemodel (>= 3.2.0)
@@ -303,11 +314,6 @@ GEM
       mime-types
       taglib-ruby
       trollop
-    s3_direct_upload (0.1.7)
-      coffee-rails (>= 3.1)
-      jquery-fileupload-rails (~> 0.4.1)
-      rails (>= 3.1)
-      sass-rails (>= 3.1)
     safe_yaml (1.0.4)
     sass (3.2.19)
     sass-rails (4.0.5)
@@ -447,7 +453,7 @@ DEPENDENCIES
   recurrence
   remote_syslog_logger
   rspec-rails
-  s3_direct_upload
+  s3_direct_upload!
   sass-rails (~> 4.0.3)
   selenium-webdriver
   sidekiq
@@ -469,4 +475,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
