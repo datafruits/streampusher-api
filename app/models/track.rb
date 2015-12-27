@@ -1,5 +1,5 @@
 class Track < ActiveRecord::Base
-  # include SoId3::BackgroundJobs
+  include SoId3::BackgroundJobs
   belongs_to :radio
   has_many :playlist_tracks, dependent: :destroy
   has_many :playlists, through: :playlist_tracks
@@ -9,7 +9,7 @@ class Track < ActiveRecord::Base
            s3_credentials: { bucket: ENV['S3_BUCKET'],
                              access_key_id: ENV['S3_KEY'],
                              secret_access_key: ENV['S3_SECRET'] }
-  # after_tags_synced :download # will this happen before the update tags job finishes? :(
+  after_tags_synced :download # will this happen before the update tags job finishes? :(
 
   default_scope { order(updated_at: :desc) }
 
