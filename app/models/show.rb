@@ -10,6 +10,7 @@ class Show < ActiveRecord::Base
   before_validation :set_default_playlist
 
   validates_presence_of :playlist_id
+  validates_presence_of :dj_id
 
   # validates :color, unique: true, scope: radio_id
 

@@ -17,7 +17,11 @@ Rails.application.routes.draw do
   resources :stats, only: [:index]
   resources :listens, only: [:index]
 
-  resources :radios
+  resources :radios do
+    member do
+      get 'next'
+    end
+  end
 
   resources :playlists do
     member do

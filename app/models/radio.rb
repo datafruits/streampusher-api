@@ -92,6 +92,14 @@ class Radio < ActiveRecord::Base
     Redis.current.hget "proxy-domain", liquidsoap_proxy_key
   end
 
+  def current_scheduled_show now=Time.now
+    self.scheduled_shows.where("start_at <= ? AND end_at >= ?", now, now).first
+  end
+
+  def next_scheduled_show now=Time.now
+    self.scheduled_shows.where("start_at >= ?", now).first
+  end
+
   private
   def create_default_playlist
     self.playlists.create name: "default"
