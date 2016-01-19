@@ -20,7 +20,7 @@
       <%= s3_uploader_form callback_url: tracks_url(format: :js),
                            callback_param: "track[audio_file_name]",
                            key_starts_with: "",
-                           key: "${cleaned_filename}",
+                           key: "{cleaned_filename}",
                            id: "track-uploader" do %>
       <%= file_field_tag :file, multiple: true, data: { url: s3_uploader_url } %>
       <div id="dropzone" class="drop-fade well">Drop files here</div>
