@@ -33,7 +33,10 @@ class PodcastsController < ApplicationController
     @podcast = @current_radio.podcasts.find_by_name(params[:id])
     respond_to do |format|
       format.xml { render 'show', layout: false }
-      format.json { render json: @podcast }
+      format.json {
+        response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
+        render json: @podcast
+      }
     end
   end
 
