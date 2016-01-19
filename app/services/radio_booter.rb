@@ -25,7 +25,7 @@ class RadioBooter
       end
     end
 
-    liquidsoap_container = DockerWrapper.find_or_create 'mcfiredrill/liquidsoap:latest',
+    liquidsoap_container = DockerWrapper.find_or_create 'mcfiredrill/liquidsoap:next',
       "#{radio_name}_liquidsoap",
       ["RADIO_NAME=#{radio_name}","RAILS_ENV=#{Rails.env}"],
       ["#{radio_name}_icecast:icecast","streampusher_redis_1:redis"],
