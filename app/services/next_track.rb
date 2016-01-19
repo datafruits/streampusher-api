@@ -6,6 +6,9 @@ class NextTrack
     if current_scheduled_show
       playlist = current_scheduled_show.show.playlist
       track_id = playlist.pop_next_track
+      if track_id.blank?
+        return { error: "No tracks!" }
+      end
       track = Track.find track_id
       if (now+track.length.seconds) > current_scheduled_show.end_at
         cue_out = (current_scheduled_show.end_at-now).seconds
@@ -17,7 +20,7 @@ class NextTrack
     else
       playlist = radio.default_playlist
       track_id = playlist.pop_next_track
-      if track_id.nil?
+      if track_id.blank?
         return { error: "No tracks!" }
       end
       track = Track.find track_id

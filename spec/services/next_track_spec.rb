@@ -115,6 +115,20 @@ describe NextTrack do
     end
   end
 
+  it "returns an error if no tracks are in the current playlist" do
+    playlist_1 = FactoryGirl.create :playlist, radio: radio
+    PersistPlaylistToRedis.perform playlist_1
+    show_1 = FactoryGirl.create :show, playlist: playlist_1, dj: dj, radio: radio
+    radio.update default_playlist_id: playlist_1.id
+
+    scheduled_show_1 = FactoryGirl.create :scheduled_show, show: show_1, radio: radio,
+      start_at: Chronic.parse("January 1st 1990 at 10:30 pm"), end_at: Chronic.parse("January 2nd 1990 at 01:30 am")
+
+    Timecop.travel Chronic.parse("January 1st 1990 at 11:30 pm") do
+      expect(NextTrack.perform(radio)).to eq({error: "No tracks!"})
+    end
+  end
+
   it "returns an error if no tracks are in the default playlist" do
     playlist_1 = FactoryGirl.create :playlist, radio: radio
     PersistPlaylistToRedis.perform playlist_1
