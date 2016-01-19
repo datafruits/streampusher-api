@@ -51,4 +51,4 @@ set :unicorn_worker_count, 5
 
 # whether we're using ssl or not, used for building nginx
 # config file
-set :enable_ssl, false
+set :enable_ssl, true
