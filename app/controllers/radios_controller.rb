@@ -1,5 +1,5 @@
 class RadiosController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource except: :next
   def index
     @radio = @current_radio
   end
