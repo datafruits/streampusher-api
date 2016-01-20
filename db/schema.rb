@@ -178,7 +178,7 @@ ActiveRecord::Schema.define(version: 20160110070239) do
     t.integer  "year"
     t.integer  "track"
     t.integer  "filesize"
-    t.integer  "tag_processing_status",             default: 0,  null: false
+    t.integer  "tag_processing_status", default: 0,  null: false
     t.integer  "length"
   end
 
