@@ -1,0 +1,14 @@
+#!/bin/bash
+# https://www.destroyallsoftware.com/screencasts/catalog/fast-tests-with-and-without-rails
+
+set -e
+
+if [ $# -gt 0 ]; then # we have args
+    filename=$1
+else # we have no args
+    filename='spec'
+fi
+
+command="docker-compose  -f docker-compose-dev.yml run rails ./docker_wrapper.sh bundle exec rspec"
+
+RAILS_ENV=test $command $filename
