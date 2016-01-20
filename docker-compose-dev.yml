@@ -25,3 +25,14 @@ rails:
   links:
     - redis
     - postgres
+sidekiq:
+  image: "streampusher/streampusher:latest"
+  user: root
+  working_dir: /home/rails/app
+  command: ./docker_wrapper.sh bundle exec sidekiq
+  volumes:
+    - .:/home/rails/app
+    -  /var/run/docker.sock:/var/run/docker.sock
+  links:
+    - redis
+    - postgres
