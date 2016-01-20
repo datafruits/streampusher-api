@@ -70,7 +70,7 @@ class Radio < ActiveRecord::Base
     if ::Rails.env.production?
       dir = "/home/deploy/#{self.name}"
     else
-      dir = ::Rails.root.join("tmp/#{self.name}").to_s
+      dir = "/tmp/#{self.name}".to_s
     end
     FileUtils.mkdir_p dir
     dir
