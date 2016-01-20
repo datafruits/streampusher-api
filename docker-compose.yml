@@ -1,0 +1,19 @@
+listenerproxy:
+  image: "mcfiredrill/listener_proxy:latest"
+  links:
+   - redis
+  ports:
+   - "8000:8000"
+  restart: "on-failure"
+sourceproxy:
+  image: "mcfiredrill/source_proxy:latest"
+  links:
+   - redis
+  ports:
+   - "9000:9000"
+  restart: "on-failure"
+redis:
+  image: "redis:latest"
+  ports:
+    - "127.0.0.1:6379:6379"
+  restart: "on-failure"

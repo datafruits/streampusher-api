@@ -1,0 +1,27 @@
+listenerproxy:
+  image: "mcfiredrill/listener_proxy:latest"
+  links:
+     - redis
+  ports:
+     - "8000:8000"
+  restart: "on-failure"
+redis:
+  image: "redis:latest"
+  ports:
+    - "6379:6379"
+postgres:
+  image: "postgres:9.4"
+  ports:
+    - "5432:5432"
+rails:
+  image: "streampusher/streampusher:latest"
+  user: rails
+  working_dir: /home/rails/app
+  command: ./docker_wrapper.sh bundle exec rails server -p 3000 -b '0.0.0.0'
+  volumes:
+    - .:/home/rails/app
+  ports:
+    - "3000:3000"
+  links:
+    - redis
+    - postgres
