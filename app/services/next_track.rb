@@ -16,7 +16,6 @@ class NextTrack
         cue_out = 0
       end
       # "annotate:liq_fade_in=\"0\",liq_fade_out=\"0\",liq_cue_in=\"0\",liq_cue_out=\"#{cue_out.to_i}\":#{track.file_basename}"
-      return { cue_out: cue_out.to_i, cue_in: 0, fade_out: 0, fade_in: 0, track: track.file_basename }
     else
       playlist = radio.default_playlist
       track_id = playlist.pop_next_track
@@ -30,7 +29,8 @@ class NextTrack
       else
         cue_out = 0
       end
-      return { cue_out: cue_out.to_i, cue_in: 0, fade_out: 0, fade_in: 0, track: track.file_basename }
     end
+    # liquidsoap's json parser wants strings
+    { cue_out: cue_out.to_i.to_s, cue_in: 0.to_s, fade_out: 0.to_s, fade_in: 0.to_s, track: track.file_basename }
   end
 end
