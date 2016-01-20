@@ -20,3 +20,4 @@
 config/database.yml
 
 public/system/*
+vendor/bundle/*
