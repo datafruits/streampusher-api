@@ -64,5 +64,7 @@ Rails.application.routes.draw do
     root :to =>  "radios#index", as: :authenticated_root
   end
 
+  get '/next' => 'application#next'
+
   root 'landing#index'
 end

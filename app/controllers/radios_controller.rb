@@ -29,10 +29,6 @@ class RadiosController < ApplicationController
     end
   end
 
-  def next
-    render json: NextTrack.perform(@radio)
-  end
-
   private
   def create_params
     params.require(:radio).permit(:name, :virtual_host, :default_playlist_id)
