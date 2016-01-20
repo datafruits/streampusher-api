@@ -1,15 +1,10 @@
+host = ENV['REDIS_PORT_6379_TCP_ADDR'] || 'localhost'
+port = ENV['REDIS_PORT_6379_TCP_PORT'] || 6379
+
 Sidekiq.configure_server do |config|
-  if !::Rails.env.production?
-    if ENV['DOCKER_HOST'] && ENV['CI']
-      config.redis = { url:  "redis://#{URI.parse(ENV['DOCKER_HOST']).hostname}" }
-    end
-  end
+  config.redis = { url:  "redis://#{host}:#{port}" }
 end
 
 Sidekiq.configure_client do |config|
-  if !::Rails.env.production?
-    if ENV['DOCKER_HOST'] && ENV['CI']
-      config.redis = { url:  "redis://#{URI.parse(ENV['DOCKER_HOST']).hostname}" }
-    end
-  end
+  config.redis = { url:  "redis://#{host}:#{port}" }
 end
