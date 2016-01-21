@@ -13,7 +13,7 @@ class NextTrack
       if (now+track.length.seconds) > current_scheduled_show.end_at
         cue_out = (current_scheduled_show.end_at-now).seconds
       else
-        cue_out = 0
+        cue_out = track.length.seconds
       end
       # "annotate:liq_fade_in=\"0\",liq_fade_out=\"0\",liq_cue_in=\"0\",liq_cue_out=\"#{cue_out.to_i}\":#{track.file_basename}"
     else
@@ -27,7 +27,7 @@ class NextTrack
       if next_scheduled_show && ((now+track.length.seconds) > next_scheduled_show.start_at)
         cue_out = (next_scheduled_show.start_at-now).seconds
       else
-        cue_out = 0
+        cue_out = track.length.seconds
       end
     end
     # liquidsoap's json parser wants strings
