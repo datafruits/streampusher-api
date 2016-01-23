@@ -51,7 +51,7 @@ WORKDIR /home/rails/app
 # are made.
 COPY Gemfile Gemfile.lock ./
 RUN rbenv version
-RUN rbenv exec bundle install --jobs 20 --retry 5
+RUN rbenv exec bundle install --jobs 20 --retry 5 --path vendor/bundle
 
 # Copy the main application.
 COPY . ./
