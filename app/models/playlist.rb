@@ -26,6 +26,13 @@ class Playlist < ActiveRecord::Base
     playlist_track.destroy
   end
 
+  def pop_next_track
+    redis = Redis.current
+    track_name = redis.rpop redis_key
+    redis.lpush redis_key, track_name
+    track_name
+  end
+
   private
   def set_default_playlist
     if !self.radio.default_playlist.present?

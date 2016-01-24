@@ -17,7 +17,11 @@ Rails.application.routes.draw do
   resources :stats, only: [:index]
   resources :listens, only: [:index]
 
-  resources :radios
+  resources :radios do
+    member do
+      get 'next'
+    end
+  end
 
   resources :playlists do
     member do
@@ -59,6 +63,8 @@ Rails.application.routes.draw do
   authenticated :user do
     root :to =>  "radios#index", as: :authenticated_root
   end
+
+  get '/next' => 'application#next'
 
   root 'landing#index'
 end

@@ -9,6 +9,10 @@ class ApplicationController < ActionController::Base
   before_filter :current_radio
   around_filter :set_time_zone
 
+  def next
+    render json: NextTrack.perform(@current_radio)
+  end
+
   rescue_from CanCan::AccessDenied do |exception|
     if user_signed_in?
       render :file => "#{Rails.root}/public/403.html", :status => 403

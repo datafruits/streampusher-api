@@ -70,7 +70,7 @@ class Radio < ActiveRecord::Base
     if ::Rails.env.production?
       dir = "/home/deploy/#{self.name}"
     else
-      dir = ::Rails.root.join("tmp/#{self.name}").to_s
+      dir = "/tmp/#{self.name}".to_s
     end
     FileUtils.mkdir_p dir
     dir
@@ -90,6 +90,14 @@ class Radio < ActiveRecord::Base
 
   def liquidsoap_harbor_port
     Redis.current.hget "proxy-domain", liquidsoap_proxy_key
+  end
+
+  def current_scheduled_show now=Time.now
+    self.scheduled_shows.where("start_at <= ? AND end_at >= ?", now, now).first
+  end
+
+  def next_scheduled_show now=Time.now
+    self.scheduled_shows.where("start_at >= ?", now).first
   end
 
   private

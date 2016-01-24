@@ -1,5 +1,5 @@
 class RadiosController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource except: :next
   def index
     @radio = @current_radio
   end
@@ -27,6 +27,11 @@ class RadiosController < ApplicationController
       flash[:error] = "error updating radio settings."
       render 'edit'
     end
+  end
+
+  def next
+    @radio = Radio.find_by_name(params[:id])
+    render json: NextTrack.perform(@radio)
   end
 
   private
