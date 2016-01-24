@@ -12,7 +12,10 @@ class NextTrack
       end
       track = Track.find track_id
       if (now+track.length.seconds) > current_scheduled_show.end_at
-        cue_out = (current_scheduled_show.end_at-now).seconds -  REQUEST_OFFSET
+        cue_out = (current_scheduled_show.end_at-now).seconds
+        if cue_out > 10
+          cue_out = cue_out - REQUEST_OFFSET
+        end
       else
         cue_out = track.length.seconds
       end
@@ -26,7 +29,10 @@ class NextTrack
       track = Track.find track_id
       next_scheduled_show = radio.next_scheduled_show now
       if next_scheduled_show && ((now+track.length.seconds) > next_scheduled_show.start_at)
-        cue_out = (next_scheduled_show.start_at-now).seconds - REQUEST_OFFSET
+        cue_out = (next_scheduled_show.start_at-now).seconds
+        if cue_out > 10
+          cue_out = cue_out - REQUEST_OFFSET
+        end
       else
         cue_out = track.length.seconds
       end
