@@ -2,29 +2,23 @@
 [![build
 status](https://gitlab.com/ci/projects/4542/status.png?ref=master)](https://gitlab.com/ci/projects/4542?ref=master)
 
-#RUNNING
+# dev environment
 
 ## system dependencies:
-* ruby
-* postgres
-* docker
-* docker-compose
+* (docker)[https://docs.docker.com/engine/installation]
+* (docker-compose)[https://docs.docker.com/compose/install/]
 
-## get these repos
-* streampusher/docker_stack
-* streampusher/stream_pusher
+You can use boot2docker on windows/osx.
+
+run `script/setup` to install gems and create database
 
 ```
-$ cd docker_stack
-$ docker-compose up
+$ ./script/setup
 ```
 
-Run the rails app like normal:
+run app with docker-compose
+
 ```
-$ rails s
+$ ./script/app
 ```
 
-and start sidekiq:
-```
-$ bundle exec sidekiq
-```

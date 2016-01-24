@@ -3,17 +3,24 @@ development:
   database: stream_pusher_dev
   pool: 5
   timeout: 5000
-  username: stream_pusher
-  password: password
+  username: postgres
+  host: <%= ENV['POSTGRES_PORT_5432_TCP_ADDR'] %>
+  port: <%= ENV['POSTGRES_PORT_5432_TCP_PORT'] %>
+
 
 production:
   adapter: postgresql
   database: stream_pusher_production
   pool: 5
   timeout: 5000
+  username: stream_pusher
+  password: password
 
 test:
   adapter: postgresql
   database: stream_pusher_test
   pool: 5
   timeout: 5000
+  username: postgres
+  host: <%= ENV['POSTGRES_PORT_5432_TCP_ADDR'] %>
+  port: <%= ENV['POSTGRES_PORT_5432_TCP_PORT'] %>
