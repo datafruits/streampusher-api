@@ -9,6 +9,6 @@ else # we have no args
     filename='spec'
 fi
 
-command="docker-compose  -f docker-compose-dev.yml run rails ./docker_wrapper.sh bundle exec rspec"
+command="docker exec -it streampusher_rails_1 ./docker_wrapper.sh bundle exec rspec"
 
 RAILS_ENV=test $command $filename
