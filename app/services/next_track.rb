@@ -3,7 +3,7 @@ class NextTrack
   REQUEST_OFFSET = 10.seconds # liquidsoap requests a new track 10 seconds before the current is due to end, so try to account for this
   def self.perform radio
     now = Time.now
-    current_scheduled_show = radio.current_scheduled_show now
+    current_scheduled_show = radio.current_scheduled_show now+REQUEST_OFFSET
     if current_scheduled_show
       playlist = current_scheduled_show.show.playlist
       track_id = playlist.pop_next_track
@@ -14,7 +14,7 @@ class NextTrack
       if (now+track.length.seconds) > current_scheduled_show.end_at
         cue_out = (current_scheduled_show.end_at-now).seconds
         if cue_out > 10
-          cue_out = cue_out - REQUEST_OFFSET
+          cue_out = cue_out
         end
       else
         cue_out = track.length.seconds
@@ -27,11 +27,11 @@ class NextTrack
         return { error: "No tracks!" }
       end
       track = Track.find track_id
-      next_scheduled_show = radio.next_scheduled_show now
+      next_scheduled_show = radio.next_scheduled_show now + REQUEST_OFFSET
       if next_scheduled_show && ((now+track.length.seconds) > next_scheduled_show.start_at)
         cue_out = (next_scheduled_show.start_at-now).seconds
         if cue_out > 10
-          cue_out = cue_out - REQUEST_OFFSET
+          cue_out = cue_out
         end
       else
         cue_out = track.length.seconds
