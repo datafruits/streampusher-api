@@ -177,9 +177,9 @@ ActiveRecord::Schema.define(version: 20160110070239) do
     t.string   "album"
     t.integer  "year"
     t.integer  "track"
-    t.integer  "length"
     t.integer  "filesize"
     t.integer  "tag_processing_status", default: 0,  null: false
+    t.integer  "length"
   end
 
   create_table "user_radios", force: :cascade do |t|
