@@ -1,5 +1,6 @@
 class NextTrack
   # returns the filename of the next track to be played along with cue in/out and fade in/out lengths in seconds in a hash
+  REQUEST_OFFSET = 10.seconds # liquidsoap requests a new track 10 seconds before the current is due to end, so try to account for this
   def self.perform radio
     now = Time.now
     current_scheduled_show = radio.current_scheduled_show now
@@ -11,7 +12,7 @@ class NextTrack
       end
       track = Track.find track_id
       if (now+track.length.seconds) > current_scheduled_show.end_at
-        cue_out = (current_scheduled_show.end_at-now).seconds
+        cue_out = (current_scheduled_show.end_at-now).seconds -  REQUEST_OFFSET
       else
         cue_out = track.length.seconds
       end
@@ -25,7 +26,7 @@ class NextTrack
       track = Track.find track_id
       next_scheduled_show = radio.next_scheduled_show now
       if next_scheduled_show && ((now+track.length.seconds) > next_scheduled_show.start_at)
-        cue_out = (next_scheduled_show.start_at-now).seconds
+        cue_out = (next_scheduled_show.start_at-now).seconds - REQUEST_OFFSET
       else
         cue_out = track.length.seconds
       end
