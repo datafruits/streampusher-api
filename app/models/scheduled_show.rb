@@ -10,6 +10,10 @@ class ScheduledShow < ActiveRecord::Base
   validates_presence_of :show_id
   validates :description, length: { maximum: 10000 }
 
+  #validate :start_at_cannot_be_in_the_past
+  #validate :end_at_cannot_be_in_the_past
+  #validate :end_at_cannot_be_before_start_at
+
   alias_attribute :start, :start_at
   alias_attribute :end, :end_at
   attr_accessor :update_all_recurrences
@@ -106,6 +110,24 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   private
+  def start_at_cannot_be_in_the_past
+    if start_at < Time.now
+      errors.add(:start_at, "cannot be in the past")
+    end
+  end
+
+  def end_at_cannot_be_in_the_past
+    if end_at < Time.now
+      errors.add(:end_at, "cannot be in the past")
+    end
+  end
+
+  def end_at_cannot_be_before_start_at
+    if end_at < start_at
+      errors.add(:end_at, "cannot be before start at")
+    end
+  end
+
   def start_and_end_recurrences options={}
     recurrence_times(options.merge(starts: self.start)).zip(recurrence_times(options.merge(starts: self.end)))
   end
