@@ -1,7 +1,7 @@
 class ScheduledShow < ActiveRecord::Base
   belongs_to :radio
   belongs_to :show
-  # belongs_to :playlist
+  belongs_to :playlist
   belongs_to :recurrant_original, class_name: "ScheduledShow"
   has_attached_file :image, styles: { :thumb => "x300" }
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
