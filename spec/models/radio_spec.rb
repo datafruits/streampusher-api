@@ -23,8 +23,8 @@ RSpec.describe Radio, :type => :model do
     playlist_1 = FactoryGirl.create :playlist, radio: radio
     show_1 = FactoryGirl.create :show, playlist: playlist_1, dj: dj, radio: radio
     scheduled_show_1 = FactoryGirl.create :scheduled_show, show: show_1, radio: radio,
-      start_at: Chronic.parse("January 1st 1990 at 10:30 pm"), end_at: Chronic.parse("January 2nd 1990 at 01:30 am")
-    Timecop.travel Chronic.parse("January 1st 1990 at 11:30 pm") do
+      start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
+    Timecop.travel Chronic.parse("January 1st 2090 at 11:30 pm") do
       expect(radio.current_scheduled_show).to eq scheduled_show_1
     end
   end
@@ -40,12 +40,12 @@ RSpec.describe Radio, :type => :model do
     show_2 = FactoryGirl.create :show, playlist: playlist_2, dj: dj, radio: radio
 
     scheduled_show_1 = FactoryGirl.create :scheduled_show, show: show_1, radio: radio,
-      start_at: Chronic.parse("January 1st 1990 at 10:30 pm"), end_at: Chronic.parse("January 2nd 1990 at 01:30 am")
+      start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
 
     scheduled_show_2 = FactoryGirl.create :scheduled_show, show: show_2, radio: radio,
-      start_at: Chronic.parse("January 1st 1992 at 10:30 pm"), end_at: Chronic.parse("January 2nd 1992 at 01:30 am")
+      start_at: Chronic.parse("January 1st 2092 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2092 at 01:30 am")
 
-    Timecop.travel Chronic.parse("January 1st 1990 at 11:30 pm") do
+    Timecop.travel Chronic.parse("January 1st 2090 at 11:30 pm") do
       expect(radio.current_scheduled_show).to eq scheduled_show_1
       expect(radio.next_scheduled_show).to eq scheduled_show_2
     end
