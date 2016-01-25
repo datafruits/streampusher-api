@@ -11,6 +11,7 @@ class Playlist < ActiveRecord::Base
   validates :name, presence: true
 
   after_save :set_default_playlist
+  after_save :persist_to_redis
 
   default_scope { order(updated_at: :desc) }
 
@@ -34,6 +35,10 @@ class Playlist < ActiveRecord::Base
   end
 
   private
+  def persist_to_redis
+    SavePlaylistToRedisWorker.perform_later self.id
+  end
+
   def set_default_playlist
     if !self.radio.default_playlist.present?
       self.radio.update default_playlist_id: self.id

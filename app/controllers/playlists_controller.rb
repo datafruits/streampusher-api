@@ -26,7 +26,6 @@ class PlaylistsController < ApplicationController
     @playlist = @current_radio.playlists.find params[:id]
     @playlist.attributes = update_params
     if @playlist.save
-      SavePlaylistToRedisWorker.perform_later @playlist.id
       flash[:notice] = "updated playlist"
       render "update"
     else
