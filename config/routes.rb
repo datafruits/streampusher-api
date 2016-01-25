@@ -63,5 +63,8 @@ Rails.application.routes.draw do
 
   get '/next' => 'application#next'
 
+  get "/vj" => "vj#index"
+  patch "/vj" => "vj#update"
+
   root 'landing#index'
 end

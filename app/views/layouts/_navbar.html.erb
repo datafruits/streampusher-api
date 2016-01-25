@@ -50,6 +50,13 @@
               <i class="fa fa-file-audio-o"></i>Recordings
             <% end %>
           </li>
+          <% if can? :vj, :dashboard %>
+            <li>
+            <%= link_to vj_path do %>
+              <i class="fa fa-video"></i>VJ
+            <% end %>
+            </li>
+          <% end %>
           <% if current_user.owner? %>
             <li>
               <%= link_to edit_radio_path(@current_radio) do %>

@@ -23,6 +23,7 @@ class Ability
       can :read, "broadcasting_help"
       can :read, "embed"
       can :manage, Recording if can_manage_radio?(user, radio)
+      can :vj, :dashboard
     elsif user.manager?
       can :manage, Radio do |radio|
         can_manage_radio?(user, radio)
@@ -37,6 +38,7 @@ class Ability
       can :read, "broadcasting_help"
       can :read, "embed"
       can :manage, Recording if can_manage_radio?(user, radio)
+      can :vj, :dashboard
     elsif user.dj?
       can :index, Radio if can_manage_radio?(user, radio)
       can :read, Podcast
@@ -53,6 +55,8 @@ class Ability
 
       can :read, "broadcasting_help"
       can :read, "embed"
+
+      can :vj, :dashboard
       cannot :admin
     else
       can :read, ScheduledShow if format == "json"
