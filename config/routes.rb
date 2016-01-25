@@ -50,7 +50,7 @@ Rails.application.routes.draw do
   post 'admin/radios/:id/disable', to: 'admin#disable_radio', as: 'admin_disable_radio'
 
   resources :tracks, only: [:create, :edit, :update, :destroy]
-  resources :playlist_tracks, only: [:edit, :update]
+  resources :playlist_tracks, only: [:create, :edit, :update, :destroy]
 
   get '/broadcasting_help' => 'help#broadcasting', :id => "broadcasting_help"
 
