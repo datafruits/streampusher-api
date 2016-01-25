@@ -1,7 +1,6 @@
 class ScheduledShow < ActiveRecord::Base
   belongs_to :radio
   belongs_to :dj, class_name: "User"
-  belongs_to :show
   belongs_to :playlist
   belongs_to :recurrant_original, class_name: "ScheduledShow"
   has_attached_file :image, styles: { :thumb => "x300" }
@@ -10,7 +9,6 @@ class ScheduledShow < ActiveRecord::Base
   before_validation :set_default_playlist
 
   validates_presence_of :start_at, :end_at
-  validates_presence_of :show_id
   validates :description, length: { maximum: 10000 }
 
   validate :start_at_cannot_be_in_the_past
@@ -43,28 +41,12 @@ class ScheduledShow < ActiveRecord::Base
   # TODO
   # validate :time_is_in_15_min_intervals
 
-  def title
-    self.show.title
-  end
-
-  def dj
-    self.show.dj
-  end
-
   def image_url
-    if self.image.present?
-      self.image.url(:original)
-    else
-      self.show.image.url(:original)
-    end
+    self.image.url(:original)
   end
 
   def thumb_image_url
-    if self.image.present?
-      self.image.url(:thumb)
-    else
-      self.show.image.url(:thumb)
-    end
+    self.image.url(:thumb)
   end
 
   def schedule_cannot_conflict
