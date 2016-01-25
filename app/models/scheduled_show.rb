@@ -10,9 +10,9 @@ class ScheduledShow < ActiveRecord::Base
   validates_presence_of :show_id
   validates :description, length: { maximum: 10000 }
 
-  #validate :start_at_cannot_be_in_the_past
-  #validate :end_at_cannot_be_in_the_past
-  #validate :end_at_cannot_be_before_start_at
+  validate :start_at_cannot_be_in_the_past
+  validate :end_at_cannot_be_in_the_past
+  validate :end_at_cannot_be_before_start_at
 
   alias_attribute :start, :start_at
   alias_attribute :end, :end_at
