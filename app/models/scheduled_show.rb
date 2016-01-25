@@ -72,7 +72,7 @@ class ScheduledShow < ActiveRecord::Base
   private
   def set_default_playlist
     unless self.playlist.present?
-      self.playlist_id = self.radio.playlists.first.try(:id)
+      self.playlist_id = self.radio.default_playlist_id
     end
   end
 
