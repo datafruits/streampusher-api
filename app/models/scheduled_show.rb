@@ -1,5 +1,6 @@
 class ScheduledShow < ActiveRecord::Base
   belongs_to :radio
+  belongs_to :dj, class_name: "User"
   belongs_to :show
   belongs_to :playlist
   belongs_to :recurrant_original, class_name: "ScheduledShow"
