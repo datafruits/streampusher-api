@@ -1,14 +1,13 @@
 class PlaylistTracksController < ApplicationController
   load_and_authorize_resource
   def create
-    @playlist = @current_radio.playlists.find(params[:playlist_id])
-    @track = @current_radio.tracks.find params[:track][:id]
-    if @playlist.add_track @track
-      SavePlaylistToRedisWorker.perform_later @playlist.id
-      flash[:notice] = "added #{@track.display_name} to playlist #{@playlist.name}!"
+    @playlist_track = PlaylistTrack.new playlist_track_params
+    if @playlist_track.save
+      # SavePlaylistToRedisWorker.perform_later @playlist.id
+      flash[:notice] = "added #{@playlist_track.track.display_name} to playlist #{@playlist_track.playlist.name}!"
       render 'create'
     else
-      flash[:error] = "error adding #{@track.display_name} to #{@playlist.name} :("
+      flash[:error] = "error adding #{@playlist_track.track.display_name} to #{@playlist_track.playlist.name} :("
       render 'error'
     end
   end
@@ -43,6 +42,6 @@ class PlaylistTracksController < ApplicationController
 
   private
   def playlist_track_params
-    params.require(:playlist_track).permit(:podcast_published_date, :playlist_id)
+    params.require(:playlist_track).permit(:podcast_published_date, :playlist_id, :track_id)
   end
 end

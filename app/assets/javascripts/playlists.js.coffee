@@ -7,9 +7,9 @@ window.addToPlaylist = (trackId, playlistId) ->
     type: 'POST'
     url: "/playlist_tracks"
     data:
-      track:
-        id: trackId
-        id: playlistId
+      playlist_track:
+        track_id: trackId
+        playlist_id: playlistId
     success: (data) ->
       console.log('success!')
       #console.log(data)
