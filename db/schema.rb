@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160125062328) do
+ActiveRecord::Schema.define(version: 20160128045651) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,11 +82,12 @@ ActiveRecord::Schema.define(version: 20160125062328) do
     t.string   "icecast_container_id",    limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name",                    limit: 255, default: "",   null: false
-    t.integer  "subscription_id",                                    null: false
+    t.string   "name",                    limit: 255, default: "",    null: false
+    t.integer  "subscription_id",                                     null: false
     t.string   "liquidsoap_container_id", limit: 255
     t.integer  "default_playlist_id"
-    t.boolean  "enabled",                             default: true, null: false
+    t.boolean  "enabled",                             default: true,  null: false
+    t.boolean  "vj_enabled",                          default: false, null: false
   end
 
   create_table "recordings", force: :cascade do |t|
@@ -117,6 +118,7 @@ ActiveRecord::Schema.define(version: 20160125062328) do
     t.integer  "recurrant_original_id"
     t.integer  "playlist_id"
     t.integer  "dj_id"
+    t.string   "title"
   end
 
   create_table "shows", force: :cascade do |t|
