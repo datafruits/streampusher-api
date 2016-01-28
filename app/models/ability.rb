@@ -23,7 +23,7 @@ class Ability
       can :read, "broadcasting_help"
       can :read, "embed"
       can :manage, Recording if can_manage_radio?(user, radio)
-      can :vj, :dashboard
+      can :vj, :dashboard if is_datafruits?(radio)
     elsif user.manager?
       can :manage, Radio do |radio|
         can_manage_radio?(user, radio)
@@ -38,7 +38,7 @@ class Ability
       can :read, "broadcasting_help"
       can :read, "embed"
       can :manage, Recording if can_manage_radio?(user, radio)
-      can :vj, :dashboard
+      can :vj, :dashboard if is_datafruits?(radio)
     elsif user.dj?
       can :index, Radio if can_manage_radio?(user, radio)
       can :read, Podcast
@@ -56,7 +56,7 @@ class Ability
       can :read, "broadcasting_help"
       can :read, "embed"
 
-      can :vj, :dashboard
+      can :vj, :dashboard if is_datafruits?(radio)
       cannot :admin
     else
       can :read, ScheduledShow if format == "json"
@@ -65,6 +65,10 @@ class Ability
   end
 
   private
+  def is_datafruits?(radio)
+    radio.name == "datafruits"
+  end
+
   def can_manage_radio?(user, radio)
     user.radios.include? radio
   end
