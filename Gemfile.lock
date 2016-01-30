@@ -381,7 +381,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    vcr (3.0.0)
+    vcr (3.0.1)
     warden (1.2.3)
       rack (>= 1.0)
     webmock (1.20.4)
