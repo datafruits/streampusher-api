@@ -3,7 +3,7 @@
   <i class="fa fa-pencil"></i>
 <% end %>
 <ul class="playlist-tracks" data-playlist-id="<%=playlist.id%>">
-  <%= render partial: 'playlist_track', collection: playlist.playlist_tracks.rank(:position) %>
+  <%= render partial: 'playlist_tracks/playlist_track', collection: playlist.playlist_tracks.rank(:position) %>
 </ul>
 <%= coffee_script_tag do %>
   $('ul.playlist-tracks').droppable({
