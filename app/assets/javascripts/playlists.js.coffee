@@ -5,10 +5,11 @@
 window.addToPlaylist = (trackId, playlistId) ->
   $.ajax
     type: 'POST'
-    url: "/playlists/#{playlistId}/add_track"
+    url: "/playlist_tracks"
     data:
-      track:
-        id: trackId
+      playlist_track:
+        track_id: trackId
+        playlist_id: playlistId
     success: (data) ->
       console.log('success!')
       #console.log(data)
@@ -59,11 +60,11 @@ $('[data-controller=playlists]').ready ->
     playlistId = $(this).parent('li').parent('ul').data('playlist-id')
     playlistTrackId = $(this).parent('li').data('playlist-track-id')
     $.ajax
-      type: 'POST'
-      url: "/playlists/#{playlistId}/remove_track"
+      type: 'DELETE'
+      url: "/playlist_tracks/#{playlistTrackId}"
       data:
         playlist_track:
-          id: playlistTrackId
+          playlist_id: playlistId
       success: (data) ->
         console.log(data)
       error: (data) ->
