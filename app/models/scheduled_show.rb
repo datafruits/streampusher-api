@@ -8,7 +8,7 @@ class ScheduledShow < ActiveRecord::Base
 
   before_validation :set_default_playlist
 
-  validates_presence_of :start_at, :end_at
+  validates_presence_of :start_at, :end_at, :playlist
   validates :description, length: { maximum: 10000 }
 
   validate :start_at_cannot_be_in_the_past

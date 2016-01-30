@@ -1,4 +1,4 @@
-<%= simple_form_for @scheduled_show, html: {class: 'form-horizontal'} do |f| %>
+<%= simple_form_for @scheduled_show, html: {class: 'form-horizontal'}, remote: true do |f| %>
   <%= f.input :radio_id, as: :hidden, input_html: { value: @current_radio.id } %>
   <%= f.input :title %>
   <%= f.input :image, as: :file %>
