@@ -6,8 +6,6 @@ class ScheduledShow < ActiveRecord::Base
   has_attached_file :image, styles: { :thumb => "x300" }
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
-  before_validation :set_default_playlist
-
   validates_presence_of :start_at, :end_at, :playlist
   validates :description, length: { maximum: 10000 }
 
@@ -70,12 +68,6 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   private
-  def set_default_playlist
-    unless self.playlist.present?
-      self.playlist_id = self.radio.default_playlist_id
-    end
-  end
-
   def start_at_cannot_be_in_the_past
     if start_at < Time.now
       errors.add(:start_at, "cannot be in the past")
