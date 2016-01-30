@@ -1,7 +1,9 @@
 <div class="row">
   <div class="col-md-8">
     <h1><%= @scheduled_show.title %></h1>
-    <h3><%= "Host: #{@scheduled_show.dj.username}" %></h3>
+    <% if @scheduled_show.dj.present? %>
+      <h3><%= "Host: #{@scheduled_show.dj.username}" %></h3>
+    <% end %>
     <%= image_tag @scheduled_show.image_url %>
   </div>
   <a href="https://twitter.com/share" class="twitter-share-button" data-text="<%=tweet_text(@scheduled_show)%>">Tweet</a>
