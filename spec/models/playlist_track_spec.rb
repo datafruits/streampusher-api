@@ -1,6 +1,11 @@
 require 'rails_helper'
+require 'sidekiq/testing'
 
 RSpec.describe PlaylistTrack, :type => :model do
+  before do
+    Sidekiq::Testing.fake!
+  end
+
   it "sets podcast_published_date on save" do
     Timecop.freeze Time.local(1990) do
       now = DateTime.now
