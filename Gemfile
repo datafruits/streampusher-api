@@ -39,6 +39,7 @@ gem 'capistrano-rails'
 gem 'capistrano-bundler'
 gem 'capistrano-rbenv', "~>2.0"
 gem 'capistrano-sidekiq'
+gem 'capistrano-cookbook', require: false, group: :development
 
 group :test do
   gem 'factory_girl_rails'
