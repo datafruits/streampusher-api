@@ -12,6 +12,7 @@ class Playlist < ActiveRecord::Base
 
   after_save :set_default_playlist
   after_save :persist_to_redis
+  after_touch :persist_to_redis
 
   default_scope { order(updated_at: :desc) }
 
