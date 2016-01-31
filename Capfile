@@ -23,7 +23,16 @@ require 'capistrano/rails/migrations'
 require 'capistrano/sidekiq'
 require 'slackistrano'
 require 'whenever/capistrano'
-require 'capistrano/cookbook'
+
+#require 'capistrano/cookbook/check_revision'
+#require 'capistrano/cookbook/compile_assets_locally'
+require 'capistrano/cookbook/create_database'
+#require 'capistrano/cookbook/logs'
+#require 'capistrano/cookbook/monit'
+#require 'capistrano/cookbook/nginx'
+#require 'capistrano/cookbook/restart'
+#require 'capistrano/cookbook/run_tests'
+#require 'capistrano/cookbook/setup_config'
 
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.
 Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }
