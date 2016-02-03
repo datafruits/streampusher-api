@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   resources :recordings, only: [:index]
   resources :podcasts
 
-  resources :shows
   resources :scheduled_shows
   get "/schedule", to: "scheduled_shows#index", as: :schedule
 
