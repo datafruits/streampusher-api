@@ -1,17 +1,14 @@
-<%= simple_form_for @scheduled_show, html: {class: 'form-horizontal'} do |f| %>
+<%= simple_form_for @scheduled_show, html: {class: 'form-horizontal'}, remote: true do |f| %>
   <%= f.input :radio_id, as: :hidden, input_html: { value: @current_radio.id } %>
-  <% if current_user.admin? || current_user.owner? %>
-    <%= f.input :show_id, collection: @shows, prompt: "Select a show..." %>
-  <% else %>
-    <%= f.input :show_id, collection: current_user.shows, prompt: "Select a show..." %>
-  <% end %>
+  <%= f.input :title %>
+  <%= f.input :image, as: :file %>
+  <%= f.input :playlist_id, collection: @current_radio.playlists, label_method: :name, value_method: :id  %>
   <div class="note">
     Your current time zone is set to <%= current_user.time_zone %>. You can change it by <%= link_to 'editing your profile.', "/users/edit" %>
   </div>
   <%= f.input :start_at, minute_step: 15 %>
   <%= f.input :end_at, minute_step: 15 %>
 
-  <%= f.input :image, as: :file, label: "If you set an image for the show, that image will be used, but you can override it by uploading an image here." %>
   <%= f.input :description, input_html: { cols: 70, rows: 5 }  %>
   <%= f.input :recurring_interval, label: "Repeat", as: :select, collection: ScheduledShow.recurring_interval_attributes_for_select, include_blank: false %>
   <% if @scheduled_show.persisted? && (@scheduled_show.recurring? || @scheduled_show.recurrence?) %>
@@ -21,6 +18,6 @@
   <% if @scheduled_show.persisted? %>
     <%= f.submit 'Update show', class: 'btn btn-success' %>
   <% else %>
-    <%= f.submit 'Add show', class: 'btn btn-success' %>
+    <%= f.submit 'Schedule show', class: 'btn btn-success' %>
   <% end %>
 <% end %>

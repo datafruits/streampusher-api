@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160110070239) do
+ActiveRecord::Schema.define(version: 20160128045651) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,7 +102,6 @@ ActiveRecord::Schema.define(version: 20160110070239) do
   end
 
   create_table "scheduled_shows", force: :cascade do |t|
-    t.integer  "show_id",                               null: false
     t.integer  "radio_id",                              null: false
     t.datetime "start_at",                              null: false
     t.datetime "end_at",                                null: false
@@ -116,6 +115,9 @@ ActiveRecord::Schema.define(version: 20160110070239) do
     t.integer  "recurring_interval",    default: 0,     null: false
     t.boolean  "recurrence",            default: false, null: false
     t.integer  "recurrant_original_id"
+    t.integer  "playlist_id"
+    t.integer  "dj_id"
+    t.string   "title"
   end
 
   create_table "shows", force: :cascade do |t|

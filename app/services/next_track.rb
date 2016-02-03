@@ -5,7 +5,7 @@ class NextTrack
     now = Time.now
     current_scheduled_show = radio.current_scheduled_show now+REQUEST_OFFSET
     if current_scheduled_show
-      playlist = current_scheduled_show.show.playlist
+      playlist = current_scheduled_show.playlist
       track_id = playlist.pop_next_track
       if track_id.blank?
         return { error: "No tracks!" }

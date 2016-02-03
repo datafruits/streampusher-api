@@ -23,6 +23,15 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+  def redirect_to_with_js(options = {}, response_status = {})
+    redirect_to(options,response_status)
+    if request.xhr?
+      self.status = 200
+      self.content_type ||= Mime::JS
+      self.response_body = "window.location = '#{location}';"
+    end
+  end
+
   def set_time_zone(&block)
     if current_user
       Time.use_zone(current_user.time_zone, &block)

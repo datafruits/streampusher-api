@@ -1,5 +1,9 @@
 class ScheduledShowsController < ApplicationController
   load_and_authorize_resource
+  def new
+
+  end
+
   def index
     setup_index
 
@@ -26,11 +30,11 @@ class ScheduledShowsController < ApplicationController
     if @scheduled_show.save
       ActiveSupport::Notifications.instrument 'scheduled_show.created', current_user: current_user.email, radio: @current_radio.name, show: @scheduled_show.title
       flash[:notice] = "Scheduled show!"
-      redirect_to scheduled_shows_path
+      redirect_to_with_js scheduled_shows_path
     else
-      setup_index
+      # setup_index
       flash[:error] = "Error scheduling show."
-      render 'index'
+      render 'new'
     end
   end
 
@@ -63,6 +67,8 @@ class ScheduledShowsController < ApplicationController
   end
 
   def create_params
-    params.require(:scheduled_show).permit(:title, :radio_id, :show_id, :start_at, :end_at, :description, :image, :recurring_interval)
+    params.require(:scheduled_show).permit(:title, :radio_id, :show_id, :start_at,
+                                           :end_at, :description, :image,
+                                           :recurring_interval, :playlist_id)
   end
 end
