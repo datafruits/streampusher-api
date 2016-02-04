@@ -45,18 +45,6 @@ RUN rbenv exec gem install bundler
 RUN mkdir -p /home/rails/app
 WORKDIR /home/rails/app
 
-# Copy the Gemfile as well as the Gemfile.lock and install
-# the RubyGems. This is a separate step so the dependencies
-# will be cached unless changes to one of those two files
-# are made.
-COPY Gemfile Gemfile.lock ./
-RUN rbenv version
-RUN rbenv exec bundle install --jobs 20 --retry 5 --path vendor/bundle
-
-# Copy the main application.
-COPY . ./
-RUN sudo chown -R rails:rails ./
-
 # Expose port 3000 to the Docker host, so we can access it
 # from the outside.
 EXPOSE 3000
