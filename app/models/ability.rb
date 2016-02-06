@@ -60,6 +60,7 @@ class Ability
       cannot :admin
     else
       can :read, ScheduledShow if format == "json"
+      can :index, :vj if format == "json"
       cannot :admin
     end
   end
