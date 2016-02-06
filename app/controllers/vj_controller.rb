@@ -1,6 +1,12 @@
 class VjController < ApplicationController
   def index
-    authorize! :vj, :dashboard
+    authorize! :vj, :dashboard, params[:format]
+    @radio = @current_radio
+    respond_to do |format|
+      format.html
+    end
+  end
+  def enabled
     @radio = @current_radio
     respond_to do |format|
       format.html

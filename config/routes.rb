@@ -65,6 +65,7 @@ Rails.application.routes.draw do
 
   get "/vj" => "vj#index"
   patch "/vj" => "vj#update"
+  get "/vj/enabled" => "vj#enabled"
 
   root 'landing#index'
 end
