@@ -46,7 +46,7 @@ class ScheduledShowsController < ApplicationController
     @scheduled_show.attributes = create_params
     if @scheduled_show.save
       flash[:notice] = "Updated scheduled show!"
-      redirect_to scheduled_shows_path
+      redirect_to_with_js scheduled_shows_path
     else
       flash[:error] = "Error updating scheduling show."
       render 'edit'
