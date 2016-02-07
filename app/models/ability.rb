@@ -53,6 +53,10 @@ class Ability
       can :update, ScheduledShow, show_id: user.shows.pluck(:id)
       can :destroy, ScheduledShow, show_id: user.shows.pluck(:id)
 
+      can :read, Track if can_manage_radio?(user, radio)
+      can :create, Track if can_manage_radio?(user, radio)
+      can :update, Track if can_manage_radio?(user, radio)
+
       can :read, "broadcasting_help"
       can :read, "embed"
 
