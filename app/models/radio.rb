@@ -97,7 +97,7 @@ class Radio < ActiveRecord::Base
   end
 
   def next_scheduled_show now=Time.now
-    self.scheduled_shows.where("start_at >= ?", now).first
+    self.scheduled_shows.where("start_at >= ?", now).order("start_at ASC").first
   end
 
   private
