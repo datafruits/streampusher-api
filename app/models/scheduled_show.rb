@@ -6,7 +6,7 @@ class ScheduledShow < ActiveRecord::Base
   has_attached_file :image, styles: { :thumb => "x300" }
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
-  validates_presence_of :start_at, :end_at, :playlist
+  validates_presence_of :start_at, :end_at, :playlist_id
   validates :description, length: { maximum: 10000 }
 
   validate :start_at_cannot_be_in_the_past
