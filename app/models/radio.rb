@@ -100,6 +100,10 @@ class Radio < ActiveRecord::Base
     self.scheduled_shows.where("start_at >= ?", now).order("start_at ASC").first
   end
 
+  def disk_usage
+    self.tracks.sum(&:filesize)
+  end
+
   private
   def create_default_playlist
     self.playlists.create name: "default"
