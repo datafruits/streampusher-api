@@ -42,7 +42,7 @@ class TracksController < ApplicationController
 
   private
   def create_params
-    params.require(:track).permit(:radio_id, :audio_file_name, :filesize)
+    params.require(:track).permit(:radio_id, :audio_file_name)
   end
 
   def update_params
