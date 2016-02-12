@@ -61,8 +61,7 @@ class ScheduledShowsController < ApplicationController
 
   private
   def setup_index
-    @scheduled_shows = @current_radio.scheduled_shows
-    @shows = @current_radio.shows
+    @scheduled_shows = @current_radio.scheduled_shows.where("start_at >= ? AND end_at <= ?", params[:start], params[:end])
     @scheduled_show = ScheduledShow.new
   end
 
