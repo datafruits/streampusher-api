@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-md-6">
+    <ul id="tracks">
+      <% @tracks.each do |track| %>
+        <%= render track %>
+      <% end %>
+    </ul>
+  </div>
+  <div class="col-md-6">
+    <%= render @playlist %>
+  </div>
+</div>

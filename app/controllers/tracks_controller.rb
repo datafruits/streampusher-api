@@ -1,5 +1,9 @@
 class TracksController < ApplicationController
   load_and_authorize_resource
+  def index
+    @tracks = @current_radio.tracks
+  end
+
   def edit
     @track = @current_radio.tracks.find params[:id]
   end
