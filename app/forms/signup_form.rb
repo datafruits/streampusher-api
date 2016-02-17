@@ -29,19 +29,23 @@ class SignupForm
   end
 
   def save
-    User.transaction do
-      if @user.save
-        @subscription.user_id = @user.id
-        @subscription.radios << @radio
-        if @radio.save
-          @user.subscription = subscription
-          @user.subscription.save_with_free_trial
-          @user.radios << @user.subscription.radios.first
-          ActiveSupport::Notifications.instrument 'user.signup', email: @user.email, radio: @radio.name
-          UserSignedUpNotifier.notify @user
-          @radio.boot_radio
+    begin
+      ActiveRecord::Base.transaction do
+        if @user.save!
+          @subscription.user_id = @user.id
+          @subscription.radios << @radio
+          if @radio.save!
+            @user.subscription = subscription
+            @user.subscription.save_with_free_trial!
+            @user.radios << @user.subscription.radios.first
+            ActiveSupport::Notifications.instrument 'user.signup', email: @user.email, radio: @radio.name
+            UserSignedUpNotifier.notify @user
+            @radio.boot_radio
+          end
         end
       end
+    rescue ActiveRecord::RecordInvalid, Stripe::InvalidRequestError
+      return false
     end
   end
 end

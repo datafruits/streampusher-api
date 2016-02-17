@@ -31,6 +31,22 @@ class Subscription < ActiveRecord::Base
     return false
   end
 
+  def save_with_free_trial!(*)
+    if valid?
+      customer = Stripe::Customer.create(description: self.user.email, plan: self.plan.name)
+      self.on_trial = true
+      self.trial_ends_at = Time.at(customer.subscriptions.data.first.trial_end)
+      self.stripe_customer_token = customer.id
+      save!
+    else
+      raise ActiveRecord::RecordInvalid
+    end
+  rescue Stripe::InvalidRequestError => e
+    logger.error "Stripe error while creating customer: #{e.message}"
+    errors.add :base, "There was a problem with your credit card."
+    raise e
+  end
+
   def save_with_card(*)
     if valid?
       customer = Stripe::Customer.create(description: self.user.email, plan: plan_id, card: stripe_card_token)
