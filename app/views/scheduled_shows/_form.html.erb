@@ -2,7 +2,7 @@
   <%= f.input :radio_id, as: :hidden, input_html: { value: @current_radio.id } %>
   <%= f.input :title %>
   <%= f.input :image, as: :file %>
-  <%= f.input :playlist_id, collection: @current_radio.playlists, label_method: :name, value_method: :id  %>
+  <%= f.input :playlist_id, collection: @current_radio.playlists, label_method: :name, value_method: :id, include_blank: false %>
   <div class="note">
     Your current time zone is set to <%= current_user.time_zone %>. You can change it by <%= link_to 'editing your profile.', "/users/edit" %>
   </div>
