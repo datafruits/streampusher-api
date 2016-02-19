@@ -1,6 +1,11 @@
 require 'rails_helper'
+require 'sidekiq/testing'
 
 describe PersistPlaylistToRedis do
+  before do
+    Sidekiq::Testing.fake!
+  end
+
   it "saves playlists to a redis list" do
     playlist = FactoryGirl.create :playlist
     playlist.tracks << FactoryGirl.create_list(:track, 10, radio: playlist.radio)
