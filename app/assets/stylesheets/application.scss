@@ -194,6 +194,8 @@ table a:hover {
   box-shadow: 3px 3px 3px #555;
 
   @include animation(bounce 1s infinite);
+  position: fixed;
+  z-index: 9999;
 }
 
 .flash#notice {
