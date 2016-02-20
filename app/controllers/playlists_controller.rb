@@ -1,5 +1,9 @@
 class PlaylistsController < ApplicationController
   load_and_authorize_resource
+  def show
+    @tracks = @current_radio.tracks
+    @playlist = Playlist.find params[:id]
+  end
   def index
     @tracks = @current_radio.tracks
     @playlists = @current_radio.playlists
