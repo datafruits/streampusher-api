@@ -3,11 +3,11 @@ class PlaylistTracksController < ApplicationController
   def create
     @playlist_track = PlaylistTrack.new playlist_track_params
     if @playlist_track.save
-      flash[:notice] = "added #{@playlist_track.track.display_name} to playlist #{@playlist_track.playlist.name}!"
-      render 'create'
+      #flash[:notice] = "added #{@playlist_track.track.display_name} to playlist #{@playlist_track.playlist.name}!"
+      #render 'create'
     else
-      flash[:error] = "error adding #{@playlist_track.track.display_name} to #{@playlist_track.playlist.name} :("
-      render 'error'
+      #flash[:error] = "error adding #{@playlist_track.track.display_name} to #{@playlist_track.playlist.name} :("
+      #render 'error'
     end
   end
 
@@ -40,6 +40,6 @@ class PlaylistTracksController < ApplicationController
 
   private
   def playlist_track_params
-    params.require(:playlist_track).permit(:podcast_published_date, :playlist_id, :track_id)
+    params.require(:playlistTrack).permit(:podcast_published_date, :playlist_id, :track_id)
   end
 end
