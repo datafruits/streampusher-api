@@ -1,0 +1,17 @@
+<span>{{ playlist.name }}</span>
+<button {{action 'editPlaylist'}} class="edit-playlist btn btn-primary">
+  <i class="fa fa-pencil"></i>
+</button>
+<ul class="playlist-tracks">
+  {{#each playlist.playlist_tracks as |playlist_track|}}
+    <li class='track'>
+      <button {{action 'deleteFromPlaylist'}} class="btn btn-danger">
+        <i class="fa fa-times-circle"></i>
+      </button>
+      {{playlist_track.display_name}}
+      <button {{action 'editPlaylistTrack'}} class="edit-track btn btn-primary">
+        <i class="fa fa-pencil"></i>
+      </button>
+    </li>
+  {{/each}}
+</ul>

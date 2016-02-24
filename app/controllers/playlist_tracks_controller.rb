@@ -3,9 +3,11 @@ class PlaylistTracksController < ApplicationController
   def create
     @playlist_track = PlaylistTrack.new playlist_track_params
     if @playlist_track.save
+      render json: @playlist_track
       #flash[:notice] = "added #{@playlist_track.track.display_name} to playlist #{@playlist_track.playlist.name}!"
       #render 'create'
     else
+      render json: @playlist_track.errors
       #flash[:error] = "error adding #{@playlist_track.track.display_name} to #{@playlist_track.playlist.name} :("
       #render 'error'
     end
