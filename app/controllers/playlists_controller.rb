@@ -3,7 +3,14 @@ class PlaylistsController < ApplicationController
   def show
     @tracks = @current_radio.tracks
     @playlist = Playlist.find params[:id]
+    respond_to do |format|
+      format.html
+      format.json {
+        render json: @playlist, include: ['playlist_tracks']
+      }
+    end
   end
+
   def index
     @tracks = @current_radio.tracks
     @playlists = @current_radio.playlists

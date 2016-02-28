@@ -9,9 +9,9 @@
   </div>
   <div class="col-md-6">
     <%#= render @playlist %>
-    <div data-component="playlist-tracks-list" data-attrs="<%=
-      PlaylistSerializer.new(@playlist).as_json.to_json
-     %>"></div>
+    <div data-component="playlist-tracks-list" data-attrs="<%= {
+      playlist_id: @playlist.id
+    }.to_json %>"></div>
   </div>
 </div>
 <base href="/playlists/">
