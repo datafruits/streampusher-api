@@ -42,6 +42,6 @@ class PlaylistTracksController < ApplicationController
 
   private
   def playlist_track_params
-    params.require(:playlistTrack).permit(:podcast_published_date, :playlist_id, :track_id)
+    params.require(:playlist_track).permit(:podcast_published_date, :playlist_id, :track_id)
   end
 end

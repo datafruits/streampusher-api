@@ -2,6 +2,12 @@ class TracksController < ApplicationController
   load_and_authorize_resource
   def index
     @tracks = @current_radio.tracks
+    respond_to do |format|
+      format.html
+      format.json {
+        render json: @tracks
+      }
+    end
   end
 
   def edit
