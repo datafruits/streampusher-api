@@ -1,5 +1,4 @@
 class PlaylistSerializer < ActiveModel::Serializer
-  embed :ids, include: true
   attributes :id, :name
-  has_many :playlist_tracks
+  has_many :playlist_tracks, embed: :ids, key: :playlist_tracks, embed_in_root: true
 end

@@ -6,7 +6,7 @@ class PlaylistsController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        render json: @playlist, include: ['playlist_tracks']
+        render json: @playlist
       }
     end
   end
