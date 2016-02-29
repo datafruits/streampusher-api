@@ -29,14 +29,15 @@ class PlaylistTracksController < ApplicationController
   end
 
   def destroy
-    @playlist = @current_radio.playlists.find playlist_track_params[:playlist_id]
     @playlist_track = PlaylistTrack.find(params[:id])
     if @playlist_track.destroy
-      flash[:notice] = 'removed track from playlist!'
-      render 'destroy'
+      head :no_content
+      #flash[:notice] = 'removed track from playlist!'
+      #render 'destroy'
     else
-      flash[:error] = 'error removing track from playlist :('
-      render 'error'
+      render json: @playlist_track.errors
+      #flash[:error] = 'error removing track from playlist :('
+      #render 'error'
     end
   end
 

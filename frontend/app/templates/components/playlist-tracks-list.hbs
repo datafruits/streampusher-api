@@ -4,14 +4,6 @@
 </button>
 <ul class="playlist-tracks">
   {{#each playlist.playlistTracks as |playlistTrack|}}
-    <li class='track'>
-      <button {{action 'deleteFromPlaylist'}} class="btn btn-danger">
-        <i class="fa fa-times-circle"></i>
-      </button>
-      {{playlistTrack.displayName}}
-      <button {{action 'editPlaylistTrack'}} class="edit-track btn btn-primary">
-        <i class="fa fa-pencil"></i>
-      </button>
-    </li>
+    {{playlist-track-li playlistTrack=playlistTrack}}
   {{/each}}
 </ul>
