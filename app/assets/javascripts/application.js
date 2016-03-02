@@ -38,7 +38,6 @@
 //= require recordings
 //= require registrations
 //= require scheduled_shows
-//= require shows
 //= require stats
 //= require subscriptions
 //= require live
