@@ -5,7 +5,7 @@ class Track < ActiveRecord::Base
   has_many :playlists, through: :playlist_tracks
   has_many :track_labels, dependent: :destroy
   has_many :labels, through: :track_labels
-  has_tags column: :file_basename, storage: :s3,
+  has_tags column: :s3_filepath, storage: :s3,
            s3_credentials: { bucket: ENV['S3_BUCKET'],
                              access_key_id: ENV['S3_KEY'],
                              secret_access_key: ENV['S3_SECRET'] }
@@ -17,8 +17,12 @@ class Track < ActiveRecord::Base
 
   enum tag_processing_status: ['unprocessed', 'processing', 'done', 'failed']
 
+  def s3_filepath
+    URI.decode(self.audio_file_name).split("#{ENV["S3_BUCKET"]}/").last
+  end
+
   def file_basename
-    File.basename self.audio_file_name.to_s
+    File.basename URI.decode(self.audio_file_name.to_s)
   end
 
   def local_path
