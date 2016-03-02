@@ -3,7 +3,11 @@
     <i class="fa fa-times-circle"></i>
   </button>
   {{playlistTrack.displayName}}
-  <button {{action 'editPlaylistTrack'}} class="edit-track btn btn-primary">
-    <i class="fa fa-pencil"></i>
-  </button>
+  {{#if isEditing}}
+    <%= f.input :podcast_published_date, as: :date %>
+  {{#else}}
+    <button {{action 'editPlaylistTrack'}} class="edit-track btn btn-primary">
+      <i class="fa fa-pencil"></i>
+    </button>
+  {{/if}}
 </li>
