@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  isEditing: false,
   actions: {
     deleteFromPlaylist: function(){
       var playlistTrack = this.get('playlistTrack');
@@ -8,6 +9,7 @@ export default Ember.Component.extend({
       playlistTrack.save();
     },
     editPlaylistTrack: function(){
+      this.set('isEditing', true);
     }
   }
 });
