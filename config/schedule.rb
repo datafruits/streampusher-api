@@ -18,6 +18,6 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-every 10.minutes do
-  runner "CheckRadioIsUp.perform_later"
-end
+#every 10.minutes do
+#  runner "CheckRadioIsUp.perform_later"
+#end
