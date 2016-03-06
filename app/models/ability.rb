@@ -49,9 +49,9 @@ class Ability
       can :destroy, Show, dj_id: user.id
 
       can :read, ScheduledShow
-      can :create, ScheduledShow, show_id: user.shows.pluck(:id)
-      can :update, ScheduledShow, show_id: user.shows.pluck(:id)
-      can :destroy, ScheduledShow, show_id: user.shows.pluck(:id)
+      can :create, ScheduledShow
+      can :update, ScheduledShow
+      can :destroy, ScheduledShow
 
       can :read, Track if can_manage_radio?(user, radio)
       can :create, Track if can_manage_radio?(user, radio)
