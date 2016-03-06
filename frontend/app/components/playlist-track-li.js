@@ -10,6 +10,14 @@ export default Ember.Component.extend({
     },
     editPlaylistTrack: function(){
       this.set('isEditing', true);
+    },
+    save: function(){
+      var playlistTrack = this.get('playlistTrack');
+      playlistTrack.save();
+      this.set('isEditing', false);
+    },
+    cancel: function(){
+      this.set('isEditing', false);
     }
   }
 });

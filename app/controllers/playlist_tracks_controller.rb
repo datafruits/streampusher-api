@@ -20,11 +20,13 @@ class PlaylistTracksController < ApplicationController
   def update
     @playlist_track.attributes = playlist_track_params
     if @playlist_track.save
-      flash[:notice] = "Playlist track updated."
-      render 'update'
+      render json: @playlist_track
+      #flash[:notice] = "Playlist track updated."
+      #render 'update'
     else
-      flash[:error] = "Error updating playlist track."
-      render 'edit'
+      render json: @playlist_track.errors
+      #flash[:error] = "Error updating playlist track."
+      #render 'edit'
     end
   end
 
