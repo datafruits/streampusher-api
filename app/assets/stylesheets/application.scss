@@ -40,9 +40,10 @@ $oedo: #DA006E;
 $marunochi: #E6040F;
 $chiyoda: #049B4E;
 $blue: #03B4F7;
+$blue2: #00a2ff;
 
 .navbar {
-  background: $chiyoda;
+  background: #444;
   margin-bottom:0px;
 }
 
@@ -60,11 +61,8 @@ $blue: #03B4F7;
 }
 
 .navbar .nav > li > a:hover {
-  background-color: lighten($chiyoda, 20%);
+  background-color: lighten(#444, 20%);
   text-decoration: none;
-}
-
-body {
 }
 
 #odometer {
@@ -115,7 +113,7 @@ body {
 }
 
 .big-cta-btn {
-  background: $chiyoda;
+  background: $blue2;
   color: white;
   font-weight: bold;
   font-size: 20px;
@@ -123,14 +121,14 @@ body {
   padding: 15px;
   width: 100%;
   border: 0;
-  box-shadow: 0 2px 0 darken($chiyoda, 20%);
+  box-shadow: 0 2px 0 darken($blue2, 20%);
   margin-left: auto;
   margin-right: auto;
 }
 
 .signup form .button:hover {
-  background: darken($chiyoda, 10%);
-  box-shadow: 0 2px 0 darken($chiyoda, 30%);
+  background: darken($blue2, 10%);
+  box-shadow: 0 2px 0 darken($blue2, 30%);
 }
 
 .signup .action {
@@ -144,7 +142,8 @@ body {
 #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
 
 .btn-success {
-  background: $chiyoda;
+  background: $blue2;
+  border-color: $blue2;
 }
 
 form input[type=submit] {
@@ -161,11 +160,11 @@ a:hover {
 }
 
 table a {
-  color: $chiyoda;
+  color: $blue2;
 }
 
 table a:hover {
-  color: lighten($chiyoda, 20%);
+  color: lighten($blue2, 20%);
 }
 
 @include keyframes(bounce) {
@@ -198,7 +197,7 @@ table a:hover {
 }
 
 .flash#notice {
-    background: lighten($chiyoda, 20%);
+    background: lighten($blue2, 20%);
 }
 
 .flash#error {
@@ -235,4 +234,9 @@ table a:hover {
 
 input[type="checkbox"] {
   margin: 0px !important;
+}
+
+.btn-success:hover {
+  background-color: lighten($blue2, 20%);
+  border-color: darken($blue2, 20%);
 }

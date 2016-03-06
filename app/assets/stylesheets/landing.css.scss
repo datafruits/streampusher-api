@@ -5,10 +5,6 @@
 $blue: #03B4F7;
 $chiyoda: #049B4E;
 
-body {
-  background: $blue;
-}
-
 #newsletter {
   margin: 0 auto;
   max-width: 45.25rem;
@@ -54,9 +50,8 @@ p.price {
 
 section#header {
   text-align: center;
-  color: white;
   h1,h2 {
-    text-shadow: 2px 2px 1px #222;
+    text-shadow: 1px 1px 0 #aaa;
   }
 }
 
