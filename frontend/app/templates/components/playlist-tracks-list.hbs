@@ -7,3 +7,29 @@
     {{playlist-track-li playlistTrack=playlistTrack}}
   {{/each}}
 </ul>
+{{#if isEditing}}
+  <div class="modal-header">
+    <button {{action "editPlaylist"}} type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title" id="myModalLabel">Edit playlist</h4>
+  </div>
+  <div class="modal-body">
+    {{playlist.name}}
+    <br />
+    <h4>Interpolate another playlist with this one (e.g. for jingles)</h4>
+    <label>Enabled{{interpolated_playlist_enabled}}</label>
+    <br />
+    <label>Every {{interpolated_playlist_track_play_count}}</label>
+    <label> tracks, play {{interpolated_playlist_track_interval_count}}</label>
+    <label>tracks from the
+      <select onchange={{action "selectInterpolatedPlaylistId" value="playlist.interpolatedPlaylistId"}}>
+        {{#each currentPlaylists as |playlist|}}
+          <option value={{playlist.id}} selected={{eq playlist.interpolatedPlaylistId playlist.id}}>{{playlist.name}}</option>
+        {{/each}}
+      </select>
+    </label>
+    playlist.
+  </div>
+  <div class="modal-footer">
+    <button {{action "save"}} class="btn btn-primary">Save changes</button>
+  </div>
+{{/if}}

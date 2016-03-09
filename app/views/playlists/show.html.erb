@@ -2,7 +2,7 @@
   <div class="col-md-6">
     <ul id="tracks">
       <div data-component="tracks-list" data-attrs="<%= {
-        #tracks: @tracks,
+        currentPlaylists: (@current_radio.playlists-[@playlist]).to_json,
         playlist_id: @playlist.id
       }.to_json %>"></div>
     </ul>
