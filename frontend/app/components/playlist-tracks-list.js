@@ -11,7 +11,8 @@ export default Ember.Component.extend({
   isEditing: false,
   actions: {
     editPlaylist: function(){
-      this.toggleProperty('isEditing');
+      //this.toggleProperty('isEditing');
+      $("#edit-playlist-modal").modal("toggle");
     },
     selectInterpolatedPlaylistId: function(playlistId) {
       this.set('interpolatedPlaylistId', playlistId);
