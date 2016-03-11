@@ -14,11 +14,14 @@ RSpec.describe ScheduledShow, :type => :model do
   end
 
   describe "override time zone" do
+    before do
+      Timecop.freeze Time.local(2015)
+    end
     it "set time_zone to save in" do
       Time.use_zone "Tokyo" do
-        start_at = Chronic.parse("today at 3:15 pm")
-        end_at = Chronic.parse("today at 5:15 pm")
-        time_zone = "Pacific Time (US & Canada)"
+        start_at = Chronic.parse("today at 9:00 am")
+        end_at = Chronic.parse("today at 11:00 am")
+        time_zone = "Eastern Time (US & Canada)"
         @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, time_zone: time_zone
 
         format = "%a, %d %b %Y %H:%M:%S"
