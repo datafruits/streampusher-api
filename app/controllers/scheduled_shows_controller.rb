@@ -78,6 +78,6 @@ class ScheduledShowsController < ApplicationController
   def create_params
     params.require(:scheduled_show).permit(:title, :radio_id, :start_at,
                                            :end_at, :description, :image,
-                                           :recurring_interval, :playlist_id)
+                                           :recurring_interval, :playlist_id, :time_zone)
   end
 end

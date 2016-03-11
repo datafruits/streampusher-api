@@ -21,6 +21,8 @@ class ScheduledShow < ActiveRecord::Base
   after_create :save_recurrences
   after_update :update_recurrences
 
+  before_save :ensure_time_zone
+
   enum recurring_interval: [:not_recurring, :day, :week, :month, :year]
 
   def self.recurring_interval_attributes_for_select
@@ -68,6 +70,14 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   private
+  def ensure_time_zone
+    unless self.time_zone.blank?
+      format = "%a, %d %b %Y %H:%M:%S"
+      self.start_at = self.start_at.strftime(format).in_time_zone(self.time_zone)
+      self.end_at = self.end_at.strftime(format).in_time_zone(self.time_zone)
+    end
+  end
+
   def start_at_cannot_be_in_the_past
     if start_at < Time.now
       errors.add(:start_at, "cannot be in the past")

@@ -12,6 +12,22 @@ RSpec.describe ScheduledShow, :type => :model do
     @end_at = Chronic.parse("today at 3:15 pm").utc
     @date = Date.today.strftime("%m%d%Y")
   end
+
+  describe "override time zone" do
+    it "set time_zone to save in" do
+      Time.use_zone "Tokyo" do
+        start_at = Chronic.parse("today at 3:15 pm")
+        end_at = Chronic.parse("today at 5:15 pm")
+        time_zone = "Pacific Time (US & Canada)"
+        @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, time_zone: time_zone
+
+        format = "%a, %d %b %Y %H:%M:%S"
+        expect(@scheduled_show.start_at).to eq start_at.strftime(format).in_time_zone(time_zone)
+        expect(@scheduled_show.end_at).to eq end_at.strftime(format).in_time_zone(time_zone)
+      end
+    end
+  end
+
   describe "validations" do
     it "start time cannot be in the past" do
       start_at = Chronic.parse("yesterday at 3:15 pm").utc
