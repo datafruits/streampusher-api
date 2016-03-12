@@ -27,7 +27,6 @@ class ScheduledShowsController < ApplicationController
   end
 
   def next
-    now = Time.now
     @scheduled_show = @current_radio.next_scheduled_show
     respond_to do |format|
       format.json {
