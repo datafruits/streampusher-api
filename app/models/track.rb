@@ -5,6 +5,7 @@ class Track < ActiveRecord::Base
   has_many :playlists, through: :playlist_tracks
   has_many :track_labels, dependent: :destroy
   has_many :labels, through: :track_labels
+  has_attached_file :artwork, styles: { :thumb => "x300" }
   has_tags column: :s3_filepath, storage: :s3,
            s3_credentials: { bucket: ENV['S3_BUCKET'],
                              access_key_id: ENV['S3_KEY'],

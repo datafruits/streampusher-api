@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160216050633) do
+ActiveRecord::Schema.define(version: 20160312134821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20160216050633) do
     t.integer  "default_playlist_id"
     t.boolean  "enabled",                 default: true,  null: false
     t.boolean  "vj_enabled",              default: false, null: false
+    t.boolean  "enable_crossfade",        default: true,  null: false
   end
 
   create_table "recordings", force: :cascade do |t|
@@ -119,6 +120,7 @@ ActiveRecord::Schema.define(version: 20160216050633) do
     t.integer  "playlist_id"
     t.integer  "dj_id"
     t.string   "title"
+    t.string   "time_zone"
   end
 
   create_table "shows", force: :cascade do |t|
@@ -183,6 +185,10 @@ ActiveRecord::Schema.define(version: 20160216050633) do
     t.integer  "length"
     t.integer  "filesize"
     t.integer  "tag_processing_status", default: 0,  null: false
+    t.string   "artwork_file_name"
+    t.string   "artwork_content_type"
+    t.integer  "artwork_file_size"
+    t.datetime "artwork_updated_at"
   end
 
   create_table "user_radios", force: :cascade do |t|
