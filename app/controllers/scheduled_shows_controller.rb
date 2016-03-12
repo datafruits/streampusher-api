@@ -26,6 +26,17 @@ class ScheduledShowsController < ApplicationController
     end
   end
 
+  def next
+    now = Time.now
+    @scheduled_show = @current_radio.next_scheduled_show
+    respond_to do |format|
+      format.json {
+        response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
+        render json: @scheduled_show, root: false
+      }
+    end
+  end
+
   def create
     if @scheduled_show.save
       ActiveSupport::Notifications.instrument 'scheduled_show.created', current_user: current_user.email, radio: @current_radio.name, show: @scheduled_show.title

@@ -10,7 +10,11 @@ Rails.application.routes.draw do
   resources :recordings, only: [:index]
   resources :podcasts
 
-  resources :scheduled_shows
+  resources :scheduled_shows do
+    collection do
+      get 'next'
+    end
+  end
   get "/schedule", to: "scheduled_shows#index", as: :schedule
 
   resources :stats, only: [:index]
