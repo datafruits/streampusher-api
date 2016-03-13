@@ -4,10 +4,12 @@
   <%= f.input :image, as: :file %>
   <%= f.input :playlist_id, collection: @current_radio.playlists, label_method: :name, value_method: :id, include_blank: false %>
   <div class="note">
-    Your current time zone is set to <%= current_user.time_zone %>. You can change it by <%= link_to 'editing your profile.', "/users/edit" %>
+    Your current default time zone is set to <%= current_user.time_zone %>. You can change it by <%= link_to 'editing your profile.', "/users/edit" %>
   </div>
   <%= f.input :start_at, minute_step: 15, default: Date.parse(params[:start_at] || Time.now.to_s) %>
   <%= f.input :end_at, minute_step: 15, default: Date.parse(params[:start_at] || (Time.now+2.hours).to_s) %>
+  <br/>
+  <%= f.select :time_zone, ActiveSupport::TimeZone.all.sort.collect{|m| [m.to_s.split(") ").reverse.join(" -- ").concat(")"), m.name]}, { selected: @scheduled_show.time_zone || current_user.time_zone }, class: 'chosen-select' %>
 
   <%= f.input :description, input_html: { cols: 70, rows: 5 }  %>
   <%= f.input :recurring_interval, label: "Repeat", as: :select, collection: ScheduledShow.recurring_interval_attributes_for_select, include_blank: false %>

@@ -1,4 +1,9 @@
 $('[data-controller=scheduled_shows]').ready ->
+  $('.chosen-select').chosen
+    allow_single_deselect: true
+    no_results_text: 'No results matched'
+    width: '200px'
+
   $('#calendar').ready ->
    $('#calendar').fullCalendar({
      header: {
