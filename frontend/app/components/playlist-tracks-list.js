@@ -8,7 +8,7 @@ export default Ember.Component.extend({
     var playlist = store.findRecord('playlist', playlist_id);
     return playlist;
   }),
-  isEditing: false,
+  //isEditing: false,
   actions: {
     editPlaylist: function(){
       //this.toggleProperty('isEditing');
@@ -17,5 +17,7 @@ export default Ember.Component.extend({
     selectInterpolatedPlaylistId: function(playlistId) {
       this.set('interpolatedPlaylistId', playlistId);
     },
+    save: function() {
+    }
   }
 });
