@@ -9,6 +9,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
   <meta name="google-site-verification" content="WhEwBCj8oXRQmgOCGBHbQB_zRJRgRb14GYddaT8_Edk" />
+  <% if ENV['RAILS_ENV'] == 'production' %>
+    <%= render 'layouts/ga' %>
+  <% end %>
 </head>
 <body data-controller="<%= controller.controller_path %>" data-action="<%= controller.action_name %>">
 
@@ -19,8 +22,5 @@
   </div>
 <% end %>
 <%= yield %>
-<% if ENV['RAILS_ENV'] == 'production' %>
-  <%= render 'layouts/ga' %>
-<% end %>
 </body>
 </html>
