@@ -22,6 +22,12 @@ export default Ember.Component.extend({
       this.set('interpolatedPlaylistId', playlistId);
     },
     save: function() {
+      var store = this.get('store');
+      var playlist_id = this.get('playlist_id');
+      var playlist = store.peekRecord('playlist', playlist_id);
+      playlist.set('interpolatedPlaylistId', this.get('interpolatedPlaylistId'));
+      playlist.save();
+      $("#edit-playlist-modal").modal("toggle");
     }
   }
 });

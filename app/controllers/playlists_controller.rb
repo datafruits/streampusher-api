@@ -22,10 +22,12 @@ class PlaylistsController < ApplicationController
     if @playlist.save
       ActiveSupport::Notifications.instrument 'playlist.created', current_user: current_user.email, radio: @current_radio.name, playlist: @playlist.name
       flash[:notice] = "created playlist"
-      render 'create'
+      render json: @playlist
+      #render 'create'
     else
       flash[:error] = "couldn't create playlist"
-      render 'error'
+      render json: @playlist.errors
+      #render 'error'
     end
   end
 
@@ -38,10 +40,12 @@ class PlaylistsController < ApplicationController
     @playlist.attributes = update_params
     if @playlist.save
       flash[:notice] = "updated playlist"
-      render "update"
+      #render "update"
+      render json: @playlist
     else
       flash[:error] = 'error updating playlist :('
-      render 'edit'
+      #render 'edit'
+      render json: @playlist.errors
     end
   end
 
