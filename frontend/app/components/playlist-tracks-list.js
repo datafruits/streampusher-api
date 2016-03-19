@@ -8,6 +8,10 @@ export default Ember.Component.extend({
     var playlist = store.findRecord('playlist', playlist_id);
     return playlist;
   }),
+  parsedPlaylists: Ember.computed('', function() {
+    var parsed = JSON.parse(this.get('currentPlaylists'));
+    return parsed;
+  }),
   //isEditing: false,
   actions: {
     editPlaylist: function(){

@@ -24,7 +24,7 @@
         <label> tracks, play {{interpolated_playlist_track_interval_count}}</label>
         <label>tracks from the
           <select onchange={{action "selectInterpolatedPlaylistId" value="playlist.interpolatedPlaylistId"}}>
-            {{#each currentPlaylists as |playlist|}}
+            {{#each parsedPlaylists as |playlist|}}
               <option value={{playlist.id}} selected={{eq playlist.interpolatedPlaylistId playlist.id}}>{{playlist.name}}</option>
             {{/each}}
           </select>
