@@ -2,22 +2,26 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   store: Ember.inject.service(),
-  //isEditing: false,
+  isEditing: false,
   actions: {
     editPlaylist: function(){
-      //this.toggleProperty('isEditing');
-      $("#edit-playlist-modal").modal("toggle");
+      this.toggleProperty('isEditing');
+      //$("#edit-playlist-modal").modal("toggle");
     },
     selectInterpolatedPlaylistId: function(playlistId) {
       this.set('interpolatedPlaylistId', playlistId);
     },
     save: function() {
-      var store = this.get('store');
-      var playlist_id = this.get('playlist_id');
-      var playlist = store.peekRecord('playlist', playlist_id);
+      var playlist = this.get('playlist');
       playlist.set('interpolatedPlaylistId', this.get('interpolatedPlaylistId'));
-      playlist.save();
-      $("#edit-playlist-modal").modal("toggle");
+      var onSuccess = () =>{
+        this.set('isEditing', false);
+      };
+      var onFail = () =>{
+        console.log("track save failed");
+      };
+      playlist.save().then(onSuccess, onFail);
+      //$("#edit-playlist-modal").modal("toggle");
     }
   }
 });

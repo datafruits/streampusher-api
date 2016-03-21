@@ -7,7 +7,8 @@
     {{playlist-track-li playlistTrack=playlistTrack}}
   {{/each}}
 </ul>
-<div class="modal fade" id="edit-playlist-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+{{#if isEditing}}
+  {{#modal-dialog targetAttachment="center" translucentOverlay=true clickOutsideToClose=true}}
   <div class="modal-dialog edit-track" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -40,4 +41,5 @@
       </div>
     </div>
   </div>
-</div>
+  {{/modal-dialog}}
+{{/if}}
