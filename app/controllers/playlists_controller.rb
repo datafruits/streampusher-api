@@ -15,6 +15,12 @@ class PlaylistsController < ApplicationController
     @tracks = @current_radio.tracks
     @playlists = @current_radio.playlists
     @playlist = Playlist.new
+    respond_to do |format|
+      format.html
+      format.json {
+        render json: @playlists
+      }
+    end
   end
 
   def create
