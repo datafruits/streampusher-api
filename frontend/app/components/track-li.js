@@ -6,7 +6,7 @@ export default Ember.Component.extend({
   actions: {
     addToPlaylist: function(){
       var store = this.get('store');
-      var playlist = store.peekRecord('playlist', this.get('playlist_id'));
+      var playlist = this.get('playlist')
       var track = this.get('track');
       var playlistTrack = store.createRecord('playlist_track', { track: track, playlist: playlist });
       playlistTrack.save();
@@ -16,8 +16,13 @@ export default Ember.Component.extend({
     },
     save: function(){
       var track = this.get('track');
-      track.save();
-      this.set('isEditing', false);
+      var onSuccess = () =>{
+        this.set('isEditing', false);
+      };
+      var onFail = () =>{
+        console.log("track save failed");
+      };
+      track.save().then(onSuccess, onFail);
     },
     cancel: function(){
       this.set('isEditing', false);

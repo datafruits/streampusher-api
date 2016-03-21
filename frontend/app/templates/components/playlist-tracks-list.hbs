@@ -28,7 +28,7 @@
         </label>
         <label>tracks from the
           <select onchange={{action "selectInterpolatedPlaylistId" value="target.value"}}>
-            {{#each parsedPlaylists as |interpolatedPlaylist|}}
+            {{#each playlists as |interpolatedPlaylist|}}
               <option value={{interpolatedPlaylist.id}} selected={{eq playlist.interpolatedPlaylistId interpolatedPlaylist.id}}>{{interpolatedPlaylist.name}}</option>
             {{/each}}
           </select>

@@ -1,19 +1,31 @@
 <div class="row">
   <div class="col-md-6">
-    <ul id="tracks">
-      <div data-component="tracks-list" data-attrs="<%= {
-        playlist_id: @playlist.id
-      }.to_json %>"></div>
-    </ul>
+    <h3>upload new track</h3>
+      <%= s3_uploader_form callback_url: tracks_url(format: :js),
+                           callback_param: "track[audio_file_name]",
+                           key_starts_with: "#{@current_radio.name}/",
+                           key: "#{@current_radio.name}/{cleaned_filename}",
+                           id: "track-uploader" do %>
+      <%= file_field_tag :file, multiple: true, data: { url: s3_uploader_url } %>
+      <div id="dropzone" class="drop-fade well">Drop files here</div>
+    <% end %>
+    <div id="status"></div>
+    <script id="template-upload" type="text/x-tmpl">
+      <div id="file-{%=o.unique_id%}" class="upload">
+        {%=o.name%}
+        <div class="progress"><div class="bar" style="width: 0%"></div></div>
+      </div>
+    </script>
   </div>
   <div class="col-md-6">
-    <%#= render @playlist %>
-    <div data-component="playlist-tracks-list" data-attrs="<%= {
-      currentPlaylists: (@current_radio.playlists-[@playlist]).to_json,
-      playlist_id: @playlist.id
-    }.to_json %>"></div>
+    <h3>create new playlist</h3>
+    <%= simple_form_for @playlist, remote: true do |f| %>
+      <%= f.input :radio_id, as: :hidden, input_html: { value: @current_radio.id } %>
+      <%= f.text_field :name, placeholder: 'enter new playlist name...' %>
+      <%= f.submit '+ new playlist', class: 'btn btn-success' %>
+    <% end %>
   </div>
 </div>
-<base href="/playlists/">
-<%= include_ember_script_tags :frontend %>
-<%= include_ember_stylesheet_tags :frontend %>
+<!-- Your Ember app will be rendered here. -->
+<div id="ember-application"></div>
+<%= render_ember_app :frontend %>

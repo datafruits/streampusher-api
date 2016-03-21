@@ -1,7 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  mount_ember_assets :frontend, to: "/playlists"
+  mount_ember_assets :frontend, to: "/"
   # mount_ember_app :frontend, to: "/playlists", controller: "playlists", action: "index"
   authenticate :user, lambda { |u| u.admin? } do
       mount Sidekiq::Web => '/sidekiq'
