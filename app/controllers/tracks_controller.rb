@@ -19,10 +19,12 @@ class TracksController < ApplicationController
     @track.attributes = update_params
     if @track.save
       flash[:notice] = 'track tags updated!'
-      render 'update'
+      #render 'update'
+      render json: @track
     else
       flash[:error] = 'error updating track tags :('
-      render 'error'
+      #render 'error'
+      render json: @track.errors
     end
   end
 
