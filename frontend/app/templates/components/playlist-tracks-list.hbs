@@ -2,11 +2,15 @@
 <button {{action 'editPlaylist'}} class="edit-playlist btn btn-primary">
   <i class="fa fa-pencil"></i>
 </button>
-<ul class="playlist-tracks">
-  {{#each playlist.playlistTracks as |playlistTrack|}}
-    {{playlist-track-li playlistTrack=playlistTrack}}
-  {{/each}}
-</ul>
+<table class="playlist-tracks table table-striped">
+  <thead>
+  </thead>
+  <tbody>
+    {{#each playlist.playlistTracks as |playlistTrack|}}
+      {{playlist-track-li playlistTrack=playlistTrack}}
+    {{/each}}
+  </tbody>
+</table>
 {{#if isEditing}}
   {{#modal-dialog targetAttachment="center" translucentOverlay=true clickOutsideToClose=true}}
   <div class="modal-dialog edit-track" role="document">

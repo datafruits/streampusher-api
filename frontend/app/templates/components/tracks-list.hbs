@@ -1,4 +1,11 @@
-<h2>media</h2>
-{{#each tracks as |track|}}
-  {{track-li track=track playlist=playlist}}
-{{/each}}
+<thead>
+  <th>All Media
+  <i class="fa fa-plus"></i>
+  <i class="fa fa-search"></i>
+  </th>
+</thead>
+<tbody>
+  {{#each tracks as |track|}}
+    {{track-li track=track playlist=playlist}}
+  {{/each}}
+</tbody>
