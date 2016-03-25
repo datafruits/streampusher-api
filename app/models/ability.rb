@@ -24,7 +24,7 @@ class Ability
       can :read, "embed"
       can :manage, Recording if can_manage_radio?(user, radio)
       can :vj, :dashboard if is_datafruits?(radio)
-    elsif user.manager?
+    elsif user.manager? # same as owner except can't manage subscription
       can :manage, Radio do |radio|
         can_manage_radio?(user, radio)
       end
