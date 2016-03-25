@@ -18,8 +18,8 @@
   <% end %>
 
   <% if @scheduled_show.persisted? %>
-    <%= f.submit 'Update show', class: 'btn btn-success' %>
+    <%= f.submit 'Update show', class: 'btn btn-success', "data-disable-with" => "sending..." %>
   <% else %>
-    <%= f.submit 'Schedule show', class: 'btn btn-success' %>
+    <%= f.submit 'Schedule show', class: 'btn btn-success', "data-disable-with" => "sending..." %>
   <% end %>
 <% end %>
