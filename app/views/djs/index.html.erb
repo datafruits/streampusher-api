@@ -1,7 +1,10 @@
 <%= simple_form_for @dj, url: djs_path, html: {class: 'form-horizontal'} do |f| %>
   <%= f.input :email %>
   <%= f.input :username %>
-
+  <br/>
+  <%= f.select :time_zone, ActiveSupport::TimeZone.all.sort.collect{|m| [m.to_s.split(") ").reverse.join(" -- ").concat(")"), m.name]},
+    {}, class: 'chosen-select' %>
+  <br/>
   <%= f.submit "Signup new dj" %>
 <% end %>
 
@@ -15,6 +18,7 @@
       <tr>
         <td><%= dj.username %></td>
         <td><%= dj.email  %></td>
+        <td><%= dj.time_zone %></td>
         <% if current_user.owner? %>
           <td><%= link_to 'edit', edit_dj_path(dj) %></td>
         <% end %>
