@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/mcfiredrill/ruby-liquidsoap.git
+  revision: d861c33fff51d5804cd174aeb8e4f5820cc9c726
+  specs:
+    ruby-liquidsoap (0.0.1)
+
+GIT
   remote: git://github.com/mcfiredrill/so_id3.git
   revision: 7aaf0d9f1f522d3d714054a8fa93b5aa7cb62337
   specs:
@@ -549,6 +555,11 @@ DEPENDENCIES
   recurrence
   remote_syslog_logger
   rspec-rails
+<<<<<<< 938485b109d1b2920db5927c1216a67b836c1d07
+=======
+  ruby-liquidsoap!
+  s3_direct_upload!
+>>>>>>> liquidsoap metadata update
   sass-rails (~> 4.0.3)
   selenium-webdriver
   sidekiq

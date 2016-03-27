@@ -95,6 +95,10 @@ class Radio < ActiveRecord::Base
     self.tracks.pluck(:filesize).sum
   end
 
+  def liquidsoap_socket_path
+    "#{tracks_directory}/liquidsoap.sock"
+  end
+
   private
   def fix_spaces_in_radio_name
     if self.name.present?

@@ -108,3 +108,4 @@ gem 'jekyll'
 gem 'jekyll-seo-tag'
 
 gem 'geocoder'
+gem 'ruby-liquidsoap', github: 'mcfiredrill/ruby-liquidsoap', :require => 'liquidsoap'
