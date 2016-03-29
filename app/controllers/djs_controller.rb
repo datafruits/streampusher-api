@@ -48,6 +48,6 @@ class DjsController < ApplicationController
 
   private
   def dj_params
-    params.require(:user).permit(:email, :username)
+    params.require(:user).permit(:email, :username, :time_zone)
   end
 end
