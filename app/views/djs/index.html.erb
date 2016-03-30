@@ -1,12 +1,4 @@
-<%= simple_form_for @dj, url: djs_path, html: {class: 'form-horizontal'} do |f| %>
-  <%= f.input :email %>
-  <%= f.input :username %>
-  <br/>
-  <%= f.select :time_zone, ActiveSupport::TimeZone.all.sort.collect{|m| [m.to_s.split(") ").reverse.join(" -- ").concat(")"), m.name]},
-    {}, class: 'chosen-select' %>
-  <br/>
-  <%= f.submit "Signup new dj" %>
-<% end %>
+<%= render 'form' %>
 
 <%= paginate @djs %>
 <table class="table table-striped">
