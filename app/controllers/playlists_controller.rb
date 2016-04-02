@@ -16,7 +16,9 @@ class PlaylistsController < ApplicationController
     @playlists = @current_radio.playlists
     @playlist = Playlist.new
     respond_to do |format|
-      format.html
+      format.html {
+        redirect_to playlist_path(@current_radio.default_playlist)
+      }
       format.json {
         render json: @playlists
       }
