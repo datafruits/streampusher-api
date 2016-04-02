@@ -162,12 +162,16 @@ GEM
     font-awesome-sass (4.2.1)
       sass (~> 3.2)
     fssm (0.2.10)
+    github-markdown (0.6.9)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     groupdate (2.4.0)
       activesupport (>= 3)
     headless (2.2.0)
     hike (1.2.3)
+    html-pipeline (2.3.0)
+      activesupport (>= 2, < 5)
+      nokogiri (>= 1.4)
     i18n (0.7.0)
     jquery-fileupload-rails (0.4.6)
       actionpack (>= 3.1)
@@ -423,8 +427,10 @@ DEPENDENCIES
   exception_notification
   factory_girl_rails
   font-awesome-sass (~> 4.2.0)
+  github-markdown
   groupdate
   headless
+  html-pipeline
   jquery-rails
   jquery-ui-rails
   kaminari

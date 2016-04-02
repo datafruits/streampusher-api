@@ -95,3 +95,6 @@ gem 'sinatra', :require => nil
 gem 'quiet_assets', group: :development
 
 gem 'recurrence'
+
+gem 'html-pipeline'
+gem 'github-markdown'

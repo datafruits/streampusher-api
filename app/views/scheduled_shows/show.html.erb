@@ -9,7 +9,7 @@
   </div>
   <% end %>
   <p><%= "#{@scheduled_show.start} - #{@scheduled_show.end}" %></p>
-  <p><%= @scheduled_show.description %></p>
+  <p><%= html_pipeline(@scheduled_show.description).html_safe %></p>
   <div class="social">
     <a href="https://twitter.com/share" class="twitter-share-button" data-text="<%=tweet_text(@scheduled_show)%>">Tweet</a>
   </div>
