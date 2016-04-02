@@ -1,7 +1,18 @@
 {{#if isEditing}}
-  <h2>{{input value=playlist.name enter='save' class="playlist-title"}}</h2>
+  <span class="playlist-title">{{input value=playlist.name enter='save'}}</span>
 {{else}}
-  <h2 {{action 'editPlaylist'}}>{{playlist.name}}</h2>
+  <span class="playlist-title" {{action 'editPlaylist'}}>{{playlist.name}}</span>
+{{/if}}
+<span id="playlist-selector" {{action 'selectPlaylist'}}><i class="fa fa-chevron-down"></i></span>
+{{#if isSelectingPlaylist}}
+  {{#modal-dialog clickOutsideToClose=true close='selectPlaylist' target='#playlist-selector'}}
+    <div {{action "selectPlaylist"}}>
+      {{#each playlists as |selectablePlaylist|}}
+        <span class="playlist-title">{{#link-to "playlists.show" selectablePlaylist.id}}{{selectablePlaylist.name}}{{/link-to}}</span>
+        <br/>
+      {{/each}}
+    </div>
+  {{/modal-dialog}}
 {{/if}}
 <button {{action 'newPlaylist'}} class="btn new-playlist-btn">
   <i class="fa fa-plus"></i>New Playlist
@@ -20,7 +31,7 @@
   </tbody>
 </table>
 {{#if isEditingSettings}}
-  {{#modal-dialog targetAttachment="center" translucentOverlay=true clickOutsideToClose=true}}
+  {{#modal-dialog targetAttachment="center" translucentOverlay=true clickOutsideToClose=true close="editPlaylistSettings"}}
   <div class="modal-dialog edit-track" role="document">
     <div class="modal-content">
       <div class="modal-header">

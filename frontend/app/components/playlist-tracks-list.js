@@ -4,7 +4,11 @@ export default Ember.Component.extend({
   store: Ember.inject.service(),
   isEditingSettings: false,
   isEditing: false,
+  isSelectingPlaylist: false,
   actions: {
+    selectPlaylist: function(){
+      this.toggleProperty('isSelectingPlaylist');
+    },
     editPlaylist: function(){
       this.toggleProperty('isEditing');
       //$("#edit-playlist-modal").modal("toggle");
