@@ -1,7 +1,4 @@
 <td>
-  <button {{action 'deleteFromPlaylist'}} class="btn btn-danger">
-    <i class="fa fa-times-circle"></i>
-  </button>
   <span>{{playlistTrack.displayName}}</span>
   {{#if isEditing}}
     <br/>
@@ -14,6 +11,9 @@
   {{else}}
     <button {{action 'editPlaylistTrack'}} class="edit-track btn btn-primary">
       <i class="fa fa-pencil"></i>
+    </button>
+    <button {{action 'deleteFromPlaylist'}} class="btn">
+      <i class="fa fa-times"></i>
     </button>
   {{/if}}
 </td>
