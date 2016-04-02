@@ -134,3 +134,9 @@ li.track.ui-draggable-dragging:hover {
 .new-playlist-btn {
   float: right;
 }
+
+input.playlist-title {
+  border: none;
+  border-bottom: dashed 2px #c9c9c9;
+  transition: border 0.3s;
+}

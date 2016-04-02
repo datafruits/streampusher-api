@@ -1,7 +1,7 @@
 {{#if isEditing}}
-  {{input value=playlist.name enter='save'}}
+  <h2>{{input value=playlist.name enter='save' class="playlist-title"}}</h2>
 {{else}}
-  <h2>{{playlist.name}}</h2>
+  <h2 {{action 'editPlaylist'}}>{{playlist.name}}</h2>
 {{/if}}
 <button {{action 'newPlaylist'}} class="btn new-playlist-btn">
   <i class="fa fa-plus"></i>New Playlist
