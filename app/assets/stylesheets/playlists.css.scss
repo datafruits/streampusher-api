@@ -147,3 +147,15 @@ li.track.ui-draggable-dragging:hover {
 #playlist-selector {
   cursor: pointer;
 }
+
+.playlists-selector-container {
+  position: relative;
+}
+
+.playlists-menu {
+  background: white;
+  position: absolute;
+  height: 300px;
+  width: 250px;
+  overflow-y: scroll;
+}

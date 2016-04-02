@@ -4,16 +4,16 @@
   <span class="playlist-title" {{action 'editPlaylist'}}>{{playlist.name}}</span>
 {{/if}}
 <span id="playlist-selector" {{action 'selectPlaylist'}}><i class="fa fa-chevron-down"></i></span>
-{{#if isSelectingPlaylist}}
-  {{#modal-dialog clickOutsideToClose=true close='selectPlaylist' target='#playlist-selector'}}
-    <div {{action "selectPlaylist"}}>
+<div class="playlists-selector-container">
+  {{#if isSelectingPlaylist}}
+    <div class="playlists-menu" {{action "selectPlaylist"}}>
       {{#each playlists as |selectablePlaylist|}}
         <span class="playlist-title">{{#link-to "playlists.show" selectablePlaylist.id}}{{selectablePlaylist.name}}{{/link-to}}</span>
         <br/>
       {{/each}}
     </div>
-  {{/modal-dialog}}
-{{/if}}
+  {{/if}}
+</div>
 <button {{action 'newPlaylist'}} class="btn new-playlist-btn">
   <i class="fa fa-plus"></i>New Playlist
 </button>
