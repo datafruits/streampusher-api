@@ -1,5 +1,6 @@
 class TracksController < ApplicationController
   load_and_authorize_resource
+
   def index
     @tracks = @current_radio.tracks
     respond_to do |format|
