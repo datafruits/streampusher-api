@@ -1,6 +1,8 @@
 import EmberUploader from 'ember-uploader';
+import Ember from 'ember';
 
 export default EmberUploader.FileField.extend({
+  store: Ember.inject.service(),
   signingUrl: '/uploader_signature',
 
   filesDidChange: function(files) {
@@ -14,6 +16,27 @@ export default EmberUploader.FileField.extend({
       // http://yourbucket.s3.amazonaws.com/file.png
       uploadedUrl = decodeURIComponent(uploadedUrl);
       console.log("UPLOADED ! : " + uploadedUrl);
+      // create track record
+      var store = this.get('store');
+      var track = store.createRecord('track', { audioFileName: uploadedUrl });
+      var onSuccess = () =>{
+        console.log("track saved!");
+      };
+      var onFail = () => {
+        console.log("track save failed");
+      };
+      track.save().then(onSuccess, onFail);
+    });
+
+    uploader.on('progress', e => {
+        // Handle progress changes
+        //   // Use `e.percent` to get percentage
+        console.log(e.percent);
+    });
+
+    uploader.on('didError', (jqXHR, textStatus, errorThrown) => {
+      // Handle unsuccessful upload
+      console.log("ERROR!" + textStatus);
     });
 
     if (!Ember.isEmpty(files)) {

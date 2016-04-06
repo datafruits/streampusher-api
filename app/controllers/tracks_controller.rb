@@ -35,10 +35,10 @@ class TracksController < ApplicationController
     if @track.save
       ActiveSupport::Notifications.instrument 'track.created', current_user: current_user.email, radio: @current_radio.name, track: @track.file_basename
       flash[:notice] = 'track uploaded!'
-      render 'create'
+      render json: @track
     else
       flash[:error] = 'error uploading track :('
-      render 'error'
+      render json: @track.errors
     end
   end
 
