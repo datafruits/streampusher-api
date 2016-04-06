@@ -30,5 +30,20 @@ export default Ember.Component.extend({
     set(this, 'dragClass', 'deactivated');
     $(".uploader-icon").hide();
     event.preventDefault();
-  }
+  },
+  sortProperties: ['createdAt:desc'],
+  sortedTracks: Ember.computed.sort('tracks', function(a, b){
+    if(a.isUploading){
+      return 1;
+    }
+    if(b.isUploading){
+      return 1;
+    }
+    if(a.createdAt > b.createdAt){
+      return 1;
+    }
+    if(a.createdAt < b.createdAt){
+      return -1;
+    }
+  })
 });
