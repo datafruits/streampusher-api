@@ -1,6 +1,6 @@
 class UploaderSignatureController < ApplicationController
   def index
-    @expires = 10.hours.from_now
+    @expires = 10.hours.from_now.utc.iso8601
     render json: {
       acl: 'public-read',
       awsaccesskeyid: ENV['S3_KEY'],
@@ -31,7 +31,7 @@ class UploaderSignatureController < ApplicationController
       {
         expiration: @expires,
         conditions: [
-          { bucket: 'sandbox' },
+          { bucket: ENV['S3_BUCKET'] },
           { acl: 'public-read' },
           { expires: @expires },
           { success_action_status: '201' },
