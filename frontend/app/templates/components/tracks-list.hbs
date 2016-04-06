@@ -1,12 +1,23 @@
-<tbody>
-  <tr>
-    <td>All Media</td>
-    <td>{{track-uploader}}</td>
-    <td><i class="fa fa-search"></i></td>
-  </tr>
-  <div id="tracks-list">
+<div class="row">
+  <div class="col-md-6">
+    All Media
+  </div>
+  <div class="col-md-3">
+    <div class="fileUpload btn btn-default">
+      <i class="fa fa-plus"></i>
+      {{track-uploader}}
+    </div>
+  </div>
+  <div class="col-md-3">
+    <button class="btn btn-default" {{action "searchTracks"}}>
+      <i class="fa fa-search"></i>
+    </button>
+  </div>
+</div>
+<table class="table table-striped">
+  <tbody>
     {{#each tracks as |track|}}
       {{track-li track=track playlist=playlist}}
     {{/each}}
-  </div>
-</tbody>
+  </tbody>
+</table>

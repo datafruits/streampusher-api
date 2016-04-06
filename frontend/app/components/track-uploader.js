@@ -2,6 +2,7 @@ import EmberUploader from 'ember-uploader';
 import Ember from 'ember';
 
 export default EmberUploader.FileField.extend({
+  classNames: ['upload'],
   store: Ember.inject.service(),
   signingUrl: '/uploader_signature',
 
