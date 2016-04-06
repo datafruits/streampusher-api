@@ -45,6 +45,6 @@ class UploaderSignatureController < ApplicationController
   end
 
   def cleaned_filename filename
-    filename.gsub /[^\w.-]/, 'gi'
+    filename.gsub /[^\w.-]/i, ''
   end
 end
