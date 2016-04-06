@@ -10,6 +10,9 @@ export default EmberUploader.FileField.extend({
       signingUrl: this.get('signingUrl')
     });
 
+    var store = this.get('store');
+    const track = store.createRecord('track', { isUploading: true, audioFileName: files[0].name });
+
     uploader.on('didUpload', response => {
       // S3 will return XML with url
       let uploadedUrl = $(response).find('Location')[0].textContent;
@@ -17,8 +20,8 @@ export default EmberUploader.FileField.extend({
       uploadedUrl = decodeURIComponent(uploadedUrl);
       console.log("UPLOADED ! : " + uploadedUrl);
       // create track record
-      var store = this.get('store');
-      var track = store.createRecord('track', { audioFileName: uploadedUrl });
+      track.set('audioFileName', uploadedUrl);
+      track.set('isUploading', false);
       var onSuccess = () =>{
         console.log("track saved!");
       };
@@ -29,9 +32,10 @@ export default EmberUploader.FileField.extend({
     });
 
     uploader.on('progress', e => {
-        // Handle progress changes
-        //   // Use `e.percent` to get percentage
-        console.log(e.percent);
+      // Handle progress changes
+      //   // Use `e.percent` to get percentage
+      track.set("uploadProgress", e.percent);
+      console.log(e.percent);
     });
 
     uploader.on('didError', (jqXHR, textStatus, errorThrown) => {

@@ -1,16 +1,24 @@
 <td colspan="3">
-  {{track.displayName}}
-  <a href="{{track.audioFileName}}" class="btn download"><i class="fa fa-download"></i></a>
-  <button {{action 'editTrack'}}class="btn btn-primary"> <i class="fa fa-pencil"></i></button>
-  <button {{action 'addToPlaylist'}}class="btn btn-success"> <i class="fa fa-plus-circle"></i></button>
-  {{#if isEditing}}
-    <br/>
-    {{#form-for track as |f|}}
-      {{f.text-field "artist"}}
-      {{f.text-field "title"}}
-      {{f.text-field "album"}}
-      <button {{action 'save'}} class="btn btn-primary">Save</button>
-      <button {{action 'cancel'}} class="btn btn-default">Cancel</button>
-    {{/form-for}}
+  {{#if track.isUploading}}
+    uploading {{track.audioFileName}}...
+    <div class="meter">
+      <span style="width: {{track.roundedUploadProgress}}%"></span>
+    </div>
+
+  {{else}}
+    {{track.displayName}}
+    <a href="{{track.audioFileName}}" class="btn download"><i class="fa fa-download"></i></a>
+    <button {{action 'editTrack'}}class="btn btn-primary"> <i class="fa fa-pencil"></i></button>
+    <button {{action 'addToPlaylist'}}class="btn btn-success"> <i class="fa fa-plus-circle"></i></button>
+    {{#if isEditing}}
+      <br/>
+      {{#form-for track as |f|}}
+        {{f.text-field "artist"}}
+        {{f.text-field "title"}}
+        {{f.text-field "album"}}
+        <button {{action 'save'}} class="btn btn-primary">Save</button>
+        <button {{action 'cancel'}} class="btn btn-default">Cancel</button>
+      {{/form-for}}
+    {{/if}}
   {{/if}}
 </td>
