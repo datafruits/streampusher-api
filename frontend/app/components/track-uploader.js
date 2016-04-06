@@ -4,7 +4,15 @@ import Ember from 'ember';
 export default EmberUploader.FileField.extend({
   classNames: ['upload'],
   store: Ember.inject.service(),
+  droppedFile: Ember.inject.service(),
   signingUrl: '/uploader_signature',
+
+  setup: function() {
+    this.get('droppedFile').on('fileWasDropped', e => {
+      this.filesDidChange(e);
+    });
+  }.on('init'),
+
 
   filesDidChange: function(files) {
     const uploader = EmberUploader.S3Uploader.create({
@@ -47,8 +55,5 @@ export default EmberUploader.FileField.extend({
     if (!Ember.isEmpty(files)) {
       uploader.upload(files[0]);
     }
-  },
-
-  cleanFilename: function() {
   }
 });

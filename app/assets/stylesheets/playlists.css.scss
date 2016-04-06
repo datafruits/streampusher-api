@@ -200,3 +200,36 @@ li.track.ui-draggable-dragging:hover {
   opacity: 0;
   filter: alpha(opacity=0);
 }
+
+$default-margin : 20px;
+$gray-light     : #e1e1e1;
+$gray-medium    : #aaa;
+$green          : #2ecc71;
+$white          : #fff;
+$black          : #111;
+
+.draggableDropzone {
+   position: relative;
+   display: block;
+   padding: $default-margin / 2;
+   width: 100%;
+   opacity:1;
+   -webkit-transition: opacity .25s ease;
+   -moz-transition: opacity .25s ease;
+   &.activated {
+     opacity: 0.60;
+   }
+   &.deactivated {
+     opacity:1;
+   }
+}
+
+.uploader-icon {
+  pointer-events: none;
+  display: none;
+  z-index: 1000;
+  position: absolute;
+  /* COOL HAX */
+  top: 7em;
+  left: 15em;
+}
