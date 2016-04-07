@@ -10,12 +10,13 @@ def visit_playlists_path
 end
 
 def upload_a_track
-  attach_file "file", File.join(Rails.root,"spec/fixtures/the_cowbell.mp3")
+  find(".upload", visible: false).set File.join(Rails.root,"spec/fixtures/the_cowbell.mp3")
 end
 
-def create_a_new_playlist
-  fill_in "playlist[name]", with: "my new playlist"
-  click_button "+ new playlist"
+def create_a_new_playlist name="my new playlist"
+  find(".new-playlist-btn").click
+  find(".playlist-title input").set(name)
+  click_button "save-playlist"
 end
 
 def drag_track_to_playlist
@@ -24,16 +25,16 @@ def drag_track_to_playlist
   track.drag_to(playlist)
 end
 
+def add_track_to_playlist
+  find(".add-track-to-playlist").click
+end
+
 def remove_track_from_playlist
-  within "ul.playlist-tracks" do
-    find("button.delete-from-playlist").click
-  end
+  find("button.delete-from-playlist").click
 end
 
 def click_edit_track_button
-  within "ul#tracks" do
-    find("a.edit-track").click
-  end
+  find("button.edit-track").click
 end
 
 def edit_id3_tags tags
@@ -73,7 +74,6 @@ feature 'playlists', :js => true do
     login_as @owner
     visit_playlists_path
     upload_a_track
-    expect(page).to have_content('track uploaded!')
     expect(page).to have_content('the_cowbell.mp3')
   end
 
@@ -81,15 +81,16 @@ feature 'playlists', :js => true do
     login_as @owner
     visit_playlists_path
     upload_a_track
-    create_a_new_playlist
-    expect(page).to have_content('created playlist')
-    expect(page.find("#playlists .playlist")).to have_content("my new playlist")
-    drag_track_to_playlist
-    expect(page).to have_content('added the_cowbell.mp3 to playlist my new playlist!')
-    expect(page.find("#playlists .playlist .playlist-tracks")).to have_content("the_cowbell.mp3")
+    create_a_new_playlist "new playlist"
+    expect(page.find("span.playlist-title")).to have_content('new playlist')
+    #expect(page.find("#playlists .playlist")).to have_content("my new playlist")
+    #drag_track_to_playlist
+    add_track_to_playlist
+    #expect(page).to have_content('added the_cowbell.mp3 to playlist my new playlist!')
+    expect(page.find(".playlist-tracks")).to have_content("the_cowbell.mp3")
     remove_track_from_playlist
-    expect(page.find("#playlists .playlist .playlist-tracks")).to have_no_content("the_cowbell.mp3")
-    expect(page).to have_content('removed track from playlist!')
+    expect(page.find(".playlist-tracks")).to have_no_content("the_cowbell.mp3")
+    #expect(page).to have_content('removed track from playlist!')
   end
 
   scenario 'edits a track' do
