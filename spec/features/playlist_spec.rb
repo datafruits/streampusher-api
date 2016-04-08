@@ -48,17 +48,10 @@ def click_delete_track_button
   page.accept_alert
 end
 
-def click_edit_playlist_button
-  within "ul#playlists" do
-    find("a.edit-playlist").click
-  end
-end
-
-def edit_playlist_name new_name
-  within ".modal-dialog.edit-track" do
-    fill_in "playlist[name]", with: new_name
-    click_button "Save changes"
-  end
+def edit_playlist_name name
+  find(".playlist-title").click
+  find(".playlist-title input").set(name)
+  click_button "save-playlist"
 end
 
 feature 'playlists', :js => true do
@@ -114,10 +107,9 @@ feature 'playlists', :js => true do
   scenario 'edit playlist' do
     login_as @owner
     visit_playlists_path
-    create_a_new_playlist
-    expect(page).to have_content('created playlist')
-    click_edit_playlist_button
+    create_a_new_playlist "new playlist"
+    expect(page.find("span.playlist-title")).to have_content('new playlist')
     edit_playlist_name "new playlist name"
-    expect(page.find("#playlists .playlist")).to have_content "new playlist name"
+    expect(page.find("span.playlist-title")).to have_content('new playlist name')
   end
 end
