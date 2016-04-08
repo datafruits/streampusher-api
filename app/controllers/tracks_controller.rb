@@ -46,10 +46,10 @@ class TracksController < ApplicationController
     @track = @current_radio.tracks.find params[:id]
     if @track.destroy
       flash[:notice] = "removed track!"
-      render 'destroy'
+      render json: @track
     else
       flash[:error] = "error destroying track. try again?"
-      render 'error'
+      render json: @track.errors
     end
   end
 

@@ -39,13 +39,12 @@ end
 
 def edit_id3_tags tags
   fill_in "track[artist]", with: tags[:artist]
-  click_button "Save changes"
+  click_button "Save"
 end
 
 def click_delete_track_button
-  within "ul#tracks" do
-    find("a.delete-track").click
-  end
+  click_edit_track_button
+  find(".delete-track").click
   page.accept_alert
 end
 
@@ -109,7 +108,7 @@ feature 'playlists', :js => true do
     expect(page).to have_content('track uploaded!')
     expect(page).to have_content('the_cowbell.mp3')
     click_delete_track_button
-    expect(page).to have_content "removed track!"
+    expect(page).to not_have_content('the_cowbell.mp3')
   end
 
   scenario 'edit playlist' do

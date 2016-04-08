@@ -28,6 +28,12 @@ export default Ember.Component.extend({
     },
     cancel: function(){
       this.set('isEditing', false);
+    },
+    destroy: function(){
+      if(confirm("Are you sure you want to delete this track?")){
+        var track = this.get('track');
+        track.destroyRecord();
+      }
     }
   }
 });
