@@ -22,7 +22,7 @@ RSpec.describe ScheduledShow, :type => :model do
         start_at = Chronic.parse("today at 9:00 am")
         end_at = Chronic.parse("today at 11:00 am")
         time_zone = "Eastern Time (US & Canada)"
-        @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, time_zone: time_zone
+        @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, time_zone: time_zone, title: "my show with dj steve martin"
 
         format = "%a, %d %b %Y %H:%M:%S"
         expect(@scheduled_show.start_at).to eq start_at.strftime(format).in_time_zone(time_zone)
