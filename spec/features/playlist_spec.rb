@@ -126,7 +126,9 @@ feature 'playlists', :js => true do
     expect(page.find("span.playlist-title")).to have_content('jingles')
     select_playlist "new playlist"
     click_button "Playlist Settings"
-    find("input[name=interpolatedPlaylistEnabled]").set(true)
+    expect(page).to have_content("Interpolate another playlist with this one")
+    page.check("interpolated-playlist-enabled")
+    #find("input[name=interpolatedPlaylistEnabled]").set(true)
     fill_in "interpolatedPlaylistTrackPlayCount", with: 1
     fill_in "interpolatedPlaylistTrackIntervalCount", with: 2
     select "jingles", from: "interpolated-playlist-select"
