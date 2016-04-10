@@ -51,9 +51,13 @@
         tracks, play {{input type="number" name="interpolatedPlaylistTrackIntervalCount" value=playlist.interpolatedPlaylistTrackIntervalCount step="1" }}
       </label>
       <label>tracks from the
-        <select onchange={{action "selectInterpolatedPlaylistId" value="target.value"}}>
+        <select id="interpolated-playlist-select" onchange={{action "selectInterpolatedPlaylistId" value="target.value"}}>
           {{#each playlists as |interpolatedPlaylist|}}
-            <option value={{interpolatedPlaylist.id}} selected={{eq playlist.interpolatedPlaylistId interpolatedPlaylist.id}}>{{interpolatedPlaylist.name}}</option>
+            {{#if (eq-to-string playlist.interpolatedPlaylistId interpolatedPlaylist.id)}}
+              <option value={{interpolatedPlaylist.id}} selected="selected">{{interpolatedPlaylist.name}}</option>
+            {{else}}
+              <option value={{interpolatedPlaylist.id}}>{{interpolatedPlaylist.name}}</option>
+            {{/if}}
           {{/each}}
         </select>
       </label>

@@ -5,5 +5,6 @@ export default DS.Model.extend({
   playlistTracks: DS.hasMany('playlist-track'),
   interpolatedPlaylistTrackIntervalCount: DS.attr(),
   interpolatedPlaylistTrackPlayCount: DS.attr(),
-  interpolatedPlaylistId: DS.attr()
+  interpolatedPlaylistId: DS.attr(),
+  interpolatedPlaylistEnabled: DS.attr()
 });

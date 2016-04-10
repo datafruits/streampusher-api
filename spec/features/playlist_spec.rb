@@ -54,6 +54,11 @@ def edit_playlist_name name
   click_button "save-playlist"
 end
 
+def select_playlist playlist
+  find("#playlist-selector").click
+  click_link playlist
+end
+
 feature 'playlists', :js => true do
   before do
     @owner =  FactoryGirl.create :owner
@@ -98,10 +103,9 @@ feature 'playlists', :js => true do
     login_as @owner
     visit_playlists_path
     upload_a_track
-    expect(page).to have_content('track uploaded!')
-    expect(page).to have_content('the_cowbell.mp3')
+    expect(page.find(".uploaded-track-name")).to have_content('the_cowbell.mp3')
     click_delete_track_button
-    expect(page).to not_have_content('the_cowbell.mp3')
+    expect(page).to_not have_content('the_cowbell.mp3')
   end
 
   scenario 'edit playlist' do
@@ -111,5 +115,26 @@ feature 'playlists', :js => true do
     expect(page.find("span.playlist-title")).to have_content('new playlist')
     edit_playlist_name "new playlist name"
     expect(page.find("span.playlist-title")).to have_content('new playlist name')
+  end
+
+  scenario 'edit playlist settings' do
+    login_as @owner
+    visit_playlists_path
+    create_a_new_playlist "new playlist"
+    expect(page.find("span.playlist-title")).to have_content('new playlist')
+    create_a_new_playlist "jingles"
+    expect(page.find("span.playlist-title")).to have_content('jingles')
+    select_playlist "new playlist"
+    click_button "Playlist Settings"
+    find("input[name=interpolatedPlaylistEnabled]").set(true)
+    fill_in "interpolatedPlaylistTrackPlayCount", with: 1
+    fill_in "interpolatedPlaylistTrackIntervalCount", with: 2
+    select "jingles", from: "interpolated-playlist-select"
+    click_button "Save changes"
+    click_button "Playlist Settings"
+    expect(find("input[name=interpolatedPlaylistEnabled]")).to be_checked
+    expect(page).to have_field("interpolatedPlaylistTrackPlayCount", with: 1)
+    expect(page).to have_field("interpolatedPlaylistTrackIntervalCount", with: 2)
+    expect(page).to have_select("interpolated-playlist-select", selected: "jingles")
   end
 end

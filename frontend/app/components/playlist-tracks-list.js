@@ -5,17 +5,19 @@ export default Ember.Component.extend({
   isEditingSettings: false,
   isEditing: false,
   isSelectingPlaylist: false,
+  interpolatedPlaylistIdString: Ember.computed('interpolatedPlaylistId', function(){
+    var selectedId = this.get('playlist').get('interpolatedPlaylistId');
+    return selectedId.toString();
+  }),
   actions: {
     selectPlaylist: function(){
       this.toggleProperty('isSelectingPlaylist');
     },
     editPlaylist: function(){
       this.toggleProperty('isEditing');
-      //$("#edit-playlist-modal").modal("toggle");
     },
     editPlaylistSettings: function(){
       this.toggleProperty('isEditingSettings');
-      //$("#edit-playlist-modal").modal("toggle");
     },
     newPlaylist: function(){
       var store = this.get('store');
@@ -24,11 +26,11 @@ export default Ember.Component.extend({
       this.set('isEditing', true);
     },
     selectInterpolatedPlaylistId: function(playlistId) {
-      this.set('interpolatedPlaylistId', playlistId);
+      var playlist = this.get('playlist');
+      playlist.set('interpolatedPlaylistId', playlistId);
     },
     saveSettings: function() {
       var playlist = this.get('playlist');
-      playlist.set('interpolatedPlaylistId', this.get('interpolatedPlaylistId'));
       var onSuccess = () =>{
         this.set('isEditingSettings', false);
       };
