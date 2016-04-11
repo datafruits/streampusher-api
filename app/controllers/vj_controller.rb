@@ -11,6 +11,7 @@ class VjController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
+        response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
         render json: {vj_enabled: @radio.vj_enabled?}.to_json
       }
     end
