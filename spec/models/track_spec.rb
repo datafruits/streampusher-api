@@ -23,4 +23,13 @@ describe Track do
       expect(track.labels.first.name).to eq "Vaporwave"
     end
   end
+
+  describe "s3_filepath" do
+    it "works with both kinds of s3 urls" do
+      track = Track.new audio_file_name: "http://s3.amazonaws.com/#{ENV['S3_BUCKET']}/datafruits/doo.mp3"
+      expect(track.s3_filepath).to eq "datafruits/doo.mp3"
+      track = Track.new audio_file_name: "http://#{ENV['S3_BUCKET']}.s3.amazonaws.com/datafruits/doo.mp3"
+      expect(track.s3_filepath).to eq "datafruits/doo.mp3"
+    end
+  end
 end

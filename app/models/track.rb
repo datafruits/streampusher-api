@@ -19,7 +19,12 @@ class Track < ActiveRecord::Base
   enum tag_processing_status: ['unprocessed', 'processing', 'done', 'failed']
 
   def s3_filepath
-    URI.decode(self.audio_file_name).split("#{ENV["S3_BUCKET"]}/").last
+    split = URI.decode(self.audio_file_name).split("#{ENV["S3_BUCKET"]}")
+    if split.first =~ /s3.amazonaws.com/
+      return split.last[1..-1]
+    else
+      return split.last.split(".s3.amazonaws.com").last[1..-1]
+    end
   end
 
   def file_basename
