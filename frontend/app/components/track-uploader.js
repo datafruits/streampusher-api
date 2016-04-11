@@ -44,7 +44,6 @@ export default EmberUploader.FileField.extend({
       // Handle progress changes
       //   // Use `e.percent` to get percentage
       track.set("uploadProgress", e.percent);
-      console.log(e.percent);
     });
 
     uploader.on('didError', (jqXHR, textStatus, errorThrown) => {
