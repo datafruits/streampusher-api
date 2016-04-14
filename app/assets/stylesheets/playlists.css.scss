@@ -241,3 +241,8 @@ $black          : #111;
 button.tracks-search {
   margin-top: 10px;
 }
+
+.tracks-list {
+  height: 400px;
+  overflow-y: scroll;
+}

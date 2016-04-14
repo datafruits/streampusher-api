@@ -14,10 +14,12 @@
     </button>
   </div>
 </div>
-<table class="table table-striped">
-  <tbody>
-    {{#each sortedTracks as |track|}}
-      {{track-li track=track playlist=playlist}}
-    {{/each}}
-  </tbody>
-</table>
+<div class="tracks-list">
+  <table class="table table-striped">
+    <tbody>
+      {{#each sortedTracks as |track|}}
+        {{track-li track=track playlist=playlist}}
+      {{/each}}
+    </tbody>
+  </table>
+</div>
