@@ -1,5 +1,16 @@
 class TracksController < ApplicationController
   load_and_authorize_resource
+
+  def index
+    @tracks = @current_radio.tracks
+    respond_to do |format|
+      format.html
+      format.json {
+        render json: @tracks
+      }
+    end
+  end
+
   def edit
     @track = @current_radio.tracks.find params[:id]
   end
@@ -9,10 +20,12 @@ class TracksController < ApplicationController
     @track.attributes = update_params
     if @track.save
       flash[:notice] = 'track tags updated!'
-      render 'update'
+      #render 'update'
+      render json: @track
     else
       flash[:error] = 'error updating track tags :('
-      render 'error'
+      #render 'error'
+      render json: @track.errors
     end
   end
 
@@ -22,10 +35,10 @@ class TracksController < ApplicationController
     if @track.save
       ActiveSupport::Notifications.instrument 'track.created', current_user: current_user.email, radio: @current_radio.name, track: @track.file_basename
       flash[:notice] = 'track uploaded!'
-      render 'create'
+      render json: @track
     else
       flash[:error] = 'error uploading track :('
-      render 'error'
+      render json: @track.errors
     end
   end
 
@@ -33,10 +46,10 @@ class TracksController < ApplicationController
     @track = @current_radio.tracks.find params[:id]
     if @track.destroy
       flash[:notice] = "removed track!"
-      render 'destroy'
+      render json: @track
     else
       flash[:error] = "error destroying track. try again?"
-      render 'error'
+      render json: @track.errors
     end
   end
 

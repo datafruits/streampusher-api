@@ -10,12 +10,13 @@ def visit_playlists_path
 end
 
 def upload_a_track
-  attach_file "file", File.join(Rails.root,"spec/fixtures/the_cowbell.mp3")
+  find(".upload", visible: false).set File.join(Rails.root,"spec/fixtures/the_cowbell.mp3")
 end
 
-def create_a_new_playlist
-  fill_in "playlist[name]", with: "my new playlist"
-  click_button "+ new playlist"
+def create_a_new_playlist name="my new playlist"
+  find(".new-playlist-btn").click
+  find(".playlist-title input").set(name)
+  click_button "save-playlist"
 end
 
 def drag_track_to_playlist
@@ -24,41 +25,38 @@ def drag_track_to_playlist
   track.drag_to(playlist)
 end
 
+def add_track_to_playlist
+  find(".add-track-to-playlist").click
+end
+
 def remove_track_from_playlist
-  within "ul.playlist-tracks" do
-    find("button.delete-from-playlist").click
-  end
+  find("button.delete-from-playlist").click
 end
 
 def click_edit_track_button
-  within "ul#tracks" do
-    find("a.edit-track").click
-  end
+  find("button.edit-track").click
 end
 
 def edit_id3_tags tags
   fill_in "track[artist]", with: tags[:artist]
-  click_button "Save changes"
+  click_button "Save"
 end
 
 def click_delete_track_button
-  within "ul#tracks" do
-    find("a.delete-track").click
-  end
+  click_edit_track_button
+  find(".delete-track").click
   page.accept_alert
 end
 
-def click_edit_playlist_button
-  within "ul#playlists" do
-    find("a.edit-playlist").click
-  end
+def edit_playlist_name name
+  find(".playlist-title").click
+  find(".playlist-title input").set(name)
+  click_button "save-playlist"
 end
 
-def edit_playlist_name new_name
-  within ".modal-dialog.edit-track" do
-    fill_in "playlist[name]", with: new_name
-    click_button "Save changes"
-  end
+def select_playlist playlist
+  find("#playlist-selector").click
+  click_link playlist
 end
 
 feature 'playlists', :js => true do
@@ -73,7 +71,6 @@ feature 'playlists', :js => true do
     login_as @owner
     visit_playlists_path
     upload_a_track
-    expect(page).to have_content('track uploaded!')
     expect(page).to have_content('the_cowbell.mp3')
   end
 
@@ -81,15 +78,16 @@ feature 'playlists', :js => true do
     login_as @owner
     visit_playlists_path
     upload_a_track
-    create_a_new_playlist
-    expect(page).to have_content('created playlist')
-    expect(page.find("#playlists .playlist")).to have_content("my new playlist")
-    drag_track_to_playlist
-    expect(page).to have_content('added the_cowbell.mp3 to playlist my new playlist!')
-    expect(page.find("#playlists .playlist .playlist-tracks")).to have_content("the_cowbell.mp3")
+    create_a_new_playlist "new playlist"
+    expect(page.find("span.playlist-title")).to have_content('new playlist')
+    #expect(page.find("#playlists .playlist")).to have_content("my new playlist")
+    #drag_track_to_playlist
+    add_track_to_playlist
+    #expect(page).to have_content('added the_cowbell.mp3 to playlist my new playlist!')
+    expect(page.find(".playlist-tracks")).to have_content("the_cowbell.mp3")
     remove_track_from_playlist
-    expect(page.find("#playlists .playlist .playlist-tracks")).to have_no_content("the_cowbell.mp3")
-    expect(page).to have_content('removed track from playlist!')
+    expect(page.find(".playlist-tracks")).to have_no_content("the_cowbell.mp3")
+    #expect(page).to have_content('removed track from playlist!')
   end
 
   scenario 'edits a track' do
@@ -105,19 +103,40 @@ feature 'playlists', :js => true do
     login_as @owner
     visit_playlists_path
     upload_a_track
-    expect(page).to have_content('track uploaded!')
-    expect(page).to have_content('the_cowbell.mp3')
+    expect(page.find(".uploaded-track-name")).to have_content('the_cowbell.mp3')
     click_delete_track_button
-    expect(page).to have_content "removed track!"
+    expect(page).to_not have_content('the_cowbell.mp3')
   end
 
   scenario 'edit playlist' do
     login_as @owner
     visit_playlists_path
-    create_a_new_playlist
-    expect(page).to have_content('created playlist')
-    click_edit_playlist_button
+    create_a_new_playlist "new playlist"
+    expect(page.find("span.playlist-title")).to have_content('new playlist')
     edit_playlist_name "new playlist name"
-    expect(page.find("#playlists .playlist")).to have_content "new playlist name"
+    expect(page.find("span.playlist-title")).to have_content('new playlist name')
+  end
+
+  scenario 'edit playlist settings' do
+    login_as @owner
+    visit_playlists_path
+    create_a_new_playlist "new playlist"
+    expect(page.find("span.playlist-title")).to have_content('new playlist')
+    create_a_new_playlist "jingles"
+    expect(page.find("span.playlist-title")).to have_content('jingles')
+    select_playlist "new playlist"
+    click_button "Playlist Settings"
+    expect(page).to have_content("Interpolate another playlist with this one")
+    page.check("interpolated-playlist-enabled")
+    #find("input[name=interpolatedPlaylistEnabled]").set(true)
+    fill_in "interpolatedPlaylistTrackPlayCount", with: 1
+    fill_in "interpolatedPlaylistTrackIntervalCount", with: 2
+    select "jingles", from: "interpolated-playlist-select"
+    click_button "Save changes"
+    click_button "Playlist Settings"
+    expect(find("input[name=interpolatedPlaylistEnabled]")).to be_checked
+    expect(page).to have_field("interpolatedPlaylistTrackPlayCount", with: 1)
+    expect(page).to have_field("interpolatedPlaylistTrackIntervalCount", with: 2)
+    expect(page).to have_select("interpolated-playlist-select", selected: "jingles")
   end
 end

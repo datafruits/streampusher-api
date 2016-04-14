@@ -141,22 +141,17 @@ $blue2: #00a2ff;
 
 #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
 
-.btn-success {
-  background: $blue2;
-  border-color: $blue2;
-}
-
 form input[type=submit] {
   margin-bottom: 10px;
   margin-top: 10px;
 }
 
 a {
-  color: #000;
+  color: black;
 }
 
 a:hover {
-  color: #eee;
+  color: #555;
 }
 
 table a {
@@ -224,8 +219,6 @@ table a:hover {
 
 .download {
   color: #bbb;
-  float: left;
-  font-size: 40px;
 }
 
 .modal-content {
@@ -234,6 +227,11 @@ table a:hover {
 
 input[type="checkbox"] {
   margin: 0px !important;
+}
+
+.btn-success {
+  background: $blue2;
+  border-color: $blue2;
 }
 
 .btn-success:hover {

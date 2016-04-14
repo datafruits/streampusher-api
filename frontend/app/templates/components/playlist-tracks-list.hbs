@@ -1,0 +1,70 @@
+{{#if isEditing}}
+  <span class="playlist-title">{{input value=playlist.name enter='save'}}</span>
+  <button id="save-playlist" class="btn btn-primary" {{action 'save'}}>Save</button>
+  <button class="btn" {{action 'cancel'}}>Cancel</button>
+{{else}}
+  <span class="playlist-title" {{action 'editPlaylist'}}>{{playlist.name}}</span>
+{{/if}}
+<span id="playlist-selector" {{action 'selectPlaylist'}}><i class="fa fa-chevron-down"></i></span>
+<div class="playlists-selector-container">
+  {{#if isSelectingPlaylist}}
+    <div class="playlists-menu" {{action "selectPlaylist"}}>
+      {{#each playlists as |selectablePlaylist|}}
+        <span class="playlist-title">{{#link-to "playlists.show" selectablePlaylist.id}}{{selectablePlaylist.name}}{{/link-to}}</span>
+        <br/>
+      {{/each}}
+    </div>
+  {{/if}}
+</div>
+<button {{action 'newPlaylist'}} class="btn new-playlist-btn">
+  <i class="fa fa-plus"></i>New Playlist
+</button>
+<br/>
+<button {{action 'editPlaylistSettings'}} class="edit-playlist btn">
+  Playlist Settings
+</button>
+<table class="playlist-tracks table table-striped">
+  <thead>
+  </thead>
+  <tbody>
+    {{#each playlist.playlistTracks as |playlistTrack|}}
+      {{playlist-track-li playlistTrack=playlistTrack}}
+    {{/each}}
+  </tbody>
+</table>
+{{#if isEditingSettings}}
+  {{#modal-dialog targetAttachment="center" translucentOverlay=true clickOutsideToClose=true close="editPlaylistSettings"}}
+    <div class="modal-header">
+      <button {{action "editPlaylistSettings"}} type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title" id="myModalLabel">Playlist Settings</h4>
+    </div>
+    <div class="modal-body">
+      {{playlist.name}}
+      <br />
+      <h4>Interpolate another playlist with this one (e.g. for jingles)</h4>
+      <label>Enabled {{input type="checkbox" id="interpolated-playlist-enabled" name="interpolatedPlaylistEnabled" checked=playlist.interpolatedPlaylistEnabled}}</label>
+      <br />
+      <label>
+        Every {{input type="number" name="interpolatedPlaylistTrackPlayCount" value=playlist.interpolatedPlaylistTrackPlayCount step="1"}}
+      </label>
+      <label>
+        tracks, play {{input type="number" name="interpolatedPlaylistTrackIntervalCount" value=playlist.interpolatedPlaylistTrackIntervalCount step="1" }}
+      </label>
+      <label>tracks from the
+        <select id="interpolated-playlist-select" onchange={{action "selectInterpolatedPlaylistId" value="target.value"}}>
+          {{#each playlists as |interpolatedPlaylist|}}
+            {{#if (eq-to-string playlist.interpolatedPlaylistId interpolatedPlaylist.id)}}
+              <option value={{interpolatedPlaylist.id}} selected="selected">{{interpolatedPlaylist.name}}</option>
+            {{else}}
+              <option value={{interpolatedPlaylist.id}}>{{interpolatedPlaylist.name}}</option>
+            {{/if}}
+          {{/each}}
+        </select>
+      </label>
+      playlist.
+    </div>
+    <div class="modal-footer">
+      <button {{action "saveSettings"}} class="btn btn-primary">Save changes</button>
+    </div>
+  {{/modal-dialog}}
+{{/if}}

@@ -3,11 +3,13 @@ class PlaylistTracksController < ApplicationController
   def create
     @playlist_track = PlaylistTrack.new playlist_track_params
     if @playlist_track.save
-      flash[:notice] = "added #{@playlist_track.track.display_name} to playlist #{@playlist_track.playlist.name}!"
-      render 'create'
+      render json: @playlist_track
+      #flash[:notice] = "added #{@playlist_track.track.display_name} to playlist #{@playlist_track.playlist.name}!"
+      #render 'create'
     else
-      flash[:error] = "error adding #{@playlist_track.track.display_name} to #{@playlist_track.playlist.name} :("
-      render 'error'
+      render json: @playlist_track.errors
+      #flash[:error] = "error adding #{@playlist_track.track.display_name} to #{@playlist_track.playlist.name} :("
+      #render 'error'
     end
   end
 
@@ -18,23 +20,26 @@ class PlaylistTracksController < ApplicationController
   def update
     @playlist_track.attributes = playlist_track_params
     if @playlist_track.save
-      flash[:notice] = "Playlist track updated."
-      render 'update'
+      render json: @playlist_track
+      #flash[:notice] = "Playlist track updated."
+      #render 'update'
     else
-      flash[:error] = "Error updating playlist track."
-      render 'edit'
+      render json: @playlist_track.errors
+      #flash[:error] = "Error updating playlist track."
+      #render 'edit'
     end
   end
 
   def destroy
-    @playlist = @current_radio.playlists.find playlist_track_params[:playlist_id]
     @playlist_track = PlaylistTrack.find(params[:id])
     if @playlist_track.destroy
-      flash[:notice] = 'removed track from playlist!'
-      render 'destroy'
+      head :no_content
+      #flash[:notice] = 'removed track from playlist!'
+      #render 'destroy'
     else
-      flash[:error] = 'error removing track from playlist :('
-      render 'error'
+      render json: @playlist_track.errors
+      #flash[:error] = 'error removing track from playlist :('
+      #render 'error'
     end
   end
 

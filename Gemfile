@@ -98,3 +98,4 @@ gem 'recurrence'
 
 gem 'html-pipeline'
 gem 'github-markdown'
+gem 'ember-cli-rails'
