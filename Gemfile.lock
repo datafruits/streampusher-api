@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/mcfiredrill/so_id3.git
-  revision: 10495797a32701e730c163ec065a3ab9452a2eeb
+  revision: 9eeff31a5b0f107b27951122503af7dd96f590a2
   specs:
     so_id3 (0.0.1)
       activejob
