@@ -58,6 +58,7 @@ class Ability
       can :update, Track if can_manage_radio?(user, radio)
 
       can :show, Playlist if can_manage_radio?(user, radio)
+      can :index, Playlist if can_manage_radio?(user, radio)
 
       can :read, "broadcasting_help"
       can :read, "embed"
