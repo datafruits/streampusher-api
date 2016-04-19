@@ -15,7 +15,7 @@ ExceptionNotification.configure do |config|
 
   config.add_notifier :slack, {
     :webhook_url => "https://hooks.slack.com/services/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",
-    :channel => "#general",
+    :channel => "#dev",
     :additional_parameters => {
       #:icon_url => "http://image.jpg",
       :icon_emoji => "boom",
