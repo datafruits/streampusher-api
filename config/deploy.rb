@@ -38,6 +38,8 @@ set :linked_files, %w{config/database.yml config/application.yml}
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
+set :sidekiq_service_name, "sidekiq_worker"
+set :sidekiq_default_hooks, false
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -123,4 +125,9 @@ namespace :deploy do
   after :finishing, 'deploy:cleanup'
   after 'deploy:setup_config', 'nginx:reload'
   after 'deploy:setup_config', 'monit:restart'
+
+  after 'deploy:starting', 'sidekiq:quiet'
+  # after 'deploy:updated', 'sidekiq:monit:stop'
+  after 'deploy:reverted', 'sidekiq:monit:stop'
+  after 'deploy:published', 'sidekiq:monit:restart'
 end
