@@ -88,7 +88,6 @@ ActiveRecord::Schema.define(version: 20160312134821) do
     t.integer  "default_playlist_id"
     t.boolean  "enabled",                 default: true,  null: false
     t.boolean  "vj_enabled",              default: false, null: false
-    t.boolean  "enable_crossfade",        default: true,  null: false
   end
 
   create_table "recordings", force: :cascade do |t|
