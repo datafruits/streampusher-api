@@ -1,40 +1,34 @@
-listenerproxy:
-  image: "mcfiredrill/listener_proxy:latest"
-  links:
-     - redis
-  ports:
-     - "8000:8000"
-  restart: "on-failure"
-redis:
-  image: "redis:latest"
-  ports:
-    - "6379:6379"
-postgres:
-  image: "postgres:9.4"
-  ports:
-    - "5432:5432"
-rails:
-  image: "streampusher/streampusher:latest"
-  user: rails
-  working_dir: /home/rails/app
-  command: ./docker_wrapper.sh bundle exec rails server -p 3000 -b '0.0.0.0'
-  volumes:
-    - .:/home/rails/app
-    - /tmp:/tmp
-  ports:
-    - "3000:3000"
-  links:
-    - redis
-    - postgres
-sidekiq:
-  image: "streampusher/streampusher:latest"
-  user: root
-  working_dir: /home/rails/app
-  command: ./docker_wrapper.sh bundle exec sidekiq
-  volumes:
-    - .:/home/rails/app
-    -  /var/run/docker.sock:/var/run/docker.sock
-    - /tmp:/tmp
-  links:
-    - redis
-    - postgres
+version: '2'
+services:
+  listenerproxy:
+    image: "mcfiredrill/listener_proxy:latest"
+    ports:
+       - "8000:8000"
+    restart: "on-failure"
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+  postgres:
+    image: "postgres:9.4"
+    ports:
+      - "5432:5432"
+  rails:
+    image: "streampusher/streampusher:latest"
+    user: rails
+    working_dir: /home/rails/app
+    command: ./docker_wrapper.sh bundle exec rails server -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/home/rails/app
+      - /tmp:/tmp
+    ports:
+      - "3000:3000"
+  sidekiq:
+    image: "streampusher/streampusher:latest"
+    user: root
+    working_dir: /home/rails/app
+    command: ./docker_wrapper.sh bundle exec sidekiq
+    volumes:
+      - .:/home/rails/app
+      -  /var/run/docker.sock:/var/run/docker.sock
+      - /tmp:/tmp
