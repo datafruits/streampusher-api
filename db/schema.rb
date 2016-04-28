@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160312134821) do
+ActiveRecord::Schema.define(version: 20160428042225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,10 @@ ActiveRecord::Schema.define(version: 20160312134821) do
     t.integer  "default_playlist_id"
     t.boolean  "enabled",                 default: true,  null: false
     t.boolean  "vj_enabled",              default: false, null: false
+    t.boolean  "enable_crossfade",        default: true,  null: false
+    t.boolean  "studio_enabled",          default: false, null: false
+    t.boolean  "podcasts_enabled",        default: false, null: false
+    t.boolean  "stats_enabled",           default: false, null: false
   end
 
   create_table "recordings", force: :cascade do |t|
@@ -138,15 +142,16 @@ ActiveRecord::Schema.define(version: 20160312134821) do
   end
 
   create_table "social_identities", force: :cascade do |t|
-    t.string   "uid",          default: "", null: false
-    t.string   "provider",     default: "", null: false
-    t.integer  "user_id",                   null: false
+    t.string   "uid",                        default: "", null: false
+    t.string   "provider",                   default: "", null: false
     t.string   "token"
     t.string   "string"
     t.string   "token_secret"
-    t.string   "name",         default: "", null: false
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.string   "name",                       default: "", null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.integer  "socially_identifiable_id"
+    t.string   "socially_identifiable_type"
   end
 
   create_table "subscriptions", force: :cascade do |t|

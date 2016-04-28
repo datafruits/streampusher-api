@@ -30,21 +30,25 @@
               <i class="fa fa-calendar"></i>Schedule
             <% end %>
           </li>
-          <li>
-            <%= link_to stats_path do %>
-              <i class="fa fa-line-chart"></i>Stats
-            <% end %>
-          </li>
+          <% if @current_radio.stats_enabled? %>
+            <li>
+              <%= link_to stats_path do %>
+                <i class="fa fa-line-chart"></i>Stats
+              <% end %>
+            </li>
+          <% end %>
           <li>
             <%= link_to playlist_path(@current_radio.default_playlist) do %>
               <i class="fa fa-list"></i>Media
             <% end %>
           </li>
-          <li>
-            <%= link_to podcasts_path do %>
-              <i class="fa fa-rss"></i>Podcasts
-            <% end %>
-          </li>
+          <% if @current_radio.podcasts_enabled? %>
+            <li>
+              <%= link_to podcasts_path do %>
+                <i class="fa fa-rss"></i>Podcasts
+              <% end %>
+            </li>
+          <% end %>
           <% if can? :vj, :dashboard %>
             <li>
             <%= link_to vj_path do %>
