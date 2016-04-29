@@ -32,7 +32,6 @@
 //= require flash_message
 //= require home
 //= require landing
-//= require playlists
 //= require podcasts
 //= require radios
 //= require recordings
