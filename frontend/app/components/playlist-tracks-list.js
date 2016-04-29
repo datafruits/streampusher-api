@@ -9,6 +9,8 @@ export default Ember.Component.extend({
     var selectedId = this.get('playlist').get('interpolatedPlaylistId');
     return selectedId.toString();
   }),
+  positionDesc: ["position:desc"],
+  sortedPlaylistTracks: Ember.computed.sort('playlist.playlistTracks', 'positionDesc'),
   actions: {
     selectPlaylist: function(){
       this.toggleProperty('isSelectingPlaylist');
