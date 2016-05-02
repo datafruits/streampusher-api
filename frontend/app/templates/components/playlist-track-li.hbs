@@ -1,19 +1,18 @@
-<td>
-  <span>{{playlistTrack.displayName}}</span>
-  {{#if isEditing}}
-    <br/>
-    Podcast Published Date
-    <br/>
-    {{pikaday-input value=playlistTrack.podcastPublishedDate}}
-    <br/>
-    <button {{action 'save'}} class="btn btn-primary">Save</button>
-    <button {{action 'cancel'}} class="btn btn-primary">Cancel</button>
-  {{else}}
-    <button {{action 'editPlaylistTrack'}} class="edit-playlist-track btn btn-primary">
-      <i class="fa fa-pencil"></i>
-    </button>
-    <button {{action 'deleteFromPlaylist'}} class="btn delete-from-playlist">
-      <i class="fa fa-times"></i>
-    </button>
-  {{/if}}
-</td>
+<span>{{playlistTrack.displayName}}</span>
+{{playlistTrack.position}}
+{{#if isEditing}}
+  <br/>
+  Podcast Published Date
+  <br/>
+  {{pikaday-input value=playlistTrack.podcastPublishedDate}}
+  <br/>
+  <button {{action 'save'}} class="btn btn-primary">Save</button>
+  <button {{action 'cancel'}} class="btn btn-primary">Cancel</button>
+{{else}}
+  <button {{action 'editPlaylistTrack'}} class="edit-playlist-track btn btn-primary">
+    <i class="fa fa-pencil"></i>
+  </button>
+  <button {{action 'deleteFromPlaylist'}} class="btn delete-from-playlist">
+    <i class="fa fa-times"></i>
+  </button>
+{{/if}}

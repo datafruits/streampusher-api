@@ -250,4 +250,9 @@ button.tracks-search {
 .playlist-tracks-list {
   height: 400px;
   overflow-y: scroll;
+  .handle {
+    font-size: 25px;
+    border: solid black 8px;
+    cursor: move;
+  }
 }
