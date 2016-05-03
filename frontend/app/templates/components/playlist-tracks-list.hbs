@@ -29,9 +29,8 @@
     </thead>
     {{#sortable-group tagName="tbody" model=playlist onChange="reorderItems" as |group|}}
       {{#each playlist.playlistTracks as |playlistTrack|}}
-        {{#sortable-item tagName="tr" model=playlistTrack group=group handle=".handle"}}
+        {{#sortable-item tagName="tr" model=playlistTrack group=group handle=".playlist-track"}}
           {{playlist-track-li playlistTrack=playlistTrack}}
-          <span class="handle">&varr;</span>
         {{/sortable-item}}
       {{/each}}
     {{/sortable-group}}
