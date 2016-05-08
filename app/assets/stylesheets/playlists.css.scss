@@ -144,6 +144,11 @@ li.track.ui-draggable-dragging:hover {
   }
 }
 
+.playlist-title:hover {
+  cursor: pointer;
+  border-bottom: dashed 2px #c9c9c9;
+}
+
 #playlist-selector {
   cursor: pointer;
 }
