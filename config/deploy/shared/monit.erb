@@ -1,11 +1,6 @@
 <% application = fetch(:application) %>
 set mail-format { subject: <%= "#{fetch(:full_app_name)} - #{fetch(:rails_env)}" %> $SERVICE $EVENT at $DATE }
 
-check process docker
-  with pidfile "/var/run/docker.pid"
-  start program = "/etc/init.d/docker start"
-  stop program = "/etc/init.d/docker stop"
-
 check process unicorn
   with pidfile <%= current_path %>/tmp/pids/unicorn.pid
   start program = "/etc/init.d/unicorn_<%= application %>_<%= fetch(:rails_env)%> start"
