@@ -25,6 +25,9 @@ export default Ember.Component.extend({
     editPlaylist: function(){
       this.toggleProperty('isEditing');
     },
+    cancelEditing: function(){
+      this.toggleProperty('isEditing');
+    },
     editPlaylistSettings: function(){
       this.toggleProperty('isEditingSettings');
     },
