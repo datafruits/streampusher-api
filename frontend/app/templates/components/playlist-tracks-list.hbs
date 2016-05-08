@@ -27,11 +27,13 @@
   <table class="playlist-tracks table table-striped">
     <thead>
     </thead>
-    <tbody>
-      {{#each sortedPlaylistTracks as |playlistTrack|}}
-        {{playlist-track-li playlistTrack=playlistTrack}}
+    {{#sortable-group tagName="tbody" model=playlist onChange="reorderItems" as |group|}}
+      {{#each playlist.playlistTracks as |playlistTrack|}}
+        {{#sortable-item tagName="tr" model=playlistTrack group=group handle=".playlist-track"}}
+          {{playlist-track-li playlistTrack=playlistTrack}}
+        {{/sortable-item}}
       {{/each}}
-    </tbody>
+    {{/sortable-group}}
   </table>
 </div>
 {{#if isEditingSettings}}

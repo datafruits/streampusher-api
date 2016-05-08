@@ -9,9 +9,16 @@ export default Ember.Component.extend({
     var selectedId = this.get('playlist').get('interpolatedPlaylistId');
     return selectedId.toString();
   }),
-  positionDesc: ["position:desc"],
+  positionDesc: ["position:asc"],
   sortedPlaylistTracks: Ember.computed.sort('playlist.playlistTracks', 'positionDesc'),
   actions: {
+    reorderItems(groupModel, itemModels, draggedModel) {
+      var draggedToIndex = itemModels.findIndex(function(element){ return element.id === draggedModel.id });
+
+      draggedModel.set('position_position', draggedToIndex);
+      this.set('playlist.playlistTracks', itemModels);
+      return Ember.RSVP.all([draggedModel.save(), groupModel.save()]);
+    },
     selectPlaylist: function(){
       this.toggleProperty('isSelectingPlaylist');
     },

@@ -1,8 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  tagName: 'tr',
-  classNames: ['track'],
+  tagName: 'td',
+  classNames: ['track', 'playlist-track'],
   isEditing: false,
   actions: {
     deleteFromPlaylist: function(){

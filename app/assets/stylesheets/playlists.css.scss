@@ -250,4 +250,26 @@ button.tracks-search {
 .playlist-tracks-list {
   height: 400px;
   overflow-y: scroll;
+  .handle {
+    font-size: 25px;
+    border: solid black 8px;
+    cursor: move;
+  }
+}
+
+.sortable-item {
+  transition: all .125s;
+  cursor: pointer;
+}
+
+.sortable-item.is-dragging {
+  transition-duration: 0s;
+  background: lighten(#00a2ff, 25%) !important;
+  z-index: 10;
+  cursor: move;
+}
+
+.sortable-item.is-dropping {
+  background: lighten(#00a2ff, 40%) !important;
+  z-index: 10;
 }
