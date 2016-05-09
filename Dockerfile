@@ -14,6 +14,9 @@ RUN apt-get install -y build-essential libtag1-dev libqtwebkit-dev qt4-qmake \
 # for ruby
 RUN apt-get install -y --force-yes libssl-dev libreadline-dev
 
+# node
+RUN apt-get install -y nodejs npm
+
 RUN apt-get clean
 
 # add user
