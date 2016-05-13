@@ -6,7 +6,7 @@ RSpec.describe Subscription, :type => :model do
   let!(:subscription) { FactoryGirl.create :subscription, user: owner }
   before do
     Time.zone = 'UTC'
-    Timecop.freeze Time.local(2015,11,20)
+    Timecop.freeze Time.local(2016,5,13)
   end
   after do
     Timecop.return
