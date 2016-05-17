@@ -7,19 +7,17 @@ class DjsController < ApplicationController
 
   def create
     authorize! :create, :dj
-    @dj = User.new dj_params
-    @dj.user_radios.build(radio: @current_radio)
-    password = Devise.friendly_token.first(8)
-    @dj.password = password
-    @dj.role = 'dj'
-    if @dj.save
-      DjAccountMailer.welcome_email(@dj, password, @current_radio).deliver_later
-      ActiveSupport::Notifications.instrument 'dj.created', current_user: current_user.email, radio: @current_radio.name, dj:  @dj.email
-      flash[:notice] = "Created DJ account for #{@dj.email}"
-      redirect_to djs_path
-    else
-      flash[:error] = "Couldn't create dj account"
+    begin
+      @dj = DjSignup.perform dj_params, @current_radio
+      if @dj.persisted?
+        flash[:notice] = "Created DJ account for #{@dj.email}"
+        redirect_to djs_path
+      end
+    rescue ExistingUserRadio => e
+      flash[:error] = "User already exists on this radio."
+      # flash[:error] = "Couldn't create dj account"
       @djs = @current_radio.djs.page(params[:page])
+      @dj = @djs.new
       render 'index'
     end
   end
