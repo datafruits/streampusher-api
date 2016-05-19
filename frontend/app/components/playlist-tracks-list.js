@@ -27,6 +27,9 @@ export default Ember.Component.extend({
     },
     cancelEditing: function(){
       this.toggleProperty('isEditing');
+      if(this.playlist.get('isNew')){
+        this.set('playlist', this.get('oldPlaylist'));
+      }
     },
     editPlaylistSettings: function(){
       this.toggleProperty('isEditingSettings');
@@ -34,6 +37,7 @@ export default Ember.Component.extend({
     newPlaylist: function(){
       var store = this.get('store');
       var playlist = store.createRecord('playlist');
+      this.set('oldPlaylist', this.get('playlist'));
       this.set('playlist', playlist);
       this.set('isEditing', true);
     },
