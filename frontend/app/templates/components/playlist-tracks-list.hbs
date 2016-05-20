@@ -1,6 +1,6 @@
 {{#if isEditing}}
   <span class="playlist-title">{{input value=playlist.name enter='save'}}</span>
-  <button id="save-playlist" class="btn btn-primary" {{action 'save'}}>Save</button>
+  <button disabled={{v-get playlist 'isInvalid'}} id="save-playlist" class="btn btn-primary" {{action 'save'}}>Save</button>
   <button class="btn" {{action 'cancelEditing'}}>Cancel</button>
   {{#if (v-get playlist 'name' 'isInvalid')}}
     <div class="error">

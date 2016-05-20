@@ -2,7 +2,7 @@ import DS from 'ember-data';
 import { validator, buildValidations } from 'ember-cp-validations';
 
 const Validations = buildValidations({
-  name: validator('presence', { presence: true, message: "cannot be blank", debounce: 500}),
+  name: validator('presence', { presence: true, message: "cannot be blank"}),
 });
 
 
