@@ -22,4 +22,8 @@ before_script:
   - RAILS_ENV=test bundle exec rake ember:install
 
 job1:
+  cache:
+    paths:
+      - "frontend/node_modules"
+      - "vendor/bundle"
   script: "rake spec"
