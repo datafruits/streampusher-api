@@ -278,3 +278,15 @@ button.tracks-search {
   background: lighten(#00a2ff, 40%) !important;
   z-index: 10;
 }
+
+.flexcontainer {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+  .uploaded-track-name {
+    margin-right: auto;
+  }
+}
