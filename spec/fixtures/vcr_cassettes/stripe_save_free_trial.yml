@@ -4,7 +4,7 @@ http_interactions:
     method: post
     uri: https://api.stripe.com/v1/customers
     body:
-      encoding: US-ASCII
+      encoding: UTF-8
       string: description=yoshino%40malboro.info&plan=Free%20Trial
     headers:
       Accept:
@@ -18,9 +18,9 @@ http_interactions:
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
-      - '{"bindings_version":"1.16.0","lang":"ruby","lang_version":"2.2.3 p173 (2015-08-18)","platform":"x86_64-darwin14","publisher":"stripe","uname":"Darwin
-        moguya 14.5.0 Darwin Kernel Version 14.5.0: Wed Jul 29 02:26:53 PDT 2015;
-        root:xnu-2782.40.9~1/RELEASE_X86_64 x86_64"}'
+      - '{"bindings_version":"1.16.0","lang":"ruby","lang_version":"2.3.0 p0 (2015-12-25)","platform":"x86_64-darwin14","publisher":"stripe","uname":"Darwin
+        moguya 15.3.0 Darwin Kernel Version 15.3.0: Thu Dec 10 18:40:58 PST 2015;
+        root:xnu-3248.30.4~1/RELEASE_X86_64 x86_64"}'
       Content-Length:
       - '52'
   response:
@@ -31,11 +31,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Fri, 20 Nov 2015 04:29:36 GMT
+      - Fri, 20 May 2016 09:33:18 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '1834'
+      - '1892'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_7NsHNPgrplotYv
+      - req_8U8GGYOLH7gA0x
       Stripe-Version:
       - '2014-09-08'
       Strict-Transport-Security:
@@ -58,17 +58,18 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "cus_7NsH8siLYq5n5k",
+          "id": "cus_8U8GCjn0jWc1qG",
           "object": "customer",
           "account_balance": 0,
+          "business_vat_id": null,
           "cards": {
             "object": "list",
             "data": [],
             "has_more": false,
             "total_count": 0,
-            "url": "/v1/customers/cus_7NsH8siLYq5n5k/cards"
+            "url": "/v1/customers/cus_8U8GCjn0jWc1qG/cards"
           },
-          "created": 1447993776,
+          "created": 1463736798,
           "currency": "usd",
           "default_card": null,
           "default_source": null,
@@ -84,20 +85,21 @@ http_interactions:
             "data": [],
             "has_more": false,
             "total_count": 0,
-            "url": "/v1/customers/cus_7NsH8siLYq5n5k/sources"
+            "url": "/v1/customers/cus_8U8GCjn0jWc1qG/sources"
           },
           "subscriptions": {
             "object": "list",
             "data": [
               {
-                "id": "sub_7NsHStMTe41K1t",
+                "id": "sub_8U8GH3Mi08iecJ",
                 "object": "subscription",
                 "application_fee_percent": null,
                 "cancel_at_period_end": false,
                 "canceled_at": null,
-                "current_period_end": 1449203376,
-                "current_period_start": 1447993776,
-                "customer": "cus_7NsH8siLYq5n5k",
+                "created": 1463736798,
+                "current_period_end": 1464946398,
+                "current_period_start": 1463736798,
+                "customer": "cus_8U8GCjn0jWc1qG",
                 "discount": null,
                 "ended_at": null,
                 "metadata": {},
@@ -117,18 +119,18 @@ http_interactions:
                   "statement_description": null
                 },
                 "quantity": 1,
-                "start": 1447993776,
+                "start": 1463736798,
                 "status": "trialing",
                 "tax_percent": null,
-                "trial_end": 1449203376,
-                "trial_start": 1447993776
+                "trial_end": 1464946398,
+                "trial_start": 1463736798
               }
             ],
             "has_more": false,
             "total_count": 1,
-            "url": "/v1/customers/cus_7NsH8siLYq5n5k/subscriptions"
+            "url": "/v1/customers/cus_8U8GCjn0jWc1qG/subscriptions"
           }
         }
     http_version: 
-  recorded_at: Thu, 19 Nov 2015 15:00:00 GMT
-recorded_with: VCR 3.0.0
+  recorded_at: Thu, 19 May 2016 15:00:00 GMT
+recorded_with: VCR 3.0.2

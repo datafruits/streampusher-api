@@ -395,10 +395,10 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    vcr (3.0.1)
+    vcr (3.0.2)
     warden (1.2.3)
       rack (>= 1.0)
-    webmock (2.0.1)
+    webmock (2.0.2)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
