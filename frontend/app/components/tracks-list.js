@@ -4,6 +4,13 @@ var { set } = Ember;
 
 export default Ember.Component.extend({
   store: Ember.inject.service(),
+  filterText: '',
+  filteredResults: Ember.computed('filterText', function() {
+    var filter = this.get('filterText');
+    return this.get('tracks').filter(function(item) {
+      return item.get('displayName').toLowerCase().indexOf(filter) !== -1;
+    });
+  }),
   droppedFile: Ember.inject.service(),
   classNames        : [ 'draggableDropzone' ],
   classNameBindings : [ 'dragClass' ],
@@ -45,5 +52,10 @@ export default Ember.Component.extend({
     if(a.createdAt < b.createdAt){
       return -1;
     }
-  })
+  }),
+  actions: {
+    searchTracks: function(){
+      this.toggleProperty('isSearching');
+    }
+  }
 });

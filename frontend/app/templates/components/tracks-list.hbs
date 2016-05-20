@@ -14,12 +14,21 @@
     </button>
   </div>
 </div>
+{{#if isSearching}}
+  {{input autofocus="autofocus" value=filterText escape-press='searchTracks'}}
+{{/if}}
 <div class="tracks-list">
   <table class="table table-striped">
     <tbody>
-      {{#each sortedTracks as |track|}}
-        {{track-li track=track playlist=playlist}}
-      {{/each}}
+      {{#if isSearching}}
+        {{#each filteredResults as |track|}}
+          {{track-li track=track playlist=playlist}}
+        {{/each}}
+      {{else}}
+        {{#each sortedTracks as |track|}}
+          {{track-li track=track playlist=playlist}}
+        {{/each}}
+      {{/if}}
     </tbody>
   </table>
 </div>
