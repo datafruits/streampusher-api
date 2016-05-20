@@ -238,3 +238,7 @@ input[type="checkbox"] {
   background-color: lighten($blue2, 20%);
   border-color: darken($blue2, 20%);
 }
+
+.error {
+  color: red;
+}

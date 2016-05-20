@@ -2,6 +2,11 @@
   <span class="playlist-title">{{input value=playlist.name enter='save'}}</span>
   <button id="save-playlist" class="btn btn-primary" {{action 'save'}}>Save</button>
   <button class="btn" {{action 'cancelEditing'}}>Cancel</button>
+  {{#if (v-get playlist 'name' 'isInvalid')}}
+    <div class="error">
+      {{v-get playlist 'name' 'message'}}
+    </div>
+  {{/if}}
 {{else}}
   <span class="playlist-title" {{action 'editPlaylist'}}>{{playlist.name}}</span>
 {{/if}}
