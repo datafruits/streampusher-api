@@ -186,7 +186,7 @@ table a:hover {
   padding: 7px;
   box-shadow: 3px 3px 3px #555;
 
-  @include animation(bounce 1s infinite);
+  @include animation(bounce 1s 1);
   position: fixed;
   z-index: 9999;
 }
