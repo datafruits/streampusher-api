@@ -19,7 +19,7 @@ class Ability
       can :manage, PlaylistTrack if can_manage_radio?(user, radio)
       can :manage, Subscription, user_id: user.id
       can :manage, ScheduledShow if can_manage_radio?(user, radio)
-      can :manage, Podcast if can_manage_radio?(user, radio)
+      can :manage, Podcast if can_manage_radio?(user, radio) && radio.podcasts_enabled?
       can :read, "broadcasting_help"
       can :read, "embed"
       can :manage, Recording if can_manage_radio?(user, radio)
@@ -34,14 +34,14 @@ class Ability
       can :manage, Playlist if can_manage_radio?(user, radio)
       can :manage, PlaylistTrack if can_manage_radio?(user, radio)
       can :manage, ScheduledShow if can_manage_radio?(user, radio)
-      can :manage, Podcast if can_manage_radio?(user, radio)
+      can :manage, Podcast if can_manage_radio?(user, radio) && radio.podcasts_enabled?
       can :read, "broadcasting_help"
       can :read, "embed"
       can :manage, Recording if can_manage_radio?(user, radio)
       can :vj, :dashboard if is_datafruits?(radio)
     elsif user.dj?
       can :index, Radio if can_manage_radio?(user, radio)
-      can :read, Podcast
+      can :read, Podcast if radio.podcasts_enabled?
 
       can :read, Show
       can :create, Show, dj_id: user.id
