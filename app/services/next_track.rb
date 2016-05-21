@@ -17,7 +17,7 @@ class NextTrack
           cue_out = cue_out
         end
       else
-        cue_out = track.length.seconds
+        cue_out = 0
       end
       # "annotate:liq_fade_in=\"0\",liq_fade_out=\"0\",liq_cue_in=\"0\",liq_cue_out=\"#{cue_out.to_i}\":#{track.file_basename}"
     else
@@ -34,7 +34,9 @@ class NextTrack
           cue_out = cue_out
         end
       else
-        cue_out = track.length.seconds
+        # in this case we return 0 to indicate not to set the cue out,
+        # just let the current track play out
+        cue_out = 0
       end
     end
     # liquidsoap's json parser wants strings

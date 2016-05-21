@@ -31,12 +31,12 @@ describe NextTrack do
       start_at: Chronic.parse("January 1st 2092 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2092 at 01:30 am")
 
     Timecop.travel Chronic.parse("January 1st 2090 at 11:30 pm") do
-      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "120", track: track_1.file_basename })
+      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0", track: track_1.file_basename })
     end
 
     Timecop.travel Chronic.parse("January 1st 2092 at 11:30 pm") do
-      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "312",  track: track_2.file_basename })
-      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "208",  track: track_3.file_basename })
+      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0",  track: track_2.file_basename })
+      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0",  track: track_3.file_basename })
     end
   end
 
@@ -83,7 +83,7 @@ describe NextTrack do
       start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
 
     Timecop.travel Chronic.parse("January 1st 2020 at 11:30 pm") do
-      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "312", track: track_2.file_basename })
+      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0", track: track_2.file_basename })
     end
   end
 
