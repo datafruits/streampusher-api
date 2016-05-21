@@ -35,8 +35,8 @@ describe NextTrack do
     end
 
     Timecop.travel Chronic.parse("January 1st 2092 at 11:30 pm") do
-      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "208",  track: track_3.file_basename })
       expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "312",  track: track_2.file_basename })
+      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "208",  track: track_3.file_basename })
     end
   end
 
