@@ -6,3 +6,4 @@ fi
 docker-compose -f docker-compose-dev.yml  run rails ./docker_wrapper.sh bundle install --path vendor/bundle --jobs 20
 docker-compose -f docker-compose-dev.yml  run rails ./docker_wrapper.sh bundle exec rake db:create
 docker-compose -f docker-compose-dev.yml  run rails ./docker_wrapper.sh bundle exec rake db:migrate
+docker-compose -f docker-compose-dev.yml  run rails ./docker_wrapper.sh bundle exec rake ember:install
