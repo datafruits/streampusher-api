@@ -175,6 +175,7 @@ GEM
       activesupport (>= 3)
     hashdiff (0.3.0)
     headless (2.2.0)
+    high_voltage (3.0.0)
     hike (1.2.3)
     html-pipeline (2.3.0)
       activesupport (>= 2, < 5)
@@ -440,6 +441,7 @@ DEPENDENCIES
   github-markdown
   groupdate
   headless
+  high_voltage
   html-pipeline
   jquery-rails
   jquery-ui-rails
