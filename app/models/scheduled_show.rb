@@ -100,6 +100,12 @@ class ScheduledShow < ActiveRecord::Base
     recurrence_times(options.merge(starts: self.start)).zip(recurrence_times(options.merge(starts: self.end)))
   end
 
+  def week_of_month_for_date(date)
+    week_of_target_date = date.strftime("%U").to_i
+    week_of_beginning_of_month = date.beginning_of_month.strftime("%U").to_i
+    week_of_target_date - week_of_beginning_of_month + 1
+  end
+
   def recurrence_times options={}
     options = {:every => self.recurring_interval}.merge(options)
     options[:on] = case options[:every]
@@ -107,8 +113,13 @@ class ScheduledShow < ActiveRecord::Base
       [options[:starts].month, options[:starts].day]
     when 'week'
       options[:starts].strftime('%A').downcase.to_sym
-    when 'day', 'month'
+    when 'day'
       options[:starts].day
+    when 'month'
+      week_of_month_for_date(self.start_at)
+    end
+    if options[:every] == "month"
+      options[:weekday] = self.start_at.strftime("%A").downcase.to_sym
     end
     Recurrence.new(options).events
   end
