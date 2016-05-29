@@ -14,7 +14,8 @@
         <td><%= truncate radio.icecast_container_id %></td>
         <td><%= truncate radio.liquidsoap_container_id %></td>
         <td><%= link_to 'icecast panel', radio.icecast_panel_url, target: '_blank' %></td>
-        <td><%= link_to 'restart radio', admin_restart_radio_path(radio), method: :post %></td>
+        <td><%= link_to 'restart radio', admin_restart_radio_path(radio),
+          method: :post, data: { confirm: "Are you sure?" }  %></td>
         <td><%= link_to 'disable radio', admin_disable_radio_path(radio), method: :post %></td>
       </tr>
     <% end %>
