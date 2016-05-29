@@ -16,6 +16,8 @@ RUN apt-get install -y --force-yes libssl-dev libreadline-dev
 
 # node
 RUN apt-get install -y nodejs npm
+RUN apt-get install -y nodejs-legacy
+RUN npm install -g bower
 
 RUN apt-get clean
 
