@@ -147,11 +147,12 @@ form input[type=submit] {
 }
 
 a {
-  color: black;
+  color: $blue2;
+  text-decoration: underline;
 }
 
 a:hover {
-  color: #555;
+  color: lighten($blue2, 20%);
 }
 
 table a {
