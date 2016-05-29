@@ -29,6 +29,7 @@ class DjsController < ApplicationController
 
   def update
     authorize! :update, :dj
+    @dj = @current_radio.djs.find(params[:id])
     @dj.attributes = dj_params
     if @dj.save
       flash[:notice] = "Updated dj account."
