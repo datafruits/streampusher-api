@@ -244,3 +244,12 @@ input[type="checkbox"] {
 .error {
   color: red;
 }
+
+.no-gutter > [class*='col-'] {
+  padding-right:0;
+  padding-left:0;
+}
+
+.downdown-menu > li > a {
+  text-decoration: none;
+}
