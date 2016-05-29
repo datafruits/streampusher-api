@@ -88,8 +88,6 @@ ActiveRecord::Schema.define(version: 20160516063600) do
     t.integer  "default_playlist_id"
     t.boolean  "enabled",                 default: true,  null: false
     t.boolean  "vj_enabled",              default: false, null: false
-    t.boolean  "enable_crossfade",        default: true,  null: false
-    t.boolean  "studio_enabled",          default: false, null: false
     t.boolean  "podcasts_enabled",        default: false, null: false
     t.boolean  "stats_enabled",           default: false, null: false
   end
@@ -142,16 +140,15 @@ ActiveRecord::Schema.define(version: 20160516063600) do
   end
 
   create_table "social_identities", force: :cascade do |t|
-    t.string   "uid",                        default: "", null: false
-    t.string   "provider",                   default: "", null: false
+    t.string   "uid",          default: "", null: false
+    t.string   "provider",     default: "", null: false
+    t.integer  "user_id",                   null: false
     t.string   "token"
     t.string   "string"
     t.string   "token_secret"
-    t.string   "name",                       default: "", null: false
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
-    t.integer  "socially_identifiable_id"
-    t.string   "socially_identifiable_type"
+    t.string   "name",         default: "", null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "subscriptions", force: :cascade do |t|

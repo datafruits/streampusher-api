@@ -26,7 +26,7 @@ class RadioBooter
     end
 
     if ::Rails.env.development?
-      links = ["#{radio_name}_icecast:icecast","streampusher_redis_1:redis","streampusher_rails_1:rails"]
+      links = ["#{radio_name}_icecast:icecast"]
     else
       links = ["#{radio_name}_icecast:icecast","streampusher_redis_1:redis"]
     end

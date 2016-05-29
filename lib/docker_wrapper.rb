@@ -17,11 +17,11 @@ class DockerWrapper
       # container doesn't exist, so take no action
     end
     begin
-      container = Docker::Container.create('Image' => image, 'name' => name, 'Env' => env, 'HostConfig' => { 'Links' => links, 'Binds' => binds, 'ExtraHosts' => ["docker:#{local_private_ip}"], "PublishAllPorts" => true } )
+      container = Docker::Container.create('Image' => image, 'name' => name, 'Env' => env, 'HostConfig' => host_config(links, binds))
     rescue Docker::Error::NotFoundError
       # image is not pulled yet
       Docker::Image.create('fromImage' => image)
-      container = Docker::Container.create('Image' => image, 'name' => name, 'Env' => env, 'HostConfig' => { 'Links' => links, 'Binds' => binds, 'ExtraHosts' => ["docker:#{local_private_ip}"], "PublishAllPorts" => true } )
+      container = Docker::Container.create('Image' => image, 'name' => name, 'Env' => env, 'HostConfig' => host_config(links, binds))
     end
     self.new container
   end
@@ -55,6 +55,20 @@ class DockerWrapper
   end
 
   private
+
+  def self.host_config links, binds
+    {
+      'Links' => links,
+      'Binds' => binds,
+      'ExtraHosts' => ["docker:#{local_private_ip}"],
+      "PublishAllPorts" => true,
+      "NetworkMode" => network_mode
+    }
+  end
+
+  def self.network_mode
+    "streampusher_default"
+  end
 
   def self.local_private_ip
     # probably portable?
