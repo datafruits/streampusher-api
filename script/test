@@ -9,7 +9,7 @@ else # we have no args
     filename='spec'
 fi
 
-if docker ps; then
+if docker ps &>/dev/null; then
   command="docker exec -it streampusher_rails_1 ./docker_wrapper.sh bundle exec rspec"
 else
   command="bundle exec rspec"
