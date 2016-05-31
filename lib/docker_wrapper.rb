@@ -8,7 +8,7 @@ class DockerWrapper
     @container = container
   end
 
-  def self.find_or_create image, name, env=[], links=[], binds=[]
+  def self.find_or_create image, name, env=[], binds=[]
     begin
     container = Docker::Container.get name
     container.stop
@@ -17,11 +17,11 @@ class DockerWrapper
       # container doesn't exist, so take no action
     end
     begin
-      container = Docker::Container.create('Image' => image, 'name' => name, 'Env' => env, 'HostConfig' => host_config(links, binds))
+      container = Docker::Container.create('Image' => image, 'name' => name, 'Env' => env, 'HostConfig' => host_config(binds))
     rescue Docker::Error::NotFoundError
       # image is not pulled yet
       Docker::Image.create('fromImage' => image)
-      container = Docker::Container.create('Image' => image, 'name' => name, 'Env' => env, 'HostConfig' => host_config(links, binds))
+      container = Docker::Container.create('Image' => image, 'name' => name, 'Env' => env, 'HostConfig' => host_config(binds))
     end
     self.new container
   end
@@ -46,19 +46,14 @@ class DockerWrapper
     @container.json["Config"]["Env"]
   end
 
-  def links
-    @container.json["HostConfig"]["Links"]
-  end
-
   def id
     @container.id
   end
 
   private
 
-  def self.host_config links, binds
+  def self.host_config binds
     {
-      'Links' => links,
       'Binds' => binds,
       'ExtraHosts' => ["docker:#{local_private_ip}"],
       "PublishAllPorts" => true,

@@ -1,12 +1,12 @@
-listenerproxy:
-  image: "mcfiredrill/listener_proxy:latest"
-  links:
-   - redis
-  ports:
-   - "8000:8000"
-  restart: "always"
-redis:
-  image: "redis:latest"
-  ports:
-    - "127.0.0.1:6379:6379"
-  restart: "always"
+version: '2'
+services:
+  listenerproxy:
+    image: "mcfiredrill/listener_proxy:latest"
+    ports:
+     - "8000:8000"
+    restart: "always"
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    restart: "always"
