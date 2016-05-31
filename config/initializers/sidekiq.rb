@@ -1,4 +1,4 @@
-host = ENV['REDIS_PORT_6379_TCP_ADDR'] || 'localhost'
+host = ENV['REDIS_PORT_6379_TCP_ADDR'] || 'redis'
 port = ENV['REDIS_PORT_6379_TCP_PORT'] || 6379
 
 Sidekiq.configure_server do |config|
