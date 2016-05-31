@@ -25,15 +25,9 @@ class RadioBooter
       end
     end
 
-    if ::Rails.env.development?
-      links = ["#{radio_name}_icecast:icecast"]
-    else
-      links = ["#{radio_name}_icecast:icecast","streampusher_redis_1:redis"]
-    end
     liquidsoap_container = DockerWrapper.find_or_create 'mcfiredrill/liquidsoap:latest',
       "#{radio_name}_liquidsoap",
       ["RADIO_NAME=#{radio_name}","RAILS_ENV=#{Rails.env}"],
-      links,
       ["#{radio.tracks_directory}:/home/liquidsoap/tracks"]
     radio.update liquidsoap_container_id: liquidsoap_container.id
     if ::Rails.env.production?
