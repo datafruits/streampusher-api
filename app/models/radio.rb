@@ -31,16 +31,6 @@ class Radio < ActiveRecord::Base
     RadioDisableWorker.perform_later self.id
   end
 
-  def icecast_container
-    if !self.icecast_container_id.blank?
-      begin
-        Docker::Container.get self.icecast_container_id
-      rescue
-        nil
-      end
-    end
-  end
-
   def icecast_panel_url
     "http://#{self.virtual_host}:8000/"
   end

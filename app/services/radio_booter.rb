@@ -7,24 +7,6 @@ class RadioBooter
     radio_name = radio.name
     redis = Redis.current
 
-    icecast_container = DockerWrapper.find_or_create 'mcfiredrill/icecast:latest', "#{radio_name}_icecast"
-    radio.update icecast_container_id: icecast_container.id
-    if ::Rails.env.production?
-     port = redis.hget "proxy-domain", radio.icecast_proxy_key
-     if port.present?
-       UFW.close_port port
-     end
-    end
-    icecast_container.stop
-    icecast_container.start
-    redis.hset 'proxy-domain', radio.icecast_proxy_key, icecast_container.host_port(8000)
-    if ::Rails.env.production?
-      port = icecast_container.host_port(8000)
-      if port.present?
-        UFW.open_port port
-      end
-    end
-
     liquidsoap_container = DockerWrapper.find_or_create 'mcfiredrill/liquidsoap:latest',
       "#{radio_name}_liquidsoap",
       ["RADIO_NAME=#{radio_name}","RAILS_ENV=#{Rails.env}"],

@@ -1,7 +1,7 @@
 version: '2'
 services:
-  listenerproxy:
-    image: "mcfiredrill/listener_proxy:latest"
+  icecast:
+    image: "mcfiredrill/icecast:latest"
     ports:
      - "8000:8000"
     restart: "always"
