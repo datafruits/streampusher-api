@@ -37,6 +37,7 @@ class ScheduledShowsController < ApplicationController
   end
 
   def create
+    @scheduled_show.dj_id = current_user.id
     if @scheduled_show.save
       ActiveSupport::Notifications.instrument 'scheduled_show.created', current_user: current_user.email, radio: @current_radio.name, show: @scheduled_show.title
       flash[:notice] = "Scheduled show!"
