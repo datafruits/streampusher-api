@@ -23,6 +23,7 @@ class Ability
       can :read, "embed"
       can :manage, Recording if can_manage_radio?(user, radio)
       can :vj, :dashboard if is_datafruits?(radio)
+      can :manage, SocialIdentity, user_id: user.id
     elsif user.manager? # same as owner except can't manage subscription
       can :manage, Radio do |radio|
         can_manage_radio?(user, radio)
@@ -37,6 +38,7 @@ class Ability
       can :read, "embed"
       can :manage, Recording if can_manage_radio?(user, radio)
       can :vj, :dashboard if is_datafruits?(radio)
+      can :manage, SocialIdentity, user_id: user.id
     elsif user.dj?
       can :index, Radio if can_manage_radio?(user, radio)
       can :read, Podcast if radio.podcasts_enabled?
@@ -56,6 +58,8 @@ class Ability
 
       can :read, "broadcasting_help"
       can :read, "embed"
+
+      can :manage, SocialIdentity, user_id: user.id
 
       can :vj, :dashboard if is_datafruits?(radio)
       cannot :admin

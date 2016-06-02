@@ -38,7 +38,11 @@ Rails.application.routes.draw do
 
   resources :djs
 
-  devise_for :users, controllers: { registrations: 'registrations', sessions: 'sessions' }
+  devise_for :users, controllers: {
+    registrations: "registrations",
+    sessions: "sessions",
+    omniauth_callbacks: "users/omniauth_callbacks"
+  }
 
   as :user do
     get "/login" => "sessions#new"
@@ -63,6 +67,8 @@ Rails.application.routes.draw do
       get 'player'
     end
   end
+
+  resources :social_identities
 
   authenticated :user do
     root :to =>  "radios#index", as: :authenticated_root

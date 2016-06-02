@@ -18,6 +18,8 @@ gem 'chosen-rails'
 gem 'spring',        group: :development
 
 gem 'devise', '~> 3.5.1'
+gem 'omniauth'
+gem 'omniauth-mixcloud', github: "morganric/omniauth-mixcloud"
 gem 'cancancan'
 gem 'stripe'
 gem 'stripe_event'

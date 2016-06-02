@@ -6,13 +6,14 @@ class User < ActiveRecord::Base
   has_many :user_radios
   has_many :shows, foreign_key: :dj_id
   has_many :recordings
+  has_many :social_identities
 
   default_scope { order(created_at: :desc) }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
   validates_presence_of :username
   validates_uniqueness_of :username
   validates_presence_of :time_zone
@@ -35,6 +36,10 @@ class User < ActiveRecord::Base
     else
       where(conditions).first
     end
+  end
+
+  def connected_identity? provider
+    self.social_identities.where(provider: provider).any?
   end
 
   private
