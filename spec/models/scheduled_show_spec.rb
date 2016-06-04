@@ -18,6 +18,7 @@ RSpec.describe ScheduledShow, :type => :model do
       Timecop.freeze Time.local(2015)
     end
     it "set time_zone to save in" do
+      puts Time.zone.name
       Time.use_zone "Tokyo" do
         start_at = Chronic.parse("today at 9:00 am")
         end_at = Chronic.parse("today at 11:00 am")
