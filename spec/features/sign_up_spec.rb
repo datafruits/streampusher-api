@@ -54,7 +54,7 @@ feature 'signup' do
       fill_in_sign_up_form_with "steve.aoki@gmail.com", "stevespassword", "BLOCKFM"
       click_sign_up_button
 
-      i_should_see_i_signed_up_as "steve.aoki"
+      i_should_see_i_signed_up_as "BLOCKFM"
     end
   end
 
@@ -78,7 +78,7 @@ feature 'signup' do
       fill_in_sign_up_form_with "steve.aoki@gmail.com", "stevespassword", "BLOCKFM"
       click_sign_up_button
 
-      i_should_see_i_signed_up_as "steve.aoki"
+      i_should_see_i_signed_up_as "BLOCKFM"
     end
     Timecop.travel 14.days.from_now do
       visit_dashboard
