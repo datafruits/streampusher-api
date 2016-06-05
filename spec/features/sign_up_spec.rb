@@ -68,9 +68,25 @@ feature 'signup' do
     end
   end
 
-  scenario 'form shows error if no password'
+  scenario 'form shows error if no password' do
+    VCR.use_cassette(RSpec.current_example.metadata[:full_description].to_s) do
+      visit_sign_up_page
+      fill_in_sign_up_form_with "steve.aoki@gmail.com", "", "BLOCKFM"
+      click_sign_up_button
 
-  scenario 'form shows error if no radio name'
+      expect(page).to have_content "Password can't be blank"
+    end
+  end
+
+  scenario 'form shows error if no radio name' do
+    VCR.use_cassette(RSpec.current_example.metadata[:full_description].to_s) do
+      visit_sign_up_page
+      fill_in_sign_up_form_with "steve.aoki@gmail.com", "stevespassword", ""
+      click_sign_up_button
+
+      expect(page).to have_content "Name can't be blank"
+    end
+  end
 
   xit 'free trial expires after 14 days' do
     VCR.use_cassette "user_sign_up" do
