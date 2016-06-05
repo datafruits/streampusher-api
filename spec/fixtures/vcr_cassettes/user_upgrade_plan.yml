@@ -4,7 +4,7 @@ http_interactions:
     method: post
     uri: https://api.stripe.com/v1/customers
     body:
-      encoding: US-ASCII
+      encoding: UTF-8
       string: description=steve.aoki%40gmail.com&plan=Free%20Trial
     headers:
       Accept:
@@ -18,9 +18,9 @@ http_interactions:
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
-      - '{"bindings_version":"1.16.0","lang":"ruby","lang_version":"2.2.3 p173 (2015-08-18)","platform":"x86_64-darwin14","publisher":"stripe","uname":"Darwin
-        moguya 14.5.0 Darwin Kernel Version 14.5.0: Wed Jul 29 02:26:53 PDT 2015;
-        root:xnu-2782.40.9~1/RELEASE_X86_64 x86_64"}'
+      - '{"bindings_version":"1.16.0","lang":"ruby","lang_version":"2.3.0 p0 (2015-12-25)","platform":"x86_64-linux","publisher":"stripe","uname":"Linux
+        b2be42aa086a 3.19.0-39-generic #44~14.04.1-Ubuntu SMP Wed Dec 2 10:00:35 UTC
+        2015 x86_64 x86_64 x86_64 GNU/Linux"}'
       Content-Length:
       - '52'
   response:
@@ -31,11 +31,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Wed, 18 Nov 2015 07:59:59 GMT
+      - Sun, 05 Jun 2016 15:33:15 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '1834'
+      - '1892'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_7NBDnmrkh6P0UR
+      - req_8aDg3S13bjDg16
       Stripe-Version:
       - '2014-09-08'
       Strict-Transport-Security:
@@ -58,17 +58,18 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "cus_7NBDAnol5XSLlq",
+          "id": "cus_8aDgmXqaztEcRG",
           "object": "customer",
           "account_balance": 0,
+          "business_vat_id": null,
           "cards": {
             "object": "list",
             "data": [],
             "has_more": false,
             "total_count": 0,
-            "url": "/v1/customers/cus_7NBDAnol5XSLlq/cards"
+            "url": "/v1/customers/cus_8aDgmXqaztEcRG/cards"
           },
-          "created": 1447833598,
+          "created": 1465140795,
           "currency": "usd",
           "default_card": null,
           "default_source": null,
@@ -84,20 +85,21 @@ http_interactions:
             "data": [],
             "has_more": false,
             "total_count": 0,
-            "url": "/v1/customers/cus_7NBDAnol5XSLlq/sources"
+            "url": "/v1/customers/cus_8aDgmXqaztEcRG/sources"
           },
           "subscriptions": {
             "object": "list",
             "data": [
               {
-                "id": "sub_7NBDEMzQ6c2AeR",
+                "id": "sub_8aDgV1KyuUzqUA",
                 "object": "subscription",
                 "application_fee_percent": null,
                 "cancel_at_period_end": false,
                 "canceled_at": null,
-                "current_period_end": 1449043198,
-                "current_period_start": 1447833598,
-                "customer": "cus_7NBDAnol5XSLlq",
+                "created": 1465140795,
+                "current_period_end": 1466350395,
+                "current_period_start": 1465140795,
+                "customer": "cus_8aDgmXqaztEcRG",
                 "discount": null,
                 "ended_at": null,
                 "metadata": {},
@@ -117,23 +119,23 @@ http_interactions:
                   "statement_description": null
                 },
                 "quantity": 1,
-                "start": 1447833598,
+                "start": 1465140795,
                 "status": "trialing",
                 "tax_percent": null,
-                "trial_end": 1449043198,
-                "trial_start": 1447833598
+                "trial_end": 1466350395,
+                "trial_start": 1465140795
               }
             ],
             "has_more": false,
             "total_count": 1,
-            "url": "/v1/customers/cus_7NBDAnol5XSLlq/subscriptions"
+            "url": "/v1/customers/cus_8aDgmXqaztEcRG/subscriptions"
           }
         }
     http_version: 
-  recorded_at: Wed, 18 Nov 2015 07:59:58 GMT
+  recorded_at: Sun, 05 Jun 2016 15:33:14 GMT
 - request:
     method: get
-    uri: https://api.stripe.com/v1/customers/cus_7NBDAnol5XSLlq
+    uri: https://api.stripe.com/v1/customers/cus_8aDgmXqaztEcRG
     body:
       encoding: US-ASCII
       string: ''
@@ -149,9 +151,9 @@ http_interactions:
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
-      - '{"bindings_version":"1.16.0","lang":"ruby","lang_version":"2.2.3 p173 (2015-08-18)","platform":"x86_64-darwin14","publisher":"stripe","uname":"Darwin
-        moguya 14.5.0 Darwin Kernel Version 14.5.0: Wed Jul 29 02:26:53 PDT 2015;
-        root:xnu-2782.40.9~1/RELEASE_X86_64 x86_64"}'
+      - '{"bindings_version":"1.16.0","lang":"ruby","lang_version":"2.3.0 p0 (2015-12-25)","platform":"x86_64-linux","publisher":"stripe","uname":"Linux
+        b2be42aa086a 3.19.0-39-generic #44~14.04.1-Ubuntu SMP Wed Dec 2 10:00:35 UTC
+        2015 x86_64 x86_64 x86_64 GNU/Linux"}'
   response:
     status:
       code: 200
@@ -160,11 +162,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Wed, 18 Nov 2015 08:00:06 GMT
+      - Sun, 05 Jun 2016 15:33:21 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '1834'
+      - '1892'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -178,7 +180,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_7NBDDB4cu7bmbj
+      - req_8aDh8y2DvVw3Va
       Stripe-Version:
       - '2014-09-08'
       Strict-Transport-Security:
@@ -187,17 +189,18 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "cus_7NBDAnol5XSLlq",
+          "id": "cus_8aDgmXqaztEcRG",
           "object": "customer",
           "account_balance": 0,
+          "business_vat_id": null,
           "cards": {
             "object": "list",
             "data": [],
             "has_more": false,
             "total_count": 0,
-            "url": "/v1/customers/cus_7NBDAnol5XSLlq/cards"
+            "url": "/v1/customers/cus_8aDgmXqaztEcRG/cards"
           },
-          "created": 1447833598,
+          "created": 1465140795,
           "currency": "usd",
           "default_card": null,
           "default_source": null,
@@ -213,20 +216,21 @@ http_interactions:
             "data": [],
             "has_more": false,
             "total_count": 0,
-            "url": "/v1/customers/cus_7NBDAnol5XSLlq/sources"
+            "url": "/v1/customers/cus_8aDgmXqaztEcRG/sources"
           },
           "subscriptions": {
             "object": "list",
             "data": [
               {
-                "id": "sub_7NBDEMzQ6c2AeR",
+                "id": "sub_8aDgV1KyuUzqUA",
                 "object": "subscription",
                 "application_fee_percent": null,
                 "cancel_at_period_end": false,
                 "canceled_at": null,
-                "current_period_end": 1449043198,
-                "current_period_start": 1447833598,
-                "customer": "cus_7NBDAnol5XSLlq",
+                "created": 1465140795,
+                "current_period_end": 1466350395,
+                "current_period_start": 1465140795,
+                "customer": "cus_8aDgmXqaztEcRG",
                 "discount": null,
                 "ended_at": null,
                 "metadata": {},
@@ -246,26 +250,26 @@ http_interactions:
                   "statement_description": null
                 },
                 "quantity": 1,
-                "start": 1447833598,
+                "start": 1465140795,
                 "status": "trialing",
                 "tax_percent": null,
-                "trial_end": 1449043198,
-                "trial_start": 1447833598
+                "trial_end": 1466350395,
+                "trial_start": 1465140795
               }
             ],
             "has_more": false,
             "total_count": 1,
-            "url": "/v1/customers/cus_7NBDAnol5XSLlq/subscriptions"
+            "url": "/v1/customers/cus_8aDgmXqaztEcRG/subscriptions"
           }
         }
     http_version: 
-  recorded_at: Wed, 18 Nov 2015 08:00:05 GMT
+  recorded_at: Sun, 05 Jun 2016 15:33:20 GMT
 - request:
     method: post
-    uri: https://api.stripe.com/v1/customers/cus_7NBDAnol5XSLlq/sources
+    uri: https://api.stripe.com/v1/customers/cus_8aDgmXqaztEcRG/sources
     body:
-      encoding: US-ASCII
-      string: source=tok_178QrJBgrAjRvl1emePXSfJH
+      encoding: UTF-8
+      string: source=tok_18J3FcBgrAjRvl1eJJeRBE8x
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -278,9 +282,9 @@ http_interactions:
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
-      - '{"bindings_version":"1.16.0","lang":"ruby","lang_version":"2.2.3 p173 (2015-08-18)","platform":"x86_64-darwin14","publisher":"stripe","uname":"Darwin
-        moguya 14.5.0 Darwin Kernel Version 14.5.0: Wed Jul 29 02:26:53 PDT 2015;
-        root:xnu-2782.40.9~1/RELEASE_X86_64 x86_64"}'
+      - '{"bindings_version":"1.16.0","lang":"ruby","lang_version":"2.3.0 p0 (2015-12-25)","platform":"x86_64-linux","publisher":"stripe","uname":"Linux
+        b2be42aa086a 3.19.0-39-generic #44~14.04.1-Ubuntu SMP Wed Dec 2 10:00:35 UTC
+        2015 x86_64 x86_64 x86_64 GNU/Linux"}'
       Content-Length:
       - '35'
   response:
@@ -291,7 +295,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Wed, 18 Nov 2015 08:00:07 GMT
+      - Sun, 05 Jun 2016 15:33:22 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -309,7 +313,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_7NBDLGrWsP60G3
+      - req_8aDhaAVrXB1JzD
       Stripe-Version:
       - '2014-09-08'
       Strict-Transport-Security:
@@ -318,7 +322,7 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "card_178QrJBgrAjRvl1edbZmQiM7",
+          "id": "card_18J3FcBgrAjRvl1efOmCuMxT",
           "object": "card",
           "address_city": null,
           "address_country": null,
@@ -330,7 +334,7 @@ http_interactions:
           "address_zip_check": null,
           "brand": "Visa",
           "country": "US",
-          "customer": "cus_7NBDAnol5XSLlq",
+          "customer": "cus_8aDgmXqaztEcRG",
           "cvc_check": "pass",
           "dynamic_last4": null,
           "exp_month": 12,
@@ -343,10 +347,10 @@ http_interactions:
           "tokenization_method": null
         }
     http_version: 
-  recorded_at: Wed, 18 Nov 2015 08:00:06 GMT
+  recorded_at: Sun, 05 Jun 2016 15:33:21 GMT
 - request:
     method: post
-    uri: https://api.stripe.com/v1/customers/cus_7NBDAnol5XSLlq/cards/card_178QrJBgrAjRvl1edbZmQiM7
+    uri: https://api.stripe.com/v1/customers/cus_8aDgmXqaztEcRG/cards/card_18J3FcBgrAjRvl1efOmCuMxT
     body:
       encoding: ASCII-8BIT
       string: ''
@@ -362,9 +366,9 @@ http_interactions:
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
-      - '{"bindings_version":"1.16.0","lang":"ruby","lang_version":"2.2.3 p173 (2015-08-18)","platform":"x86_64-darwin14","publisher":"stripe","uname":"Darwin
-        moguya 14.5.0 Darwin Kernel Version 14.5.0: Wed Jul 29 02:26:53 PDT 2015;
-        root:xnu-2782.40.9~1/RELEASE_X86_64 x86_64"}'
+      - '{"bindings_version":"1.16.0","lang":"ruby","lang_version":"2.3.0 p0 (2015-12-25)","platform":"x86_64-linux","publisher":"stripe","uname":"Linux
+        b2be42aa086a 3.19.0-39-generic #44~14.04.1-Ubuntu SMP Wed Dec 2 10:00:35 UTC
+        2015 x86_64 x86_64 x86_64 GNU/Linux"}'
       Content-Length:
       - '0'
   response:
@@ -375,7 +379,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Wed, 18 Nov 2015 08:00:08 GMT
+      - Sun, 05 Jun 2016 15:33:22 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -393,7 +397,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_7NBD7ZD4xE10kY
+      - req_8aDhT5uAmmFkAN
       Stripe-Version:
       - '2014-09-08'
       Strict-Transport-Security:
@@ -402,7 +406,7 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "card_178QrJBgrAjRvl1edbZmQiM7",
+          "id": "card_18J3FcBgrAjRvl1efOmCuMxT",
           "object": "card",
           "address_city": null,
           "address_country": null,
@@ -414,7 +418,7 @@ http_interactions:
           "address_zip_check": null,
           "brand": "Visa",
           "country": "US",
-          "customer": "cus_7NBDAnol5XSLlq",
+          "customer": "cus_8aDgmXqaztEcRG",
           "cvc_check": "pass",
           "dynamic_last4": null,
           "exp_month": 12,
@@ -427,13 +431,13 @@ http_interactions:
           "tokenization_method": null
         }
     http_version: 
-  recorded_at: Wed, 18 Nov 2015 08:00:07 GMT
+  recorded_at: Sun, 05 Jun 2016 15:33:22 GMT
 - request:
     method: post
-    uri: https://api.stripe.com/v1/customers/cus_7NBDAnol5XSLlq
+    uri: https://api.stripe.com/v1/customers/cus_8aDgmXqaztEcRG
     body:
-      encoding: US-ASCII
-      string: default_card=card_178QrJBgrAjRvl1edbZmQiM7
+      encoding: UTF-8
+      string: default_card=card_18J3FcBgrAjRvl1efOmCuMxT
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -446,9 +450,9 @@ http_interactions:
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
-      - '{"bindings_version":"1.16.0","lang":"ruby","lang_version":"2.2.3 p173 (2015-08-18)","platform":"x86_64-darwin14","publisher":"stripe","uname":"Darwin
-        moguya 14.5.0 Darwin Kernel Version 14.5.0: Wed Jul 29 02:26:53 PDT 2015;
-        root:xnu-2782.40.9~1/RELEASE_X86_64 x86_64"}'
+      - '{"bindings_version":"1.16.0","lang":"ruby","lang_version":"2.3.0 p0 (2015-12-25)","platform":"x86_64-linux","publisher":"stripe","uname":"Linux
+        b2be42aa086a 3.19.0-39-generic #44~14.04.1-Ubuntu SMP Wed Dec 2 10:00:35 UTC
+        2015 x86_64 x86_64 x86_64 GNU/Linux"}'
       Content-Length:
       - '42'
   response:
@@ -459,11 +463,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Wed, 18 Nov 2015 08:00:09 GMT
+      - Sun, 05 Jun 2016 15:33:23 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '3354'
+      - '3412'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -477,7 +481,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_7NBDqZKUUmHqAr
+      - req_8aDh7r9MKaDasH
       Stripe-Version:
       - '2014-09-08'
       Strict-Transport-Security:
@@ -486,14 +490,15 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "cus_7NBDAnol5XSLlq",
+          "id": "cus_8aDgmXqaztEcRG",
           "object": "customer",
           "account_balance": 0,
+          "business_vat_id": null,
           "cards": {
             "object": "list",
             "data": [
               {
-                "id": "card_178QrJBgrAjRvl1edbZmQiM7",
+                "id": "card_18J3FcBgrAjRvl1efOmCuMxT",
                 "object": "card",
                 "address_city": null,
                 "address_country": null,
@@ -505,7 +510,7 @@ http_interactions:
                 "address_zip_check": null,
                 "brand": "Visa",
                 "country": "US",
-                "customer": "cus_7NBDAnol5XSLlq",
+                "customer": "cus_8aDgmXqaztEcRG",
                 "cvc_check": "pass",
                 "dynamic_last4": null,
                 "exp_month": 12,
@@ -520,12 +525,12 @@ http_interactions:
             ],
             "has_more": false,
             "total_count": 1,
-            "url": "/v1/customers/cus_7NBDAnol5XSLlq/cards"
+            "url": "/v1/customers/cus_8aDgmXqaztEcRG/cards"
           },
-          "created": 1447833598,
+          "created": 1465140795,
           "currency": "usd",
-          "default_card": "card_178QrJBgrAjRvl1edbZmQiM7",
-          "default_source": "card_178QrJBgrAjRvl1edbZmQiM7",
+          "default_card": "card_18J3FcBgrAjRvl1efOmCuMxT",
+          "default_source": "card_18J3FcBgrAjRvl1efOmCuMxT",
           "delinquent": false,
           "description": "steve.aoki@gmail.com",
           "discount": null,
@@ -537,7 +542,7 @@ http_interactions:
             "object": "list",
             "data": [
               {
-                "id": "card_178QrJBgrAjRvl1edbZmQiM7",
+                "id": "card_18J3FcBgrAjRvl1efOmCuMxT",
                 "object": "card",
                 "address_city": null,
                 "address_country": null,
@@ -549,7 +554,7 @@ http_interactions:
                 "address_zip_check": null,
                 "brand": "Visa",
                 "country": "US",
-                "customer": "cus_7NBDAnol5XSLlq",
+                "customer": "cus_8aDgmXqaztEcRG",
                 "cvc_check": "pass",
                 "dynamic_last4": null,
                 "exp_month": 12,
@@ -564,20 +569,21 @@ http_interactions:
             ],
             "has_more": false,
             "total_count": 1,
-            "url": "/v1/customers/cus_7NBDAnol5XSLlq/sources"
+            "url": "/v1/customers/cus_8aDgmXqaztEcRG/sources"
           },
           "subscriptions": {
             "object": "list",
             "data": [
               {
-                "id": "sub_7NBDEMzQ6c2AeR",
+                "id": "sub_8aDgV1KyuUzqUA",
                 "object": "subscription",
                 "application_fee_percent": null,
                 "cancel_at_period_end": false,
                 "canceled_at": null,
-                "current_period_end": 1449043198,
-                "current_period_start": 1447833598,
-                "customer": "cus_7NBDAnol5XSLlq",
+                "created": 1465140795,
+                "current_period_end": 1466350395,
+                "current_period_start": 1465140795,
+                "customer": "cus_8aDgmXqaztEcRG",
                 "discount": null,
                 "ended_at": null,
                 "metadata": {},
@@ -597,18 +603,18 @@ http_interactions:
                   "statement_description": null
                 },
                 "quantity": 1,
-                "start": 1447833598,
+                "start": 1465140795,
                 "status": "trialing",
                 "tax_percent": null,
-                "trial_end": 1449043198,
-                "trial_start": 1447833598
+                "trial_end": 1466350395,
+                "trial_start": 1465140795
               }
             ],
             "has_more": false,
             "total_count": 1,
-            "url": "/v1/customers/cus_7NBDAnol5XSLlq/subscriptions"
+            "url": "/v1/customers/cus_8aDgmXqaztEcRG/subscriptions"
           }
         }
     http_version: 
-  recorded_at: Wed, 18 Nov 2015 08:00:08 GMT
-recorded_with: VCR 3.0.0
+  recorded_at: Sun, 05 Jun 2016 15:33:22 GMT
+recorded_with: VCR 3.0.2

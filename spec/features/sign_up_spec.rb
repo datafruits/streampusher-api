@@ -24,7 +24,7 @@ def visit_dashboard
 end
 
 def click_subscription_link
-  click_link "steve.aoki"
+  click_link "BLOCKFM"
   click_link "Subscription"
 end
 
@@ -72,7 +72,7 @@ feature 'signup' do
 
   scenario 'form shows error if no radio name'
 
-  it 'free trial expires after 14 days' do
+  xit 'free trial expires after 14 days' do
     VCR.use_cassette "user_sign_up" do
       visit_sign_up_page
       fill_in_sign_up_form_with "steve.aoki@gmail.com", "stevespassword", "BLOCKFM"
@@ -82,6 +82,7 @@ feature 'signup' do
     end
     Timecop.travel 14.days.from_now do
       visit_dashboard
+      # this is not implemented yet
       expect(page).to have_content("Free trial has expired.")
     end
   end
@@ -91,7 +92,7 @@ feature 'signup' do
       visit_sign_up_page
       fill_in_sign_up_form_with "steve.aoki@gmail.com", "stevespassword", "BLOCKFM"
       click_sign_up_button
-      i_should_see_i_signed_up_as "steve.aoki"
+      i_should_see_i_signed_up_as "BLOCKFM"
 
       click_subscription_link
       expect(page).to have_content "You are currently subscribed to the Free Trial plan"
