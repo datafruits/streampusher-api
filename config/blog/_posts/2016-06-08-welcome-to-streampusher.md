@@ -22,8 +22,8 @@ That said, creating an online radio station is a *lot* of work. At the minimum y
 - manage archives and recordings
 
 In addition, new DJs need to be instructed how to stream, which usually involves
-downloading (desktop
-software)[http://freedrool.us/blog/big-list-of-source-clients], giving them credentials to access the server via their streaming software, setting up their DJ software to output audio to the streaming software, and more.
+downloading [desktop
+software](http://freedrool.us/blog/big-list-of-source-clients), giving them credentials to access the server via their streaming software, setting up their DJ software to output audio to the streaming software, and more.
 
 Streampusher intends to make this easy and will help you every step of the way.
 
