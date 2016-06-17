@@ -42,6 +42,7 @@
     "ember-data": "^2.4.0",
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-export-application-global": "^1.0.4",
+    "ember-inflector": "^1.9.4",
     "ember-islands": "1.0.0",
     "ember-load-initializers": "^0.5.0",
     "ember-modal-dialog": "0.8.3",
