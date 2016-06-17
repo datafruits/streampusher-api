@@ -21,3 +21,6 @@
 #every 10.minutes do
 #  runner "CheckRadioIsUp.perform_later"
 #end
+every '23 11,22 * * *' do
+  command "/home/deploy/certbot-auto renew --quiet --no-self-upgrade"
+end
