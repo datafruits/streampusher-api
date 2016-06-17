@@ -19,13 +19,13 @@ export default Ember.Component.extend({
   dragLeave(event) {
     event.preventDefault();
     set(this, 'dragClass', 'deactivated');
-    $(".uploader-icon").hide();
+    Ember.$(".uploader-icon").hide();
   },
 
   dragOver(event) {
     event.preventDefault();
     set(this, 'dragClass', 'activated');
-    $(".uploader-icon").show();
+    Ember.$(".uploader-icon").show();
   },
 
   drop(event) {
@@ -35,7 +35,7 @@ export default Ember.Component.extend({
     //this.sendAction('dropped', data);
 
     set(this, 'dragClass', 'deactivated');
-    $(".uploader-icon").hide();
+    Ember.$(".uploader-icon").hide();
     event.preventDefault();
   },
   sortProperties: ['createdAt:desc'],
