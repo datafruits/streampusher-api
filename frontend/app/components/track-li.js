@@ -8,7 +8,7 @@ export default Ember.Component.extend({
   actions: {
     addToPlaylist: function(){
       var store = this.get('store');
-      var playlist = this.get('playlist')
+      var playlist = this.get('playlist');
       var track = this.get('track');
       var playlistTrack = store.createRecord('playlist_track', { track: track, playlist: playlist });
       playlistTrack.save();

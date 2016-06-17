@@ -13,7 +13,7 @@ export default Ember.Component.extend({
   sortedPlaylistTracks: Ember.computed.sort('playlist.playlistTracks', 'positionDesc'),
   actions: {
     reorderItems(groupModel, itemModels, draggedModel) {
-      var draggedToIndex = itemModels.findIndex(function(element){ return element.id === draggedModel.id });
+      var draggedToIndex = itemModels.findIndex(function(element){ return element.id === draggedModel.id; });
 
       draggedModel.set('position_position', draggedToIndex);
       this.set('playlist.playlistTracks', itemModels);
