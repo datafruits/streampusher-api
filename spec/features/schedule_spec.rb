@@ -36,7 +36,7 @@ feature 'schedule', :js => true do
   end
   scenario 'non-logged in user can view schedule'
   scenario 'logged in user views schedule in their timezone'
-  scenario 'dj can schedule their show' do
+  xit 'dj can schedule their show' do
     Time.use_zone "Tokyo" do
       Timecop.travel Time.zone.parse("2020-01-01 08:00") do
         start_at = Time.zone.parse("2020-01-01 09:00")
@@ -52,7 +52,7 @@ feature 'schedule', :js => true do
       end
     end
   end
-  scenario 'dj can edit their scheduled show' do
+  xit 'dj can edit their scheduled show' do
     login_as dj
     visit_schedule_path
     fill_in_schedule_form "cool show", playlist, Chronic.parse("today at 3pm"), Chronic.parse("today at 5pm")
@@ -65,7 +65,7 @@ feature 'schedule', :js => true do
     i_should_see_my_scheduled_show show, Chronic.parse("today at 5pm"), Chronic.parse("today at 7pm")
   end
 
-  scenario 'dj deletes scheduled show' do
+  xit 'dj deletes scheduled show' do
     login_as dj
     visit_schedule_path
     fill_in_schedule_form show, Chronic.parse("today at 3pm"), Chronic.parse("today at 5pm")
