@@ -133,7 +133,7 @@ GEM
     connection_pool (2.2.0)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
-    database_rewinder (0.5.3)
+    database_rewinder (0.6.0)
     devise (3.5.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
