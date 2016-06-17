@@ -38,7 +38,7 @@ def click_edit_track_button
 end
 
 def edit_id3_tags tags
-  fill_in "track[artist]", with: tags[:artist]
+  find("input.track-artist").set(tags[:artist])
   click_button "Save"
 end
 
@@ -80,14 +80,10 @@ feature 'playlists', :js => true do
     upload_a_track
     create_a_new_playlist "new playlist"
     expect(page.find("span.playlist-title")).to have_content('new playlist')
-    #expect(page.find("#playlists .playlist")).to have_content("my new playlist")
-    #drag_track_to_playlist
     add_track_to_playlist
-    #expect(page).to have_content('added the_cowbell.mp3 to playlist my new playlist!')
     expect(page.find(".playlist-tracks")).to have_content("the_cowbell.mp3")
     remove_track_from_playlist
     expect(page.find(".playlist-tracks")).to have_no_content("the_cowbell.mp3")
-    #expect(page).to have_content('removed track from playlist!')
   end
 
   scenario 'edits a track' do
