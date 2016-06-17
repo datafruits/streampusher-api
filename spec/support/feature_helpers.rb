@@ -12,7 +12,7 @@ module FeatureHelpers
     select date.year.to_s,   :from => "#{field}_1i"
     select date.strftime("%B"),       :from => "#{field}_2i"
     select date.day.to_s,    :from => "#{field}_3i"
-    select date.hour,    :from => "#{field}_4i"
+    select date.strftime("%H"),    :from => "#{field}_4i"
     select date.strftime("%M"),    :from => "#{field}_5i"
   end
 end
