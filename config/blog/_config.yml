@@ -19,3 +19,9 @@ github_username: streampusher
 markdown: kramdown
 
 destination: ../../public/blog
+
+authors:
+  tony_miller:
+    name: Tony Miller
+    email: mcfiredrill@gmail.com
+    web: http://twitter.com/dogatcomputer

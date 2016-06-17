@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "a new way to start an online radio station "
+author: tony_miller
 ---
 
 I believe internet radio and streaming events can be improved significantly with today’s technologies. That’s why I’m creating streampusher.
