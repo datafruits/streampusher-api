@@ -5,6 +5,9 @@ var { set } = Ember;
 export default Ember.Component.extend({
   store: Ember.inject.service(),
   filterText: '',
+  isSearching: Ember.computed('filterText', function() {
+    return this.get('filterText') !== "";
+  }),
   filteredResults: Ember.computed('filterText', function() {
     var filter = this.get('filterText');
     return this.get('tracks').filter(function(item) {
@@ -54,8 +57,8 @@ export default Ember.Component.extend({
     }
   }),
   actions: {
-    searchTracks: function(){
-      this.toggleProperty('isSearching');
+    clearSearch: function(){
+      this.set('filterText','');
     }
   }
 });

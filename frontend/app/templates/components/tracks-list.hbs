@@ -1,24 +1,22 @@
 <div class="row">
-  <div class="col-md-6">
-    <span class="tracks-title">All Media</span>
+  <h1 class="tracks-title">Media Library</h1>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="wrapper">
+      <i class="fa fa-search"></i>
+      {{input class="search-tracks" autofocus="autofocus" value=filterText escape-press='clearSearch' placeholder="Search media"}}
+    </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-7">
     <div class="fileUpload btn btn-default">
-      <i class="fa fa-plus"></i>
+      <i class="fa fa-plus"></i>Add
       {{track-uploader}}
     </div>
   </div>
-  <div class="col-md-3">
-    <button class="btn btn-default tracks-search" {{action "searchTracks"}}>
-      <i class="fa fa-search"></i>
-    </button>
-  </div>
 </div>
-{{#if isSearching}}
-  {{input autofocus="autofocus" value=filterText escape-press='searchTracks'}}
-{{/if}}
 <div class="tracks-list">
-  <table class="table table-striped">
+  <table class="table table-bordered">
     <tbody>
       {{#if isSearching}}
         {{#each filteredResults as |track|}}

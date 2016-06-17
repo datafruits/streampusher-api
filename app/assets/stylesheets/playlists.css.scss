@@ -79,62 +79,6 @@ li.track.ui-draggable-dragging:hover {
     opacity: 1;
 }
 
-.context-menu-list {
-  font-family: inherit !important;
-  font-size: inherit !important;
-}
-.context-menu-item {
-  background: yellow !important;
-}
-.context-menu-item:hover {
-  background-color: #39F !important;
-}
-.context-menu-item.icon-edit {
-  font-family: FontAwesome;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-image: none !important;
-}
-.context-menu-item.icon-delete {
-  font-family: FontAwesome;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-image: none !important;
-}
-.context-menu-item.icon-edit:before { content: "\f040"; }
-.context-menu-item.icon-delete:before { content: "\f057"; }
-
-.edit-track .modal-content {
-  background-color: yellow;
-}
-
-.edit-playlist-track .modal-content {
-  background-color: orange;
-}
-
-.expand-playlist {
-  float: right;
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: 3rem;
-  padding: 5px;
-}
-
-.expand-playlist:hover {
-  cursor: pointer;
-}
-
-.new-playlist-btn {
-  float: right;
-}
-
 .playlist-title {
   font-size: 30px;
   input {
@@ -191,7 +135,6 @@ li.track.ui-draggable-dragging:hover {
 .fileUpload {
   position: relative;
   overflow: hidden;
-  margin: 10px;
 }
 
 .fileUpload input.upload {
@@ -214,10 +157,6 @@ $white          : #fff;
 $black          : #111;
 
 .draggableDropzone {
-   position: relative;
-   display: block;
-   padding: $default-margin / 2;
-   width: 100%;
    opacity:1;
    -webkit-transition: opacity .25s ease;
    -moz-transition: opacity .25s ease;
@@ -240,19 +179,32 @@ $black          : #111;
 }
 
 .tracks-title {
-  font-size: 30px;
+  font-size: 14px;
+  text-indent: 15px;
 }
 
-button.tracks-search {
-  margin-top: 10px;
+.search-tracks {
+  border-radius: 2px;
+  width: 100%;
+}
+
+.wrapper {
+  position: relative;
+  i.fa-search {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+  }
 }
 
 .tracks-list {
   height: 400px;
   overflow-y: scroll;
+  margin-top: 12px;
 }
 
 .playlist-tracks-list {
+  margin-top: 4px;
   height: 400px;
   overflow-y: scroll;
   .handle {
@@ -290,3 +242,8 @@ button.tracks-search {
     margin-right: auto;
   }
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
+
