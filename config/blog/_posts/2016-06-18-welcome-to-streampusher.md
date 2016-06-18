@@ -6,6 +6,8 @@ author: tony_miller
 
 I believe internet radio and streaming events can be improved significantly with today’s technologies. That’s why I’m creating streampusher.
 
+![streampusher logo](/images/streampusher_logo.png)
+
 What do you believe is the future of internet radio?
 
 Maybe some people think real radio by real presenters isn’t needed anymore. Services like Spotify and Pandora are growing.
@@ -30,7 +32,11 @@ Streampusher intends to make this easy and will help you every step of the way.
 
 You can add new DJs to your station simply by entering their email address. The new DJ will receive and email automatically with instructions on how to login and stream to the server.
 
+![add djs by entering their email address](/images/add_dj_scrot.png)
+
 You can schedule shows and programming with the calendar function. You can select a DJ to host the event as well as a backup playlist that will play in the event that the DJ is unable to do the show for any reason, ensuring there is never any dead air.
+
+![schedule events with the calendar](/images/calendar_scrot.png)
 
 In the future, streampusher will archive recordings automatically and export them to podcasts or your favorite hosting service like mixcloud or soundcloud.
 
@@ -41,4 +47,12 @@ mp3s or other audio files from your desktop. You can create unlimited playlists
 and schedule them to play at certain times with the same scheduling feature you
 use to schedule live events.
 
-I’m really excited about what we can do with this, there is so much we can automate and make easier.
+![create your playlists](/images/playlists_scrot.png)
+
+I’m really excited about what we can do with managing radio stations via a
+powerful web interface, there is so much we can automate and make easier.
+
+[Get started today](https://streampusher.com/users/sign_up)
+
+If you have any feedback I would love to hear it. Feel free to leave a comment below or
+send an email.
