@@ -9,6 +9,13 @@ GIT
       rupeepeethree (~> 0.0.6)
 
 GIT
+  remote: git://github.com/streampusher/omniauth-mixcloud.git
+  revision: bf54940d820de99f8a47cb627a8b7fc9e361cc07
+  specs:
+    omniauth-mixcloud (1.0.1)
+      omniauth-oauth2 (~> 1.1.0)
+
+GIT
   remote: git://github.com/waynehoover/s3_direct_upload.git
   revision: b36ad83b3bb8b78fe0c6cd59c47a63f5cb97f0bb
   specs:
@@ -17,12 +24,6 @@ GIT
       jquery-fileupload-rails (~> 0.4.1)
       rails (>= 3.1)
       sass-rails (>= 3.1)
-
-PATH
-  remote: /Users/tony/src/omniauth-mixcloud
-  specs:
-    omniauth-mixcloud (1.0.1)
-      omniauth-oauth2 (~> 1.1.0)
 
 GEM
   remote: https://rubygems.org/

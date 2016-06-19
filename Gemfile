@@ -20,7 +20,7 @@ gem 'spring',        group: :development
 gem 'devise', '~> 3.5.1'
 gem 'omniauth'
 gem 'omniauth-soundcloud'
-gem 'omniauth-mixcloud', path: "/Users/tony/src/omniauth-mixcloud"
+gem 'omniauth-mixcloud', github: "streampusher/omniauth-mixcloud"
 gem 'cancancan'
 gem 'stripe'
 gem 'stripe_event'
