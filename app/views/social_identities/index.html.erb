@@ -1,5 +1,8 @@
-<% if current_user.connected_identity? 'facebook' %>
-  Connected mixcloud account.
-<% else %>
-  <%= link_to "Connect your Mixcloud account to Streampusher", user_omniauth_authorize_path(:mixcloud),:class=>'btn btn-success' %>
+<% User.omniauth_providers.each do |provider| %>
+  <% if current_user.connected_identity? provider %>
+    <%= "Connected #{provider.to_s.titleize} account." %>
+  <% else %>
+    <%= link_to "Connect your #{provider.to_s.titleize} account to Streampusher", user_omniauth_authorize_path(provider) %><br />
+  <% end -%>
+  <br />
 <% end %>

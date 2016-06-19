@@ -86,6 +86,7 @@
               <% if current_user.owner? %>
                 <li><%= link_to "Subscription", edit_subscription_path(current_user.subscription) %></li>
               <% end %>
+              <li><%= link_to "Connected Accounts", social_identities_path %></li>
               <li class="divider"></li>
               <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
             </ul>

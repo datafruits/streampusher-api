@@ -67,6 +67,10 @@ $blue2: #00a2ff;
   text-decoration: none;
 }
 
+.dropdown-menu >li > a {
+  text-decoration: none;
+}
+
 #odometer {
   font-size: 60px;
 }
