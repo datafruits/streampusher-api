@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 20160823053841) do
     t.string   "tunein_partner_key"
     t.string   "tunein_station_id"
     t.boolean  "tunein_metadata_updates_enabled", default: false, null: false
+    t.boolean  "social_identities_enabled", default: false, null: false
   end
 
   create_table "recordings", force: :cascade do |t|
@@ -146,13 +147,13 @@ ActiveRecord::Schema.define(version: 20160823053841) do
   create_table "social_identities", force: :cascade do |t|
     t.string   "uid",          default: "", null: false
     t.string   "provider",     default: "", null: false
-    t.integer  "user_id",                   null: false
     t.string   "token"
     t.string   "string"
     t.string   "token_secret"
     t.string   "name",         default: "", null: false
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "user_id"
   end
 
   create_table "subscriptions", force: :cascade do |t|
