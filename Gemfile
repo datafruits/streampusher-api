@@ -11,7 +11,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails', '~> 3.2.2'
-gem 'font-awesome-sass', '~> 4.2.0'
+gem 'font-awesome-sass', '~> 4.6.0'
 gem 'bourbon'
 gem 'chosen-rails'
 
