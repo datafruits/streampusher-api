@@ -41,19 +41,22 @@ export default Ember.Component.extend({
     Ember.$(".uploader-icon").hide();
     event.preventDefault();
   },
-  sortProperties: ['createdAt:desc'],
   sortedTracks: Ember.computed.sort('tracks', function(a, b){
-    if(a.isUploading){
-      return 1;
-    }
-    if(b.isUploading){
-      return 1;
-    }
-    if(a.createdAt > b.createdAt){
-      return 1;
-    }
-    if(a.createdAt < b.createdAt){
-      return -1;
+    if(a.isUploading || b.isUploading){
+      if(a.isUploading && b.isUploading){
+        return 0;
+      } else if(a.isUploading){
+        return -1;
+      } else if(b.isUploading){
+        return 1;
+      }
+    } else {
+      if(a.get('createdAt') === b.get('createdAt')){
+      } else if(a.get('createdAt') > b.get('createdAt')){
+        return -1;
+      } else if(a.get('createdAt') < b.get('createdAt')){
+        return 1;
+      }
     }
   }),
   actions: {
