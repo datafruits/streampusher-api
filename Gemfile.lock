@@ -25,6 +25,12 @@ GIT
       rails (>= 3.1)
       sass-rails (>= 3.1)
 
+PATH
+  remote: /Users/tony/src/mixcloud-ruby
+  specs:
+    mixcloud (0.0.1)
+      httmultiparty
+
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -195,6 +201,13 @@ GEM
       activesupport (>= 2, < 5)
       nokogiri (>= 1.4)
     html_page (0.1.0)
+    httmultiparty (0.3.16)
+      httparty (>= 0.7.3)
+      mimemagic
+      multipart-post
+    httparty (0.13.7)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     jekyll (3.1.6)
       colorator (~> 0.1)
@@ -506,6 +519,7 @@ DEPENDENCIES
   kaminari
   less-rails
   lograge
+  mixcloud!
   mock_redis
   omniauth
   omniauth-mixcloud!
