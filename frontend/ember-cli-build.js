@@ -6,6 +6,7 @@ module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     // Add options here
     fingerprint: {
+      exclude: ["vendor.js", "vendor.css", "frontend.js", "frontend.css"],
       prepend: '/assets/ember-cli/apps/frontend/'
     }
   });
