@@ -1,5 +1,10 @@
 <!-- Your Ember app will be rendered here. -->
 <div id="ember-application"></div>
-<% prepend = asset_url("/assets/ember-cli/apps/frontend/") %>
-<%= include_ember_script_tags :frontend, prepend: prepend %>
-<%= include_ember_stylesheet_tags :frontend, prepend: prepend %>
+<% if Rails.env.production? %>
+  <%= include_ember_script_tags :frontend %>
+  <%= include_ember_stylesheet_tags :frontend %>
+<% else %>
+  <% prepend = asset_url("/assets/ember-cli/apps/frontend/") %>
+  <%= include_ember_script_tags :frontend, prepend: prepend %>
+  <%= include_ember_stylesheet_tags :frontend, prepend: prepend %>
+<% end %>
