@@ -3,7 +3,7 @@
 
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div><%= f.label :login %><br />
-    <%= f.text_field :login, autofocus: true %></div>
+    <%= f.text_field :login, autofocus: true, autocapitalize: "off" %></div>
 
     <div><%= f.label :password %><br />
       <%= f.password_field :password, autocomplete: "off" %></div>
