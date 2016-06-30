@@ -19321,11 +19321,6 @@
       "from": "ember-truth-helpers@1.2.0",
       "resolved": "https://registry.npmjs.org/ember-truth-helpers/-/ember-truth-helpers-1.2.0.tgz"
     },
-    "ember-ui-sortable": {
-      "version": "0.1.2",
-      "from": "ember-ui-sortable@0.1.2",
-      "resolved": "https://registry.npmjs.org/ember-ui-sortable/-/ember-ui-sortable-0.1.2.tgz"
-    },
     "ember-uploader": {
       "version": "1.0.0",
       "from": "ember-uploader@1.0.0",
