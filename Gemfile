@@ -69,7 +69,7 @@ gem 'slack-notifier'
 
 gem 'groupdate'
 gem 'coffeebeans'
-gem 'ranked-model'
+gem 'acts_as_list'
 gem 'kaminari'
 gem 'active_model_serializers'
 gem 'chronic'

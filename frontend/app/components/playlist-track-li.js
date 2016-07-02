@@ -5,20 +5,20 @@ export default Ember.Component.extend({
   classNames: ['track', 'playlist-track'],
   isEditing: false,
   actions: {
-    deleteFromPlaylist: function(){
+    deleteFromPlaylist(){
       var playlistTrack = this.get('playlistTrack');
       playlistTrack.deleteRecord();
       playlistTrack.save();
     },
-    editPlaylistTrack: function(){
+    editPlaylistTrack(){
       this.set('isEditing', true);
     },
-    save: function(){
+    save(){
       var playlistTrack = this.get('playlistTrack');
       playlistTrack.save();
       this.set('isEditing', false);
     },
-    cancel: function(){
+    cancel(){
       this.set('isEditing', false);
     }
   }

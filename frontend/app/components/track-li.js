@@ -6,17 +6,18 @@ export default Ember.Component.extend({
   classNames: ['track'],
   isEditing: false,
   actions: {
-    addToPlaylist: function(){
+    addToPlaylist(){
       var store = this.get('store');
       var playlist = this.get('playlist');
       var track = this.get('track');
       var playlistTrack = store.createRecord('playlist_track', { track: track, playlist: playlist });
-      playlistTrack.save();
+      Ember.RSVP.all([playlistTrack.save(), playlist.save()]);
+      //playlistTrack.save();
     },
-    editTrack: function(){
+    editTrack(){
       this.set('isEditing', true);
     },
-    save: function(){
+    save(){
       var track = this.get('track');
       var onSuccess = () =>{
         this.set('isEditing', false);
@@ -26,10 +27,10 @@ export default Ember.Component.extend({
       };
       track.save().then(onSuccess, onFail);
     },
-    cancel: function(){
+    cancel(){
       this.set('isEditing', false);
     },
-    destroy: function(){
+    destroy(){
       if(confirm("Are you sure you want to delete this track?")){
         var track = this.get('track');
         track.destroyRecord();

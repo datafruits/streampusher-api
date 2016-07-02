@@ -20,11 +20,11 @@
     <tbody>
       {{#if isSearching}}
         {{#each filteredResults as |track|}}
-          {{track-li track=track playlist=playlist}}
+          {{track-li track=track playlist=playlist savePlaylistTrack="savePlaylistTrack"}}
         {{/each}}
       {{else}}
         {{#each sortedTracks as |track|}}
-          {{track-li track=track playlist=playlist}}
+          {{track-li track=track playlist=playlist savePlaylistTrack="savePlaylistTrack"}}
         {{/each}}
       {{/if}}
     </tbody>

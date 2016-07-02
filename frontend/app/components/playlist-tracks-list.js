@@ -15,37 +15,37 @@ export default Ember.Component.extend({
     reorderItems(groupModel, itemModels, draggedModel) {
       var draggedToIndex = itemModels.findIndex(function(element){ return element.id === draggedModel.id; });
 
-      draggedModel.set('position_position', draggedToIndex);
+      draggedModel.set('position', draggedToIndex);
       this.set('playlist.playlistTracks', itemModels);
       return Ember.RSVP.all([draggedModel.save(), groupModel.save()]);
     },
-    selectPlaylist: function(){
+    selectPlaylist(){
       this.toggleProperty('isSelectingPlaylist');
     },
-    editPlaylist: function(){
+    editPlaylist(){
       this.toggleProperty('isEditing');
     },
-    cancelEditing: function(){
+    cancelEditing(){
       this.toggleProperty('isEditing');
       if(this.playlist.get('isNew')){
         this.set('playlist', this.get('oldPlaylist'));
       }
     },
-    editPlaylistSettings: function(){
+    editPlaylistSettings(){
       this.toggleProperty('isEditingSettings');
     },
-    newPlaylist: function(){
+    newPlaylist(){
       var store = this.get('store');
       var playlist = store.createRecord('playlist');
       this.set('oldPlaylist', this.get('playlist'));
       this.set('playlist', playlist);
       this.set('isEditing', true);
     },
-    selectInterpolatedPlaylistId: function(playlistId) {
+    selectInterpolatedPlaylistId(playlistId) {
       var playlist = this.get('playlist');
       playlist.set('interpolatedPlaylistId', playlistId);
     },
-    saveSettings: function() {
+    saveSettings() {
       var playlist = this.get('playlist');
       var onSuccess = () =>{
         this.set('isEditingSettings', false);
@@ -56,7 +56,7 @@ export default Ember.Component.extend({
       playlist.save().then(onSuccess, onFail);
       //$("#edit-playlist-modal").modal("toggle");
     },
-    save: function() {
+    save() {
       var playlist = this.get('playlist');
       var onSuccess = () =>{
         this.set('isEditing', false);

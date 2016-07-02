@@ -60,7 +60,7 @@ export default Ember.Component.extend({
     }
   }),
   actions: {
-    clearSearch: function(){
+    clearSearch(){
       this.set('filterText','');
     }
   }
