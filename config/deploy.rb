@@ -118,6 +118,7 @@ namespace :deploy do
     end
   end
 
+
   before :deploy, "deploy:check_revision"
   before 'deploy:setup_config', 'nginx:remove_default_vhost'
 
@@ -125,6 +126,7 @@ namespace :deploy do
   after :finishing, 'deploy:cleanup'
   after 'deploy:setup_config', 'nginx:reload'
   after 'deploy:setup_config', 'monit:restart'
+  after "deploy:setup_config", "backup:setup"
 
   after 'deploy:starting', 'sidekiq:quiet'
   # after 'deploy:updated', 'sidekiq:monit:stop'
