@@ -1,10 +1,12 @@
 class PlaylistsController < ApplicationController
   load_and_authorize_resource
   def show
-    @tracks = @current_radio.tracks
-    @playlist = Playlist.find params[:id]
+    @playlist = Playlist.includes(:tracks).find params[:id]
     respond_to do |format|
-      format.html
+      format.html {
+        @tracks = @current_radio.tracks
+        render 'show'
+      }
       format.json {
         render json: @playlist
       }
