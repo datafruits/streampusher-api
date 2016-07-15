@@ -31,7 +31,6 @@ class TracksController < ApplicationController
 
   def create
     @track = @current_radio.tracks.new create_params
-    @track.filesize = params[:filesize]
     if @track.save
       ActiveSupport::Notifications.instrument 'track.created', current_user: current_user.email, radio: @current_radio.name, track: @track.file_basename
       flash[:notice] = 'track uploaded!'
@@ -55,7 +54,7 @@ class TracksController < ApplicationController
 
   private
   def create_params
-    params.require(:track).permit(:radio_id, :audio_file_name)
+    params.require(:track).permit(:radio_id, :audio_file_name, :filesize)
   end
 
   def update_params

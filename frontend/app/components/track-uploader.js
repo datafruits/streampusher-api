@@ -28,7 +28,7 @@ export default EmberUploader.FileField.extend({
         let uploader = EmberUploader.S3Uploader.create({
           signingUrl: this.get('signingUrl')
         });
-        uploader.track = store.createRecord('track', { isUploading: true, audioFileName: files[i].name });
+        uploader.track = store.createRecord('track', { isUploading: true, audioFileName: files[i].name, filesize: files[i].size });
 
         uploader.on('didUpload', function(response) {
           // S3 will return XML with url
