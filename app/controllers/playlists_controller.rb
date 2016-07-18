@@ -46,7 +46,7 @@ class PlaylistsController < ApplicationController
   end
 
   def update
-    @playlist = @current_radio.playlists.find params[:id]
+    @playlist = @current_radio.playlists.includes(:tracks).find params[:id]
     @playlist.attributes = update_params
     if @playlist.save
       flash[:notice] = "updated playlist"
