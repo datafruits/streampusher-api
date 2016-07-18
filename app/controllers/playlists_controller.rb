@@ -15,7 +15,7 @@ class PlaylistsController < ApplicationController
 
   def index
     @tracks = @current_radio.tracks
-    @playlists = @current_radio.playlists
+    @playlists = @current_radio.playlists.includes(:tracks)
     @playlist = Playlist.new
     respond_to do |format|
       format.html {
