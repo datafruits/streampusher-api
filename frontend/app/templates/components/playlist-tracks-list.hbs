@@ -40,7 +40,7 @@
     </button>
   </div>
 </div>
-<div class="playlist-tracks-list">
+<div class="playlist-tracks-list {{if isSyncingPlaylist "syncing"}}">
   <table class="playlist-tracks table table-bordered">
     <thead>
     </thead>
@@ -88,4 +88,7 @@
       <button {{action "saveSettings"}} class="btn btn-primary">Save changes</button>
     </div>
   {{/modal-dialog}}
+{{/if}}
+{{#if isSyncingPlaylist}}
+  <div class="spinner"></div>
 {{/if}}

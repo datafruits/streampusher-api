@@ -1,5 +1,5 @@
 class PlaylistTrackSerializer < ActiveModel::Serializer
-  attributes :audio_file_name, :podcast_published_date, :id, :track_id, :playlist_id, :title, :display_name, :position
+  attributes :audio_file_name, :podcast_published_date, :id, :track_id, :playlist_id, :title, :display_name, :position, :updated_at
 
   def display_name
     object.track.display_name

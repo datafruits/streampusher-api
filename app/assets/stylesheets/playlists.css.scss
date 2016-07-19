@@ -25,14 +25,6 @@ li.playlist {
   position: relative;
 }
 
-.playlist-state-default {
-  background: lighten(orange, 10%);
-}
-
-.playlist-state-hover {
-  background: lighten(orange, 30%);
-}
-
 li.track {
   z-index: 100;
   list-style:none;
@@ -71,9 +63,7 @@ li.track.ui-draggable-dragging:hover {
     line-height: 200px;
     font-size: larger;
 }
-#dropzone.hover {
-    background: lawngreen;
-}
+
 #dropzone.drop-fade {
     @include transition(all 0.3s ease-out);
     opacity: 1;
@@ -176,6 +166,38 @@ $black          : #111;
   /* COOL HAX */
   top: 7em;
   left: 15em;
+}
+
+$base-line-height: 150px;
+$spin-duration: 1.5s;
+
+.spinner {
+  pointer-events: none;
+  z-index: 1000;
+  position: absolute;
+  /* COOL HAX */
+  top: 8em;
+  left: 35%;
+
+  border-radius: 50%;
+  width: $base-line-height;
+  height: $base-line-height;
+  border: 2rem solid #ddd;
+  border-top-color: white;
+  animation: spin $spin-duration infinite linear;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.playlist-tracks-list.syncing {
+  opacity: 0.60;
 }
 
 .tracks-title {

@@ -19304,6 +19304,18 @@
         }
       }
     },
+    "ember-route-action-helper": {
+      "version": "0.3.2",
+      "from": "ember-route-action-helper@latest",
+      "resolved": "https://registry.npmjs.org/ember-route-action-helper/-/ember-route-action-helper-0.3.2.tgz",
+      "dependencies": {
+        "ember-getowner-polyfill": {
+          "version": "1.0.1",
+          "from": "ember-getowner-polyfill@>=1.0.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/ember-getowner-polyfill/-/ember-getowner-polyfill-1.0.1.tgz"
+        }
+      }
+    },
     "ember-sortable": {
       "version": "1.8.1",
       "from": "ember-sortable@1.8.1",

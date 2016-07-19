@@ -7,12 +7,18 @@ export default Ember.Component.extend({
   isEditing: false,
   actions: {
     addToPlaylist(){
+      this.sendAction('setIsSyncingPlaylist', true);
       var store = this.get('store');
       var playlist = this.get('playlist');
       var track = this.get('track');
-      var playlistTrack = store.createRecord('playlist_track', { track: track, playlist: playlist });
-      Ember.RSVP.all([playlistTrack.save(), playlist.save()]);
-      //playlistTrack.save();
+      var playlistTrack = store.createRecord('playlist_track', { track: track, playlist: playlist, dirty: true });
+      Ember.RSVP.all([playlistTrack.save(), playlist.save()]).then(() => {
+        console.log("track save succeeded ");
+        this.sendAction('setIsSyncingPlaylist', false);
+      }),(() => {
+        console.log("track save failed");
+        this.sendAction('setIsSyncingPlaylist', false);
+      });
     },
     editTrack(){
       this.set('isEditing', true);
