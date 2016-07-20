@@ -13,10 +13,8 @@ export default Ember.Component.extend({
       var track = this.get('track');
       var playlistTrack = store.createRecord('playlist_track', { track: track, playlist: playlist, dirty: true });
       Ember.RSVP.all([playlistTrack.save(), playlist.save()]).then(() => {
-        console.log("track save succeeded ");
         this.sendAction('setIsSyncingPlaylist', false);
       }),(() => {
-        console.log("track save failed");
         this.sendAction('setIsSyncingPlaylist', false);
       });
     },
@@ -39,6 +37,7 @@ export default Ember.Component.extend({
     destroy(){
       if(confirm("Are you sure you want to delete this track?")){
         var track = this.get('track');
+        // FIXME does this get removed from the playlist as well?
         track.destroyRecord();
       }
     }

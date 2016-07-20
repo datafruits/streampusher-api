@@ -17,11 +17,16 @@ export default Ember.Component.extend({
   sortedPlaylistTracks: Ember.computed.sort('filteredPlaylistTracks', 'positionDesc'),
   actions: {
     reorderItems(groupModel, itemModels, draggedModel) {
+      this.sendAction('setIsSyncingPlaylist', true);
       var draggedToIndex = itemModels.findIndex(function(element){ return element.id === draggedModel.id; });
 
       draggedModel.set('position', draggedToIndex);
       this.set('playlist.playlistTracks', itemModels);
-      return Ember.RSVP.all([draggedModel.save(), groupModel.save()]);
+      return Ember.RSVP.all([draggedModel.save(), groupModel.save()]).then(() => {
+        this.sendAction('setIsSyncingPlaylist', false);
+      }),(() => {
+        this.sendAction('setIsSyncingPlaylist', false);
+      });
     },
     selectPlaylist(){
       this.toggleProperty('isSelectingPlaylist');
