@@ -6,7 +6,8 @@ services:
      - "8000:8000"
     restart: "always"
   redis:
-    image: "redis:latest"
+    image: "dockerfile/redis:latest"
     ports:
       - "6379:6379"
     restart: "always"
+    command: "redis-server /etc/redis/redis.conf --requirepass ${REDIS_PASSWORD}"

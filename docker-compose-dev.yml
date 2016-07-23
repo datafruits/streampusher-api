@@ -9,6 +9,7 @@ services:
     image: "redis:latest"
     ports:
       - "6379:6379"
+    command: "redis-server /etc/redis/redis.conf --requirepass ${REDIS_PASSWORD}"
   postgres:
     image: "postgres:9.4"
     ports:
