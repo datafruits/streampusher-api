@@ -20,3 +20,6 @@ check process unicorn
 
     group unicorn_workers
 <% end %>
+
+check filesystem "root" with path /dev/disk/by-label/DOROOT
+  if space usage > 90% for 8 cycles then alert
