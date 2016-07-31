@@ -1,0 +1,13 @@
+namespace :deploy do
+  desc "compiles jekyll blog locally then rsyncs"
+  task :jekyll do
+    run_locally do
+      execute "cd config/blog && bundle exec jekyll build"
+    end
+    on roles(:app) do |role|
+      run_locally do
+        execute"rsync -av ./public/blog/ #{role.user}@#{role.hostname}:#{release_path}/public/blog/;"
+      end
+    end
+  end
+end
