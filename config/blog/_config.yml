@@ -1,0 +1,24 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely need to edit after that.
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+title: "Streampusher Blog"
+email: info@streampusher.com
+description: > # this means to ignore newlines until "baseurl:"
+  Start your own internet radio station with Streampusher.
+baseurl: "/blog" # the subpath of your site, e.g. /blog
+url: "https://streampusher.com" # the base hostname & protocol for your site
+twitter_username: streampusher
+github_username: streampusher
+commentsystem:  disqus
+disqus: streampusher
+
+# Build settings
+markdown: kramdown
+
+destination: ../../public/blog
+
