@@ -17,6 +17,11 @@ layout: default
 
   <div class="post-content" itemprop="articleBody">
     {{ content }}
+    {% if site.commentsystem %}{% if page.comments != false %}
+      <div id="comments">
+        {% include comments.html %}
+      </div>
+    {% endif %}{% endif %}
   </div>
 
 </article>

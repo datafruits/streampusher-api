@@ -14,8 +14,11 @@ baseurl: "/blog" # the subpath of your site, e.g. /blog
 url: "https://streampusher.com" # the base hostname & protocol for your site
 twitter_username: streampusher
 github_username: streampusher
+commentsystem:  disqus
+disqus: streampusher
 
 # Build settings
 markdown: kramdown
 
 destination: ../../public/blog
+

@@ -6,23 +6,14 @@ author: tony_miller
 
 I believe internet radio and streaming events can be improved significantly with today’s technologies. That’s why I’m creating streampusher.
 
-![streampusher logo](/blog/assets/images/dashboard_scrot.png)
-
-What do you believe is the future of internet radio?
-
-Maybe some people think real radio by real presenters isn’t needed anymore. Services like Spotify and Pandora are growing.
-
-I hope there will always be fans of true radio presented by humans. I don’t think any algorithm will ever replace a good presenter.
-
-Technology should enable and assist great things in the real world, not replace it.
-
-That said, creating an online radio station is a *lot* of work. At the minimum you need to:
+Creating an online radio station is a *lot* of work. At the minimum you need to:
 
 - start and manage your streaming server
 - recruit DJs and presenters
 - scheduling shows
 - promoting shows
 - manage archives and recordings
+
 
 In addition, new DJs need to be instructed how to stream, which usually involves
 downloading [desktop
@@ -45,8 +36,7 @@ What about when there is no live DJ, or maybe you just want to play a
 pre-arranged playlist of songs on your station 24/7? Use our snappy playlist
 editor to get your playlists on the air nearly instantly. Just drag and drop
 mp3s or other audio files from your desktop. You can create unlimited playlists
-and schedule them to play at certain times with the same scheduling feature you
-use to schedule live events.
+and schedule them to play at the time of your choosing.
 
 ![create your playlists](/blog/assets/images/playlists.gif)
 
