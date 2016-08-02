@@ -22,3 +22,4 @@ markdown: kramdown
 
 destination: ../../public/blog
 
+google_analytics: 'UA-57296173-1'
