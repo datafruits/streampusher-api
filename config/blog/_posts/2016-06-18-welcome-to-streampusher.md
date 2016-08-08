@@ -47,3 +47,5 @@ powerful web interface, there is so much we can automate and make easier.
 
 If you have any feedback I would love to hear it. Feel free to leave a comment below or
 send an email.
+
+{% include subscribe.html %}
