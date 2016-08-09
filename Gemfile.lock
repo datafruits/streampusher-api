@@ -172,6 +172,8 @@ GEM
     font-awesome-sass (4.2.1)
       sass (~> 3.2)
     fssm (0.2.10)
+    garails (1.0.0)
+      rails (>= 4.0.0)
     github-markdown (0.6.9)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
@@ -465,6 +467,7 @@ DEPENDENCIES
   exception_notification
   factory_girl_rails
   font-awesome-sass (~> 4.2.0)
+  garails
   github-markdown
   groupdate
   headless
