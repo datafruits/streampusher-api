@@ -21,5 +21,12 @@ backup/.env
 config/database.yml
 
 public/system/*
+public/assets/*
 vendor/bundle/*
 public/blog/*
+
+.byebug_history
+config/blog/.sass-cache
+
+**/dump.rdb
+**/.DS_Store
