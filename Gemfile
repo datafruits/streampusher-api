@@ -77,7 +77,6 @@ gem 'aws-sdk', '< 2.0'
 gem 'paperclip'
 
 gem "so_id3", github: "mcfiredrill/so_id3"
-#gem "so_id3", path: "/Users/tony/src/so_id3"
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-countUp.js'

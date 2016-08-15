@@ -18,6 +18,12 @@ module.exports = function(environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
       rootElement: '#ember-application'
+    },
+
+    paperclip: {
+      path: ":base/:attachment/:style/:filename?:updated_at",
+      base: "http://s3.amazonaws.com/streampusherdev"
+
     }
   };
 
