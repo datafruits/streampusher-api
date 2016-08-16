@@ -38,9 +38,9 @@
           {{artwork-file-upload file=track.artwork filename=track.artworkFilename}}
         </div>
         <br/>
-        <button {{action 'save'}} class="btn btn-primary">Save</button>
-        <button {{action 'cancel'}} class="btn btn-default">Cancel</button>
-        <button {{action 'destroy'}} class="delete-track btn btn-danger"><i class="fa fa-trash-o"></i></button>
+        <button {{action 'save'}} disabled={{isSaving}} class="btn btn-primary">Save</button>
+        <button {{action 'cancel'}} disabled={{isSaving}} class="btn btn-default">Cancel</button>
+        <button {{action 'destroy'}} disabled={{isSaving}} class="delete-track btn btn-danger"><i class="fa fa-trash-o"></i></button>
       </form>
     {{/if}}
   {{/if}}
