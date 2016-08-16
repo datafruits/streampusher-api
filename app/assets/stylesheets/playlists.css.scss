@@ -168,21 +168,17 @@ $black          : #111;
   left: 15em;
 }
 
-$base-line-height: 150px;
-$spin-duration: 1.5s;
+$base-line-height: 35px;
+$spin-duration: 1.0s;
 
 .spinner {
   pointer-events: none;
   z-index: 1000;
-  position: absolute;
-  /* COOL HAX */
-  top: 8em;
-  left: 35%;
 
   border-radius: 50%;
   width: $base-line-height;
   height: $base-line-height;
-  border: 2rem solid #ddd;
+  border: 0.5rem solid #ddd;
   border-top-color: white;
   animation: spin $spin-duration infinite linear;
 }
