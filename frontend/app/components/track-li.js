@@ -44,6 +44,10 @@ export default Ember.Component.extend({
         // FIXME does this get removed from the playlist as well?
         track.destroyRecord();
       }
+    },
+    mixcloud(){
+    },
+    soundcloud(){
     }
   }
 });

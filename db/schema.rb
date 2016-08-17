@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20160823053841) do
 
   create_table "listens", force: :cascade do |t|
     t.integer  "radio_id"
-    t.string   "ip_address"
+    t.string   "ip_address", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "start_at"
@@ -48,14 +48,14 @@ ActiveRecord::Schema.define(version: 20160823053841) do
   end
 
   create_table "playlists", force: :cascade do |t|
-    t.integer  "radio_id",                                                   null: false
+    t.integer  "radio_id",                                                               null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
+    t.string   "name",                                       limit: 255
     t.integer  "interpolated_playlist_id"
     t.integer  "interpolated_playlist_track_play_count"
     t.integer  "interpolated_playlist_track_interval_count"
-    t.boolean  "interpolated_playlist_enabled",              default: false, null: false
+    t.boolean  "interpolated_playlist_enabled",                          default: false, null: false
   end
 
   create_table "podcasts", force: :cascade do |t|
@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 20160823053841) do
   end
 
   create_table "radios", force: :cascade do |t|
-    t.string   "icecast_container_id"
+    t.string   "icecast_container_id",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name",                            default: "",    null: false
@@ -130,10 +130,10 @@ ActiveRecord::Schema.define(version: 20160823053841) do
   end
 
   create_table "shows", force: :cascade do |t|
-    t.string   "title",              default: "", null: false
-    t.integer  "dj_id",                           null: false
-    t.integer  "radio_id",                        null: false
-    t.text     "description",        default: "", null: false
+    t.string   "title",              limit: 255, default: "", null: false
+    t.integer  "dj_id",                                       null: false
+    t.integer  "radio_id",                                    null: false
+    t.text     "description",                    default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "playlist_id"
@@ -147,27 +147,27 @@ ActiveRecord::Schema.define(version: 20160823053841) do
   create_table "social_identities", force: :cascade do |t|
     t.string   "uid",          default: "", null: false
     t.string   "provider",     default: "", null: false
+    t.integer  "user_id",                   null: false
     t.string   "token"
     t.string   "string"
     t.string   "token_secret"
     t.string   "name",         default: "", null: false
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
-    t.integer  "user_id"
   end
 
   create_table "subscriptions", force: :cascade do |t|
     t.integer  "plan_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "stripe_customer_token"
-    t.integer  "user_id",                               null: false
+    t.string   "stripe_customer_token", limit: 255
+    t.integer  "user_id",                                           null: false
     t.string   "last_4_digits"
     t.integer  "exp_month"
     t.integer  "exp_year"
-    t.boolean  "on_trial",              default: false, null: false
+    t.boolean  "on_trial",                          default: false, null: false
     t.datetime "trial_ends_at"
-    t.boolean  "canceled",              default: false, null: false
+    t.boolean  "canceled",                          default: false, null: false
   end
 
   create_table "track_labels", force: :cascade do |t|
@@ -178,11 +178,11 @@ ActiveRecord::Schema.define(version: 20160823053841) do
   end
 
   create_table "tracks", force: :cascade do |t|
-    t.string   "audio_file_name"
+    t.string   "audio_file_name",       limit: 255
     t.integer  "radio_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "description",           default: "", null: false
+    t.string   "description",                       default: "", null: false
     t.string   "artist"
     t.string   "title"
     t.string   "album"
@@ -207,20 +207,20 @@ ActiveRecord::Schema.define(version: 20160823053841) do
   add_index "user_radios", ["user_id", "radio_id"], name: "index_user_radios_on_user_id_and_radio_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "role"
-    t.string   "username",               default: "", null: false
+    t.string   "role",                   limit: 255
+    t.string   "username",               limit: 255, default: "", null: false
     t.string   "time_zone"
   end
 
