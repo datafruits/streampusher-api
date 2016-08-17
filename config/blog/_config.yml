@@ -23,3 +23,10 @@ markdown: kramdown
 destination: ../../public/blog
 
 google_analytics: 'UA-57296173-1'
+
+gems:
+  - jekyll-seo-tag
+
+# for jekyll-seo-tag
+twitter:
+  username: benbalter
