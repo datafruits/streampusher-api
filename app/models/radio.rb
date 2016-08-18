@@ -14,8 +14,9 @@ class Radio < ActiveRecord::Base
   after_create :create_default_playlist
 
   validates :name, presence: true
-  validates :name, format: { with: /\A[a-zA-Z0-9_]+\z/ }
+  # validates :name, format: { with: /\A[a-zA-Z0-9_]+\z/ }
   validates :name, uniqueness: true
+  before_validation :fix_spaces_in_radio_name
 
   scope :enabled, -> { where(enabled: true) }
 
@@ -96,6 +97,10 @@ class Radio < ActiveRecord::Base
   end
 
   private
+  def fix_spaces_in_radio_name
+    self.name = self.name.gsub(/\A[a-zA-Z0-9_]+\z/, "_")
+  end
+
   def create_default_playlist
     self.playlists.create name: "default"
   end
