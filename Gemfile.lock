@@ -162,7 +162,7 @@ GEM
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
     excon (0.45.4)
-    execjs (2.6.0)
+    execjs (2.7.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.5.0)
@@ -172,10 +172,8 @@ GEM
     font-awesome-sass (4.2.1)
       sass (~> 3.2)
     fssm (0.2.10)
-    garails (1.0.0)
-      rails (>= 4.0.0)
     github-markdown (0.6.9)
-    globalid (0.3.6)
+    globalid (0.3.7)
       activesupport (>= 4.1.0)
     groupdate (2.4.0)
       activesupport (>= 3)
@@ -235,8 +233,8 @@ GEM
       railties (>= 3)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
-    mail (2.6.3)
-      mime-types (>= 1.16, < 3)
+    mail (2.6.4)
+      mime-types (>= 1.16, < 4)
     mercenary (0.3.6)
     method_source (0.8.2)
     mime-types (2.99.2)
@@ -412,11 +410,11 @@ GEM
     tilt (1.4.1)
     timecop (0.6.3)
     trollop (2.1.2)
-    twitter-bootstrap-rails (3.2.0)
-      actionpack (~> 4.1)
-      execjs (~> 2.2)
-      rails (~> 4.1)
-      railties (~> 4.1)
+    twitter-bootstrap-rails (3.2.2)
+      actionpack (>= 3.1)
+      execjs (>= 2.2.2, >= 2.2)
+      less-rails (>= 2.5.0)
+      railties (>= 3.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.1)
@@ -469,7 +467,6 @@ DEPENDENCIES
   exception_notification
   factory_girl_rails
   font-awesome-sass (~> 4.2.0)
-  garails
   github-markdown
   groupdate
   headless
@@ -514,7 +511,7 @@ DEPENDENCIES
   stripe_event
   therubyracer
   timecop
-  twitter-bootstrap-rails (~> 3.2.0)
+  twitter-bootstrap-rails (~> 3.2.2)
   uglifier (>= 1.3.0)
   unicorn
   vcr
