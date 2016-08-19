@@ -257,6 +257,15 @@ input[type="checkbox"] {
 
 footer {
   background: #444;
+  overflow: hidden;
+  ul {
+    list-style: none;
+    float: right;
+    li {
+      display: inline-block;
+      margin-left: 16px;
+    }
+  }
   a {
     color: #fff;
     text-shadow: 0 1px 0 #333;
