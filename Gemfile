@@ -86,7 +86,6 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-jplayer'
   gem 'rails-assets-chartjs'
   gem 'rails-assets-underscore'
-  gem 'rails-assets-jQuery-contextMenu'
 end
 
 gem 'whenever', require: false
