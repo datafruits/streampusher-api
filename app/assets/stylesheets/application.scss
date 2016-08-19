@@ -31,7 +31,6 @@
  *= require stats
  *= require subscriptions
  *= require s3_direct_upload_progress_bars
- *= require jQuery-contextMenu
  *= require chosen
  *= require_self
  */
@@ -254,4 +253,13 @@ input[type="checkbox"] {
 
 .downdown-menu > li > a {
   text-decoration: none;
+}
+
+footer {
+  background: #444;
+  a {
+    color: #fff;
+    text-shadow: 0 1px 0 #333;
+    text-decoration: none;
+  }
 }
