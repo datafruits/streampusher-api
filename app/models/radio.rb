@@ -98,7 +98,9 @@ class Radio < ActiveRecord::Base
 
   private
   def fix_spaces_in_radio_name
-    self.name = self.name.gsub(/\s/, "_")
+    if self.name.present?
+      self.name = self.name.gsub(/\s/, "_")
+    end
   end
 
   def create_default_playlist

@@ -7,7 +7,7 @@ describe SignupForm do
     attributes = { email: "mcfiredrill@gmail.com",
                    password: "2boobies",
                    subscription: { plan_id: @plan.id,
-                                   radios: { name: "daddy fruits" }
+                                   radios: { name: ""}
                    }
     }
     signup_form.attributes = attributes
