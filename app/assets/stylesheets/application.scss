@@ -255,12 +255,32 @@ input[type="checkbox"] {
   text-decoration: none;
 }
 
+* {
+  margin: 0;
+}
+html, body {
+  height: 100%;
+}
+.container {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -50px;
+}
+.container:after {
+  content: "";
+  display: block;
+}
+footer, .container:after {
+  height: 50px;
+}
+
 footer {
   background: #444;
   overflow: hidden;
   ul {
     list-style: none;
-    float: right;
+    float: left;
+    padding: 12px;
     li {
       display: inline-block;
       margin-left: 16px;
