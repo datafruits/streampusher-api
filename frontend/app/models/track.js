@@ -9,6 +9,8 @@ export default DS.Model.extend({
   artist: DS.attr(),
   title: DS.attr(),
   album: DS.attr(),
+  artwork: DS.attr('file'),
+  artworkFilename: DS.attr(),
   isUploading: false,
   uploadProgress: 0,
   roundedUploadProgress: Ember.computed('uploadProgress', function(){

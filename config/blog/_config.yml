@@ -6,10 +6,10 @@
 # 'jekyll serve'. If you change this file, please restart the server process.
 
 # Site settings
-title: "Streampusher Blog"
+title: "Streampusher Blog: Start your own live streaming internet radio station"
 email: info@streampusher.com
 description: > # this means to ignore newlines until "baseurl:"
-  Start your own internet radio station with Streampusher.
+  Start your own streaming internet radio station with Streampusher.
 baseurl: "/blog" # the subpath of your site, e.g. /blog
 url: "https://streampusher.com" # the base hostname & protocol for your site
 twitter_username: streampusher
@@ -23,3 +23,10 @@ markdown: kramdown
 destination: ../../public/blog
 
 google_analytics: 'UA-57296173-1'
+
+gems:
+  - jekyll-seo-tag
+
+# for jekyll-seo-tag
+twitter:
+  username: benbalter

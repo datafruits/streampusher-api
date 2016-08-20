@@ -27,6 +27,10 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.paperclip = {
+      path: ":base/:attachment/:style/:filename?:updated_at",
+      base: "http://s3.amazonaws.com/streampusherdev"
+    };
   }
 
   if (environment === 'test') {
@@ -39,10 +43,17 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+    ENV.paperclip = {
+      path: ":base/:attachment/:style/:filename?:updated_at",
+      base: "http://s3.amazonaws.com/streampushertest"
+    };
   }
 
   if (environment === 'production') {
-
+    ENV.paperclip = {
+      path: ":base/:attachment/:style/:filename?:updated_at",
+      base: "http://s3.amazonaws.com/streampusher"
+    };
   }
 
   return ENV;

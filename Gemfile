@@ -10,7 +10,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'less-rails'
-gem 'twitter-bootstrap-rails', '~> 3.2.0'
+gem 'twitter-bootstrap-rails', '~> 3.2.2'
 gem 'font-awesome-sass', '~> 4.2.0'
 gem 'bourbon'
 gem 'chosen-rails'
@@ -77,7 +77,6 @@ gem 'aws-sdk', '< 2.0'
 gem 'paperclip'
 
 gem "so_id3", github: "mcfiredrill/so_id3"
-#gem "so_id3", path: "/Users/tony/src/so_id3"
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-countUp.js'
@@ -87,7 +86,6 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-jplayer'
   gem 'rails-assets-chartjs'
   gem 'rails-assets-underscore'
-  gem 'rails-assets-jQuery-contextMenu'
 end
 
 gem 'whenever', require: false
@@ -101,3 +99,4 @@ gem 'github-markdown'
 gem 'ember-cli-rails'
 gem 'high_voltage'
 gem 'jekyll'
+gem 'jekyll-seo-tag'

@@ -5,8 +5,19 @@ class Track < ActiveRecord::Base
   has_many :playlists, through: :playlist_tracks
   has_many :track_labels, dependent: :destroy
   has_many :labels, through: :track_labels
-  has_attached_file :artwork, styles: { :thumb => "x300" }
+
+  has_attached_file :artwork,
+    storage: :s3,
+    styles: { :thumb => "x300" },
+    s3_credentials: { bucket: ENV['S3_BUCKET'],
+                      access_key_id: ENV['S3_KEY'],
+                      secret_access_key: ENV['S3_SECRET'] },
+    path: ":attachment/:style/:basename.:extension"
+
+  validates_attachment_content_type :artwork, content_type: /\Aimage\/.*\Z/
+
   has_tags column: :s3_filepath, storage: :s3,
+           artwork_column: :artwork,
            s3_credentials: { bucket: ENV['S3_BUCKET'],
                              access_key_id: ENV['S3_KEY'],
                              secret_access_key: ENV['S3_SECRET'] }

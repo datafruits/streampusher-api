@@ -5,6 +5,7 @@ export default Ember.Component.extend({
   tagName: 'tr',
   classNames: ['track'],
   isEditing: false,
+  isSaving: false,
   actions: {
     addToPlaylist(){
       this.sendAction('setIsSyncingPlaylist', true);
@@ -22,12 +23,15 @@ export default Ember.Component.extend({
       this.set('isEditing', true);
     },
     save(){
+      this.set('isSaving', true);
       var track = this.get('track');
       var onSuccess = () =>{
         this.set('isEditing', false);
+        this.set('isSaving', false);
       };
       var onFail = () =>{
         console.log("track save failed");
+        this.set('isSaving', false);
       };
       track.save().then(onSuccess, onFail);
     },

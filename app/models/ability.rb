@@ -13,7 +13,6 @@ class Ability
         can_manage_radio?(user, radio)
       end
       can :manage, :dj if can_manage_radio?(user, radio)
-      can :manage, Show if can_manage_radio?(user, radio)
       can :manage, Track if can_manage_radio?(user, radio)
       can :manage, Playlist if can_manage_radio?(user, radio)
       can :manage, PlaylistTrack if can_manage_radio?(user, radio)
@@ -29,7 +28,6 @@ class Ability
         can_manage_radio?(user, radio)
       end
       can :manage, :dj if can_manage_radio?(user, radio)
-      can :manage, Show if can_manage_radio?(user, radio)
       can :manage, Track if can_manage_radio?(user, radio)
       can :manage, Playlist if can_manage_radio?(user, radio)
       can :manage, PlaylistTrack if can_manage_radio?(user, radio)
@@ -43,10 +41,6 @@ class Ability
       can :index, Radio if can_manage_radio?(user, radio)
       can :read, Podcast if radio.podcasts_enabled?
 
-      can :read, Show
-      can :create, Show, dj_id: user.id
-      can :update, Show, dj_id: user.id
-      can :destroy, Show, dj_id: user.id
 
       can :read, ScheduledShow
       can :create, ScheduledShow

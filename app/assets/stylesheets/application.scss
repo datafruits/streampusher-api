@@ -22,6 +22,7 @@
  *= require embeds
  *= require home
  *= require landing
+ *= require loading_spinner
  *= require playlists
  *= require podcasts
  *= require radios
@@ -30,7 +31,6 @@
  *= require stats
  *= require subscriptions
  *= require s3_direct_upload_progress_bars
- *= require jQuery-contextMenu
  *= require chosen
  *= require_self
  */
@@ -253,4 +253,42 @@ input[type="checkbox"] {
 
 .downdown-menu > li > a {
   text-decoration: none;
+}
+
+* {
+  margin: 0;
+}
+html, body {
+  height: 100%;
+}
+.container {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -50px;
+}
+.container:after {
+  content: "";
+  display: block;
+}
+footer, .container:after {
+  height: 50px;
+}
+
+footer {
+  background: #444;
+  overflow: hidden;
+  ul {
+    list-style: none;
+    float: left;
+    padding: 12px;
+    li {
+      display: inline-block;
+      margin-left: 16px;
+    }
+  }
+  a {
+    color: #fff;
+    text-shadow: 0 1px 0 #333;
+    text-decoration: none;
+  }
 }

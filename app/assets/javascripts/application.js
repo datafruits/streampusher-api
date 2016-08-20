@@ -23,7 +23,6 @@
 //= require jplayer/jquery.jplayer.js
 //= require underscore
 //= require chosen-jquery
-//= require jQuery-contextMenu
 //= require s3_direct_upload
 //= require admin
 //= require bootstrap
