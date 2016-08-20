@@ -93,7 +93,7 @@ class Radio < ActiveRecord::Base
   end
 
   def disk_usage
-    self.tracks.sum(&:filesize)
+    self.tracks.pluck(:filesize).sum
   end
 
   private

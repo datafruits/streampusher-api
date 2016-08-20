@@ -48,4 +48,11 @@ RSpec.describe Radio, :type => :model do
       expect(radio.next_scheduled_show).to eq scheduled_show_2
     end
   end
+
+  it "gives disk_usage for tracks" do
+    radio = FactoryGirl.create :radio
+    track = FactoryGirl.create :track, radio: radio, filesize: 500
+    track = FactoryGirl.create :track, radio: radio, filesize: 500
+    expect(radio.disk_usage).to eq 1000
+  end
 end
