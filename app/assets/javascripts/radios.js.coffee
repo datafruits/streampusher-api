@@ -17,7 +17,7 @@ radioTitle = () ->
       counter.start()
     console.log('listeners: '+listeners)
 
-$('[data-controller=radios]').ready ->
+$('[data-controller=radios][data-action=index]').ready ->
   console.log('radios controller')
 
   mp3 = $(".jp-jplayer").data('mp3').toString()
