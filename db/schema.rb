@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160820035203) do
+ActiveRecord::Schema.define(version: 20160823053841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,15 +82,19 @@ ActiveRecord::Schema.define(version: 20160820035203) do
     t.string   "icecast_container_id",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name",                      limit: 255, default: "",    null: false
-    t.integer  "subscription_id",                                       null: false
-    t.string   "liquidsoap_container_id",   limit: 255
-    t.integer  "default_playlist_id"
-    t.boolean  "enabled",                               default: true,  null: false
-    t.boolean  "vj_enabled",                            default: false, null: false
-    t.boolean  "podcasts_enabled",                      default: false, null: false
-    t.boolean  "stats_enabled",                         default: false, null: false
     t.boolean  "social_identities_enabled",             default: false, null: false
+    t.string   "name",                            default: "",    null: false
+    t.integer  "subscription_id",                                 null: false
+    t.string   "liquidsoap_container_id"
+    t.integer  "default_playlist_id"
+    t.boolean  "enabled",                         default: true,  null: false
+    t.boolean  "vj_enabled",                      default: false, null: false
+    t.boolean  "podcasts_enabled",                default: false, null: false
+    t.boolean  "stats_enabled",                   default: false, null: false
+    t.string   "tunein_partner_id"
+    t.string   "tunein_partner_key"
+    t.string   "tunein_station_id"
+    t.boolean  "tunein_metadata_updates_enabled", default: false, null: false
   end
 
   create_table "recordings", force: :cascade do |t|

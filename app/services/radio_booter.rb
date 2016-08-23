@@ -9,7 +9,10 @@ class RadioBooter
 
     liquidsoap_container = DockerWrapper.find_or_create 'mcfiredrill/liquidsoap:latest',
       "#{radio_name}_liquidsoap",
-      ["RADIO_NAME=#{radio_name}","RAILS_ENV=#{Rails.env}"],
+      ["RADIO_NAME=#{radio_name}","RAILS_ENV=#{Rails.env}",
+       "TUNEIN_PARTNER_ID=#{radio.tunein_partner_id}", "TUNEIN_PARTNER_KEY=#{radio.tunein_partner_key}"
+       "TUNEIN_METADATA_UPDATES_ENABLED=#{radio.tunein_metadata_updates_enabled?}",
+       "TUNEIN_STATION_ID=#{radio.tunein_station_id}"],
       ["#{radio.tracks_directory}:/home/liquidsoap/tracks"]
     radio.update liquidsoap_container_id: liquidsoap_container.id
     if ::Rails.env.production?
