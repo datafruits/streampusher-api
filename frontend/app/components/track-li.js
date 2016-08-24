@@ -20,7 +20,7 @@ export default Ember.Component.extend({
       });
     },
     editTrack(){
-      this.set('isEditing', true);
+      this.toggleProperty('isEditing');
     },
     save(){
       this.set('isSaving', true);
