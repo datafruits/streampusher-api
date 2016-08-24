@@ -18,7 +18,7 @@ class RadiosController < ApplicationController
   end
 
   def update
-    @radio.attributes = create_params
+    @radio.attributes = update_params
     if @radio.save
       SaveRadioSettingsToRedisWorker.perform_later @radio.id
       flash[:notice] = "radio settings updated."
@@ -37,5 +37,11 @@ class RadiosController < ApplicationController
   private
   def create_params
     params.require(:radio).permit(:name, :virtual_host, :default_playlist_id)
+  end
+
+  def update_params
+    params.require(:radio).permit(:default_playlist_id,
+      :tunein_metadata_updates_enabled, :tunein_station_id, :tunein_partner_key,
+      :tunein_partner_id)
   end
 end
