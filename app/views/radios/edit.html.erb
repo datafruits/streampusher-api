@@ -3,10 +3,10 @@
   <%= f.input :default_playlist_id, collection: @current_radio.playlists, label_method: :name, value_method: :id  %>
   <h3>TuneIn Integration</h3>
   Send metadata updates to your tunein stream.
-  <%= f.input :tunein_metadata_updates_enabled, as: :boolean, label: "Send metadata updates to TuneIn" %>
-  <%= f.input :tunein_partner_id %>
-  <%= f.input :tunein_partner_key %>
-  <%= f.input :tunein_station_id %>
+  <%= f.input :tunein_metadata_updates_enabled, as: :boolean, label: "Enable sending metadata updates to TuneIn" %>
+  <%= f.input :tunein_partner_id, label: "Tunein Partner ID" %>
+  <%= f.input :tunein_partner_key, label: "Tunein Partner Key" %>
+  <%= f.input :tunein_station_id, label: "Tunein Station ID" %>
 
   <%= f.submit 'Save Settings', class: 'btn btn-success' %>
 <% end %>
