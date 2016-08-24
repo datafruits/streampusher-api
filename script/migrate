@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker-compose -f docker-compose-dev.yml  run rails ./docker_wrapper.sh bundle exec rake db:migrate
