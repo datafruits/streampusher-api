@@ -6,6 +6,8 @@ export default Ember.Component.extend({
   classNames: ['track'],
   isEditing: false,
   isSaving: false,
+  mixcloudDialog: false,
+  soundcloudDialog: false,
   actions: {
     addToPlaylist(){
       this.sendAction('setIsSyncingPlaylist', true);
@@ -21,6 +23,12 @@ export default Ember.Component.extend({
     },
     editTrack(){
       this.toggleProperty('isEditing');
+    },
+    mixcloud(){
+      this.set('isEditing', false);
+      this.toggleProperty('mixcloudDialog');
+    },
+    uploadToMixcloud(){
     },
     save(){
       this.set('isSaving', true);
@@ -44,8 +52,6 @@ export default Ember.Component.extend({
         // FIXME does this get removed from the playlist as well?
         track.destroyRecord();
       }
-    },
-    mixcloud(){
     },
     soundcloud(){
     }
