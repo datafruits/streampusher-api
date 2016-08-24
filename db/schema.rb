@@ -79,22 +79,22 @@ ActiveRecord::Schema.define(version: 20160823053841) do
   end
 
   create_table "radios", force: :cascade do |t|
-    t.string   "icecast_container_id",      limit: 255
+    t.string   "icecast_container_id",            limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name",                            default: "",    null: false
-    t.integer  "subscription_id",                                 null: false
-    t.string   "liquidsoap_container_id"
+    t.string   "name",                            limit: 255, default: "",    null: false
+    t.integer  "subscription_id",                                             null: false
+    t.string   "liquidsoap_container_id",         limit: 255
     t.integer  "default_playlist_id"
-    t.boolean  "enabled",                         default: true,  null: false
-    t.boolean  "vj_enabled",                      default: false, null: false
-    t.boolean  "podcasts_enabled",                default: false, null: false
-    t.boolean  "stats_enabled",                   default: false, null: false
+    t.boolean  "enabled",                                     default: true,  null: false
+    t.boolean  "vj_enabled",                                  default: false, null: false
+    t.boolean  "podcasts_enabled",                            default: false, null: false
+    t.boolean  "stats_enabled",                               default: false, null: false
+    t.boolean  "social_identities_enabled",                   default: false, null: false
     t.string   "tunein_partner_id"
     t.string   "tunein_partner_key"
     t.string   "tunein_station_id"
-    t.boolean  "tunein_metadata_updates_enabled", default: false, null: false
-    t.boolean  "social_identities_enabled", default: false, null: false
+    t.boolean  "tunein_metadata_updates_enabled",             default: false, null: false
   end
 
   create_table "recordings", force: :cascade do |t|
@@ -188,9 +188,9 @@ ActiveRecord::Schema.define(version: 20160823053841) do
     t.string   "album"
     t.integer  "year"
     t.integer  "track"
+    t.integer  "filesize",                          default: 0,  null: false
+    t.integer  "tag_processing_status",             default: 0,  null: false
     t.integer  "length"
-    t.integer  "filesize",              default: 0,  null: false
-    t.integer  "tag_processing_status", default: 0,  null: false
     t.string   "artwork_file_name"
     t.string   "artwork_content_type"
     t.integer  "artwork_file_size"
