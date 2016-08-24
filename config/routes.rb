@@ -56,7 +56,9 @@ Rails.application.routes.draw do
   post 'admin/radios/:id/restart', to: 'admin#restart_radio', as: 'admin_restart_radio'
   post 'admin/radios/:id/disable', to: 'admin#disable_radio', as: 'admin_disable_radio'
 
-  resources :tracks, only: [:create, :edit, :update, :destroy, :index]
+  resources :tracks, only: [:create, :edit, :update, :destroy, :index] do
+    resources :mixcloud_uploads, only: [:create]
+  end
   resources :uploader_signature, only: [:index]
   resources :playlist_tracks, only: [:create, :edit, :update, :destroy]
 
