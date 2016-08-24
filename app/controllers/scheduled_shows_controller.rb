@@ -49,10 +49,6 @@ class ScheduledShowsController < ApplicationController
     end
   end
 
-  def edit
-    @shows = @current_radio.shows
-  end
-
   def update
     @scheduled_show.attributes = create_params
     if @scheduled_show.save
