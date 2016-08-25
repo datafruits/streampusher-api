@@ -1,3 +1,5 @@
+require './lib/download_tempfile'
+
 class UploadTrackToMixcloud
   def perform track, mixcloud_token
     unless File.exists?(track.local_path)
@@ -5,9 +7,9 @@ class UploadTrackToMixcloud
     end
     if track.artwork.present?
       artwork = download_tempfile track.artwork.url
-      Mixcloud.client.new(token).upload track.local_path, track.title, artwork.path
+      Mixcloud::Client.new(mixcloud_token).upload track.local_path, track.title, artwork.path
     else
-      Mixcloud.client.new(token).upload track.local_path, track.title
+      Mixcloud::Client.new(mixcloud_token).upload track.local_path, track.title
     end
   end
 end

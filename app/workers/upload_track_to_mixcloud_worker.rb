@@ -4,6 +4,6 @@ class UploadTrackToMixcloudWorker < ActiveJob::Base
   def perform track_id, mixcloud_token
     track = Track.find_by! id: track_id
 
-    UploadTrackToMixcloud track, mixcloud_token
+    UploadTrackToMixcloud.new.perform track, mixcloud_token
   end
 end
