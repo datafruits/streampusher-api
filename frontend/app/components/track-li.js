@@ -1,13 +1,22 @@
 import Ember from 'ember';
+import {isAjaxError, isNotFoundError, isForbiddenError} from 'ember-ajax/errors';
+
 
 export default Ember.Component.extend({
   store: Ember.inject.service(),
+  ajax: Ember.inject.service(),
   tagName: 'tr',
   classNames: ['track'],
   isEditing: false,
   isSaving: false,
   mixcloudDialog: false,
   soundcloudDialog: false,
+  mixcloudAccount: Ember.computed('', function(){
+    return $("#app-data").data('current-user').user.social_identities.find(function(s){ return s.provider === "mixcloud" });
+  }),
+  hasMixcloudAccount: Ember.computed('', function(){
+    return this.get('mixcloudAccount');
+  }),
   actions: {
     addToPlaylist(){
       this.sendAction('setIsSyncingPlaylist', true);
@@ -29,6 +38,36 @@ export default Ember.Component.extend({
       this.toggleProperty('mixcloudDialog');
     },
     uploadToMixcloud(){
+      let trackId = this.get('track').get('id');
+      let url = `/tracks/${trackId}/mixcloud_uploads`;
+      return this.get('ajax').request(url, {
+        method: 'POST'
+      }).then(response => {
+        console.log(response);
+      }).catch(error => {
+        if (isNotFoundError(error)) {
+          // handle 404 errors here
+          console.log(error);
+          return;
+        }
+
+        if (isForbiddenError(error)) {
+          // handle 403 errors here
+          console.log(error);
+          return;
+        }
+
+        if(isAjaxError(error)) {
+          // handle all other AjaxErrors here
+          console.log(error);
+          return;
+        }
+
+        console.log(error);
+        // other errors are handled elsewhere
+        throw error;
+      });
+
     },
     save(){
       this.set('isSaving', true);

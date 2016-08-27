@@ -63,8 +63,12 @@
           <h4 class="modal-title" id="myModalLabel">Upload to Mixcloud - {{track.title}}</h4>
         </div>
         <div class="modal-body">
-          Select mixcloud account
-          <button {{action 'uploadToMixcloud'}} disabled={{isSaving}} class="btn btn-primary">Upload To Mixcloud</button>
+          {{#if hasMixcloudAccount}}
+            Connected mixcloud account: {{mixcloudAccount.name}}
+            <button {{action 'uploadToMixcloud'}} disabled={{isSaving}} class="btn btn-primary">Upload To Mixcloud</button>
+          {{else}}
+            You haven't connected your mixcloud account yet. You can do so <a href="/social_identities">here</a>.
+          {{/if}}
         </div>
       {{/modal-dialog}}
     {{/if}}
