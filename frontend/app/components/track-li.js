@@ -1,6 +1,4 @@
 import Ember from 'ember';
-import {isAjaxError, isNotFoundError, isForbiddenError} from 'ember-ajax/errors';
-
 
 export default Ember.Component.extend({
   store: Ember.inject.service(),
@@ -44,28 +42,9 @@ export default Ember.Component.extend({
         method: 'POST'
       }).then(response => {
         console.log(response);
-      }).catch(error => {
-        if (isNotFoundError(error)) {
-          // handle 404 errors here
-          console.log(error);
-          return;
+        if(response.status === 200){
+        }else{
         }
-
-        if (isForbiddenError(error)) {
-          // handle 403 errors here
-          console.log(error);
-          return;
-        }
-
-        if(isAjaxError(error)) {
-          // handle all other AjaxErrors here
-          console.log(error);
-          return;
-        }
-
-        console.log(error);
-        // other errors are handled elsewhere
-        throw error;
       });
 
     },
