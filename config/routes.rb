@@ -38,7 +38,11 @@ Rails.application.routes.draw do
 
   resources :djs
 
-  devise_for :users, controllers: { registrations: 'registrations', sessions: 'sessions' }
+  devise_for :users, controllers: {
+    registrations: "registrations",
+    sessions: "sessions",
+    omniauth_callbacks: "users/omniauth_callbacks"
+  }
 
   as :user do
     get "/login" => "sessions#new"
@@ -52,7 +56,9 @@ Rails.application.routes.draw do
   post 'admin/radios/:id/restart', to: 'admin#restart_radio', as: 'admin_restart_radio'
   post 'admin/radios/:id/disable', to: 'admin#disable_radio', as: 'admin_disable_radio'
 
-  resources :tracks, only: [:create, :edit, :update, :destroy, :index]
+  resources :tracks, only: [:create, :edit, :update, :destroy, :index] do
+    resources :mixcloud_uploads, only: [:create]
+  end
   resources :uploader_signature, only: [:index]
   resources :playlist_tracks, only: [:create, :edit, :update, :destroy]
 
@@ -63,6 +69,8 @@ Rails.application.routes.draw do
       get 'player'
     end
   end
+
+  resources :social_identities
 
   authenticated :user do
     root :to =>  "radios#index", as: :authenticated_root

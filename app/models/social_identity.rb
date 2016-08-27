@@ -13,7 +13,7 @@ class SocialIdentity < ActiveRecord::Base
     when 'twitter'
       # check auth.extra.raw_info.errors.any?
       name = "@#{auth['info']['nickname']}"
-    when 'soundcloud'
+    when 'soundcloud', 'mixcloud'
       name = auth.info.nickname
     end
     token = auth['credentials']['token']

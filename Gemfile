@@ -11,13 +11,18 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails', '~> 3.2.2'
-gem 'font-awesome-sass', '~> 4.2.0'
+gem 'font-awesome-sass', '~> 4.6.0'
 gem 'bourbon'
 gem 'chosen-rails'
 
 gem 'spring',        group: :development
 
 gem 'devise', '~> 3.5.1'
+gem 'omniauth'
+gem 'omniauth-soundcloud'
+gem 'omniauth-mixcloud', github: "streampusher/omniauth-mixcloud"
+#gem 'mixcloud', github: 'streampusher/mixcloud-ruby'
+gem 'mixcloud', path: "/Users/tony/src/mixcloud-ruby"
 gem 'cancancan'
 gem 'stripe'
 gem 'stripe_event'
