@@ -43,6 +43,7 @@ export default Ember.Component.extend({
       }).then(response => {
         console.log(response);
         if(response.status === 200){
+          this.get('track').set('mixcloudUploadStatus', 'mixcloud_uploading');
         }else{
         }
       });

@@ -64,8 +64,14 @@
         </div>
         <div class="modal-body">
           {{#if hasMixcloudAccount}}
-            Connected mixcloud account: {{mixcloudAccount.name}}
-            <button {{action 'uploadToMixcloud'}} disabled={{isSaving}} class="btn btn-primary">Upload To Mixcloud</button>
+            {{#if track.mixcloudNotUploaded}}
+              Connected mixcloud account: {{mixcloudAccount.name}}
+              <button {{action 'uploadToMixcloud'}} disabled={{isSaving}} class="btn btn-primary">Upload To Mixcloud</button>
+            {{else if track.mixcloudUploading}}
+              This track is currently being uploaded to Mixcloud.
+            {{else if track.mixcloudUploadComplete}}
+              This track has been uploaded to Mixcloud.
+            {{/if}}
           {{else}}
             You haven't connected your mixcloud account yet. You can do so <a href="/social_identities">here</a>.
           {{/if}}

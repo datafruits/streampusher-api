@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823053841) do
+ActiveRecord::Schema.define(version: 20160827075452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,23 +178,24 @@ ActiveRecord::Schema.define(version: 20160823053841) do
   end
 
   create_table "tracks", force: :cascade do |t|
-    t.string   "audio_file_name",       limit: 255
+    t.string   "audio_file_name",        limit: 255
     t.integer  "radio_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "description",                       default: "", null: false
+    t.string   "description",                        default: "", null: false
     t.string   "artist"
     t.string   "title"
     t.string   "album"
     t.integer  "year"
     t.integer  "track"
-    t.integer  "filesize",                          default: 0,  null: false
-    t.integer  "tag_processing_status",             default: 0,  null: false
+    t.integer  "filesize",                           default: 0,  null: false
+    t.integer  "tag_processing_status",              default: 0,  null: false
     t.integer  "length"
     t.string   "artwork_file_name"
     t.string   "artwork_content_type"
     t.integer  "artwork_file_size"
     t.datetime "artwork_updated_at"
+    t.integer  "mixcloud_upload_status",             default: 0,  null: false
   end
 
   create_table "user_radios", force: :cascade do |t|
