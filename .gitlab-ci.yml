@@ -10,6 +10,7 @@ variables:
   ADMIN_EMAIL: "info@datafruits.fm"
   STRIPE_KEY: "xxxxxxxxxxxxxxxxxxxxx"
   STRIPE_PUBLIC_KEY: "xxxxxxxxxxxxxxxxxxxxx"
+  MIXCLOUD_TOKEN: "xxxxxxxxxxxxxxxxx"
 
 before_script:
   - eval "$(rbenv init -)"
