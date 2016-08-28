@@ -8,6 +8,7 @@
   {{else}}
     <div class="flexcontainer">
       <span class="left uploaded-track-name truncate">{{track.displayName}}</span>
+      <img width="50" height="50" src={{file-url track.artwork 'thumb'}} />
       <a href="{{track.audioFileName}}" class="btn download"><i class="fa fa-download"></i></a>
       <button {{action 'editTrack'}} class="edit-track btn btn-primary"> <i class="fa fa-pencil"></i></button>
       <button {{action 'addToPlaylist'}} class="add-track-to-playlist btn btn-success"> <i class="fa fa-plus-circle"></i></button>
