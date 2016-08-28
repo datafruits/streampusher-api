@@ -12,6 +12,7 @@ describe UploadTrackToMixcloud do
       actual_response = UploadTrackToMixcloud.new.perform track, token
       expect(actual_response).to eq expected_response
       expect(track.mixcloud_upload_complete?).to eq true
+      expect(track.mixcloud_key).to eq "/seacuke/pineapple-rules/"
     end
   end
 

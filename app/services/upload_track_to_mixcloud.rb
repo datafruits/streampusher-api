@@ -16,6 +16,7 @@ class UploadTrackToMixcloud
     end
     if result["result"]["success"] = true
       track.mixcloud_upload_status = "mixcloud_upload_complete"
+      track.mixcloud_key = result["result"]["key"]
     else
       track.mixcloud_upload_status = "mixcloud_upload_failed"
     end
