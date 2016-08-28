@@ -14,7 +14,11 @@ class UploadTrackToMixcloud
     else
       result = Mixcloud::Client.new(mixcloud_token).upload track.local_path, track.title
     end
-    track.mixcloud_upload_status = "mixcloud_upload_complete"
+    if result["result"]["success"] = true
+      track.mixcloud_upload_status = "mixcloud_upload_complete"
+    else
+      track.mixcloud_upload_status = "mixcloud_upload_failed"
+    end
     track.save(validate: false)
     result
   end

@@ -28,7 +28,7 @@ class Track < ActiveRecord::Base
   accepts_nested_attributes_for :labels
 
   enum tag_processing_status: ['unprocessed', 'processing', 'done', 'failed']
-  enum mixcloud_upload_status: ['mixcloud_not_uploaded', 'mixcloud_uploading', 'mixcloud_upload_complete']
+  enum mixcloud_upload_status: ['mixcloud_not_uploaded', 'mixcloud_uploading', 'mixcloud_upload_complete', 'mixcloud_upload_failed']
 
   def s3_filepath
     split = URI.decode(self.audio_file_name).split("#{ENV["S3_BUCKET"]}")
