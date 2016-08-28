@@ -9,6 +9,13 @@ GIT
       rupeepeethree (~> 0.0.6)
 
 GIT
+  remote: git://github.com/streampusher/mixcloud-ruby.git
+  revision: aa4730a1bbce973d0eab09fc8e8e04b9e9fa490c
+  specs:
+    mixcloud (0.0.1)
+      httmultiparty
+
+GIT
   remote: git://github.com/streampusher/omniauth-mixcloud.git
   revision: bf54940d820de99f8a47cb627a8b7fc9e361cc07
   specs:
@@ -24,12 +31,6 @@ GIT
       jquery-fileupload-rails (~> 0.4.1)
       rails (>= 3.1)
       sass-rails (>= 3.1)
-
-PATH
-  remote: /Users/tony/src/mixcloud-ruby
-  specs:
-    mixcloud (0.0.1)
-      httmultiparty
 
 GEM
   remote: https://rubygems.org/
@@ -205,8 +206,7 @@ GEM
       httparty (>= 0.7.3)
       mimemagic
       multipart-post
-    httparty (0.13.7)
-      json (~> 1.8)
+    httparty (0.14.0)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
     jekyll (3.1.6)

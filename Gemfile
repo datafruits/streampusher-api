@@ -21,8 +21,7 @@ gem 'devise', '~> 3.5.1'
 gem 'omniauth'
 gem 'omniauth-soundcloud'
 gem 'omniauth-mixcloud', github: "streampusher/omniauth-mixcloud"
-#gem 'mixcloud', github: 'streampusher/mixcloud-ruby'
-gem 'mixcloud', path: "/Users/tony/src/mixcloud-ruby"
+gem 'mixcloud', github: 'streampusher/mixcloud-ruby'
 gem 'cancancan'
 gem 'stripe'
 gem 'stripe_event'
