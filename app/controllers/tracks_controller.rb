@@ -17,9 +17,13 @@ class TracksController < ApplicationController
 
   def update
     @track = @current_radio.tracks.find params[:id]
-    artwork = Paperclip.io_adapters.for(update_params[:artwork])
-    artwork.original_filename = update_params.delete(:artwork_filename)
-    @track.attributes = update_params.except(:artwork_filename).merge({artwork: artwork})
+    if update_params[:artwork].present?
+      artwork = Paperclip.io_adapters.for(update_params[:artwork])
+      artwork.original_filename = update_params.delete(:artwork_filename)
+      @track.attributes = update_params.except(:artwork_filename).merge({artwork: artwork})
+    else
+      @track.attributes = update_params.except(:artwork_filename).except(:artwork)
+    end
     if @track.save
       flash[:notice] = 'track tags updated!'
       #render 'update'
