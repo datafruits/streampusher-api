@@ -10,7 +10,7 @@ GIT
 
 GIT
   remote: git://github.com/streampusher/mixcloud-ruby.git
-  revision: aa4730a1bbce973d0eab09fc8e8e04b9e9fa490c
+  revision: 51fe130361df66cf2bf1319a22529165c4a08a34
   specs:
     mixcloud (0.0.1)
       httmultiparty
