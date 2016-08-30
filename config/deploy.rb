@@ -6,7 +6,7 @@ set :repo_url, 'git@gitlab.com:streampusher/stream_pusher.git'
 
 # setup rbenv
 set :rbenv_type, :system
-set :rbenv_ruby, '2.3.0'
+set :rbenv_ruby, '2.3.1'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 
 set :slack_webhook, 'https://hooks.slack.com/services/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'
