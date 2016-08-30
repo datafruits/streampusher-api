@@ -67,7 +67,7 @@
         </div>
         <div class="modal-body">
           {{#if hasMixcloudAccount}}
-            {{#if track.mixcloudNotUploaded}}
+            {{#if track.mixcloudNotUploadedOrUploadFailed}}
               Connected mixcloud account: {{mixcloudAccount.name}}
               <button {{action 'uploadToMixcloud'}} disabled={{isSaving}} class="btn btn-primary">Upload To Mixcloud</button>
             {{else if track.mixcloudUploading}}

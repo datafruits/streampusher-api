@@ -20,5 +20,7 @@ export default DS.Model.extend({
   }),
   mixcloudNotUploaded: Ember.computed.equal('mixcloudUploadStatus', 'mixcloud_not_uploaded'),
   mixcloudUploading: Ember.computed.equal('mixcloudUploadStatus', 'mixcloud_uploading'),
-  mixcloudUploadComplete: Ember.computed.equal('mixcloudUploadStatus', 'mixcloud_upload_complete')
+  mixcloudUploadComplete: Ember.computed.equal('mixcloudUploadStatus', 'mixcloud_upload_complete'),
+  mixcloudUploadFailed: Ember.computed.equal('mixcloudUploadStatus', 'mixcloud_upload_failed'),
+  mixcloudNotUploadedOrUploadFailed: Ember.computed.or('mixcloudNotUploaded', 'mixcloudUploadFailed'),
 });
