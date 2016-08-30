@@ -12,6 +12,7 @@ export default DS.Model.extend({
   artwork: DS.attr('file'),
   artworkFilename: DS.attr(),
   mixcloudUploadStatus: DS.attr(),
+  mixcloudKey: DS.attr(),
   isUploading: false,
   uploadProgress: 0,
 
