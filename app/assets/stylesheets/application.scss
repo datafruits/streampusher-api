@@ -208,6 +208,11 @@ table a:hover {
     background: lighten($marunochi, 20%);
 }
 
+.flash#alert {
+    background: lighten($marunochi, 20%);
+}
+
+
 .bg-warning {
   padding: 5px;
   border: 3px solid darken(#fcf8e3, 20%);
