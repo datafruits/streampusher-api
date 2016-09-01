@@ -68,6 +68,7 @@ class Ability
       can :read, ScheduledShow if format == "json"
       can :next, ScheduledShow if format == "json"
       can :enabled, :vj
+      can :embed, Track
       cannot :admin
     end
   end
