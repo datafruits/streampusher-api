@@ -31,6 +31,6 @@ export default DS.Model.extend({
   }),
 
   embedCodeSafe: Ember.computed('embedLink', function(){
-    return Ember.String.htmlSafe(`<iframe width="100%" height="100" frameborder="no" scrolling="no" src="${this.get('embedLink')}"></iframe>`);
+    return Ember.String.htmlSafe(`<iframe width="100%" height="100%" frameborder="no" scrolling="no" src="${this.get('embedLink')}"></iframe>`);
   })
 });
