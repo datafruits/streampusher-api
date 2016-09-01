@@ -57,6 +57,9 @@ Rails.application.routes.draw do
   post 'admin/radios/:id/disable', to: 'admin#disable_radio', as: 'admin_disable_radio'
 
   resources :tracks, only: [:create, :edit, :update, :destroy, :index] do
+    member do
+      get :embed
+    end
     resources :mixcloud_uploads, only: [:create]
   end
   resources :uploader_signature, only: [:index]

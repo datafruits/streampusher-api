@@ -9,6 +9,7 @@ export default Ember.Component.extend({
   isSaving: false,
   mixcloudDialog: false,
   soundcloudDialog: false,
+  embedDialog: false,
   mixcloudAccount: Ember.computed('', function(){
     return $("#app-data").data('current-user').user.social_identities.find(function(s){ return s.provider === "mixcloud" });
   }),
@@ -31,9 +32,16 @@ export default Ember.Component.extend({
     editTrack(){
       this.toggleProperty('isEditing');
     },
+    focusEmbedCode(){
+      this.select();
+    },
     mixcloud(){
       this.set('isEditing', false);
       this.toggleProperty('mixcloudDialog');
+    },
+    embed(){
+      this.set('isEditing', false);
+      this.toggleProperty('embedDialog');
     },
     uploadToMixcloud(){
       let trackId = this.get('track').get('id');

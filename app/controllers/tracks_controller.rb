@@ -1,5 +1,6 @@
 class TracksController < ApplicationController
   load_and_authorize_resource
+  before_action :set_frame_headers, only: [:embed]
 
   def index
     @tracks = @current_radio.tracks
@@ -58,6 +59,12 @@ class TracksController < ApplicationController
     end
   end
 
+  def embed
+    @radio = @current_radio
+    @track = Track.find(params[:id])
+    render :layout => false
+  end
+
   private
   def create_params
     params.require(:track).permit(:radio_id, :audio_file_name, :filesize)
@@ -65,5 +72,9 @@ class TracksController < ApplicationController
 
   def update_params
     params.require(:track).permit(:artist, :title, :album, :artwork, :artwork_filename)
+  end
+
+  def set_frame_headers
+    response.headers.delete "X-Frame-Options"
   end
 end

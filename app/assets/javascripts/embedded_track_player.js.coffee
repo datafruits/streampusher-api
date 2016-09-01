@@ -1,15 +1,5 @@
-radioTitle = () ->
-  url = $(".jp-jplayer").data('icecast-json').toString()
-  console.log(url)
-
-  $.get url, (data) ->
-    title = data.icestats.source[0].title
-    console.log(title)
-    $('.jp-title').html(title)
-    listeners = 0
-    $.each data.icestats.source, (key, data) ->
-      listeners += data.listeners
-    console.log('listeners: '+listeners)
+#= require jquery
+#= require jplayer/jquery.jplayer.js
 
 $(document).ready ->
   mp3 = $(".jp-jplayer").data('mp3').toString()
@@ -46,11 +36,3 @@ $(document).ready ->
     remainingDuration: true,
     toggleDuration: true
   })
-
-  setTimeout () ->
-    radioTitle()
-  , 500
-
-  setInterval () ->
-    radioTitle()
-  , 10000

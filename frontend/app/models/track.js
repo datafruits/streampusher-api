@@ -13,6 +13,7 @@ export default DS.Model.extend({
   artworkFilename: DS.attr(),
   mixcloudUploadStatus: DS.attr(),
   mixcloudKey: DS.attr(),
+  embedLink: DS.attr(),
   isUploading: false,
   uploadProgress: 0,
 
@@ -24,4 +25,12 @@ export default DS.Model.extend({
   mixcloudUploadComplete: Ember.computed.equal('mixcloudUploadStatus', 'mixcloud_upload_complete'),
   mixcloudUploadFailed: Ember.computed.equal('mixcloudUploadStatus', 'mixcloud_upload_failed'),
   mixcloudNotUploadedOrUploadFailed: Ember.computed.or('mixcloudNotUploaded', 'mixcloudUploadFailed'),
+
+  embedCode: Ember.computed('embedLink', function(){
+    return `<iframe width="100%" height="100" frameborder="no" scrolling="no" src="${this.get('embedLink')}"></iframe>`;
+  }),
+
+  embedCodeSafe: Ember.computed('embedLink', function(){
+    return Ember.String.htmlSafe(`<iframe width="100%" height="100" frameborder="no" scrolling="no" src="${this.get('embedLink')}"></iframe>`);
+  })
 });

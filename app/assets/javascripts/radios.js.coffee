@@ -4,11 +4,16 @@
 #
 radioTitle = () ->
   url = $(".jp-jplayer").data('icecast-json').toString()
+  radioName = $(".jp-jplayer").data('radio-name').toString()
   console.log(url)
 
   $.get url, (data) ->
     title = data.icestats.source[0].title
     console.log(title)
+    #myRadio = data.icestats.source.find((s) => {
+    #  s.server_name == "#{radioName}.mp3"
+    #})
+    #title = myRadio.title
     $('.jp-title').html(title)
     listeners = 0
     $.each data.icestats.source, (key, data) ->
@@ -26,6 +31,24 @@ $('[data-controller=radios][data-action=index]').ready ->
       $(this).jPlayer("setMedia", {
         mp3: mp3
       })
+
+    playing: (e) ->
+      $('.jp-loading').hide()
+
+    error: (event) ->
+      console.log('jPlayer error: '+ event.jPlayer.error.type)
+
+      $('jp-pause').hide()
+      $('jp-loading').hide()
+
+    waiting: (e) ->
+      $('.jp-loading').show()
+      $('.jp-play').hide()
+      $('.jp-pause').hide()
+
+    loadeddata: (e) ->
+      $('.jp-loading').hide()
+
     cssSelectorAncestor: "#jp_container_1",
     swfPath: "/assets/flash/jplayer",
     supplied: "mp3",

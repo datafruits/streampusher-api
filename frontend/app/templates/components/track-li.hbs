@@ -56,6 +56,7 @@
             <button {{action 'destroy'}} disabled={{isSaving}} class="delete-track btn btn-danger"><i class="fa fa-trash-o"></i></button>
             <button {{action 'mixcloud'}} disabled={{isSaving}} class="btn btn-default"><i class="fa fa-mixcloud" aria-hidden="true"></i></button>
             <button {{action 'soundcloud'}} disabled={{isSaving}} class="btn btn-default"><i class="fa fa-soundcloud" aria-hidden="true"></i></button>
+            <button {{action 'embed'}} disabled={{isSaving}} class="btn btn-default">Embed</button>
           </form>
         </div>
       {{/modal-dialog}}
@@ -82,6 +83,20 @@
           {{else}}
             You haven't connected your mixcloud account yet. You can do so <a href="/social_identities">here</a>.
           {{/if}}
+        </div>
+      {{/modal-dialog}}
+    {{else if embedDialog}}
+      {{#modal-dialog targetAttachment="center" translucentOverlay=true clickOutsideToClose=true close="embed"}}
+        <div class="modal-header">
+          <button {{action "embed"}} type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Embed - {{track.title}}</h4>
+        </div>
+        <div class="modal-body">
+          Embed code and preview:
+          <div>
+            {{input focus-in="focusEmbedCode" id="embed-player-html" type="text" readonly="readonly" value=track.embedCode}}
+          </div>
+          {{{track.embedCode}}}
         </div>
       {{/modal-dialog}}
     {{/if}}
