@@ -17,6 +17,7 @@
 //= require twitter/bootstrap
 //= require countUp.js
 //= require moment
+//= require moment-timezone
 //= require fullcalendar/fullcalendar.js
 //= require jquery.payment
 //= require chartjs
@@ -39,3 +40,5 @@
 //= require stats
 //= require subscriptions
 //= require live
+//= require clock
+

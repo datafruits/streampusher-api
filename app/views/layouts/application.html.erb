@@ -15,7 +15,7 @@
     <%= render 'layouts/ga' %>
   <% end %>
 </head>
-<body data-controller="<%= controller.controller_path %>" data-action="<%= controller.action_name %>">
+<body data-timezone="<%=ActiveSupport::TimeZone::MAPPING[Time.zone.name]%>" data-controller="<%= controller.controller_path %>" data-action="<%= controller.action_name %>">
 
 <%= render 'layouts/navbar' %>
 <% if user_signed_in? %>

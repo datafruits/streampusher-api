@@ -85,6 +85,7 @@ gem "so_id3", github: "mcfiredrill/so_id3"
 source 'https://rails-assets.org' do
   gem 'rails-assets-countUp.js'
   gem 'rails-assets-moment'
+  gem 'rails-assets-moment-timezone'
   gem 'rails-assets-fullcalendar'
   gem 'rails-assets-jquery.payment'
   gem 'rails-assets-jplayer'
