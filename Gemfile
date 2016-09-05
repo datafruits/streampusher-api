@@ -105,3 +105,5 @@ gem 'ember-cli-rails'
 gem 'high_voltage'
 gem 'jekyll'
 gem 'jekyll-seo-tag'
+
+gem 'geocoder'
