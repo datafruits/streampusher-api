@@ -95,12 +95,4 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.middleware.use ExceptionNotification::Rack
-  Paperclip::Attachment.default_options.merge!({
-    :storage => :s3,
-    s3_credentials: {
-      access_key_id: ENV['S3_KEY'],
-      secret_access_key: ENV['S3_SECRET']
-    },
-    bucket: ENV['S3_BUCKET']
-  })
 end

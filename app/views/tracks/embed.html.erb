@@ -1,7 +1,7 @@
 <%= stylesheet_link_tag    'embedded_player', media: 'all' %>
 <%= javascript_include_tag 'embedded_track_player' %>
 <div id="jquery_jplayer_1" class="jp-jplayer embed-track-player"
-  data-mp3="<%= @track.audio_file_name =%>"
+  data-mp3="<%= @track.cloudfront_url =%>"
   data-radio-name="<%= @radio.name %>"
   data-icecast-json="<%= @radio.icecast_json %>" >
 </div>

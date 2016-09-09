@@ -39,6 +39,10 @@ class Track < ActiveRecord::Base
     end
   end
 
+  def cloudfront_url
+    "https://#{ENV['CLOUDFRONT_URL']}/#{s3_filepath}"
+  end
+
   def file_basename
     File.basename URI.decode(self.audio_file_name.to_s)
   end
