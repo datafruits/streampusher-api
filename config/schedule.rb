@@ -25,7 +25,7 @@ every '23 11,22 * * *' do
   command "/home/deploy/certbot-auto renew --quiet --no-self-upgrade"
 end
 
-job_type :backup, "cd :path/:backup_path && :environment_variable=:environment bundle exec backup perform -t :task --config-file ./config.rb :output"
+job_type :backup, "cd :path/:backup_path && bundle install && :environment_variable=:environment bundle exec backup perform -t :task --config-file ./config.rb :output"
 
 every 1.hours do
   backup 'rails_database', backup_path: 'backup'
