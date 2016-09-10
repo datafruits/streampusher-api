@@ -22,6 +22,8 @@ gem 'omniauth'
 gem 'omniauth-soundcloud'
 gem 'omniauth-mixcloud', github: "streampusher/omniauth-mixcloud"
 gem 'mixcloud', github: 'streampusher/mixcloud-ruby'
+gem 'omniauth-tumblr'
+gem 'tumblr_client'
 gem 'cancancan'
 gem 'stripe'
 gem 'stripe_event'
