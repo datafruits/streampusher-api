@@ -11,6 +11,9 @@ export default Ember.Component.extend({
   filteredResults: Ember.computed('filterText', function() {
     var filter = this.get('filterText');
     return this.get('tracks').filter(function(item) {
+      if(item.get('isUploading')){
+        return false;
+      }
       return item.get('displayName').toLowerCase().indexOf(filter) !== -1;
     });
   }),
