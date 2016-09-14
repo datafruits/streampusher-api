@@ -3,7 +3,8 @@ class ScheduledShow < ActiveRecord::Base
   belongs_to :dj, class_name: "User"
   belongs_to :playlist
   belongs_to :recurrant_original, class_name: "ScheduledShow"
-  has_attached_file :image, styles: { :thumb => "x300" }
+  has_attached_file :image, styles: { :thumb => "x300" },
+    path: ":attachment/:style/:basename.:extension"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
   validates_presence_of :start_at, :end_at, :playlist_id, :title
