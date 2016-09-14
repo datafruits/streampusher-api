@@ -14,7 +14,9 @@ class Ability
       end
       can :manage, :dj if can_manage_radio?(user, radio)
       can :manage, Track if can_manage_radio?(user, radio)
-      can :manage, Playlist if can_manage_radio?(user, radio)
+      can :manage, Playlist do |playlist|
+        can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)
+      end
       can :manage, PlaylistTrack if can_manage_radio?(user, radio)
       can :manage, Subscription, user_id: user.id
       can :manage, ScheduledShow if can_manage_radio?(user, radio)
@@ -30,7 +32,9 @@ class Ability
       end
       can :manage, :dj if can_manage_radio?(user, radio)
       can :manage, Track if can_manage_radio?(user, radio)
-      can :manage, Playlist if can_manage_radio?(user, radio)
+      can :manage, Playlist do |playlist|
+        can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)
+      end
       can :manage, PlaylistTrack if can_manage_radio?(user, radio)
       can :manage, ScheduledShow if can_manage_radio?(user, radio)
       can :manage, Podcast if can_manage_radio?(user, radio) && radio.podcasts_enabled?
@@ -53,8 +57,9 @@ class Ability
       can :create, Track if can_manage_radio?(user, radio)
       can :update, Track if can_manage_radio?(user, radio)
 
-      can :show, Playlist if can_manage_radio?(user, radio)
-      can :index, Playlist if can_manage_radio?(user, radio)
+      can :manage, Playlist do |playlist|
+        can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)
+      end
 
       can :read, "broadcasting_help"
       can :read, "embed"
@@ -80,5 +85,9 @@ class Ability
 
   def can_manage_radio?(user, radio)
     user.radios.include? radio
+  end
+
+  def belongs_to_radio?(model, radio)
+    model.radio_id.to_i == radio.id.to_i
   end
 end
