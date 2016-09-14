@@ -2,6 +2,7 @@ class PlaylistsController < ApplicationController
   load_and_authorize_resource
   def show
     @playlist = Playlist.includes(:tracks).find params[:id]
+    authorize! :manage, @playlist, params[:format]
     respond_to do |format|
       format.html {
         @tracks = @current_radio.tracks
@@ -14,9 +15,9 @@ class PlaylistsController < ApplicationController
   end
 
   def index
+    authorize! :manage, Playlist, params[:format]
     @tracks = @current_radio.tracks
     @playlists = @current_radio.playlists.includes(:tracks)
-    @playlist = Playlist.new
     respond_to do |format|
       format.html {
         redirect_to playlist_path(@current_radio.default_playlist)
@@ -29,6 +30,7 @@ class PlaylistsController < ApplicationController
 
   def create
     @playlist = @current_radio.playlists.new create_params
+    authorize! :manage, @playlist, params[:format]
     if @playlist.save
       ActiveSupport::Notifications.instrument 'playlist.created', current_user: current_user.email, radio: @current_radio.name, playlist: @playlist.name
       flash[:notice] = "created playlist"
@@ -43,10 +45,12 @@ class PlaylistsController < ApplicationController
 
   def edit
     @playlist = @current_radio.playlists.find params[:id]
+    authorize! :manage, @playlist, params[:format]
   end
 
   def update
     @playlist = @current_radio.playlists.includes(:tracks).find params[:id]
+    authorize! :manage, @playlist, params[:format]
     @playlist.attributes = update_params
     if @playlist.save
       flash[:notice] = "updated playlist"
@@ -59,19 +63,7 @@ class PlaylistsController < ApplicationController
     end
   end
 
-  #def update_order
-  #  @playlist_track = PlaylistTrack.find(playlist_track_params[:playlist_track_id])
-  #  @playlist_track.position = playlist_track_params[:position]
-  #  @playlist_track.save
-#
-#    render nothing: true # this is a POST action, updates sent via AJAX, no view rendered
-#  end
-
   private
-#  def playlist_track_params
-#    params.require(:playlist_track).permit(:playlist_track_id, :position)
-#  end
-
   def create_params
     params.require(:playlist).permit(:name, :radio_id)
   end
