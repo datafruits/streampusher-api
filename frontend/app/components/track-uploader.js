@@ -29,12 +29,18 @@ export default EmberUploader.FileField.extend({
           signingUrl: this.get('signingUrl')
         });
         uploader.track = store.createRecord('track', { isUploading: true, audioFileName: files[i].name, filesize: files[i].size });
+        window.onbeforeunload = function(e) {
+          var dialogText = "You are currently uploading files. Closing this tab will cancel the upload operation! Are you usure you want to close this tab?";
+          e.returnValue = dialogText;
+          return dialogText;
+        };
 
         uploader.on('didUpload', function(response) {
           // S3 will return XML with url
           let uploadedUrl = Ember.$(response).find('Location')[0].textContent;
           // http://yourbucket.s3.amazonaws.com/file.png
           uploadedUrl = decodeURIComponent(uploadedUrl);
+          window.onbeforeunload = null;
           console.log("UPLOADED ! : " + uploadedUrl);
           this.track.set('audioFileName', uploadedUrl);
           this.track.set('isUploading', false);
@@ -55,6 +61,7 @@ export default EmberUploader.FileField.extend({
 
         uploader.on('didError', (jqXHR, textStatus, errorThrown) => {
           // Handle unsuccessful upload
+          window.onbeforeunload = null;
           console.log("ERROR!" + textStatus);
           console.log("ERROR!" + errorThrown);
         });
