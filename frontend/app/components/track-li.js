@@ -23,9 +23,12 @@ export default Ember.Component.extend({
       var playlist = this.get('playlist');
       var track = this.get('track');
       var playlistTrack = store.createRecord('playlist_track', { track: track, playlist: playlist, dirty: true });
-      Ember.RSVP.all([playlistTrack.save(), playlist.save()]).then(() => {
+      Ember.RSVP.allSettled([playlistTrack.save(), playlist.save()], "Syncing the adding a track to playlist").then((array) => {
+        console.log("allSettled");
+        console.log(array);
         this.sendAction('setIsSyncingPlaylist', false);
       }),(() => {
+        console.log("failure");
         this.sendAction('setIsSyncingPlaylist', false);
       });
     },
