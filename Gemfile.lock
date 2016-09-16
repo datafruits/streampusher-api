@@ -73,7 +73,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    acts_as_list (0.7.4)
+    acts_as_list (0.8.1)
       activerecord (>= 3.0)
     addressable (2.4.0)
     arel (6.0.3)
