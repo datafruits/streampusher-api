@@ -29,7 +29,6 @@
  *= require scheduled_shows
  *= require stats
  *= require subscriptions
- *= require s3_direct_upload_progress_bars
  *= require chosen
  *= require_self
  *= require clock
@@ -302,4 +301,7 @@ footer {
     text-shadow: 0 1px 0 #333;
     text-decoration: none;
   }
+}
+
+.side-navbar {
 }
