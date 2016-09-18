@@ -61,7 +61,7 @@ class Track < ActiveRecord::Base
     elsif self.title.present?
       "#{self.title}"
     else
-      self.file_basename
+      self.file_basename.to_s
     end
   end
 
