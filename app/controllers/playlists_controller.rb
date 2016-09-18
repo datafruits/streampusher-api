@@ -1,7 +1,6 @@
 class PlaylistsController < ApplicationController
-  load_and_authorize_resource
   def show
-    @playlist = Playlist.includes(:tracks).find params[:id]
+    @playlist = Playlist.includes(:playlist_tracks, :tracks).find params[:id]
     authorize! :manage, @playlist, params[:format]
     respond_to do |format|
       format.html {
@@ -49,16 +48,14 @@ class PlaylistsController < ApplicationController
   end
 
   def update
-    @playlist = @current_radio.playlists.includes(:tracks).find params[:id]
+    @playlist = @current_radio.playlists.includes(:playlist_tracks, :tracks).find params[:id]
     authorize! :manage, @playlist, params[:format]
     @playlist.attributes = update_params
     if @playlist.save
-      flash[:notice] = "updated playlist"
-      #render "update"
+      #flash[:notice] = "updated playlist"
       render json: @playlist
     else
-      flash[:error] = 'error updating playlist :('
-      #render 'edit'
+      #flash[:error] = 'error updating playlist :('
       render json: @playlist.errors
     end
   end

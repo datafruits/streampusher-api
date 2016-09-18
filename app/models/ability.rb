@@ -88,6 +88,10 @@ class Ability
   end
 
   def belongs_to_radio?(model, radio)
-    model.radio_id.to_i == radio.id.to_i
+    if model.persisted?
+      model.radio_id.to_i == radio.id.to_i
+    else
+      return true
+    end
   end
 end
