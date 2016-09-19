@@ -22,12 +22,13 @@ export default Ember.Component.extend({
 
       draggedModel.set('position', draggedToIndex);
       this.set('playlist.playlistTracks', itemModels);
-      return Ember.RSVP.allSettled([draggedModel.save(), groupModel.save()], "Syncing the playlist reordering").then((array) => {
-        console.log("allSettled");
-        console.log(array);
+      draggedModel.save().then(() => {
+        groupModel.save();
+        console.log("success");
         this.sendAction('setIsSyncingPlaylist', false);
-      }),(() => {
-        console.log("failure");
+      }).catch((error) => {
+        console.log("error");
+        console.log(error);
         this.sendAction('setIsSyncingPlaylist', false);
       });
     },
