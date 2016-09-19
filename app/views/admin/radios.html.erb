@@ -4,6 +4,7 @@
     <th>radio id</th>
     <th>name</th>
     <th>liquidsoap container id</th>
+    <th>disk usage</th>
   </thead>
   <tbody>
     <% @radios.each do |radio| %>
@@ -11,6 +12,7 @@
         <td><%= radio.id %></td>
         <td><%= radio.name %></td>
         <td><%= truncate radio.liquidsoap_container_id %></td>
+        <td><%= number_to_human_size(radio.disk_usage) %></td>
         <td><%= link_to 'restart radio', admin_restart_radio_path(radio),
           method: :post, data: { confirm: "Are you sure?" }  %></td>
         <td><%= link_to 'disable radio', admin_disable_radio_path(radio), method: :post %></td>
