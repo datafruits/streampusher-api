@@ -13,3 +13,6 @@
   <%= include_ember_script_tags :frontend, prepend: prepend %>
   <%= include_ember_stylesheet_tags :frontend, prepend: prepend %>
 <% end %>
+<div id="disk-usage">
+  You are currently using <strong><%= number_to_human_size(@current_radio.disk_usage) %></strong> of storage.
+</div>
