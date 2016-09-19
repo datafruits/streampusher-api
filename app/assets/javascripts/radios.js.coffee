@@ -8,23 +8,19 @@ radioTitle = () ->
   console.log(url)
 
   $.get url, (data) ->
-    title = data.icestats.source[0].title
-    console.log(title)
-    #myRadio = data.icestats.source.find((s) => {
-    #  s.server_name == "#{radioName}.mp3"
-    #})
-    #title = myRadio.title
+    myRadio = data.icestats.source.find (s) =>
+      s.server_name == "#{radioName}.mp3"
+    title = myRadio.title
     $('.jp-title').html(title)
-    listeners = 0
-    $.each data.icestats.source, (key, data) ->
-      listeners += data.listeners
-      counter = new countUp('odometer', 0, listeners, 0, 2.5)
-      counter.start()
-    console.log('listeners: '+listeners)
+    if $("#odometer").length
+      listeners = 0
+      $.each data.icestats.source, (key, data) ->
+        listeners += data.listeners
+        counter = new countUp('odometer', 0, listeners, 0, 2.5)
+        counter.start()
+      console.log('listeners: '+listeners)
 
-$('[data-controller=radios][data-action=index]').ready ->
-  console.log('radios controller')
-
+$(".jp-jplayer").ready ->
   mp3 = $(".jp-jplayer").data('mp3').toString()
   $("#jquery_jplayer_1").jPlayer({
     ready: () ->
@@ -49,7 +45,7 @@ $('[data-controller=radios][data-action=index]').ready ->
     loadeddata: (e) ->
       $('.jp-loading').hide()
 
-    cssSelectorAncestor: "#jp_container_1",
+    cssSelectorAncestor: "#navbar_jp_container",
     swfPath: "/assets/flash/jplayer",
     supplied: "mp3",
     useStateClassSkin: true,
@@ -68,6 +64,7 @@ $('[data-controller=radios][data-action=index]').ready ->
     radioTitle()
   , 10000
 
+$('[data-controller=radios][data-action=index]').ready ->
   ctx = document.getElementById("listensChart").getContext("2d")
   options = {}
   $.get "/listens.json", (listens) ->

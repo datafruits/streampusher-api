@@ -46,6 +46,11 @@ $blue2: #00a2ff;
 .navbar {
   background: #444;
   margin-bottom:0px;
+  border-radius: 0;
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  z-index: 2;
 }
 
 .navbar .brand {
@@ -286,6 +291,8 @@ footer, .container:after {
 footer {
   background: #444;
   overflow: hidden;
+  position: relative;
+  z-index: 2;
   ul {
     list-style: none;
     float: left;
@@ -303,4 +310,42 @@ footer {
 }
 
 .side-navbar {
+  z-index: 1;
+  background: #444;
+  width: 140px;
+  position: fixed;
+  height: 100%;
+  border: none;
+  border-radius: 0;
+  top: 50px;
+}
+
+.side-navbar .navbar-nav > li {
+  float: none;  /* Cancel default li float: left */
+  width: 139px;
+}
+
+.navbar-player {
+  .jp-controls {
+    background: none;
+    width: auto;
+    height: auto;
+    a {
+      font-size: 14px;
+    }
+  }
+
+  .jp-title {
+    position: relative;
+    background: none;
+    padding: 0;
+    bottom: 0;
+    font-size: 32px;
+  }
+}
+
+#main {
+  padding-top: 60px;
+  z-index: 0;
+  margin-left: 150px;
 }

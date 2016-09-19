@@ -1,0 +1,54 @@
+<nav class="navbar navbar-inverse side-navbar">
+  <ul class="nav navbar-nav">
+    <li>
+      <%= link_to radios_path do %>
+        <i class="fa fa-tachometer"></i>Dashboard
+      <% end %>
+    </li>
+    <% if current_user.owner? %>
+      <li>
+        <%= link_to djs_path do %>
+          <i class="fa fa-user"></i>Users
+        <% end %>
+      </li>
+    <% end %>
+    <li>
+      <%= link_to schedule_path do %>
+        <i class="fa fa-calendar"></i>Schedule
+      <% end %>
+    </li>
+    <% if @current_radio.stats_enabled? %>
+      <li>
+        <%= link_to stats_path do %>
+          <i class="fa fa-line-chart"></i>Stats
+        <% end %>
+      </li>
+    <% end %>
+    <li>
+      <%= link_to playlist_path(@current_radio.default_playlist) do %>
+        <i class="fa fa-list"></i>Media
+      <% end %>
+    </li>
+    <% if @current_radio.podcasts_enabled? %>
+      <li>
+        <%= link_to podcasts_path do %>
+          <i class="fa fa-rss"></i>Podcasts
+        <% end %>
+      </li>
+    <% end %>
+    <% if can? :vj, :dashboard %>
+      <li>
+      <%= link_to vj_path do %>
+        <i class="fa fa-video"></i>VJ
+      <% end %>
+      </li>
+    <% end %>
+    <% if current_user.owner? %>
+      <li>
+        <%= link_to edit_radio_path(@current_radio) do %>
+          <i class="fa fa-cog"></i>Radio Settings
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</nav>
