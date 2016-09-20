@@ -5,6 +5,7 @@
   <meta name="description" content="Start your own live streaming internet radio station with Streampusher.">
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
+  <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
@@ -34,7 +35,6 @@
 </div>
 <%= render 'layouts/footer' %>
 <%= render 'layouts/olark' %>
-<%= stylesheet_link_tag    'application', media: 'all' %>
 <%= javascript_include_tag 'application' %>
 </body>
 </html>
