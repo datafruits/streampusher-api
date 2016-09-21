@@ -555,11 +555,7 @@ DEPENDENCIES
   recurrence
   remote_syslog_logger
   rspec-rails
-<<<<<<< 938485b109d1b2920db5927c1216a67b836c1d07
-=======
   ruby-liquidsoap!
-  s3_direct_upload!
->>>>>>> liquidsoap metadata update
   sass-rails (~> 4.0.3)
   selenium-webdriver
   sidekiq
