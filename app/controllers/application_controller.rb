@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
 
   protected
   def layout_by_resource
-    if devise_controller?
+    if devise_controller? || params["controller"] == "landing"
       "landing"
     else
       "application"
