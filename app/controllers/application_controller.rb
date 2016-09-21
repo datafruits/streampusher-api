@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
   before_filter :current_radio
   around_filter :set_time_zone
 
+  layout :layout_by_resource
+
   def next
     render json: NextTrack.perform(@current_radio)
   end
@@ -23,6 +25,14 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+  def layout_by_resource
+    if devise_controller?
+      "landing"
+    else
+      "application"
+    end
+  end
+
   def redirect_to_with_js(options = {}, response_status = {})
     redirect_to(options,response_status)
     if request.xhr?
