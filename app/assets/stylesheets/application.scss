@@ -279,6 +279,8 @@ html, body {
   min-height: 100%;
   /* equal to footer height */
   margin-bottom: -50px;
+
+  padding-top: 60px;
 }
 .container:after {
   content: "";
@@ -345,7 +347,6 @@ footer {
 }
 
 #main {
-  padding-top: 60px;
   z-index: 0;
   margin-left: 150px;
 }

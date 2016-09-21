@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Streampusher: Start your own live streaming internet radio station</title>
+  <meta name="description" content="Start your own live streaming internet radio station with Streampusher.">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
+  <% if Rails.env.production? %>
+    <%= render 'layouts/ga' %>
+  <% end %>
+</head>
+<body data-timezone="<%=ActiveSupport::TimeZone::MAPPING[Time.zone.name]%>" data-controller="<%= controller.controller_path %>" data-action="<%= controller.action_name %>">
+
+<%= render 'layouts/navbar' %>
+<% if user_signed_in? %>
+  <%= render 'layouts/side_navbar' %>
+  <%= render 'layouts/live' %>
+<% end %>
+<div class="container">
+  <div id="flash-message">
+    <% flash.each do |name, msg| %>
+      <div id="<%= name %>" class='flash'>
+        <%= msg %>
+      </div>
+    <% end %>
+  </div>
+  <%= yield %>
+  <div class="modal fade" id="modal-holder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  </div>
+</div>
+<%= render 'layouts/footer' %>
+<%= render 'layouts/olark' %>
+<%= javascript_include_tag 'application' %>
+</body>
+</html>
