@@ -7,7 +7,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="brand" href="/"><%= image_tag "logo.png" %></a>
+      <a class="brand" href="/"><%= image_tag "logo.png" %>
+        <% unless in_main_app? %>
+          Streampusher
+        <% end %>
+      </a>
     </div>
 
     <div class="collapse navbar-collapse">

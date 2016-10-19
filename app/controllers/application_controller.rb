@@ -25,11 +25,19 @@ class ApplicationController < ActionController::Base
   end
 
   protected
-  def layout_by_resource
+  def in_main_app?
     if (devise_controller? || params["controller"] == "landing") && action_name != "edit"
-      "landing"
+      false
     else
+      true
+    end
+  end
+
+  def layout_by_resource
+    if in_main_app?
       "application"
+    else
+      "landing"
     end
   end
 
