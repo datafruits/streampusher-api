@@ -343,6 +343,10 @@ footer {
     padding: 0;
     bottom: -10px;
     font-size: 22px;
+    display: inline-block;
+    width: 730px;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 }
 
