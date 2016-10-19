@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/datafruits/rupeepeethree.git
+  revision: 839fb8caacc9a19b4466c6afd532dd6f5fca9c59
+  specs:
+    rupeepeethree (0.0.6)
+      mime-types (>= 1.16)
+      taglib-ruby (~> 0.7.0)
+      trollop (~> 2.0)
+
+GIT
   remote: git://github.com/mcfiredrill/ruby-liquidsoap.git
   revision: d861c33fff51d5804cd174aeb8e4f5820cc9c726
   specs:
@@ -256,7 +265,7 @@ GEM
       mime-types (>= 1.16, < 4)
     mercenary (0.3.6)
     method_source (0.8.2)
-    mime-types (2.99.2)
+    mime-types (2.99.3)
     mimemagic (0.3.0)
     mini_portile2 (2.1.0)
     minitest (5.9.0)
@@ -392,10 +401,6 @@ GEM
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
     rubyzip (1.2.0)
-    rupeepeethree (0.0.6)
-      mime-types (>= 1.16)
-      taglib-ruby (~> 0.7.0)
-      trollop (~> 2.0)
     safe_yaml (1.0.4)
     sass (3.2.19)
     sass-rails (4.0.5)
@@ -556,6 +561,7 @@ DEPENDENCIES
   remote_syslog_logger
   rspec-rails
   ruby-liquidsoap!
+  rupeepeethree!
   sass-rails (~> 4.0.3)
   selenium-webdriver
   sidekiq
@@ -578,4 +584,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.12.5
+   1.13.3

@@ -81,6 +81,7 @@ gem 'chronic'
 gem 'aws-sdk', '< 2.0'
 gem 'paperclip'
 
+gem 'rupeepeethree', github: "datafruits/rupeepeethree"
 gem "so_id3", github: "mcfiredrill/so_id3"
 
 source 'https://rails-assets.org' do
