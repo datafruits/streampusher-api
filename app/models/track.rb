@@ -39,7 +39,7 @@ class Track < ActiveRecord::Base
     end
   end
 
-  def cloudfront_url
+  def cdn_url
     "https://#{ENV['CLOUDFRONT_URL']}/#{s3_filepath}"
   end
 
