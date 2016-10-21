@@ -51,8 +51,18 @@ p.price {
 section#header {
   text-align: center;
   h1,h2 {
-    text-shadow: 1px 1px 0 #aaa;
   }
+}
+
+.landing-container {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.landing-top {
+  width: 100%;
+  background-image: image-url("cute_icons.png");
+  background-repeat: repeat;
 }
 
 h1.lead-copy-1 {
@@ -63,20 +73,13 @@ h1.lead-copy-2 {
   font-size:80px;
 }
 
-h2.lead-copy {
-  font-size:40px;
-}
-
-.blue {
-}
-
 div.landing {
   font-size: 20px;
   h2 {
     font-size: 50px;
   }
   h1, h2, h3 {
-    text-shadow: 1px 1px 0 #aaa;
+    font-family: 'Montserrat', sans-serif;
   }
 
   .panel-title {
