@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import "bourbon";
+
 $blue: #03B4F7;
 $chiyoda: #049B4E;
 
@@ -86,4 +88,29 @@ div.landing {
     text-transform: uppercase;
     text-align: center;
   }
+}
+
+@include keyframes(wiggle) {
+  from {
+    @include transform(scale(1));
+  }
+  50% {
+    @include transform(scale(1.03) rotate(-3deg));
+  }
+  to {
+    @include transform(scale(1));
+  }
+}
+
+.hero-graphic {
+  box-shadow: 0 10px 80px 0 rgba(47, 33, 75, .25);
+}
+
+.hero-logo:hover {
+  @include animation(wiggle 1.0s cubic-bezier(1, -0.9, 1, 1));
+
+}
+
+.dashboard-screenshot {
+  border-radius: 12px;
 }
