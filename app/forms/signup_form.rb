@@ -3,7 +3,7 @@ class SignupForm
   attr_reader :user, :subscription, :radio
   delegate :email, :email=, :password, :password=, to: :user
   delegate :name, to: :radio
-  delegate :plan_id, to: :subscription
+  delegate :plan_id, :coupon, to: :subscription
 
   def initialize user=User.new, subscription=Subscription.new, radio=Radio.new
     @user = user
@@ -26,6 +26,7 @@ class SignupForm
   def subscription= attrs
     @subscription.plan_id = attrs[:plan_id]
     @subscription.stripe_card_token = attrs[:stripe_card_token]
+    @subscription.coupon = attrs[:coupon]
     @radio.name = attrs[:radios][:name]
   end
 

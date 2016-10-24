@@ -3,7 +3,7 @@ class Subscription < ActiveRecord::Base
   validates_presence_of :plan_id
   belongs_to :user
   has_many :radios
-  attr_accessor :stripe_card_token
+  attr_accessor :stripe_card_token, :coupon
 
   def trial_days_left
     (Date.parse(Time.at(self.trial_ends_at).to_s) - Date.today).to_i
@@ -17,23 +17,11 @@ class Subscription < ActiveRecord::Base
     save! if valid?
   end
 
-  def save_with_free_trial(*)
+  def save_with_free_trial!
+    customer_attributes = { description: self.user.email, plan: self.plan.name }
+    customer_attributes[:coupon] = coupon if coupon.present?
     if valid?
-      customer = Stripe::Customer.create(description: self.user.email, plan: self.plan.name)
-      self.on_trial = true
-      self.trial_ends_at = Time.at(customer.subscriptions.data.first.trial_end)
-      self.stripe_customer_token = customer.id
-      save!
-    end
-  rescue Stripe::InvalidRequestError => e
-    logger.error "Stripe error while creating customer: #{e.message}"
-    errors.add :base, "There was a problem with your credit card."
-    return false
-  end
-
-  def save_with_free_trial!(*)
-    if valid?
-      customer = Stripe::Customer.create(description: self.user.email, plan: self.plan.name)
+      customer = Stripe::Customer.create(customer_attributes)
       self.on_trial = true
       self.trial_ends_at = Time.at(customer.subscriptions.data.first.trial_end)
       self.stripe_customer_token = customer.id

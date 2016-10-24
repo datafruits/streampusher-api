@@ -33,6 +33,7 @@
         <% end %>
 
         <%= s.hidden_field :plan_id, value: @plan.id %>
+        <%= s.hidden_field :coupon, value: params[:coupon] %>
       <% end %>
 
       <div><%= f.submit "Sign up now", class: 'big-cta-btn' %></div>

@@ -52,7 +52,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create_params
     params.require(:signup_form).permit(:email, :password, :password_confirmation, :current_password, :time_zone,
-                                 subscription: [:plan_id, :stripe_card_token,
+                                 subscription: [:plan_id, :stripe_card_token, :coupon
                                  radios: [:name]])
   end
 

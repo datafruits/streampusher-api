@@ -14,7 +14,7 @@ RSpec.describe Subscription, :type => :model do
   describe "#save_with_free_trial" do
     it "sets on trial to true and sets trial_ends_at date" do
       VCR.use_cassette "stripe_save_free_trial" do
-        subscription.save_with_free_trial
+        subscription.save_with_free_trial!
       end
       subscription.reload
       expect(subscription.on_trial).to eq true
@@ -28,11 +28,17 @@ RSpec.describe Subscription, :type => :model do
       it "doesn't save if the stripe api returned an error"
     end
     describe "updating the card and/or plan" do
+      it "uses a coupon" do
+        VCR.use_cassette "stripe_use_coupon" do
+          subscription.coupon = "COOLCOUPON2014"
+          subscription.save_with_free_trial!
+        end
+      end
       it "updates the subscription with a new card"
       it "updates the subscription with a new plan"
       it "updates the subscription with a new card and plan" do
         VCR.use_cassette "stripe_save_free_trial" do
-          subscription.save_with_free_trial
+          subscription.save_with_free_trial!
         end
         VCR.use_cassette "stripe_update_with_new_card" do
           token = Stripe::Token.create(
