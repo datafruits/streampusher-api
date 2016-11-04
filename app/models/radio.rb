@@ -44,6 +44,18 @@ class Radio < ActiveRecord::Base
     "#{self.icecast_panel_url}#{self.name}.mp3"
   end
 
+  def relay_url
+    "http://streampusher-relay.club:8000/"
+  end
+
+  def relay_mp3_url
+    "#{self.relay_url}#{self.name}.mp3"
+  end
+
+  def relay_ogg_url
+    "#{self.relay_url}#{self.name}.ogg"
+  end
+
   def liquidsoap_container
     if !self.liquidsoap_container_id.blank?
       begin
