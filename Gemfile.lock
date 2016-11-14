@@ -15,12 +15,6 @@ GIT
       omniauth-oauth2 (~> 1.4.0)
 
 GIT
-  remote: https://github.com/mcfiredrill/ruby-liquidsoap.git
-  revision: d861c33fff51d5804cd174aeb8e4f5820cc9c726
-  specs:
-    ruby-liquidsoap (0.0.1)
-
-GIT
   remote: https://github.com/mcfiredrill/so_id3.git
   revision: 7aaf0d9f1f522d3d714054a8fa93b5aa7cb62337
   specs:
@@ -43,6 +37,12 @@ GIT
   specs:
     omniauth-mixcloud (1.0.1)
       omniauth-oauth2 (~> 1.4.0)
+
+GIT
+  remote: https://github.com/streampusher/ruby-liquidsoap.git
+  revision: d861c33fff51d5804cd174aeb8e4f5820cc9c726
+  specs:
+    ruby-liquidsoap (0.0.1)
 
 GEM
   remote: https://rubygems.org/
