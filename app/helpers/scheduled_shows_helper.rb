@@ -3,19 +3,33 @@ module ScheduledShowsHelper
     timezones = {"PST" => "Pacific Time (US & Canada)",
                  "EST" => "Eastern Time (US & Canada)",
                  "UK"  => "London",
-                 "EU"  => "Stockholm",
                  "日本"=> "Tokyo"}
-    time_string = ""
+    times_hash = {}
 
     timezones.each do |k,v|
-      time_string << "[#{Time.zone.parse(time.to_s).in_time_zone(v).strftime("%H:%M")} #{k}] "
+      local_time = Time.zone.parse(time.to_s).in_time_zone(v).strftime("%H:%M")
+      date = Time.zone.parse(time.to_s).in_time_zone(v).strftime("%m/%d")
+      times_hash[k] = { :time => local_time, :date => date }
     end
 
-    time_string
+    times_hash
   end
 
   def tweet_text(show)
     text = ""
-    text << "#{show.title} on @datafruits #{show.start_at.strftime("%m/%d")} - #{multiple_timezones(show.start_at)}"
+    last_date = ""
+    text << "#{show.title} on #{show.radio.name}"
+    multiple_timezones(show.start_at).each do |k, v|
+      date = v[:date]
+      time = v[:time]
+      if date != last_date
+        time_text = "#{date} - #{time} #{k}"
+      else
+        time_text = "#{time} #{k}"
+      end
+      text << " - #{time_text}"
+      last_date = date
+    end
+    text
   end
 end
