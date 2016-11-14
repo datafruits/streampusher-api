@@ -19,7 +19,7 @@ gem 'spring',        group: :development
 
 gem 'devise', '~> 3.5.1'
 gem 'omniauth'
-gem 'omniauth-soundcloud'
+gem 'omniauth-soundcloud', github: "mcfiredrill/omniauth-soundcloud"
 gem 'omniauth-mixcloud', github: "streampusher/omniauth-mixcloud"
 gem 'mixcloud', github: 'streampusher/mixcloud-ruby'
 gem 'omniauth-tumblr'
