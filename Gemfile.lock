@@ -38,12 +38,6 @@ GIT
     omniauth-mixcloud (1.0.1)
       omniauth-oauth2 (~> 1.4.0)
 
-GIT
-  remote: https://github.com/streampusher/ruby-liquidsoap.git
-  revision: d861c33fff51d5804cd174aeb8e4f5820cc9c726
-  specs:
-    ruby-liquidsoap (0.0.1)
-
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -570,7 +564,6 @@ DEPENDENCIES
   recurrence
   remote_syslog_logger
   rspec-rails
-  ruby-liquidsoap!
   rupeepeethree!
   sass-rails (~> 4.0.3)
   selenium-webdriver
