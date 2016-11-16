@@ -12,6 +12,10 @@ class DjsController < ApplicationController
       if @dj.persisted?
         flash[:notice] = "Created DJ account for #{@dj.email}"
         redirect_to djs_path
+      else
+        @djs = @current_radio.djs.page(params[:page])
+        @dj = @djs.new
+        render 'index'
       end
     rescue ExistingUserRadio => e
       flash[:error] = "User already exists on this radio."
