@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161024073228) do
+ActiveRecord::Schema.define(version: 20161124022402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(version: 20161024073228) do
     t.string   "tunein_station_id"
     t.boolean  "tunein_metadata_updates_enabled",             default: false, null: false
     t.boolean  "social_identities_enabled",                   default: false, null: false
+    t.string   "container_name",                                              null: false
   end
 
   create_table "recordings", force: :cascade do |t|
