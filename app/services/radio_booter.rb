@@ -4,7 +4,7 @@ require_relative '../../lib/ufw'
 
 class RadioBooter
   def self.boot radio
-    radio_name = radio.name
+    radio_name = radio.container_name
     redis = Redis.current
 
     liquidsoap_container = DockerWrapper.find_or_create 'mcfiredrill/liquidsoap:latest',

@@ -6,7 +6,7 @@ class UploaderSignatureController < ApplicationController
       awsaccesskeyid: ENV['S3_KEY'],
       bucket: ENV['S3_BUCKET'],
       expires: @expires,
-      key: "#{@current_radio.name}/#{cleaned_filename(params[:name])}",
+      key: "#{@current_radio.container_name}/#{cleaned_filename(params[:name])}",
       policy: policy,
       signature: signature,
       success_action_status: '201',
