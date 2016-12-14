@@ -47,7 +47,6 @@ class Ability
       can :index, Radio if can_manage_radio?(user, radio)
       can :read, Podcast if radio.podcasts_enabled?
 
-
       can :read, ScheduledShow
       can :create, ScheduledShow
       can :update, ScheduledShow
@@ -68,6 +67,9 @@ class Ability
 
       can :vj, :dashboard if is_datafruits?(radio)
       can :manage, SocialIdentity, user_id: user.id && radio.social_identities_enabled?
+
+      can :create, :anniversary_slot if is_datafruits?(radio)
+      can :index, :anniversary_slot if is_datafruits?(radio)
       cannot :admin
     else
       can :read, ScheduledShow if format == "json"
@@ -75,6 +77,7 @@ class Ability
       can :enabled, :vj
       can :embed, Track
       cannot :admin
+      can :sign_up, :anniversary_slot if is_datafruits?(radio)
     end
   end
 

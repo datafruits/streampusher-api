@@ -44,6 +44,12 @@ Rails.application.routes.draw do
     omniauth_callbacks: "users/omniauth_callbacks"
   }
 
+  resources :anniversary_slots do
+    collection do
+      post "sign_up"
+    end
+  end
+
   as :user do
     get "/login" => "sessions#new"
     post "/login" => "sessions#create"
@@ -84,6 +90,8 @@ Rails.application.routes.draw do
   get "/vj" => "vj#index"
   patch "/vj" => "vj#update"
   get "/vj/enabled" => "vj#enabled"
+
+  resources :anniversary_slots, only: [:create, :index]
 
   root 'landing#index'
 end
