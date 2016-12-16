@@ -19,18 +19,18 @@
 </section>
 
 
-<section class="signin">
-<h2>Don't have an account? sign up...</h2>
-    <% if @current_radio.try(:name) == "datafruits" %>
-      <%= simple_form_for @current_radio.djs.new, url: sign_up_anniversary_slots_path, html: {class: 'form-horizontal'} do |f| %>
-        <%= f.input :email %>
-        <%= f.input :username %>
-        <%= f.input :password %>
-        <br/>
-        <%= f.select :time_zone, ActiveSupport::TimeZone.all.sort.collect{|m| [m.to_s.split(") ").reverse.join(" -- ").concat(")"), m.name]},
-          {}, class: 'chosen-select' %>
-        <br/>
-        <%= f.submit "Signup new dj", class: 'btn btn-success', "data-disable-with" => "sending..."  %>
-      <% end %>
+<% if @current_radio.try(:name) == "datafruits" %>
+  <section class="signin">
+  <h2>Don't have an account? sign up...</h2>
+    <%= simple_form_for @current_radio.djs.new, url: sign_up_anniversary_slots_path, html: {class: 'form-horizontal'} do |f| %>
+      <%= f.input :email %>
+      <%= f.input :username %>
+      <%= f.input :password %>
+      <br/>
+      <%= f.select :time_zone, ActiveSupport::TimeZone.all.sort.collect{|m| [m.to_s.split(") ").reverse.join(" -- ").concat(")"), m.name]},
+        {}, class: 'chosen-select' %>
+      <br/>
+      <%= f.submit "Signup new dj", class: 'btn btn-success', "data-disable-with" => "sending..."  %>
     <% end %>
-</section>
+  </section>
+<% end %>
