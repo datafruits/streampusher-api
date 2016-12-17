@@ -21,6 +21,9 @@ You are welcome to play for 60 minutes instead, just pick two slots in a row!
           <% end %>
         <% else %>
           <td><strong><%= show.title %></strong></td>
+          <% if show.dj == current_user %>
+            <td><%= link_to "Delete", anniversary_slot_path(show), method: :delete %></td>
+          <% end %>
         <% end %>
       </tr>
     <% end %>

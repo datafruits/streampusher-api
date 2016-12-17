@@ -91,7 +91,7 @@ Rails.application.routes.draw do
   patch "/vj" => "vj#update"
   get "/vj/enabled" => "vj#enabled"
 
-  resources :anniversary_slots, only: [:create, :index]
+  resources :anniversary_slots, only: [:create, :index, :destroy]
 
   root 'landing#index'
 end

@@ -43,6 +43,15 @@ class AnniversarySlotsController < ApplicationController
     end
   end
 
+  def destroy
+    @show = ScheduledShow.find(params[:id])
+    unless @show.dj == current_user
+      raise CanCan::AccessDenied.new
+    end
+    @show.destroy
+    redirect_to anniversary_slots_path, notice: "Slot deleted!"
+  end
+
   private
   def dj_params
     params.require(:user).permit(:email, :username, :password, :time_zone)
