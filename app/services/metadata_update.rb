@@ -5,7 +5,7 @@ class MetadataUpdate
   end
 
   private
-  def equalify_hash hash
+  def self.equalify_hash hash
     hash.map{|k,v| "#{k}=#{v}" }.join(",")
   end
 end
