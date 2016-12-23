@@ -1,6 +1,10 @@
 class MetadataController < ApplicationController
-  def update
-    @radio = Radio.find_by_name(params[:id])
-    render json: MetadataUpdate.perform(@radio, params[:metadata])
+  def create
+    render json: MetadataUpdate.perform(@current_radio, metadata_params)
+  end
+
+  private
+  def metadata_params
+    params.require(:metadata).permit(:title)
   end
 end

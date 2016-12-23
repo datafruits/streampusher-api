@@ -92,6 +92,7 @@ Rails.application.routes.draw do
   get "/vj/enabled" => "vj#enabled"
 
   resources :anniversary_slots, only: [:create, :index, :destroy]
+  post '/metadata' => "metadata#create"
 
   root 'landing#index'
 end
