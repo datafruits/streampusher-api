@@ -87,7 +87,7 @@ class Ability
 
   private
   def is_datafruits?(radio)
-    radio.name == "datafruits"
+    radio.try(:name) == "datafruits"
   end
 
   def can_manage_radio?(user, radio)
