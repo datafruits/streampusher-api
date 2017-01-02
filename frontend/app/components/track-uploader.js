@@ -7,7 +7,7 @@ export default EmberUploader.FileField.extend({
   droppedFile: Ember.inject.service(),
   multiple: true,
   signingUrl: '/uploader_signature',
-  validMimeTypes: ["audio/mp3"],
+  validMimeTypes: ["audio/mp3", "audio/mpeg"],
 
   setup: function() {
     this.get('droppedFile').on('fileWasDropped', e => {
@@ -26,6 +26,7 @@ export default EmberUploader.FileField.extend({
     let store = this.get('store');
     if (!Ember.isEmpty(files)) {
       for(let i = 0; i< files.length; i++){
+        console.log(files[i].type);
         if(!this.validMimeTypes.includes(files[i].type)){
           console.log("invalid mime type: " + files[i].type);
           alert("Sorry, there was an error uploading this file. This doesn't appear to be a valid audio file.");
