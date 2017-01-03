@@ -7,7 +7,7 @@ class DownloadTrackWorker < ActiveJob::Base
     track = Track.find_by! id: track_id
 
     File.open(track.local_path, "wb") do |saved_file|
-      open(track.cdn_url, "rb") do |read_file|
+      open(track.audio_file_name, "rb") do |read_file|
         saved_file.write(read_file.read)
       end
     end
