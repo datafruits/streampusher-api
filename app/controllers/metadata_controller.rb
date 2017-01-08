@@ -1,7 +1,7 @@
 class MetadataController < ApplicationController
   def create
     authorize! :update, :metadata
-    render json: MetadataUpdate.perform(@current_radio, metadata_params)
+    MetadataUpdate.perform(@current_radio, metadata_params)
   end
 
   private
