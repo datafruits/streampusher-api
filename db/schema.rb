@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161124022402) do
+ActiveRecord::Schema.define(version: 20170108081244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20161124022402) do
     t.integer  "interpolated_playlist_track_play_count"
     t.integer  "interpolated_playlist_track_interval_count"
     t.boolean  "interpolated_playlist_enabled",                          default: false, null: false
+    t.boolean  "no_cue_out",                                             default: false, null: false
   end
 
   create_table "podcasts", force: :cascade do |t|

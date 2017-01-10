@@ -128,4 +128,29 @@ describe NextTrack do
     PersistPlaylistToRedis.perform playlist_1
     expect(NextTrack.perform(radio)).to eq({ error: "No tracks!" })
   end
+
+  it "doesnt assign cue_out if no_cue_out is set on the playlist" do
+    track_1 = FactoryGirl.create :track, radio: radio, audio_file_name: "spec/fixtures/datafruits-ovenrake-12-01-2015.mp3"
+    track_1.update length: 8221
+    playlist_1 = FactoryGirl.create :playlist, radio: radio, no_cue_out: true
+    playlist_1.tracks << track_1
+    PersistPlaylistToRedis.perform playlist_1
+
+    track_2 = FactoryGirl.create :track, radio: radio, audio_file_name: "spec/fixtures/wau.mp3"
+    track_3 = FactoryGirl.create :track, radio: radio, audio_file_name: "spec/fixtures/unhappy_supermarket.mp3"
+    playlist_2 = FactoryGirl.create :playlist, name: "my_playlist_2", radio: radio
+    playlist_2.tracks << track_2
+    playlist_2.tracks << track_3
+    PersistPlaylistToRedis.perform playlist_2
+
+    scheduled_show_1 = FactoryGirl.create :scheduled_show, playlist: playlist_1, radio: radio,
+      start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 1st 2090 at 11:30 pm")
+
+    scheduled_show_2 = FactoryGirl.create :scheduled_show, playlist: playlist_2, radio: radio,
+      start_at: Chronic.parse("January 1st 2090 at 11:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
+
+    Timecop.travel Chronic.parse("January 1st 2090 at 10:30 pm") do
+      expect(NextTrack.perform(radio)).to eq({ cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0", track: track_1.file_basename })
+    end
+  end
 end

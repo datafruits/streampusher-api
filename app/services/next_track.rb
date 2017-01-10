@@ -11,10 +11,14 @@ class NextTrack
         return { error: "No tracks!" }
       end
       track = Track.find track_id
-      if (now+track.length.seconds) > current_scheduled_show.end_at
-        cue_out = (current_scheduled_show.end_at-now).seconds
-      else
+      if playlist.no_cue_out?
         cue_out = 0
+      else
+        if (now+track.length.seconds) > current_scheduled_show.end_at
+          cue_out = (current_scheduled_show.end_at-now).seconds
+        else
+          cue_out = 0
+        end
       end
       # "annotate:liq_fade_in=\"0\",liq_fade_out=\"0\",liq_cue_in=\"0\",liq_cue_out=\"#{cue_out.to_i}\":#{track.file_basename}"
     else
@@ -25,12 +29,16 @@ class NextTrack
       end
       track = Track.find track_id
       next_scheduled_show = radio.next_scheduled_show now + REQUEST_OFFSET
-      if next_scheduled_show && ((now+track.length.seconds) > next_scheduled_show.start_at)
-        cue_out = (next_scheduled_show.start_at-now).seconds
-      else
-        # in this case we return 0 to indicate not to set the cue out,
-        # just let the current track play out
+      if playlist.no_cue_out?
         cue_out = 0
+      else
+        if next_scheduled_show && ((now+track.length.seconds) > next_scheduled_show.start_at)
+          cue_out = (next_scheduled_show.start_at-now).seconds
+        else
+          # in this case we return 0 to indicate not to set the cue out,
+          # just let the current track play out
+          cue_out = 0
+        end
       end
     end
     # liquidsoap's json parser wants strings
