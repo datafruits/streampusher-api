@@ -13,5 +13,6 @@ export default DS.Model.extend(Validations, {
   interpolatedPlaylistTrackPlayCount: DS.attr(),
   interpolatedPlaylistId: DS.attr(),
   interpolatedPlaylistEnabled: DS.attr(),
+  noCueOut: DS.attr(),
   updatedAt: DS.attr('date')
 });

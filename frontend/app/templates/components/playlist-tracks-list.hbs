@@ -83,6 +83,9 @@
         </select>
       </label>
       playlist.
+      <br />
+      <h4>Don't cut off tracks early for next show</h4>
+      <label>Enabled {{input type="checkbox" id="no-cue-out" name="noCueOut" checked=playlist.noCueOut}}</label>
     </div>
     <div class="modal-footer">
       <button {{action "saveSettings"}} class="btn btn-primary">Save changes</button>
