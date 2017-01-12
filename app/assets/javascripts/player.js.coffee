@@ -1,15 +1,12 @@
 radioTitle = () ->
   url = $(".jp-jplayer").data('icecast-json').toString()
-  console.log(url)
+  radioName = $(".jp-jplayer").data('radio-name').toString()
 
   $.get url, (data) ->
-    title = data.icestats.source[0].title
-    console.log(title)
+    myRadio = data.icestats.source.find (s) =>
+      s.server_name == "#{radioName}.mp3"
+    title = myRadio.title
     $('.jp-title').html(title)
-    listeners = 0
-    $.each data.icestats.source, (key, data) ->
-      listeners += data.listeners
-    console.log('listeners: '+listeners)
 
 $(document).ready ->
   mp3 = $(".jp-jplayer").data('mp3').toString()
