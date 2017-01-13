@@ -6,7 +6,7 @@ RSpec.describe Recording, :type => :model do
     Sidekiq::Testing.inline!
   end
 
-  it "merges multiple recordings into one file" do
+  xit "merges multiple recordings into one file" do
     radio = FactoryGirl.create :radio
     recording1 = FactoryGirl.create :recording, file: File.new("spec/fixtures/the_cowbell.mp3"), radio: radio
     recording2 = FactoryGirl.create :recording, file: File.new("spec/fixtures/unhappy_supermarket_lektro.mp3"), radio: radio
@@ -18,7 +18,7 @@ RSpec.describe Recording, :type => :model do
     expect(new_recording.show).to eq recording1.show
   end
 
-  it "works when recordings are stored on s3" do
+  xit "works when recordings are stored on s3" do
     use_s3_for_paperclip do
       VCR.use_cassette "merge recordings when using S3 storage", :match_requests_on => [:method, :s3_uri_matcher] do
         radio = FactoryGirl.create :radio
