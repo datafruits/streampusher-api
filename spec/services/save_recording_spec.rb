@@ -8,9 +8,11 @@ describe SaveRecording do
     local_path = File.join(radio.tracks_directory, File.basename(filename))
     FileUtils.copy "spec/fixtures/unhappy_supermarket_lektro.mp3", local_path
 
-    recording = SaveRecording.save filename, radio.name
-    expect(recording.file_file_size).to eq File.size(local_path)
-    expect(recording.dj).to eq shinta
-    expect(recording.radio).to eq radio
+    VCR.use_cassette(RSpec.current_example.metadata[:full_description].to_s) do
+      recording = SaveRecording.save filename, radio.name
+      expect(recording.file_file_size).to eq File.size(local_path)
+      expect(recording.dj).to eq shinta
+      expect(recording.radio).to eq radio
+    end
   end
 end
