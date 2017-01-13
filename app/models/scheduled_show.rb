@@ -16,13 +16,15 @@ class ScheduledShow < ActiveRecord::Base
 
   alias_attribute :start, :start_at
   alias_attribute :end, :end_at
-  attr_accessor :update_all_recurrences
+  attr_accessor :update_all_recurrences, :destroy_recurrences
 
   before_save :update_recurring_intervals
   after_create :save_recurrences
   after_update :update_recurrences
+  before_destroy :maybe_destroy_recurrences
 
   before_save :ensure_time_zone
+
 
   enum recurring_interval: [:not_recurring, :day, :week, :month, :year]
 
@@ -62,15 +64,17 @@ class ScheduledShow < ActiveRecord::Base
     self.class.where(recurrant_original_id: self.id)
   end
 
-  def destroy_all_recurrences
-    recurrences_to_update.destroy_all
-  end
-
   def recurring?
     !self.not_recurring?
   end
 
   private
+  def maybe_destroy_recurrences
+    if destroy_recurrences
+      recurrences_to_update.destroy_all
+    end
+  end
+
   def ensure_time_zone
     unless self.time_zone.blank?
       self.start_at = ActiveSupport::TimeZone.new(self.time_zone).local_to_utc(self.start_at)
@@ -160,10 +164,14 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def recurrences_to_update
-    if self.recurrant_original_id.present? # find the original recurrent
-      recurrences_to_update = self.recurrant_original.recurrences
+    if !is_original_recurrant?
+      self.recurrant_original.recurrences
     else # this is the original recurring show!
-      recurrences_to_update = recurrences
+      recurrences
     end
+  end
+
+  def is_original_recurrant?
+    !self.recurrant_original_id.present?
   end
 end

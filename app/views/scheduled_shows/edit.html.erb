@@ -1,2 +1,7 @@
 <%= render 'form' %>
-<%= link_to "Delete", scheduled_show_path(@scheduled_show), method: :delete, data: { confirm: "Are you sure?" } %>
+<%= form_tag scheduled_show_path(@scheduled_show), method: :delete do %>
+  <%= label_tag "destroy_recurrences", "Delete all repeating events" %>
+  <%= check_box_tag "destroy_recurrences" %>
+  <br/ >
+  <%= submit_tag "Delete", data: { confirm: "Are you sure?" } %>
+<% end %>

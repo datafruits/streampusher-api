@@ -61,6 +61,7 @@ class ScheduledShowsController < ApplicationController
   end
 
   def destroy
+    @scheduled_show.destroy_recurrences = params[:destroy_recurrences]
     @scheduled_show.destroy
     flash[:notice] = "Deleted scheduled show!"
     redirect_to scheduled_shows_path
@@ -74,7 +75,7 @@ class ScheduledShowsController < ApplicationController
 
   def create_params
     params.require(:scheduled_show).permit(:title, :radio_id, :start_at,
-                                           :end_at, :description, :image,
+                                           :end_at, :description, :image, :update_all_recurrences,
                                            :recurring_interval, :playlist_id, :time_zone)
   end
 end
