@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<icestats>
+  <source mount="/datafruits.mp3">
+    <listeners>0</listeners>
+    <Listeners>0</Listeners>
+    <Connected>702</Connected>
+    <content-type>audio/mpeg</content-type>
+  </source>
+  <source mount="/datafruits.ogg">
+    <listeners>0</listeners>
+    <Listeners>0</Listeners>
+    <Connected>702</Connected>
+    <content-type>application/ogg</content-type>
+  </source>
+</icestats>

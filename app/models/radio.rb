@@ -100,6 +100,10 @@ class Radio < ActiveRecord::Base
     "#{self.name}:default_playlist"
   end
 
+  def listeners_key
+    "#{self.name}:listeners"
+  end
+
   def liquidsoap_harbor_port
     Redis.current.hget "proxy-domain", liquidsoap_proxy_key
   end
