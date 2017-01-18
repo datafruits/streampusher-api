@@ -1,5 +1,5 @@
 GIT
-  remote: https://github.com/datafruits/rupeepeethree.git
+  remote: git://github.com/datafruits/rupeepeethree.git
   revision: 839fb8caacc9a19b4466c6afd532dd6f5fca9c59
   specs:
     rupeepeethree (0.0.6)
@@ -8,14 +8,14 @@ GIT
       trollop (~> 2.0)
 
 GIT
-  remote: https://github.com/mcfiredrill/omniauth-soundcloud.git
+  remote: git://github.com/mcfiredrill/omniauth-soundcloud.git
   revision: 67fdc1352730f05e532ef1b2231bdd643ed3c3b4
   specs:
     omniauth-soundcloud (1.0.1)
       omniauth-oauth2 (~> 1.4.0)
 
 GIT
-  remote: https://github.com/mcfiredrill/so_id3.git
+  remote: git://github.com/mcfiredrill/so_id3.git
   revision: 7aaf0d9f1f522d3d714054a8fa93b5aa7cb62337
   specs:
     so_id3 (0.0.1)
@@ -25,21 +25,21 @@ GIT
       rupeepeethree (~> 0.0.6)
 
 GIT
-  remote: https://github.com/streampusher/mixcloud-ruby.git
+  remote: git://github.com/streampusher/mixcloud-ruby.git
   revision: 51fe130361df66cf2bf1319a22529165c4a08a34
   specs:
     mixcloud (0.0.1)
       httmultiparty
 
 GIT
-  remote: https://github.com/streampusher/omniauth-mixcloud.git
+  remote: git://github.com/streampusher/omniauth-mixcloud.git
   revision: 462c97d53967d474ec3aaf784393d2b9c69410a2
   specs:
     omniauth-mixcloud (1.0.1)
       omniauth-oauth2 (~> 1.4.0)
 
 GIT
-  remote: https://github.com/streampusher/ruby-liquidsoap.git
+  remote: git://github.com/streampusher/ruby-liquidsoap.git
   revision: d861c33fff51d5804cd174aeb8e4f5820cc9c726
   specs:
     ruby-liquidsoap (0.0.1)
@@ -278,7 +278,7 @@ GEM
     minitest (5.9.0)
     mock_redis (0.14.1)
     multi_json (1.12.1)
-    multi_xml (0.5.5)
+    multi_xml (0.6.0)
     multipart-post (2.0.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -288,8 +288,8 @@ GEM
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
     oauth (0.5.1)
-    oauth2 (1.2.0)
-      faraday (>= 0.8, < 0.10)
+    oauth2 (1.3.0)
+      faraday (>= 0.8, < 0.11)
       jwt (~> 1.0)
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
@@ -565,6 +565,7 @@ DEPENDENCIES
   rails-assets-jquery.payment!
   rails-assets-moment!
   rails-assets-moment-timezone!
+  rails-assets-tether!
   rails-assets-tether-shepherd!
   rails-assets-underscore!
   recurrence

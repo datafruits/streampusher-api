@@ -94,6 +94,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-chartjs'
   gem 'rails-assets-BaremetricsCalendar'
   gem 'rails-assets-underscore'
+  gem 'rails-assets-tether'
   gem 'rails-assets-tether-shepherd'
 end
 
