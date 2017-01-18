@@ -1,7 +1,7 @@
 require 'open-uri'
 
 class CollectStats
-  ICECAST_URL = "http://localhost:8000/admin/listmounts?with_listeners"
+  ICECAST_URL = ENV['ICECAST_STATS_URL']
   def initialize radio
     @redis = Redis.current
     @radio = radio
