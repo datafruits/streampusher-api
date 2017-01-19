@@ -12,4 +12,16 @@
     <Connected>702</Connected>
     <content-type>application/ogg</content-type>
   </source>
+  <source mount="/rinse.mp3">
+    <listeners>0</listeners>
+    <Listeners>0</Listeners>
+    <Connected>702</Connected>
+    <content-type>audio/mpeg</content-type>
+  </source>
+  <source mount="/rinse.ogg">
+    <listeners>0</listeners>
+    <Listeners>0</Listeners>
+    <Connected>702</Connected>
+    <content-type>application/ogg</content-type>
+  </source>
 </icestats>
