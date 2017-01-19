@@ -31,4 +31,10 @@ class AccountMailer < ApplicationMailer
     @invoice = invoice
     mail subject: "Your month subscription invoice", to: @user.email
   end
+
+  def payment_failed user, invoice
+    @user = user
+    @invoice = invoice
+    mail subject: "Your payment method has failed", to: @user.email
+  end
 end

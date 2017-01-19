@@ -1,0 +1,19 @@
+<h2>Your invoice</h2>
+
+<%= "Hey #{@user.username}," %>
+
+We wanted to let you know your card was billed automatically for the amount of <%= "#{@invoice.currency} #{@invoice.amount}" %>.
+
+<h3>Invoice ID</h3>
+<%= @invoice.id %>
+<h3>Plan</h3>
+<%= @invoice.plan_id %>
+<h3>Credit Card</h3>
+<%= @invoice.card %>
+
+Just a reminder, you can edit your subscription or billing details at any time here:
+<%== edit_subscription_url(@user.subscription) %>
+
+Thanks, let us know if you have any questions.
+
+-Streampusher

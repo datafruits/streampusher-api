@@ -1,0 +1,23 @@
+<h2>Payment method failed</h2>
+
+<%= "Hey #{@user.username}," %>
+
+We wanted to let you know that we failed to charge your card for the amount of <%= "#{@invoice.currency} #{@invoice.amount}" %>.
+
+We suggest you update your billing information as soon as possible to prevent your account from being deactivated.
+<%== edit_subscription_url(@user.subscription) %>
+
+Some more details:
+
+<h3>Invoice ID</h3>
+<%= @invoice.id %>
+<h3>Plan</h3>
+<%= @invoice.plan_id %>
+<h3>Credit Card</h3>
+<%= @invoice.card %>
+
+<%== edit_subscription_url(@user.subscription) %>
+
+Thanks, let us know if you have any questions.
+
+-Streampusher
