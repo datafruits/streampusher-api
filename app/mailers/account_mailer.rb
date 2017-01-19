@@ -18,4 +18,17 @@ class AccountMailer < ApplicationMailer
     @user = user
     mail subject: "Your free trial on Streampusher has ended", to: @user.email
   end
+
+  def subscription_updated user, old_plan, new_plan
+    @user = user
+    @old_plan = old_plan
+    @new_plan = new_plan
+    mail subject: "You have upgraded your plan on Streampusher", to: @user.email
+  end
+
+  def invoice user, invoice
+    @user = user
+    @invoice = invoice
+    mail subject: "Your month subscription invoice", to: @user.email
+  end
 end
