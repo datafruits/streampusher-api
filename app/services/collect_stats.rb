@@ -10,12 +10,12 @@ class CollectStats
   def perform
     current_connected_ids = []
     doc = Nokogiri::HTML(open(ICECAST_URL, http_basic_authentication: ["admin", "hackme"]))
-    doc.xpath("//source/listener").each do |listener|
+    doc.xpath("//source[@mount=\"/#{@radio.name}.mp3\"]/listener").each do |listener|
       # ip = listener.xpath("//ip").text
       ip = listener.children.select{|n| n.name == "ip"}.first.text
       icecast_listener_id = listener.children.select{|n| n.name == "id"}.first.text.to_i
       current_connected_ids << icecast_listener_id
-      # store current listeners in redis?
+      # store current listeners in redis
       # {id: 3, start_at:}
       unless is_connected? icecast_listener_id
         # listen = @redis.hget @radio.listeners_key, icecast_listener_id
