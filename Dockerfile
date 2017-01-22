@@ -41,8 +41,8 @@ ENV PATH /home/rails/.rbenv/bin:$PATH
 ENV RBENV_ROOT /home/rails/.rbenv
 
 ENV CONFIGURE_OPTS --disable-install-doc
-RUN rbenv install 2.3.0
-RUN rbenv global 2.3.0
+RUN rbenv install 2.3.3
+RUN rbenv global 2.3.3
 RUN echo 'gem: --no-rdoc --no-ri' >> /home/rails/.gemrc
 RUN rbenv exec gem update --system
 RUN rbenv exec gem install bundler
