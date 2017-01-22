@@ -35,14 +35,14 @@ ActiveRecord::Schema.define(version: 20170331040250) do
 
   create_table "listens", force: :cascade do |t|
     t.integer  "radio_id"
-    t.string   "ip_address",          limit: 255
+    t.string   "ip_address"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "start_at"
     t.datetime "end_at"
     t.float    "lat"
     t.float    "lon"
-    t.integer  "icecast_listener_id",             null: false
+    t.integer  "icecast_listener_id", null: false
   end
 
   create_table "plans", force: :cascade do |t|
