@@ -35,6 +35,7 @@ gem 'lograge'
 gem 'rack-cors', :require => 'rack/cors'
 
 gem 'sidekiq'
+gem 'sidekiq-scheduler'
 gem 'therubyracer'
 gem 'rspec-rails', '~> 3.5.2', :group => [:development, :test]
 
