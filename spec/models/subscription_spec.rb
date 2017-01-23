@@ -17,7 +17,7 @@ RSpec.describe Subscription, :type => :model do
         subscription.save_with_free_trial!
       end
       subscription.reload
-      expect(subscription.on_trial).to eq true
+      expect(subscription.on_trial?).to eq true
       expect(subscription.trial_ends_at < 15.days.from_now).to eq true
       expect(subscription.trial_days_left).to eq 14
     end
@@ -52,7 +52,8 @@ RSpec.describe Subscription, :type => :model do
           subscription.update_with_new_card plan_id: hobbyist_plan.id, stripe_card_token: token.id
         end
         subscription.reload
-        expect(subscription.on_trial).to eq false
+        expect(subscription.on_trial?).to eq false
+        expect(subscription.on_paid_plan?).to eq true
       end
       it "doesn't save if the stripe api returned an error"
     end
@@ -64,7 +65,7 @@ RSpec.describe Subscription, :type => :model do
   describe "canceling" do
     it "cancels the subscription" do
       subscription.cancel!
-      expect(subscription.canceled).to eq true
+      expect(subscription.canceled?).to eq true
     end
     it "disables the radio on the subscription" do
       radio = double("radio")

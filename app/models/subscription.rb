@@ -4,6 +4,7 @@ class Subscription < ActiveRecord::Base
   belongs_to :user
   has_many :radios
   attr_accessor :stripe_card_token, :coupon
+  enum status: [:on_trial, :on_paid_plan, :trial_ended, :canceled]
 
   def trial_days_left
     (Date.parse(Time.at(self.trial_ends_at).to_s) - Date.today).to_i
@@ -22,7 +23,7 @@ class Subscription < ActiveRecord::Base
     customer_attributes[:coupon] = coupon if coupon.present?
     if valid?
       customer = Stripe::Customer.create(customer_attributes)
-      self.on_trial = true
+      self.status = "on_trial"
       self.trial_ends_at = Time.at(customer.subscriptions.data.first.trial_end)
       self.stripe_customer_token = customer.id
       save!
@@ -38,7 +39,7 @@ class Subscription < ActiveRecord::Base
   def save_with_card(*)
     if valid?
       customer = Stripe::Customer.create(description: self.user.email, plan: plan_id, card: stripe_card_token)
-      self.on_trial = false
+      self.status = "on_paid_plan"
       self.stripe_customer_token = customer.id
       self.last_4_digits = customer.cards.first.last4
       self.exp_month = customer.cards.first.exp_month
@@ -62,7 +63,7 @@ class Subscription < ActiveRecord::Base
         subscription = customer.subscriptions.first
         subscription.plan = self.plan.name
         customer.save
-        self.on_trial = false
+        self.status = "on_paid_plan"
         self.stripe_customer_token = customer.id
         self.last_4_digits = customer.cards.first.last4
         self.exp_month = customer.cards.first.exp_month
@@ -77,7 +78,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def cancel!
-    self.update! canceled: true
+    self.canceled!
     radios.each do |radio|
       radio.disable_radio
     end
