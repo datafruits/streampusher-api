@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20170119064022) do
     t.datetime "end_at"
     t.float    "lat"
     t.float    "lon"
-    t.integer  "icecast_listener_id",             null: false
+    t.integer  "icecast_listener_id", null: false
   end
 
   create_table "plans", force: :cascade do |t|
@@ -171,13 +171,13 @@ ActiveRecord::Schema.define(version: 20170119064022) do
     t.integer  "plan_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "stripe_customer_token", limit: 255
-    t.integer  "user_id",                                       null: false
+    t.string   "stripe_customer_token"
+    t.integer  "user_id",                           null: false
     t.string   "last_4_digits"
     t.integer  "exp_month"
     t.integer  "exp_year"
     t.datetime "trial_ends_at"
-    t.integer  "status",                            default: 0, null: false
+    t.integer  "status",                default: 0, null: false
   end
 
   create_table "track_labels", force: :cascade do |t|
