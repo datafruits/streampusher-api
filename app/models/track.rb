@@ -40,7 +40,7 @@ class Track < ActiveRecord::Base
   end
 
   def cdn_url
-    "https://#{ENV['CLOUDFRONT_URL']}/#{s3_filepath}"
+    "https://#{ENV['CLOUDFRONT_URL']}/#{s3_filepath}?#{self.updated_at.to_i}"
   end
 
   def file_basename
