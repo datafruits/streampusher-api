@@ -1,7 +1,7 @@
 class TrackSerializer < ActiveModel::Serializer
   attributes :id, :audio_file_name, :display_name, :artist, :title, :album,
     :created_at, :artwork, :artwork_filename, :mixcloud_upload_status, :mixcloud_key,
-    :embed_link
+    :embed_link, :cdn_url
 
   def embed_link
     if ::Rails.env.production?
@@ -9,6 +9,10 @@ class TrackSerializer < ActiveModel::Serializer
     else
       "http://#{object.radio.virtual_host}:3000/tracks/#{object.id}/embed"
     end
+  end
+
+  def cdn_url
+    object.track.cdn_url
   end
 
   def mixcloud_upload_status
