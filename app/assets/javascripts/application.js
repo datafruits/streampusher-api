@@ -29,7 +29,6 @@
 //= require djs
 //= require dropzone
 //= require flash_message
-//= require home
 //= require landing
 //= require podcasts
 //= require radios
