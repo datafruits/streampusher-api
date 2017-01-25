@@ -6,11 +6,12 @@ RSpec.describe Radio, :type => :model do
     radio = FactoryGirl.create :radio
   end
 
-  it "invalid characters are removed in the container name" do
-    radio = FactoryGirl.build :radio, name: "&%^pizza party!  time"
+  it "name only allows letters, numbers, and underscores" do
+    radio = FactoryGirl.build :radio, name: "&%^pizza3$ party!  time"
+    expect(radio.valid?).to eq false
+    radio.name = "pizza_party_2ime"
+
     expect(radio.valid?).to eq true
-    radio.save!
-    expect(radio.container_name).to eq "pizzapartytime"
   end
 
   it "creates a default playlist" do

@@ -15,7 +15,7 @@ class Radio < ActiveRecord::Base
 
   validates :name, presence: true
   validates :name, uniqueness: true
-  before_validation :copy_to_container_name
+  validates :name, format: { with: /\A[a-zA-Z0-9_]+\z/, message: "only letters, numbers, and underscores are allowed" }
 
   scope :enabled, -> { where(enabled: true) }
 
