@@ -1,3 +1,14 @@
+@import "bourbon";
+
+@include keyframes(rotation){
+  from {
+    @include transform(rotate(0deg));
+  }
+  to {
+    @include transform(rotate(360deg));
+  }
+}
+
 #jp_container_1 {
   border: solid black 3px;
   border-radius: 7px;
@@ -33,4 +44,12 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   word-break: normal;
+}
+
+.jp-loading {
+  @include animation(rotation 0.7s linear infinite);
+}
+
+a.jp-loading:hover {
+  background-color: transparent !important;
 }

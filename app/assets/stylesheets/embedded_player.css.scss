@@ -1,6 +1,8 @@
 /*
+ *= require bootstrap_and_overrides
  *= require player
 */
+@import "bourbon";
 
 .jp-audio {
   width: 90%;
