@@ -17,6 +17,8 @@ class Radio < ActiveRecord::Base
   validates :name, uniqueness: true
   validates :name, format: { with: /\A[a-zA-Z0-9_]+\z/, message: "only letters, numbers, and underscores are allowed" }
 
+  before_validation :copy_to_container_name
+
   scope :enabled, -> { where(enabled: true) }
 
   def djs
@@ -114,7 +116,7 @@ class Radio < ActiveRecord::Base
   private
   def copy_to_container_name
     if self.name.present?
-      self.container_name = self.name.gsub(/[^a-zA-Z0-9_]/, '')
+      self.container_name = self.name
     end
   end
 
