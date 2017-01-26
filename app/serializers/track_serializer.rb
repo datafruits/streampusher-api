@@ -12,7 +12,7 @@ class TrackSerializer < ActiveModel::Serializer
   end
 
   def cdn_url
-    object.track.cdn_url
+    object.cdn_url
   end
 
   def mixcloud_upload_status
