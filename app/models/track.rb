@@ -34,6 +34,7 @@ class Track < ActiveRecord::Base
 
   enum tag_processing_status: ['unprocessed', 'processing', 'done', 'failed']
   enum mixcloud_upload_status: ['mixcloud_not_uploaded', 'mixcloud_uploading', 'mixcloud_upload_complete', 'mixcloud_upload_failed']
+  enum soundcloud_upload_status: ['soundcloud_not_uploaded', 'soundcloud_uploading', 'soundcloud_upload_complete', 'soundcloud_upload_failed']
 
   def s3_filepath
     file_name = URI.decode(self.audio_file_name)
