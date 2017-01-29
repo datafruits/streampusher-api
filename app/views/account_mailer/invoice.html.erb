@@ -9,7 +9,7 @@ We wanted to let you know your card was billed automatically for the amount of <
 <h3>Plan</h3>
 <%= @invoice.plan_id %>
 <h3>Credit Card</h3>
-<%= @invoice.card %>
+<%= @user.subscription.last_4_digits %>
 
 Just a reminder, you can edit your subscription or billing details at any time here:
 <%== edit_subscription_url(@user.subscription) %>

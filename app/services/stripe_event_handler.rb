@@ -26,8 +26,15 @@ class StripeEventHandler
   end
 
   def self.payment_succeeded event
-    user = Subscription.find_by!(stripe_customer_token: event.data.object.customer).user
-    invoice = event.data.object
+    # figure out if this is an ended free trial
+    subscription = Subscription.find_by!(stripe_customer_token: event.data.object.customer)
+    user = subscription.user
+    invoice = OpenStruct.new
+    invoice.currency = event.data.object.currency
+    invoice.amount = event.data.object.lines.data[0].amount
+    invoice.id = event.data.object.id
+    invoice.plan_id = event.data.object.lines.data[0].plan.id
+
     AccountMailer.invoice(user, invoice).deliver_later
   end
 end
