@@ -2,12 +2,12 @@
 
 <%= "Hey #{@user.username}," %>
 
-We wanted to let you know your card was billed automatically for the amount of <%= "#{@invoice.currency} #{@invoice.amount}" %>.
+We wanted to let you know your card was billed automatically for the amount of <%= "#{@invoice[:currency]} #{@invoice[:amount]}" %>.
 
 <h3>Invoice ID</h3>
-<%= @invoice.id %>
+<%= @invoice[:id] %>
 <h3>Plan</h3>
-<%= @invoice.plan_id %>
+<%= @invoice[:plan_id] %>
 <h3>Credit Card</h3>
 <%= @user.subscription.last_4_digits %>
 
