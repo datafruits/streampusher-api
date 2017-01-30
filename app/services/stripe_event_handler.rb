@@ -1,7 +1,7 @@
 class StripeEventHandler
   def self.customer_subscription_updated event
     user = Subscription.find_by!(stripe_customer_token: event.data.object.customer).user
-    unless event.data.previous_attributes.try(:plan)
+    if event.data.previous_attributes.try(:plan)
       old_plan = event.data.previous_attributes.plan.id
       new_plan = event.data.object.plan.id
       AccountMailer.subscription_updated(user, old_plan, new_plan).deliver_later
