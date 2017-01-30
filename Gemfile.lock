@@ -88,7 +88,7 @@ GEM
     acts_as_list (0.8.1)
       activerecord (>= 3.0)
     addressable (2.4.0)
-    arel (6.0.3)
+    arel (6.0.4)
     aws-sdk (1.66.0)
       aws-sdk-v1 (= 1.66.0)
     aws-sdk-v1 (1.66.0)
@@ -98,7 +98,7 @@ GEM
     bourbon (3.2.1)
       sass (~> 3.2)
       thor
-    builder (3.2.2)
+    builder (3.2.3)
     byebug (8.2.0)
     cancancan (1.13.1)
     capistrano (3.4.1)
@@ -275,7 +275,7 @@ GEM
     mime-types (2.99.3)
     mimemagic (0.3.0)
     mini_portile2 (2.1.0)
-    minitest (5.9.0)
+    minitest (5.10.1)
     mock_redis (0.14.1)
     multi_json (1.12.1)
     multi_xml (0.6.0)
@@ -284,9 +284,8 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (4.0.1)
     netrc (0.10.2)
-    nokogiri (1.6.8)
+    nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
-      pkg-config (~> 1.1.7)
     oauth (0.5.1)
     oauth2 (1.3.0)
       faraday (>= 0.8, < 0.11)
@@ -307,6 +306,9 @@ GEM
       multi_json
       omniauth-oauth (~> 1.0)
     orm_adapter (0.5.0)
+    paper_trail (6.0.2)
+      activerecord (>= 4.0, < 5.2)
+      request_store (~> 1.1)
     paperclip (4.3.6)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -314,7 +316,6 @@ GEM
       mime-types
       mimemagic (= 0.3.0)
     pg (0.18.3)
-    pkg-config (1.1.7)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -322,7 +323,7 @@ GEM
     pry-byebug (3.3.0)
       byebug (~> 8.0)
       pry (~> 0.10)
-    rack (1.6.4)
+    rack (1.6.5)
     rack-cors (0.3.1)
     rack-protection (1.5.3)
       rack
@@ -360,9 +361,9 @@ GEM
     rails-assets-underscore (1.8.2)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
-    rails-dom-testing (1.0.7)
+    rails-dom-testing (1.0.8)
       activesupport (>= 4.2.0.beta, < 5.0)
-      nokogiri (~> 1.6.0)
+      nokogiri (~> 1.6)
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
@@ -383,6 +384,7 @@ GEM
     ref (1.0.5)
     remote_syslog_logger (1.0.3)
       syslog_protocol
+    request_store (1.3.2)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
     rest-client (1.7.2)
@@ -437,7 +439,7 @@ GEM
       json
     slop (3.6.0)
     spring (1.3.2)
-    sprockets (2.12.4)
+    sprockets (2.8.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
@@ -549,6 +551,7 @@ DEPENDENCIES
   omniauth-mixcloud!
   omniauth-soundcloud!
   omniauth-tumblr
+  paper_trail
   paperclip
   pg
   pry-byebug
@@ -592,4 +595,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.13.6
+   1.14.3
