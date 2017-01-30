@@ -30,7 +30,7 @@ class Radio < ActiveRecord::Base
   end
 
   def disable_radio
-    RadioDisableWorker.perform_later self.id
+    RadioDisableWorker.perform_later self
   end
 
   def icecast_panel_url
