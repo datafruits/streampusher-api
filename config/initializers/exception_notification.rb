@@ -10,7 +10,7 @@ ExceptionNotification.configure do |config|
   config.add_notifier :email, {
     :email_prefix => "[Exception] ",
     :sender_address => %{"Exception Notifier" <exception@streampusher.com>},
-    :exception_recipients => %w{info@datafruits.fm}
+    :exception_recipients => %w{info@streampusher.com}
   }
 
   config.add_notifier :slack, {
