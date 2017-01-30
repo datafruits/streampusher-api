@@ -1,10 +1,14 @@
 class StripeEventHandler
   def self.customer_subscription_updated event
     user = Subscription.find_by!(stripe_customer_token: event.data.object.customer).user
-    unless event.data.previous_attributes.plan.present?
+    unless event.data.previous_attributes.try(:plan)
       old_plan = event.data.previous_attributes.plan.id
       new_plan = event.data.object.plan.id
       AccountMailer.subscription_updated(user, old_plan, new_plan).deliver_later
+    elsif event.data.object.plan.name == "Free Trial"
+      if user.subscription.trial_ends_at < Date.today
+        AccountMailer.trial_ended(user).deliver_later
+      end
     end
   end
 
@@ -20,7 +24,9 @@ class StripeEventHandler
     # a failed charge
     user = Subscription.find_by!(stripe_customer_token: event.data.object.customer).user
     if event.data.object.lines.data[0].plan.id == "Free Trial"
-      AccountMailer.trial_ended(user).deliver_later
+      if user.subscription.trial_ends_at < Date.today
+        AccountMailer.trial_ended(user).deliver_later
+      end
     else
       invoice = event.data.object
       AccountMailer.payment_failed(user, invoice).deliver_later
@@ -31,7 +37,11 @@ class StripeEventHandler
     # figure out if this is an ended free trial
     subscription = Subscription.find_by!(stripe_customer_token: event.data.object.customer)
     user = subscription.user
-    unless event.data.object.lines.data[0].plan.id == "Free Trial"
+    if event.data.object.lines.data[0].plan.id == "Free Trial"
+      if subscription.trial_ends_at < Date.today
+        AccountMailer.trial_ended(user).deliver_later
+      end
+    else
       invoice = {}
       invoice[:currency] = event.data.object.currency
       invoice[:amount] = event.data.object.lines.data[0].amount
