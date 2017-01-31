@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170130084735) do
+ActiveRecord::Schema.define(version: 20170131030440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "invoice_payments", force: :cascade do |t|
+    t.string   "stripe_id",       null: false
+    t.integer  "amount",          null: false
+    t.integer  "fee_amount",      null: false
+    t.integer  "user_id"
+    t.integer  "subscription_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "invoice_payments", ["subscription_id"], name: "index_invoice_payments_on_subscription_id", using: :btree
+  add_index "invoice_payments", ["user_id"], name: "index_invoice_payments_on_user_id", using: :btree
 
   create_table "labels", force: :cascade do |t|
     t.string   "name",       null: false
@@ -245,4 +258,6 @@ ActiveRecord::Schema.define(version: 20170130084735) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  add_foreign_key "invoice_payments", "subscriptions"
+  add_foreign_key "invoice_payments", "users"
 end
