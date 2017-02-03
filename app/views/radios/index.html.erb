@@ -1,8 +1,8 @@
 <div class="main-dashboard">
   <div class="row">
-    <% if @radio.playlists.empty? %>
+    <% if @radio.tracks.empty? %>
       <p class="bg-warning">
-        You haven't added any playlists yet! You won't hear anything on your radio without any playlists. Add a playlist <%= link_to "here", playlists_path %>.
+        You haven't added any tracks yet! You won't hear anything on your radio without any tracks. Add some tracks <%= link_to "here", playlists_path %>.
       </p>
     <% end %>
     <div class="col-md-6">
