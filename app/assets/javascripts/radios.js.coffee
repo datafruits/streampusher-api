@@ -52,8 +52,7 @@ $('[data-controller=radios][data-action=index]').ready ->
     }],
     backdrop: true,
     backdropContainer: '.side-navbar',
-    backdropPadding: 0,
-    storage: false
+    backdropPadding: 0
   })
 
   # Initialize the tour
