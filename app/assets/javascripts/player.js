@@ -16,12 +16,15 @@ function Player(cssSelectorAncestor){
         title = myRadios[0].title;
         if($("#odometer").length){
           var listeners = 0;
+          var peak = 0;
           $.each(myRadios, function(key, data){
             listeners += data.listeners;
+            peak += data.listener_peak;
           });
           var counter = new countUp('odometer', 0, listeners, 0, 2.5);
           counter.start();
-          console.log('listeners: '+listeners);
+          var peakCounter = new countUp('peak-odometer', 0, peak, 0, 2.5);
+          peakCounter.start();
         }
         return $('.jp-title').html(title);
       }
