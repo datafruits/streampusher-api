@@ -6,17 +6,17 @@ function Player(cssSelectorAncestor){
     url = $(".jp-jplayer").data('icecast-json').toString();
     radioName = $(".jp-jplayer").data('radio-name').toString();
     return $.get(url, function(data) {
-      var myRadio, title;
-      myRadio = data.icestats.source.find((function(_this) {
+      var myRadios, title;
+      myRadios = data.icestats.source.filter((function(_this) {
 	return function(s) {
-	  return s.server_name === (radioName + ".mp3");
+	  return (s.server_name === (radioName + ".mp3") || s.server_name === (radioName + ".ogg"));
 	};
       })(this));
-      if(myRadio){
-        title = myRadio.title;
+      if(myRadios.length){
+        title = myRadios[0].title;
         if($("#odometer").length){
           var listeners = 0;
-          $.each(data.icestats.source, function(key, data){
+          $.each(myRadios, function(key, data){
             listeners += data.listeners;
           });
           var counter = new countUp('odometer', 0, listeners, 0, 2.5);
