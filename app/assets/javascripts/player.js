@@ -12,17 +12,19 @@ function Player(cssSelectorAncestor){
 	  return s.server_name === (radioName + ".mp3");
 	};
       })(this));
-      title = myRadio.title;
-      if($("#odometer").length){
-        var listeners = 0;
-        $.each(data.icestats.source, function(key, data){
-          listeners += data.listeners;
-        });
-        var counter = new countUp('odometer', 0, listeners, 0, 2.5);
-        counter.start();
-        console.log('listeners: '+listeners);
+      if(myRadio){
+        title = myRadio.title;
+        if($("#odometer").length){
+          var listeners = 0;
+          $.each(data.icestats.source, function(key, data){
+            listeners += data.listeners;
+          });
+          var counter = new countUp('odometer', 0, listeners, 0, 2.5);
+          counter.start();
+          console.log('listeners: '+listeners);
+        }
+        return $('.jp-title').html(title);
       }
-      return $('.jp-title').html(title);
     });
   };
 
