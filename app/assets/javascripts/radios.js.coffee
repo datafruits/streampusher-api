@@ -49,6 +49,16 @@ $('[data-controller=radios][data-action=index]').ready ->
       title: "Ask for help anytime!",
       content: "If you need help just send us a message! We will respond ASAP. Just click on the 'Contact us' box in the bottom right corner!",
       orphan: true
+    },
+    {
+      element: ".start-tour",
+      title: "View tour again",
+      content: "You can view the tour again anytime by clicking here",
+      autoscroll: false,
+      onShow: () ->
+        $("li.dropdown").addClass('forcedopen')
+      onHide: () ->
+        $("li.dropdown").removeClass('forcedopen')
     }],
     backdrop: true,
     backdropContainer: '.side-navbar',
