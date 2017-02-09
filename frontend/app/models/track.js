@@ -3,6 +3,7 @@ import Ember from 'ember';
 
 export default DS.Model.extend({
   createdAt: DS.attr(),
+  updatedAt: DS.attr(),
   audioFileName: DS.attr(),
   filesize: DS.attr(),
   displayName: DS.attr(),

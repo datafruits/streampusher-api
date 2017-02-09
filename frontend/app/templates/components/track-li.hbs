@@ -47,10 +47,16 @@
               {{artwork-file-upload file=track.artwork filename=track.artworkFilename}}
             </div>
             <br/>
+            <div class="control-group">
+              Uploaded at: {{track.createdAt}}
+              <br/>
+              Last updated at: {{track.updatedAt}}
+            </div>
             {{#if isSaving}}
               <div class="spinner">
               </div>
             {{/if}}
+            <br/>
             <button {{action 'save'}} disabled={{isSaving}} class="btn btn-primary">Save</button>
             <button {{action 'cancel'}} disabled={{isSaving}} class="btn btn-default">Cancel</button>
             <button {{action 'destroy'}} disabled={{isSaving}} class="delete-track btn btn-danger"><i class="fa fa-trash-o"></i></button>

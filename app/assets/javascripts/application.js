@@ -39,4 +39,4 @@
 //= require subscriptions
 //= require live
 //= require clock
-
+//= require bootstrap-tour
