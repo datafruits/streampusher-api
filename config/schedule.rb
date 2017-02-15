@@ -22,7 +22,7 @@ set :output, "#{path}/log/cron.log"
 #  runner "CheckRadioIsUp.perform_later"
 #end
 every '23 11,22 * * *' do
-  command "/home/deploy/certbot-auto renew --quiet --no-self-upgrade"
+  command "/home/deploy/certbot-auto renew --quiet --no-self-upgrade && sudo service nginx reload"
 end
 
 job_type :backup, "cd :path/:backup_path && bundle install && :environment_variable=:environment bundle exec backup perform -t :task --config-file ./config.rb :output"
