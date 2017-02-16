@@ -578,7 +578,7 @@ DEPENDENCIES
   rspec-rails
   ruby-liquidsoap!
   rupeepeethree!
-  sass-rails (~> 4.0.3)
+  sass-rails
   selenium-webdriver (< 3.0)
   sidekiq
   simple_form
