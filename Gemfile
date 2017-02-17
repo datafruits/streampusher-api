@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.7.1'
+gem 'rails', '5.0.1'
 gem 'pg'
 gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
@@ -17,7 +17,7 @@ gem 'chosen-rails'
 
 gem 'spring',        group: :development
 
-gem 'devise', '~> 3.5.1'
+gem 'devise'
 gem 'omniauth'
 gem 'omniauth-soundcloud', github: "mcfiredrill/omniauth-soundcloud"
 gem 'omniauth-mixcloud', github: "streampusher/omniauth-mixcloud"
@@ -35,7 +35,7 @@ gem 'rack-cors', :require => 'rack/cors'
 
 gem 'sidekiq'
 gem 'therubyracer'
-gem 'rspec-rails', :group => [:development, :test]
+gem 'rspec-rails', '~> 3.5.2', :group => [:development, :test]
 
 gem 'dotenv-rails'
 gem 'unicorn'
@@ -99,7 +99,7 @@ source 'https://rails-assets.org' do
 end
 
 gem 'whenever', require: false
-gem 'sinatra', :require => nil
+# gem 'sinatra', :require => nil
 
 gem 'recurrence'
 
