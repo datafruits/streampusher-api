@@ -16,9 +16,8 @@ $('[data-controller=radios][data-action=index]').ready ->
     },
     {
       element: "#media-link",
-      title: "Upload audio files",
-      content: "Upload audio files to play on your radio right now
-"
+      title: "Upload audio files and Manage Playlists",
+      content: "Upload audio files to play on your radio right now"
     },
     {
       element: "#schedule-link",
