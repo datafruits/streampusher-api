@@ -5,7 +5,14 @@
       <h1 class="lead-copy-2">Internet Radio Station</h1>
       <%= image_tag "hero_logo_black.png", class: "hero-logo" %>
       <div class="hero-graphic">
-        <%= image_set_tag "dashboard_scrot.png", {"dashboard_scrot_1200x601.png" => "1200w", "dashboard_scrot_600x301.png" => "600w"}, alt: "dashboard screenshot", class: "dashboard-screenshot", width: 1200 %>
+        <%= image_set_tag "dashboard_scrot.png", {
+          "dashboard_scrot_1200x601.png" => "1200w",
+          "dashboard_scrot_1028x515.png" => "1028w",
+          "dashboard_scrot_859x430.png" => "859w",
+          "dashboard_scrot_699x350.png" => "699w",
+          "dashboard_scrot_493x247.png" => "493w",
+          "dashboard_scrot_200x100.png" => "200w",
+        }, alt: "dashboard screenshot", class: "dashboard-screenshot", width: 1200, sizes: "(max-width: 1200px) 100vw, 1200px" %>
       </div>
       <br/>
     </section>
