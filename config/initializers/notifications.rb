@@ -1,6 +1,8 @@
 if Rails.env.production?
   events = [
             "user.signup",
+            "user.updated",
+            "user.canceled",
             "playlist.created",
             "track.created",
             "dj.created",

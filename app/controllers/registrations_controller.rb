@@ -37,6 +37,7 @@ class RegistrationsController < Devise::RegistrationsController
       set_flash_message :notice, :updated
       # Sign in the user bypassing validation in case his password changed
       sign_in @user, :bypass => true
+      ActiveSupport::Notifications.instrument 'user.updated', current_user: current_user.email
       redirect_to radios_path
     else
       render "edit"
@@ -45,6 +46,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def destroy
     resource.soft_delete
+    ActiveSupport::Notifications.instrument 'user.canceled', current_user: current_user.email
     Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
     set_flash_message :notice, :destroyed if is_flashing_format?
     yield resource if block_given?
