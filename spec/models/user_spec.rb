@@ -10,4 +10,11 @@ RSpec.describe User, :type => :model do
       expect(user.roles.include?("dj")).to eq true
     end
   end
+
+  describe "soft delete" do
+    it "soft deletes an account" do
+      user.soft_delete
+      expect(user.deleted_at).to_not eq nil
+    end
+  end
 end
