@@ -8,6 +8,7 @@ class Track < ActiveRecord::Base
 
   has_attached_file :artwork,
     storage: :s3,
+    s3_protocol: :https,
     styles: { :thumb => "x300" },
     s3_credentials: { bucket: ENV['S3_BUCKET'],
                       access_key_id: ENV['S3_KEY'],
