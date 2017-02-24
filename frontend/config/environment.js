@@ -37,7 +37,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
     ENV.paperclip = {
       path: ":base/:attachment/:style/:filename?:updated_at",
-      base: "http://s3.amazonaws.com/streampusherdev"
+      base: "https://s3.amazonaws.com/streampusherdev"
     };
   }
 
@@ -53,14 +53,14 @@ module.exports = function(environment) {
     ENV.APP.rootElement = '#ember-testing';
     ENV.paperclip = {
       path: ":base/:attachment/:style/:filename?:updated_at",
-      base: "http://s3.amazonaws.com/streampushertest"
+      base: "https://s3.amazonaws.com/streampushertest"
     };
   }
 
   if (environment === 'production') {
     ENV.paperclip = {
       path: ":base/:attachment/:style/:filename?:updated_at",
-      base: "http://s3.amazonaws.com/streampusher"
+      base: "https://s3.amazonaws.com/streampusher"
     };
   }
 
