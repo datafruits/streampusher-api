@@ -6,7 +6,7 @@ server {
   server_name <%= fetch(:server_name) %>;
   listen 80 deferred;
 
-  return 301 https://$server_name$request_uri?;
+  return 301 https://$server_name$request_uri;
 }
 
 <% if fetch(:enable_ssl) %>
