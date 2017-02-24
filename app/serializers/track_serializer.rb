@@ -22,7 +22,7 @@ class TrackSerializer < ActiveModel::Serializer
   def artwork
     if object.artwork.present?
       {
-        filename: object.artwork_file_name,
+        basename: object.artwork_file_name,
         attachment: "artworks",
         updated_at: object.artwork.updated_at
       }

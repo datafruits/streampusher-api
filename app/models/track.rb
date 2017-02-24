@@ -5,7 +5,6 @@ class Track < ActiveRecord::Base
   has_many :playlists, through: :playlist_tracks
   has_many :track_labels, dependent: :destroy
   has_many :labels, through: :track_labels
-
   has_attached_file :artwork,
     storage: :s3,
     s3_protocol: :https,
@@ -16,6 +15,8 @@ class Track < ActiveRecord::Base
     path: ":attachment/:style/:basename.:extension"
 
   validates_attachment_content_type :artwork, content_type: /\Aimage\/.*\Z/
+
+  before_post_process :transliterate_file_name
 
   has_tags column: :s3_filepath, storage: :s3,
            artwork_column: :artwork,
@@ -63,5 +64,15 @@ class Track < ActiveRecord::Base
     else
       self.file_basename.to_s
     end
+  end
+
+  private
+  def transliterate_file_name
+    base = "#{self.artist}_#{self.title}_#{self.album}"
+    mime = self.artwork.content_type
+    ext = Rack::Mime::MIME_TYPES.invert[mime]
+
+    new_file_name = "#{base.parameterize}_#{Digest::SHA256.hexdigest(base)}#{ext}"
+    self.artwork.instance_write(:file_name, new_file_name)
   end
 end
