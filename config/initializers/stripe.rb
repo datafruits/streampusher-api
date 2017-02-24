@@ -7,22 +7,27 @@ unless Rails.env.production?
   end
 end
 
+StripeEvent.event_retriever = lambda do |params|
+  return nil if StripeWebhook.exists?(stripe_id: params[:id])
+  StripeWebhook.create!(stripe_id: params[:id])
+  Stripe::Event.retrieve(params[:id])
+end
+
 StripeEvent.configure do |events|
   events.subscribe 'customer.subscription.updated' do |event|
+    puts event.inspect
     StripeEventHandler.customer_subscription_updated event
   end
   events.subscribe 'customer.subscription.trial_will_end' do |event|
-    # send warning email
+    puts event.inspect
     StripeEventHandler.trial_will_end event
   end
   events.subscribe 'invoice.payment_failed' do |event|
-    # TODO
-    # trial may have ended
+    puts event.inspect
     StripeEventHandler.payment_failed event
   end
   events.subscribe 'invoice.payment_succeeded' do |event|
-    # TODO
-    # trial may have ended
+    puts event.inspect
     StripeEventHandler.payment_succeeded event
   end
 end
