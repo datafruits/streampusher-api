@@ -66,10 +66,10 @@
       <label>Enabled {{input type="checkbox" id="interpolated-playlist-enabled" name="interpolatedPlaylistEnabled" checked=playlist.interpolatedPlaylistEnabled}}</label>
       <br />
       <label>
-        Every {{input type="number" name="interpolatedPlaylistTrackPlayCount" value=playlist.interpolatedPlaylistTrackPlayCount step="1"}}
+        Every {{input type="number" name="interpolatedPlaylistTrackIntervalCount" value=playlist.interpolatedPlaylistTrackIntervalCount step="1"}}
       </label>
       <label>
-        tracks, play {{input type="number" name="interpolatedPlaylistTrackIntervalCount" value=playlist.interpolatedPlaylistTrackIntervalCount step="1" }}
+        tracks, play {{input type="number" name="interpolatedPlaylistTrackPlayCount" value=playlist.interpolatedPlaylistTrackPlayCount step="1" }}
       </label>
       <label>tracks from the
         <select id="interpolated-playlist-select" onchange={{action "selectInterpolatedPlaylistId" value="target.value"}}>
