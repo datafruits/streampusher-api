@@ -1,4 +1,5 @@
 class ScheduledShowsController < ApplicationController
+  before_action :check_subscription_is_active, except: [:next]
   load_and_authorize_resource
   def new
 
@@ -52,6 +53,7 @@ class ScheduledShowsController < ApplicationController
   def update
     @scheduled_show.attributes = create_params
     if @scheduled_show.save
+      ActiveSupport::Notifications.instrument 'scheduled_show.updated', current_user: current_user.email, radio: @current_radio.name, show: @scheduled_show.title, params: create_params
       flash[:notice] = "Updated scheduled show!"
       redirect_to_with_js scheduled_shows_path
     else
