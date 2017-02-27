@@ -1,5 +1,4 @@
 class ScheduledShowsController < ApplicationController
-  before_action :check_subscription_is_active, except: [:next]
   load_and_authorize_resource
   def new
 
