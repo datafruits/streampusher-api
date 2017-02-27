@@ -27,11 +27,10 @@ class TracksController < ApplicationController
     end
     if @track.save
       flash[:notice] = 'track tags updated!'
-      #render 'update'
+      ActiveSupport::Notifications.instrument 'track.updated', current_user: current_user.email, radio: @current_radio.name, track: @track.file_basename, params: update_params
       render json: @track
     else
       flash[:error] = 'error updating track tags :('
-      #render 'error'
       render json: @track.errors
     end
   end
