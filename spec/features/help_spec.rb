@@ -13,6 +13,6 @@ feature 'help pages' do
   scenario 'logged in dj can view broadcasting help page' do
     login_as dj
     visit broadcasting_help_path
-    expect(page).to have_content("BROADCASTING HELP")
+    expect(page).to have_content("Broadcasting Help")
   end
 end
