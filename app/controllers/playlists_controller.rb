@@ -48,6 +48,7 @@ class PlaylistsController < ApplicationController
     authorize! :manage, @playlist, params[:format]
     @playlist.attributes = update_params
     if @playlist.save
+      ActiveSupport::Notifications.instrument 'playlist.updated', current_user: current_user.email, radio: @current_radio.name, playlist: @playlist.name, params: update_params
       @playlist.playlist_tracks.reload
       render json: @playlist
     else

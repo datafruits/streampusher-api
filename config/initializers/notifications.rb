@@ -4,6 +4,7 @@ if Rails.env.production?
             "user.updated",
             "user.canceled",
             "playlist.created",
+            "playlist.updated",
             "track.created",
             "dj.created",
             "dj.added_to_radio",
