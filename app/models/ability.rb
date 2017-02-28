@@ -142,7 +142,11 @@ class Ability
   end
 
   def can_manage_radio?(user, radio)
-    user.radios.include? radio
+    user.radios.include?(radio) && !subscription_ended?(radio)
+  end
+
+  def subscription_ended?(radio)
+    radio.subscription.trial_ended?
   end
 
   def belongs_to_radio?(model, radio)

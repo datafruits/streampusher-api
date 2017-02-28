@@ -1,0 +1,3 @@
+class RadioDisabledController < ApplicationController
+
+end
