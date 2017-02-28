@@ -45,15 +45,18 @@ RSpec.describe Subscription, :type => :model do
             :card => {
               :number => "4242424242424242",
               :exp_month => 7,
-              :exp_year => 2016,
+              :exp_year => 2019,
               :cvc => "314"
             }
           )
           subscription.update_with_new_card plan_id: hobbyist_plan.id, stripe_card_token: token.id
+          subscription.reload
+          expect(subscription.on_trial?).to eq false
+          expect(subscription.on_paid_plan?).to eq true
+          expect(subscription.plan).to eq hobbyist_plan
+          customer = Stripe::Customer.retrieve subscription.stripe_customer_token
+          expect(customer.subscriptions.data.first.plan.id).to eq "Hobbyist"
         end
-        subscription.reload
-        expect(subscription.on_trial?).to eq false
-        expect(subscription.on_paid_plan?).to eq true
       end
       it "doesn't save if the stripe api returned an error"
     end

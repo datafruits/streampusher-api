@@ -64,6 +64,7 @@ class Subscription < ActiveRecord::Base
         subscription = customer.subscriptions.first
         subscription.plan = self.plan.name
         customer.save
+        subscription.save
         self.status = "on_paid_plan"
         self.stripe_customer_token = customer.id
         self.last_4_digits = customer.cards.first.last4
