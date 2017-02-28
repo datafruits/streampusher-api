@@ -1,8 +1,18 @@
+<p>
 <%= "Hey #{@user.username}," %>
+</p>
 
+<p>
 You have successfully updated your subscription plan on Streampusher.
+</p>
 
+<p>
 <%= "You have changed from the #{@old_plan} plan to the #{@new_plan}." %>
+</p>
 
+<p>
 If you would like to edit your subscription you can do so here.
+</p>
+<p>
 <%== edit_subscription_url(@user.subscription) %>
+</p>
