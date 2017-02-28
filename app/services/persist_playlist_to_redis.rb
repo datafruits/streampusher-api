@@ -4,7 +4,12 @@ class PersistPlaylistToRedis
     @redis.del playlist.redis_key
     count = 0
     interpolated_playlist_count = 0
-    playlist.playlist_tracks.reverse.each do |playlist_track|
+    if playlist.shuffle?
+      playlist_tracks = playlist.playlist_tracks.to_a.shuffle
+    else
+      playlist_tracks = playlist.playlist_tracks.reverse
+    end
+    playlist_tracks.each do |playlist_track|
       track = Track.find(playlist_track.track_id)
       push_track playlist, track
       if playlist.interpolated_playlist_enabled?

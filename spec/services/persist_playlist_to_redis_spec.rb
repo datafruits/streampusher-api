@@ -42,4 +42,10 @@ describe PersistPlaylistToRedis do
                       track_1.id.to_s]
     expect(redis.lrange("datafruits:playlist:my_playlist", 0, 7)).to eq expected_array
   end
+
+  it "shuffles playlist when shuffle option is set" do
+    playlist = FactoryGirl.create :playlist, shuffle: true
+    playlist.tracks << FactoryGirl.create_list(:track, 10, radio: playlist.radio)
+    PersistPlaylistToRedis.perform playlist
+  end
 end
