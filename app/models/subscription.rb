@@ -8,7 +8,7 @@ class Subscription < ActiveRecord::Base
   enum status: [:on_trial, :on_paid_plan, :trial_ended, :canceled]
 
   def trial_days_left
-    (Date.parse(Time.at(self.trial_ends_at).to_s) - Date.today).to_i
+    (Date.parse(Time.at(self.trial_ends_at.to_i).to_s) - Date.today).to_i
   end
 
   def card_present?
