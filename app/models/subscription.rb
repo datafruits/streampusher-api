@@ -61,6 +61,7 @@ class Subscription < ActiveRecord::Base
         card = customer.sources.create source: stripe_card_token
         card.save
         customer.default_card = card.id
+        customer.coupon = coupon if coupon.present?
         subscription = customer.subscriptions.first
         subscription.plan = self.plan.name
         customer.save
