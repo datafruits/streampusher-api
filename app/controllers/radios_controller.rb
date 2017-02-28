@@ -4,15 +4,6 @@ class RadiosController < ApplicationController
     @radio = @current_radio
   end
 
-  def create
-    @radio.subscription_id = current_user.subscription.id
-    if @radio.save
-      redirect_to radios_path
-    else
-      render 'index'
-    end
-  end
-
   def edit
 
   end

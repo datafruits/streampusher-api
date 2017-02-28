@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   resources :stats, only: [:index]
   resources :listens, only: [:index]
 
-  resources :radios do
+  resources :radios, only: [:index, :edit, :update] do
     member do
       get 'next'
     end
