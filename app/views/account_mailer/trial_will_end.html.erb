@@ -1,11 +1,15 @@
 <%= "Hey #{@user.username}," %>
 
 Your free trial on Streampusher will end soon. How are you liking it so far?
+<br />
 
 If you'd like to continue using Streampusher uninterrupted, please go here and update your billing information before your free trial ends.
 <%== edit_subscription_url(@user.subscription) %>
+<br />
+<br />
 
 If Streampusher isn't meeting your needs as a station owner, please let us know! Are there any missing features you need? Is there anything you are having trouble with?
 
+<br />
 If you'd like to stop using Streampusher, your account will deactivate automatically if no payment is received before your free trial period ends. You can also delete your account here.
 <%== cancel_user_registration_url %>
