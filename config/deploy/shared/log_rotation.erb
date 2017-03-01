@@ -1,4 +1,5 @@
 <%= fetch(:deploy_to) %>/shared/log/*.log {
+    su deploy deploy
     daily
     missingok
     rotate 52
