@@ -15,6 +15,7 @@ variables:
 before_script:
   - eval "$(rbenv init -)"
   - echo $PATH
+  - rbenv install --skip-existing `cat .ruby-version`
   - gem install bundler
   - cp config/database.ci.yml config/database.yml
   - bundle install --jobs $(nproc)
