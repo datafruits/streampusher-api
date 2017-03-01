@@ -15,7 +15,7 @@
 //= require jquery-ui
 //= require jquery-readyselector
 //= require twitter/bootstrap
-//= require countUp.js
+//= require countUp.js.js
 //= require moment
 //= require moment-timezone
 //= require fullcalendar/fullcalendar.js
