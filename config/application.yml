@@ -2,6 +2,8 @@ development:
   APP_HOSTNAME: 'streampusher.dev'
   S3_BUCKET: "streampusherdev"
   SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"
+  CLOUDFRONT_URL: 'dongles-dev.streampusher-relay.club'
 
 test:
   S3_BUCKET: "streampushertest"
+  CLOUDFRONT_URL: "dongles-test.streampusher-relay.club"
