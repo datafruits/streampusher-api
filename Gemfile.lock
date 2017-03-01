@@ -459,7 +459,7 @@ GEM
     slop (3.6.0)
     spring (2.0.1)
       activesupport (>= 4.2)
-    sprockets (3.7.1)
+    sprockets (3.7.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.2.0)
@@ -598,6 +598,7 @@ DEPENDENCIES
   slackistrano
   so_id3!
   spring
+  sprockets (= 3.7.0)
   stripe
   stripe_event
   therubyracer
