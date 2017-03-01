@@ -15,7 +15,6 @@ variables:
 before_script:
   - eval "$(rbenv init -)"
   - echo $PATH
-  - gem install bundler
   - cp config/database.ci.yml config/database.yml
   - bundle install --jobs $(nproc)
   - RAILS_ENV=test bundle exec rake db:create
