@@ -65,6 +65,7 @@ class PlaylistsController < ApplicationController
     params.require(:playlist).permit(:name, :interpolated_playlist_id,
                                      :interpolated_playlist_track_play_count,
                                      :interpolated_playlist_track_interval_count,
-                                     :interpolated_playlist_enabled, :no_cue_out)
+                                     :interpolated_playlist_enabled, :no_cue_out,
+                                     :shuffle)
   end
 end
