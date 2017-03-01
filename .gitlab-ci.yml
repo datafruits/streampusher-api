@@ -12,20 +12,9 @@ variables:
   STRIPE_PUBLIC_KEY: "xxxxxxxxxxxxxxxxxxxxx"
   MIXCLOUD_TOKEN: "xxxxxxxxxxxxxxxxx"
 
-before_script:
-  - eval "$(rbenv init -)"
-  - echo $PATH
-  - rbenv install --skip-existing `cat .ruby-version`
-  - gem install bundler
-  - cp config/database.ci.yml config/database.yml
-  - bundle install --jobs $(nproc)
-  - RAILS_ENV=test bundle exec rake db:create
-  - RAILS_ENV=test bundle exec rake db:migrate
-  - RAILS_ENV=test bundle exec rake ember:install
-
 job1:
   cache:
     paths:
       - "frontend/node_modules"
       - "vendor/bundle"
-  script: "rake spec"
+  script: "script/ci.sh"
