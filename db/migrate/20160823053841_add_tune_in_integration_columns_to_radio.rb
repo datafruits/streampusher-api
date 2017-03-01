@@ -1,4 +1,4 @@
-class AddTuneInIntegrationColumnsToRadio < ActiveRecord::Migration
+class AddTuneInIntegrationColumnsToRadio < ActiveRecord::Migration[4.2]
   def change
     add_column :radios, :tunein_partner_id, :string
     add_column :radios, :tunein_partner_key, :string

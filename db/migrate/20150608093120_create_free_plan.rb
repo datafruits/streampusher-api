@@ -1,4 +1,4 @@
-class CreateFreePlan < ActiveRecord::Migration
+class CreateFreePlan < ActiveRecord::Migration[4.2]
   class Plan < ActiveRecord::Base
   end
   def up

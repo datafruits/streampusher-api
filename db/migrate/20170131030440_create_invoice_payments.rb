@@ -1,4 +1,4 @@
-class CreateInvoicePayments < ActiveRecord::Migration
+class CreateInvoicePayments < ActiveRecord::Migration[4.2]
   def change
     create_table :invoice_payments do |t|
       t.string :stripe_id, null: false

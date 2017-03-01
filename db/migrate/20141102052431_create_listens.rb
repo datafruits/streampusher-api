@@ -1,4 +1,4 @@
-class CreateListens < ActiveRecord::Migration
+class CreateListens < ActiveRecord::Migration[4.2]
   def change
     create_table :listens do |t|
       t.integer :radio_id
