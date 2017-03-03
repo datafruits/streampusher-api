@@ -55,7 +55,7 @@ group :test do
   gem 'timecop'
   gem 'capybara'
   gem 'database_rewinder'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '< 3.0'
   gem 'headless'
 end
 
