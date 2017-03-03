@@ -27,7 +27,7 @@ SoundCloud is quite strict about
 
 However if you are using royalty free music or music you own the rights to, this is of course no problem. Talk radio or podcasts can also be well suited to SoundCloud.
 
-Want to automatically export all your archives to Mixcloud, SoundCloud, an XML podcast, or
+Want to automatically export all your archives to Mixcloud, an XML podcast, or
 all three? This feature is now on Streampusher. After you upload your tracks to
 streampusher, you can export them to your favorite services in just one click.
 
