@@ -95,6 +95,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-BaremetricsCalendar'
   gem 'rails-assets-underscore'
   gem 'rails-assets-bootstrap-tour'
+  gem 'rails-assets-spectrum'
 end
 
 gem 'whenever', require: false

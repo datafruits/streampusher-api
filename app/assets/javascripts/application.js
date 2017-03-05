@@ -31,6 +31,7 @@
 //= require flash_message
 //= require landing
 //= require podcasts
+//= require embeds
 //= require radios
 //= require recordings
 //= require registrations
@@ -40,3 +41,4 @@
 //= require live
 //= require clock
 //= require bootstrap-tour
+//= require spectrum

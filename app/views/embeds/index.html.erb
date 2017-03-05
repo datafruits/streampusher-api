@@ -1,4 +1,5 @@
 <h2>Embed</h2>
+<input id="embed-url" type="hidden" value="<%="https://#{@current_radio.virtual_host}/embeds/player"%>" />
 <span>
   Use these html snippets to embed your radio's player on your website.
 </span>
@@ -6,3 +7,7 @@
 <textarea id="embed-player-html" rows="5" cols="30">
   <iframe width="100%" height="100" frameborder="no" scrolling="no" src="<%="https://#{@current_radio.virtual_host}/embeds/player"%>"></iframe>
 </textarea>
+<br/>
+<input id='colorpicker' />
+<h3>Preview</h3>
+<iframe id="embed-preview" width="100%" height="100" frameborder="no" scrolling="no" src="<%="https://#{@current_radio.virtual_host}/embeds/player"%>"></iframe>

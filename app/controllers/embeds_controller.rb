@@ -7,6 +7,10 @@ class EmbedsController < ApplicationController
 
   def player
     @radio = @current_radio
+    @color = params[:color]
+    unless (@color =~ /[a-f0-9]{6}/) != nil
+      @color = "333";
+    end
     render :layout => false
   end
 

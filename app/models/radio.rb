@@ -68,7 +68,11 @@ class Radio < ActiveRecord::Base
   end
 
   def virtual_host
-    "#{self.name}.streampusher.com"
+    if ::Rails.env.production?
+      "#{self.name}.streampusher.com"
+    else
+      "#{self.name}.streampusher.com:3000"
+    end
   end
 
   def tracks_directory

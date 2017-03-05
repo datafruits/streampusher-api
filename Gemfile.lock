@@ -362,6 +362,8 @@ GEM
     rails-assets-moment (2.10.3)
     rails-assets-moment-timezone (0.5.5)
       rails-assets-moment (>= 2.6.0)
+    rails-assets-spectrum (1.8.0)
+      rails-assets-jquery (>= 1.7.2)
     rails-assets-underscore (1.8.2)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
@@ -570,6 +572,7 @@ DEPENDENCIES
   rails-assets-jquery.payment!
   rails-assets-moment!
   rails-assets-moment-timezone!
+  rails-assets-spectrum!
   rails-assets-underscore!
   recurrence
   remote_syslog_logger
