@@ -71,11 +71,8 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    active_model_serializers (0.10.4)
-      actionpack (>= 4.1, < 6)
-      activemodel (>= 4.1, < 6)
-      case_transform (>= 0.2)
-      jsonapi (= 0.1.1.beta6)
+    active_model_serializers (0.9.4)
+      activemodel (>= 3.2)
     activejob (5.0.1)
       activesupport (= 5.0.1)
       globalid (>= 0.3.6)
@@ -132,8 +129,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    case_transform (0.2)
-      activesupport
     childprocess (0.6.2)
       ffi (~> 1.0, >= 1.0.11)
     chosen-rails (1.5.2)
@@ -246,11 +241,6 @@ GEM
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
     json (1.8.6)
-    jsonapi (0.1.1.beta6)
-      jsonapi-parser (= 0.1.1.beta3)
-      jsonapi-renderer (= 0.1.1.beta1)
-    jsonapi-parser (0.1.1.beta3)
-    jsonapi-renderer (0.1.1.beta1)
     jwt (1.5.6)
     kaminari (1.0.1)
       activesupport (>= 4.1.0)
@@ -523,7 +513,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_model_serializers
+  active_model_serializers (< 0.10)
   acts_as_list
   aws-sdk (< 2.0)
   bourbon
