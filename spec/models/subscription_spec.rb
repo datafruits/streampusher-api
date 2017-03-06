@@ -49,14 +49,15 @@ RSpec.describe Subscription, :type => :model do
               :cvc => "314"
             }
           )
-          subscription.update_with_new_card plan_id: hobbyist_plan.id, stripe_card_token: token.id, coupon: "reallycoolcoupon"
+          result = subscription.update_with_new_card plan_id: hobbyist_plan.id, stripe_card_token: token.id, coupon: "supercoupon"
+          expect(result).to eq true
           subscription.reload
           expect(subscription.on_trial?).to eq false
           expect(subscription.on_paid_plan?).to eq true
           expect(subscription.plan).to eq hobbyist_plan
           customer = Stripe::Customer.retrieve subscription.stripe_customer_token
           expect(customer.subscriptions.data.first.plan.id).to eq "Hobbyist"
-          expect(customer.discount.coupon.id).to eq "reallycoolcoupon"
+          expect(customer.discount.coupon.id).to eq "supercoupon"
           expect(customer.discount.coupon.percent_off).to eq 50
         end
       end
@@ -83,6 +84,24 @@ RSpec.describe Subscription, :type => :model do
         end
       end
       it "doesn't save if the stripe api returned an error"
+      it "doesn't let you use expired coupons" do
+        VCR.use_cassette "stripe_save_free_trial" do
+          subscription.save_with_free_trial!
+        end
+        VCR.use_cassette "stripe_update_with_new_card_and_expired_coupon" do
+          token = Stripe::Token.create(
+            :card => {
+              :number => "4242424242424242",
+              :exp_month => 7,
+              :exp_year => 2019,
+              :cvc => "314"
+            }
+          )
+          result = subscription.update_with_new_card plan_id: hobbyist_plan.id, stripe_card_token: token.id, coupon: "reallycoolcoupon"
+          expect(result).to eq false
+          expect(subscription.errors.messages[:base]).to include("There was an error saving your billing information: Coupon expired: reallycoolcoupon.")
+        end
+      end
     end
   end
   describe "permissions" do
