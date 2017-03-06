@@ -16,12 +16,13 @@ GIT
 
 GIT
   remote: https://github.com/mcfiredrill/so_id3.git
-  revision: 907c2ae92f366dd2a26495aa3bc020fe0d5e8d23
+  revision: 9494fbdb41ee5d7a2a33a427ea2f63abc2ec2a3d
+  branch: aws-sdk2
   specs:
     so_id3 (0.0.1)
       activejob
       activerecord
-      aws-sdk (< 2.0)
+      aws-sdk (~> 2.0)
       rupeepeethree (~> 0.0.6)
 
 GIT
@@ -92,11 +93,14 @@ GEM
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
     arel (7.1.4)
-    aws-sdk (1.66.0)
-      aws-sdk-v1 (= 1.66.0)
-    aws-sdk-v1 (1.66.0)
-      json (~> 1.4)
-      nokogiri (>= 1.4.4)
+    aws-sdk (2.8.0)
+      aws-sdk-resources (= 2.8.0)
+    aws-sdk-core (2.8.0)
+      aws-sigv4 (~> 1.0)
+      jmespath (~> 1.0)
+    aws-sdk-resources (2.8.0)
+      aws-sdk-core (= 2.8.0)
+    aws-sigv4 (1.0.0)
     bcrypt (3.1.11)
     bourbon (4.3.3)
       sass (~> 3.4)
@@ -234,6 +238,7 @@ GEM
       jekyll (~> 3.3)
     jekyll-watch (1.5.0)
       listen (~> 3.0, < 3.1)
+    jmespath (1.3.1)
     jquery-rails (4.2.2)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -515,7 +520,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (< 0.10)
   acts_as_list
-  aws-sdk (< 2.0)
+  aws-sdk (~> 2.0)
   bourbon
   byebug
   cancancan

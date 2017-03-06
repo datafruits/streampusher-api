@@ -79,11 +79,11 @@ gem 'acts_as_list'
 gem 'kaminari'
 gem 'active_model_serializers', '< 0.10'
 gem 'chronic'
-gem 'aws-sdk', '< 2.0'
+gem 'aws-sdk', '~> 2.0'
 gem 'paperclip'
 
 gem 'rupeepeethree', github: "datafruits/rupeepeethree"
-gem "so_id3", github: "mcfiredrill/so_id3"
+gem "so_id3", github: "mcfiredrill/so_id3", branch: "aws-sdk2"
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-countUp.js'
