@@ -34,7 +34,7 @@ class Radio < ActiveRecord::Base
   end
 
   def icecast_panel_url
-    "http://#{self.virtual_host}:8000/"
+    relay_url
   end
 
   def icecast_json
@@ -46,7 +46,7 @@ class Radio < ActiveRecord::Base
   end
 
   def relay_url
-    "http://streampusher-relay.club:8000/"
+    "https://streampusher-relay.club/"
   end
 
   def relay_mp3_url
