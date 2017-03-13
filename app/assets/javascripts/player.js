@@ -1,4 +1,3 @@
-
 function Player(cssSelectorAncestor){
   this.cssSelectorAncestor = cssSelectorAncestor;
   this.radioTitle = function() {
@@ -6,7 +5,7 @@ function Player(cssSelectorAncestor){
     url = $(".jp-jplayer").data('icecast-json').toString();
     radioName = $(".jp-jplayer").data('radio-name').toString();
     return $.get(url, function(data) {
-      var myRadios, title;
+      var myRadios, title, artist;
       myRadios = data.icestats.source.filter((function(_this) {
 	return function(s) {
 	  return (s.server_name === (radioName + ".mp3") || s.server_name === (radioName + ".ogg"));
@@ -14,6 +13,7 @@ function Player(cssSelectorAncestor){
       })(this));
       if(myRadios.length){
         title = myRadios[0].title;
+        artist = myRadios[0].artist;
         if($("#odometer").length){
           var listeners = 0;
           var peak = 0;
@@ -26,7 +26,13 @@ function Player(cssSelectorAncestor){
           var peakCounter = new countUp('peak-odometer', 0, peak, 0, 2.5);
           peakCounter.start();
         }
-        return $('.jp-title').html(title);
+        jpTitle = "";
+        if(artist){
+          jpTitle = artist+" - "+title;
+        }else{
+          jpTitle = title;
+        }
+        return $('.jp-title').html(jpTitle);
       }
     });
   };
@@ -82,6 +88,4 @@ function Player(cssSelectorAncestor){
       return _this.radioTitle();
     }, 10000);
   };
-
-
 };
