@@ -64,6 +64,7 @@ class ScheduledShowsController < ApplicationController
   def destroy
     @scheduled_show.destroy_recurrences = params[:destroy_recurrences]
     @scheduled_show.destroy
+    ActiveSupport::Notifications.instrument 'scheduled_show.deleted', current_user: current_user.email, radio: @current_radio.name, show: @scheduled_show.title
     flash[:notice] = "Deleted scheduled show!"
     redirect_to scheduled_shows_path
   end
