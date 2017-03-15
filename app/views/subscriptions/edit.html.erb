@@ -2,7 +2,7 @@
 
 <span>You are currently subscribed to the <b><%= @subscription.plan.name %></b> plan. <span>
     <% if @subscription.on_trial? %>
-      There are <b><%= @subscription.trial_days_left %></b> on your free trial.
+      There are <b><%= @subscription.trial_days_left %></b> days left on your free trial.
     <% end %>
 <span> You can change your plan or update your billing info here.</span>
 
