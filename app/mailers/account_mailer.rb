@@ -29,7 +29,7 @@ class AccountMailer < ApplicationMailer
   def invoice user, invoice
     @user = user
     @invoice = invoice
-    mail subject: "Your month subscription invoice", to: @user.email
+    mail subject: "Your monthly subscription invoice", to: @user.email
   end
 
   def payment_failed user, invoice
