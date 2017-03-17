@@ -1,6 +1,13 @@
 class ScheduledShowSerializer < ActiveModel::Serializer
   include ScheduledShowsHelper
-  attributes :id, :start, :end, :title, :image_url, :thumb_image_url, :dj, :tweet_content, :description
+  include ApplicationHelper
+  include ActionView::Helpers::SanitizeHelper
+  attributes :id, :start, :end, :title, :image_url, :thumb_image_url, :dj, :tweet_content, :description,
+    :html_description
+
+  def html_description
+    html_pipeline(object.description)
+  end
 
   def image_url
     if object.image.present?
