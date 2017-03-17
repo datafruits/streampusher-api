@@ -16,7 +16,7 @@ module ApplicationHelper
       #HTML::Pipeline::EmojiFilter,
     ], context
     result = pipeline.call(text)
-    result[:output].to_s
+    sanitize(result[:output].to_s)
   end
 
   # https://gist.github.com/mrreynolds/4fc71c8d09646567111f
