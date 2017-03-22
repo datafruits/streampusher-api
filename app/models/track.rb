@@ -32,11 +32,16 @@ class Track < ActiveRecord::Base
   enum mixcloud_upload_status: ['mixcloud_not_uploaded', 'mixcloud_uploading', 'mixcloud_upload_complete', 'mixcloud_upload_failed']
 
   def s3_filepath
-    split = URI.decode(self.audio_file_name).split("#{ENV["S3_BUCKET"]}")
-    if split.first =~ /s3.amazonaws.com/
-      return split.last[1..-1]
+    file_name = URI.decode(self.audio_file_name)
+    if file_name.include?(ENV["S3_BUCKET"])
+      split = file_name.split(ENV["S3_BUCKET"])
+      if split.first =~ /s3.amazonaws.com/
+        return split.last[1..-1]
+      else
+        return split.last.split(".s3.amazonaws.com").last[1..-1]
+      end
     else
-      return split.last.split(".s3.amazonaws.com").last[1..-1]
+      return file_name
     end
   end
 
