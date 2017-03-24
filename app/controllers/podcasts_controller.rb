@@ -30,6 +30,7 @@ class PodcastsController < ApplicationController
   end
 
   def show
+    raise ActiveRecord::RecordNotFound unless @current_radio
     @podcast = @current_radio.podcasts.find_by_name(params[:id])
     respond_to do |format|
       format.xml { render 'show', layout: false }
