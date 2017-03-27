@@ -25,6 +25,10 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+  def current_radio_required
+    raise ActiveRecord::RecordNotFound unless @current_radio
+  end
+
   def layout_by_resource
     if params["controller"] == "landing"
       "landing"

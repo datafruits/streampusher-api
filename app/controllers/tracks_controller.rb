@@ -1,6 +1,7 @@
 class TracksController < ApplicationController
   load_and_authorize_resource
   before_action :set_frame_headers, only: [:embed]
+  before_action :current_radio_required, only: [:embed]
 
   def index
     @tracks = @current_radio.tracks

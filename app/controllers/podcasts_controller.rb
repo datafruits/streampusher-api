@@ -1,5 +1,7 @@
 class PodcastsController < ApplicationController
   load_and_authorize_resource except: [:show]
+  before_action :current_radio_required, only: [:show]
+
   def index
     @podcasts = @current_radio.podcasts
     @podcast = Podcast.new
@@ -30,7 +32,6 @@ class PodcastsController < ApplicationController
   end
 
   def show
-    raise ActiveRecord::RecordNotFound unless @current_radio
     @podcast = @current_radio.podcasts.find_by_name(params[:id])
     respond_to do |format|
       format.xml { render 'show', layout: false }
