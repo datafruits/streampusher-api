@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
   validates_presence_of :time_zone
   validates_inclusion_of :time_zone, :in => ActiveSupport::TimeZone.all.map { |m| m.name }, :message => "is not a valid Time Zone"
 
+  validates_uniqueness_of :email, case_sensitive: false
+
   before_validation :set_username, :set_initial_time_zone
 
   def login=(login)
