@@ -53,6 +53,10 @@ class Radio < ActiveRecord::Base
     "#{self.relay_url}#{self.name}.mp3"
   end
 
+  def relay_m3u_url
+    "#{relay_mp3_url}.m3u"
+  end
+
   def relay_ogg_url
     "#{self.relay_url}#{self.name}.ogg"
   end

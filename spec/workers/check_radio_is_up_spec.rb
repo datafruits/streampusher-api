@@ -6,12 +6,21 @@ describe CheckRadioIsUp do
   before do
     Sidekiq::Testing.inline!
   end
-  xit "sends alert emails if the radio is down" do
-    radio = FactoryGirl.create :radio
-    url = radio.icecast_panel_url
-    stub_request(:any, "http://is-this-dongle-working.herokuapp.com/?site=#{url.to_s}").
-      to_return(body: "no")
+  it "sends alert emails if the radio is down" do
+    radio = FactoryGirl.create :radio, name: "garf_radio"
+    url = radio.icecast_json
+    stub_request(:any, url).
+      to_return(body: File.read("spec/fixtures/icecast_json.json"))
     CheckRadioIsUp.new.perform
-    expect(ActionMailer::Base.deliveries.last.subject).to eq "Radio datafruits is not reachable"
+    expect(ActionMailer::Base.deliveries.last.subject).to eq "Radio garf_radio is not reachable"
+  end
+
+  it "doesn't alert emails if the radio is up" do
+    radio = FactoryGirl.create :radio, name: "datafruits"
+    url = radio.icecast_json
+    stub_request(:any, url).
+      to_return(body: File.read("spec/fixtures/icecast_json.json"))
+    CheckRadioIsUp.new.perform
+    expect(ActionMailer::Base.deliveries.last.try(:subject)).not_to eq "Radio datafruits is not reachable"
   end
 end
