@@ -252,6 +252,12 @@ table a:hover {
 
 .modal-content {
   background: $blue;
+  a {
+    color: white;
+  }
+  a:hover {
+    color: darken(white, 15%);
+  }
 }
 
 input[type="checkbox"] {
