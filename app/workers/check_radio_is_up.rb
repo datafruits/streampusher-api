@@ -11,6 +11,7 @@ class CheckRadioIsUp < ActiveJob::Base
         puts "radio is up"
       else
         AdminMailer.radio_not_reachable(radio).deliver_later
+        ActiveSupport::Notifications.instrument "radio.down", radio: radio.name
       end
     end
   end

@@ -13,7 +13,8 @@ if Rails.env.production?
             "scheduled_show.created",
             "scheduled_show.updated",
             "scheduled_show.deleted",
-            "subscription.updated"
+            "subscription.updated",
+            "radio.down"
            ]
 
   events.each do |event|
