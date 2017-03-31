@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170228103212) do
+ActiveRecord::Schema.define(version: 20170331040250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,10 +23,9 @@ ActiveRecord::Schema.define(version: 20170228103212) do
     t.integer  "subscription_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.index ["subscription_id"], name: "index_invoice_payments_on_subscription_id", using: :btree
+    t.index ["user_id"], name: "index_invoice_payments_on_user_id", using: :btree
   end
-
-  add_index "invoice_payments", ["subscription_id"], name: "index_invoice_payments_on_subscription_id", using: :btree
-  add_index "invoice_payments", ["user_id"], name: "index_invoice_payments_on_user_id", using: :btree
 
   create_table "labels", force: :cascade do |t|
     t.string   "name",       null: false
@@ -37,14 +35,13 @@ ActiveRecord::Schema.define(version: 20170228103212) do
 
   create_table "listens", force: :cascade do |t|
     t.integer  "radio_id"
-    t.string   "ip_address",          limit: 255
+    t.string   "ip_address", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "start_at"
     t.datetime "end_at"
     t.float    "lat"
     t.float    "lon"
-    t.integer  "icecast_listener_id",             null: false
   end
 
   create_table "plans", force: :cascade do |t|
@@ -178,9 +175,8 @@ ActiveRecord::Schema.define(version: 20170228103212) do
     t.string   "stripe_id",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["stripe_id"], name: "index_stripe_webhooks_on_stripe_id", unique: true, using: :btree
   end
-
-  add_index "stripe_webhooks", ["stripe_id"], name: "index_stripe_webhooks_on_stripe_id", unique: true, using: :btree
 
   create_table "subscriptions", force: :cascade do |t|
     t.integer  "plan_id"
@@ -229,17 +225,16 @@ ActiveRecord::Schema.define(version: 20170228103212) do
     t.integer  "radio_id",   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["user_id", "radio_id"], name: "index_user_radios_on_user_id_and_radio_id", unique: true, using: :btree
   end
 
-  add_index "user_radios", ["user_id", "radio_id"], name: "index_user_radios_on_user_id_and_radio_id", unique: true, using: :btree
-
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 255, default: "", null: false
-    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "email",                  limit: 255, default: "",   null: false
+    t.string   "encrypted_password",     limit: 255, default: "",   null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0,  null: false
+    t.integer  "sign_in_count",                      default: 0,    null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
@@ -247,14 +242,14 @@ ActiveRecord::Schema.define(version: 20170228103212) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "role",                   limit: 255
-    t.string   "username",               limit: 255, default: "", null: false
+    t.string   "username",               limit: 255, default: "",   null: false
     t.string   "time_zone"
-    t.string   "display_name",                       default: "", null: false
+    t.string   "display_name",                       default: "",   null: false
     t.datetime "deleted_at"
+    t.boolean  "enabled",                            default: true, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",      null: false
@@ -264,9 +259,8 @@ ActiveRecord::Schema.define(version: 20170228103212) do
     t.text     "object"
     t.datetime "created_at"
     t.text     "object_changes"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   end
-
-  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
   add_foreign_key "invoice_payments", "subscriptions"
   add_foreign_key "invoice_payments", "users"

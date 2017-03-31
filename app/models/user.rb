@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
 
   # ensure user account is active
   def active_for_authentication?
-    super && !deleted_at
+    super && !deleted_at && self.enabled?
   end
 
   # provide a custom message for a deleted account
