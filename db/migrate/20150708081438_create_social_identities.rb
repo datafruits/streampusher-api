@@ -1,4 +1,4 @@
-class CreateSocialIdentities < ActiveRecord::Migration
+class CreateSocialIdentities < ActiveRecord::Migration[4.2]
   def change
     create_table :social_identities do |t|
       t.string :uid, null: false, default: ""

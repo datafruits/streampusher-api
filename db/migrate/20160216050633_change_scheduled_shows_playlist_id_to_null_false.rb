@@ -1,4 +1,4 @@
-class ChangeScheduledShowsPlaylistIdToNullFalse < ActiveRecord::Migration
+class ChangeScheduledShowsPlaylistIdToNullFalse < ActiveRecord::Migration[4.2]
   def change
     ScheduledShow.find_each do |scheduled_show|
       if scheduled_show.playlist_id.nil?

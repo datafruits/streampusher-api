@@ -1,4 +1,4 @@
-class CopyRadioNameToContainerName < ActiveRecord::Migration
+class CopyRadioNameToContainerName < ActiveRecord::Migration[4.2]
   def change
     Radio.find_each do |radio|
       if radio.container_name.blank?

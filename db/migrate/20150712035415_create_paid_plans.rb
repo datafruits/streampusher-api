@@ -1,4 +1,4 @@
-class CreatePaidPlans < ActiveRecord::Migration
+class CreatePaidPlans < ActiveRecord::Migration[4.2]
   class Plan < ActiveRecord::Base
   end
   def change

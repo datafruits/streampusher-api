@@ -1,4 +1,4 @@
-class CreateScheduledShows < ActiveRecord::Migration
+class CreateScheduledShows < ActiveRecord::Migration[4.2]
   def change
     create_table :scheduled_shows do |t|
       t.references :show, null: false

@@ -1,4 +1,4 @@
-class CreateTrackLabels < ActiveRecord::Migration
+class CreateTrackLabels < ActiveRecord::Migration[4.2]
   def change
     create_table :labels do |t|
       t.string :name, null: false

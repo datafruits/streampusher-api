@@ -76,7 +76,8 @@ class Subscription < ActiveRecord::Base
     end
   rescue Stripe::InvalidRequestError => e
     logger.error "Stripe error while creating customer: #{e.message}"
-    errors.add :base, "There was a problem with your credit card."
+    puts "Stripe error while creating customer: #{e.message}"
+    errors.add :base, "There was an error saving your billing information: #{e.message}."
     return false
   end
 

@@ -5,9 +5,9 @@ class ApplicationController < ActionController::Base
   # protect_from_forgery with: :exception
   protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
 
-  after_filter :flash_to_headers
-  before_filter :current_radio
-  around_filter :set_time_zone
+  after_action :flash_to_headers
+  before_action :current_radio
+  around_action :set_time_zone
 
   layout :layout_by_resource
 
