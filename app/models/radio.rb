@@ -15,7 +15,6 @@ class Radio < ActiveRecord::Base
 
   validates :name, presence: true
   validates :name, uniqueness: true
-  validates :name, format: { with: /\A[a-zA-Z0-9_]+\z/, message: "only letters, numbers, and underscores are allowed" }
 
   before_validation :copy_to_container_name
 
@@ -73,9 +72,9 @@ class Radio < ActiveRecord::Base
 
   def virtual_host
     if ::Rails.env.production?
-      "#{self.name}.streampusher.com"
+      "#{self.container_name}.streampusher.com"
     else
-      "#{self.name}.streampusher.com:3000"
+      "#{self.container_name}.streampusher.com:3000"
     end
   end
 
@@ -124,7 +123,7 @@ class Radio < ActiveRecord::Base
   private
   def copy_to_container_name
     if self.name.present?
-      self.container_name = self.name
+      self.container_name = self.name.gsub(/[^a-zA-Z0-9_]/, '')
     end
   end
 

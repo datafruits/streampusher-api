@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
 
   def current_radio
     if !request.subdomain.blank?
-      @current_radio ||= Radio.where("lower(name) = ?", request.subdomain.downcase).first
+      @current_radio ||= Radio.where("lower(container_name) = ?", request.subdomain.downcase).first
     end
     unless @current_radio.present?
       if user_signed_in?
