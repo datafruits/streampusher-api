@@ -6,7 +6,7 @@ class CheckRadioIsUp < ActiveJob::Base
       url = radio.icecast_panel_url
       res = Net::HTTP.get_response(URI(radio.icecast_json))
       json = JSON.parse(res.body)
-      server = json.dig("icestats", "source").find{|s| s["server_name"] == "#{radio.name}.mp3"}
+      server = json.dig("icestats", "source").find{|s| s["server_name"] == "#{radio.container_name}.mp3"}
       if server
         puts "radio is up"
       else
