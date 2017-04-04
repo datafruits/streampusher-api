@@ -12,7 +12,7 @@ class Track < ActiveRecord::Base
     s3_credentials: { bucket: ENV['S3_BUCKET'],
                       access_key_id: ENV['S3_KEY'],
                       secret_access_key: ENV['S3_SECRET'],
-                      region: ENV['S3_REGION'] },
+                      s3_region: ENV['S3_REGION'] },
     path: ":attachment/:style/:basename.:extension"
 
   validates_attachment_content_type :artwork, content_type: /\Aimage\/.*\Z/
@@ -23,7 +23,8 @@ class Track < ActiveRecord::Base
            artwork_column: :artwork,
            s3_credentials: { bucket: ENV['S3_BUCKET'],
                              access_key_id: ENV['S3_KEY'],
-                             secret_access_key: ENV['S3_SECRET'] }
+                             secret_access_key: ENV['S3_SECRET'],
+                             region: ENV['S3_REGION'] }
 
   default_scope { order(updated_at: :desc) }
 
