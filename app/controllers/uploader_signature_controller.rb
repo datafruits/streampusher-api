@@ -10,8 +10,8 @@ class UploaderSignatureController < ApplicationController
       policy: policy,
       signature: signature,
       success_action_status: '201',
+      'Cache-Control' => 'max-age=630720000, public',
       'Content-Type' => params[:type],
-      'Cache-Control' => 'max-age=630720000, public'
     }, status: :ok
   end
 
@@ -36,9 +36,9 @@ class UploaderSignatureController < ApplicationController
           { expires: @expires },
           { success_action_status: '201' },
           [ 'starts-with', '$key', '' ],
-          [ 'starts-with', '$Content-Type', '' ],
+          [ 'content-length-range', 0, 524288000 ],
           [ 'starts-with', '$Cache-Control', '' ],
-          [ 'content-length-range', 0, 524288000 ]
+          [ 'starts-with', '$Content-Type', '' ],
         ]
       }.to_json
     )
