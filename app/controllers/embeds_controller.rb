@@ -1,5 +1,6 @@
 class EmbedsController < ApplicationController
   before_action :set_frame_headers, only: [:player]
+  before_action :current_radio_required, only: [:player]
 
   def index
     authorize! :read, "embed"
