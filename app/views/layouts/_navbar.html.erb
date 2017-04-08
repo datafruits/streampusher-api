@@ -27,6 +27,9 @@
           <li>
             <a href="#" class="live">LIVE</a>
           </li>
+          <li>
+            <%= link_to "Direct mp3 link", @current_radio.relay_mp3_url, class: "mp3-link" %>
+          </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
               <%= current_user.login %> <i class="fa fa-cog"></i>
