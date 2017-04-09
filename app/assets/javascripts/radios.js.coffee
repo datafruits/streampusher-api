@@ -93,4 +93,4 @@ $('[data-controller=radios][data-action=index]').ready ->
       ]
 
     }
-    listensChart = new Chart(ctx).Line(data, options)
+    listensChart = new Chart(ctx, { type: 'line', data: data, options: options })
