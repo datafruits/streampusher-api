@@ -21,9 +21,9 @@ function Player(cssSelectorAncestor){
             listeners += data.listeners;
             peak += data.listener_peak;
           });
-          var counter = new countUp('odometer', 0, listeners, 0, 2.5);
+          var counter = new CountUp('odometer', 0, listeners, 0, 2.5);
           counter.start();
-          var peakCounter = new countUp('peak-odometer', 0, peak, 0, 2.5);
+          var peakCounter = new CountUp('peak-odometer', 0, peak, 0, 2.5);
           peakCounter.start();
         }
         jpTitle = "";
