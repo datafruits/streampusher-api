@@ -1,7 +1,9 @@
 <%= render 'form' %>
 <%= form_tag scheduled_show_path(@scheduled_show), method: :delete do %>
-  <%= label_tag "destroy_recurrences", "Delete all repeating events" %>
-  <%= check_box_tag "destroy_recurrences" %>
-  <br/ >
+  <% if @scheduled_show.recurring? || @scheduled_show.recurrence? %>
+    <%= label_tag "destroy_recurrences", "Delete all repeating events" %>
+    <%= check_box_tag "destroy_recurrences" %>
+    <br/ >
+  <% end %>
   <%= submit_tag "Delete", data: { confirm: "Are you sure?" } %>
 <% end %>
