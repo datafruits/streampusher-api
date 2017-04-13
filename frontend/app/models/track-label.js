@@ -1,5 +1,5 @@
 import DS from 'ember-data';
-import Emebr from 'ember';
+import Ember from 'ember';
 
 export default DS.Model.extend({
   track: DS.belongsTo('track'),
