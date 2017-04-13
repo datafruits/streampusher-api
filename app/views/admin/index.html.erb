@@ -2,6 +2,7 @@
   <thead>
     <th>subscription id</th>
     <th>user</th>
+    <th>radio</th>
     <th>last_sign_in</th>
   </thead>
   <tbody>
@@ -9,6 +10,7 @@
       <tr>
         <td><%= subscription.id %></td>
         <td><%= subscription.user.email %></td>
+        <td><%= subscription.radios.pluck(:name).join(",") %></td>
         <td><%= subscription.user.last_sign_in_at %></td>
         <td><%= link_to 'manage radios', admin_radios_path(subscription) %></td>
         <td><%= link_to 'sign in as', admin_sign_in_as_path(subscription.user_id) %></td>
