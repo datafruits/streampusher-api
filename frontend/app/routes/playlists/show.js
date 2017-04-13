@@ -15,7 +15,8 @@ export default Ember.Route.extend({
     return Ember.RSVP.hash({
       playlist: this.store.findRecord('playlist', params.id),
       tracks: this.store.findAll('track'),
-      playlists: this.store.findAll('playlist')
+      playlists: this.store.findAll('playlist'),
+      labels: this.store.findAll('label')
     });
   }
 });

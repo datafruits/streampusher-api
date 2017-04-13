@@ -1,0 +1,9 @@
+{{#power-select-with-create
+    options=labels
+    selected=selectedLabels
+    multiple=true
+    onchange=(action (mut selectedLabels))
+    oncreate=(action "createTag") as |label term|
+}}
+  {{label.name}}
+{{/power-select-with-create}}

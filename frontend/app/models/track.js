@@ -2,6 +2,7 @@ import DS from 'ember-data';
 import Ember from 'ember';
 
 export default DS.Model.extend({
+  labels: DS.hasMany('labels'),
   createdAt: DS.attr(),
   updatedAt: DS.attr(),
   audioFileName: DS.attr(),
