@@ -11,6 +11,10 @@ class Subscription < ActiveRecord::Base
     (Date.parse(Time.at(self.trial_ends_at.to_i).to_s) - Date.today).to_i
   end
 
+  def trial_expired?
+    self.trial_ends_at < Time.now
+  end
+
   def card_present?
     last_4_digits.present? && exp_month.present? && exp_year.present?
   end

@@ -3,6 +3,8 @@
     <th>subscription id</th>
     <th>user</th>
     <th>radio</th>
+    <th>subscription status</th>
+    <th>radio status</th>
     <th>last_sign_in</th>
   </thead>
   <tbody>
@@ -11,6 +13,18 @@
         <td><%= subscription.id %></td>
         <td><%= subscription.user.email %></td>
         <td><%= subscription.radios.pluck(:name).join(",") %></td>
+        <% if subscription.on_trial? && subscription.trial_ends_at.present? %>
+          <% if subscription.trial_expired? %>
+            <td><%= "#{subscription.status} - expired #{time_ago_in_words(subscription.trial_ends_at)} ago"  %></td>
+          <% else %>
+            <td style="color: orange; font-size: 24px;"><%= "#{subscription.status} - expires in #{time_ago_in_words(subscription.trial_ends_at)}"  %></td>
+          <% end %>
+        <% elsif subscription.on_paid_plan? %>
+          <td style="color: red; font-size: 30px;"><%= subscription.status %></td>
+        <% else %>
+          <td><%= subscription.status %></td>
+        <% end %>
+        <td><%= subscription.radios.first.enabled? %></td>
         <td><%= subscription.user.last_sign_in_at %></td>
         <td><%= link_to 'manage radios', admin_radios_path(subscription) %></td>
         <td><%= link_to 'sign in as', admin_sign_in_as_path(subscription.user_id) %></td>
@@ -18,4 +32,3 @@
     <% end %>
   </tbody>
 </table>
-
