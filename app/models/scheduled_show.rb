@@ -1,3 +1,5 @@
+require_relative "../../lib/time_utils"
+
 class ScheduledShow < ActiveRecord::Base
   belongs_to :radio
   belongs_to :dj, class_name: "User"
@@ -68,6 +70,24 @@ class ScheduledShow < ActiveRecord::Base
     !self.not_recurring?
   end
 
+  def human_readable_recurring
+    if recurring?
+      interval = self.recurring_interval
+    elsif recurrence?
+      interval = self.recurrant_original.recurring_interval
+    end
+    case interval.to_sym
+    when :day
+      "daily"
+    when :week
+      "weekly"
+    when :month
+      "monthly"
+    when :year
+      "yearly"
+    end
+  end
+
   private
   def maybe_destroy_recurrences
     if destroy_recurrences
@@ -104,12 +124,6 @@ class ScheduledShow < ActiveRecord::Base
     recurrence_times(options.merge(starts: self.start)).zip(recurrence_times(options.merge(starts: self.end)))
   end
 
-  def week_of_month_for_date(date)
-    week_of_target_date = date.strftime("%U").to_i
-    week_of_beginning_of_month = date.beginning_of_month.strftime("%U").to_i
-    week_of_target_date - week_of_beginning_of_month + 1
-  end
-
   def recurrence_times options={}
     options = {:every => self.recurring_interval}.merge(options)
     options[:on] = case options[:every]
@@ -120,7 +134,7 @@ class ScheduledShow < ActiveRecord::Base
     when 'day'
       options[:starts].day
     when 'month'
-      week_of_month_for_date(self.start_at)
+      TimeUtils.week_of_month_for_date(self.start_at)
     end
     if options[:every] == "month"
       options[:weekday] = self.start_at.strftime("%A").downcase.to_sym
@@ -137,6 +151,7 @@ class ScheduledShow < ActiveRecord::Base
         scheduled_show.recurrant_original_id = self.id
         scheduled_show.start_at = DateTime.new s.year, s.month, s.day, self.start_at.hour, self.start_at.min, self.start_at.sec, self.start_at.zone
         scheduled_show.end_at = DateTime.new e.year, e.month, e.day, self.end_at.hour, self.end_at.min, self.end_at.sec, self.end_at.zone
+        next if scheduled_show.start_at == self.start_at
         scheduled_show.save!
       end
     end

@@ -62,7 +62,13 @@ RSpec.describe ScheduledShow, :type => :model do
       start_at = Chronic.parse("today at 1:15 pm").utc
       end_at = Chronic.parse("today at 3:15 pm").utc
       recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey"
+      expect(ScheduledShow.where("start_at >= (?) AND start_at <= (?)", start_at.beginning_of_month, start_at.end_of_month).count).to eq 1
       expect(recurring_show.recurrences.count).to eq 275
+
+      start_at = Chronic.parse("today at 3:15 pm").utc
+      end_at = Chronic.parse("today at 5:15 pm").utc
+      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "week", title: "hey weekly edition"
+      expect(ScheduledShow.where(start_at: start_at).count).to eq 1
     end
 
     it "updates all recurring shows attributes" do
