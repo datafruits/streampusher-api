@@ -1,5 +1,9 @@
 :queues:
   - default
   - mailers
+:schedule:
+  collect_stats:
+    every: 1m   # Runs once per minute
+    class: CollectStatsWorker
 production:
   :concurrency: 5

@@ -1,0 +1,197 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://icecast:8000/admin/listmounts?with_listeners
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW46aGFja21l
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1102'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <icestats>
+          <source mount="/datafruits.mp3">
+            <listeners>2</listeners>
+            <Listeners>2</Listeners>
+            <Connected>2241</Connected>
+            <content-type>audio/mpeg</content-type>
+            <listener id="34">
+              <ID>34</ID>
+              <IP>192.168.11.10</IP>
+              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36</UserAgent>
+              <Referer>http://taco:8000/datafruits.mp3</Referer>
+              <lag>0</lag>
+              <Connected>164</Connected>
+            </listener>
+            <listener id="36">
+              <ID>36</ID>
+              <IP>192.168.11.10</IP>
+              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36</UserAgent>
+              <Referer>http://taco:8000/datafruits.mp3</Referer>
+              <lag>0</lag>
+              <Connected>157</Connected>
+            </listener>
+          </source>
+          <source mount="/datafruits.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>2243</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+        </icestats>
+    http_version: 
+  recorded_at: Sun, 22 Jan 2017 23:30:40 GMT
+- request:
+    method: get
+    uri: http://icecast:8000/admin/listmounts?with_listeners
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW46aGFja21l
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1102'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <icestats>
+          <source mount="/datafruits.mp3">
+            <listeners>2</listeners>
+            <Listeners>2</Listeners>
+            <Connected>2241</Connected>
+            <content-type>audio/mpeg</content-type>
+            <listener id="34">
+              <ID>34</ID>
+              <IP>192.168.11.10</IP>
+              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36</UserAgent>
+              <Referer>http://taco:8000/datafruits.mp3</Referer>
+              <lag>0</lag>
+              <Connected>164</Connected>
+            </listener>
+            <listener id="36">
+              <ID>36</ID>
+              <IP>192.168.11.10</IP>
+              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36</UserAgent>
+              <Referer>http://taco:8000/datafruits.mp3</Referer>
+              <lag>0</lag>
+              <Connected>157</Connected>
+            </listener>
+          </source>
+          <source mount="/datafruits.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>2243</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+        </icestats>
+    http_version: 
+  recorded_at: Sun, 22 Jan 2017 23:30:40 GMT
+- request:
+    method: get
+    uri: http://freegeoip.io/json/192.168.11.10
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Vary:
+      - Origin
+      X-Database-Date:
+      - Thu, 05 Jan 2017 00:55:42 GMT
+      Date:
+      - Sun, 22 Jan 2017 23:30:42 GMT
+      Content-Length:
+      - '174'
+    body:
+      encoding: UTF-8
+      string: '{"ip":"192.168.11.10","country_code":"","country_name":"","region_code":"","region_name":"","city":"","zip_code":"","time_zone":"","latitude":0,"longitude":0,"metro_code":0}
+
+'
+    http_version: 
+  recorded_at: Sun, 22 Jan 2017 23:30:41 GMT
+- request:
+    method: get
+    uri: http://freegeoip.io/json/192.168.11.10
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Vary:
+      - Origin
+      X-Database-Date:
+      - Thu, 05 Jan 2017 00:55:42 GMT
+      Date:
+      - Sun, 22 Jan 2017 23:30:43 GMT
+      Content-Length:
+      - '174'
+    body:
+      encoding: UTF-8
+      string: '{"ip":"192.168.11.10","country_code":"","country_name":"","region_code":"","region_name":"","city":"","zip_code":"","time_zone":"","latitude":0,"longitude":0,"metro_code":0}
+
+'
+    http_version: 
+  recorded_at: Sun, 22 Jan 2017 23:30:42 GMT
+recorded_with: VCR 3.0.3
