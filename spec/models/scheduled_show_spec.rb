@@ -101,7 +101,7 @@ RSpec.describe ScheduledShow, :type => :model do
       start_at = Chronic.parse("today at 1:15 pm").utc
       end_at = Chronic.parse("today at 3:15 pm").utc
       recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "week", title: "hey"
-      expect(recurring_show.recurrences.count).to eq 1201
+      expect(recurring_show.recurrences.count).to eq 1200
       recurring_show.update recurring_interval: "month"
       expect(recurring_show.recurrences.count).to eq 275
     end
