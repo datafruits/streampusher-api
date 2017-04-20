@@ -20,7 +20,9 @@ class Ability
       end
       can :manage, PlaylistTrack if can_manage_radio?(user, radio)
       can :manage, Subscription, user_id: user.id
-      can :manage, ScheduledShow if can_manage_radio?(user, radio)
+      can :manage, ScheduledShow do |scheduled_show|
+        can_manage_radio?(user, radio) && belongs_to_radio?(scheduled_show, radio)
+      end
       can :manage, Podcast if can_manage_radio?(user, radio) && radio.podcasts_enabled?
       can :read, "broadcasting_help"
       can :read, "embed"
@@ -38,7 +40,9 @@ class Ability
         can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)
       end
       can :manage, PlaylistTrack if can_manage_radio?(user, radio)
-      can :manage, ScheduledShow if can_manage_radio?(user, radio)
+      can :manage, ScheduledShow do |scheduled_show|
+        can_manage_radio?(user, radio) && belongs_to_radio?(scheduled_show, radio)
+      end
       can :manage, Podcast if can_manage_radio?(user, radio) && radio.podcasts_enabled?
       can :read, "broadcasting_help"
       can :read, "embed"
@@ -50,10 +54,18 @@ class Ability
       can :index, Radio if can_manage_radio?(user, radio)
       can :read, Podcast if radio.podcasts_enabled?
 
-      can :read, ScheduledShow
-      can :create, ScheduledShow
-      can :update, ScheduledShow
-      can :destroy, ScheduledShow
+      can :read, ScheduledShow do |scheduled_show|
+        can_manage_radio?(user, radio) && belongs_to_radio?(scheduled_show, radio)
+      end
+      can :create, ScheduledShow do |scheduled_show|
+        can_manage_radio?(user, radio) && belongs_to_radio?(scheduled_show, radio)
+      end
+      can :update, ScheduledShow do |scheduled_show|
+        can_manage_radio?(user, radio) && belongs_to_radio?(scheduled_show, radio)
+      end
+      can :destroy, ScheduledShow do |scheduled_show|
+        can_manage_radio?(user, radio) && belongs_to_radio?(scheduled_show, radio)
+      end
 
       can :read, Track if can_manage_radio?(user, radio)
       can :create, Track if can_manage_radio?(user, radio)
@@ -64,7 +76,7 @@ class Ability
       end
 
       can :read, "broadcasting_help"
-      can :read, "embed"
+      can :read, "embed" if can_manage_radio?(user, radio)
 
       can :manage, SocialIdentity, user_id: user.id
 
