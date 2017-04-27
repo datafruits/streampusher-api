@@ -12,7 +12,6 @@ class CollectStats
     current_connected_ids = []
 
     icecast_xml = download_icecast_xml
-    # doc = Nokogiri::HTML(open(ICECAST_URL, http_basic_authentication: ["admin", "hackme"]))
     doc = Nokogiri::HTML(download_icecast_xml)
     doc.xpath("//source[@mount=\"/#{@radio.name}.mp3\"]/listener").each do |listener|
       # ip = listener.xpath("//ip").text
@@ -22,8 +21,6 @@ class CollectStats
       # store current listeners in redis
       # {id: 3, start_at:}
       unless is_connected? icecast_listener_id
-        # listen = @redis.hget @radio.listeners_key, icecast_listener_id
-      #else
         start_at = Time.now
         Listen.create radio: @radio, ip_address: ip, icecast_listener_id: icecast_listener_id, start_at: start_at
         @redis.hset @radio.listeners_key, icecast_listener_id, start_at
@@ -46,6 +43,7 @@ class CollectStats
     uri = URI.parse ICECAST_URL
 
     http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = uri.port == 443
     request = Net::HTTP::Get.new(uri.request_uri)
     request.basic_auth("admin", "hackme")
     response = http.request(request)
