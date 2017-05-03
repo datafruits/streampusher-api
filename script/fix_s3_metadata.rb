@@ -17,12 +17,16 @@ bucket.objects.each do |object_summary|
     # Create our new metadata hash. This can be any hash; in this example we update
     # existing metadata with a new key-value pair.
     object = bucket.object(object_summary.key)
-    new_metadata = object.metadata.merge('content-type' => 'audio/mpeg')
+    unless object.metadata["content-type"] == "audio/mpeg"
+      new_metadata = object.metadata.merge('content-type' => 'audio/mpeg')
 
-    # Use the copy operation to replace our metadata
-      # IMPORTANT: normally S3 copies the metadata along with the object.
-      # we must supply this directive to replace the existing metadata with
-      # the values we supply
-    object.copy_to(object, :metadata => new_metadata, :metadata_directive => "REPLACE", content_type: "audio/mpeg", acl: "public-read")
+      # Use the copy operation to replace our metadata
+        # IMPORTANT: normally S3 copies the metadata along with the object.
+        # we must supply this directive to replace the existing metadata with
+        # the values we supply
+      object.copy_to(object, :metadata => new_metadata, :metadata_directive => "REPLACE", content_type: "audio/mpeg", acl: "public-read")
+    else
+      puts "metadata is already correct"
+    end
   end
 end
