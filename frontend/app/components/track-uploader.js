@@ -38,7 +38,7 @@ export default EmberUploader.FileField.extend({
           method: "PUT",
           ajaxSettings: {
             headers: {
-              'Content-Type': 'audio/mpeg',
+              'Content-Type': files[i].type,
               'x-amz-acl': 'public-read'
             }
           }
