@@ -9,7 +9,8 @@ class UploaderSignatureController < ApplicationController
     url = signer.presigned_url(:put_object, bucket: ENV['S3_BUCKET'],
                                             key: "#{@current_radio.container_name}/#{cleaned_filename(params[:name])}",
                                             expires_in: 10.hours.to_i,
-                                            acl: "public-read")
+                                            acl: "public-read",
+                                            content_type: params[:type])
     render json: { endpoint: url }
   end
 
