@@ -75,7 +75,20 @@ $('[data-controller=radios][data-action=index]').ready ->
     e.preventDefault()
 
   ctx = document.getElementById("listensChart").getContext("2d")
-  options = {}
+  options = {
+    legend: {
+      display: false
+    },
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+          stepSize: 1
+        }
+      }]
+    }
+  }
+
   $.get "/listens.json", (listens) ->
     data = {
       labels: _.keys(listens)
