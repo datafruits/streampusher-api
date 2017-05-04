@@ -16,8 +16,7 @@ GIT
 
 GIT
   remote: https://github.com/mcfiredrill/so_id3.git
-  revision: 9494fbdb41ee5d7a2a33a427ea2f63abc2ec2a3d
-  branch: aws-sdk2
+  revision: 65b02251effaed624e34136feb4ac37c6e8232f3
   specs:
     so_id3 (0.0.1)
       activejob
@@ -204,8 +203,8 @@ GEM
     forwardable-extended (2.6.0)
     geocoder (1.4.3)
     github-markdown (0.6.9)
-    globalid (0.3.7)
-      activesupport (>= 4.1.0)
+    globalid (0.4.0)
+      activesupport (>= 4.2.0)
     groupdate (3.2.0)
       activesupport (>= 3)
     hashdiff (0.3.2)
