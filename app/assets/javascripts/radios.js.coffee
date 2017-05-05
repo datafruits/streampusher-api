@@ -82,8 +82,11 @@ $('[data-controller=radios][data-action=index]').ready ->
     scales: {
       yAxes: [{
         ticks: {
-          beginAtZero: true,
-          stepSize: 1
+          min: 0,
+          beginAtZero: true
+          callback: (value, index, values) ->
+            if (Math.floor(value) == value)
+              return value
         }
       }]
     }
