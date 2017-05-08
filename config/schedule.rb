@@ -24,6 +24,9 @@ end
 #every '23 11,22 * * *' do
 #  command "/home/deploy/certbot-auto renew --quiet --no-self-upgrade && sudo service nginx reload"
 #end
+every 7.days do
+  command "/var/www/stream_pusher/current/script/docker_cleanup.sh"
+end
 
 job_type :backup, "cd :path/:backup_path && bundle install && :environment_variable=:environment bundle exec backup perform -t :task --config-file ./config.rb :output"
 
