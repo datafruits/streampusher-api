@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170331040250) do
+ActiveRecord::Schema.define(version: 20170509030138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,14 +35,16 @@ ActiveRecord::Schema.define(version: 20170331040250) do
 
   create_table "listens", force: :cascade do |t|
     t.integer  "radio_id"
-    t.string   "ip_address"
+    t.string   "ip_address",          limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "start_at"
     t.datetime "end_at"
     t.float    "lat"
     t.float    "lon"
-    t.integer  "icecast_listener_id", null: false
+    t.integer  "icecast_listener_id",             null: false
+    t.string   "user_agent"
+    t.string   "referer"
   end
 
   create_table "plans", force: :cascade do |t|

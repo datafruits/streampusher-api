@@ -15,14 +15,16 @@ class CollectStats
     doc = Nokogiri::HTML(download_icecast_xml)
     doc.xpath("//source[@mount=\"/#{@radio.name}.mp3\"]/listener").each do |listener|
       # ip = listener.xpath("//ip").text
-      ip = listener.children.select{|n| n.name == "ip"}.first.text
-      icecast_listener_id = listener.children.select{|n| n.name == "id"}.first.text.to_i
+      ip = listener.children.select{|n| n.name.downcase == "ip"}.first.text
+      icecast_listener_id = listener.children.select{|n| n.name.downcase == "id"}.first.text.to_i
+      user_agent = listener.children.select{|n| n.name.downcase == "useragent"}.first.text.to_i
+      referer = listener.children.select{|n| n.name.downcase == "referer"}.first.text.to_i
       current_connected_ids << icecast_listener_id
       # store current listeners in redis
       # {id: 3, start_at:}
       unless is_connected? icecast_listener_id
         start_at = Time.now
-        Listen.create radio: @radio, ip_address: ip, icecast_listener_id: icecast_listener_id, start_at: start_at
+        Listen.create radio: @radio, ip_address: ip, icecast_listener_id: icecast_listener_id, start_at: start_at, user_agent: user_agent, referer: referer
         @redis.hset @radio.listeners_key, icecast_listener_id, start_at
       end
     end
