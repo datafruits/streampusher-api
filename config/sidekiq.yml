@@ -5,5 +5,8 @@
   collect_stats:
     every: 1m   # Runs once per minute
     class: CollectStatsWorker
+  schedule_monitor:
+    every: 1m
+    class: ScheduleMonitorWorker
 production:
   :concurrency: 5
