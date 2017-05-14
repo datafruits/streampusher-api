@@ -12,9 +12,9 @@ class ScheduledShow < ActiveRecord::Base
   validates_presence_of :start_at, :end_at, :playlist_id, :title
   validates :description, length: { maximum: 10000 }
 
-  validate :start_at_cannot_be_in_the_past
-  validate :end_at_cannot_be_in_the_past
-  validate :end_at_cannot_be_before_start_at
+  validate :start_at_cannot_be_in_the_past, on: :create
+  validate :end_at_cannot_be_in_the_past, on: :create
+  validate :end_at_cannot_be_before_start_at, on: :create
 
   alias_attribute :start, :start_at
   alias_attribute :end, :end_at
