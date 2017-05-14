@@ -16,14 +16,17 @@ function Player(cssSelectorAncestor){
         artist = myRadios[0].artist;
         if($("#odometer").length){
           var listeners = 0;
+          var oldListeners = parseInt($("#odometer").text());
+          console.log(oldListeners);
           var peak = 0;
+          var oldPeak = parseInt($("#peak-odometer").text());
           $.each(myRadios, function(key, data){
             listeners += data.listeners;
             peak += data.listener_peak;
           });
-          var counter = new CountUp('odometer', 0, listeners, 0, 2.5);
+          var counter = new CountUp('odometer', oldListeners, listeners, 0, 2.5);
           counter.start();
-          var peakCounter = new CountUp('peak-odometer', 0, peak, 0, 2.5);
+          var peakCounter = new CountUp('peak-odometer', oldPeak, peak, 0, 2.5);
           peakCounter.start();
         }
         jpTitle = "";
