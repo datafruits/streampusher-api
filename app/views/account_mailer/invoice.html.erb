@@ -12,6 +12,16 @@ We wanted to let you know your card was billed automatically for the amount of <
 <%= @invoice[:plan_id] %>
 <h3>Plan Amount</h3>
 <%= @invoice[:amount] %>
+<% if @invoice[:coupon].present? %>
+  <h3>Coupon</h3>
+  <% if @invoice[:coupon][:amount_off].present? %>
+    <%= "#{number_to_currency(@invoice[:coupon][:amount_off].to_d/100)} off" %>
+  <% else %>
+    <%= "#{@invoice[:coupon][:percent_off]}% off" %>
+  <% end %>
+<% end %>
+<h3>Total Amount Due</h3>
+<%= number_to_currency(@invoice[:amount_due].to_d/100) %>
 <h3>Credit Card</h3>
 <%= "****-****-****-#{@user.subscription.last_4_digits}" %>
 

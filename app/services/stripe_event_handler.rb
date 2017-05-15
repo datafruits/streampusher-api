@@ -48,6 +48,9 @@ class StripeEventHandler
       invoice[:amount_due] = event.data.object.amount_due
       invoice[:id] = event.data.object.id
       invoice[:plan_id] = event.data.object.lines.data[0].plan.id
+      if event.data.object.discount.coupon
+        invoice[:coupon] = Hash(event.data.object.discount.coupon)
+      end
       AccountMailer.invoice(user, invoice).deliver_later
     end
   end
