@@ -45,6 +45,7 @@ class StripeEventHandler
       invoice = {}
       invoice[:currency] = event.data.object.currency
       invoice[:amount] = event.data.object.lines.data[0].amount
+      invoice[:amount_due] = event.data.object.amount_due
       invoice[:id] = event.data.object.id
       invoice[:plan_id] = event.data.object.lines.data[0].plan.id
       AccountMailer.invoice(user, invoice).deliver_later

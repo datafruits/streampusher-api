@@ -3,13 +3,15 @@
 <%= "Hey #{@user.username}," %>
 
 <p>
-We wanted to let you know your card was billed automatically for the amount of <%= "#{number_to_currency(@invoice[:amount].to_d/100)} #{@invoice[:currency].upcase}" %>.
+We wanted to let you know your card was billed automatically for the amount of <%= "#{number_to_currency(@invoice[:amount_due].to_d/100)} #{@invoice[:currency].upcase}" %>.
 </p>
 
 <h3>Invoice ID</h3>
 <%= @invoice[:id] %>
 <h3>Plan</h3>
 <%= @invoice[:plan_id] %>
+<h3>Plan Amount</h3>
+<%= @invoice[:amount] %>
 <h3>Credit Card</h3>
 <%= "****-****-****-#{@user.subscription.last_4_digits}" %>
 
