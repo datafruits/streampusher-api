@@ -20,9 +20,9 @@ class ScheduledShow < ActiveRecord::Base
   alias_attribute :end, :end_at
   attr_accessor :update_all_recurrences, :destroy_recurrences
 
-  before_save :update_recurring_intervals
-  after_create :save_recurrences
-  after_update :update_recurrences
+  before_save :update_recurring_intervals # probably not correct
+  after_create :save_recurrences_in_background, if: :recurring?
+  after_update :update_recurrences_in_background, if: :recurring?
   before_destroy :maybe_destroy_recurrences
 
   before_save :ensure_time_zone
@@ -83,6 +83,42 @@ class ScheduledShow < ActiveRecord::Base
     end
   end
 
+  def save_recurrences_in_background
+    SaveRecurringShowsWorker.perform_later self.id
+  end
+
+  def update_recurrences_in_background
+    UpdateRecurringShowsWorker.perform_later self.id
+  end
+
+  def save_recurrences
+    if recurring?
+      start_and_end_recurrences.each do |s,e|
+        scheduled_show = self.dup
+        scheduled_show.recurring_interval = self.recurring_interval
+        scheduled_show.recurrence = true
+        scheduled_show.recurrant_original_id = self.id
+        scheduled_show.start_at = DateTime.new s.year, s.month, s.day, self.start_at.hour, self.start_at.min, self.start_at.sec, self.start_at.zone
+        scheduled_show.end_at = DateTime.new e.year, e.month, e.day, self.end_at.hour, self.end_at.min, self.end_at.sec, self.end_at.zone
+        next if scheduled_show.start_at == self.start_at
+        scheduled_show.save!
+      end
+    end
+  end
+
+  def update_recurrences
+    if update_all_recurrences == true
+      recurrences_to_update.each do |r|
+        r.attributes = self.attributes.except("id","created_at","updated_at","start_at","end_at","recurring_interval","recurrence")
+        new_start_at = DateTime.new r.start_at.year, r.start_at.month, r.start_at.day, self.start_at.hour, self.start_at.min, self.start_at.sec, self.start_at.zone
+        r.start_at = new_start_at
+        new_end_at = DateTime.new r.end_at.year, r.end_at.month, r.end_at.day, self.end_at.hour, self.end_at.min, self.end_at.sec, self.end_at.zone
+        r.end_at = new_end_at
+        r.save!
+      end
+    end
+  end
+
   private
   def maybe_destroy_recurrences
     if destroy_recurrences
@@ -137,39 +173,11 @@ class ScheduledShow < ActiveRecord::Base
     Recurrence.new(options).events
   end
 
-  def save_recurrences
-    if recurring?
-      start_and_end_recurrences.each do |s,e|
-        scheduled_show = self.dup
-        scheduled_show.recurring_interval = self.recurring_interval
-        scheduled_show.recurrence = true
-        scheduled_show.recurrant_original_id = self.id
-        scheduled_show.start_at = DateTime.new s.year, s.month, s.day, self.start_at.hour, self.start_at.min, self.start_at.sec, self.start_at.zone
-        scheduled_show.end_at = DateTime.new e.year, e.month, e.day, self.end_at.hour, self.end_at.min, self.end_at.sec, self.end_at.zone
-        next if scheduled_show.start_at == self.start_at
-        scheduled_show.save!
-      end
-    end
-  end
-
-  def update_recurrences
-    if update_all_recurrences == true
-      recurrences_to_update.each do |r|
-        r.attributes = self.attributes.except("id","created_at","updated_at","start_at","end_at","recurring_interval","recurrence")
-        new_start_at = DateTime.new r.start_at.year, r.start_at.month, r.start_at.day, self.start_at.hour, self.start_at.min, self.start_at.sec, self.start_at.zone
-        r.start_at = new_start_at
-        new_end_at = DateTime.new r.end_at.year, r.end_at.month, r.end_at.day, self.end_at.hour, self.end_at.min, self.end_at.sec, self.end_at.zone
-        r.end_at = new_end_at
-        r.save!
-      end
-    end
-  end
-
   def update_recurring_intervals
     # if the recurring interval was changed, we need to destroy all the recurring shows and call save_recurrences again
     if self.changes.include?("recurring_interval") && !self.new_record?
       self.recurrences.destroy_all
-      save_recurrences
+      save_recurrences_in_background
     end
   end
 
