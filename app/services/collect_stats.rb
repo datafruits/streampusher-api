@@ -17,7 +17,7 @@ class CollectStats
       # ip = listener.xpath("//ip").text
       ip = listener.children.select{|n| n.name.downcase == "ip"}.first.text
       icecast_listener_id = listener.children.select{|n| n.name.downcase == "id"}.first.text.to_i
-      user_agent = listener.children.select{|n| n.name.downcase == "useragent"}.first.text
+      user_agent = listener.children.select{|n| n.name.downcase == "useragent"}.first.try(:text)
       referer = listener.children.select{|n| n.name.downcase == "referer"}.first.try(:text)
       current_connected_ids << icecast_listener_id
       # store current listeners in redis
