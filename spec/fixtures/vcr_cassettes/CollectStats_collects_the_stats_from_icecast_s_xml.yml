@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://icecast:8000/admin/listmounts?with_listeners
+    uri: https://streampusher-relay.club//admin/listmounts?with_listeners
     body:
       encoding: US-ASCII
       string: ''
@@ -20,51 +20,111 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Server:
+      - nginx/1.10.0 (Ubuntu)
+      Date:
+      - Wed, 24 May 2017 13:39:08 GMT
       Content-Type:
       - text/xml
       Content-Length:
-      - '1102'
+      - '2962'
       Connection:
-      - Keep-Alive
+      - keep-alive
     body:
       encoding: UTF-8
       string: |
         <?xml version="1.0"?>
         <icestats>
-          <source mount="/datafruits.mp3">
-            <listeners>2</listeners>
-            <Listeners>2</Listeners>
-            <Connected>2241</Connected>
+          <source mount="/Noughtie90s.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>1433793</Connected>
             <content-type>audio/mpeg</content-type>
-            <listener id="34">
-              <ID>34</ID>
-              <IP>192.168.11.10</IP>
-              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36</UserAgent>
-              <Referer>http://taco:8000/datafruits.mp3</Referer>
+          </source>
+          <source mount="/Noughtie90s.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>1123598</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/Pride365.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>2538273</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/Pride365.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>2538273</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/Radio_AM.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>729631</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/Radio_AM.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>729631</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/SelfiezzyRadio.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>661112</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/SelfiezzyRadio.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>661112</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/datafruits.mp3">
+            <listeners>3</listeners>
+            <Listeners>3</Listeners>
+            <Connected>1123599</Connected>
+            <content-type>audio/mpeg</content-type>
+            <listener id="594703">
+              <ID>594703</ID>
+              <IP>108.20.34.198</IP>
+              <UserAgent>Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</UserAgent>
+              <Referer>http://www.datafruits.fm/</Referer>
               <lag>0</lag>
-              <Connected>164</Connected>
+              <Connected>59366</Connected>
             </listener>
-            <listener id="36">
-              <ID>36</ID>
-              <IP>192.168.11.10</IP>
-              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36</UserAgent>
-              <Referer>http://taco:8000/datafruits.mp3</Referer>
+            <listener id="615317">
+              <ID>615317</ID>
+              <IP>110.4.177.176</IP>
+              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</UserAgent>
+              <Referer>http://www.datafruits.fm/chat</Referer>
               <lag>0</lag>
-              <Connected>157</Connected>
+              <Connected>1428</Connected>
+            </listener>
+            <listener id="615618">
+              <ID>615618</ID>
+              <IP>110.4.177.176</IP>
+              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</UserAgent>
+              <Referer>https://streampusher.com/playlists/3</Referer>
+              <lag>0</lag>
+              <Connected>485</Connected>
             </listener>
           </source>
           <source mount="/datafruits.ogg">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>2243</Connected>
+            <Connected>347809</Connected>
             <content-type>application/ogg</content-type>
           </source>
         </icestats>
     http_version: 
-  recorded_at: Sun, 22 Jan 2017 23:30:40 GMT
+  recorded_at: Wed, 24 May 2017 13:39:08 GMT
 - request:
     method: get
-    uri: http://icecast:8000/admin/listmounts?with_listeners
+    uri: https://streampusher-relay.club//admin/listmounts?with_listeners
     body:
       encoding: US-ASCII
       string: ''
@@ -82,51 +142,111 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Server:
+      - nginx/1.10.0 (Ubuntu)
+      Date:
+      - Wed, 24 May 2017 13:39:09 GMT
       Content-Type:
       - text/xml
       Content-Length:
-      - '1102'
+      - '2962'
       Connection:
-      - Keep-Alive
+      - keep-alive
     body:
       encoding: UTF-8
       string: |
         <?xml version="1.0"?>
         <icestats>
-          <source mount="/datafruits.mp3">
-            <listeners>2</listeners>
-            <Listeners>2</Listeners>
-            <Connected>2241</Connected>
+          <source mount="/Noughtie90s.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>1433794</Connected>
             <content-type>audio/mpeg</content-type>
-            <listener id="34">
-              <ID>34</ID>
-              <IP>192.168.11.10</IP>
-              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36</UserAgent>
-              <Referer>http://taco:8000/datafruits.mp3</Referer>
+          </source>
+          <source mount="/Noughtie90s.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>1123599</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/Pride365.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>2538274</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/Pride365.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>2538274</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/Radio_AM.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>729632</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/Radio_AM.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>729632</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/SelfiezzyRadio.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>661113</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/SelfiezzyRadio.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>661113</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/datafruits.mp3">
+            <listeners>3</listeners>
+            <Listeners>3</Listeners>
+            <Connected>1123600</Connected>
+            <content-type>audio/mpeg</content-type>
+            <listener id="594703">
+              <ID>594703</ID>
+              <IP>108.20.34.198</IP>
+              <UserAgent>Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</UserAgent>
+              <Referer>http://www.datafruits.fm/</Referer>
               <lag>0</lag>
-              <Connected>164</Connected>
+              <Connected>59367</Connected>
             </listener>
-            <listener id="36">
-              <ID>36</ID>
-              <IP>192.168.11.10</IP>
-              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36</UserAgent>
-              <Referer>http://taco:8000/datafruits.mp3</Referer>
+            <listener id="615317">
+              <ID>615317</ID>
+              <IP>110.4.177.176</IP>
+              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</UserAgent>
+              <Referer>http://www.datafruits.fm/chat</Referer>
               <lag>0</lag>
-              <Connected>157</Connected>
+              <Connected>1429</Connected>
+            </listener>
+            <listener id="615618">
+              <ID>615618</ID>
+              <IP>110.4.177.176</IP>
+              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</UserAgent>
+              <Referer>https://streampusher.com/playlists/3</Referer>
+              <lag>0</lag>
+              <Connected>486</Connected>
             </listener>
           </source>
           <source mount="/datafruits.ogg">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>2243</Connected>
+            <Connected>347810</Connected>
             <content-type>application/ogg</content-type>
           </source>
         </icestats>
     http_version: 
-  recorded_at: Sun, 22 Jan 2017 23:30:40 GMT
+  recorded_at: Wed, 24 May 2017 13:39:09 GMT
 - request:
     method: get
-    uri: http://freegeoip.io/json/192.168.11.10
+    uri: https://freegeoip.io/json/108.20.34.198
     body:
       encoding: US-ASCII
       string: ''
@@ -142,26 +262,33 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Server:
+      - nginx/1.11.8
+      Date:
+      - Wed, 24 May 2017 13:39:10 GMT
       Content-Type:
       - application/json
+      Content-Length:
+      - '248'
+      Connection:
+      - keep-alive
       Vary:
       - Origin
       X-Database-Date:
-      - Thu, 05 Jan 2017 00:55:42 GMT
-      Date:
-      - Sun, 22 Jan 2017 23:30:42 GMT
-      Content-Length:
-      - '174'
+      - Mon, 15 May 2017 13:34:14 GMT
+      Strict-Transport-Security:
+      - max-age=31536000
     body:
       encoding: UTF-8
-      string: '{"ip":"192.168.11.10","country_code":"","country_name":"","region_code":"","region_name":"","city":"","zip_code":"","time_zone":"","latitude":0,"longitude":0,"metro_code":0}
+      string: '{"ip":"108.20.34.198","country_code":"US","country_name":"United States","region_code":"RI","region_name":"Rhode
+        Island","city":"Woonsocket","zip_code":"02895","time_zone":"America/New_York","latitude":41.998,"longitude":-71.4941,"metro_code":521}
 
 '
     http_version: 
-  recorded_at: Sun, 22 Jan 2017 23:30:41 GMT
+  recorded_at: Wed, 24 May 2017 13:39:10 GMT
 - request:
     method: get
-    uri: http://freegeoip.io/json/192.168.11.10
+    uri: https://freegeoip.io/json/110.4.177.176
     body:
       encoding: US-ASCII
       string: ''
@@ -177,21 +304,27 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Server:
+      - nginx/1.11.8
+      Date:
+      - Wed, 24 May 2017 13:39:11 GMT
       Content-Type:
       - application/json
+      Content-Length:
+      - '224'
+      Connection:
+      - keep-alive
       Vary:
       - Origin
       X-Database-Date:
-      - Thu, 05 Jan 2017 00:55:42 GMT
-      Date:
-      - Sun, 22 Jan 2017 23:30:43 GMT
-      Content-Length:
-      - '174'
+      - Mon, 15 May 2017 13:34:14 GMT
+      Strict-Transport-Security:
+      - max-age=31536000
     body:
       encoding: UTF-8
-      string: '{"ip":"192.168.11.10","country_code":"","country_name":"","region_code":"","region_name":"","city":"","zip_code":"","time_zone":"","latitude":0,"longitude":0,"metro_code":0}
+      string: '{"ip":"110.4.177.176","country_code":"JP","country_name":"Japan","region_code":"13","region_name":"Tokyo","city":"Tokyo","zip_code":"100-0001","time_zone":"Asia/Tokyo","latitude":35.6427,"longitude":139.7677,"metro_code":0}
 
 '
     http_version: 
-  recorded_at: Sun, 22 Jan 2017 23:30:42 GMT
+  recorded_at: Wed, 24 May 2017 13:39:11 GMT
 recorded_with: VCR 3.0.3

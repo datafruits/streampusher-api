@@ -9,7 +9,7 @@ describe CollectStats do
     radio = FactoryGirl.create :radio, name: "datafruits"
     VCR.use_cassette(RSpec.current_example.metadata[:full_description].to_s) do
       CollectStats.new(radio).perform
-      expect(Listen.count).to eq 2
+      expect(Listen.count).to eq 3
     end
   end
 
@@ -17,9 +17,9 @@ describe CollectStats do
     radio = FactoryGirl.create :radio, name: "datafruits"
     VCR.use_cassette(RSpec.current_example.metadata[:full_description].to_s) do
       CollectStats.new(radio).perform
-      expect(Listen.count).to eq 2
+      expect(Listen.count).to eq 3
       CollectStats.new(radio).perform
-      expect(Listen.count).to eq 2
+      expect(Listen.count).to eq 3
     end
   end
 
