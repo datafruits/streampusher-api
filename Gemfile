@@ -4,7 +4,7 @@ gem 'rails', '5.0.3'
 gem 'pg'
 gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails'
 gem 'sprockets', '3.7.0'
 
 # assets gems
