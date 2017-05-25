@@ -52,7 +52,7 @@
     "ember-modal-dialog": "2.2.0",
     "ember-moment": "6.0.0",
     "ember-pikaday": "2.2.2",
-    "ember-power-select": "1.6.1",
+    "ember-power-select": "1.8.4",
     "ember-power-select-with-create": "0.3.1",
     "ember-resolver": "^4.0.0",
     "ember-route-action-helper": "0.3.2",
