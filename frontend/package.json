@@ -49,7 +49,7 @@
     "ember-inflector": "^1.9.4",
     "ember-islands": "1.2.0",
     "ember-load-initializers": "^1.0.0",
-    "ember-modal-dialog": "0.8.3",
+    "ember-modal-dialog": "2.2.0",
     "ember-moment": "6.0.0",
     "ember-pikaday": "2.2.2",
     "ember-power-select": "1.6.1",
