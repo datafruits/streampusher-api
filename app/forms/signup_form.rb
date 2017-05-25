@@ -1,6 +1,7 @@
 class SignupForm
   include ActiveModel::Model
   attr_reader :user, :subscription, :radio
+  attr_accessor :referer
   delegate :email, :email=, :password, :password=, to: :user
   delegate :name, to: :radio
   delegate :plan_id, :coupon, to: :subscription
@@ -21,6 +22,7 @@ class SignupForm
       self.send("#{k}=", v)
     end
     @user.username = radio.name
+    @user.referer = referer
   end
 
   def subscription= attrs

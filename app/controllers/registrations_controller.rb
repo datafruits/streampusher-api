@@ -8,6 +8,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     @signup_form = SignupForm.new
+    @signup_form.referer = session['referer']
     @signup_form.attributes = create_params
     @plan = Plan.find_or_create_by name: "Free Trial"
     respond_to do |format|

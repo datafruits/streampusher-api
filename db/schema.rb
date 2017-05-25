@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170515120517) do
+ActiveRecord::Schema.define(version: 20170525102715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "available_slots", force: :cascade do |t|
+    t.integer  "radio_id",           null: false
+    t.integer  "selection_event_id", null: false
+    t.integer  "user_id"
+    t.datetime "start_at",           null: false
+    t.datetime "end_at",             null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["radio_id"], name: "index_available_slots_on_radio_id", using: :btree
+    t.index ["selection_event_id"], name: "index_available_slots_on_selection_event_id", using: :btree
+  end
 
   create_table "invoice_payments", force: :cascade do |t|
     t.string   "stripe_id",       null: false
@@ -31,6 +43,7 @@ ActiveRecord::Schema.define(version: 20170515120517) do
     t.string   "name",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "radio_id",   null: false
   end
 
   create_table "listens", force: :cascade do |t|
@@ -148,6 +161,17 @@ ActiveRecord::Schema.define(version: 20170515120517) do
     t.string   "time_zone"
   end
 
+  create_table "selection_events", force: :cascade do |t|
+    t.integer  "radio_id",    null: false
+    t.datetime "start_at",    null: false
+    t.datetime "end_at",      null: false
+    t.string   "title",       null: false
+    t.integer  "slot_length"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["radio_id"], name: "index_selection_events_on_radio_id", using: :btree
+  end
+
   create_table "shows", force: :cascade do |t|
     t.string   "title",              limit: 255, default: "", null: false
     t.integer  "dj_id",                                       null: false
@@ -251,6 +275,7 @@ ActiveRecord::Schema.define(version: 20170515120517) do
     t.string   "display_name",                       default: "",   null: false
     t.datetime "deleted_at"
     t.boolean  "enabled",                            default: true, null: false
+    t.string   "referer"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
