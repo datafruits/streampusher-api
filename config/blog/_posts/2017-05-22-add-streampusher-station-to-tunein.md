@@ -4,7 +4,8 @@ title: "add your streampusher station to tunein"
 author: tony_miller
 ---
 
-Tunein is a popular app for listening to radio stations. Adding your station on Tunein's directory can help you get more listeners.
+Tunein is a popular app for listening to radio stations, especially with their mobile apps for people on the go.
+Adding your station on Tunein's directory can help you get more listeners.
 Here is how to get your Streampusher station listed on Tunein.
 
 ## Add your station
