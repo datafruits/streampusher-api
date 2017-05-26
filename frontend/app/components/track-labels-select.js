@@ -6,8 +6,10 @@ export default Ember.Component.extend({
     createTag(name){
       let store = this.get('store');
       let label = store.createRecord('label', { name: name });
-      let onSuccess = () =>{
+      let that = this;
+      let onSuccess = (label) =>{
         console.log("label saved!");
+        this.get('selectedLabels').pushObject(label);
       };
       let onFail = () => {
         console.log("label save failed");
