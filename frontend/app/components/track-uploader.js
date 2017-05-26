@@ -33,12 +33,21 @@ export default EmberUploader.FileField.extend({
           continue;
         }
 
+        let mimeType;
+        if(files[i].type == "audio/mp3"){
+          mimeType = "audio/mpeg";
+        }else{
+          mimeType = files[i].type;
+        }
+
+        console.log(mimeType);
+
         let uploader = EmberUploader.S3Uploader.create({
           signingUrl: this.get('signingUrl'),
           method: "PUT",
           ajaxSettings: {
             headers: {
-              'Content-Type': files[i].type,
+              'Content-Type': mimeType,
               'x-amz-acl': 'public-read'
             }
           }
