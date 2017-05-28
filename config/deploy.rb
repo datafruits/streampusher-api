@@ -42,7 +42,7 @@ set :sidekiq_service_name, "sidekiq_worker"
 set :sidekiq_default_hooks, false
 
 # Default value for default_env is {}
-# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+set :default_env, { path: "/home/deploy/.nvm/versions/node/v6.10.3/bin:$PATH" }
 
 # Default value for keep_releases is 5
 set :keep_releases, 2
