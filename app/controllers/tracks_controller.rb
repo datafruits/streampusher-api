@@ -67,11 +67,11 @@ class TracksController < ApplicationController
 
   private
   def create_params
-    params.require(:track).permit(:radio_id, :audio_file_name, :filesize)
+    params.require(:track).permit(:radio_id, :audio_file_name, :filesize, label_ids: [])
   end
 
   def update_params
-    params.require(:track).permit(:artist, :title, :album, :artwork, :artwork_filename)
+    params.require(:track).permit(:artist, :title, :album, :artwork, :artwork_filename, label_ids: [])
   end
 
   def set_frame_headers

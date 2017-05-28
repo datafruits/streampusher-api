@@ -1,7 +1,7 @@
 class TrackSerializer < ActiveModel::Serializer
   attributes :id, :audio_file_name, :display_name, :artist, :title, :album,
     :created_at, :updated_at, :artwork, :artwork_filename, :mixcloud_upload_status, :mixcloud_key,
-    :embed_link, :cdn_url, :labels
+    :embed_link, :cdn_url, :label_ids
 
   def embed_link
     if ::Rails.env.production?
@@ -39,9 +39,4 @@ class TrackSerializer < ActiveModel::Serializer
     object.display_name
   end
 
-  def labels
-    object.labels.map do |label|
-      LabelSerializer.new(label, root: false)
-    end
-  end
 end
