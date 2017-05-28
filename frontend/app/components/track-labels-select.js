@@ -16,7 +16,7 @@ export default Ember.Component.extend({
       let onSuccess = (label) =>{
         console.log("label saved!");
         this.get('track.labels').pushObject(label);
-        this.get('tracklabelIds').pushObject(label.get('id'));
+        this.get('track.labelIds').pushObject(label.get('id'));
       };
       let onFail = () => {
         console.log("label save failed");
