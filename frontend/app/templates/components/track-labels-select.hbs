@@ -1,0 +1,10 @@
+{{#power-select-with-create
+    options=labels
+    selected=track.labels
+    multiple=true
+    renderInPlace=true
+    onchange=(action "setSelectedLabels")
+    oncreate=(action "createTag") as |label term|
+}}
+  {{label.name}}
+{{/power-select-with-create}}

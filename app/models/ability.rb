@@ -15,6 +15,7 @@ class Ability
       end
       can :manage, :dj if can_manage_radio?(user, radio)
       can :manage, Track if can_manage_radio?(user, radio)
+      can :manage, Label if can_manage_radio?(user, radio)
       can :manage, Playlist do |playlist|
         can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)
       end
@@ -38,6 +39,7 @@ class Ability
       end
       can :manage, :dj if can_manage_radio?(user, radio)
       can :manage, Track if can_manage_radio?(user, radio)
+      can :manage, Label if can_manage_radio?(user, radio)
       can :manage, Playlist do |playlist|
         can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)
       end
@@ -74,6 +76,9 @@ class Ability
       can :read, Track if can_manage_radio?(user, radio)
       can :create, Track if can_manage_radio?(user, radio)
       can :update, Track if can_manage_radio?(user, radio)
+      can :read, Label if can_manage_radio?(user, radio)
+      can :create, Label if can_manage_radio?(user, radio)
+      can :update, Label if can_manage_radio?(user, radio)
 
       can :manage, Playlist do |playlist|
         can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)

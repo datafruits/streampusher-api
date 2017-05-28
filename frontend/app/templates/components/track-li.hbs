@@ -52,6 +52,9 @@
               <br/>
               Last updated at: {{track.updatedAt}}
             </div>
+            <div class="control-group">
+              {{track-labels-select labels=labels track=track}}
+            </div>
             {{#if isSaving}}
               <div class="spinner">
               </div>

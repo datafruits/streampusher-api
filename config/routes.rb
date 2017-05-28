@@ -68,6 +68,7 @@ Rails.application.routes.draw do
     end
     resources :mixcloud_uploads, only: [:create]
   end
+  resources :labels, only: [:create, :index, :show]
   resources :uploader_signature, only: [:index]
   resources :playlist_tracks, only: [:create, :edit, :update, :destroy]
 
