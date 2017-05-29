@@ -15,7 +15,7 @@ class LabelsController < ApplicationController
     if @label.save
       render json: @label
     else
-      render json: @label.errors
+      render json: { errors: @label.errors }, status: :unprocessable_entity
     end
   end
 

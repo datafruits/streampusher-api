@@ -1,4 +1,9 @@
 <h4>Tags</h4>
+<div class="error">
+{{#if error}}
+  {{error}}
+{{/if}}
+</div>
 {{#power-select-with-create
     options=labels
     selected=track.labels
