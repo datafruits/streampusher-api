@@ -5,6 +5,9 @@
   <meta name="description" content="Start your own live streaming internet radio station with Streampusher.">
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
+  <% if Rails.env.production? %>
+    <%= render 'layouts/rollbar' %>
+  <% end %>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <link href="https://fonts.googleapis.com/css?family=Montserrat|Source+Sans+Pro" rel="stylesheet">
   <%= csrf_meta_tags %>
