@@ -13,8 +13,8 @@ class DjsController < ApplicationController
         flash[:notice] = "Created DJ account for #{@dj.email}"
         redirect_to djs_path
       else
+        flash[:error] = "Error saving this DJ account"
         @djs = @current_radio.djs.page(params[:page])
-        @dj = @djs.new
         render 'index'
       end
     rescue ExistingUserRadio => e

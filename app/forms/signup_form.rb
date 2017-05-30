@@ -21,7 +21,7 @@ class SignupForm
     attrs.each do |k,v|
       self.send("#{k}=", v)
     end
-    @user.username = radio.name
+    @user.username = radio.name.gsub(/\s/,"")
     @user.referer = referer
   end
 

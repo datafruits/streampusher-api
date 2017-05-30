@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
   validates_presence_of :username
   validates_uniqueness_of :username
+  validates :username, format: { without: /\s/, message: "username cannot contain spaces, sorry! :(" }
   validates_presence_of :time_zone
   validates_inclusion_of :time_zone, :in => ActiveSupport::TimeZone.all.map { |m| m.name }, :message => "is not a valid Time Zone"
 
