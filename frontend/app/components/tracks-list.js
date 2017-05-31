@@ -5,14 +5,23 @@ var { set } = Ember;
 export default Ember.Component.extend({
   store: Ember.inject.service(),
   filterText: '',
-  isSearching: Ember.computed('filterText', function() {
-    return this.get('filterText') !== "";
+  selectedLabels: [],
+  isSearching: Ember.computed('filterText', 'selectedLabels', function() {
+    return this.get('filterText') !== "" || this.get('selectedLabels').length !== 0;
   }),
-  filteredResults: Ember.computed('filterText', function() {
-    var filter = this.get('filterText');
+  filteredResults: Ember.computed('filterText', 'selectedLabels', function() {
+    let filter = this.get('filterText');
+    let labelIds = this.get('selectedLabels').map(function(label){
+      return parseInt(label.get('id'));
+    });
     return this.get('tracks').filter(function(item) {
       if(item.get('isUploading')){
         return false;
+      }
+      if(labelIds.length != 0){
+        if(_.intersection(item.get('labelIds'), labelIds).length !== labelIds.length){
+          return false
+        }
       }
       return item.get('displayName').toLowerCase().indexOf(filter) !== -1;
     });
