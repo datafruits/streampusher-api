@@ -4,7 +4,7 @@ class TracksController < ApplicationController
   before_action :current_radio_required, only: [:embed]
 
   def index
-    @tracks = @current_radio.tracks
+    @tracks = @current_radio.tracks.includes(:labels)
     respond_to do |format|
       format.html
       format.json {

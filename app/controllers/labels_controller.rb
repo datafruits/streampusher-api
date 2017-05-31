@@ -6,7 +6,7 @@ class LabelsController < ApplicationController
   end
 
   def index
-    @labels = @current_radio.labels
+    @labels = @current_radio.labels.includes(:track_labels)
     render json: @labels
   end
 

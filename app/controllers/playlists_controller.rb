@@ -16,7 +16,7 @@ class PlaylistsController < ApplicationController
   def index
     authorize! :manage, Playlist, params[:format]
     @tracks = @current_radio.tracks
-    @playlists = @current_radio.playlists.includes(:tracks)
+    @playlists = @current_radio.playlists.includes(tracks: [:labels])
     respond_to do |format|
       format.html {
         redirect_to playlist_path(@current_radio.default_playlist)
