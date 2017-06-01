@@ -175,7 +175,7 @@ class ScheduledShow < ActiveRecord::Base
 
   def recurrences_to_update
     if !is_original_recurrant?
-      self.recurrant_original.recurrences
+      self.radio.scheduled_shows.where(recurrant_original_id: self.recurrant_original_id)
     else # this is the original recurring show!
       recurrences
     end
