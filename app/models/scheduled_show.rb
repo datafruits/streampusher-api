@@ -67,16 +67,11 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def recurring?
-    !self.not_recurring?
+    !self.not_recurring? && !self.recurrence?
   end
 
   def human_readable_recurring
-    if recurring?
-      interval = self.recurring_interval
-    elsif recurrence?
-      interval = self.recurrant_original.recurring_interval
-    end
-    case interval.to_sym
+    case self.recurring_interval.to_sym
     when :day
       "daily"
     when :week
@@ -146,7 +141,7 @@ class ScheduledShow < ActiveRecord::Base
     if recurring?
       start_and_end_recurrences.each do |s,e|
         scheduled_show = self.dup
-        scheduled_show.recurring_interval = "not_recurring"
+        scheduled_show.recurring_interval = self.recurring_interval
         scheduled_show.recurrence = true
         scheduled_show.recurrant_original_id = self.id
         scheduled_show.start_at = DateTime.new s.year, s.month, s.day, self.start_at.hour, self.start_at.min, self.start_at.sec, self.start_at.zone
