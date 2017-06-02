@@ -23,6 +23,7 @@ class ScheduledShow < ActiveRecord::Base
   before_save :update_recurring_intervals # probably not correct
   after_create :save_recurrences_in_background, if: :recurring?
   after_update :update_recurrences_in_background, if: :recurring?
+  after_update :save_recurrences_in_background, if: :recurring_interval_changed?
   before_destroy :maybe_destroy_recurrences
 
   before_save :ensure_time_zone
@@ -88,7 +89,7 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def update_recurrences_in_background
-    UpdateRecurringShowsWorker.perform_later self.id
+    UpdateRecurringShowsWorker.perform_later self.id, update_all_recurrences
   end
 
   def save_recurrences
@@ -120,6 +121,10 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   private
+  def recurring_interval_changed?
+    self.changes.has_key? "recurring_interval"
+  end
+
   def maybe_destroy_recurrences
     if destroy_recurrences
       recurrences_to_update.destroy_all
@@ -177,7 +182,7 @@ class ScheduledShow < ActiveRecord::Base
     # if the recurring interval was changed, we need to destroy all the recurring shows and call save_recurrences again
     if self.changes.include?("recurring_interval") && !self.new_record?
       self.recurrences.destroy_all
-      save_recurrences_in_background
+      # save_recurrences_in_background
     end
   end
 
