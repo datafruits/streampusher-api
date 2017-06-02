@@ -33,6 +33,9 @@
       <span id='peak-odometer'>0</span>
     </div>
     <div class="col-md-8">
+      <% if @current_radio.listens.count == 0 %>
+        <p>We haven't collected any listener data for your radio yet. Please wait until we collect some data to see the listener graph.</p>
+      <% end %>
       <div id="chart">
         <canvas id="listensChart" width="600" height="400"></canvas>
       </div>
