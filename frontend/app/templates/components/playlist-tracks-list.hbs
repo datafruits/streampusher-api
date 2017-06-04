@@ -45,7 +45,7 @@
     <thead>
     </thead>
     {{#sortable-group tagName="tbody" model=playlist onChange="reorderItems" as |group|}}
-      {{#each sortedPlaylistTracks as |playlistTrack|}}
+      {{#each playlist.sortedPlaylistTracks as |playlistTrack|}}
         {{#sortable-item tagName="tr" model=playlistTrack group=group handle=".playlist-track"}}
           {{playlist-track-li playlistTrack=playlistTrack}}
         {{/sortable-item}}
