@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Route.extend({
   actions: {
     setIsSyncingPlaylist(val){
-      console.log(val);
+      console.log("setIsSyncingPlaylist val: " + val);
       this.get('controller').set('isSyncingPlaylist', val);
     }
   },

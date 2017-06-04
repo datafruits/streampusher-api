@@ -6,15 +6,6 @@ export default Ember.Component.extend({
   isEditing: false,
   isSelectingPlaylist: false,
   isSyncingPlaylist: false,
-  interpolatedPlaylistIdString: Ember.computed('interpolatedPlaylistId', function(){
-    var selectedId = this.get('playlist').get('interpolatedPlaylistId');
-    return selectedId.toString();
-  }),
-  positionDesc: ["position:asc"],
-  filteredPlaylistTracks: Ember.computed.filter('playlist.playlistTracks', function(playlistTrack){
-    return playlistTrack.get('updatedAt') <= this.get('playlist').get('updatedAt');
-  }),
-  sortedPlaylistTracks: Ember.computed.sort('filteredPlaylistTracks', 'positionDesc'),
   actions: {
     reorderItems(groupModel, itemModels, draggedModel) {
       this.sendAction('setIsSyncingPlaylist', true);
@@ -24,7 +15,7 @@ export default Ember.Component.extend({
       this.set('playlist.playlistTracks', itemModels);
       draggedModel.save().then(() => {
         groupModel.save();
-        console.log("success");
+        console.log("reorderItems success");
         this.sendAction('setIsSyncingPlaylist', false);
       }).catch((error) => {
         console.log("error");

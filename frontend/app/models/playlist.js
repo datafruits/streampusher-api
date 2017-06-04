@@ -1,6 +1,5 @@
 import DS from 'ember-data';
 import { validator, buildValidations } from 'ember-cp-validations';
-
 const Validations = buildValidations({
   name: validator('presence', { presence: true, message: "cannot be blank"}),
 });
@@ -15,5 +14,8 @@ export default DS.Model.extend(Validations, {
   interpolatedPlaylistEnabled: DS.attr(),
   noCueOut: DS.attr(),
   updatedAt: DS.attr('date'),
-  shuffle: DS.attr()
+  shuffle: DS.attr(),
+
+  positionDesc: ["position:asc"],
+  sortedPlaylistTracks: Ember.computed.sort('playlistTracks', 'positionDesc'),
 });

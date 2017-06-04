@@ -22,11 +22,13 @@ export default Ember.Component.extend({
       var store = this.get('store');
       var playlist = this.get('playlist');
       var track = this.get('track');
-      var playlistTrack = store.createRecord('playlist_track', { track: track, playlist: playlist, dirty: true });
+      var playlistTrack = store.createRecord('playlist_track', { track: track, playlist: playlist});
+      playlist.get('playlistTracks').pushObject(playlistTrack);
       playlistTrack.save().then(() => {
-        playlist.save();
-        console.log("success");
-        this.sendAction('setIsSyncingPlaylist', false);
+        playlist.save().then(() => {
+          console.log("addToPlaylist success");
+          this.sendAction('setIsSyncingPlaylist', false);
+        });
       }).catch((error) => {
         console.log("error");
         console.log(error);
