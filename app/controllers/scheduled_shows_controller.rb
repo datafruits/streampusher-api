@@ -1,5 +1,7 @@
 class ScheduledShowsController < ApplicationController
   load_and_authorize_resource
+  before_action :current_radio_required, only: [:index]
+
   def new
 
   end
