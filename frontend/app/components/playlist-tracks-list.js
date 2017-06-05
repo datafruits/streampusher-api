@@ -9,12 +9,13 @@ export default Ember.Component.extend({
   actions: {
     reorderItems(groupModel, itemModels, draggedModel) {
       this.sendAction('setIsSyncingPlaylist', true);
-      var draggedToIndex = itemModels.findIndex(function(element){ return element.id === draggedModel.id; });
 
-      draggedModel.set('position', draggedToIndex);
-      this.set('playlist.playlistTracks', itemModels);
+      this.get('playlist.playlistTracks').map(function(playlistTrack){
+        let newPosition = itemModels.findIndex(function(item){ return item.id == playlistTrack.id });
+        playlistTrack.set('position', newPosition);
+      });
       draggedModel.save().then(() => {
-        groupModel.save();
+        this.set('playlist.playlistTracks', itemModels);
         console.log("reorderItems success");
         this.sendAction('setIsSyncingPlaylist', false);
       }).catch((error) => {
