@@ -19,10 +19,14 @@ export default Ember.Component.extend({
   actions: {
     addToPlaylist(){
       this.sendAction('setIsSyncingPlaylist', true);
-      var store = this.get('store');
-      var playlist = this.get('playlist');
-      var track = this.get('track');
-      var playlistTrack = store.createRecord('playlist_track', { track: track, playlist: playlist});
+      let store = this.get('store');
+      let playlist = this.get('playlist');
+      let track = this.get('track');
+      playlist.get('playlistTracks').map(function(playlistTrack){
+        let position = playlistTrack.get('position');
+        playlistTrack.set('position', position+1);
+      });
+      let playlistTrack = store.createRecord('playlist_track', { track: track, playlist: playlist, position: 0, displayName: track.get('displayName') });
       playlist.get('playlistTracks').pushObject(playlistTrack);
       playlistTrack.save().then(() => {
         playlist.save().then(() => {

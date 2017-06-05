@@ -17,5 +17,5 @@ export default DS.Model.extend(Validations, {
   shuffle: DS.attr(),
 
   positionDesc: ["position:asc"],
-  sortedPlaylistTracks: Ember.computed.sort('playlistTracks', 'positionDesc'),
+  sortedPlaylistTracks: Ember.computed.sort('playlistTracks', 'positionDesc')
 });
