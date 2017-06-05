@@ -16,3 +16,39 @@ $('[data-controller=stats][data-action=index]').ready ->
       console.debug('Start Date: '+ start +'\nEnd Date: '+ end)
   })
 
+  ctx = document.getElementById("totalSessionsChart").getContext("2d")
+  options = {
+    legend: {
+      display: false
+    },
+    scales: {
+      yAxes: [{
+        ticks: {
+          min: 0,
+          beginAtZero: true
+          callback: (value, index, values) ->
+            if (Math.floor(value) == value)
+              return value
+        }
+      }]
+    }
+  }
+
+  $.get "/listens.json", (listens) ->
+    data = {
+      labels: _.keys(listens)
+      datasets: [
+          {
+              label: "listens",
+              fillColor: "rgba(220,220,220,0.2)",
+              strokeColor: "rgba(220,220,220,1)",
+              pointColor: "rgba(220,220,220,1)",
+              pointStrokeColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(220,220,220,1)",
+              data: _.values(listens)
+          },
+      ]
+
+    }
+    listensChart = new Chart(ctx, { type: 'line', data: data, options: options })
