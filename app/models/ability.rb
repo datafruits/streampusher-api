@@ -32,7 +32,7 @@ class Ability
       can :manage, SocialIdentity if radio.social_identities_enabled?
       can :update, :metadata if can_manage_radio?(user, radio)
 
-      can :index, Listen if radio.stats_enabled?
+      can :index, Listen
     elsif user.manager? # same as owner except can't manage subscription
       can :manage, Radio do |radio|
         can_manage_radio?(user, radio)
@@ -55,7 +55,7 @@ class Ability
       can :manage, SocialIdentity, user_id: user.id && radio.social_identities_enabled?
       can :update, :metadata if can_manage_radio?(user, radio)
 
-      can :index, Listen if radio.stats_enabled?
+      can :index, Listen
     elsif user.dj?
       can :index, Radio if can_manage_radio?(user, radio)
       can :read, Podcast if radio.podcasts_enabled?
@@ -96,7 +96,7 @@ class Ability
       can :index, :anniversary_slot if is_datafruits?(radio)
       can :update, :metadata if can_manage_radio?(user, radio)
 
-      can :index, Listen if radio.stats_enabled?
+      can :index, Listen
       cannot :admin
     else
       can :read, ScheduledShow if format == "json"
