@@ -30,15 +30,4 @@ class SessionsController < Devise::SessionsController
   def destroy
     super
   end
-
-  def failure
-    respond_to do |format|
-      format.html {
-        respond_with resource, :location => after_sign_in_path_for(resource)
-      }
-      format.json {
-        render :json => {:success => false, :errors => ["Login failed."]}
-      }
-    end
-  end
 end

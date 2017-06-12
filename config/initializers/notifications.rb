@@ -3,6 +3,7 @@ if Rails.env.production?
             "user.signup",
             "user.updated",
             "user.canceled",
+            "user.login.failed",
             "playlist.created",
             "playlist.updated",
             "track.created",
@@ -14,7 +15,7 @@ if Rails.env.production?
             "scheduled_show.updated",
             "scheduled_show.deleted",
             "subscription.updated",
-            "radio.down"
+            "radio.down",
            ]
 
   events.each do |event|
