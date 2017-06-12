@@ -17,11 +17,11 @@
   <h1>2. Enter credentials </h1>
   Here is the info you need to enter in order to stream audio to our server. (You can also always see the connection info by clickin the "LIVE" link in the top navbar.)
   <pre>
-  host: <%= "#{@current_radio.name}.streampusher.com" %>
+  host: <%= "#{@current_radio.container_name}.streampusher.com" %>
   port: <%= @current_radio.liquidsoap_harbor_port %>
   username: your username (<%= current_user.username %>)
   password: your password
-  mount: <%= "/#{@current_radio.name}" %>
+  mount: <%= "/#{@current_radio.container_name}" %>
   </pre>
 
   <br/>
