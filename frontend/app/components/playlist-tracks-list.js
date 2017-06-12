@@ -62,11 +62,11 @@ export default Ember.Component.extend({
       //$("#edit-playlist-modal").modal("toggle");
     },
     save() {
-      var playlist = this.get('playlist');
-      var onSuccess = () =>{
+      let playlist = this.get('playlist');
+      let onSuccess = () =>{
         this.set('isEditing', false);
       };
-      var onFail = () =>{
+      let onFail = () =>{
         console.log("playlist save failed");
       };
       playlist.save().then(onSuccess, onFail);

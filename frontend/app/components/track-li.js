@@ -10,6 +10,10 @@ export default Ember.Component.extend({
   mixcloudDialog: false,
   soundcloudDialog: false,
   embedDialog: false,
+  isAddingNewPlaylist: Ember.computed('playlist.id', function(){
+    let playlist = this.get('playlist');
+    return playlist.get('isNew');
+  }),
   mixcloudAccount: Ember.computed('', function(){
     return $("#app-data").data('current-user').user.social_identities.find(function(s){ return s.provider === "mixcloud" });
   }),
