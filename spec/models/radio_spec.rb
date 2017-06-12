@@ -54,4 +54,9 @@ RSpec.describe Radio, :type => :model do
     track = FactoryGirl.create :track, radio: radio, filesize: 500
     expect(radio.disk_usage).to eq 1000
   end
+
+  it "relay_mp3_url should be without spaces" do
+    radio = FactoryGirl.create :radio, name: "public radio cool"
+    expect(radio.relay_mp3_url).to eq "https://streampusher-relay.club/publicradiocool.mp3"
+  end
 end
