@@ -12,6 +12,12 @@ RSpec.describe User, :type => :model do
       user = User.create username: "McFireDRILl", email: "mcfiredrill@gmail.com", time_zone: "Tokyo", role: "admin owner"
       expect(user.username).to eq "mcfiredrill"
     end
+
+    it "only allows alphanumeric" do
+      user = User.create username: "McFirelLl@gmail.com", email: "mcfiredrill@gmail.com", time_zone: "Tokyo", role: "admin owner"
+      expect(user.valid?).to eq false
+      expect(user.errors.messages[:username]).to eq ["must contain only alphanumeric characters"]
+    end
   end
 
   describe "roles" do
