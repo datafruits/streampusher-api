@@ -16,7 +16,8 @@ describe Track do
     it "adds a label" do
       params = {
                  audio_file_name: 'http://s3.amazonaws.com/streampusher/doo.mp3',
-                 labels_attributes: [{ name: "Vaporwave" }, { name: "Garage"}]
+                 labels_attributes: [{ name: "Vaporwave", radio_id: 1 }, { name: "Garage", radio_id: 1 }],
+                 radio_id: 1
                }
 
       track = Track.create params
