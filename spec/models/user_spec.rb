@@ -7,6 +7,11 @@ RSpec.describe User, :type => :model do
       user = User.create email: "mcfiredrill@gmail.com", time_zone: "Tokyo", role: "admin owner"
       expect(user.username).to eq "mcfiredrill"
     end
+
+    it "downcases username" do
+      user = User.create username: "McFireDRILl", email: "mcfiredrill@gmail.com", time_zone: "Tokyo", role: "admin owner"
+      expect(user.username).to eq "mcfiredrill"
+    end
   end
 
   describe "roles" do
