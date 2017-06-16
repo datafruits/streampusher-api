@@ -4,6 +4,7 @@ import Ember from 'ember';
 export default EmberUploader.FileField.extend({
   classNames: ['upload'],
   store: Ember.inject.service(),
+  flashMessages: Ember.inject.service(),
   droppedFile: Ember.inject.service(),
   multiple: true,
   signingUrl: '/uploader_signature',
@@ -29,7 +30,7 @@ export default EmberUploader.FileField.extend({
         console.log(files[i].type);
         if(!this.validMimeTypes.includes(files[i].type)){
           console.log("invalid mime type: " + files[i].type);
-          alert("Sorry, there was an error uploading this file. This doesn't appear to be a valid audio file.");
+          Ember.get(this, 'flashMessages').danger("Sorry, there was an error uploading this file. This doesn't appear to be a valid audio file.");
           continue;
         }
 
@@ -72,6 +73,7 @@ export default EmberUploader.FileField.extend({
           };
           let onFail = () => {
             console.log("track save failed");
+            Ember.get(this, 'flashMessages').danger("Sorry, something went wrong uploading this file!");
           };
           this.track.save().then(onSuccess, onFail);
         });
@@ -82,6 +84,7 @@ export default EmberUploader.FileField.extend({
 
         uploader.on('didError', (jqXHR, textStatus, errorThrown) => {
           window.onbeforeunload = null;
+          Ember.get(this, 'flashMessages').danger("Sorry, something went wrong!");
           console.log("ERROR!" + textStatus);
           console.log("ERROR!" + errorThrown);
         });

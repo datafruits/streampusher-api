@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   store: Ember.inject.service(),
+  flashMessages: Ember.inject.service(),
   isEditingSettings: false,
   isEditing: false,
   isSelectingPlaylist: false,
@@ -21,6 +22,7 @@ export default Ember.Component.extend({
       }).catch((error) => {
         console.log("error");
         console.log(error);
+        Ember.get(this, 'flashMessages').danger("Sorry, something went wrong!");
         this.sendAction('setIsSyncingPlaylist', false);
       });
     },
@@ -57,9 +59,9 @@ export default Ember.Component.extend({
       };
       var onFail = () =>{
         console.log("playlist settings save failed");
+        Ember.get(this, 'flashMessages').danger('Something went wrong!');
       };
       playlist.save().then(onSuccess, onFail);
-      //$("#edit-playlist-modal").modal("toggle");
     },
     save() {
       let playlist = this.get('playlist');
@@ -68,6 +70,7 @@ export default Ember.Component.extend({
       };
       let onFail = () =>{
         console.log("playlist save failed");
+        Ember.get(this, 'flashMessages').danger('Something went wrong!');
       };
       playlist.save().then(onSuccess, onFail);
     }

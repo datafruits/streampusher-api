@@ -14,7 +14,12 @@ export default Ember.Component.extend({
     },
     save(){
       let playlistTrack = this.get('playlistTrack');
-      playlistTrack.save();
+      let onSuccess = () =>{
+      };
+      let onFail = () =>{
+        Ember.get(this, 'flashMessages').danger('Something went wrong!');
+      };
+      playlistTrack.save().then(onSuccess, onFail);
       this.set('isEditing', false);
     },
     cancel(){

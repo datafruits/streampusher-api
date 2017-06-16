@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  flashMessages: Ember.inject.service(),
   store: Ember.inject.service(),
   actions: {
     setSelectedLabels(labels){
@@ -20,6 +21,7 @@ export default Ember.Component.extend({
       };
       let onFail = (response) => {
         this.set('error', "Failed to save tag: " + response.errors[0].detail)
+        Ember.get(this, 'flashMessages').danger("Sorry, something went wrong!");
         console.log("label save failed");
       };
       label.save().then(onSuccess, onFail);

@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   store: Ember.inject.service(),
   ajax: Ember.inject.service(),
+  flashMessages: Ember.inject.service(),
   tagName: 'tr',
   classNames: ['track'],
   isEditing: false,
@@ -41,6 +42,7 @@ export default Ember.Component.extend({
         console.log("error");
         console.log(error);
         this.sendAction('setIsSyncingPlaylist', false);
+        Ember.get(this, 'flashMessages').danger('Something went wrong!');
       });
     },
     editTrack(){
@@ -67,6 +69,7 @@ export default Ember.Component.extend({
         if(response.status === 200){
           this.get('track').set('mixcloudUploadStatus', 'mixcloud_uploading');
         }else{
+          Ember.get(this, 'flashMessages').danger('Something went wrong!');
         }
       });
 
@@ -80,6 +83,7 @@ export default Ember.Component.extend({
       };
       var onFail = () =>{
         console.log("track save failed");
+        Ember.get(this, 'flashMessages').danger('Something went wrong!');
         this.set('isSaving', false);
       };
       track.save().then(onSuccess, onFail);
