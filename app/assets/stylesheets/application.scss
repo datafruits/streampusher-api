@@ -378,3 +378,8 @@ footer {
   z-index: 0;
   margin-left: 150px;
 }
+
+.flash-messages {
+  z-index: 999;
+  position: absolute;
+}
