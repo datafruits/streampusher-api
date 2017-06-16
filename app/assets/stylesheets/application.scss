@@ -381,5 +381,22 @@ footer {
 
 .flash-messages {
   z-index: 999;
-  position: absolute;
+  position: fixed;
+  .alert-danger {
+    background: lighten($marunochi, 20%);
+  }
+  .alert {
+    background-size: contain;
+    border-radius: 3px;
+    padding: 5px;
+    color:white;
+    font-weight:bold;
+    font-size: 17px;
+    text-shadow: 3px 3px 3px #333;
+    width: 50%;
+    padding: 7px;
+    box-shadow: 3px 3px 3px #555;
+
+    @include animation(bounce 1s 1);
+  }
 }
