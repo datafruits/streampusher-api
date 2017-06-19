@@ -1,6 +1,5 @@
 class StatsController < ApplicationController
-  load_and_authorize_resource
   def index
-
+    authorize! :index, :stats
   end
 end

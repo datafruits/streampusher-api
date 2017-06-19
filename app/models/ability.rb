@@ -7,12 +7,14 @@ class Ability
       can :admin, :dashboard
       can :admin, :radios
       can :admin, :sign_in_as
+      can :index, :stats if can_manage_radio?(user, radio)
       can :manage, :all
       can :update, :metadata
     elsif user.owner?
       can :manage, Radio do |radio|
         can_manage_radio?(user, radio)
       end
+      can :index, :stats if can_manage_radio?(user, radio)
       can :manage, :dj if can_manage_radio?(user, radio)
       can :manage, Track if can_manage_radio?(user, radio)
       can :manage, Label if can_manage_radio?(user, radio)
@@ -37,6 +39,7 @@ class Ability
       can :manage, Radio do |radio|
         can_manage_radio?(user, radio)
       end
+      can :index, :stats if can_manage_radio?(user, radio)
       can :manage, :dj if can_manage_radio?(user, radio)
       can :manage, Track if can_manage_radio?(user, radio)
       can :manage, Label if can_manage_radio?(user, radio)
@@ -59,6 +62,7 @@ class Ability
     elsif user.dj?
       can :index, Radio if can_manage_radio?(user, radio)
       can :read, Podcast if radio.podcasts_enabled?
+      can :index, :stats if can_manage_radio?(user, radio)
 
       can :read, ScheduledShow do |scheduled_show|
         can_manage_radio?(user, radio) && belongs_to_radio?(scheduled_show, radio)
@@ -103,6 +107,7 @@ class Ability
       can :next, ScheduledShow if format == "json"
       can :enabled, :vj
       can :embed, Track
+      cannot :index, :stats
       cannot :admin
       can :sign_up, :anniversary_slot if is_datafruits?(radio)
     end
