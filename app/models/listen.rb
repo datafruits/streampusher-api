@@ -5,4 +5,7 @@ class Listen < ActiveRecord::Base
       :latitude => :lat, :longitude => :lon
   after_validation :geocode
 
+  def length
+    end_at - start_at
+  end
 end
