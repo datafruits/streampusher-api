@@ -31,4 +31,17 @@ module ApplicationHelper
     srcset = srcset.map { |src, size| "#{path_to_image(src)} #{size}" }.join(', ')
     image_tag(source, options.merge(srcset: srcset))
   end
+
+  def help_pages
+    [
+      ["Adding DJs to your station","/pages/add_djs"],
+      ["Broadcasting Live", "/broadcasting_help"],
+      ["Embedded Player","/pages/embedded_player"],
+      ["Upload your Tracks to Mixcloud", "/pages/mixcloud_integration"],
+      ["Playlists", "/pages/playlists"],
+      ["Scheduling Playlists", "/pages/scheduling_playlists"],
+      ["Stream Url", "/pages/stream_url"],
+      ["Uploading Media", "/pages/uploading_tracks"],
+    ]
+  end
 end

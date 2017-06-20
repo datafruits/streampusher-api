@@ -72,6 +72,7 @@ Rails.application.routes.draw do
   resources :uploader_signature, only: [:index]
   resources :playlist_tracks, only: [:create, :edit, :update, :destroy]
 
+  get '/help' => 'help#index', :id => "help_index"
   get '/broadcasting_help' => 'help#broadcasting', :id => "broadcasting_help"
 
   resources :embeds, only: [:index] do

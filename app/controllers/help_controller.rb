@@ -1,5 +1,7 @@
 class HelpController < ApplicationController
+  def index
+
+  end
   def broadcasting
-    authorize! :read, "broadcasting_help"
   end
 end
