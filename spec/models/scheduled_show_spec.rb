@@ -122,5 +122,16 @@ RSpec.describe ScheduledShow, :type => :model do
       recurring_show.destroy
       expect(recurring_show.recurrences.count).to eq 275
     end
+
+    it "only deletes recurring shows in the future" do
+      start_at = Chronic.parse("today at 1:15 pm").utc
+      end_at = Chronic.parse("today at 3:15 pm").utc
+      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey"
+      Timecop.travel 6.months.from_now do
+        recurring_show.destroy_recurrences = true
+        recurring_show.destroy
+        expect(recurring_show.recurrences.count).to eq 5
+      end
+    end
   end
 end

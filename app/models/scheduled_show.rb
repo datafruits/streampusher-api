@@ -157,7 +157,18 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def start_and_end_recurrences options={}
-    recurrence_times(options.merge(starts: self.start)).zip(recurrence_times(options.merge(starts: self.end)))
+    starts = recurrence_times(options.merge(starts: self.start))
+    ends = recurrence_times(options.merge(starts: self.end))
+    if starts.length != ends.length
+      while starts.length != ends.length
+        if starts.length > ends.length
+          starts.pop
+        else
+          ends.pop
+        end
+      end
+    end
+    starts.zip(ends)
   end
 
   def recurrence_times options={}
@@ -188,9 +199,9 @@ class ScheduledShow < ActiveRecord::Base
 
   def recurrences_to_update
     if !is_original_recurrant?
-      self.radio.scheduled_shows.where(recurrant_original_id: self.recurrant_original_id)
+      self.radio.scheduled_shows.where(recurrant_original_id: self.recurrant_original_id).where("start_at > (?)", Time.now)
     else # this is the original recurring show!
-      recurrences
+      recurrences.where("start_at > (?)", Time.now)
     end
   end
 
