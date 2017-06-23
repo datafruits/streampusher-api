@@ -92,6 +92,10 @@ class ScheduledShow < ActiveRecord::Base
     UpdateRecurringShowsWorker.perform_later self.id, update_all_recurrences
   end
 
+  def do_destroy_recurrences
+    recurrences_to_update.destroy_all
+  end
+
   def save_recurrences
     if recurring?
       start_and_end_recurrences.each do |s,e|
@@ -127,7 +131,7 @@ class ScheduledShow < ActiveRecord::Base
 
   def maybe_destroy_recurrences
     if destroy_recurrences
-      recurrences_to_update.destroy_all
+      DestroyRecurringShowsWorker.perform_later self.id
     end
   end
 
