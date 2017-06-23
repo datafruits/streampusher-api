@@ -130,8 +130,9 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def maybe_destroy_recurrences
+    id = self.recurrant_original_id || self.id
     if destroy_recurrences
-      DestroyRecurringShowsWorker.perform_later self.id
+      DestroyRecurringShowsWorker.perform_later id
     end
   end
 
