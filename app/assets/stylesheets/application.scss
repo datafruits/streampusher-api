@@ -368,9 +368,27 @@ footer {
     bottom: -10px;
     font-size: 22px;
     display: inline-block;
+    @media only screen and (max-width: 1300px) {
+      width: 350px;
+    }
     width: 730px;
     text-overflow: ellipsis;
     overflow: hidden;
+  }
+}
+
+@media only screen and (max-width: 970px) {
+  .live-li {
+    display: none;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+  }
+  .mp3-link-li {
+    display: none;
+    visibility: hidden;
+    width: 0;
+    height: 0;
   }
 }
 
