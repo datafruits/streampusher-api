@@ -8,6 +8,7 @@ class LabelsController < ApplicationController
 
   def index
     @labels = @current_radio.labels.includes(:track_labels)
+    response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
     render json: @labels
   end
 
