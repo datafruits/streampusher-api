@@ -1,5 +1,6 @@
 class LabelsController < ApplicationController
   load_and_authorize_resource
+  before_action :current_radio_required, only: [:index]
   def show
     @label = @current_radio.labels.find params[:id]
     render json: @label

@@ -18,6 +18,7 @@ class Ability
       can :manage, :dj if can_manage_radio?(user, radio)
       can :manage, Track if can_manage_radio?(user, radio)
       can :manage, Label if can_manage_radio?(user, radio)
+      can :index, Label if format == "json"
       can :manage, Playlist do |playlist|
         can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)
       end
@@ -43,6 +44,7 @@ class Ability
       can :manage, :dj if can_manage_radio?(user, radio)
       can :manage, Track if can_manage_radio?(user, radio)
       can :manage, Label if can_manage_radio?(user, radio)
+      can :index, Label if format == "json"
       can :manage, Playlist do |playlist|
         can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)
       end
@@ -83,6 +85,7 @@ class Ability
       can :read, Label if can_manage_radio?(user, radio)
       can :create, Label if can_manage_radio?(user, radio)
       can :update, Label if can_manage_radio?(user, radio)
+      can :index, Label if format == "json"
 
       can :manage, Playlist do |playlist|
         can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)
@@ -108,6 +111,7 @@ class Ability
       can :enabled, :vj
       can :embed, Track
       cannot :index, :stats
+      can :index, Label if format == "json"
       cannot :admin
       can :sign_up, :anniversary_slot if is_datafruits?(radio)
     end
