@@ -14,10 +14,11 @@ describe Track do
 
   describe "labels" do
     it "adds a label" do
+      radio = FactoryGirl.create :radio
+      label = radio.labels.create name: "Vaporwave"
       params = {
                  audio_file_name: 'http://s3.amazonaws.com/streampusher/doo.mp3',
-                 labels_attributes: [{ name: "Vaporwave", radio_id: 1 }, { name: "Garage", radio_id: 1 }],
-                 radio_id: 1
+                 label_ids: [label.id]
                }
 
       track = Track.create params
