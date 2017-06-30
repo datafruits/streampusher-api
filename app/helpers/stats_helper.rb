@@ -1,9 +1,21 @@
 module StatsHelper
-  def average_sessions_per_hour listens, start_at, end_at
-
+  def average_sessions_per_hour listens
+    total_hours = listens.length
+    total_listens = listens.values.sum
+    total_listens / total_hours
   end
 
-  def average_listening_minutes_per_session listens, start_at, end_at
-    listens.sum(&:length) / listens.count
+  def average_listening_minutes_per_session listens
+    listens.map{|m| m.length / 60.0 }.sum / listens.length
+  end
+
+  def average_listening_minutes_per_hour listens
+    lengths = {}
+    listens.order("date_trunc('hour', start_at) ASC").pluck("date_trunc('hour', start_at)", :start_at, :end_at).each do |listen|
+      lengths[listen[0]] = [] unless lengths.has_key?(listen[0])
+      lengths[listen[0]] << ((listen[2] - listen[1]) / 60.0)
+    end
+    lengths.each{|k,v| lengths[k] = v.sum / v.length }
+    lengths
   end
 end
