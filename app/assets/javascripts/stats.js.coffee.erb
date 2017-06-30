@@ -3,6 +3,11 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $('[data-controller=stats][data-action=index]').ready ->
+  mymap = L.map('map').setView([51.505, -0.09], 13)
+  <% @listens.each do |listen| %>
+    marker = L.marker([<%= listen.lat %>, <%= listen.long %>]).addTo(mymap)
+  <% end %>
+
   new Calendar({
     element: $('.daterange--double'),
     earliest_date: '2000-01-1',
