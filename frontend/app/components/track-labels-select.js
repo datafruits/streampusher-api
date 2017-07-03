@@ -4,6 +4,10 @@ export default Ember.Component.extend({
   flashMessages: Ember.inject.service(),
   store: Ember.inject.service(),
   actions: {
+    hideCreateOptionOnSameName(term) {
+      let existingOption = this.get('labels').findBy('name', term);
+      return !existingOption;
+    },
     setSelectedLabels(labels){
       this.set('track.labels', labels);
       let labelIds = labels.map((label) => {

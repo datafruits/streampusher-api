@@ -7,10 +7,12 @@
 {{#power-select-with-create
     options=labels
     selected=track.labels
+    searchField="name"
     multiple=true
     renderInPlace=true
     onchange=(action "setSelectedLabels")
-    oncreate=(action "createTag") as |label term|
+    oncreate=(action "createTag")
+    showCreateWhen=(action "hideCreateOptionOnSameName") as |label|
 }}
   {{label.name}}
 {{/power-select-with-create}}
