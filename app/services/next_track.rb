@@ -44,6 +44,6 @@ class NextTrack
       end
     end
     # liquidsoap's json parser wants strings
-    { cue_out: cue_out.to_i.to_s, cue_in: 0.to_s, fade_out: 0.to_s, fade_in: 0.to_s, track: track.cdn_url }
+    { cue_out: cue_out.to_i.to_s, cue_in: 0.to_s, fade_out: 0.to_s, fade_in: 0.to_s, track: track.audio_file_name }
   end
 end
