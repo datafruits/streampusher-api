@@ -26,4 +26,7 @@ Geocoder.configure(
   # Calculation options
   # units: :mi,                 # :km for kilometers or :mi for miles
   # distances: :linear          # :spherical or :linear
+  logger: Rails.logger,
+  kernel_logger_level: ::Logger::DEBUG
+  #
 )
