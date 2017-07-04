@@ -112,6 +112,6 @@ gem 'high_voltage'
 gem 'jekyll'
 gem 'jekyll-seo-tag'
 
-gem 'geocoder', github: 'mcfiredrill/geocoder', branch: 'https-freegeoip'
+gem 'geocoder'
 gem 'ruby-liquidsoap', github: 'streampusher/ruby-liquidsoap', :require => 'liquidsoap'
 gem 'paper_trail'

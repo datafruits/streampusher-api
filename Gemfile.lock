@@ -8,13 +8,6 @@ GIT
       trollop (~> 2.0)
 
 GIT
-  remote: https://github.com/mcfiredrill/geocoder.git
-  revision: bd2acee72a1d8ffc17c83b7cbb15a71ade6bbf0b
-  branch: https-freegeoip
-  specs:
-    geocoder (1.4.3)
-
-GIT
   remote: https://github.com/mcfiredrill/omniauth-soundcloud.git
   revision: 67fdc1352730f05e532ef1b2231bdd643ed3c3b4
   specs:
@@ -208,6 +201,7 @@ GEM
     font-awesome-sass (4.6.2)
       sass (>= 3.2)
     forwardable-extended (2.6.0)
+    geocoder (1.4.4)
     github-markdown (0.6.9)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
@@ -559,7 +553,7 @@ DEPENDENCIES
   exception_notification
   factory_girl_rails
   font-awesome-sass (~> 4.6.0)
-  geocoder!
+  geocoder
   github-markdown
   groupdate
   headless
