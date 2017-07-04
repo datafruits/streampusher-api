@@ -10,7 +10,8 @@ Geocoder.configure(
   # lookup: :google,            # name of geocoding service (symbol)
   ip_lookup: :freegeoip,
   # language: :en,              # ISO-639 language code
-  # use_https: false,           # use HTTPS for lookup requests? (if supported)
+  use_https: true,           # use HTTPS for lookup requests? (if supported)
+  host: "freegeoip.net",
   # http_proxy: nil,            # HTTP proxy server (user:pass@host:port)
   # https_proxy: nil,           # HTTPS proxy server (user:pass@host:port)
   # api_key: nil,               # API key for geocoding service
