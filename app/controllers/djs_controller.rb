@@ -5,6 +5,18 @@ class DjsController < ApplicationController
     @dj = @djs.new
   end
 
+  def show
+    authorize! :show, :dj
+    @dj = @current_radio.djs.find_by(username: params[:id])
+    respond_to do |format|
+      format.html
+      format.json {
+        response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
+        render json: @dj, serializer: DjSerializer, root: false
+      }
+    end
+  end
+
   def create
     authorize! :create, :dj
     begin
