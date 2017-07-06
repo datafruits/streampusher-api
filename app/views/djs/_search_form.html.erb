@@ -1,0 +1,4 @@
+<%= simple_form_for :search, url: djs_path, method: :get do |f| %>
+  <%= f.input :keyword %>
+  <%= f.submit "Search", class: "btn btn-success" %>
+<% end %>

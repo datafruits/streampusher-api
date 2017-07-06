@@ -2,6 +2,9 @@ class DjsController < ApplicationController
   def index
     authorize! :index, :dj
     @djs = @current_radio.djs.page(params[:page])
+    if params[:search]
+      @djs = @djs.where("username ilike (?)", "%#{params[:search].permit(:keyword)[:keyword]}%")
+    end
     @dj = @djs.new
   end
 
