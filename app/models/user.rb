@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
   has_many :shows, foreign_key: :dj_id
   has_many :recordings
   has_many :social_identities
+  has_attached_file :image, styles: { :thumb => "x300" },
+    path: ":attachment/:style/:basename.:extension"
+  validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
   default_scope { order(created_at: :desc) }
 
