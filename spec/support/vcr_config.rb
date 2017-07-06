@@ -36,6 +36,10 @@ VCR.configure do |config|
     ENV.fetch 'S3_SECRET', "x"*40
   end
 
+  config.filter_sensitive_data("<MIXCLOUD_TOKEN>") do
+    ENV.fetch "MIXCLOUD_TOKEN", "x"*40
+  end
+
   config.register_request_matcher :s3_uri_matcher do |request1, request2|
     uri1 = URI(request1.uri)
     uri1.query = nil
