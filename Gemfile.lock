@@ -26,7 +26,7 @@ GIT
 
 GIT
   remote: https://github.com/streampusher/mixcloud-ruby.git
-  revision: 51fe130361df66cf2bf1319a22529165c4a08a34
+  revision: d00100b4f6a991bdb3deab402154c93dcb14c4f7
   specs:
     mixcloud (0.0.1)
       httmultiparty
@@ -219,7 +219,7 @@ GEM
       httparty (>= 0.7.3)
       mimemagic
       multipart-post
-    httparty (0.14.0)
+    httparty (0.15.5)
       multi_xml (>= 0.5.2)
     i18n (0.8.4)
     jekyll (3.4.1)
