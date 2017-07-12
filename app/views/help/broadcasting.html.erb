@@ -6,27 +6,31 @@
   <h1>1. Download a broadcasting client</h1>
   <p>
   BUTT(broadcast using this tool) => <a href="https://danielnoethen.de/" target="_blank">BUTT</a> (windows)
+  </br>
   Altacast => <a href="http://www.altacast.com/index.php/downloads/" target="_blank">Altacast</a> (windows)
   <br />
   Ladiocast is good for mac => <a href="https://www.macupdate.com/app/mac/27022/ladiocast" target="_blank">Ladiocast</a>
   <br />
   Traktor works great too!
-  <br />
-  Also you can use shoutvst in a DAW like ableton => <a href="http://jsound.org/shoutvst/" target="_blank">shoutvst</a>
   </p>
   </p>
   <h1>2. Enter credentials </h1>
   Here is the info you need to enter in order to stream audio to our server. (You can also always see the connection info by clickin the "LIVE" link in the top navbar.)
   <pre>
-  host: <%= "#{@current_radio.container_name}.streampusher.com" %>
-  port: <%= @current_radio.liquidsoap_harbor_port %>
-  username: your username (<%= current_user.username %>)
-  password: your password
-  mount: <%= "/#{@current_radio.container_name}" %>
+  host: <%= "#{@current_radio.try(:name) || "myradio"}.streampusher.com" %>
+  port: <%= @current_radio.try(:liquidsoap_harbor_port) || 9999 %>
+  <% if current_user %>
+    username: your username (<%= current_user.username %>)
+    password: your password
+  <% else %>
+    username: your username
+    password: your password
+  <% end %>
+  mount: <%= "/#{@current_radio.try(:name) || "myradio"}" %>
   </pre>
 
   <br/>
-  <%= image_tag "shoutvst_broadcasting.png" %>
+  <%= image_tag "butt_broadcasting.png", class: "screenshot" %>
   <br/>
 
   <h3>I'm using Traktor and there is no username field!</h3>
@@ -37,7 +41,7 @@
   </pre>
 
   <br/>
-  <%= image_tag "traktor_broadcasting.png" %>
+  <%= image_tag "traktor_broadcasting.png", class: "screenshot" %>
   <br/>
 
   <h3>Routing audio from other programs</h3>

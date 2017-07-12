@@ -28,7 +28,6 @@ class Ability
         can_manage_radio?(user, radio) && belongs_to_radio?(scheduled_show, radio)
       end
       can :manage, Podcast if can_manage_radio?(user, radio) && radio.podcasts_enabled?
-      can :read, "broadcasting_help"
       can :read, "embed"
       can :manage, Recording if can_manage_radio?(user, radio)
       can :vj, :dashboard if is_datafruits?(radio)
@@ -53,7 +52,6 @@ class Ability
         can_manage_radio?(user, radio) && belongs_to_radio?(scheduled_show, radio)
       end
       can :manage, Podcast if can_manage_radio?(user, radio) && radio.podcasts_enabled?
-      can :read, "broadcasting_help"
       can :read, "embed"
       can :manage, Recording if can_manage_radio?(user, radio)
       can :vj, :dashboard if is_datafruits?(radio)
@@ -91,7 +89,6 @@ class Ability
         can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)
       end
 
-      can :read, "broadcasting_help"
       can :read, "embed" if can_manage_radio?(user, radio)
 
       can :manage, SocialIdentity, user_id: user.id

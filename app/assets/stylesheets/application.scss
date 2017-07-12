@@ -418,3 +418,8 @@ footer {
     @include animation(bounce 1s 1);
   }
 }
+
+img.screenshot {
+  padding: 3px;
+  border: 1px solid #d8d8d8;
+}

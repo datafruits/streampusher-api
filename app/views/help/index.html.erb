@@ -1,0 +1,7 @@
+<h1>Streampusher Help Center</h1>
+
+<ul>
+  <% help_pages.each do |help_page| %>
+    <li><%= link_to help_page.first, help_page.second %></li>
+  <% end %>
+</ul>
