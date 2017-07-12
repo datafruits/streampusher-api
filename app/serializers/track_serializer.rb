@@ -5,7 +5,7 @@ class TrackSerializer < ActiveModel::Serializer
 
   def embed_link
     if ::Rails.env.production?
-      "http://#{object.radio.virtual_host}/tracks/#{object.id}/embed"
+      "https://#{object.radio.virtual_host}/tracks/#{object.id}/embed"
     else
       "http://#{object.radio.virtual_host}:3000/tracks/#{object.id}/embed"
     end
