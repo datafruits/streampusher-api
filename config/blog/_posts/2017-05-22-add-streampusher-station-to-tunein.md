@@ -32,3 +32,5 @@ on the [TuneIn broadcasters page](http://tunein.com/broadcasters/).
 ![TuneIn](/blog/assets/images/tunein_update_station.jpg)
 
 After you get the confirmation email you should see your page appear on TuneIn!
+
+{% include subscribe.html %}
