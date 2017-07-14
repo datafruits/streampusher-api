@@ -31,7 +31,7 @@ class Ability
       can :read, "embed"
       can :manage, Recording if can_manage_radio?(user, radio)
       can :vj, :dashboard if is_datafruits?(radio)
-      can :manage, SocialIdentity if radio.social_identities_enabled?
+      can :manage, SocialIdentity
       can :update, :metadata if can_manage_radio?(user, radio)
 
       can :index, Listen
@@ -55,7 +55,7 @@ class Ability
       can :read, "embed"
       can :manage, Recording if can_manage_radio?(user, radio)
       can :vj, :dashboard if is_datafruits?(radio)
-      can :manage, SocialIdentity, user_id: user.id && radio.social_identities_enabled?
+      can :manage, SocialIdentity, user_id: user.id
       can :update, :metadata if can_manage_radio?(user, radio)
 
       can :index, Listen
@@ -94,7 +94,7 @@ class Ability
       can :manage, SocialIdentity, user_id: user.id
 
       can :vj, :dashboard if is_datafruits?(radio)
-      can :manage, SocialIdentity, user_id: user.id && radio.social_identities_enabled?
+      can :manage, SocialIdentity, user_id: user.id
 
       can :create, :anniversary_slot if is_datafruits?(radio)
       can :index, :anniversary_slot if is_datafruits?(radio)

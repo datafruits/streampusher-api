@@ -25,7 +25,7 @@
             <span class="current-timezone"></span>
           </li>
           <li class="live-li">
-            <a href="#" class="live">LIVE</a>
+            <a href="#" class="live">Go LIVE</a>
           </li>
           <li class="mp3-link-li">
             <%= link_to "Direct mp3 link", @current_radio.relay_mp3_url, class: "mp3-link" %>
@@ -44,9 +44,6 @@
               <% end %>
               <% if current_user.owner? %>
                 <li><%= link_to "Subscription", edit_subscription_path(current_user.subscription) %></li>
-              <% end %>
-              <% if @current_radio.social_identities_enabled? %>
-                <li><%= link_to "Connected Accounts", social_identities_path %></li>
               <% end %>
               <li><a href="#" class="start-tour">User Tour</a></li>
               <li class="divider"></li>
