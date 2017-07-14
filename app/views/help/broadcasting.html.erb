@@ -15,7 +15,7 @@
   </p>
   </p>
   <h1>2. Enter credentials </h1>
-  Here is the info you need to enter in order to stream audio to our server. (You can also always see the connection info by clickin the "LIVE" link in the top navbar.)
+  Here is the info you need to enter in order to stream audio to our server. (You can also always see the connection info by clickin the "Go LIVE" link in the top navbar.)
   <pre>
   host: <%= "#{@current_radio.try(:name) || "myradio"}.streampusher.com" %>
   port: <%= @current_radio.try(:liquidsoap_harbor_port) || 9999 %>

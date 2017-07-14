@@ -37,6 +37,7 @@ module ApplicationHelper
       ["Adding DJs to your station","/pages/add_djs"],
       ["Broadcasting Live", "/broadcasting_help"],
       ["Embedded Player","/pages/embedded_player"],
+      ["Editing Track Metadata", "/pages/editing_track_metadata"],
       ["Upload your Tracks to Mixcloud", "/pages/mixcloud_integration"],
       ["Playlists", "/pages/playlists"],
       ["Scheduling Playlists", "/pages/scheduling_playlists"],
