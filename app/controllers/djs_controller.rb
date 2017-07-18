@@ -6,6 +6,14 @@ class DjsController < ApplicationController
       @djs = @djs.where("username ilike (?)", "%#{params[:search].permit(:keyword)[:keyword]}%")
     end
     @dj = @djs.new
+
+    respond_to do |format|
+      format.html
+      format.json {
+        response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
+        render json: @djs, serializer: DjSerializer, root: false
+      }
+    end
   end
 
   def show
