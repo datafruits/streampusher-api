@@ -104,6 +104,7 @@ class Ability
       cannot :admin
     else
       can :read, ScheduledShow if format == "json"
+      can :index, :dj if format == "json"
       can :read, :dj if format == "json"
       can :next, ScheduledShow if format == "json"
       can :enabled, :vj
