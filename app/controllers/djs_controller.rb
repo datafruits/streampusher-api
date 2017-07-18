@@ -11,7 +11,7 @@ class DjsController < ApplicationController
       format.html
       format.json {
         response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
-        render json: @djs, serializer: DjSerializer, root: false
+        render json: @djs, each_serializer: DjSerializer, root: false
       }
     end
   end
