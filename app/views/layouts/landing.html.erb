@@ -13,8 +13,6 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat|Source+Sans+Pro" rel="stylesheet">
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-  <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
   <% if Rails.env.production? %>
     <%= render 'layouts/ga' %>
   <% end %>
