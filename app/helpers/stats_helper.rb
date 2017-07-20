@@ -1,8 +1,12 @@
 module StatsHelper
   def average_sessions_per_hour listens
-    total_hours = listens.length
-    total_listens = listens.values.sum
-    total_listens / total_hours
+    if listens.length > 0
+      total_hours = listens.length
+      total_listens = listens.values.sum
+      total_listens / total_hours
+    else
+      0
+    end
   end
 
   def average_listening_minutes_per_session listens

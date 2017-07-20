@@ -6,6 +6,6 @@ class Listen < ActiveRecord::Base
   after_validation :geocode
 
   def length
-    end_at - start_at
+    self.end_at - self.start_at
   end
 end

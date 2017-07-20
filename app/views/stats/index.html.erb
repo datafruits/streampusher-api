@@ -25,7 +25,7 @@
     <div class="stats-box">
       <h3>Average Listening Minutes Per Session</h3>
       <div class="stats-number">
-        <%= average_listening_minutes_per_session(@listens) %>
+        <%= average_listening_minutes_per_session(@listens.select(:start_at, :end_at)) %>
       </div>
     </div>
   </div>

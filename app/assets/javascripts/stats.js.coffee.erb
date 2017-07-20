@@ -4,8 +4,10 @@
 
 $('[data-controller=stats][data-action=index]').ready ->
   mymap = L.map('map').setView([51.505, -0.09], 13)
-  <% @listens.each do |listen| %>
-    marker = L.marker([<%= listen.lat %>, <%= listen.long %>]).addTo(mymap)
+  <% if @listens %>
+    <% @listens.each do |listen| %>
+      marker = L.marker([<%= listen.lat %>, <%= listen.long %>]).addTo(mymap)
+    <% end %>
   <% end %>
 
   new Calendar({
