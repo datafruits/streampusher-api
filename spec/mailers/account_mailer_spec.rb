@@ -15,4 +15,8 @@ RSpec.describe AccountMailer, type: :mailer do
       expect(mail.body.include?("50% off"))
     end
   end
+
+  it "sends day_after_trial_ended email" do
+    mail = AccountMailer.day_after_trial_ended(user).deliver_now
+  end
 end

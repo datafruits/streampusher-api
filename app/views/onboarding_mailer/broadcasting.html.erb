@@ -1,0 +1,39 @@
+<%= "Hey #{@user.username}," %>
+
+<p>
+Have you broadcasted live on your Streampusher station yet?
+</p>
+
+Try with downloading one of these streaming clients:
+<p>
+BUTT(broadcast using this tool) => <a href="https://danielnoethen.de/" target="_blank">BUTT</a> (windows)
+</br>
+Altacast => <a href="http://www.altacast.com/index.php/downloads/" target="_blank">Altacast</a> (windows)
+<br />
+Ladiocast is good for mac => <a href="https://www.macupdate.com/app/mac/27022/ladiocast" target="_blank">Ladiocast</a>
+<br />
+
+<p>
+  Here is the info you need to enter in order to stream audio to our server. (You can also always see the connection info by clickin the "Go LIVE" link in the top navbar.)
+  <pre>
+  host: <%= "#{@current_radio.try(:name) || "myradio"}.streampusher.com" %>
+  port: <%= @current_radio.try(:liquidsoap_harbor_port) || 9999 %>
+  username: your username (<%= @user.username %>)
+  password: your password
+  mount: <%= "/#{@current_radio.try(:name) || "myradio"}" %>
+  </pre>
+</p>
+
+<img src="<%= asset_url "butt_broadcasting.png" %>"/>
+
+<p>
+  If your source client does NOT have a username field, you can enter it in the password field in this format:
+  <pre>
+  password: username and password separated by a semicolon. example: username;password
+  </pre>
+</p>
+Check out the <a href="https://streampusher.com/broadcasting_help/">broadcasting help page</a> for more.
+
+<p>
+If you have any questions, just reply to this email.
+</p>
