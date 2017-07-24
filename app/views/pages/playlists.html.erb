@@ -1,17 +1,26 @@
 <h1>Using playlists</h1>
+<div class="row">
+  <div class="breadcrumbs">
+    <ul>
+      <li><%= link_to "Help", help_path %><i class="fa fa-chevron-right"></i></li>
+      <li>Using  playlists</li>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <p>
+  Click the dropdown to change the currently selected playlist.
+  </p>
+  <%= image_tag "guides/change_playlist.gif", class: "screenshot" %>
 
-<p>
-Click the dropdown to change the currently selected playlist.
-</p>
-<%= image_tag "guides/change_playlist.gif", class: "screenshot" %>
+  <p>
+  Click the New Playlist button to create a new playlist.
+  </p>
+  <%= image_tag "guides/new_playlist.gif", class: "screenshot" %>
 
-<p>
-Click the New Playlist button to create a new playlist.
-</p>
-<%= image_tag "guides/new_playlist.gif", class: "screenshot" %>
-
-<p>
-After you <a href="/pages/uploading_tracks">upload tracks</a> you can add them to playlists.
-Click the '+' button to add them to the currently selected playlist. You can remove tracks from the playlist with the 'x' button.
-</p>
-<%= image_tag "guides/add_track_to_playlist.gif", class: "screenshot" %>
+  <p>
+  After you <a href="/pages/uploading_tracks">upload tracks</a> you can add them to playlists.
+  Click the '+' button to add them to the currently selected playlist. You can remove tracks from the playlist with the 'x' button.
+  </p>
+  <%= image_tag "guides/add_track_to_playlist.gif", class: "screenshot" %>
+</div>

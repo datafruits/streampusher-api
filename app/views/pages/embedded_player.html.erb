@@ -1,19 +1,28 @@
 <h1>Embedded stream player</h1>
+<div class="row">
+  <div class="breadcrumbs">
+    <ul>
+      <li><%= link_to "Help", help_path %><i class="fa fa-chevron-right"></i></li>
+      <li>Embedded Player</li>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <p>You can embed your radio stream on your website using the provided embed code.</p>
 
-<p>You can embed your radio stream on your website using the provided embed code.</p>
+  <p>Click your username with the gear icon in the top right corner, then click <%= link_to "Embed", embeds_path %>.</p>
+  <p>
+  You'll see this screen below.
+  </p>
 
-<p>Click your username with the gear icon in the top right corner, then click <%= link_to "Embed", embeds_path %>.</p>
-<p>
-You'll see this screen below.
-</p>
+  <%= image_tag "guides/embed_scrot.png", class: "screenshot" %>
 
-<%= image_tag "guides/embed_scrot.png", class: "screenshot" %>
+  <p>
+  Copy and paste the provided embed HTML code on your website.
+  </p>
+  <p>
+  You can customize the background color as well.
+  </p>
 
-<p>
-Copy and paste the provided embed HTML code on your website.
-</p>
-<p>
-You can customize the background color as well.
-</p>
-
-<%= image_tag "guides/embed_link.gif", class: "screenshot" %>
+  <%= image_tag "guides/embed_link.gif", class: "screenshot" %>
+</div>
