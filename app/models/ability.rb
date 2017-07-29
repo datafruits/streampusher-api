@@ -22,7 +22,9 @@ class Ability
       can :manage, Playlist do |playlist|
         can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)
       end
-      can :manage, PlaylistTrack if can_manage_radio?(user, radio)
+      can :manage, PlaylistTrack if do |playlist_track|
+        can_manage_radio?(user, radio) && belongs_to_radio?(playlist_track, radio)
+      end
       can :manage, Subscription, user_id: user.id
       can :manage, ScheduledShow do |scheduled_show|
         can_manage_radio?(user, radio) && belongs_to_radio?(scheduled_show, radio)
@@ -47,7 +49,9 @@ class Ability
       can :manage, Playlist do |playlist|
         can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)
       end
-      can :manage, PlaylistTrack if can_manage_radio?(user, radio)
+      can :manage, PlaylistTrack if do |playlist_track|
+        can_manage_radio?(user, radio) && belongs_to_radio?(playlist_track, radio)
+      end
       can :manage, ScheduledShow do |scheduled_show|
         can_manage_radio?(user, radio) && belongs_to_radio?(scheduled_show, radio)
       end
@@ -89,7 +93,9 @@ class Ability
         can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)
       end
 
-      can :manage, PlaylistTrack if can_manage_radio?(user, radio)
+      can :manage, PlaylistTrack if do |playlist_track|
+        can_manage_radio?(user, radio) && belongs_to_radio?(playlist_track, radio)
+      end
 
       can :read, "embed" if can_manage_radio?(user, radio)
 
