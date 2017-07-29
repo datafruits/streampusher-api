@@ -89,6 +89,8 @@ class Ability
         can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)
       end
 
+      can :manage, PlaylistTrack if can_manage_radio?(user, radio)
+
       can :read, "embed" if can_manage_radio?(user, radio)
 
       can :manage, SocialIdentity, user_id: user.id
