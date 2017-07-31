@@ -181,7 +181,7 @@ GEM
       railties (>= 3.2)
     ember-cli-rails-assets (0.6.2)
     erubis (2.7.0)
-    et-orbi (1.0.3)
+    et-orbi (1.0.5)
       tzinfo
     exception_notification (4.2.1)
       actionmailer (>= 4.0, < 6)
@@ -208,7 +208,7 @@ GEM
     groupdate (3.2.0)
       activesupport (>= 3)
     hashdiff (0.3.2)
-    hashie (3.5.5)
+    hashie (3.5.6)
     headless (2.3.1)
     high_voltage (3.0.0)
     html-pipeline (2.5.0)
@@ -342,7 +342,7 @@ GEM
     public_suffix (2.0.5)
     rack (2.0.3)
     rack-cors (0.4.1)
-    rack-protection (1.5.3)
+    rack-protection (2.0.0)
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -427,7 +427,7 @@ GEM
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
     rubyzip (1.2.1)
-    rufus-scheduler (3.4.0)
+    rufus-scheduler (3.4.2)
       et-orbi (~> 1.0)
     safe_yaml (1.0.4)
     sass (3.4.23)
@@ -441,13 +441,12 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
-    sidekiq (4.2.9)
+    sidekiq (5.0.4)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
-      redis (~> 3.2, >= 3.2.1)
-    sidekiq-scheduler (2.1.0)
-      hashie (~> 3.4)
+      redis (~> 3.3, >= 3.3.3)
+    sidekiq-scheduler (2.1.7)
       redis (~> 3)
       rufus-scheduler (~> 3.2)
       sidekiq (>= 3)
@@ -485,7 +484,7 @@ GEM
       ref
     thor (0.19.4)
     thread_safe (0.3.6)
-    tilt (2.0.7)
+    tilt (2.0.8)
     timecop (0.8.1)
     trollop (2.1.2)
     tumblr_client (0.8.5)
@@ -617,4 +616,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.15.1
+   1.15.3
