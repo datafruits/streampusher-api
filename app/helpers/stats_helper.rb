@@ -10,7 +10,11 @@ module StatsHelper
   end
 
   def average_listening_minutes_per_session listens
-    listens.map{|m| m.length / 60.0 }.sum / listens.length
+    if listens.length > 0
+      listens.map{|m| m.length / 60.0 }.sum / listens.length
+    else
+      0
+    end
   end
 
   def average_listening_minutes_per_hour listens
