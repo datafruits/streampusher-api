@@ -19,6 +19,11 @@ class AccountMailer < ApplicationMailer
     mail subject: "Your free trial on Streampusher has ended", to: @user.email
   end
 
+  def day_after_trial_ended user
+    @user = user
+    mail subject: "Can I offer you a discount?", to: @user.email
+  end
+
   def subscription_updated user, old_plan, new_plan
     @user = user
     @old_plan = old_plan
