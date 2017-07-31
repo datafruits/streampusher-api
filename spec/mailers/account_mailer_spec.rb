@@ -5,7 +5,6 @@ RSpec.describe AccountMailer, type: :mailer do
   let(:invoice){ { amount: "1900", currency: "USD", amount_due: "950" } }
   it "sends invoice mail" do
     mail = AccountMailer.invoice(user, invoice).deliver_now
-    puts mail.body
   end
   describe "with coupon" do
     let(:invoice){ { amount: "1900", currency: "USD", amount_due: "950", coupon: { percent_off: 50 } } }
