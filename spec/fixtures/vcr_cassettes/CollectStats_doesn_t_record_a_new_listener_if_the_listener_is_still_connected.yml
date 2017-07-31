@@ -21,13 +21,13 @@ http_interactions:
       message: OK
     headers:
       Server:
-      - nginx/1.10.0 (Ubuntu)
+      - nginx/1.10.3 (Ubuntu)
       Date:
-      - Wed, 24 May 2017 13:41:15 GMT
+      - Mon, 31 Jul 2017 07:42:09 GMT
       Content-Type:
       - text/xml
       Content-Length:
-      - '2962'
+      - '5178'
       Connection:
       - keep-alive
     body:
@@ -35,93 +35,166 @@ http_interactions:
       string: |
         <?xml version="1.0"?>
         <icestats>
-          <source mount="/Noughtie90s.mp3">
+          <source mount="/Gday.mp3">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>1433920</Connected>
+            <Connected>944877</Connected>
             <content-type>audio/mpeg</content-type>
           </source>
-          <source mount="/Noughtie90s.ogg">
+          <source mount="/Gday.ogg">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>1123725</Connected>
+            <Connected>410983</Connected>
             <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/InternetPublicRadio.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>170635</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/InternetPublicRadio.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>117572</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/Noughtie90s.mp3">
+            <listeners>1</listeners>
+            <Listeners>1</Listeners>
+            <Connected>410979</Connected>
+            <content-type>audio/mpeg</content-type>
+            <listener id="3092245">
+              <ID>3092245</ID>
+              <IP>88.99.58.145</IP>
+              <UserAgent>WinampMPEG/5.50</UserAgent>
+              <lag>0</lag>
+              <Connected>17429</Connected>
+            </listener>
           </source>
           <source mount="/Pride365.mp3">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>2538400</Connected>
+            <Connected>979119</Connected>
             <content-type>audio/mpeg</content-type>
           </source>
           <source mount="/Pride365.ogg">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>2538400</Connected>
+            <Connected>979118</Connected>
             <content-type>application/ogg</content-type>
           </source>
-          <source mount="/Radio_AM.mp3">
+          <source mount="/RADIOWYDMINY.mp3">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>729758</Connected>
+            <Connected>410979</Connected>
             <content-type>audio/mpeg</content-type>
           </source>
-          <source mount="/Radio_AM.ogg">
+          <source mount="/RADIOWYDMINY.ogg">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>729758</Connected>
+            <Connected>945535</Connected>
             <content-type>application/ogg</content-type>
           </source>
-          <source mount="/SelfiezzyRadio.mp3">
+          <source mount="/RadioONE.mp3">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>661239</Connected>
+            <Connected>410979</Connected>
             <content-type>audio/mpeg</content-type>
           </source>
-          <source mount="/SelfiezzyRadio.ogg">
+          <source mount="/RadioONE.ogg">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>661239</Connected>
+            <Connected>944869</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/RebelFM.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>955830</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/RebelFM.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>955826</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/TransitFM.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>945307</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/TransitFM.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>945307</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/WTMTheMountain.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>945721</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/WTMTheMountain.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>945720</Connected>
             <content-type>application/ogg</content-type>
           </source>
           <source mount="/datafruits.mp3">
             <listeners>3</listeners>
             <Listeners>3</Listeners>
-            <Connected>1123726</Connected>
+            <Connected>945117</Connected>
             <content-type>audio/mpeg</content-type>
-            <listener id="594703">
-              <ID>594703</ID>
-              <IP>108.20.34.198</IP>
-              <UserAgent>Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</UserAgent>
+            <listener id="3100032">
+              <ID>3100032</ID>
+              <IP>14.3.163.96</IP>
+              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36</UserAgent>
+              <Referer>https://streampusher.com/</Referer>
+              <lag>0</lag>
+              <Connected>99</Connected>
+            </listener>
+            <listener id="3100051">
+              <ID>3100051</ID>
+              <IP>14.3.163.96</IP>
+              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36</UserAgent>
               <Referer>http://www.datafruits.fm/</Referer>
               <lag>0</lag>
-              <Connected>59493</Connected>
+              <Connected>84</Connected>
             </listener>
-            <listener id="615317">
-              <ID>615317</ID>
-              <IP>110.4.177.176</IP>
-              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</UserAgent>
-              <Referer>http://www.datafruits.fm/chat</Referer>
+            <listener id="3100058">
+              <ID>3100058</ID>
+              <IP>14.3.163.96</IP>
+              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36</UserAgent>
+              <Referer>http://www.datafruits.fm/</Referer>
               <lag>0</lag>
-              <Connected>1555</Connected>
-            </listener>
-            <listener id="615618">
-              <ID>615618</ID>
-              <IP>110.4.177.176</IP>
-              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</UserAgent>
-              <Referer>https://streampusher.com/playlists/3</Referer>
-              <lag>0</lag>
-              <Connected>612</Connected>
+              <Connected>75</Connected>
             </listener>
           </source>
           <source mount="/datafruits.ogg">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>347936</Connected>
+            <Connected>945117</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/vladimirbera.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>979093</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/vladimirbera.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>5096</Connected>
             <content-type>application/ogg</content-type>
           </source>
         </icestats>
     http_version: 
-  recorded_at: Wed, 24 May 2017 13:41:15 GMT
+  recorded_at: Mon, 31 Jul 2017 07:42:09 GMT
 - request:
     method: get
     uri: https://streampusher-relay.club//admin/listmounts?with_listeners
@@ -143,13 +216,13 @@ http_interactions:
       message: OK
     headers:
       Server:
-      - nginx/1.10.0 (Ubuntu)
+      - nginx/1.10.3 (Ubuntu)
       Date:
-      - Wed, 24 May 2017 13:41:15 GMT
+      - Mon, 31 Jul 2017 07:42:10 GMT
       Content-Type:
       - text/xml
       Content-Length:
-      - '2962'
+      - '5179'
       Connection:
       - keep-alive
     body:
@@ -157,93 +230,166 @@ http_interactions:
       string: |
         <?xml version="1.0"?>
         <icestats>
-          <source mount="/Noughtie90s.mp3">
+          <source mount="/Gday.mp3">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>1433920</Connected>
+            <Connected>944878</Connected>
             <content-type>audio/mpeg</content-type>
           </source>
-          <source mount="/Noughtie90s.ogg">
+          <source mount="/Gday.ogg">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>1123725</Connected>
+            <Connected>410984</Connected>
             <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/InternetPublicRadio.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>170636</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/InternetPublicRadio.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>117573</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/Noughtie90s.mp3">
+            <listeners>1</listeners>
+            <Listeners>1</Listeners>
+            <Connected>410980</Connected>
+            <content-type>audio/mpeg</content-type>
+            <listener id="3092245">
+              <ID>3092245</ID>
+              <IP>88.99.58.145</IP>
+              <UserAgent>WinampMPEG/5.50</UserAgent>
+              <lag>0</lag>
+              <Connected>17430</Connected>
+            </listener>
           </source>
           <source mount="/Pride365.mp3">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>2538400</Connected>
+            <Connected>979120</Connected>
             <content-type>audio/mpeg</content-type>
           </source>
           <source mount="/Pride365.ogg">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>2538400</Connected>
+            <Connected>979119</Connected>
             <content-type>application/ogg</content-type>
           </source>
-          <source mount="/Radio_AM.mp3">
+          <source mount="/RADIOWYDMINY.mp3">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>729758</Connected>
+            <Connected>410980</Connected>
             <content-type>audio/mpeg</content-type>
           </source>
-          <source mount="/Radio_AM.ogg">
+          <source mount="/RADIOWYDMINY.ogg">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>729758</Connected>
+            <Connected>945536</Connected>
             <content-type>application/ogg</content-type>
           </source>
-          <source mount="/SelfiezzyRadio.mp3">
+          <source mount="/RadioONE.mp3">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>661239</Connected>
+            <Connected>410980</Connected>
             <content-type>audio/mpeg</content-type>
           </source>
-          <source mount="/SelfiezzyRadio.ogg">
+          <source mount="/RadioONE.ogg">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>661239</Connected>
+            <Connected>944870</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/RebelFM.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>955831</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/RebelFM.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>955827</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/TransitFM.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>945308</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/TransitFM.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>945308</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/WTMTheMountain.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>945722</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/WTMTheMountain.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>945721</Connected>
             <content-type>application/ogg</content-type>
           </source>
           <source mount="/datafruits.mp3">
             <listeners>3</listeners>
             <Listeners>3</Listeners>
-            <Connected>1123726</Connected>
+            <Connected>945118</Connected>
             <content-type>audio/mpeg</content-type>
-            <listener id="594703">
-              <ID>594703</ID>
-              <IP>108.20.34.198</IP>
-              <UserAgent>Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</UserAgent>
+            <listener id="3100032">
+              <ID>3100032</ID>
+              <IP>14.3.163.96</IP>
+              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36</UserAgent>
+              <Referer>https://streampusher.com/</Referer>
+              <lag>0</lag>
+              <Connected>100</Connected>
+            </listener>
+            <listener id="3100051">
+              <ID>3100051</ID>
+              <IP>14.3.163.96</IP>
+              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36</UserAgent>
               <Referer>http://www.datafruits.fm/</Referer>
               <lag>0</lag>
-              <Connected>59493</Connected>
+              <Connected>85</Connected>
             </listener>
-            <listener id="615317">
-              <ID>615317</ID>
-              <IP>110.4.177.176</IP>
-              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</UserAgent>
-              <Referer>http://www.datafruits.fm/chat</Referer>
+            <listener id="3100058">
+              <ID>3100058</ID>
+              <IP>14.3.163.96</IP>
+              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36</UserAgent>
+              <Referer>http://www.datafruits.fm/</Referer>
               <lag>0</lag>
-              <Connected>1555</Connected>
-            </listener>
-            <listener id="615618">
-              <ID>615618</ID>
-              <IP>110.4.177.176</IP>
-              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</UserAgent>
-              <Referer>https://streampusher.com/playlists/3</Referer>
-              <lag>0</lag>
-              <Connected>612</Connected>
+              <Connected>76</Connected>
             </listener>
           </source>
           <source mount="/datafruits.ogg">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>347936</Connected>
+            <Connected>945118</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/vladimirbera.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>979094</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/vladimirbera.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>5097</Connected>
             <content-type>application/ogg</content-type>
           </source>
         </icestats>
     http_version: 
-  recorded_at: Wed, 24 May 2017 13:41:16 GMT
+  recorded_at: Mon, 31 Jul 2017 07:42:10 GMT
 - request:
     method: get
     uri: https://streampusher-relay.club//admin/listmounts?with_listeners
@@ -265,13 +411,13 @@ http_interactions:
       message: OK
     headers:
       Server:
-      - nginx/1.10.0 (Ubuntu)
+      - nginx/1.10.3 (Ubuntu)
       Date:
-      - Wed, 24 May 2017 13:41:16 GMT
+      - Mon, 31 Jul 2017 07:42:11 GMT
       Content-Type:
       - text/xml
       Content-Length:
-      - '2962'
+      - '5179'
       Connection:
       - keep-alive
     body:
@@ -279,93 +425,166 @@ http_interactions:
       string: |
         <?xml version="1.0"?>
         <icestats>
-          <source mount="/Noughtie90s.mp3">
+          <source mount="/Gday.mp3">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>1433921</Connected>
+            <Connected>944879</Connected>
             <content-type>audio/mpeg</content-type>
           </source>
-          <source mount="/Noughtie90s.ogg">
+          <source mount="/Gday.ogg">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>1123726</Connected>
+            <Connected>410985</Connected>
             <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/InternetPublicRadio.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>170637</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/InternetPublicRadio.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>117574</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/Noughtie90s.mp3">
+            <listeners>1</listeners>
+            <Listeners>1</Listeners>
+            <Connected>410981</Connected>
+            <content-type>audio/mpeg</content-type>
+            <listener id="3092245">
+              <ID>3092245</ID>
+              <IP>88.99.58.145</IP>
+              <UserAgent>WinampMPEG/5.50</UserAgent>
+              <lag>0</lag>
+              <Connected>17431</Connected>
+            </listener>
           </source>
           <source mount="/Pride365.mp3">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>2538401</Connected>
+            <Connected>979121</Connected>
             <content-type>audio/mpeg</content-type>
           </source>
           <source mount="/Pride365.ogg">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>2538401</Connected>
+            <Connected>979120</Connected>
             <content-type>application/ogg</content-type>
           </source>
-          <source mount="/Radio_AM.mp3">
+          <source mount="/RADIOWYDMINY.mp3">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>729759</Connected>
+            <Connected>410981</Connected>
             <content-type>audio/mpeg</content-type>
           </source>
-          <source mount="/Radio_AM.ogg">
+          <source mount="/RADIOWYDMINY.ogg">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>729759</Connected>
+            <Connected>945537</Connected>
             <content-type>application/ogg</content-type>
           </source>
-          <source mount="/SelfiezzyRadio.mp3">
+          <source mount="/RadioONE.mp3">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>661240</Connected>
+            <Connected>410981</Connected>
             <content-type>audio/mpeg</content-type>
           </source>
-          <source mount="/SelfiezzyRadio.ogg">
+          <source mount="/RadioONE.ogg">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>661240</Connected>
+            <Connected>944871</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/RebelFM.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>955832</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/RebelFM.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>955828</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/TransitFM.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>945309</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/TransitFM.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>945309</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/WTMTheMountain.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>945723</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/WTMTheMountain.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>945722</Connected>
             <content-type>application/ogg</content-type>
           </source>
           <source mount="/datafruits.mp3">
             <listeners>3</listeners>
             <Listeners>3</Listeners>
-            <Connected>1123727</Connected>
+            <Connected>945119</Connected>
             <content-type>audio/mpeg</content-type>
-            <listener id="594703">
-              <ID>594703</ID>
-              <IP>108.20.34.198</IP>
-              <UserAgent>Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</UserAgent>
+            <listener id="3100032">
+              <ID>3100032</ID>
+              <IP>14.3.163.96</IP>
+              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36</UserAgent>
+              <Referer>https://streampusher.com/</Referer>
+              <lag>0</lag>
+              <Connected>101</Connected>
+            </listener>
+            <listener id="3100051">
+              <ID>3100051</ID>
+              <IP>14.3.163.96</IP>
+              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36</UserAgent>
               <Referer>http://www.datafruits.fm/</Referer>
               <lag>0</lag>
-              <Connected>59494</Connected>
+              <Connected>86</Connected>
             </listener>
-            <listener id="615317">
-              <ID>615317</ID>
-              <IP>110.4.177.176</IP>
-              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</UserAgent>
-              <Referer>http://www.datafruits.fm/chat</Referer>
+            <listener id="3100058">
+              <ID>3100058</ID>
+              <IP>14.3.163.96</IP>
+              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36</UserAgent>
+              <Referer>http://www.datafruits.fm/</Referer>
               <lag>0</lag>
-              <Connected>1556</Connected>
-            </listener>
-            <listener id="615618">
-              <ID>615618</ID>
-              <IP>110.4.177.176</IP>
-              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</UserAgent>
-              <Referer>https://streampusher.com/playlists/3</Referer>
-              <lag>0</lag>
-              <Connected>613</Connected>
+              <Connected>77</Connected>
             </listener>
           </source>
           <source mount="/datafruits.ogg">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>347937</Connected>
+            <Connected>945119</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/vladimirbera.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>979095</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/vladimirbera.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>5098</Connected>
             <content-type>application/ogg</content-type>
           </source>
         </icestats>
     http_version: 
-  recorded_at: Wed, 24 May 2017 13:41:16 GMT
+  recorded_at: Mon, 31 Jul 2017 07:42:11 GMT
 - request:
     method: get
     uri: https://streampusher-relay.club//admin/listmounts?with_listeners
@@ -387,13 +606,13 @@ http_interactions:
       message: OK
     headers:
       Server:
-      - nginx/1.10.0 (Ubuntu)
+      - nginx/1.10.3 (Ubuntu)
       Date:
-      - Wed, 24 May 2017 13:41:17 GMT
+      - Mon, 31 Jul 2017 07:42:12 GMT
       Content-Type:
       - text/xml
       Content-Length:
-      - '2971'
+      - '5179'
       Connection:
       - keep-alive
     body:
@@ -401,91 +620,164 @@ http_interactions:
       string: |
         <?xml version="1.0"?>
         <icestats>
-          <source mount="/Noughtie90s.mp3">
+          <source mount="/Gday.mp3">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>1433922</Connected>
+            <Connected>944880</Connected>
             <content-type>audio/mpeg</content-type>
           </source>
-          <source mount="/Noughtie90s.ogg">
+          <source mount="/Gday.ogg">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>1123727</Connected>
+            <Connected>410986</Connected>
             <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/InternetPublicRadio.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>170638</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/InternetPublicRadio.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>117575</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/Noughtie90s.mp3">
+            <listeners>1</listeners>
+            <Listeners>1</Listeners>
+            <Connected>410982</Connected>
+            <content-type>audio/mpeg</content-type>
+            <listener id="3092245">
+              <ID>3092245</ID>
+              <IP>88.99.58.145</IP>
+              <UserAgent>WinampMPEG/5.50</UserAgent>
+              <lag>0</lag>
+              <Connected>17432</Connected>
+            </listener>
           </source>
           <source mount="/Pride365.mp3">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>2538402</Connected>
+            <Connected>979122</Connected>
             <content-type>audio/mpeg</content-type>
           </source>
           <source mount="/Pride365.ogg">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>2538402</Connected>
+            <Connected>979121</Connected>
             <content-type>application/ogg</content-type>
           </source>
-          <source mount="/Radio_AM.mp3">
+          <source mount="/RADIOWYDMINY.mp3">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>729760</Connected>
+            <Connected>410982</Connected>
             <content-type>audio/mpeg</content-type>
           </source>
-          <source mount="/Radio_AM.ogg">
+          <source mount="/RADIOWYDMINY.ogg">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>729760</Connected>
+            <Connected>945538</Connected>
             <content-type>application/ogg</content-type>
           </source>
-          <source mount="/SelfiezzyRadio.mp3">
+          <source mount="/RadioONE.mp3">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>661241</Connected>
+            <Connected>410982</Connected>
             <content-type>audio/mpeg</content-type>
           </source>
-          <source mount="/SelfiezzyRadio.ogg">
+          <source mount="/RadioONE.ogg">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>661241</Connected>
+            <Connected>944872</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/RebelFM.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>955833</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/RebelFM.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>955829</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/TransitFM.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>945310</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/TransitFM.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>945310</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/WTMTheMountain.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>945724</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/WTMTheMountain.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>945723</Connected>
             <content-type>application/ogg</content-type>
           </source>
           <source mount="/datafruits.mp3">
             <listeners>3</listeners>
             <Listeners>3</Listeners>
-            <Connected>1123728</Connected>
+            <Connected>945120</Connected>
             <content-type>audio/mpeg</content-type>
-            <listener id="594703">
-              <ID>594703</ID>
-              <IP>108.20.34.198</IP>
-              <UserAgent>Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</UserAgent>
+            <listener id="3100032">
+              <ID>3100032</ID>
+              <IP>14.3.163.96</IP>
+              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36</UserAgent>
+              <Referer>https://streampusher.com/</Referer>
+              <lag>0</lag>
+              <Connected>102</Connected>
+            </listener>
+            <listener id="3100051">
+              <ID>3100051</ID>
+              <IP>14.3.163.96</IP>
+              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36</UserAgent>
               <Referer>http://www.datafruits.fm/</Referer>
-              <lag>1254</lag>
-              <Connected>59495</Connected>
+              <lag>0</lag>
+              <Connected>87</Connected>
             </listener>
-            <listener id="615317">
-              <ID>615317</ID>
-              <IP>110.4.177.176</IP>
-              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</UserAgent>
-              <Referer>http://www.datafruits.fm/chat</Referer>
-              <lag>1254</lag>
-              <Connected>1557</Connected>
-            </listener>
-            <listener id="615618">
-              <ID>615618</ID>
-              <IP>110.4.177.176</IP>
-              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</UserAgent>
-              <Referer>https://streampusher.com/playlists/3</Referer>
-              <lag>1254</lag>
-              <Connected>614</Connected>
+            <listener id="3100058">
+              <ID>3100058</ID>
+              <IP>14.3.163.96</IP>
+              <UserAgent>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36</UserAgent>
+              <Referer>http://www.datafruits.fm/</Referer>
+              <lag>0</lag>
+              <Connected>78</Connected>
             </listener>
           </source>
           <source mount="/datafruits.ogg">
             <listeners>0</listeners>
             <Listeners>0</Listeners>
-            <Connected>347938</Connected>
+            <Connected>945120</Connected>
+            <content-type>application/ogg</content-type>
+          </source>
+          <source mount="/vladimirbera.mp3">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>979096</Connected>
+            <content-type>audio/mpeg</content-type>
+          </source>
+          <source mount="/vladimirbera.ogg">
+            <listeners>0</listeners>
+            <Listeners>0</Listeners>
+            <Connected>5099</Connected>
             <content-type>application/ogg</content-type>
           </source>
         </icestats>
     http_version: 
-  recorded_at: Wed, 24 May 2017 13:41:17 GMT
+  recorded_at: Mon, 31 Jul 2017 07:42:12 GMT
 recorded_with: VCR 3.0.3
