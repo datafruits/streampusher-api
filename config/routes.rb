@@ -28,11 +28,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :playlists do
-    member do
-      post 'update_order'
-    end
-  end
+  resources :playlists
 
   resources :subscriptions, only: [:edit, :update]
 
