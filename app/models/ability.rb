@@ -89,7 +89,13 @@ class Ability
       can :update, Label if can_manage_radio?(user, radio)
       can :index, Label if format == "json"
 
-      can :manage, Playlist do |playlist|
+      can :read, Playlist do |playlist|
+        can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)
+      end
+      can :create, Playlist do |playlist|
+        can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)
+      end
+      can :update, Playlist do |playlist|
         can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)
       end
 
