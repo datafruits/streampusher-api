@@ -11,7 +11,10 @@ export default Ember.Component.extend({
     deletePlaylist(){
       if(confirm("Are you sure you want to delete this playlist?")){
         var playlist = this.get('playlist');
-        playlist.destroyRecord();
+        this.set('isEditingSettings', false);
+        playlist.destroyRecord().then(() => {
+          this.sendAction('transitionAfterDelete');
+        });
       }
     },
     reorderItems(groupModel, itemModels, draggedModel) {

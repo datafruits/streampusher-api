@@ -9,6 +9,11 @@
     <img class="uploader-icon" src="/assets/uploadericon.png"/>
   </div>
   <div class="col-md-7">
-    {{playlist-tracks-list playlist=model.playlist playlists=model.playlists isSyncingPlaylist=isSyncingPlaylist setIsSyncingPlaylist=(route-action "setIsSyncingPlaylist")}}
+    {{playlist-tracks-list playlist=model.playlist
+        playlists=model.playlists
+        isSyncingPlaylist=isSyncingPlaylist
+        setIsSyncingPlaylist=(route-action "setIsSyncingPlaylist")
+        transitionAfterDelete=(route-action "transitionAfterDelete")
+    }}
   </div>
 </div>
