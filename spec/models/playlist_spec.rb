@@ -20,4 +20,13 @@ RSpec.describe Playlist, :type => :model do
     playlist.remove_track track
     expect(playlist.tracks.include?(track)).to eq false
   end
+
+  it "sets another playlist to default if default is being destroyed" do
+    radio  = FactoryGirl.create :radio
+    playlist_1 = FactoryGirl.create :playlist, radio: radio
+    playlist_2 = FactoryGirl.create :playlist, radio: radio
+    radio.default_playlist.destroy
+    radio.reload
+    expect(radio.default_playlist).to eq playlist_2
+  end
 end

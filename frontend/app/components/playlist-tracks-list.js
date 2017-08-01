@@ -8,6 +8,12 @@ export default Ember.Component.extend({
   isSelectingPlaylist: false,
   isSyncingPlaylist: false,
   actions: {
+    deletePlaylist(){
+      if(confirm("Are you sure you want to delete this playlist?")){
+        var playlist = this.get('playlist');
+        playlist.destroyRecord();
+      }
+    },
     reorderItems(groupModel, itemModels, draggedModel) {
       this.sendAction('setIsSyncingPlaylist', true);
 

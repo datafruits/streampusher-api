@@ -55,6 +55,15 @@ class PlaylistsController < ApplicationController
     end
   end
 
+  def destroy
+    @playlist = @current_radio.playlists.find params[:id]
+    if @playlist.destroy
+      render json: @playlist
+    else
+      render json: @playlist.errors
+    end
+  end
+
   private
   def create_params
     params.require(:playlist).permit(:name, :radio_id)
