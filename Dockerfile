@@ -15,8 +15,8 @@ RUN apt-get install -y build-essential libtag1-dev libqtwebkit-dev qt4-qmake \
 RUN apt-get install -y --force-yes libssl-dev libreadline-dev
 
 # node
+RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 RUN apt-get install -y nodejs
-RUN apt-get install -y nodejs-legacy
 # yarn
 RUN sudo apt-get install apt-transport-https
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
