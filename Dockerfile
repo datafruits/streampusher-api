@@ -18,9 +18,10 @@ RUN apt-get install -y --force-yes libssl-dev libreadline-dev
 RUN apt-get install -y nodejs
 RUN apt-get install -y nodejs-legacy
 # yarn
+RUN sudo apt-get install apt-transport-https
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-RUN sudo apt-get update && sudo apt-get install yarn
+RUN sudo apt-get update && sudo apt-get install -y yarn
 RUN yarn global add bower
 
 RUN apt-get clean
