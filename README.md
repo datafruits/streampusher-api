@@ -41,6 +41,12 @@ Install ruby with rbenv or something.
 * postgresql
 * redis
 
+* taglib-dev
+```
+sudo apt-get install libtag1-dev
+```
+
+##### setup
 ```
 $ cp config/database.example.yml config/database.yml
 $ bundle install
