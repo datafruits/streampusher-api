@@ -35,7 +35,7 @@ liquidsoap/icecast instances however. Here is how you would do that.
 Install ruby with rbenv or something.
 
 #### system deps
-* ruby
+* ruby (2.3 or higher)
 * bundler
 * node
 * postgresql
