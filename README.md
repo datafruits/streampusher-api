@@ -49,6 +49,7 @@ sudo apt-get install libtag1-dev
 ##### setup
 ```
 $ cp config/database.example.yml config/database.yml
+$ cp .env.sample .env
 $ bundle install
 $ bundle exec rake db:create
 $ bundle exec rake db:migrate
