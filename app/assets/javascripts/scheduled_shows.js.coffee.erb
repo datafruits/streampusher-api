@@ -19,5 +19,5 @@ $('[data-controller=scheduled_shows]').ready ->
      eventClick: (calEvent, jsEvent, view) ->
        window.location = "/scheduled_shows/#{calEvent.id}"
      dayClick: (date, jsEvent, view) ->
-       $.get("/scheduled_shows/new?start_at=#{date.format()}")
+       $.get("/scheduled_shows/new.js?start_at=#{date.format()}")
    })
