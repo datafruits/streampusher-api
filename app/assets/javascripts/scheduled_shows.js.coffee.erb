@@ -21,3 +21,7 @@ $('[data-controller=scheduled_shows]').ready ->
      dayClick: (date, jsEvent, view) ->
        $.get("/scheduled_shows/new?start_at=#{date.format()}")
    })
+  $("#modal-holder").on('hide.bs.modal', (e) ->
+    if (!confirm('Exiting the scheduler will lose all progress. Are you sure?'))
+      e.preventDefault()
+  )
