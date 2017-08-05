@@ -21,3 +21,8 @@ $('[data-controller=scheduled_shows]').ready ->
      dayClick: (date, jsEvent, view) ->
        $.get("/scheduled_shows/new.js?start_at=#{date.format()}")
    })
+  $('#modal-holder').on('hide.bs.modal', (e) ->
+    if ($('#scheduled_show_title')[0].value.length > 0)
+      if (!confirm('Changes have been made and will be lost if you continue with "OK". Otherwise press "Cancel" to continue scheduling the show.'))
+        e.preventDefault()    
+  )
