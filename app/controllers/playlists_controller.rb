@@ -4,7 +4,6 @@ class PlaylistsController < ApplicationController
     authorize! :manage, @playlist, params[:format]
     respond_to do |format|
       format.html {
-        @tracks = @current_radio.tracks
         render 'show'
       }
       format.json {
