@@ -12,18 +12,19 @@
         <table class="table">
           <tr>
             <td>Host:</td>
-            <td><%= @current_radio.virtual_host %></td>
+            <td><input type='text' readonly value="<%= @current_radio.virtual_host %>" /></td>
           </tr>
           <tr>
             <td>Port:</td>
-            <td><%= @current_radio.liquidsoap_harbor_port %></td>
+            <td><input type='text' readonly value="<%= @current_radio.liquidsoap_harbor_port %>" /></td>
           </tr>
           <tr>
             <td>Mount:</td>
-            <td><%= "/#{@current_radio.container_name}"%></td>
+            <td><input type='text' readonly value="<%= "/#{@current_radio.container_name}"%>" /></td>
           </tr>
           <tr>
-            <td>Password:</td><td><%= "#{@current_user.username};YOURPASSWORD" %></td>
+            <td>Password:</td>
+            <td><input type='text' readonly value="<%= "#{@current_user.username};YOURPASSWORD" %>" /></td>
           </tr>
         </table>
       <% else %>
