@@ -3,12 +3,11 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $('[data-controller=stats][data-action=index]').ready ->
+  listens = $("#app-data").data("listens")
   mymap = L.map('map').setView([51.505, -0.09], 13)
-  <% if @listens %>
-    <% @listens.each do |listen| %>
-      marker = L.marker([<%= listen.lat %>, <%= listen.long %>]).addTo(mymap)
-    <% end %>
-  <% end %>
+  if listens.length
+    for listen in listens
+      marker = L.marker([listen.lat, listen.long]).addTo(mymap)
 
   new Calendar({
     element: $('.daterange--double'),
@@ -16,11 +15,11 @@ $('[data-controller=stats][data-action=index]').ready ->
     latest_date: moment(),
     start_date: '2015-05-01',
     end_date: '2015-05-31',
-    callback: () =>
+    callback: () ->
       start = moment(this.start_date).format('ll')
       end = moment(this.end_date).format('ll')
-
-      console.debug('Start Date: '+ start +'\nEnd Date: '+ end)
+      console.log(start)
+      console.log(end)
   })
 
   ctx = document.getElementById("totalSessionsChart").getContext("2d")
@@ -41,7 +40,9 @@ $('[data-controller=stats][data-action=index]').ready ->
     }
   }
 
-  $.get "/listens.json", (listens) ->
+  start_at = $("#app-data").data("start-at")
+  end_at = $("#app-data").data("start-at")
+  $.get "/listens.json?start_at=#{encodeURIComponent(start_at)}&end_at=#{encodeURIComponent(end_at)}", (listens) ->
     data = {
       labels: _.keys(listens)
       datasets: [

@@ -1,3 +1,10 @@
+<div id="app-data"
+     data-listens="<%=
+     json_escape(ActiveModel::ArraySerializer.new(@listens, each_serializer: ListenSerializer).to_json)%>"
+     data-start-at="<%=@start_at%>"
+     data-end-at="<%=@start_at%>"
+  >
+</div>
 <div class="row">
   <div class="col-md-12">
     <h2>Period</h2>
