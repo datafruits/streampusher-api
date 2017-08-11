@@ -16,10 +16,9 @@ $('[data-controller=stats][data-action=index]').ready ->
     start_date: '2015-05-01',
     end_date: '2015-05-31',
     callback: () ->
-      start = moment(this.start_date).format('ll')
-      end = moment(this.end_date).format('ll')
-      console.log(start)
-      console.log(end)
+      start = moment(this.start_date).format()
+      end = moment(this.end_date).format()
+      window.location = "/stats?start_at=#{encodeURIComponent(start)}&end_at=#{encodeURIComponent(end)}"
   })
 
   ctx = document.getElementById("totalSessionsChart").getContext("2d")
