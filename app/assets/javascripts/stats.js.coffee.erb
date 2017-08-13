@@ -4,23 +4,38 @@
 
 $('[data-controller=stats][data-action=index]').ready ->
   listens = $("#app-data").data("listens")
+  digested_icon = L.icon({
+    iconUrl: "<%= image_path 'leaflet/dist/images/marker-icon.png' %>"
+    iconRetinaUrl: "<%= image_path 'leaflet/dist/images/marker-icon-2x.png' %>"
+    shadowUrl: "<%= image_path 'leaflet/dist/images/marker-shadow.png' %>"
+  })
   mymap = L.map('map').setView([51.505, -0.09], 13)
+  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic3RyZWFtcHVzaGVyIiwiYSI6ImNqNjdnYmE1YjA1eW4zM28xeG1udHRwNXgifQ.jboAt5BO2x36bWhIKLO2Vw', {
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+      maxZoom: 18,
+      id: 'mapbox.light'
+  }).addTo(mymap)
   if listens.length
     for listen in listens
-      marker = L.marker([listen.lat, listen.lon]).addTo(mymap)
+      marker = L.marker([listen.lat, listen.lon], { icon: digested_icon }).addTo(mymap)
 
+  start_at = $("#app-data").data('start-at')
+  end_at = $("#app-data").data('end-at')
   new Calendar({
     element: $('.daterange--double'),
     earliest_date: '2000-01-1',
     latest_date: moment(),
-    start_date: '2015-05-01',
-    end_date: '2015-05-31',
+    start_date: start_at,
+    end_date: end_at,
     callback: () ->
       start = moment(this.start_date).format()
       end = moment(this.end_date).format()
       window.location = "/stats?start_at=#{encodeURIComponent(start)}&end_at=#{encodeURIComponent(end)}"
   })
 
+
+  listens_by_day = $("#app-data").data("listens-by-day")
+  listens_by_hour = $("#app-data").data("listens-by-hour")
   ctx = document.getElementById("totalSessionsChart").getContext("2d")
   options = {
     legend: {
@@ -38,24 +53,39 @@ $('[data-controller=stats][data-action=index]').ready ->
       }]
     }
   }
+  data = {
+    labels: _.keys(listens_by_day)
+    datasets: [
+        {
+            label: "listens",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: _.values(listens_by_day)
+        },
+    ]
 
-  start_at = $("#app-data").data("start-at")
-  end_at = $("#app-data").data("start-at")
-  $.get "/listens.json?start_at=#{encodeURIComponent(start_at)}&end_at=#{encodeURIComponent(end_at)}", (listens) ->
-    data = {
-      labels: _.keys(listens)
-      datasets: [
-          {
-              label: "listens",
-              fillColor: "rgba(220,220,220,0.2)",
-              strokeColor: "rgba(220,220,220,1)",
-              pointColor: "rgba(220,220,220,1)",
-              pointStrokeColor: "#fff",
-              pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(220,220,220,1)",
-              data: _.values(listens)
-          },
-      ]
+  }
+  totalSessionsChart = new Chart(ctx, { type: 'line', data: data, options: options })
 
-    }
-    listensChart = new Chart(ctx, { type: 'line', data: data, options: options })
+  ctx = document.getElementById("sessionsPerHourChart").getContext("2d")
+  data = {
+    labels: _.keys(listens_by_hour)
+    datasets: [
+        {
+            label: "listens",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: _.values(listens_by_hour)
+        },
+    ]
+
+  }
+  sessionsPerHourChart = new Chart(ctx, { type: 'line', data: data, options: options })

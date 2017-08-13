@@ -1,8 +1,11 @@
 <div id="app-data"
      data-listens="<%=
      json_escape(ActiveModel::ArraySerializer.new(@listens, each_serializer: ListenSerializer).to_json)%>"
+
+     data-listens-by-day="<%=json_escape @listens_by_day.to_json%>"
+     data-listens-by-hour="<%=json_escape @listens_by_hour.to_json%>"
      data-start-at="<%=@start_at%>"
-     data-end-at="<%=@start_at%>"
+     data-end-at="<%=@end_at%>"
   >
 </div>
 <div class="row">
