@@ -174,7 +174,7 @@ GEM
     dotenv-rails (2.2.0)
       dotenv (= 2.2.0)
       railties (>= 3.2, < 5.1)
-    ember-cli-rails (0.8.5)
+    ember-cli-rails (0.9.0)
       cocaine (~> 0.5.8)
       ember-cli-rails-assets (~> 0.6.2)
       html_page (~> 0.1.0)
