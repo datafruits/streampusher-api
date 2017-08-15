@@ -11,7 +11,7 @@ We wanted to let you know your card was billed automatically for the amount of <
 <h3>Plan</h3>
 <%= @invoice[:plan_id] %>
 <h3>Plan Amount</h3>
-<%= @invoice[:amount] %>
+<%= "#{number_to_currency(@invoice[:amount].to_d/100)}" %>
 <% if @invoice[:coupon].present? %>
   <h3>Coupon</h3>
   <% if @invoice[:coupon][:amount_off].present? %>
