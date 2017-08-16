@@ -6,6 +6,7 @@
      data-listens-by-hour="<%=json_escape @listens_by_hour.to_json%>"
      data-start-at="<%=@start_at%>"
      data-end-at="<%=@end_at%>"
+     data-average-listening-times="<%= json_escape average_listening_minutes_per_hour(@listens).to_json %>"
   >
 </div>
 <div class="row">
