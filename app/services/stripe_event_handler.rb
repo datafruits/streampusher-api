@@ -15,7 +15,9 @@ class StripeEventHandler
   def self.trial_will_end event
     # send warning email
     user = Subscription.find_by!(stripe_customer_token: event.data.object.customer).user
-    AccountMailer.trial_will_end(user).deliver_later
+    unless user.subscription.trial_ends_at < Date.today
+      AccountMailer.trial_will_end(user).deliver_later
+    end
   end
 
   def self.payment_failed event
