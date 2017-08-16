@@ -1,6 +1,6 @@
 class PlaylistsController < ApplicationController
   def show
-    @playlist = Playlist.includes(:playlist_tracks, :tracks).find params[:id]
+    @playlist = Playlist.includes(playlist_tracks: [track: [:labels]]).find params[:id]
     authorize! :manage, @playlist, params[:format]
     respond_to do |format|
       format.html {
