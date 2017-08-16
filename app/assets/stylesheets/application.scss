@@ -11,6 +11,7 @@
  * file per style scope.
  *
  *= require fullcalendar/fullcalendar.css
+ *= require BaremetricsCalendar
  *= require creditly.css
  *= require jquery-ui
  *= require admin
@@ -42,6 +43,10 @@ $marunochi: #E6040F;
 $chiyoda: #049B4E;
 $blue: #03B4F7;
 $blue2: #00a2ff;
+
+html {
+  font-size: 100%;
+}
 
 div.landing {
   img {

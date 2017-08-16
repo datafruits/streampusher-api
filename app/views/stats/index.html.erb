@@ -1,0 +1,74 @@
+<%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
+<div id="app-data"
+     data-listens="<%=
+     json_escape(ActiveModel::ArraySerializer.new(@listens, each_serializer: ListenSerializer).to_json)%>"
+
+     data-listens-by-day="<%=json_escape @listens_by_day.to_json%>"
+     data-listens-by-hour="<%=json_escape @listens_by_hour.to_json%>"
+     data-start-at="<%=@start_at%>"
+     data-end-at="<%=@end_at%>"
+     data-average-listening-times="<%= json_escape average_listening_minutes_per_hour(@listens).to_json %>"
+
+     data-listens-by-country="<%= @listens.where.not(country: nil).group(:country).count.to_a.to_json %>"
+  >
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <h2>Period</h2>
+    <div class="daterange daterange--double"></div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <div class="stats-box">
+      <h3>Total Sessions</h3>
+      <div class="stats-number">
+        <%= @listens.count %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="stats-box">
+      <h3>Average Sessions Per Hour</h3>
+      <div class="stats-number">
+        <%= average_sessions_per_hour(@listens_by_hour) %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="stats-box">
+      <h3>Average Listening Minutes Per Session</h3>
+      <div class="stats-number">
+        <%= sprintf('%.2f', average_listening_minutes_per_session(@listens.select(:start_at, :end_at))) %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <h1>Total Sessions</h1>
+    <div id="chart">
+      <canvas id="totalSessionsChart" width="600" height="400"></canvas>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <h1>Average Listening Minutes per Hour</h1>
+    <div id="chart">
+      <canvas id="averageListeningTimeChart" width="600" height="400"></canvas>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h1>Sessions per Hour</h1>
+    <div id="chart">
+      <canvas id="sessionsPerHourChart" width="600" height="400"></canvas>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <h1>World Map</h1>
+    <div id="regions_div" style="width: 900px; height: 500px;"></div>
+  </div>
+</div>

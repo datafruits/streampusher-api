@@ -24,6 +24,7 @@
 //= require jplayer/jquery.jplayer.js
 //= require underscore
 //= require chosen-jquery
+//= require BaremetricsCalendar
 //= require admin
 //= require bootstrap
 //= require djs
