@@ -5,10 +5,6 @@ class StripeEventHandler
       old_plan = event.data.previous_attributes.plan.id
       new_plan = event.data.object.plan.id
       AccountMailer.subscription_updated(user, old_plan, new_plan).deliver_later
-    elsif event.data.object.plan.name == "Free Trial"
-      if user.subscription.trial_ends_at < Date.today
-        AccountMailer.trial_ended(user).deliver_later
-      end
     end
   end
 
