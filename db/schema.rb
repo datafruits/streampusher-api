@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170528051649) do
+ActiveRecord::Schema.define(version: 20170816082538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20170528051649) do
     t.integer  "icecast_listener_id",             null: false
     t.string   "user_agent"
     t.string   "referer"
+    t.index ["radio_id"], name: "index_listens_on_radio_id", using: :btree
   end
 
   create_table "plans", force: :cascade do |t|
