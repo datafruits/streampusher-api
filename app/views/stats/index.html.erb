@@ -1,3 +1,4 @@
+<%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
 <div id="app-data"
      data-listens="<%=
      json_escape(ActiveModel::ArraySerializer.new(@listens, each_serializer: ListenSerializer).to_json)%>"
@@ -7,6 +8,8 @@
      data-start-at="<%=@start_at%>"
      data-end-at="<%=@end_at%>"
      data-average-listening-times="<%= json_escape average_listening_minutes_per_hour(@listens).to_json %>"
+
+     data-listens-by-country="<%= @listens.where.not(country: nil).group(:country).count.to_a.to_json %>"
   >
 </div>
 <div class="row">
@@ -66,6 +69,6 @@
 <div class="row">
   <div class="col-md-12">
     <h1>World Map</h1>
-    <div id="map"></div>
+    <div id="regions_div" style="width: 900px; height: 500px;"></div>
   </div>
 </div>

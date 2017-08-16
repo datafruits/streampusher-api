@@ -43,4 +43,3 @@
 //= require clock
 //= require bootstrap-tour
 //= require spectrum
-//= require leaflet

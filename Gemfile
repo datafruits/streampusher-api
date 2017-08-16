@@ -98,7 +98,6 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-underscore'
   gem 'rails-assets-bootstrap-tour'
   gem 'rails-assets-spectrum'
-  gem 'rails-assets-leaflet'
 end
 
 gem 'whenever', require: false
