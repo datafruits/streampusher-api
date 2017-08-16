@@ -1,7 +1,0 @@
-{
-  "name": "frontend",
-  "dependencies": {
-    "pikaday": "^1.4.0",
-    "jquery-ui": "^1.11.4"
-  }
-}
