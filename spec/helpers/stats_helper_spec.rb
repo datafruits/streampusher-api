@@ -73,7 +73,7 @@ RSpec.describe StatsHelper, type: :helper do
     end
     it "shows the average listened minutes per session for the given period" do
       listens = @radio.listens
-      expect(helper.average_listening_minutes_per_hour(listens)).to eq({Chronic.parse("yesterday at 8:00 pm").utc => 3.3333333333333335, Chronic.parse("yesterday at 9:00 pm").utc => 42.0})
+      expect(helper.average_listening_minutes_per_hour(listens)).to eq({Chronic.parse("yesterday at 8:00 pm").utc => 3, Chronic.parse("yesterday at 9:00 pm").utc => 42})
     end
   end
 end
