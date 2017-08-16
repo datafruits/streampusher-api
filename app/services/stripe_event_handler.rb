@@ -21,15 +21,8 @@ class StripeEventHandler
   end
 
   def self.payment_failed event
-    # figure out if this is an ended free trial
-    # or
-    # a failed charge
     user = Subscription.find_by!(stripe_customer_token: event.data.object.customer).user
-    if event.data.object.lines.data[0].plan.id == "Free Trial"
-      if user.subscription.trial_ends_at < Date.today
-        AccountMailer.trial_ended(user).deliver_later
-      end
-    else
+    unless event.data.object.lines.data[0].plan.id == "Free Trial"
       invoice = event.data.object
       AccountMailer.payment_failed(user, invoice).deliver_later
     end
