@@ -91,4 +91,10 @@ class Subscription < ActiveRecord::Base
       radio.disable_radio
     end
   end
+
+  def cancel_stripe_subscription
+    customer = Stripe::Customer.retrieve self.stripe_customer_token
+    subscription = customer.subscriptions.first
+    subscription.delete
+  end
 end
