@@ -8,6 +8,10 @@
   <%= f.input :tunein_partner_key, label: "Tunein Partner Key" %>
   <%= f.input :tunein_station_id, label: "Tunein Station ID" %>
 
+  <h3>Share url for shows</h3>
+  <p>example: http://www.myradio.com/shows/:show_id</p>
+  <%= f.input :show_share_url %>
+
   <%= f.submit 'Save Settings', class: 'btn btn-success' %>
 <% end %>
 

@@ -29,6 +29,6 @@ class RadiosController < ApplicationController
   def update_params
     params.require(:radio).permit(:default_playlist_id,
       :tunein_metadata_updates_enabled, :tunein_station_id, :tunein_partner_key,
-      :tunein_partner_id)
+      :tunein_partner_id, :show_share_url)
   end
 end

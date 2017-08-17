@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170816113056) do
+ActiveRecord::Schema.define(version: 20170817015321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(version: 20170816113056) do
     t.boolean  "social_identities_enabled",                   default: false, null: false
     t.string   "container_name",                                              null: false
     t.boolean  "schedule_monitor_enabled",                    default: false, null: false
+    t.string   "show_share_url"
   end
 
   create_table "recordings", force: :cascade do |t|
