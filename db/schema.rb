@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170817015321) do
+ActiveRecord::Schema.define(version: 20170818062213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,8 @@ ActiveRecord::Schema.define(version: 20170817015321) do
     t.datetime "updated_at"
     t.integer  "position"
     t.datetime "podcast_published_date"
+    t.index ["playlist_id"], name: "index_playlist_tracks_on_playlist_id", using: :btree
+    t.index ["track_id"], name: "index_playlist_tracks_on_track_id", using: :btree
   end
 
   create_table "playlists", force: :cascade do |t|
@@ -91,6 +93,8 @@ ActiveRecord::Schema.define(version: 20170817015321) do
     t.boolean  "interpolated_playlist_enabled",                          default: false, null: false
     t.boolean  "no_cue_out",                                             default: false, null: false
     t.boolean  "shuffle",                                                default: false, null: false
+    t.index ["interpolated_playlist_id"], name: "index_playlists_on_interpolated_playlist_id", using: :btree
+    t.index ["radio_id"], name: "index_playlists_on_radio_id", using: :btree
   end
 
   create_table "podcasts", force: :cascade do |t|
@@ -111,6 +115,8 @@ ActiveRecord::Schema.define(version: 20170817015321) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.string   "extra_tags"
+    t.index ["playlist_id"], name: "index_podcasts_on_playlist_id", using: :btree
+    t.index ["radio_id"], name: "index_podcasts_on_radio_id", using: :btree
   end
 
   create_table "radios", force: :cascade do |t|
@@ -133,6 +139,8 @@ ActiveRecord::Schema.define(version: 20170817015321) do
     t.string   "container_name",                                              null: false
     t.boolean  "schedule_monitor_enabled",                    default: false, null: false
     t.string   "show_share_url"
+    t.index ["default_playlist_id"], name: "index_radios_on_default_playlist_id", using: :btree
+    t.index ["subscription_id"], name: "index_radios_on_subscription_id", using: :btree
   end
 
   create_table "recordings", force: :cascade do |t|
@@ -164,6 +172,11 @@ ActiveRecord::Schema.define(version: 20170817015321) do
     t.integer  "dj_id"
     t.string   "title"
     t.string   "time_zone"
+    t.boolean  "repeat_playlist",       default: false, null: false
+    t.index ["dj_id"], name: "index_scheduled_shows_on_dj_id", using: :btree
+    t.index ["playlist_id"], name: "index_scheduled_shows_on_playlist_id", using: :btree
+    t.index ["radio_id"], name: "index_scheduled_shows_on_radio_id", using: :btree
+    t.index ["recurrant_original_id"], name: "index_scheduled_shows_on_recurrant_original_id", using: :btree
   end
 
   create_table "selection_events", force: :cascade do |t|
@@ -202,6 +215,7 @@ ActiveRecord::Schema.define(version: 20170817015321) do
     t.string   "name",         default: "", null: false
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.index ["user_id"], name: "index_social_identities_on_user_id", using: :btree
   end
 
   create_table "stripe_webhooks", force: :cascade do |t|
@@ -222,6 +236,8 @@ ActiveRecord::Schema.define(version: 20170817015321) do
     t.integer  "exp_year"
     t.datetime "trial_ends_at"
     t.integer  "status",                            default: 0, null: false
+    t.index ["plan_id"], name: "index_subscriptions_on_plan_id", using: :btree
+    t.index ["user_id"], name: "index_subscriptions_on_user_id", using: :btree
   end
 
   create_table "track_labels", force: :cascade do |t|
@@ -252,6 +268,7 @@ ActiveRecord::Schema.define(version: 20170817015321) do
     t.datetime "artwork_updated_at"
     t.integer  "mixcloud_upload_status",             default: 0,  null: false
     t.string   "mixcloud_key"
+    t.index ["radio_id"], name: "index_tracks_on_radio_id", using: :btree
   end
 
   create_table "user_radios", force: :cascade do |t|
@@ -287,8 +304,10 @@ ActiveRecord::Schema.define(version: 20170817015321) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.string   "stream_key"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["stream_key"], name: "index_users_on_stream_key", unique: true, using: :btree
   end
 
   create_table "versions", force: :cascade do |t|
