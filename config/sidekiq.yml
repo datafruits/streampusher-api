@@ -10,4 +10,4 @@
     every: 1m
     class: ScheduleMonitorWorker
 production:
-  :concurrency: 5
+  :concurrency: 10
