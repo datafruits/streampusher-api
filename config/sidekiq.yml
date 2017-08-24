@@ -9,5 +9,8 @@
   schedule_monitor:
     every: 1m
     class: ScheduleMonitorWorker
+  check_radio_is_up:
+    every: 10m
+    class: CheckRadioIsUp
 production:
   :concurrency: 5
