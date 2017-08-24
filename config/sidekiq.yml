@@ -1,6 +1,7 @@
 :queues:
   - default
   - mailers
+  - monitor
 :schedule:
   collect_stats:
     every: 1m   # Runs once per minute

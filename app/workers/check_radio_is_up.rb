@@ -1,5 +1,5 @@
 class CheckRadioIsUp < ActiveJob::Base
-  queue_as :default
+  queue_as :monitor
 
   def perform
     Radio.enabled.find_each do |radio|
