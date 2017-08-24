@@ -1,5 +1,5 @@
 class CollectStatsWorker < ActiveJob::Base
-  queue_as :default
+  queue_as :monitor
 
   def perform
     Radio.enabled.where(stats_enabled: true).find_each do |radio|

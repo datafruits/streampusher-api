@@ -1,5 +1,5 @@
 class ScheduleMonitorWorker < ActiveJob::Base
-  queue_as :default
+  queue_as :monitor
 
   def perform
     now = Time.now
