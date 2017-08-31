@@ -56,6 +56,7 @@ class PlaylistsController < ApplicationController
 
   def destroy
     @playlist = @current_radio.playlists.find params[:id]
+    authorize! :destroy, @playlist, params[:format]
     if @playlist.destroy
       render json: @playlist
     else
