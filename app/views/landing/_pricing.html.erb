@@ -17,6 +17,9 @@
               <li>HTML embeds</li>
             </ul>
             <p class="price"><strong>$49 / month</strong></p>
+            <% if user_signed_in? %>
+              <%= link_to "Upgrade", edit_subscription_path(current_user.subscription, plan: Plan.find_by(name: "Premium").id), class: "btn btn-success" %>
+            <% end %>
           </div>
         </div>
       </div>
@@ -34,6 +37,9 @@
               <li>HTML embeds</li>
             </ul>
             <p class="price"><strong>$79 / month</strong></p>
+            <% if user_signed_in? %>
+              <%= link_to "Upgrade", edit_subscription_path(current_user.subscription, plan: Plan.find_by(name: "Professional").id), class: "btn btn-success" %>
+            <% end %>
           </div>
         </div>
       </div>
@@ -51,6 +57,9 @@
               <li>HTML embeds</li>
             </ul>
             <p class="price"><strong>$19 / month</strong></p>
+            <% if user_signed_in? %>
+              <%= link_to "Upgrade", edit_subscription_path(current_user.subscription, plan: Plan.find_by(name: "Hobbyist").id), class: "btn btn-success" %>
+            <% end %>
           </div>
         </div>
       </div>
