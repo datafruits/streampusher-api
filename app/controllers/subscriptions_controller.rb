@@ -5,6 +5,7 @@ class SubscriptionsController < ApplicationController
     if @subscription.on_trial?
       @selected_plan = Plan.find_by(name: "Hobbyist")
     else
+      @selected_plan = @subscription.plan
     end
   end
 
