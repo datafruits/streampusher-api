@@ -56,11 +56,13 @@
       </div>
   </div>
 </section>
-<h2>Want to try us out?</h2>
-<p>
-Try streampusher free for <strong>7 days!</strong>
-</p>
-<p>
-<strong>No credit card required</strong>
-</p>
-<button type="button" data-toggle="modal" data-target="#cta-modal" class="big-cta-btn btn">Start your free trial now!</button>
+<% unless user_signed_in? %>
+  <h2>Want to try us out?</h2>
+  <p>
+  Try streampusher free for <strong>7 days!</strong>
+  </p>
+  <p>
+  <strong>No credit card required</strong>
+  </p>
+  <button type="button" data-toggle="modal" data-target="#cta-modal" class="big-cta-btn btn">Start your free trial now!</button>
+<% end %>
