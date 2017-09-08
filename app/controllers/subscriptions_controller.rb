@@ -2,7 +2,9 @@ class SubscriptionsController < ApplicationController
   load_and_authorize_resource
   def edit
     @plans = Plan.where.not(name: "Free Trial")
-    if @subscription.on_trial?
+    if params[:plan]
+      @selected_plan = Plan.find(params[:plan])
+    elsif @subscription.on_trial?
       @selected_plan = Plan.find_by(name: "Hobbyist")
     else
       @selected_plan = @subscription.plan
