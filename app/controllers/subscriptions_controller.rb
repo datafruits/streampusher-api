@@ -1,7 +1,11 @@
 class SubscriptionsController < ApplicationController
   load_and_authorize_resource
   def edit
-
+    @plans = Plan.where.not(name: "Free Trial")
+    if @subscription.on_trial?
+      @selected_plan = Plan.find_by(name: "Hobbyist")
+    else
+    end
   end
 
   def update

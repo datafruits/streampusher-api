@@ -10,6 +10,11 @@ $('[data-controller=subscriptions]').ready ->
   $('#card_exp').payment('formatCardExpiry')
   $('#card_code').payment('formatCardCVC')
 
+  $("#subscription_plan_id").change ->
+    name = $("#subscription_plan_id option:selected").data('name')
+    price = $("#subscription_plan_id option:selected").data('price')
+    $("input.subscribe-button").val("Subscribe to #{name} plan for #{price} per month")
+
 subscription =
   setupForm: ->
     $('.edit_subscription').submit ->
