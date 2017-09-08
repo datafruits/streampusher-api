@@ -20,12 +20,12 @@
   </table>
 <% end %>
 <%= simple_form_for @subscription do |f| %>
-  <%= f.input :plan_id, collection: Plan.where.not(name: "Free Trial"), label_method: :name, value_method: :id %>
+  <%= f.input :plan_id, collection: Plan.where.not(name: "Free Trial"), label_method: :name_and_price, value_method: :id %>
   <%= f.hidden_field :stripe_card_token %>
   <%= render 'credit_card' %>
 
   Have a coupon?
   <%= f.input :coupon %>
 
-  <%= f.submit "Update", class: 'btn btn-success', "data-disable-with" => "sending..." %>
+  <%= f.submit "Subscribe", class: 'btn btn-success', "data-disable-with" => "sending..." %>
 <% end %>
