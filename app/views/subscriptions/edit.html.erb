@@ -1,31 +1,53 @@
 <h1>Streampusher Subscription</h1>
 
-<span>You are currently subscribed to the <b><%= @subscription.plan.name %></b> plan. <span>
-    <% if @subscription.on_trial? %>
-      There are <b><%= @subscription.trial_days_left %></b> days left on your free trial.
+<div class="row">
+  <div class="col-md-12">
+    <span>You are currently subscribed to the <b><%= @subscription.plan.name %></b> plan. <span>
+        <% if @subscription.on_trial? %>
+          There are <b><%= @subscription.trial_days_left %></b> days left on your free trial.
+        <% end %>
+    <span> You can change your plan or update your billing info here.</span>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <h3><i class="fa fa-certificate" aria-hidden="true"></i> Cancel anytime</h3>
+    <p>
+      If you are unhappy with your subscription for any reason, cancel anytime.
+    </p>
+  </div>
+  <div class="col-md-6">
+    <h3><i class="fa fa-certificate" aria-hidden="true"></i> Secure</h3>
+    <p>
+      All payments are secured by <a href="https://stripe.com" target="_blank">Stripe</a>, trusted by companies all across the web.
+      <%= image_tag "powered_by_stripe.svg" %>
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <% if @subscription.card_present? %>
+      Current Billing Information:
+      <table>
+        <tr>
+          <td><b>Card:</b></td>
+          <td><%=@subscription.last_4_digits%></td>
+        </tr>
+        <tr>
+          <td><b>Expires:</b></td>
+          <td><%="#{@subscription.exp_month}/#{@subscription.exp_year}"%></td>
+        </tr>
+      </table>
     <% end %>
-<span> You can change your plan or update your billing info here.</span>
+    <%= simple_form_for @subscription do |f| %>
+      <%= f.input :plan_id, collection: Plan.where.not(name: "Free Trial"), label_method: :name_and_price, value_method: :id %>
+      <%= f.hidden_field :stripe_card_token %>
+      <%= render 'credit_card' %>
 
-<% if @subscription.card_present? %>
-  Current Billing Information:
-  <table>
-    <tr>
-      <td><b>Card:</b></td>
-      <td><%=@subscription.last_4_digits%></td>
-    </tr>
-    <tr>
-      <td><b>Expires:</b></td>
-      <td><%="#{@subscription.exp_month}/#{@subscription.exp_year}"%></td>
-    </tr>
-  </table>
-<% end %>
-<%= simple_form_for @subscription do |f| %>
-  <%= f.input :plan_id, collection: Plan.where.not(name: "Free Trial"), label_method: :name_and_price, value_method: :id %>
-  <%= f.hidden_field :stripe_card_token %>
-  <%= render 'credit_card' %>
+      Have a coupon?
+      <%= f.input :coupon %>
 
-  Have a coupon?
-  <%= f.input :coupon %>
-
-  <%= f.submit "Subscribe", class: 'btn btn-success', "data-disable-with" => "sending..." %>
-<% end %>
+      <%= f.submit "Subscribe", class: 'btn btn-success subscribe-button', "data-disable-with" => "sending..." %>
+    <% end %>
+  </div>
+</div>
