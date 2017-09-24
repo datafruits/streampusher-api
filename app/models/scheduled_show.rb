@@ -1,6 +1,9 @@
 require_relative "../../lib/time_utils"
 
 class ScheduledShow < ActiveRecord::Base
+  include FriendlyId
+  friendly_id :slug_candidates, use: :slugged
+
   belongs_to :radio
   belongs_to :dj, class_name: "User"
   belongs_to :playlist
@@ -122,6 +125,12 @@ class ScheduledShow < ActiveRecord::Base
         r.save!
       end
     end
+  end
+
+  def slug_candidates
+    [
+      [:title, :id]
+    ]
   end
 
   private

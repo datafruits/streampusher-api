@@ -201,6 +201,8 @@ GEM
     font-awesome-sass (4.6.2)
       sass (>= 3.2)
     forwardable-extended (2.6.0)
+    friendly_id (5.2.3)
+      activerecord (>= 4.0.0)
     geocoder (1.4.4)
     github-markdown (0.6.9)
     globalid (0.4.0)
@@ -552,6 +554,7 @@ DEPENDENCIES
   exception_notification
   factory_girl_rails
   font-awesome-sass (~> 4.6.0)
+  friendly_id
   geocoder
   github-markdown
   groupdate

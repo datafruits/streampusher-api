@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170908053344) do
+ActiveRecord::Schema.define(version: 20170922083418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -173,6 +173,7 @@ ActiveRecord::Schema.define(version: 20170908053344) do
     t.string   "title"
     t.string   "time_zone"
     t.boolean  "repeat_playlist",       default: false, null: false
+    t.string   "slug"
     t.index ["dj_id"], name: "index_scheduled_shows_on_dj_id", using: :btree
     t.index ["playlist_id"], name: "index_scheduled_shows_on_playlist_id", using: :btree
     t.index ["radio_id"], name: "index_scheduled_shows_on_radio_id", using: :btree

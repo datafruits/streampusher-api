@@ -115,3 +115,5 @@ gem 'jekyll-seo-tag'
 gem 'geocoder'
 gem 'ruby-liquidsoap', github: 'streampusher/ruby-liquidsoap', :require => 'liquidsoap'
 gem 'paper_trail'
+
+gem 'friendly_id'
