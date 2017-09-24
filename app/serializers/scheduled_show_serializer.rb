@@ -3,7 +3,7 @@ class ScheduledShowSerializer < ActiveModel::Serializer
   include ApplicationHelper
   include ActionView::Helpers::SanitizeHelper
   attributes :id, :start, :end, :title, :image_url, :thumb_image_url, :dj, :tweet_content, :description,
-    :html_description
+    :html_description, :slug
 
   def html_description
     html_pipeline(object.description)
