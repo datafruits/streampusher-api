@@ -68,6 +68,9 @@ class Ability
       can :read, Podcast if radio.podcasts_enabled?
       can :index, :stats if can_manage_radio?(user, radio)
 
+      can :edit, ScheduledShow do |scheduled_show|
+        can_manage_radio?(user, radio) && belongs_to_radio?(scheduled_show, radio)
+      end
       can :read, ScheduledShow do |scheduled_show|
         can_manage_radio?(user, radio) && belongs_to_radio?(scheduled_show, radio)
       end

@@ -1,9 +1,14 @@
 class ScheduledShowsController < ApplicationController
-  load_and_authorize_resource
-  before_action :current_radio_required, only: [:index]
+  load_and_authorize_resource except: [:edit]
+  before_action :current_radio_required, only: [:index, :edit]
 
   def new
 
+  end
+
+  def edit
+    @scheduled_show = @current_radio.scheduled_shows.friendly.find(params[:id])
+    authorize! :edit, @scheduled_show
   end
 
   def index
