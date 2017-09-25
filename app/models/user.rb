@@ -62,8 +62,10 @@ class User < ActiveRecord::Base
 
   private
   def set_username
-    self.username = email.split('@').first if self.username.blank?
-    self.username.downcase!
+    if email.present?
+      self.username = email.split('@').first if self.username.blank?
+      self.username.downcase!
+    end
   end
 
   def set_initial_time_zone
