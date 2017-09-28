@@ -13,6 +13,15 @@ RSpec.describe ScheduledShow, :type => :model do
     @date = Date.today.strftime("%m%d%Y")
   end
 
+  describe "slugs" do
+    it "saves the unique slug with title and id" do
+      start_at = Chronic.parse("today at 3:15 pm").utc
+      end_at = Chronic.parse("today at 5:15 pm").utc
+      @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey hey"
+      expect(@scheduled_show.slug).to eq "hey-hey"
+    end
+  end
+
   describe "override time zone" do
     it "set time_zone to save in" do
       Time.use_zone "Tokyo" do
