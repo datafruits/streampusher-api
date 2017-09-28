@@ -1,5 +1,5 @@
 class ScheduledShowsController < ApplicationController
-  load_and_authorize_resource except: [:edit]
+  load_and_authorize_resource except: [:edit, :update]
   before_action :current_radio_required, only: [:index, :edit]
 
   def new
@@ -57,6 +57,8 @@ class ScheduledShowsController < ApplicationController
   end
 
   def update
+    @scheduled_show = @current_radio.scheduled_shows.friendly.find(params[:id])
+    authorize! :update, @scheduled_show
     @scheduled_show.attributes = create_params
     if @scheduled_show.save
       ActiveSupport::Notifications.instrument 'scheduled_show.updated', current_user: current_user.email, radio: @current_radio.name, show: @scheduled_show.title, params: create_params
