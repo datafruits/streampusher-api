@@ -1,5 +1,5 @@
 class ScheduledShowsController < ApplicationController
-  load_and_authorize_resource except: [:edit, :update]
+  load_and_authorize_resource except: [:edit, :update, :destroy]
   before_action :current_radio_required, only: [:index, :edit]
 
   def new
@@ -71,6 +71,8 @@ class ScheduledShowsController < ApplicationController
   end
 
   def destroy
+    @scheduled_show = @current_radio.scheduled_shows.friendly.find(params[:id])
+    authorize! :destroy, @scheduled_show
     @scheduled_show.destroy_recurrences = params[:destroy_recurrences]
     @scheduled_show.destroy
     ActiveSupport::Notifications.instrument 'scheduled_show.deleted', current_user: current_user.email, radio: @current_radio.name, show: @scheduled_show.title
