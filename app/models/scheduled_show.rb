@@ -32,7 +32,7 @@ class ScheduledShow < ActiveRecord::Base
   before_save :ensure_time_zone
 
 
-  enum recurring_interval: [:not_recurring, :day, :week, :month, :year]
+  enum recurring_interval: [:not_recurring, :day, :week, :month, :year, :biweek]
 
   def self.recurring_interval_attributes_for_select
     recurring_intervals.map do |recurring_interval, _|
@@ -80,6 +80,8 @@ class ScheduledShow < ActiveRecord::Base
       "daily"
     when :week
       "weekly"
+    when :biweek
+      "bi-weekly"
     when :month
       "monthly"
     when :year
@@ -190,7 +192,7 @@ class ScheduledShow < ActiveRecord::Base
     options[:on] = case options[:every]
     when 'year'
       [options[:starts].month, options[:starts].day]
-    when 'week'
+    when 'week', 'biweek'
       options[:starts].strftime('%A').downcase.to_sym
     when 'day'
       options[:starts].day
@@ -199,6 +201,9 @@ class ScheduledShow < ActiveRecord::Base
     end
     if options[:every] == "month"
       options[:weekday] = self.start_at.strftime("%A").downcase.to_sym
+    elsif options[:every] == "biweek"
+      options[:interval] = 2
+      options[:every] = "week"
     end
     Recurrence.new(options).events
   end
