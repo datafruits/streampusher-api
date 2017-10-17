@@ -17,16 +17,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     if user_signed_in?
-      if current_subscription_active?
-        if current_user.owner?
-          redirect_to edit_subscription_path @current_radio.subscription
-        else
-          # redirect to some other page for the dj
-          redirect_to radio_disabled_index_path
-        end
-      else
-        render :file => "#{Rails.root}/public/403.html", :status => 403
-      end
+      render :file => "#{Rails.root}/public/403.html", :status => 403
     else
       store_location_for :user, request.path
       redirect_to new_user_session_path, :notice => "You need to login first!"
@@ -36,10 +27,6 @@ class ApplicationController < ActionController::Base
   protected
   def current_radio_required
     raise ActiveRecord::RecordNotFound unless @current_radio
-  end
-
-  def current_subscription_active?
-    @current_radio.subscription.trial_ended?
   end
 
   def layout_by_resource

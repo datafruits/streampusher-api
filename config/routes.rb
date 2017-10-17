@@ -103,6 +103,4 @@ Rails.application.routes.draw do
   post '/metadata' => "metadata#create"
 
   root 'landing#index'
-
-  resources :radio_disabled, only: [:index]
 end
