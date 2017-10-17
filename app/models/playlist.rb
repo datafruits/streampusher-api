@@ -32,6 +32,7 @@ class Playlist < ActiveRecord::Base
   def pop_next_track
     redis = Redis.current
     track_id = redis.rpop redis_key
+    return if track_id.blank?
     redis.lpush redis_key, track_id
     track_id
   end
