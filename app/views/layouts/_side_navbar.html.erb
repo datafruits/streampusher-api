@@ -17,13 +17,11 @@
         <i class="fa fa-calendar"></i>Schedule
       <% end %>
     </li>
-    <% if @current_radio.stats_enabled? %>
-      <li>
-        <%= link_to stats_path do %>
-          <i class="fa fa-line-chart"></i>Stats
-        <% end %>
-      </li>
-    <% end %>
+    <li>
+      <%= link_to stats_path do %>
+        <i class="fa fa-line-chart"></i>Stats
+      <% end %>
+    </li>
     <li id="media-link">
       <%= link_to playlist_path(@current_radio.default_playlist) do %>
         <i class="fa fa-list"></i>Media
