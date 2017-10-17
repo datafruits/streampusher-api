@@ -17,6 +17,28 @@
     <div class="collapse navbar-collapse">
       <% if user_signed_in? %>
         <%= render 'radios/player' %>
+        <ul class="nav navbar-nav current-show-info">
+            <% if @current_radio.current_show_playing? %>
+              <% current_show = @current_radio.scheduled_shows.find(@current_radio.current_show_playing) %>
+              <li>
+                <div>
+                  <strong>Current show: </strong><%= link_to current_show.title, scheduled_show_path(current_show) %>
+                </div>
+                <div>
+                  <strong>Current playlist: </strong><%= link_to current_show.playlist.name, playlist_path(current_show.playlist) %>
+                </div>
+              </li>
+            <% else %>
+              <li>
+                <div>
+                  <strong>Current show: </strong>None (playing default playlist)
+                </div>
+                <div>
+                  <strong>Current playlist: </strong><%= link_to @current_radio.default_playlist.name, playlist_path(@current_radio.default_playlist) %>
+                </div>
+              </li>
+            <% end %>
+        </ul>
       <% end %>
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>

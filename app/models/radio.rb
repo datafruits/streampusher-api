@@ -113,6 +113,26 @@ class Radio < ActiveRecord::Base
     Redis.current.set "#{self.name}:current_show_playing", show_id
   end
 
+  def current_show_playing
+    Redis.current.get current_show_playing_key
+  end
+
+  def current_show_playing?
+    !current_show_playing.blank?
+  end
+
+  def current_track_playing_key
+    "#{self.name}:current_track_playing"
+  end
+
+  def set_current_track_playing track_id
+    Redis.current.set "#{self.name}:current_track_playing", track_id
+  end
+
+  def current_track_playing
+    Redis.current.get current_track_playing_key
+  end
+
   def liquidsoap_harbor_port
     Redis.current.hget "proxy-domain", liquidsoap_proxy_key
   end

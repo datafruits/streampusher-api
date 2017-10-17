@@ -376,9 +376,22 @@ footer {
     @media only screen and (max-width: 1450px) {
       width: 350px;
     }
-    width: 730px;
+    max-width: 730px;
     text-overflow: ellipsis;
     overflow: hidden;
+  }
+}
+
+.current-show-info {
+  color: white;
+  li {
+    margin: 0px 10px 0 10px;
+  }
+  @media only screen and (max-width: 1040px) {
+    display: none;
+    visibility: hidden;
+    width: 0;
+    height: 0;
   }
 }
 
