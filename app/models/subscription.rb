@@ -94,7 +94,7 @@ class Subscription < ActiveRecord::Base
 
   def cancel_stripe_subscription
     customer = Stripe::Customer.retrieve self.stripe_customer_token
-    subscription = customer.subscriptions.first
+    subscription = customer.subscriptions.data.first
     subscription.delete
   end
 end

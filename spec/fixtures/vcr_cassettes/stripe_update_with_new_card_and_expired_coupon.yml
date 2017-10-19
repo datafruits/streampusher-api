@@ -14,9 +14,9 @@ http_interactions:
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
-      - '{"bindings_version":"2.0.1","lang":"ruby","lang_version":"2.3.3 p222 (2016-11-21)","platform":"x86_64-darwin16","engine":"ruby","publisher":"stripe","uname":"Darwin
-        okirakugokiraku 16.4.0 Darwin Kernel Version 16.4.0: Thu Dec 22 22:53:21 PST
-        2016; root:xnu-3789.41.3~3/RELEASE_X86_64 x86_64","hostname":"okirakugokiraku"}'
+      - '{"bindings_version":"2.0.1","lang":"ruby","lang_version":"2.4.2 p198 (2017-09-14)","platform":"x86_64-darwin16","engine":"ruby","publisher":"stripe","uname":"Darwin
+        okirakugokiraku 16.5.0 Darwin Kernel Version 16.5.0: Fri Mar  3 16:52:33 PST
+        2017; root:xnu-3789.51.2~3/RELEASE_X86_64 x86_64","hostname":"okirakugokiraku"}'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -29,11 +29,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Mon, 06 Mar 2017 07:32:15 GMT
+      - Wed, 18 Oct 2017 05:52:13 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '796'
+      - '793'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -42,12 +42,14 @@ http_interactions:
       - GET, POST, HEAD, OPTIONS, DELETE
       Access-Control-Allow-Origin:
       - "*"
+      Access-Control-Expose-Headers:
+      - X-Stripe-Privileged-Session-Required,stripe-manage-version,X-Stripe-External-Auth-Required
       Access-Control-Max-Age:
       - '300'
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_AEjnkwUFx1eqSP
+      - req_CnpnLA3K5T96gA
       Stripe-Version:
       - '2014-09-08'
       Strict-Transport-Security:
@@ -56,10 +58,10 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "tok_19uGKJBgrAjRvl1eUB4CFemI",
+          "id": "tok_1BEATRBgrAjRvl1eM7vxYv5K",
           "object": "token",
           "card": {
-            "id": "card_19uGKJBgrAjRvl1eJpxJvHLO",
+            "id": "card_1BEATQBgrAjRvl1eeJZPlbJt",
             "object": "card",
             "address_city": null,
             "address_country": null,
@@ -83,17 +85,17 @@ http_interactions:
             "tokenization_method": null,
             "customer": null
           },
-          "client_ip": "153.156.73.136",
-          "created": 1488785535,
+          "client_ip": "14.3.163.96",
+          "created": 1508305933,
           "livemode": false,
           "type": "card",
           "used": false
         }
     http_version: 
-  recorded_at: Thu, 19 May 2016 15:00:00 GMT
+  recorded_at: Tue, 17 Oct 2017 15:00:00 GMT
 - request:
     method: get
-    uri: https://api.stripe.com/v1/customers/cus_8U8GCjn0jWc1qG
+    uri: https://api.stripe.com/v1/customers/cus_BbMW2z4w3lF65B
     body:
       encoding: US-ASCII
       string: ''
@@ -105,9 +107,9 @@ http_interactions:
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
-      - '{"bindings_version":"2.0.1","lang":"ruby","lang_version":"2.3.3 p222 (2016-11-21)","platform":"x86_64-darwin16","engine":"ruby","publisher":"stripe","uname":"Darwin
-        okirakugokiraku 16.4.0 Darwin Kernel Version 16.4.0: Thu Dec 22 22:53:21 PST
-        2016; root:xnu-3789.41.3~3/RELEASE_X86_64 x86_64","hostname":"okirakugokiraku"}'
+      - '{"bindings_version":"2.0.1","lang":"ruby","lang_version":"2.4.2 p198 (2017-09-14)","platform":"x86_64-darwin16","engine":"ruby","publisher":"stripe","uname":"Darwin
+        okirakugokiraku 16.5.0 Darwin Kernel Version 16.5.0: Fri Mar  3 16:52:33 PST
+        2017; root:xnu-3789.51.2~3/RELEASE_X86_64 x86_64","hostname":"okirakugokiraku"}'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -120,11 +122,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Mon, 06 Mar 2017 07:32:16 GMT
+      - Wed, 18 Oct 2017 05:52:13 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '17979'
+      - '6401'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -133,12 +135,14 @@ http_interactions:
       - GET, POST, HEAD, OPTIONS, DELETE
       Access-Control-Allow-Origin:
       - "*"
+      Access-Control-Expose-Headers:
+      - X-Stripe-Privileged-Session-Required,stripe-manage-version,X-Stripe-External-Auth-Required
       Access-Control-Max-Age:
       - '300'
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_AEjnbmqpS6qC9x
+      - req_LSVEmttRCH7lqZ
       Stripe-Version:
       - '2014-09-08'
       Strict-Transport-Security:
@@ -147,294 +151,35 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "cus_8U8GCjn0jWc1qG",
+          "id": "cus_BbMW2z4w3lF65B",
           "object": "customer",
           "account_balance": 0,
-          "cards": {
-            "object": "list",
-            "data": [
-              {
-                "id": "card_19uG50BgrAjRvl1eQyEObKox",
-                "object": "card",
-                "address_city": null,
-                "address_country": null,
-                "address_line1": null,
-                "address_line1_check": null,
-                "address_line2": null,
-                "address_state": null,
-                "address_zip": null,
-                "address_zip_check": null,
-                "brand": "Visa",
-                "country": "US",
-                "customer": "cus_8U8GCjn0jWc1qG",
-                "cvc_check": "pass",
-                "dynamic_last4": null,
-                "exp_month": 7,
-                "exp_year": 2019,
-                "fingerprint": "gfiwz91dPIZDOAds",
-                "funding": "credit",
-                "last4": "4242",
-                "metadata": {},
-                "name": null,
-                "tokenization_method": null
-              },
-              {
-                "id": "card_19uGJWBgrAjRvl1eZUztBKqg",
-                "object": "card",
-                "address_city": null,
-                "address_country": null,
-                "address_line1": null,
-                "address_line1_check": null,
-                "address_line2": null,
-                "address_state": null,
-                "address_zip": null,
-                "address_zip_check": null,
-                "brand": "Visa",
-                "country": "US",
-                "customer": "cus_8U8GCjn0jWc1qG",
-                "cvc_check": "pass",
-                "dynamic_last4": null,
-                "exp_month": 7,
-                "exp_year": 2019,
-                "fingerprint": "gfiwz91dPIZDOAds",
-                "funding": "credit",
-                "last4": "4242",
-                "metadata": {},
-                "name": null,
-                "tokenization_method": null
-              },
-              {
-                "id": "card_19uGBwBgrAjRvl1egI1UjkSB",
-                "object": "card",
-                "address_city": null,
-                "address_country": null,
-                "address_line1": null,
-                "address_line1_check": null,
-                "address_line2": null,
-                "address_state": null,
-                "address_zip": null,
-                "address_zip_check": null,
-                "brand": "Visa",
-                "country": "US",
-                "customer": "cus_8U8GCjn0jWc1qG",
-                "cvc_check": "pass",
-                "dynamic_last4": null,
-                "exp_month": 7,
-                "exp_year": 2019,
-                "fingerprint": "gfiwz91dPIZDOAds",
-                "funding": "credit",
-                "last4": "4242",
-                "metadata": {},
-                "name": null,
-                "tokenization_method": null
-              },
-              {
-                "id": "card_19uG8ZBgrAjRvl1eohXVFjgU",
-                "object": "card",
-                "address_city": null,
-                "address_country": null,
-                "address_line1": null,
-                "address_line1_check": null,
-                "address_line2": null,
-                "address_state": null,
-                "address_zip": null,
-                "address_zip_check": null,
-                "brand": "Visa",
-                "country": "US",
-                "customer": "cus_8U8GCjn0jWc1qG",
-                "cvc_check": "pass",
-                "dynamic_last4": null,
-                "exp_month": 7,
-                "exp_year": 2019,
-                "fingerprint": "gfiwz91dPIZDOAds",
-                "funding": "credit",
-                "last4": "4242",
-                "metadata": {},
-                "name": null,
-                "tokenization_method": null
-              },
-              {
-                "id": "card_19s3UHBgrAjRvl1exE88ysl3",
-                "object": "card",
-                "address_city": null,
-                "address_country": null,
-                "address_line1": null,
-                "address_line1_check": null,
-                "address_line2": null,
-                "address_state": null,
-                "address_zip": null,
-                "address_zip_check": null,
-                "brand": "Visa",
-                "country": "US",
-                "customer": "cus_8U8GCjn0jWc1qG",
-                "cvc_check": "pass",
-                "dynamic_last4": null,
-                "exp_month": 7,
-                "exp_year": 2019,
-                "fingerprint": "gfiwz91dPIZDOAds",
-                "funding": "credit",
-                "last4": "4242",
-                "metadata": {},
-                "name": null,
-                "tokenization_method": null
-              },
-              {
-                "id": "card_19s36UBgrAjRvl1ecbp5AlOn",
-                "object": "card",
-                "address_city": null,
-                "address_country": null,
-                "address_line1": null,
-                "address_line1_check": null,
-                "address_line2": null,
-                "address_state": null,
-                "address_zip": null,
-                "address_zip_check": null,
-                "brand": "Visa",
-                "country": "US",
-                "customer": "cus_8U8GCjn0jWc1qG",
-                "cvc_check": "pass",
-                "dynamic_last4": null,
-                "exp_month": 7,
-                "exp_year": 2019,
-                "fingerprint": "gfiwz91dPIZDOAds",
-                "funding": "credit",
-                "last4": "4242",
-                "metadata": {},
-                "name": null,
-                "tokenization_method": null
-              },
-              {
-                "id": "card_19s35UBgrAjRvl1ed6M0j9h9",
-                "object": "card",
-                "address_city": null,
-                "address_country": null,
-                "address_line1": null,
-                "address_line1_check": null,
-                "address_line2": null,
-                "address_state": null,
-                "address_zip": null,
-                "address_zip_check": null,
-                "brand": "Visa",
-                "country": "US",
-                "customer": "cus_8U8GCjn0jWc1qG",
-                "cvc_check": "pass",
-                "dynamic_last4": null,
-                "exp_month": 7,
-                "exp_year": 2019,
-                "fingerprint": "gfiwz91dPIZDOAds",
-                "funding": "credit",
-                "last4": "4242",
-                "metadata": {},
-                "name": null,
-                "tokenization_method": null
-              },
-              {
-                "id": "card_19s30qBgrAjRvl1eIZDqIeT0",
-                "object": "card",
-                "address_city": null,
-                "address_country": null,
-                "address_line1": null,
-                "address_line1_check": null,
-                "address_line2": null,
-                "address_state": null,
-                "address_zip": null,
-                "address_zip_check": null,
-                "brand": "Visa",
-                "country": "US",
-                "customer": "cus_8U8GCjn0jWc1qG",
-                "cvc_check": "pass",
-                "dynamic_last4": null,
-                "exp_month": 7,
-                "exp_year": 2019,
-                "fingerprint": "gfiwz91dPIZDOAds",
-                "funding": "credit",
-                "last4": "4242",
-                "metadata": {},
-                "name": null,
-                "tokenization_method": null
-              },
-              {
-                "id": "card_19s2y7BgrAjRvl1eKhgW0klR",
-                "object": "card",
-                "address_city": null,
-                "address_country": null,
-                "address_line1": null,
-                "address_line1_check": null,
-                "address_line2": null,
-                "address_state": null,
-                "address_zip": null,
-                "address_zip_check": null,
-                "brand": "Visa",
-                "country": "US",
-                "customer": "cus_8U8GCjn0jWc1qG",
-                "cvc_check": "pass",
-                "dynamic_last4": null,
-                "exp_month": 7,
-                "exp_year": 2019,
-                "fingerprint": "gfiwz91dPIZDOAds",
-                "funding": "credit",
-                "last4": "4242",
-                "metadata": {},
-                "name": null,
-                "tokenization_method": null
-              },
-              {
-                "id": "card_19s2qBBgrAjRvl1eYgLNbyvm",
-                "object": "card",
-                "address_city": null,
-                "address_country": null,
-                "address_line1": null,
-                "address_line1_check": null,
-                "address_line2": null,
-                "address_state": null,
-                "address_zip": null,
-                "address_zip_check": null,
-                "brand": "Visa",
-                "country": "US",
-                "customer": "cus_8U8GCjn0jWc1qG",
-                "cvc_check": "pass",
-                "dynamic_last4": null,
-                "exp_month": 7,
-                "exp_year": 2019,
-                "fingerprint": "gfiwz91dPIZDOAds",
-                "funding": "credit",
-                "last4": "4242",
-                "metadata": {},
-                "name": null,
-                "tokenization_method": null
-              }
-            ],
-            "has_more": true,
-            "total_count": 11,
-            "url": "/v1/customers/cus_8U8GCjn0jWc1qG/cards"
-          },
-          "created": 1463736798,
+          "created": 1508303346,
           "currency": "usd",
-          "default_card": "card_19uG50BgrAjRvl1eQyEObKox",
-          "default_source": "card_19uG50BgrAjRvl1eQyEObKox",
+          "default_source": "card_1BEATJBgrAjRvl1e4ESQmqQx",
           "delinquent": false,
           "description": "yoshino@malboro.info",
           "discount": {
             "object": "discount",
             "coupon": {
-              "id": "reallycoolcoupon",
+              "id": "COOLCOUPON2014",
               "object": "coupon",
-              "amount_off": null,
-              "created": 1488254996,
-              "currency": null,
+              "amount_off": 1200,
+              "created": 1508300551,
+              "currency": "usd",
               "duration": "repeating",
               "duration_in_months": 12,
               "livemode": false,
-              "max_redemptions": 1,
+              "max_redemptions": null,
               "metadata": {},
-              "percent_off": 50,
-              "redeem_by": 1490918399,
-              "times_redeemed": 1,
-              "valid": false
+              "percent_off": null,
+              "redeem_by": null,
+              "times_redeemed": 3,
+              "valid": true
             },
-            "customer": "cus_8U8GCjn0jWc1qG",
-            "end": 1519795528,
-            "start": 1488259528,
+            "customer": "cus_BbMW2z4w3lF65B",
+            "end": 1539840252,
+            "start": 1508304252,
             "subscription": null
           },
           "email": null,
@@ -445,7 +190,7 @@ http_interactions:
             "object": "list",
             "data": [
               {
-                "id": "card_19uG50BgrAjRvl1eQyEObKox",
+                "id": "card_1BEATJBgrAjRvl1e4ESQmqQx",
                 "object": "card",
                 "address_city": null,
                 "address_country": null,
@@ -457,7 +202,7 @@ http_interactions:
                 "address_zip_check": null,
                 "brand": "Visa",
                 "country": "US",
-                "customer": "cus_8U8GCjn0jWc1qG",
+                "customer": "cus_BbMW2z4w3lF65B",
                 "cvc_check": "pass",
                 "dynamic_last4": null,
                 "exp_month": 7,
@@ -470,7 +215,7 @@ http_interactions:
                 "tokenization_method": null
               },
               {
-                "id": "card_19uGJWBgrAjRvl1eZUztBKqg",
+                "id": "card_1BE9njBgrAjRvl1ersvi82ex",
                 "object": "card",
                 "address_city": null,
                 "address_country": null,
@@ -482,207 +227,7 @@ http_interactions:
                 "address_zip_check": null,
                 "brand": "Visa",
                 "country": "US",
-                "customer": "cus_8U8GCjn0jWc1qG",
-                "cvc_check": "pass",
-                "dynamic_last4": null,
-                "exp_month": 7,
-                "exp_year": 2019,
-                "fingerprint": "gfiwz91dPIZDOAds",
-                "funding": "credit",
-                "last4": "4242",
-                "metadata": {},
-                "name": null,
-                "tokenization_method": null
-              },
-              {
-                "id": "card_19uGBwBgrAjRvl1egI1UjkSB",
-                "object": "card",
-                "address_city": null,
-                "address_country": null,
-                "address_line1": null,
-                "address_line1_check": null,
-                "address_line2": null,
-                "address_state": null,
-                "address_zip": null,
-                "address_zip_check": null,
-                "brand": "Visa",
-                "country": "US",
-                "customer": "cus_8U8GCjn0jWc1qG",
-                "cvc_check": "pass",
-                "dynamic_last4": null,
-                "exp_month": 7,
-                "exp_year": 2019,
-                "fingerprint": "gfiwz91dPIZDOAds",
-                "funding": "credit",
-                "last4": "4242",
-                "metadata": {},
-                "name": null,
-                "tokenization_method": null
-              },
-              {
-                "id": "card_19uG8ZBgrAjRvl1eohXVFjgU",
-                "object": "card",
-                "address_city": null,
-                "address_country": null,
-                "address_line1": null,
-                "address_line1_check": null,
-                "address_line2": null,
-                "address_state": null,
-                "address_zip": null,
-                "address_zip_check": null,
-                "brand": "Visa",
-                "country": "US",
-                "customer": "cus_8U8GCjn0jWc1qG",
-                "cvc_check": "pass",
-                "dynamic_last4": null,
-                "exp_month": 7,
-                "exp_year": 2019,
-                "fingerprint": "gfiwz91dPIZDOAds",
-                "funding": "credit",
-                "last4": "4242",
-                "metadata": {},
-                "name": null,
-                "tokenization_method": null
-              },
-              {
-                "id": "card_19s3UHBgrAjRvl1exE88ysl3",
-                "object": "card",
-                "address_city": null,
-                "address_country": null,
-                "address_line1": null,
-                "address_line1_check": null,
-                "address_line2": null,
-                "address_state": null,
-                "address_zip": null,
-                "address_zip_check": null,
-                "brand": "Visa",
-                "country": "US",
-                "customer": "cus_8U8GCjn0jWc1qG",
-                "cvc_check": "pass",
-                "dynamic_last4": null,
-                "exp_month": 7,
-                "exp_year": 2019,
-                "fingerprint": "gfiwz91dPIZDOAds",
-                "funding": "credit",
-                "last4": "4242",
-                "metadata": {},
-                "name": null,
-                "tokenization_method": null
-              },
-              {
-                "id": "card_19s36UBgrAjRvl1ecbp5AlOn",
-                "object": "card",
-                "address_city": null,
-                "address_country": null,
-                "address_line1": null,
-                "address_line1_check": null,
-                "address_line2": null,
-                "address_state": null,
-                "address_zip": null,
-                "address_zip_check": null,
-                "brand": "Visa",
-                "country": "US",
-                "customer": "cus_8U8GCjn0jWc1qG",
-                "cvc_check": "pass",
-                "dynamic_last4": null,
-                "exp_month": 7,
-                "exp_year": 2019,
-                "fingerprint": "gfiwz91dPIZDOAds",
-                "funding": "credit",
-                "last4": "4242",
-                "metadata": {},
-                "name": null,
-                "tokenization_method": null
-              },
-              {
-                "id": "card_19s35UBgrAjRvl1ed6M0j9h9",
-                "object": "card",
-                "address_city": null,
-                "address_country": null,
-                "address_line1": null,
-                "address_line1_check": null,
-                "address_line2": null,
-                "address_state": null,
-                "address_zip": null,
-                "address_zip_check": null,
-                "brand": "Visa",
-                "country": "US",
-                "customer": "cus_8U8GCjn0jWc1qG",
-                "cvc_check": "pass",
-                "dynamic_last4": null,
-                "exp_month": 7,
-                "exp_year": 2019,
-                "fingerprint": "gfiwz91dPIZDOAds",
-                "funding": "credit",
-                "last4": "4242",
-                "metadata": {},
-                "name": null,
-                "tokenization_method": null
-              },
-              {
-                "id": "card_19s30qBgrAjRvl1eIZDqIeT0",
-                "object": "card",
-                "address_city": null,
-                "address_country": null,
-                "address_line1": null,
-                "address_line1_check": null,
-                "address_line2": null,
-                "address_state": null,
-                "address_zip": null,
-                "address_zip_check": null,
-                "brand": "Visa",
-                "country": "US",
-                "customer": "cus_8U8GCjn0jWc1qG",
-                "cvc_check": "pass",
-                "dynamic_last4": null,
-                "exp_month": 7,
-                "exp_year": 2019,
-                "fingerprint": "gfiwz91dPIZDOAds",
-                "funding": "credit",
-                "last4": "4242",
-                "metadata": {},
-                "name": null,
-                "tokenization_method": null
-              },
-              {
-                "id": "card_19s2y7BgrAjRvl1eKhgW0klR",
-                "object": "card",
-                "address_city": null,
-                "address_country": null,
-                "address_line1": null,
-                "address_line1_check": null,
-                "address_line2": null,
-                "address_state": null,
-                "address_zip": null,
-                "address_zip_check": null,
-                "brand": "Visa",
-                "country": "US",
-                "customer": "cus_8U8GCjn0jWc1qG",
-                "cvc_check": "pass",
-                "dynamic_last4": null,
-                "exp_month": 7,
-                "exp_year": 2019,
-                "fingerprint": "gfiwz91dPIZDOAds",
-                "funding": "credit",
-                "last4": "4242",
-                "metadata": {},
-                "name": null,
-                "tokenization_method": null
-              },
-              {
-                "id": "card_19s2qBBgrAjRvl1eYgLNbyvm",
-                "object": "card",
-                "address_city": null,
-                "address_country": null,
-                "address_line1": null,
-                "address_line1_check": null,
-                "address_line2": null,
-                "address_state": null,
-                "address_zip": null,
-                "address_zip_check": null,
-                "brand": "Visa",
-                "country": "US",
-                "customer": "cus_8U8GCjn0jWc1qG",
+                "customer": "cus_BbMW2z4w3lF65B",
                 "cvc_check": "pass",
                 "dynamic_last4": null,
                 "exp_month": 7,
@@ -695,32 +240,34 @@ http_interactions:
                 "tokenization_method": null
               }
             ],
-            "has_more": true,
-            "total_count": 11,
-            "url": "/v1/customers/cus_8U8GCjn0jWc1qG/sources"
+            "has_more": false,
+            "total_count": 2,
+            "url": "/v1/customers/cus_BbMW2z4w3lF65B/sources"
           },
           "subscriptions": {
             "object": "list",
             "data": [
               {
-                "id": "sub_8U8GH3Mi08iecJ",
+                "id": "sub_BbMWVk1sY55G5j",
                 "object": "subscription",
                 "application_fee_percent": null,
+                "billing": "charge_automatically",
                 "cancel_at_period_end": false,
                 "canceled_at": null,
-                "created": 1463736798,
-                "current_period_end": 1490677217,
-                "current_period_start": 1488258017,
-                "customer": "cus_8U8GCjn0jWc1qG",
+                "created": 1508303346,
+                "current_period_end": 1510982655,
+                "current_period_start": 1508304255,
+                "customer": "cus_BbMW2z4w3lF65B",
                 "discount": null,
                 "ended_at": null,
                 "items": {
                   "object": "list",
                   "data": [
                     {
-                      "id": "si_18TfwdBgrAjRvl1elhZpm9We",
+                      "id": "si_1BE9niBgrAjRvl1egIFyXtyB",
                       "object": "subscription_item",
-                      "created": 1463736798,
+                      "created": 1508303346,
+                      "metadata": {},
                       "plan": {
                         "id": "Hobbyist",
                         "object": "plan",
@@ -741,7 +288,7 @@ http_interactions:
                   ],
                   "has_more": false,
                   "total_count": 1,
-                  "url": "/v1/subscription_items?subscription=sub_8U8GH3Mi08iecJ"
+                  "url": "/v1/subscription_items?subscription=sub_BbMWVk1sY55G5j"
                 },
                 "livemode": false,
                 "metadata": {},
@@ -761,7 +308,7 @@ http_interactions:
                   "statement_description": null
                 },
                 "quantity": 1,
-                "start": 1488258017,
+                "start": 1508304255,
                 "status": "active",
                 "tax_percent": null,
                 "trial_end": null,
@@ -770,17 +317,76 @@ http_interactions:
             ],
             "has_more": false,
             "total_count": 1,
-            "url": "/v1/customers/cus_8U8GCjn0jWc1qG/subscriptions"
-          }
+            "url": "/v1/customers/cus_BbMW2z4w3lF65B/subscriptions"
+          },
+          "cards": {
+            "object": "list",
+            "data": [
+              {
+                "id": "card_1BEATJBgrAjRvl1e4ESQmqQx",
+                "object": "card",
+                "address_city": null,
+                "address_country": null,
+                "address_line1": null,
+                "address_line1_check": null,
+                "address_line2": null,
+                "address_state": null,
+                "address_zip": null,
+                "address_zip_check": null,
+                "brand": "Visa",
+                "country": "US",
+                "customer": "cus_BbMW2z4w3lF65B",
+                "cvc_check": "pass",
+                "dynamic_last4": null,
+                "exp_month": 7,
+                "exp_year": 2019,
+                "fingerprint": "gfiwz91dPIZDOAds",
+                "funding": "credit",
+                "last4": "4242",
+                "metadata": {},
+                "name": null,
+                "tokenization_method": null
+              },
+              {
+                "id": "card_1BE9njBgrAjRvl1ersvi82ex",
+                "object": "card",
+                "address_city": null,
+                "address_country": null,
+                "address_line1": null,
+                "address_line1_check": null,
+                "address_line2": null,
+                "address_state": null,
+                "address_zip": null,
+                "address_zip_check": null,
+                "brand": "Visa",
+                "country": "US",
+                "customer": "cus_BbMW2z4w3lF65B",
+                "cvc_check": "pass",
+                "dynamic_last4": null,
+                "exp_month": 7,
+                "exp_year": 2019,
+                "fingerprint": "gfiwz91dPIZDOAds",
+                "funding": "credit",
+                "last4": "4242",
+                "metadata": {},
+                "name": null,
+                "tokenization_method": null
+              }
+            ],
+            "has_more": false,
+            "total_count": 2,
+            "url": "/v1/customers/cus_BbMW2z4w3lF65B/cards"
+          },
+          "default_card": "card_1BEATJBgrAjRvl1e4ESQmqQx"
         }
     http_version: 
-  recorded_at: Thu, 19 May 2016 15:00:00 GMT
+  recorded_at: Tue, 17 Oct 2017 15:00:00 GMT
 - request:
     method: post
-    uri: https://api.stripe.com/v1/customers/cus_8U8GCjn0jWc1qG/sources
+    uri: https://api.stripe.com/v1/customers/cus_BbMW2z4w3lF65B/sources
     body:
       encoding: UTF-8
-      string: source=tok_19uGKJBgrAjRvl1eUB4CFemI
+      string: source=tok_1BEATRBgrAjRvl1eM7vxYv5K
     headers:
       User-Agent:
       - Stripe/v1 RubyBindings/2.0.1
@@ -789,9 +395,9 @@ http_interactions:
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
-      - '{"bindings_version":"2.0.1","lang":"ruby","lang_version":"2.3.3 p222 (2016-11-21)","platform":"x86_64-darwin16","engine":"ruby","publisher":"stripe","uname":"Darwin
-        okirakugokiraku 16.4.0 Darwin Kernel Version 16.4.0: Thu Dec 22 22:53:21 PST
-        2016; root:xnu-3789.41.3~3/RELEASE_X86_64 x86_64","hostname":"okirakugokiraku"}'
+      - '{"bindings_version":"2.0.1","lang":"ruby","lang_version":"2.4.2 p198 (2017-09-14)","platform":"x86_64-darwin16","engine":"ruby","publisher":"stripe","uname":"Darwin
+        okirakugokiraku 16.5.0 Darwin Kernel Version 16.5.0: Fri Mar  3 16:52:33 PST
+        2017; root:xnu-3789.51.2~3/RELEASE_X86_64 x86_64","hostname":"okirakugokiraku"}'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -804,7 +410,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Mon, 06 Mar 2017 07:32:17 GMT
+      - Wed, 18 Oct 2017 05:52:14 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -817,12 +423,14 @@ http_interactions:
       - GET, POST, HEAD, OPTIONS, DELETE
       Access-Control-Allow-Origin:
       - "*"
+      Access-Control-Expose-Headers:
+      - X-Stripe-Privileged-Session-Required,stripe-manage-version,X-Stripe-External-Auth-Required
       Access-Control-Max-Age:
       - '300'
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_AEjnBMzpP4uIek
+      - req_qd1FPrMfYf0gSF
       Stripe-Version:
       - '2014-09-08'
       Strict-Transport-Security:
@@ -831,7 +439,7 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "card_19uGKJBgrAjRvl1eJpxJvHLO",
+          "id": "card_1BEATQBgrAjRvl1eeJZPlbJt",
           "object": "card",
           "address_city": null,
           "address_country": null,
@@ -843,7 +451,7 @@ http_interactions:
           "address_zip_check": null,
           "brand": "Visa",
           "country": "US",
-          "customer": "cus_8U8GCjn0jWc1qG",
+          "customer": "cus_BbMW2z4w3lF65B",
           "cvc_check": "pass",
           "dynamic_last4": null,
           "exp_month": 7,
@@ -856,10 +464,10 @@ http_interactions:
           "tokenization_method": null
         }
     http_version: 
-  recorded_at: Thu, 19 May 2016 15:00:00 GMT
+  recorded_at: Tue, 17 Oct 2017 15:00:00 GMT
 - request:
     method: post
-    uri: https://api.stripe.com/v1/customers/cus_8U8GCjn0jWc1qG/sources/card_19uGKJBgrAjRvl1eJpxJvHLO
+    uri: https://api.stripe.com/v1/customers/cus_BbMW2z4w3lF65B/sources/card_1BEATQBgrAjRvl1eeJZPlbJt
     body:
       encoding: US-ASCII
       string: ''
@@ -871,9 +479,9 @@ http_interactions:
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
-      - '{"bindings_version":"2.0.1","lang":"ruby","lang_version":"2.3.3 p222 (2016-11-21)","platform":"x86_64-darwin16","engine":"ruby","publisher":"stripe","uname":"Darwin
-        okirakugokiraku 16.4.0 Darwin Kernel Version 16.4.0: Thu Dec 22 22:53:21 PST
-        2016; root:xnu-3789.41.3~3/RELEASE_X86_64 x86_64","hostname":"okirakugokiraku"}'
+      - '{"bindings_version":"2.0.1","lang":"ruby","lang_version":"2.4.2 p198 (2017-09-14)","platform":"x86_64-darwin16","engine":"ruby","publisher":"stripe","uname":"Darwin
+        okirakugokiraku 16.5.0 Darwin Kernel Version 16.5.0: Fri Mar  3 16:52:33 PST
+        2017; root:xnu-3789.51.2~3/RELEASE_X86_64 x86_64","hostname":"okirakugokiraku"}'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -886,7 +494,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Mon, 06 Mar 2017 07:32:19 GMT
+      - Wed, 18 Oct 2017 05:52:15 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -899,12 +507,14 @@ http_interactions:
       - GET, POST, HEAD, OPTIONS, DELETE
       Access-Control-Allow-Origin:
       - "*"
+      Access-Control-Expose-Headers:
+      - X-Stripe-Privileged-Session-Required,stripe-manage-version,X-Stripe-External-Auth-Required
       Access-Control-Max-Age:
       - '300'
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_AEjnMvtxOy4t4f
+      - req_JmAU4tGlfDP3Hw
       Stripe-Version:
       - '2014-09-08'
       Strict-Transport-Security:
@@ -913,7 +523,7 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "card_19uGKJBgrAjRvl1eJpxJvHLO",
+          "id": "card_1BEATQBgrAjRvl1eeJZPlbJt",
           "object": "card",
           "address_city": null,
           "address_country": null,
@@ -925,7 +535,7 @@ http_interactions:
           "address_zip_check": null,
           "brand": "Visa",
           "country": "US",
-          "customer": "cus_8U8GCjn0jWc1qG",
+          "customer": "cus_BbMW2z4w3lF65B",
           "cvc_check": "pass",
           "dynamic_last4": null,
           "exp_month": 7,
@@ -938,13 +548,13 @@ http_interactions:
           "tokenization_method": null
         }
     http_version: 
-  recorded_at: Thu, 19 May 2016 15:00:00 GMT
+  recorded_at: Tue, 17 Oct 2017 15:00:00 GMT
 - request:
     method: post
-    uri: https://api.stripe.com/v1/customers/cus_8U8GCjn0jWc1qG
+    uri: https://api.stripe.com/v1/customers/cus_BbMW2z4w3lF65B
     body:
       encoding: UTF-8
-      string: default_card=card_19uGKJBgrAjRvl1eJpxJvHLO&coupon=reallycoolcoupon
+      string: default_card=card_1BEATQBgrAjRvl1eeJZPlbJt&coupon=reallycoolcoupon
     headers:
       User-Agent:
       - Stripe/v1 RubyBindings/2.0.1
@@ -953,9 +563,9 @@ http_interactions:
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
-      - '{"bindings_version":"2.0.1","lang":"ruby","lang_version":"2.3.3 p222 (2016-11-21)","platform":"x86_64-darwin16","engine":"ruby","publisher":"stripe","uname":"Darwin
-        okirakugokiraku 16.4.0 Darwin Kernel Version 16.4.0: Thu Dec 22 22:53:21 PST
-        2016; root:xnu-3789.41.3~3/RELEASE_X86_64 x86_64","hostname":"okirakugokiraku"}'
+      - '{"bindings_version":"2.0.1","lang":"ruby","lang_version":"2.4.2 p198 (2017-09-14)","platform":"x86_64-darwin16","engine":"ruby","publisher":"stripe","uname":"Darwin
+        okirakugokiraku 16.5.0 Darwin Kernel Version 16.5.0: Fri Mar  3 16:52:33 PST
+        2017; root:xnu-3789.51.2~3/RELEASE_X86_64 x86_64","hostname":"okirakugokiraku"}'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -968,7 +578,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Mon, 06 Mar 2017 07:32:19 GMT
+      - Wed, 18 Oct 2017 05:52:16 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -981,12 +591,14 @@ http_interactions:
       - GET, POST, HEAD, OPTIONS, DELETE
       Access-Control-Allow-Origin:
       - "*"
+      Access-Control-Expose-Headers:
+      - X-Stripe-Privileged-Session-Required,stripe-manage-version,X-Stripe-External-Auth-Required
       Access-Control-Max-Age:
       - '300'
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_AEjngCUoM7WGUP
+      - req_FVCA7QQNLhl3Bd
       Stripe-Version:
       - '2014-09-08'
     body:
@@ -1000,5 +612,5 @@ http_interactions:
           }
         }
     http_version: 
-  recorded_at: Thu, 19 May 2016 15:00:00 GMT
+  recorded_at: Tue, 17 Oct 2017 15:00:00 GMT
 recorded_with: VCR 3.0.3
