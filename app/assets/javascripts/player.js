@@ -89,6 +89,6 @@ function Player(cssSelectorAncestor){
 
     setInterval(function() {
       return _this.radioTitle();
-    }, 10000);
+    }, 1000);
   };
 };
