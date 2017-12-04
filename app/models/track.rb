@@ -1,6 +1,7 @@
 class Track < ActiveRecord::Base
   include SoId3::BackgroundJobs
   belongs_to :radio
+  belongs_to :uploaded_by, class: "User"
   has_many :playlist_tracks, dependent: :destroy
   has_many :playlists, through: :playlist_tracks
   has_many :track_labels, dependent: :destroy
