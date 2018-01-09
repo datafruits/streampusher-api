@@ -5,24 +5,22 @@ http_interactions:
     uri: https://api.stripe.com/v1/customers
     body:
       encoding: UTF-8
-      string: description=yoshino%40malboro.info&plan=Free%20Trial
+      string: description=yoshino%40malboro.info&plan=Free+Trial
     headers:
-      Accept:
-      - "*/*; q=0.5, application/xml"
-      Accept-Encoding:
-      - gzip, deflate
       User-Agent:
-      - Stripe/v1 RubyBindings/1.16.0
+      - Stripe/v1 RubyBindings/2.0.1
       Authorization:
       - Bearer <STRIPE_KEY>
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
-      - '{"bindings_version":"1.16.0","lang":"ruby","lang_version":"2.3.0 p0 (2015-12-25)","platform":"x86_64-darwin14","publisher":"stripe","uname":"Darwin
-        moguya 15.3.0 Darwin Kernel Version 15.3.0: Thu Dec 10 18:40:58 PST 2015;
-        root:xnu-3248.30.4~1/RELEASE_X86_64 x86_64"}'
-      Content-Length:
-      - '52'
+      - '{"bindings_version":"2.0.1","lang":"ruby","lang_version":"2.4.2 p198 (2017-09-14)","platform":"x86_64-darwin16","engine":"ruby","publisher":"stripe","uname":"Darwin
+        okirakugokiraku 16.5.0 Darwin Kernel Version 16.5.0: Fri Mar  3 16:52:33 PST
+        2017; root:xnu-3789.51.2~3/RELEASE_X86_64 x86_64","hostname":"okirakugokiraku"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
   response:
     status:
       code: 200
@@ -31,11 +29,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Fri, 20 May 2016 09:33:18 GMT
+      - Wed, 18 Oct 2017 05:09:06 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '1892'
+      - '2902'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -44,12 +42,14 @@ http_interactions:
       - GET, POST, HEAD, OPTIONS, DELETE
       Access-Control-Allow-Origin:
       - "*"
+      Access-Control-Expose-Headers:
+      - X-Stripe-Privileged-Session-Required,stripe-manage-version,X-Stripe-External-Auth-Required
       Access-Control-Max-Age:
       - '300'
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_8U8GGYOLH7gA0x
+      - req_CUyjsruYNFlkpg
       Stripe-Version:
       - '2014-09-08'
       Strict-Transport-Security:
@@ -58,20 +58,11 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "cus_8U8GCjn0jWc1qG",
+          "id": "cus_BbMW2z4w3lF65B",
           "object": "customer",
           "account_balance": 0,
-          "business_vat_id": null,
-          "cards": {
-            "object": "list",
-            "data": [],
-            "has_more": false,
-            "total_count": 0,
-            "url": "/v1/customers/cus_8U8GCjn0jWc1qG/cards"
-          },
-          "created": 1463736798,
+          "created": 1508303346,
           "currency": "usd",
-          "default_card": null,
           "default_source": null,
           "delinquent": false,
           "description": "yoshino@malboro.info",
@@ -85,23 +76,55 @@ http_interactions:
             "data": [],
             "has_more": false,
             "total_count": 0,
-            "url": "/v1/customers/cus_8U8GCjn0jWc1qG/sources"
+            "url": "/v1/customers/cus_BbMW2z4w3lF65B/sources"
           },
           "subscriptions": {
             "object": "list",
             "data": [
               {
-                "id": "sub_8U8GH3Mi08iecJ",
+                "id": "sub_BbMWVk1sY55G5j",
                 "object": "subscription",
                 "application_fee_percent": null,
+                "billing": "charge_automatically",
                 "cancel_at_period_end": false,
                 "canceled_at": null,
-                "created": 1463736798,
-                "current_period_end": 1464946398,
-                "current_period_start": 1463736798,
-                "customer": "cus_8U8GCjn0jWc1qG",
+                "created": 1508303346,
+                "current_period_end": 1509512946,
+                "current_period_start": 1508303346,
+                "customer": "cus_BbMW2z4w3lF65B",
                 "discount": null,
                 "ended_at": null,
+                "items": {
+                  "object": "list",
+                  "data": [
+                    {
+                      "id": "si_1BE9niBgrAjRvl1egIFyXtyB",
+                      "object": "subscription_item",
+                      "created": 1508303346,
+                      "metadata": {},
+                      "plan": {
+                        "id": "Free Trial",
+                        "object": "plan",
+                        "amount": 0,
+                        "created": 1447767566,
+                        "currency": "usd",
+                        "interval": "month",
+                        "interval_count": 1,
+                        "livemode": false,
+                        "metadata": {},
+                        "name": "Free Trial",
+                        "statement_descriptor": null,
+                        "trial_period_days": 14,
+                        "statement_description": null
+                      },
+                      "quantity": 1
+                    }
+                  ],
+                  "has_more": false,
+                  "total_count": 1,
+                  "url": "/v1/subscription_items?subscription=sub_BbMWVk1sY55G5j"
+                },
+                "livemode": false,
                 "metadata": {},
                 "plan": {
                   "id": "Free Trial",
@@ -119,18 +142,26 @@ http_interactions:
                   "statement_description": null
                 },
                 "quantity": 1,
-                "start": 1463736798,
+                "start": 1508303346,
                 "status": "trialing",
                 "tax_percent": null,
-                "trial_end": 1464946398,
-                "trial_start": 1463736798
+                "trial_end": 1509512946,
+                "trial_start": 1508303346
               }
             ],
             "has_more": false,
             "total_count": 1,
-            "url": "/v1/customers/cus_8U8GCjn0jWc1qG/subscriptions"
-          }
+            "url": "/v1/customers/cus_BbMW2z4w3lF65B/subscriptions"
+          },
+          "cards": {
+            "object": "list",
+            "data": [],
+            "has_more": false,
+            "total_count": 0,
+            "url": "/v1/customers/cus_BbMW2z4w3lF65B/cards"
+          },
+          "default_card": null
         }
     http_version: 
-  recorded_at: Thu, 19 May 2016 15:00:00 GMT
-recorded_with: VCR 3.0.2
+  recorded_at: Tue, 17 Oct 2017 15:00:00 GMT
+recorded_with: VCR 3.0.3

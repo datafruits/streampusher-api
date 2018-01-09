@@ -6,7 +6,7 @@ RSpec.describe Subscription, :type => :model do
   let!(:subscription) { FactoryGirl.create :subscription, user: owner }
   before do
     Time.zone = 'UTC'
-    Timecop.freeze Time.local(2016,5,20)
+    Timecop.freeze Time.local(2017,10,18)
   end
   after do
     Timecop.return
@@ -49,7 +49,7 @@ RSpec.describe Subscription, :type => :model do
               :cvc => "314"
             }
           )
-          result = subscription.update_with_new_card plan_id: hobbyist_plan.id, stripe_card_token: token.id, coupon: "supercoupon"
+          result = subscription.update_with_new_card plan_id: hobbyist_plan.id, stripe_card_token: token.id, coupon: "COOLCOUPON2014"
           expect(result).to eq true
           subscription.reload
           expect(subscription.on_trial?).to eq false
@@ -57,8 +57,8 @@ RSpec.describe Subscription, :type => :model do
           expect(subscription.plan).to eq hobbyist_plan
           customer = Stripe::Customer.retrieve subscription.stripe_customer_token
           expect(customer.subscriptions.data.first.plan.id).to eq "Hobbyist"
-          expect(customer.discount.coupon.id).to eq "supercoupon"
-          expect(customer.discount.coupon.percent_off).to eq 50
+          expect(customer.discount.coupon.id).to eq "COOLCOUPON2014"
+          expect(customer.discount.coupon.amount_off).to eq 1200
         end
       end
       it "updates the subscription with a new card and plan" do
@@ -118,6 +118,24 @@ RSpec.describe Subscription, :type => :model do
       allow(subscription).to receive(:radios) { [radio] }
       expect(radio).to receive(:disable_radio)
       subscription.cancel!
+    end
+  end
+
+  describe "free trial ending" do
+    it "cancels the stripe subscription" do
+      VCR.use_cassette "stripe_cancel_subscription" do
+        subscription.save_with_free_trial!
+        subscription.reload
+        expect(subscription.on_trial?).to eq true
+        expect(subscription.trial_ends_at < 15.days.from_now).to eq true
+        expect(subscription.trial_days_left).to eq 14
+
+        subscription.cancel_stripe_subscription
+        subscription.reload
+        customer = Stripe::Customer.retrieve subscription.stripe_customer_token
+        expect(customer.subscriptions.total_count).to eq 0
+        expect(customer.subscriptions.data).to eq []
+      end
     end
   end
 end
