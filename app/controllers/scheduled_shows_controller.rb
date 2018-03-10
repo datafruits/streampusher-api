@@ -18,7 +18,7 @@ class ScheduledShowsController < ApplicationController
       format.html
       format.json {
         response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
-        render json: @scheduled_shows, root: false
+        render json: @scheduled_shows
       }
     end
   end
@@ -28,7 +28,7 @@ class ScheduledShowsController < ApplicationController
       format.html
       format.json {
         response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
-        render json: @scheduled_show, root: false
+        render json: @scheduled_show
       }
     end
   end
@@ -38,7 +38,7 @@ class ScheduledShowsController < ApplicationController
     respond_to do |format|
       format.json {
         response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
-        render json: @scheduled_show, root: false
+        render json: @scheduled_show
       }
     end
   end
