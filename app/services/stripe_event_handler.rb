@@ -12,6 +12,7 @@ class StripeEventHandler
     # send warning email
     user = Subscription.find_by!(stripe_customer_token: event.data.object.customer).user
     unless user.subscription.trial_ends_at < Date.today && user.subscription.on_trial?
+      EndFreeTrial.perform user.subscription
       AccountMailer.trial_will_end(user).deliver_later
     end
   end
