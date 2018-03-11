@@ -1,12 +1,13 @@
 class PodcastSerializer < ActiveModel::Serializer
-  attributes :id, :name, :tracks
+  attributes :id, :name
+  has_many :tracks, embed: :ids, key: :tracks, embed_in_root: true, each_serializer: PlaylistTrackSerializer
 
   def tracks
-    object.playlist.playlist_tracks
+    playlist_tracks = object.playlist.playlist_tracks
       .unscoped
       .where(playlist_id: object.playlist.id)
-      .order("podcast_published_date DESC").map do |playlist_track|
-      PlaylistTrackSerializer.new(playlist_track, root: false)
-    end
+      .order("podcast_published_date DESC")
+
+    playlist_tracks
   end
 end
