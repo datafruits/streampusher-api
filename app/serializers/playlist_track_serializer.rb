@@ -2,6 +2,7 @@ class PlaylistTrackSerializer < ActiveModel::Serializer
   attributes :audio_file_name, :podcast_published_date, :id,
     :track_id, :playlist_id, :title, :display_name, :position, :updated_at,
     :cdn_url, :labels
+  has_many :labels, embed: :ids, key: :labels, embed_in_root: true
 
   def display_name
     object.track.display_name
@@ -20,6 +21,6 @@ class PlaylistTrackSerializer < ActiveModel::Serializer
   end
 
   def labels
-    object.track.labels.pluck :name
+    object.track.labels
   end
 end
