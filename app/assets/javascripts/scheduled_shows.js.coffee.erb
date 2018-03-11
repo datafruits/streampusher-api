@@ -13,8 +13,14 @@ $('[data-controller=scheduled_shows]').ready ->
      }
      defaultView: 'month'
      editable: true
+
      eventSources: [
-       "/scheduled_shows.json?timezone=<%=Time.zone.name%>"
+       {
+         url: "/scheduled_shows.json?timezone=<%=Time.zone.name%>"
+         data: {
+           fullcalendar: true
+         }
+       }
      ]
      eventClick: (calEvent, jsEvent, view) ->
        window.location = "/scheduled_shows/#{calEvent.id}"
@@ -24,5 +30,5 @@ $('[data-controller=scheduled_shows]').ready ->
   $('#modal-holder').on('hide.bs.modal', (e) ->
     if ($('#scheduled_show_title')[0].value.length > 0)
       if (!confirm('Changes have been made and will be lost if you continue with "OK". Otherwise press "Cancel" to continue scheduling the show.'))
-        e.preventDefault()    
+        e.preventDefault()
   )
