@@ -21,6 +21,9 @@ export default Ember.Component.extend({
   hasMixcloudAccount: Ember.computed('', function(){
     return this.get('mixcloudAccount');
   }),
+  uploadProgressStyle: Ember.computed('track.roundedUploadProgress', function(){
+    return Ember.String.htmlSafe(`width: ${this.get('track.roundedUploadProgress')}%;`);
+  }),
   actions: {
     addToPlaylist(){
       this.sendAction('setIsSyncingPlaylist', true);

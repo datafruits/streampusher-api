@@ -2,7 +2,7 @@
   {{#if track.isUploading}}
     uploading {{track.audioFileName}}...
     <div class="meter">
-      <span style="width: {{track.roundedUploadProgress}}%"></span>
+      <span style="{{uploadProgressStyle}}"></span>
     </div>
 
   {{else}}
