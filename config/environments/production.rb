@@ -69,11 +69,11 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.smtp_settings = {
-    :address        => 'smtp.sendgrid.net',
+    :address        => 'email-smtp.us-east-1.amazonaws.com',
     :port           => '587',
-    :authentication => :plain,
-    :user_name      => ENV['SENDGRID_USERNAME'],
-    :password       => ENV['SENDGRID_PASSWORD'],
+    :authentication => :login,
+    :user_name      => ENV['SES_SMTP_USERNAME'],
+    :password       => ENV['SES_SMTP_PASSWORD'],
     :domain         => 'streampusher.com',
     :enable_starttls_auto => true
   }
