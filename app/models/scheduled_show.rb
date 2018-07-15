@@ -12,6 +12,9 @@ class ScheduledShow < ActiveRecord::Base
     path: ":attachment/:style/:basename.:extension"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
+  has_many :tracks
+  has_many :performers, through: :scheduled_show_performers, source: :user
+
   validates_presence_of :start_at, :end_at, :playlist_id, :title
   validates :description, length: { maximum: 10000 }
 

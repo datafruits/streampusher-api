@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171130085819) do
+ActiveRecord::Schema.define(version: 20180715155145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -154,6 +154,15 @@ ActiveRecord::Schema.define(version: 20171130085819) do
     t.datetime "file_updated_at"
   end
 
+  create_table "scheduled_show_performers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "scheduled_show_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["scheduled_show_id"], name: "index_scheduled_show_performers_on_scheduled_show_id", using: :btree
+    t.index ["user_id"], name: "index_scheduled_show_performers_on_user_id", using: :btree
+  end
+
   create_table "scheduled_shows", force: :cascade do |t|
     t.integer  "radio_id",                              null: false
     t.datetime "start_at",                              null: false
@@ -270,6 +279,7 @@ ActiveRecord::Schema.define(version: 20171130085819) do
     t.integer  "mixcloud_upload_status",             default: 0,  null: false
     t.string   "mixcloud_key"
     t.integer  "uploaded_by_id"
+    t.integer  "scheduled_show_id"
     t.index ["radio_id"], name: "index_tracks_on_radio_id", using: :btree
   end
 
