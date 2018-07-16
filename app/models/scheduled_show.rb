@@ -13,7 +13,9 @@ class ScheduledShow < ActiveRecord::Base
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
   has_many :tracks
+  has_many :scheduled_show_performers
   has_many :performers, through: :scheduled_show_performers, source: :user
+  accepts_nested_attributes_for :scheduled_show_performers
 
   validates_presence_of :start_at, :end_at, :playlist_id, :title
   validates :description, length: { maximum: 10000 }

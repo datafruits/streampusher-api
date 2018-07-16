@@ -3,6 +3,9 @@
   <%= f.input :title %>
   <%= f.input :image, as: :file %>
   <%= f.input :playlist_id, collection: @current_radio.playlists, label_method: :name, value_method: :id, include_blank: false %>
+  <%= f.simple_fields_for :scheduled_show_performers do |g| %>
+    <%= g.input :user_id, collection: @current_radio.djs, label_method: :username, value_method: :id, label: 'Host' %>
+  <% end %>
   <div class="note">
     Your current default time zone is set to <%= current_user.time_zone %>. You can change it by <%= link_to 'editing your profile.', "/users/edit" %>
   </div>
