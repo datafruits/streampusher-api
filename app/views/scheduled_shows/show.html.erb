@@ -15,7 +15,7 @@
   <% end %>
   <p><%= html_pipeline(@scheduled_show.description) %></p>
   <div class="social">
-    <a href="https://twitter.com/share" class="twitter-share-button" data-text="<%=tweet_text(@scheduled_show)%>">Tweet</a>
+    <%= timezones_text @scheduled_show %>
   </div>
   <div class="actions">
     <%= link_to "Edit", edit_scheduled_show_path(@scheduled_show) %>

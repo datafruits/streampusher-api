@@ -1,4 +1,29 @@
 module ScheduledShowsHelper
+  def tweet_text(show)
+    text = ""
+    last_date = ""
+    text << "#{show.title} on #{show.radio.name}"
+    text << timezones_text(show)
+    text
+  end
+
+  def timezones_text show
+    text
+    multiple_timezones(show.start_at).each do |k, v|
+      date = v[:date]
+      time = v[:time]
+      if date != last_date
+        time_text = "#{date} - #{time} #{k}"
+      else
+        time_text = "#{time} #{k}"
+      end
+      text << " - #{time_text}"
+      last_date = date
+    end
+    text
+  end
+
+  private
   def multiple_timezones(time)
     timezones = {"PST" => "Pacific Time (US & Canada)",
                  "EST" => "Eastern Time (US & Canada)",
@@ -15,21 +40,4 @@ module ScheduledShowsHelper
     times_hash
   end
 
-  def tweet_text(show)
-    text = ""
-    last_date = ""
-    text << "#{show.title} on #{show.radio.name}"
-    multiple_timezones(show.start_at).each do |k, v|
-      date = v[:date]
-      time = v[:time]
-      if date != last_date
-        time_text = "#{date} - #{time} #{k}"
-      else
-        time_text = "#{time} #{k}"
-      end
-      text << " - #{time_text}"
-      last_date = date
-    end
-    text
-  end
 end
