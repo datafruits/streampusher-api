@@ -13,7 +13,7 @@ class ScheduledShow < ActiveRecord::Base
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
   has_many :tracks
-  has_many :scheduled_show_performers
+  has_many :scheduled_show_performers, class_name: "ScheduledShowPerformer"
   has_many :performers, through: :scheduled_show_performers, source: :user
   accepts_nested_attributes_for :scheduled_show_performers
 
