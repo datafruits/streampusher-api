@@ -63,6 +63,7 @@ end
 
 group :test, :development do
   gem 'pry-byebug'
+  gem 'rubocop', require: false
 end
 
 group :production do
