@@ -1,14 +1,14 @@
 module ScheduledShowsHelper
   def tweet_text(show)
     text = ""
-    last_date = ""
     text << "#{show.title} on #{show.radio.name}"
     text << timezones_text(show)
     text
   end
 
   def timezones_text show
-    text
+    text = ""
+    last_date = ""
     multiple_timezones(show.start_at).each do |k, v|
       date = v[:date]
       time = v[:time]
