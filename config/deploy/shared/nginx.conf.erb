@@ -33,7 +33,7 @@ server {
   client_max_body_size 4G;
   keepalive_timeout 10;
   ssl on;
-  ssl_certificate /var/www/stream_pusher/shared/ssl-bundle.crt;
-  ssl_certificate_key /var/www/stream_pusher/shared/streampusher.com.key;
+  ssl_certificate /etc/letsencrypt/live/streampusher.com/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/streampusher.com/privkey.pem;
 }
 <% end %>
