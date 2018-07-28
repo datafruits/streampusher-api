@@ -9,15 +9,18 @@ module ScheduledShowsHelper
   def timezones_text show
     text = ""
     last_date = ""
-    multiple_timezones(show.start_at).each do |k, v|
-      date = v[:date]
-      time = v[:time]
+    multiple_timezones(show.start_at).each_with_index do |timezone, index|
+      date = timezone.last[:date]
+      time = timezone.last[:time]
       if date != last_date
-        time_text = "#{date} - #{time} #{k}"
+        time_text = "#{date} - #{time} #{timezone.first}"
       else
-        time_text = "#{time} #{k}"
+        time_text = "#{time} #{timezone.first}"
       end
-      text << " - #{time_text}"
+      unless index == 0
+        text << " - "
+      end
+      text << "#{time_text}"
       last_date = date
     end
     text
