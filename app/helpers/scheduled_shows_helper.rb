@@ -1,7 +1,7 @@
 module ScheduledShowsHelper
   def tweet_text(show)
     text = ""
-    text << "#{show.title} on #{show.radio.name}"
+    text << "#{show.title} on #{show.radio.name} "
     text << timezones_text(show)
     text
   end
