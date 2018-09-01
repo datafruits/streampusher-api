@@ -1,6 +1,7 @@
 class PodcastsController < ApplicationController
   load_and_authorize_resource except: [:show]
   before_action :current_radio_required, only: [:show]
+  serialization_scope :serializer_scope
 
   def index
     @podcasts = @current_radio.podcasts
@@ -45,5 +46,13 @@ class PodcastsController < ApplicationController
   private
   def podcast_params
     params.require(:podcast).permit(:name, :playlist_id, :radio_id, :image)
+  end
+
+  def serializer_scope
+    {
+      tracks: {
+        page: params[:page]
+      }
+    }
   end
 end

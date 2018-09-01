@@ -7,6 +7,7 @@ class PodcastSerializer < ActiveModel::Serializer
       .unscoped
       .where(playlist_id: object.playlist.id)
       .order("podcast_published_date DESC")
+      .page(scope[:tracks][:page])
 
     playlist_tracks
   end
