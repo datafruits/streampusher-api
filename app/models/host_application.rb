@@ -20,8 +20,7 @@ class HostApplication < ApplicationRecord
     params = self.attributes.slice "username", "email", "time_zone"
     user = DjSignup.perform params, self.radio
     if user.persisted?
-      self.update approved: true
-      true
+      update! approved: true
     else
       raise "Couldn't create user account"
     end
