@@ -15,7 +15,11 @@
         <td>host_application.link</td>
         <td>host_application.interval</td>
         <td>host_application.desired_time</td>
-        <td><%= button_to "Approve", host_application_approvals_path(host_application), class: "btn btn-success" %></td>
+        <% if host_application.approved? %>
+          <td>Approved</td>
+        <% else %>
+          <td><%= button_to "Approve", host_application_approvals_path(host_application), class: "btn btn-success" %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

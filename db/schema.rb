@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180905090909) do
+ActiveRecord::Schema.define(version: 20180909054026) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,16 +28,17 @@ ActiveRecord::Schema.define(version: 20180905090909) do
   end
 
   create_table "host_applications", force: :cascade do |t|
-    t.integer  "radio_id",                  null: false
-    t.string   "email",                     null: false
-    t.string   "username",                  null: false
-    t.string   "link",                      null: false
-    t.integer  "interval",      default: 0, null: false
-    t.datetime "desired_time",              null: false
-    t.string   "time_zone",                 null: false
+    t.integer  "radio_id",                      null: false
+    t.string   "email",                         null: false
+    t.string   "username",                      null: false
+    t.string   "link",                          null: false
+    t.integer  "interval",      default: 0,     null: false
+    t.datetime "desired_time",                  null: false
+    t.string   "time_zone",                     null: false
     t.string   "other_comment"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.boolean  "approved",      default: false, null: false
     t.index ["radio_id"], name: "index_host_applications_on_radio_id", using: :btree
   end
 

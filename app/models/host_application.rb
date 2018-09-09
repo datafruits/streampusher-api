@@ -16,9 +16,11 @@ class HostApplication < ApplicationRecord
   enum interval: [:weekly, :biweekly, :monthly, :other]
 
   def approve!
+    return false if approved?
     params = self.attributes.slice "username", "email", "time_zone"
     user = DjSignup.perform params, self.radio
     if user.persisted?
+      self.update approved: true
       true
     else
       raise "Couldn't create user account"

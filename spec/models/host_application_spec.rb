@@ -17,5 +17,6 @@ RSpec.describe HostApplication, type: :model do
     host_application = FactoryGirl.create :host_application
     host_application.approve!
     expect(User.where(username: host_application.username, email: host_application.email, time_zone: host_application.time_zone).count).to eq 1
+    expect(host_application.approved?).to eq true
   end
 end
