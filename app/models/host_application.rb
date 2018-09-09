@@ -3,8 +3,8 @@ class HostApplication < ApplicationRecord
 
   validates :email, presence: true
   validates :username, presence: true
-  validate :username_not_taken
-  validate :email_not_taken
+  validate :username_not_taken, on: :create
+  validate :email_not_taken, on: :create
   validates_presence_of :username
   validates_uniqueness_of :username
   validates_format_of :username, with: /\A[a-zA-Z0-9_\.]+\z/, message: :alphanumeric
