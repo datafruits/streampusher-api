@@ -10,11 +10,11 @@
   <tbody>
     <% @host_applications.each do |host_application| %>
       <tr>
-        <td>host_application.email</td>
-        <td>host_application.user</td>
-        <td>host_application.link</td>
-        <td>host_application.interval</td>
-        <td>host_application.desired_time</td>
+        <td><%= host_application.email %></td>
+        <td><%= host_application.user %></td>
+        <td><%= host_application.link %></td>
+        <td><%= host_application.interval %></td>
+        <td><%= host_application.desired_time %></td>
         <% if host_application.approved? %>
           <td>Approved</td>
         <% else %>
