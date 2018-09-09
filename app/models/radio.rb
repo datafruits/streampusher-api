@@ -10,6 +10,7 @@ class Radio < ActiveRecord::Base
   has_many :podcasts
   has_many :recordings
   has_many :listens
+  has_many :host_applications
   belongs_to :subscription
   belongs_to :default_playlist, class_name: "Playlist"
   after_create :create_default_playlist
