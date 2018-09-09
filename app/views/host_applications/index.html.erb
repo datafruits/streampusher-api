@@ -1,0 +1,22 @@
+<table class="table table-striped">
+  <thead>
+    <th>username</th>
+    <th>email</th>
+    <th>link</th>
+    <th>interval</th>
+    <th>desired time</th>
+    <th>approve</th>
+  </thead>
+  <tbody>
+    <% @host_applications.each do |host_application| %>
+      <tr>
+        <td>host_application.email</td>
+        <td>host_application.user</td>
+        <td>host_application.link</td>
+        <td>host_application.interval</td>
+        <td>host_application.desired_time</td>
+        <td><%= button_to "Approve", host_application_approvals_path(host_application), class: "btn btn-success" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
