@@ -19,6 +19,6 @@ class HostApplicationsController < ApplicationController
 
   private
   def host_application_params
-    params.require(:host_application).permit(:username, :email, :time_zone, :link)
+    params.require(:host_application).permit(:username, :email, :time_zone, :link, :interval)
   end
 end

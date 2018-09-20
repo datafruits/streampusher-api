@@ -13,7 +13,7 @@ class HostApplication < ApplicationRecord
   validates_presence_of :time_zone
   validates_inclusion_of :time_zone, :in => ActiveSupport::TimeZone.all.map { |m| m.name }, :message => "is not a valid Time Zone"
 
-  enum interval: [:weekly, :biweekly, :monthly, :other]
+  enum interval: [:daily, :weekly, :biweekly, :monthly, :other]
 
   def approve!
     return false if approved?
