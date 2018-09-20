@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180909054026) do
+ActiveRecord::Schema.define(version: 20180920152101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20180909054026) do
     t.string   "username",                      null: false
     t.string   "link",                          null: false
     t.integer  "interval",      default: 0,     null: false
-    t.datetime "desired_time",                  null: false
+    t.text     "desired_time",                  null: false
     t.string   "time_zone",                     null: false
     t.string   "other_comment"
     t.datetime "created_at",                    null: false
