@@ -19,4 +19,9 @@ RSpec.describe HostApplication, type: :model do
     expect(User.where(username: host_application.username, email: host_application.email, time_zone: host_application.time_zone).count).to eq 1
     expect(host_application.approved?).to eq true
   end
+
+  it "fixes the timezone" do
+    host_application = FactoryGirl.create :host_application, email: "yoshibo@malboro.info", time_zone: "Asia/Tokyo"
+    expect(host_application.time_zone).to eq "Osaka"
+  end
 end

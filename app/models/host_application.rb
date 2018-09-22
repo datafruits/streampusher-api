@@ -13,6 +13,8 @@ class HostApplication < ApplicationRecord
   validates_presence_of :time_zone
   validates_inclusion_of :time_zone, :in => ActiveSupport::TimeZone.all.map { |m| m.name }, :message => "is not a valid Time Zone"
 
+  before_validation :process_time_zone
+
   enum interval: [:daily, :weekly, :biweekly, :monthly, :other]
 
   def approve!
@@ -37,5 +39,12 @@ class HostApplication < ApplicationRecord
     unless User.where(email: email).none?
       errors.add(:email, "is already taken")
     end
+  end
+
+  def process_time_zone
+    return if ActiveSupport::TimeZone.all.map { |m| m.name }.include? time_zone
+    tz = TZInfo::Timezone.get self.time_zone
+    offset = tz.period_for_utc(Time.now).offset.utc_total_offset
+    self.time_zone = ActiveSupport::TimeZone.all.select{ |s| s.utc_offset == offset }.first.name
   end
 end

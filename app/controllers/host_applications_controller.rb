@@ -10,15 +10,17 @@ class HostApplicationsController < ApplicationController
   def create
     @host_application = @current_radio.host_applications.new host_application_params
     if @host_application.save
-      ActiveSupport::Notifications.insturment 'host_application.created', radio: @current_radio.name, username: @host_application.username
+      ActiveSupport::Notifications.instrument 'host_application.created', radio: @current_radio.name, username: @host_application.username
       render json: @host_application
     else
-      render json: @host_application.errors
+      render json: { errors: @host_application.errors }, status: 422
     end
   end
 
   private
   def host_application_params
-    params.require(:host_application).permit(:username, :email, :time_zone, :link, :interval)
+    params.require(:host_application).permit(:username, :email, :time_zone,
+                                             :link, :interval, :desired_time,
+                                             :other_comment)
   end
 end
