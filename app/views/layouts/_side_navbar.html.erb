@@ -48,5 +48,12 @@
         <% end %>
       </li>
     <% end %>
+    <% if current_user.owner? %>
+      <li>
+        <%= link_to host_applications_path do %>
+          Dj Applications
+        <% end %>
+      </li>
+    <% end %>
   </ul>
 </nav>
