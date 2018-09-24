@@ -118,3 +118,5 @@ gem 'ruby-liquidsoap', github: 'streampusher/ruby-liquidsoap', :require => 'liqu
 gem 'paper_trail'
 
 gem 'friendly_id'
+
+gem 'discord-notifier'
