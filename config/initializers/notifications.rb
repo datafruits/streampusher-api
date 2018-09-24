@@ -25,7 +25,7 @@ if Rails.env.production?
     end
   end
 
-  ActiveSupport.Notifications.subscribe "host_application.created" do |*args|
+  ActiveSupport::Notifications.subscribe "host_application.created" do |*args|
     event = ActiveSupport::Notifications::Event.new *args
     DiscordNotifier.perform_later "New DJ Application: #{event.payload.inspect}"
   end
