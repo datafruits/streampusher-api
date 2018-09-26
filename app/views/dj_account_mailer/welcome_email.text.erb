@@ -9,9 +9,17 @@ Your password is <%= @password %>. Be sure to change it after you login.
 You can log in here.
 <%== login_url(host: @radio.virtual_host) %>
 
+For more broadcasting help, check out our <%== link_to "help page.", broadcasting_help_url %>
+
 You can stream to the station using the same login and password from your source client.
 
 If your source client only has a password field, you can enter both the login
 and password in the password field, separated by a semicolon ';'.
 
-For more broadcasting help, check out our <%== link_to "help page.", broadcasting_help_url %>
+Feel free to test streaming whenever the schedule is free.
+When you have decided when you want to do your show, you can add it to the <%== link_to scheduled_shows_url, "schedule." %>
+
+If you have any questions or need help with anything, just reply to this email!
+
+Thanks
+-Tony
