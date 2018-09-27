@@ -4,8 +4,8 @@ class DjSerializer < ActiveModel::Serializer
   has_many :tracks, embed: :ids, key: :tracks, embed_in_root: true, each_serializer: TrackSerializer
   has_many :scheduled_shows, embed: :ids, key: :upcoming_shows, embed_in_root: true, each_serializer: ScheduledShowSerializer
   def scheduled_shows
-    ScheduledShow.find(ScheduledShowPerformer.where(user_id: object.id)
-      .pluck(:scheduled_show_id))
+    ScheduledShow.where(id: ScheduledShowPerformer.where(user_id: object.id)
+      .pluck(:scheduled_show_id)).where("start_at >= (?)", Time.now)
   end
 
   def image_url
