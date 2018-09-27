@@ -11,6 +11,7 @@ class DjsController < ApplicationController
         @dj = @djs.new
       }
       format.json {
+        @djs = @current_radio.active_djs
         response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
         render json: @djs, each_serializer: DjSerializer
       }

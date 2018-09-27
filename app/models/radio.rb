@@ -26,6 +26,11 @@ class Radio < ActiveRecord::Base
     self.users
   end
 
+  def active_djs
+    scheduled_show_user_ids = ScheduledShowPerformer.pluck :user_id
+    self.users.find(scheduled_show_user_ids)
+  end
+
   def boot_radio
     RadioBooterWorker.perform_later self.id
   end
