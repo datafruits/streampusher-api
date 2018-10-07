@@ -1,6 +1,7 @@
 <table class="table table-striped">
   <thead>
     <th>username</th>
+    <th>created at</th>
     <th>email</th>
     <th>link</th>
     <th>interval</th>
@@ -11,6 +12,7 @@
     <% @host_applications.each do |host_application| %>
       <tr>
         <td><%= host_application.email %></td>
+        <td><%= host_application.created_at%></td>
         <td><%= host_application.username %></td>
         <td><%= host_application.link %></td>
         <td><%= host_application.interval %></td>
