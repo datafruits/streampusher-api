@@ -19,14 +19,16 @@
         <%= render 'radios/player' %>
         <ul class="nav navbar-nav current-show-info">
             <% if @current_radio.current_show_playing? %>
-              <% current_show = @current_radio.scheduled_shows.find(@current_radio.current_show_playing) %>
+              <% current_show = @current_radio.scheduled_shows.find_by(id: @current_radio.current_show_playing) %>
               <li>
-                <div>
-                  <strong>Current show: </strong><%= link_to current_show.title, scheduled_show_path(current_show) %>
-                </div>
-                <div>
-                  <strong>Current playlist: </strong><%= link_to current_show.playlist.name, playlist_path(current_show.playlist) %>
-                </div>
+                <% if current_show %>
+                  <div>
+                    <strong>Current show: </strong><%= link_to current_show.title, scheduled_show_path(current_show) %>
+                  </div>
+                  <div>
+                    <strong>Current playlist: </strong><%= link_to current_show.playlist.name, playlist_path(current_show.playlist) %>
+                  </div>
+                <% end %>
               </li>
             <% else %>
               <li>
