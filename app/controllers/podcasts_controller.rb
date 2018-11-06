@@ -52,7 +52,9 @@ class PodcastsController < ApplicationController
   def serializer_scope
     {
       tracks: {
-        page: params[:page]
+        page: params[:page],
+        query: params[:query],
+        tags: params[:tags]
       }
     }
   end
