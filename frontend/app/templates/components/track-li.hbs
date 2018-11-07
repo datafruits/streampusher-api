@@ -64,6 +64,8 @@
             <button {{action 'cancel'}} disabled={{isSaving}} class="btn btn-default">Cancel</button>
             <button {{action 'destroy'}} disabled={{isSaving}} class="delete-track btn btn-danger"><i class="fa fa-trash-o"></i></button>
             <button {{action 'mixcloud'}} disabled={{isSaving}} class="btn btn-default"><i class="fa fa-mixcloud" aria-hidden="true"></i></button>
+            <button {{action 'soundcloud}} disabled={{isSaving}} class="btn btn-default"><i class="fa fa-soundcloud" aria-hidden="true"></i></button>
+
             <button {{action 'embed'}} disabled={{isSaving}} class="btn btn-default">Embed</button>
           </form>
         </div>
@@ -90,6 +92,31 @@
             {{/if}}
           {{else}}
             You haven't connected your mixcloud account yet. You can do so <a href="/social_identities">here</a>.
+          {{/if}}
+        </div>
+      {{/modal-dialog}}
+    {{else if soundcloudDialog}}
+      {{#modal-dialog targetAttachment="center" translucentOverlay=true clickOutsideToClose=true close="soundcloud"}}
+        <div class="modal-header">
+          <button {{action "soundcloud"}} type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Upload to Soundcloud - {{track.title}}</h4>
+        </div>
+        <div class="modal-body">
+          {{#if hasSoundcloudAccount}}
+            {{#if track.soundcloudNotUploadedOrUploadFailed}}
+              Connected soundcloud account: {{soundcloudAccount.name}}
+              <button {{action 'uploadToSoundcloud'}} disabled={{isSaving}} class="btn btn-primary">Upload To Soundcloud</button>
+            {{else if track.soundcloudUploading}}
+              This track is currently being uploaded to Soundcloud.
+              <div class="spinner">
+              </div>
+              Check back soon.
+            {{else if track.soundcloudUploadComplete}}
+              This track has been uploaded to Soundcloud.
+              <a href="https://soundcloud.com{{track.soundcloudKey}}" target="_blank">https://soundcloud.com{{track.soundcloudKey}}</a>
+            {{/if}}
+          {{else}}
+            You haven't connected your soundcloud account yet. You can do so <a href="/social_identities">here</a>.
           {{/if}}
         </div>
       {{/modal-dialog}}

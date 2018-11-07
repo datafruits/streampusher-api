@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180920152101) do
+ActiveRecord::Schema.define(version: 20181024065120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,6 +162,7 @@ ActiveRecord::Schema.define(version: 20180920152101) do
     t.string   "container_name",                                              null: false
     t.boolean  "schedule_monitor_enabled",                    default: false, null: false
     t.string   "show_share_url"
+    t.boolean  "tweet_now_playing",                           default: false, null: false
     t.index ["default_playlist_id"], name: "index_radios_on_default_playlist_id", using: :btree
     t.index ["subscription_id"], name: "index_radios_on_subscription_id", using: :btree
   end
@@ -283,27 +284,29 @@ ActiveRecord::Schema.define(version: 20180920152101) do
   end
 
   create_table "tracks", force: :cascade do |t|
-    t.string   "audio_file_name",        limit: 255
+    t.string   "audio_file_name",          limit: 255
     t.integer  "radio_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "description",                        default: "", null: false
+    t.string   "description",                          default: "", null: false
     t.string   "artist"
     t.string   "title"
     t.string   "album"
     t.integer  "year"
     t.integer  "track"
-    t.integer  "filesize",                           default: 0,  null: false
-    t.integer  "tag_processing_status",              default: 0,  null: false
+    t.integer  "filesize",                             default: 0,  null: false
+    t.integer  "tag_processing_status",                default: 0,  null: false
     t.integer  "length"
     t.string   "artwork_file_name"
     t.string   "artwork_content_type"
     t.integer  "artwork_file_size"
     t.datetime "artwork_updated_at"
-    t.integer  "mixcloud_upload_status",             default: 0,  null: false
+    t.integer  "mixcloud_upload_status",               default: 0,  null: false
     t.string   "mixcloud_key"
     t.integer  "uploaded_by_id"
     t.integer  "scheduled_show_id"
+    t.integer  "soundcloud_upload_status",             default: 0,  null: false
+    t.string   "soundcloud_key"
     t.index ["radio_id"], name: "index_tracks_on_radio_id", using: :btree
   end
 
