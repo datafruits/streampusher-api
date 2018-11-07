@@ -5,6 +5,10 @@ import {
   setResolver
 } from 'ember-qunit';
 import { start } from 'ember-cli-qunit';
+import Application from '../app';
+import config from '../config/environment';
+import { setApplication } from '@ember/test-helpers';
 
-setResolver(resolver);
+setApplication(Application.create(config.APP));
+
 start();

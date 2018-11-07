@@ -1,10 +1,10 @@
-/* eslint-env node */
+'use strict';
 
 module.exports = function(environment) {
-  var ENV = {
+  let ENV = {
     modulePrefix: 'frontend',
-    environment: environment,
-    baseURL: '/',
+    environment,
+    rootURL: '/',
     locationType: 'auto',
     //locationType: 'none',
     EmberENV: {
@@ -62,6 +62,7 @@ module.exports = function(environment) {
       path: ":base/:attachment/:style/:basename?:updated_at",
       base: "https://s3.amazonaws.com/streampusher"
     };
+    ENV.APP.autoboot = false;
   }
 
   return ENV;
