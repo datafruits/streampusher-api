@@ -73,6 +73,7 @@ Rails.application.routes.draw do
       get :embed
     end
     resources :mixcloud_uploads, only: [:create]
+    resources :soundcloud_uploads, only: [:create]
   end
   resources :labels, only: [:create, :index, :show]
   resources :uploader_signature, only: [:index]

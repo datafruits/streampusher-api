@@ -26,5 +26,8 @@ class UploadTrackToSoundcloud
 
     # print new tracks link
     puts track.permalink_url
+    track.soundcloud_upload_status = "soundcloud_upload_complete"
+    track.soundcloud_key = track.permalink_url
+    track.save(validate: false)
   end
 end
