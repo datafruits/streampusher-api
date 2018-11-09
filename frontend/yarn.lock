@@ -4610,12 +4610,13 @@ ember-compatibility-helpers@^1.1.1:
     ember-cli-version-checker "^2.1.1"
     semver "^5.4.1"
 
-ember-concurrency@0.8.1, ember-concurrency@^0.8.1:
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/ember-concurrency/-/ember-concurrency-0.8.1.tgz#28f4e05d1afe15f9d8611f37a87a59ce8c21a331"
+ember-concurrency@0.8.22:
+  version "0.8.22"
+  resolved "https://registry.yarnpkg.com/ember-concurrency/-/ember-concurrency-0.8.22.tgz#900e870aae486e1f5fcb168bbb4efba02561a5ad"
+  integrity sha512-njLqyjMxBf8fapIV8WPyG2gFbSCIQgMpk33uSs5Ih7HsfFAz60KwVo9sMVPBYAJwQmF8jFPm7Ph+mjkiQXHmmA==
   dependencies:
-    ember-cli-babel "^6.0.0-beta.5"
-    ember-getowner-polyfill "^1.1.0"
+    babel-core "^6.24.1"
+    ember-cli-babel "^6.8.2"
     ember-maybe-import-regenerator "^0.1.5"
 
 ember-concurrency@^0.7.15:
@@ -4625,6 +4626,14 @@ ember-concurrency@^0.7.15:
     ember-cli-babel "^5.1.5"
     ember-getowner-polyfill "^1.1.0"
     ember-maybe-import-regenerator "^0.1.4"
+
+ember-concurrency@^0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/ember-concurrency/-/ember-concurrency-0.8.1.tgz#28f4e05d1afe15f9d8611f37a87a59ce8c21a331"
+  dependencies:
+    ember-cli-babel "^6.0.0-beta.5"
+    ember-getowner-polyfill "^1.1.0"
+    ember-maybe-import-regenerator "^0.1.5"
 
 ember-cp-validations@3.5.4:
   version "3.5.4"
