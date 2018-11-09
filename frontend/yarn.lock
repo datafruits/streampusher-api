@@ -4023,10 +4023,9 @@ ember-cli-preprocess-registry@^3.1.2:
     process-relative-require "^1.0.0"
     silent-error "^1.0.0"
 
-ember-cli-rails-addon@0.10.0:
+"ember-cli-rails-addon@https://github.com/mcfiredrill/ember-cli-rails-addon":
   version "0.10.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-rails-addon/-/ember-cli-rails-addon-0.10.0.tgz#cf1089aecf08e257b17ddf89650759f6e1f98399"
-  integrity sha512-I/n/WyYO133SvQ56q3w9ISFp91phjdFpgMZ3PZ4Jb76lbulxhJjIAU5usv9cZ/in732+ccM1yGdimATbVVS7uw==
+  resolved "https://github.com/mcfiredrill/ember-cli-rails-addon#bb5764f7a94544c80382d7064ed150e694a5c73e"
 
 ember-cli-release@1.0.0-beta.2:
   version "1.0.0-beta.2"
