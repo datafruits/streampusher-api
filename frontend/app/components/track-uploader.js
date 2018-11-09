@@ -1,20 +1,23 @@
-import EmberUploader from 'ember-uploader';
-import Ember from 'ember';
+import FileField from 'ember-uploader/components/file-field';
+import S3Uploader from 'ember-uploader/uploaders/s3';
+import { inject as service } from '@ember/service';
+import { isEmpty } from '@ember/utils';
 
-export default EmberUploader.FileField.extend({
+export default FileField.extend({
   classNames: ['upload'],
-  store: Ember.inject.service(),
-  flashMessages: Ember.inject.service(),
-  droppedFile: Ember.inject.service(),
+  store: service(),
+  flashMessages: service(),
+  droppedFile: service(),
   multiple: true,
   signingUrl: '/uploader_signature',
   validMimeTypes: ["audio/mp3", "audio/mpeg"],
 
-  setup: function() {
+  init() {
+    this._super(...arguments);
     this.get('droppedFile').on('fileWasDropped', e => {
       this.filesDidChange(e);
     });
-  }.on('init'),
+  },
 
   findBaseName: function(url) {
     var fileName = url.substring(url.lastIndexOf('/') + 1);
@@ -25,7 +28,7 @@ export default EmberUploader.FileField.extend({
   filesDidChange: function(files) {
 
     let store = this.get('store');
-    if (!Ember.isEmpty(files)) {
+    if (!isEmpty(files)) {
       for(let i = 0; i< files.length; i++){
         console.log(files[i].type);
         if(!this.validMimeTypes.includes(files[i].type)){
@@ -43,7 +46,7 @@ export default EmberUploader.FileField.extend({
 
         console.log(mimeType);
 
-        let uploader = EmberUploader.S3Uploader.create({
+        let uploader = S3Uploader.create({
           signingUrl: this.get('signingUrl'),
           method: "PUT",
           ajaxSettings: {
