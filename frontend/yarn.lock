@@ -4730,13 +4730,6 @@ ember-inflector@^3.0.0:
   dependencies:
     ember-cli-babel "^6.6.0"
 
-ember-islands@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/ember-islands/-/ember-islands-1.2.0.tgz#05ddba74461800a0dc8cc1c2f3243350b75912af"
-  dependencies:
-    ember-cli-babel "^5.1.7"
-    ember-getowner-polyfill "^1.1.1"
-
 ember-load-initializers@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/ember-load-initializers/-/ember-load-initializers-1.1.0.tgz#4edacc0f3a14d9f53d241ac3e5561804c8377978"
