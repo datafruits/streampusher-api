@@ -85,7 +85,7 @@ gem 'aws-sdk', '2.0.39'
 gem 'paperclip'
 
 gem 'rupeepeethree', github: "datafruits/rupeepeethree"
-gem "so_id3", github: "mcfiredrill/so_id3"
+gem "so_id3", github: "streampusher/so_id3"
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-countUp.js'

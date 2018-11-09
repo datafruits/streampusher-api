@@ -15,16 +15,6 @@ GIT
       omniauth-oauth2 (~> 1.4.0)
 
 GIT
-  remote: https://github.com/mcfiredrill/so_id3.git
-  revision: 65b02251effaed624e34136feb4ac37c6e8232f3
-  specs:
-    so_id3 (0.0.1)
-      activejob
-      activerecord
-      aws-sdk (~> 2.0)
-      rupeepeethree (~> 0.0.6)
-
-GIT
   remote: https://github.com/streampusher/mixcloud-ruby.git
   revision: d00100b4f6a991bdb3deab402154c93dcb14c4f7
   specs:
@@ -43,6 +33,16 @@ GIT
   revision: d861c33fff51d5804cd174aeb8e4f5820cc9c726
   specs:
     ruby-liquidsoap (0.0.1)
+
+GIT
+  remote: https://github.com/streampusher/so_id3.git
+  revision: 65b02251effaed624e34136feb4ac37c6e8232f3
+  specs:
+    so_id3 (0.0.1)
+      activejob
+      activerecord
+      aws-sdk (~> 2.0)
+      rupeepeethree (~> 0.0.6)
 
 GEM
   remote: https://rubygems.org/
@@ -644,4 +644,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.16.3
+   1.17.1
