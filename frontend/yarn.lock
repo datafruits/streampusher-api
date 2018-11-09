@@ -4250,10 +4250,9 @@ ember-cp-validations@3.5.4:
     exists-sync "0.0.4"
     walk-sync "^0.3.1"
 
-ember-data-paperclip@0.3.0:
+"ember-data-paperclip@https://github.com/mcfiredrill/ember-data-paperclip":
   version "0.3.0"
-  resolved "https://registry.yarnpkg.com/ember-data-paperclip/-/ember-data-paperclip-0.3.0.tgz#1a12fa305604b04152e7171468bbd88752ad754a"
-  integrity sha512-EfXRvcPP2z9cTHZR/yfrnEPCMuUURWTCCmZyi+wUQIja+bAXIAlu+KNHpQw7Xx7m5o0wSQAYJDE6d9jCMo8MLA==
+  resolved "https://github.com/mcfiredrill/ember-data-paperclip#924074906978105e1c06bf626213251d56531e83"
   dependencies:
     ember-cli-babel "^6.3.0"
 
