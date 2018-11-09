@@ -16,7 +16,7 @@
       <button {{action 'addToPlaylist'}} disabled={{isAddingNewPlaylist}} class="add-track-to-playlist btn btn-success"> <i class="fa fa-plus-circle"></i></button>
     </div>
     {{#if isEditing}}
-      {{#modal-dialog targetAttachment="center" translucentOverlay=true clickOutsideToClose=true close="editTrack"}}
+      {{#modal-dialog targetAttachment="center" translucentOverlay=true clickOutsideToClose=true onClose="editTrack"}}
         <div class="modal-header">
           <button {{action "editTrack"}} type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="myModalLabel">Edit Track - {{track.title}}</h4>
@@ -69,7 +69,7 @@
         </div>
       {{/modal-dialog}}
     {{else if mixcloudDialog}}
-      {{#modal-dialog targetAttachment="center" translucentOverlay=true clickOutsideToClose=true close="mixcloud"}}
+      {{#modal-dialog targetAttachment="center" translucentOverlay=true clickOutsideToClose=true onClose="mixcloud"}}
         <div class="modal-header">
           <button {{action "mixcloud"}} type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="myModalLabel">Upload to Mixcloud - {{track.title}}</h4>
@@ -94,7 +94,7 @@
         </div>
       {{/modal-dialog}}
     {{else if embedDialog}}
-      {{#modal-dialog targetAttachment="center" translucentOverlay=true clickOutsideToClose=true close="embed"}}
+      {{#modal-dialog targetAttachment="center" translucentOverlay=true clickOutsideToClose=true onClose="embed"}}
         <div class="modal-header">
           <button {{action "embed"}} type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="myModalLabel">Embed - {{track.title}}</h4>
