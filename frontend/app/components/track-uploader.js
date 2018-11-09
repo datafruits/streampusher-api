@@ -2,6 +2,7 @@ import FileField from 'ember-uploader/components/file-field';
 import S3Uploader from 'ember-uploader/uploaders/s3';
 import { inject as service } from '@ember/service';
 import { isEmpty } from '@ember/utils';
+import { get } from '@ember/object';
 
 export default FileField.extend({
   classNames: ['upload'],
@@ -27,13 +28,14 @@ export default FileField.extend({
 
   filesDidChange: function(files) {
 
-    let store = this.get('store');
+    const store = this.get('store');
+    const _this = this;
     if (!isEmpty(files)) {
       for(let i = 0; i< files.length; i++){
         console.log(files[i].type);
         if(!this.validMimeTypes.includes(files[i].type)){
           console.log("invalid mime type: " + files[i].type);
-          Ember.get(this, 'flashMessages').danger("Sorry, there was an error uploading this file. This doesn't appear to be a valid audio file.");
+          get(this, 'flashMessages').danger("Sorry, there was an error uploading this file. This doesn't appear to be a valid audio file.");
           continue;
         }
 
@@ -73,10 +75,11 @@ export default FileField.extend({
           this.track.set('isUploading', false);
           let onSuccess = () =>{
             console.log("track saved!");
+            get(_this, 'flashMessages').success("Track uploaded!");
           };
           let onFail = () => {
             console.log("track save failed");
-            Ember.get(this, 'flashMessages').danger("Sorry, something went wrong uploading this file!");
+            get(_this, 'flashMessages').danger("Sorry, something went wrong uploading this file!");
           };
           this.track.save().then(onSuccess, onFail);
         });
@@ -87,7 +90,7 @@ export default FileField.extend({
 
         uploader.on('didError', (jqXHR, textStatus, errorThrown) => {
           window.onbeforeunload = null;
-          Ember.get(this, 'flashMessages').danger("Sorry, something went wrong!");
+          get(_this, 'flashMessages').danger("Sorry, something went wrong!");
           console.log("ERROR!" + textStatus);
           console.log("ERROR!" + errorThrown);
         });
