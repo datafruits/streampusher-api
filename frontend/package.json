@@ -23,7 +23,6 @@
     "active-model-adapter": "2.1.1",
     "broccoli-asset-rev": "^2.7.0",
     "ember-ajax": "^3.1.0",
-    "ember-browserify": "^1.1.8",
     "ember-cli": "~3.5.0",
     "ember-cli-app-version": "^3.2.0",
     "ember-cli-babel": "7.1.3",
