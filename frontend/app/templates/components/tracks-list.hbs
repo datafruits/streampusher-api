@@ -34,11 +34,11 @@
     <tbody>
       {{#if isSearching}}
         {{#each filteredResults as |track|}}
-          {{track-li track=track playlist=playlist labels=labels setIsSyncingPlaylist=(route-action "setIsSyncingPlaylist")}}
+          {{track-li track=track playlist=playlist labels=labels setIsSyncingPlaylist=setIsSyncingPlaylist}}
         {{/each}}
       {{else}}
         {{#each sortedTracks as |track|}}
-          {{track-li track=track playlist=playlist labels=labels setIsSyncingPlaylist=(route-action "setIsSyncingPlaylist")}}
+          {{track-li track=track playlist=playlist labels=labels setIsSyncingPlaylist=setIsSyncingPlaylist}}
         {{/each}}
       {{/if}}
     </tbody>

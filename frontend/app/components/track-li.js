@@ -26,7 +26,7 @@ export default Ember.Component.extend({
   }),
   actions: {
     addToPlaylist(){
-      this.sendAction('setIsSyncingPlaylist', true);
+      this.get('setIsSyncingPlaylist')(true);
       let store = this.get('store');
       let playlist = this.get('playlist');
       let track = this.get('track');
@@ -39,12 +39,12 @@ export default Ember.Component.extend({
       playlistTrack.save().then(() => {
         playlist.save().then(() => {
           console.log("addToPlaylist success");
-          this.sendAction('setIsSyncingPlaylist', false);
+          this.get('setIsSyncingPlaylist')(false);
         });
       }).catch((error) => {
         console.log("error");
         console.log(error);
-        this.sendAction('setIsSyncingPlaylist', false);
+        this.get('setIsSyncingPlaylist')(false);
         Ember.get(this, 'flashMessages').danger('Something went wrong!');
       });
     },

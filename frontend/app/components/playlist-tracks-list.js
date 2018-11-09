@@ -13,12 +13,12 @@ export default Ember.Component.extend({
         var playlist = this.get('playlist');
         this.set('isEditingSettings', false);
         playlist.destroyRecord().then(() => {
-          this.sendAction('transitionAfterDelete');
+          this.get('transitionAfterDelete')();
         });
       }
     },
     reorderItems(groupModel, itemModels, draggedModel) {
-      this.sendAction('setIsSyncingPlaylist', true);
+      this.get('setIsSyncingPlaylist')(true);
 
       this.get('playlist.playlistTracks').map(function(playlistTrack){
         let newPosition = itemModels.findIndex(function(item){ return item.id == playlistTrack.id });
@@ -27,12 +27,12 @@ export default Ember.Component.extend({
       draggedModel.save().then(() => {
         this.set('playlist.playlistTracks', itemModels);
         console.log("reorderItems success");
-        this.sendAction('setIsSyncingPlaylist', false);
+        this.get('setIsSyncingPlaylist')(false);
       }).catch((error) => {
         console.log("error");
         console.log(error);
         Ember.get(this, 'flashMessages').danger("Sorry, something went wrong!");
-        this.sendAction('setIsSyncingPlaylist', false);
+        this.get('setIsSyncingPlaylist')(false);
       });
     },
     selectPlaylist(){
