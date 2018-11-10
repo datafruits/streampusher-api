@@ -47,7 +47,7 @@
     "ember-inflector": "^1.9.4",
     "ember-load-initializers": "^1.1.0",
     "ember-maybe-import-regenerator": "^0.1.6",
-    "ember-modal-dialog": "2.2.0",
+    "ember-modal-dialog": "^3.0.0-beta.0",
     "ember-moment": "6.0.0",
     "ember-pikaday": "^2.2.3",
     "ember-power-select": "2.0.9",

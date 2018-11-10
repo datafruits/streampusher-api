@@ -4,15 +4,14 @@
   {{error}}
 {{/if}}
 </div>
-{{#power-select-with-create
+{{#power-select-multiple-with-create
     options=labels
     selected=track.labels
     searchField="name"
-    multiple=true
     renderInPlace=true
     onchange=(action "setSelectedLabels")
     oncreate=(action "createTag")
     showCreateWhen=(action "hideCreateOptionOnSameName") as |label|
 }}
   {{label.name}}
-{{/power-select-with-create}}
+{{/power-select-multiple-with-create}}
