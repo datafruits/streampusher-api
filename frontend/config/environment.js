@@ -55,6 +55,7 @@ module.exports = function(environment) {
       path: ":base/:attachment/:style/:basename?:updated_at",
       base: "https://s3.amazonaws.com/streampushertest"
     };
+    ENV.APP.autoboot = false;
   }
 
   if (environment === 'production') {
@@ -62,7 +63,7 @@ module.exports = function(environment) {
       path: ":base/:attachment/:style/:basename?:updated_at",
       base: "https://s3.amazonaws.com/streampusher"
     };
-    ENV.APP.autoboot = false;
+    ENV.APP.autoboot = true;
   }
 
   return ENV;
