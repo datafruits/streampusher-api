@@ -18,8 +18,14 @@ export default Ember.Component.extend({
   mixcloudAccount: Ember.computed('', function(){
     return $("#app-data").data('current-user').user.social_identities.find(function(s){ return s.provider === "mixcloud" });
   }),
+  soundcloudAccount: Ember.computed('', function(){
+    return $("#app-data").data('current-user').user.social_identities.find(function(s){ return s.provider === "soundcloud" });
+  }),
   hasMixcloudAccount: Ember.computed('', function(){
     return this.get('mixcloudAccount');
+  }),
+  hasSoundcloudAccount: Ember.computed('', function(){
+    return this.get('soundcloudAccount');
   }),
   uploadProgressStyle: Ember.computed('track.roundedUploadProgress', function(){
     return Ember.String.htmlSafe(`width: ${this.get('track.roundedUploadProgress')}%;`);
@@ -77,6 +83,21 @@ export default Ember.Component.extend({
       });
 
     },
+    uploadToSoundcloud(){
+      let trackId = this.get('track').get('id');
+      let url = `/tracks/${trackId}/soundcloud_uploads`;
+      return this.get('ajax').request(url, {
+        method: 'POST'
+      }).then(response => {
+        console.log(response);
+        if(response.status === 200){
+          this.get('track').set('soundcloudUploadStatus', 'soundcloud_uploading');
+        }else{
+          Ember.get(this, 'flashMessages').danger('Something went wrong!');
+        }
+      });
+
+    },
     save(){
       this.set('isSaving', true);
       var track = this.get('track');
@@ -102,6 +123,8 @@ export default Ember.Component.extend({
       }
     },
     soundcloud(){
+      this.set('isEditing', false);
+      this.toggleProperty('soundcloudDialog');
     }
   }
 });

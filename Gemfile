@@ -23,6 +23,7 @@ gem 'omniauth'
 gem 'omniauth-soundcloud', github: "mcfiredrill/omniauth-soundcloud"
 gem 'omniauth-mixcloud', github: "streampusher/omniauth-mixcloud"
 gem 'mixcloud', github: 'streampusher/mixcloud-ruby'
+gem 'soundcloud'
 gem 'omniauth-tumblr'
 gem 'tumblr_client'
 gem 'cancancan'

@@ -484,6 +484,9 @@ GEM
       capistrano (>= 3.0.1)
       json
     slop (3.6.0)
+    soundcloud (0.3.4)
+      hashie
+      httmultiparty (~> 0.3.0)
     spring (2.0.1)
       activesupport (>= 4.2)
     sprockets (3.7.0)
@@ -629,6 +632,7 @@ DEPENDENCIES
   slack-notifier
   slackistrano
   so_id3!
+  soundcloud
   spring
   sprockets (= 3.7.0)
   stripe
