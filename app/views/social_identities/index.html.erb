@@ -5,7 +5,6 @@
     <% case provider.to_s %>
     <% when "mixcloud" %>
       <%= link_to "Connect your #{provider.to_s.titleize} account to Streampusher", user_mixcloud_omniauth_authorize_path %><br />
-    <% end %>
     <% when "soundcloud" %>
       <%= link_to "Connect your #{provider.to_s.titleize} account to Streampusher", user_soundcloud_omniauth_authorize_path %><br />
     <% end %>
