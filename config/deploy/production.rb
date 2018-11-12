@@ -18,6 +18,10 @@ server '162.243.61.205', user: 'deploy', roles: %w{web app db}, primary: true
 
 set :full_app_name, "#{fetch(:application)}_#{fetch(:stage)}"
 
+set :default_env, {
+  "PATH" => "/home/deploy/.nvm/versions/node/v6.14.0/bin:$PATH"
+}
+
 # Custom SSH Options
 # ==================
 # You may pass any option but keep in mind that net/ssh understands a
