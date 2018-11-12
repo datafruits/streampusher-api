@@ -1,3 +1,4 @@
+import { sort } from '@ember/object/computed';
 import DS from 'ember-data';
 import { validator, buildValidations } from 'ember-cp-validations';
 const Validations = buildValidations({
@@ -17,5 +18,5 @@ export default DS.Model.extend(Validations, {
   shuffle: DS.attr(),
 
   positionDesc: ["position:asc"],
-  sortedPlaylistTracks: Ember.computed.sort('playlistTracks', 'positionDesc')
+  sortedPlaylistTracks: sort('playlistTracks', 'positionDesc')
 });

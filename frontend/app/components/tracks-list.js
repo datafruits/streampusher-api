@@ -1,15 +1,17 @@
-import Ember from 'ember';
+import { sort } from '@ember/object/computed';
+import $ from 'jquery';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
+import { set, computed } from '@ember/object';
 
-var { set } = Ember;
-
-export default Ember.Component.extend({
-  store: Ember.inject.service(),
+export default Component.extend({
+  store: service(),
   filterText: '',
   selectedLabels: [],
-  isSearching: Ember.computed('filterText', 'selectedLabels', function() {
+  isSearching: computed('filterText', 'selectedLabels', function() {
     return this.get('filterText') !== "" || this.get('selectedLabels').length !== 0;
   }),
-  filteredResults: Ember.computed('filterText', 'selectedLabels', function() {
+  filteredResults: computed('filterText', 'selectedLabels', function() {
     let filter = this.get('filterText');
     let labelIds = this.get('selectedLabels').map(function(label){
       return parseInt(label.get('id'));
@@ -26,7 +28,7 @@ export default Ember.Component.extend({
       return item.get('displayName').toLowerCase().indexOf(filter) !== -1;
     });
   }),
-  droppedFile: Ember.inject.service(),
+  droppedFile: service(),
   classNames        : [ 'draggableDropzone' ],
   classNameBindings : [ 'dragClass' ],
   dragClass         : 'deactivated',
@@ -34,13 +36,13 @@ export default Ember.Component.extend({
   dragLeave(event) {
     event.preventDefault();
     set(this, 'dragClass', 'deactivated');
-    Ember.$(".uploader-icon").hide();
+    $(".uploader-icon").hide();
   },
 
   dragOver(event) {
     event.preventDefault();
     set(this, 'dragClass', 'activated');
-    Ember.$(".uploader-icon").show();
+    $(".uploader-icon").show();
   },
 
   drop(event) {
@@ -50,10 +52,10 @@ export default Ember.Component.extend({
     //this.sendAction('dropped', data);
 
     set(this, 'dragClass', 'deactivated');
-    Ember.$(".uploader-icon").hide();
+    $(".uploader-icon").hide();
     event.preventDefault();
   },
-  sortedTracks: Ember.computed.sort('tracks', function(a, b){
+  sortedTracks: sort('tracks', function(a, b){
     if(a.isUploading || b.isUploading){
       if(a.isUploading && b.isUploading){
         return 0;

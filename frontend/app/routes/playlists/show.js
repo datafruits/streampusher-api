@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import { hash } from 'rsvp';
+import Route from '@ember/routing/route';
 
-export default Ember.Route.extend({
+export default Route.extend({
   actions: {
     transitionAfterDelete(){
       let playlist = this.store.findAll('playlist').then((playlists) => {
@@ -14,7 +15,7 @@ export default Ember.Route.extend({
     controller.set('isSyncingPlaylist', false);
   },
   model(params) {
-    return Ember.RSVP.hash({
+    return hash({
       playlist: this.store.findRecord('playlist', params.id),
       tracks: this.store.findAll('track'),
       playlists: this.store.findAll('playlist'),

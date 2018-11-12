@@ -1,8 +1,10 @@
-import Ember from 'ember';
+import { get } from '@ember/object';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
-  store: Ember.inject.service(),
-  flashMessages: Ember.inject.service(),
+export default Component.extend({
+  store: service(),
+  flashMessages: service(),
   isEditingSettings: false,
   isEditing: false,
   isSelectingPlaylist: false,
@@ -31,7 +33,7 @@ export default Ember.Component.extend({
       }).catch((error) => {
         console.log("error");
         console.log(error);
-        Ember.get(this, 'flashMessages').danger("Sorry, something went wrong!");
+        get(this, 'flashMessages').danger("Sorry, something went wrong!");
         this.get('setIsSyncingPlaylist')(false);
       });
     },
@@ -68,7 +70,7 @@ export default Ember.Component.extend({
       };
       var onFail = () =>{
         console.log("playlist settings save failed");
-        Ember.get(this, 'flashMessages').danger('Something went wrong!');
+        get(this, 'flashMessages').danger('Something went wrong!');
       };
       playlist.save().then(onSuccess, onFail);
     },
@@ -79,7 +81,7 @@ export default Ember.Component.extend({
       };
       let onFail = () =>{
         console.log("playlist save failed");
-        Ember.get(this, 'flashMessages').danger('Something went wrong!');
+        get(this, 'flashMessages').danger('Something went wrong!');
       };
       playlist.save().then(onSuccess, onFail);
     }

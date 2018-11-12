@@ -1,5 +1,7 @@
+import { htmlSafe } from '@ember/template';
+import { equal, or } from '@ember/object/computed';
+import { computed } from '@ember/object';
 import DS from 'ember-data';
-import Ember from 'ember';
 
 export default DS.Model.extend({
   labels: DS.hasMany('labels'),
@@ -22,26 +24,26 @@ export default DS.Model.extend({
   isUploading: false,
   uploadProgress: 0,
 
-  roundedUploadProgress: Ember.computed('uploadProgress', function(){
+  roundedUploadProgress: computed('uploadProgress', function(){
     return Math.round(this.get('uploadProgress'));
   }),
-  mixcloudNotUploaded: Ember.computed.equal('mixcloudUploadStatus', 'mixcloud_not_uploaded'),
-  mixcloudUploading: Ember.computed.equal('mixcloudUploadStatus', 'mixcloud_uploading'),
-  mixcloudUploadComplete: Ember.computed.equal('mixcloudUploadStatus', 'mixcloud_upload_complete'),
-  mixcloudUploadFailed: Ember.computed.equal('mixcloudUploadStatus', 'mixcloud_upload_failed'),
-  mixcloudNotUploadedOrUploadFailed: Ember.computed.or('mixcloudNotUploaded', 'mixcloudUploadFailed'),
+  mixcloudNotUploaded: equal('mixcloudUploadStatus', 'mixcloud_not_uploaded'),
+  mixcloudUploading: equal('mixcloudUploadStatus', 'mixcloud_uploading'),
+  mixcloudUploadComplete: equal('mixcloudUploadStatus', 'mixcloud_upload_complete'),
+  mixcloudUploadFailed: equal('mixcloudUploadStatus', 'mixcloud_upload_failed'),
+  mixcloudNotUploadedOrUploadFailed: or('mixcloudNotUploaded', 'mixcloudUploadFailed'),
 
-  soundcloudNotUploaded: Ember.computed.equal('soundcloudUploadStatus', 'soundcloud_not_uploaded'),
-  soundcloudUploading: Ember.computed.equal('soundcloudUploadStatus', 'soundcloud_uploading'),
-  soundcloudUploadComplete: Ember.computed.equal('soundcloudUploadStatus', 'soundcloud_upload_complete'),
-  soundcloudUploadFailed: Ember.computed.equal('soundcloudUploadStatus', 'soundcloud_upload_failed'),
-  soundcloudNotUploadedOrUploadFailed: Ember.computed.or('soundcloudNotUploaded', 'soundcloudUploadFailed'),
+  soundcloudNotUploaded: equal('soundcloudUploadStatus', 'soundcloud_not_uploaded'),
+  soundcloudUploading: equal('soundcloudUploadStatus', 'soundcloud_uploading'),
+  soundcloudUploadComplete: equal('soundcloudUploadStatus', 'soundcloud_upload_complete'),
+  soundcloudUploadFailed: equal('soundcloudUploadStatus', 'soundcloud_upload_failed'),
+  soundcloudNotUploadedOrUploadFailed: or('soundcloudNotUploaded', 'soundcloudUploadFailed'),
 
-  embedCode: Ember.computed('embedLink', function(){
+  embedCode: computed('embedLink', function(){
     return `<iframe width="100%" height="100" frameborder="no" scrolling="no" src="${this.get('embedLink')}"></iframe>`;
   }),
 
-  embedCodeSafe: Ember.computed('embedLink', function(){
-    return Ember.String.htmlSafe(`<iframe width="100%" height="100%" frameborder="no" scrolling="no" src="${this.get('embedLink')}"></iframe>`);
+  embedCodeSafe: computed('embedLink', function(){
+    return htmlSafe(`<iframe width="100%" height="100%" frameborder="no" scrolling="no" src="${this.get('embedLink')}"></iframe>`);
   })
 });

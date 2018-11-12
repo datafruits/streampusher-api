@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import { get } from '@ember/object';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
   tagName: 'td',
   classNames: ['track', 'playlist-track'],
   isEditing: false,
@@ -17,7 +18,7 @@ export default Ember.Component.extend({
       let onSuccess = () =>{
       };
       let onFail = () =>{
-        Ember.get(this, 'flashMessages').danger('Something went wrong!');
+        get(this, 'flashMessages').danger('Something went wrong!');
       };
       playlistTrack.save().then(onSuccess, onFail);
       this.set('isEditing', false);

@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { helper as buildHelper } from '@ember/component/helper';
 
 export function eqToString(params/*, hash*/) {
   if(params[0] === null || params[1] === null){
@@ -8,4 +8,4 @@ export function eqToString(params/*, hash*/) {
   }
 }
 
-export default Ember.Helper.helper(eqToString);
+export default buildHelper(eqToString);

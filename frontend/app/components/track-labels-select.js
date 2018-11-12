@@ -1,8 +1,10 @@
-import Ember from 'ember';
+import { get } from '@ember/object';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
-  flashMessages: Ember.inject.service(),
-  store: Ember.inject.service(),
+export default Component.extend({
+  flashMessages: service(),
+  store: service(),
   actions: {
     hideCreateOptionOnSameName(term) {
       let existingOption = this.get('labels').findBy('name', term);
@@ -25,7 +27,7 @@ export default Ember.Component.extend({
       };
       let onFail = (response) => {
         this.set('error', "Failed to save tag: " + response.errors[0].detail)
-        Ember.get(this, 'flashMessages').danger("Sorry, something went wrong!");
+        get(this, 'flashMessages').danger("Sorry, something went wrong!");
         console.log("label save failed");
       };
       label.save().then(onSuccess, onFail);
