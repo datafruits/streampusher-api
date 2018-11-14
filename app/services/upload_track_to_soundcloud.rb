@@ -7,7 +7,7 @@ class UploadTrackToSoundcloud
     unless File.exists?(track.local_path)
       DownloadTrackWorker.new.perform(track.id)
     end
-    client = SoundCloud.new(:client_id => soundcloud_token)
+    client = SoundCloud.new(:access_token => soundcloud_token)
 
     if track.artwork.present?
       artwork = download_tempfile track.artwork.url
