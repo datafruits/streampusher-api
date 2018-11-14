@@ -15,7 +15,8 @@ class UploadTrackToSoundcloud
       track = client.post('/tracks', :track => {
         :title      => track.title,
         :asset_data => File.new(track.local_path),
-        :artwork_data => File.new(artwork.path)
+        :artwork_data => File.new(artwork.path),
+        :tags => track.labels.pluck(:name).join " "
       })
     else
       track = client.post('/tracks', :track => {
