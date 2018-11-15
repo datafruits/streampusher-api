@@ -19,10 +19,10 @@ export default Component.extend({
     return playlist.get('isNew');
   }),
   mixcloudAccount: computed('', function(){
-    return $("#app-data").data('current-user').user.social_identities.find(function(s){ return s.provider === "mixcloud" });
+    return $("#app-data").data('connected-accounts').find(function(s){ return s.provider === "mixcloud" });
   }),
   soundcloudAccount: computed('', function(){
-    return $("#app-data").data('current-user').user.social_identities.find(function(s){ return s.provider === "soundcloud" });
+    return $("#app-data").data('connected-accounts').find(function(s){ return s.provider === "soundcloud" });
   }),
   hasMixcloudAccount: computed('', function(){
     return this.get('mixcloudAccount');

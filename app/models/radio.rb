@@ -22,6 +22,10 @@ class Radio < ActiveRecord::Base
 
   scope :enabled, -> { where(enabled: true) }
 
+  def owner
+    self.subscription.user
+  end
+
   def djs
     self.users
   end

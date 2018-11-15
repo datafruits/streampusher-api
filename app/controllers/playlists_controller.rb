@@ -1,6 +1,9 @@
 class PlaylistsController < ApplicationController
   def show
     @playlist = Playlist.includes(playlist_tracks: [track: [:labels]]).find params[:id]
+    if current_user.manager? || current_user.owner?
+      @connected_accounts = @current_radio.owner.social_identities
+    end
     authorize! :manage, @playlist, params[:format]
     respond_to do |format|
       format.html {
