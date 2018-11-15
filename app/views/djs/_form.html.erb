@@ -18,6 +18,8 @@
   <%= f.select :time_zone, ActiveSupport::TimeZone.all.sort.collect{|m| [m.to_s.split(") ").reverse.join(" -- ").concat(")"), m.name]},
     {}, class: 'chosen-select' %>
   <br/>
+  <%= f.select :role, User::Roles::VALID_ROLES, selected: @dj.role || "dj" %>
+  <br>
   <% if @dj.persisted? %>
     <%= f.submit "Save changes", class: 'btn btn-success', "data-disable-with" => "sending..."  %>
   <% else %>

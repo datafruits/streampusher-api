@@ -11,6 +11,7 @@
         <td><%= dj.username %></td>
         <td><%= dj.email  %></td>
         <td><%= dj.time_zone %></td>
+        <td><%= dj.role %></td>
         <% if current_user.owner? %>
           <td><%= link_to 'edit', edit_dj_path(dj) %></td>
         <% end %>
