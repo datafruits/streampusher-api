@@ -43,7 +43,7 @@ gem 'rspec-rails', '~> 3.5.2', :group => [:development, :test]
 gem 'dotenv-rails'
 gem 'unicorn'
 
-gem 'capistrano', '~> 3.4.0'
+gem 'capistrano'
 gem 'capistrano-rails'
 gem 'capistrano-bundler'
 gem 'capistrano-rbenv', "~>2.0"
