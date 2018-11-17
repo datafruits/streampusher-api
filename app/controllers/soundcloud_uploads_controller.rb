@@ -1,7 +1,7 @@
 class SoundcloudUploadsController < ApplicationController
+  before_action :current_radio_required
   def create
-    # if current_user.connected_identity? "soundcloud"
-    soundcloud_token = current_user.social_identities.find_by!(provider: "soundcloud").token
+    soundcloud_token = @current_radio.owner.social_identities.find_by!(provider: "soundcloud").token
     if UploadTrackToSoundcloudWorker.perform_later(track.id, soundcloud_token)
       render json: { message: "OK", status: 200 }
     else
