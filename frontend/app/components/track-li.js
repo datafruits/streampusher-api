@@ -18,18 +18,10 @@ export default Component.extend({
     let playlist = this.get('playlist');
     return playlist.get('isNew');
   }),
-  mixcloudAccount: computed('', function(){
-    return $("#app-data").data('connected-accounts').find(function(s){ return s.provider === "mixcloud" });
-  }),
-  soundcloudAccount: computed('', function(){
-    return $("#app-data").data('connected-accounts').find(function(s){ return s.provider === "soundcloud" });
-  }),
-  hasMixcloudAccount: computed('', function(){
-    return this.get('mixcloudAccount');
-  }),
-  hasSoundcloudAccount: computed('', function(){
-    return this.get('soundcloudAccount');
-  }),
+  didInsertElement(){
+    this.set('hasMixcloudAccount', $("#app-data").data('connected-accounts').any(function(s){ return s.provider === "mixcloud" }));
+    this.set('hasSoundcloudAccount', $("#app-data").data('connected-accounts').any(function(s){ return s.provider === "soundcloud" }));
+  },
   uploadProgressStyle: computed('track.roundedUploadProgress', function(){
     return htmlSafe(`width: ${this.get('track.roundedUploadProgress')}%;`);
   }),
