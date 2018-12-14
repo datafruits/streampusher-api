@@ -1,6 +1,7 @@
 import { htmlSafe } from '@ember/template';
 import { computed, get } from '@ember/object';
 import { inject as service } from '@ember/service';
+import { isEmpty } from '@ember/utils';
 import Component from '@ember/component';
 
 export default Component.extend({
@@ -19,8 +20,10 @@ export default Component.extend({
     return playlist.get('isNew');
   }),
   didInsertElement(){
-    this.set('hasMixcloudAccount', $("#app-data").data('connected-accounts').any(function(s){ return s.provider === "mixcloud" }));
-    this.set('hasSoundcloudAccount', $("#app-data").data('connected-accounts').any(function(s){ return s.provider === "soundcloud" }));
+    if(!isEmpty($("#app-data").data('connected-accounts'))){
+      this.set('hasMixcloudAccount', $("#app-data").data('connected-accounts').any(function(s){ return s.provider === "mixcloud" }));
+      this.set('hasSoundcloudAccount', $("#app-data").data('connected-accounts').any(function(s){ return s.provider === "soundcloud" }));
+    }
   },
   uploadProgressStyle: computed('track.roundedUploadProgress', function(){
     return htmlSafe(`width: ${this.get('track.roundedUploadProgress')}%;`);
