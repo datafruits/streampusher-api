@@ -6,6 +6,7 @@ if Rails.env.production?
             "user.login.failed",
             "playlist.created",
             "playlist.updated",
+            "playlist.deleted",
             "track.created",
             "track.updated",
             "dj.created",

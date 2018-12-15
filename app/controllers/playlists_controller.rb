@@ -61,6 +61,7 @@ class PlaylistsController < ApplicationController
     @playlist = @current_radio.playlists.find params[:id]
     authorize! :destroy, @playlist, params[:format]
     if @playlist.destroy
+      ActiveSupport::Notifications.instrument 'playlist.deleted', current_user: current_user.email, radio: @current_radio.name, playlist: @playlist.name
       render json: @playlist
     else
       render json: @playlist.errors
