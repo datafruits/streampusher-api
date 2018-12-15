@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181024065120) do
+ActiveRecord::Schema.define(version: 20181215033224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 20181024065120) do
     t.boolean  "interpolated_playlist_enabled",                          default: false, null: false
     t.boolean  "no_cue_out",                                             default: false, null: false
     t.boolean  "shuffle",                                                default: false, null: false
+    t.integer  "user_id"
     t.index ["interpolated_playlist_id"], name: "index_playlists_on_interpolated_playlist_id", using: :btree
     t.index ["radio_id"], name: "index_playlists_on_radio_id", using: :btree
   end

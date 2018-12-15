@@ -1,5 +1,6 @@
 class Playlist < ActiveRecord::Base
   belongs_to :radio
+  belongs_to :user
   has_many :playlist_tracks, -> { order("position" => "ASC") }
   has_many :tracks, through: :playlist_tracks
   belongs_to :interpolated_playlist, class_name: "Playlist", foreign_key: "interpolated_playlist_id"

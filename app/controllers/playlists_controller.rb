@@ -4,7 +4,7 @@ class PlaylistsController < ApplicationController
     if current_user.manager? || current_user.owner?
       @connected_accounts = @current_radio.owner.social_identities
     end
-    authorize! :manage, @playlist, params[:format]
+    authorize! :index, @playlist, params[:format]
     respond_to do |format|
       format.html {
         render 'show'
@@ -16,7 +16,7 @@ class PlaylistsController < ApplicationController
   end
 
   def index
-    authorize! :manage, Playlist, params[:format]
+    authorize! :index, Playlist, params[:format]
     @tracks = @current_radio.tracks
     @playlists = @current_radio.playlists.includes(tracks: [:labels])
     respond_to do |format|
@@ -31,7 +31,8 @@ class PlaylistsController < ApplicationController
 
   def create
     @playlist = @current_radio.playlists.new create_params
-    authorize! :manage, @playlist, params[:format]
+    @playlist.user = current_user
+    authorize! :create, @playlist, params[:format]
     if @playlist.save
       ActiveSupport::Notifications.instrument 'playlist.created', current_user: current_user.email, radio: @current_radio.name, playlist: @playlist.name
       render json: @playlist
@@ -40,14 +41,9 @@ class PlaylistsController < ApplicationController
     end
   end
 
-  def edit
-    @playlist = @current_radio.playlists.find params[:id]
-    authorize! :manage, @playlist, params[:format]
-  end
-
   def update
     @playlist = @current_radio.playlists.includes(:playlist_tracks, :tracks).find params[:id]
-    authorize! :manage, @playlist, params[:format]
+    authorize! :update, @playlist, params[:format]
     @playlist.attributes = update_params
     if @playlist.save
       ActiveSupport::Notifications.instrument 'playlist.updated', current_user: current_user.email, radio: @current_radio.name, playlist: @playlist.name, params: update_params

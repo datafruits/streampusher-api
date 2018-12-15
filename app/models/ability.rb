@@ -92,9 +92,7 @@ class Ability
       can :update, Label if can_manage_radio?(user, radio)
       can :index, Label if format == "json"
 
-      can :manage, Playlist do |playlist|
-        can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)
-      end
+      can :index, Playlist if can_manage_radio?(user, radio)
       can :read, Playlist do |playlist|
         can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)
       end
@@ -103,6 +101,11 @@ class Ability
       end
       can :update, Playlist do |playlist|
         can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)
+      end
+
+      can :destroy, Playlist do |playlist|
+        can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio) &&
+          playlist.user_id == user.id
       end
 
       can :manage, PlaylistTrack do |playlist_track|

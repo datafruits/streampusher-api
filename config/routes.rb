@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :playlists
+  resources :playlists, only: [:show, :index, :create, :update, :destroy]
 
   resources :subscriptions, only: [:edit, :update]
 
