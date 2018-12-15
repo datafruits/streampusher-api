@@ -60,7 +60,8 @@
       <h4 class="modal-title" id="myModalLabel">Playlist Settings</h4>
     </div>
     <div class="modal-body">
-      {{playlist.name}}
+      <h2>{{playlist.name}}</h2>
+      <span>Created by: </span><b>{{playlist.createdBy}}</b>
       <br />
       <h4>Interpolate another playlist with this one (e.g. for jingles)</h4>
       <label>Enabled {{input type="checkbox" id="interpolated-playlist-enabled" name="interpolatedPlaylistEnabled" checked=playlist.interpolatedPlaylistEnabled}}</label>

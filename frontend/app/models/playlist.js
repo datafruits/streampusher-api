@@ -8,6 +8,7 @@ const Validations = buildValidations({
 
 export default DS.Model.extend(Validations, {
   name: DS.attr(),
+  createdBy: DS.attr(),
   playlistTracks: DS.hasMany('playlist-track'),
   interpolatedPlaylistTrackIntervalCount: DS.attr(),
   interpolatedPlaylistTrackPlayCount: DS.attr(),
