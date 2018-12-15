@@ -54,6 +54,12 @@ class ScheduledShow < ActiveRecord::Base
 
   # TODO
   # validate :time_is_in_15_min_intervals
+  #
+  def playlist_or_default
+    # playlist presence is validated, but it might be deleted
+    # and we can't add dependant destroy
+    self.playlist || self.radio.default_playlist
+  end
 
   def image_url
     self.image.url(:original)
