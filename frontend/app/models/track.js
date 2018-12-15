@@ -5,6 +5,7 @@ import DS from 'ember-data';
 
 export default DS.Model.extend({
   labels: DS.hasMany('labels'),
+  uploadedBy: DS.attr(),
   labelIds: DS.attr(),
   createdAt: DS.attr(),
   updatedAt: DS.attr(),
