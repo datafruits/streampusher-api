@@ -68,7 +68,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def update_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :current_password, :time_zone)
+    params.require(:user).permit(:email, :password, :password_confirmation, :current_password, :time_zone, :username)
   end
   # check if we need password to update user data
   # ie if password or email was changed
