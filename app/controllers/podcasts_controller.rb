@@ -54,7 +54,7 @@ class PodcastsController < ApplicationController
       tracks: {
         page: params[:page],
         query: params[:query],
-        tags: params[:tags]
+        tags: Array(params[:tags])
       }
     }
   end
