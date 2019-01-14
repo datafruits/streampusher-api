@@ -15,4 +15,11 @@ class PodcastSerializer < ActiveModel::Serializer
 
     playlist_tracks
   end
+
+  def meta
+    {
+      page: scope[:tracks][:page],
+      total_pages: tracks.page.total_pages.to_i
+    }
+  end
 end
