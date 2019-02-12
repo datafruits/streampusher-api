@@ -99,6 +99,10 @@ class Radio < ActiveRecord::Base
     dir
   end
 
+  def recording_files
+    Dir["#{tracks_directory}/*.mp3"]
+  end
+
   def icecast_proxy_key
     "#{self.virtual_host}/icecast"
   end
