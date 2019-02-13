@@ -5,7 +5,7 @@
   - process_recordings
 :schedule:
   collect_recordings:
-    every: 10m
+    every: 1h
     class: CollectRecordingsWorker
   collect_stats:
    every: 1m   # Runs once per minute
