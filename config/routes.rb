@@ -9,7 +9,9 @@ Rails.application.routes.draw do
 
   mount StripeEvent::Engine, at: '/stripe_events'
 
-  resources :recordings, only: [:index]
+  resources :recordings, only: [:index, :show] do
+    resources :process_recordings, only: [:create]
+  end
   resources :podcasts
 
   resources :scheduled_shows do

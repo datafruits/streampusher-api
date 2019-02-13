@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181215033224) do
+ActiveRecord::Schema.define(version: 20190212063306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -169,14 +169,13 @@ ActiveRecord::Schema.define(version: 20181215033224) do
   end
 
   create_table "recordings", force: :cascade do |t|
-    t.integer  "radio_id",          null: false
+    t.integer  "radio_id",                      null: false
     t.integer  "dj_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
+    t.string   "path"
+    t.integer  "processing_status", default: 0, null: false
+    t.integer  "track_id"
   end
 
   create_table "scheduled_show_performers", force: :cascade do |t|

@@ -2,10 +2,14 @@
   - default
   - mailers
   - monitor
+  - process_recordings
 :schedule:
-  #collect_stats:
-  #  every: 1m   # Runs once per minute
-  #  class: CollectStatsWorker
+  collect_recordings:
+    every: 1h
+    class: CollectRecordingsWorker
+  collect_stats:
+   every: 1m   # Runs once per minute
+   class: CollectStatsWorker
   schedule_monitor:
     every: 1m
     class: ScheduleMonitorWorker

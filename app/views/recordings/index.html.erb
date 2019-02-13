@@ -7,7 +7,18 @@
   <tbody>
     <% @recordings.each do |recording| %>
       <tr>
-        <td><%= link_to recording.file_file_name, recording.file(:original), target: "_blank" %></td>
+        <td><%= recording.path %></td>
+        <td><%= "#{recording.filesize} MB" %></td>
+        <td><%= link_to 'Download', recording_path(recording) %></td>
+        <% if recording.unprocessed? %>
+          <td><%= link_to 'Process recording', recording_process_recordings_path(recording), method: :post, class: "btn btn-success" %></td>
+        <% elsif recording.processing? %>
+          <td>Currently being processed...</td>
+        <% elsif recording.processed? %>
+          <td>Processing complete</td>
+        <% elsif recording.processing_failed? %>
+          <td>Processing failed. <%= link_to 'Try again?', recording_process_recordings_path(recording), method: :post, class: "btn btn-success" %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
