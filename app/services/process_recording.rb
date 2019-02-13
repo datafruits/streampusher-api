@@ -9,7 +9,10 @@ class ProcessRecording
     radio = recording.radio
     s3_client = Aws::S3::Client.new
     bucket = ENV['S3_BUCKET']
-    key = "#{radio.name}/#{File.basename(recording.path)}"
+    artist_name = File.basename(recording.path).split("LIVE -- ").last.split(" - ").first
+    date = File.basename(recording.path).split("LIVE -- ").last.split(" - ").last.split(", ").first
+    basename = "datafruits-#{artist_name}-#{date}.mp3"
+    key = "#{radio.name}/#{basename}"
     content_type = "audio/mpeg"
 
     response = s3_client.put_object bucket: bucket, key: key,
