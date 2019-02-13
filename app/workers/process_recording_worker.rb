@@ -1,10 +1,10 @@
 class ProcessRecordingWorker < ActiveJob::Base
-  queue_as :default
+  queue_as :process_recordings
 
   def perform recording_id
     recording = Recording.find(recording_id)
 
-    ProcessRecordingWorker.new.perform(recording)
+    ProcessRecording.new.perform(recording)
 
   end
 end
