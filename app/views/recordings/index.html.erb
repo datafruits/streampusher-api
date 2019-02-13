@@ -16,6 +16,8 @@
           <td>Currently being processed...</td>
         <% elsif recording.processed? %>
           <td>Processing complete</td>
+        <% elsif recording.processing_failed? %>
+          <td>Processing failed. <%= link_to 'Try again?', recording_process_recordings_path(recording), method: :post, class: "btn btn-success" %></td>
         <% end %>
       </tr>
     <% end %>
