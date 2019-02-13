@@ -1,6 +1,7 @@
 class Recording < ActiveRecord::Base
   belongs_to :radio
   belongs_to :dj, class_name: "User"
+  belongs_to :track
   # belongs_to :show
   enum processing_status: ['unprocessed', 'processing', 'processed']
 
