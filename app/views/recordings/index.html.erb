@@ -8,6 +8,7 @@
     <% @recordings.each do |recording| %>
       <tr>
         <td><%= recording.path %></td>
+        <td><%= "#{recording.filesize} MB" %></td>
         <td><%= link_to 'Download', recording_path(recording) %></td>
         <% if recording.unprocessed? %>
           <td><%= link_to 'Process recording', recording_process_recordings_path(recording), method: :post, class: "btn btn-success" %></td>
