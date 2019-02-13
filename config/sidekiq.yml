@@ -2,6 +2,7 @@
   - default
   - mailers
   - monitor
+  - process_recordings
 :schedule:
   collect_recordings:
     every: 10m
