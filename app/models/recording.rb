@@ -6,4 +6,8 @@ class Recording < ActiveRecord::Base
   enum processing_status: ['unprocessed', 'processing', 'processed']
 
   default_scope { order(created_at: :desc) }
+
+  def filesize
+    (File.size(self.path).to_f / 2**20).round(2)
+  end
 end
