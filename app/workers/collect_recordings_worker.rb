@@ -4,7 +4,7 @@ class CollectRecordingsWorker < ActiveJob::Base
     Radio.enabled.find_each do |radio|
       radio.recording_files.each do |file|
         unless Recording.where(path: file).any?
-          Recording.create radio: radio, path: file
+          Recording.create radio: radio, path: file, file_created_at: File.ctime(file)
         end
       end
     end
