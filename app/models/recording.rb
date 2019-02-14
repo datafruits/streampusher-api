@@ -10,6 +10,8 @@ class Recording < ActiveRecord::Base
   def filesize
     if File.exists? self.path
       (File.size(self.path).to_f / 2**20).round(2)
+    else
+      "???"
     end
   end
 end
