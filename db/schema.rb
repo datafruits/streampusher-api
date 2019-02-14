@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190212063306) do
+ActiveRecord::Schema.define(version: 20190214063029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -176,6 +176,7 @@ ActiveRecord::Schema.define(version: 20190212063306) do
     t.string   "path"
     t.integer  "processing_status", default: 0, null: false
     t.integer  "track_id"
+    t.datetime "file_created_at"
   end
 
   create_table "scheduled_show_performers", force: :cascade do |t|
