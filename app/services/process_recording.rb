@@ -8,7 +8,8 @@ class ProcessRecording
       trimmed_file_path = Sox.trim recording.path
 
       radio = recording.radio
-      s3_client = Aws::S3::Client.new
+      credentials = Aws::Credentials.new ENV['S3_KEY'], ENV['S3_SECRET']
+      s3_client = Aws::S3::Client.new credentials: credentials
       bucket = ENV['S3_BUCKET']
       artist_name = File.basename(recording.path).split("LIVE -- ").last.split(" - ").first
       date = File.basename(recording.path).split("LIVE -- ").last.split(" - ").last.split(", ").first
