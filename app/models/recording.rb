@@ -8,6 +8,8 @@ class Recording < ActiveRecord::Base
   default_scope { order(created_at: :desc) }
 
   def filesize
-    (File.size(self.path).to_f / 2**20).round(2)
+    if File.exists? self.path
+      (File.size(self.path).to_f / 2**20).round(2)
+    end
   end
 end
