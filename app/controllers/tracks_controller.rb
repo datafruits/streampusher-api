@@ -13,6 +13,15 @@ class TracksController < ApplicationController
     end
   end
 
+  def show
+    @track = @current_radio.tracks.find params[:id]
+    respond_to do |format|
+      format.json {
+        render json: @track
+      }
+    end
+  end
+
   def edit
     @track = @current_radio.tracks.find params[:id]
   end

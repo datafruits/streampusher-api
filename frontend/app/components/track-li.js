@@ -10,11 +10,6 @@ export default Component.extend({
   flashMessages: service(),
   tagName: 'tr',
   classNames: ['track'],
-  isEditing: false,
-  isSaving: false,
-  mixcloudDialog: false,
-  soundcloudDialog: false,
-  embedDialog: false,
   isAddingNewPlaylist: computed('playlist.id', function(){
     let playlist = this.get('playlist');
     return playlist.get('isNew');
@@ -52,19 +47,8 @@ export default Component.extend({
         get(this, 'flashMessages').danger('Something went wrong!');
       });
     },
-    editTrack(){
-      this.toggleProperty('isEditing');
-    },
     focusEmbedCode(){
       this.select();
-    },
-    mixcloud(){
-      this.set('isEditing', false);
-      this.toggleProperty('mixcloudDialog');
-    },
-    embed(){
-      this.set('isEditing', false);
-      this.toggleProperty('embedDialog');
     },
     uploadToMixcloud(){
       let trackId = this.get('track').get('id');
@@ -94,35 +78,6 @@ export default Component.extend({
           get(this, 'flashMessages').danger('Something went wrong!');
         }
       });
-
     },
-    save(){
-      this.set('isSaving', true);
-      var track = this.get('track');
-      var onSuccess = () =>{
-        this.set('isEditing', false);
-        this.set('isSaving', false);
-      };
-      var onFail = () =>{
-        console.log("track save failed");
-        get(this, 'flashMessages').danger('Something went wrong!');
-        this.set('isSaving', false);
-      };
-      track.save().then(onSuccess, onFail);
-    },
-    cancel(){
-      this.set('isEditing', false);
-    },
-    destroy(){
-      if(confirm("Are you sure you want to delete this track?")){
-        var track = this.get('track');
-        // FIXME does this get removed from the playlist as well?
-        track.destroyRecord();
-      }
-    },
-    soundcloud(){
-      this.set('isEditing', false);
-      this.toggleProperty('soundcloudDialog');
-    }
   }
 });
