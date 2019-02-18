@@ -25,6 +25,17 @@
 <div class="control-group">
   {{track-labels-select labels=model.labels track=model.track}}
 </div>
+<div class="control-group">
+  <h4>Link to Scheduled Show</h4>
+  {{#power-select
+    renderInPlace=true
+    options=model.scheduledShows
+    selected=model.track.scheduledShow
+    onchange=(action 'selectScheduledShow') as |scheduledShow|
+  }}
+    {{scheduledShow.displayTitle}}
+  {{/power-select}}
+</div>
 {{#if isSaving}}
   <div class="spinner">
   </div>
