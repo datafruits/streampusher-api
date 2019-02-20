@@ -47,3 +47,39 @@
 <button {{action 'soundcloud'}} disabled={{isSaving}} class="btn btn-default"><i class="fa fa-soundcloud" aria-hidden="true"></i></button>
 
 <button {{action 'embed'}} disabled={{isSaving}} class="btn btn-default">Embed</button>
+{{#if mixcloudDialog}}
+  {{#modal-dialog targetAttachment="center" translucentOverlay=true clickOutsideToClose=true onClose="mixcloud"}}
+    <div class="modal-header">
+      <button {{action "mixcloud"}} type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title" id="myModalLabel">Upload to Mixcloud - {{track.title}}</h4>
+    </div>
+    <div class="modal-body">
+      {{mixcloud-uploader track=track}}
+    </div>
+  {{/modal-dialog}}
+{{else if soundcloudDialog}}
+  {{#modal-dialog targetAttachment="center" translucentOverlay=true clickOutsideToClose=true close="soundcloud"}}
+    <div class="modal-header">
+      <button {{action "soundcloud"}} type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title" id="myModalLabel">Upload to Soundcloud - {{track.title}}</h4>
+    </div>
+    <div class="modal-body">
+      {{soundcloud-uploader track=track}}
+    </div>
+  {{/modal-dialog}}
+{{else if embedDialog}}
+  {{#modal-dialog targetAttachment="center" translucentOverlay=true clickOutsideToClose=true onClose="embed"}}
+    <div class="modal-header">
+      <button {{action "embed"}} type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title" id="myModalLabel">Embed - {{track.title}}</h4>
+    </div>
+    <div class="modal-body">
+      Embed code and preview:
+      <div>
+        {{input focus-in="focusEmbedCode" id="embed-player-html" type="text" readonly="readonly" value=track.embedCode}}
+      </div>
+      {{{track.embedCode}}}
+    </div>
+  {{/modal-dialog}}
+{{/if}}
+

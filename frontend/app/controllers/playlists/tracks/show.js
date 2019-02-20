@@ -8,6 +8,9 @@ export default Controller.extend({
   soundcloudDialog: false,
   embedDialog: false,
   actions: {
+    focusEmbedCode(){
+      this.select();
+    },
     selectScheduledShow(scheduledShow){
       this.set('model.track.scheduledShow', scheduledShow);
     },
@@ -16,7 +19,6 @@ export default Controller.extend({
       let track = this.model.track;
       let currentPlaylist = this.get('currentPlaylist.playlist');
       const onSuccess = () =>{
-        this.set('isEditing', false);
         this.set('isSaving', false);
         this.transitionToRoute('playlists.show', currentPlaylist.id);
       };
@@ -35,15 +37,12 @@ export default Controller.extend({
       }
     },
     soundcloud(){
-      this.set('isEditing', false);
       this.toggleProperty('soundcloudDialog');
     },
     mixcloud(){
-      this.set('isEditing', false);
       this.toggleProperty('mixcloudDialog');
     },
     embed(){
-      this.set('isEditing', false);
       this.toggleProperty('embedDialog');
     },
   }
