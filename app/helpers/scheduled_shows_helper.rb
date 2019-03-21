@@ -31,7 +31,7 @@ module ScheduledShowsHelper
     timezones = {"PST" => "Pacific Time (US & Canada)",
                  "EST" => "Eastern Time (US & Canada)",
                  "UK"  => "London",
-                 "日本"=> "Tokyo"}
+                 "JST/KST"=> "Tokyo"}
     times_hash = {}
 
     timezones.each do |k,v|
