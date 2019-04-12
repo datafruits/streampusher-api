@@ -65,6 +65,7 @@ end
 group :test, :development do
   gem 'pry-byebug'
   gem 'rubocop', require: false
+  gem 'tzinfo-data'
 end
 
 group :production do

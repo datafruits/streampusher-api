@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/datafruits/rupeepeethree.git
+  remote: https://github.com/datafruits/rupeepeethree.git
   revision: 839fb8caacc9a19b4466c6afd532dd6f5fca9c59
   specs:
     rupeepeethree (0.0.6)
@@ -8,34 +8,34 @@ GIT
       trollop (~> 2.0)
 
 GIT
-  remote: git://github.com/mcfiredrill/omniauth-soundcloud.git
+  remote: https://github.com/mcfiredrill/omniauth-soundcloud.git
   revision: 4ac71f3ab601e08ad9269a8f9657a058f5b62d53
   specs:
     omniauth-soundcloud (1.0.1)
       omniauth-oauth2 (~> 1.4.0)
 
 GIT
-  remote: git://github.com/streampusher/mixcloud-ruby.git
+  remote: https://github.com/streampusher/mixcloud-ruby.git
   revision: d00100b4f6a991bdb3deab402154c93dcb14c4f7
   specs:
     mixcloud (0.0.1)
       httmultiparty
 
 GIT
-  remote: git://github.com/streampusher/omniauth-mixcloud.git
+  remote: https://github.com/streampusher/omniauth-mixcloud.git
   revision: 462c97d53967d474ec3aaf784393d2b9c69410a2
   specs:
     omniauth-mixcloud (1.0.1)
       omniauth-oauth2 (~> 1.4.0)
 
 GIT
-  remote: git://github.com/streampusher/ruby-liquidsoap.git
+  remote: https://github.com/streampusher/ruby-liquidsoap.git
   revision: d861c33fff51d5804cd174aeb8e4f5820cc9c726
   specs:
     ruby-liquidsoap (0.0.1)
 
 GIT
-  remote: git://github.com/streampusher/so_id3.git
+  remote: https://github.com/streampusher/so_id3.git
   revision: 65b02251effaed624e34136feb4ac37c6e8232f3
   specs:
     so_id3 (0.0.1)
@@ -528,6 +528,8 @@ GEM
       railties (>= 3.1)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2019.1)
+      tzinfo (>= 1.0.0)
     uglifier (3.1.3)
       execjs (>= 0.3.0, < 3)
     unicode-display_width (1.4.0)
@@ -640,6 +642,7 @@ DEPENDENCIES
   timecop
   tumblr_client
   twitter-bootstrap-rails (~> 3.2.2)
+  tzinfo-data
   uglifier (>= 1.3.0)
   unicorn
   vcr

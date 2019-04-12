@@ -1,18 +1,19 @@
-FROM ubuntu:14.04
+FROM ubuntu:18.04
 
 # locale
-RUN locale-gen ja_JP.UTF-8 && \
-    locale-gen en_US.UTF-8
-ENV LANG en_US.UTF-8
+# RUN locale-gen ja_JP.UTF-8 && \
+#     locale-gen en_US.UTF-8
+# ENV LANG en_US.UTF-8
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get upgrade -y
+RUN apt update
+RUN apt upgrade -y
 RUN apt-get install -y build-essential libtag1-dev libqtwebkit-dev qt4-qmake \
-  xvfb firefox git curl sox libsox-fmt-mp3 libpq-dev imagemagick
+  xvfb firefox git curl sox libsox-fmt-mp3 libpq-dev imagemagick sudo
 
 # for ruby
-RUN apt-get install -y --force-yes libssl-dev libreadline-dev
+RUN apt-get install -y --force-yes libssl-dev libreadline-dev zlib1g-dev
 
 # node
 RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
@@ -46,11 +47,13 @@ ENV PATH /home/rails/.rbenv/bin:$PATH
 ENV RBENV_ROOT /home/rails/.rbenv
 
 ENV CONFIGURE_OPTS --disable-install-doc
-RUN rbenv install 2.3.3
-RUN rbenv global 2.3.3
+RUN rbenv install 2.6.1
+RUN rbenv global 2.6.1
 RUN echo 'gem: --no-rdoc --no-ri' >> /home/rails/.gemrc
 RUN rbenv exec gem update --system
-RUN rbenv exec gem install bundler
+#RUN rbenv exec gem install bundler
+RUN rbenv rehash
+RUN rbenv exec bundle config --global github.https true
 
 # Configure the main working directory. This is the base
 # # directory used in any further RUN, COPY, and ENTRYPOINT
