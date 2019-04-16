@@ -17,7 +17,9 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
+         :jwt_authenticatable, jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
+
   validates_presence_of :username
   validates_uniqueness_of :username
   validates_format_of :username, with: /\A[a-zA-Z0-9_\.]+\z/, message: :alphanumeric
@@ -59,6 +61,10 @@ class User < ActiveRecord::Base
   # provide a custom message for a deleted account
   def inactive_message
     !deleted_at ? super : :deleted_account
+  end
+
+  def jwt_payload
+    { 'username' => self.username }
   end
 
   private
