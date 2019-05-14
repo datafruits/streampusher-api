@@ -6,6 +6,7 @@ import { get } from '@ember/object';
 export default Component.extend({
   isUploading: false,
   flashMessages: service(),
+  ajax: service(),
   willRender(){
     if(!isEmpty($("#app-data").data('connected-accounts'))){
       const mixcloudAccount = $("#app-data").data('connected-accounts').filter(function(s){ return s.provider === "mixcloud" })[0];

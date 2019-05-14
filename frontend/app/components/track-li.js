@@ -5,7 +5,6 @@ import Component from '@ember/component';
 
 export default Component.extend({
   store: service(),
-  ajax: service(),
   flashMessages: service(),
   tagName: 'tr',
   classNames: ['track'],
