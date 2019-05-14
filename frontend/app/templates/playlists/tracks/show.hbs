@@ -5,7 +5,7 @@
   <i class="fa fa-plus"></i>Replace track
   {{track-replacer track=model.track}}
 </div>
-{{#if track.isUploading}}
+{{#if model.track.isUploading}}
   uploading {{track.audioFileName}}...
   <div class="meter">
     <span style="{{uploadProgressStyle}}"></span>

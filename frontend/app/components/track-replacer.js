@@ -1,10 +1,10 @@
-import FileField from 'ember-uploader/components/file-field';
 import S3Uploader from 'ember-uploader/uploaders/s3';
 import { inject as service } from '@ember/service';
 import { isEmpty } from '@ember/utils';
 import { get } from '@ember/object';
+import TrackUploaderComponent from './track-uploader';
 
-export default TrackUploader.extend({
+export default TrackUploaderComponent.extend({
   filesDidChange: function(files) {
 
     const store = this.get('store');
