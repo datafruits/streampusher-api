@@ -1,12 +1,18 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
+import { computed } from '@ember/object';
+import { htmlSafe } from '@ember/template';
 
 export default Controller.extend({
   currentPlaylist: service(),
+  flashMessages: service(),
   isSaving: false,
   mixcloudDialog: false,
   soundcloudDialog: false,
   embedDialog: false,
+  uploadProgressStyle: computed('model.track.roundedUploadProgress', function(){
+    return htmlSafe(`width: ${this.model.track.roundedUploadProgress}%;`);
+  }),
   actions: {
     focusEmbedCode(){
       this.select();
@@ -24,7 +30,7 @@ export default Controller.extend({
       };
       const onFail = () => {
         console.log("track save failed");
-        get(this, 'flashMessages').danger('Something went wrong!');
+        this.get('flashMessages').danger('Something went wrong!');
         this.set('isSaving', false);
       };
       track.save().then(onSuccess, onFail);
