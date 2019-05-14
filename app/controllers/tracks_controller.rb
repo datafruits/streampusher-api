@@ -13,6 +13,15 @@ class TracksController < ApplicationController
     end
   end
 
+  def show
+    @track = @current_radio.tracks.find params[:id]
+    respond_to do |format|
+      format.json {
+        render json: @track
+      }
+    end
+  end
+
   def edit
     @track = @current_radio.tracks.find params[:id]
   end
@@ -72,7 +81,8 @@ class TracksController < ApplicationController
   end
 
   def update_params
-    params.require(:track).permit(:artist, :title, :album, :artwork, :artwork_filename, label_ids: [])
+    params.require(:track).permit(:artist, :title, :album, :artwork,
+                                  :artwork_filename, :scheduled_show_id, label_ids: [])
   end
 
   def set_frame_headers
