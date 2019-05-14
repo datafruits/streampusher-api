@@ -7,6 +7,9 @@ export default Controller.extend({
   mixcloudDialog: false,
   soundcloudDialog: false,
   embedDialog: false,
+  uploadProgressStyle: computed('model.track.roundedUploadProgress', function(){
+    return htmlSafe(`width: ${this.model.track.roundedUploadProgress}%;`);
+  }),
   actions: {
     focusEmbedCode(){
       this.select();
