@@ -13,6 +13,9 @@ export default Controller.extend({
   uploadProgressStyle: computed('model.track.roundedUploadProgress', function(){
     return htmlSafe(`width: ${this.model.track.roundedUploadProgress}%;`);
   }),
+  scheduledShowMatcher(show, term){
+    return `${show.title} ${show.formattedDate}`.indexOf(term);
+  },
   actions: {
     focusEmbedCode(){
       this.select();

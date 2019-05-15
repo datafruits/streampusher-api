@@ -41,6 +41,7 @@
     renderInPlace=true
     options=model.scheduledShows
     selected=model.track.scheduledShow
+    matcher=scheduledShowMatcher
     onchange=(action 'selectScheduledShow') as |scheduledShow|
   }}
     {{scheduledShow.displayTitle}}
@@ -92,4 +93,3 @@
     </div>
   {{/modal-dialog}}
 {{/if}}
-
