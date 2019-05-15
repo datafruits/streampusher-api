@@ -13,8 +13,8 @@ export default DS.Model.extend({
   timezone: DS.attr(),
   recurringInterval: DS.attr(),
 
-  formattedDate: computed('startAt', function(){
-    return moment(this.get('startAt')).format()
+  formattedDate: computed('start', function(){
+    return moment(this.get('start')).format()
   }),
   displayTitle: computed('title', 'formattedDate', function(){
     return `${this.title} - ${this.formattedDate}`;
