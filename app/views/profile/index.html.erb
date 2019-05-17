@@ -1,0 +1,19 @@
+<% url = profile_index_path %>
+<%= simple_form_for @dj, url: url, method: :post, html: {class: 'form-horizontal'} do |f| %>
+  <%= f.input :username %>
+  <br/>
+  <%= f.input :bio, input_html: { cols: 70, rows: 5 } %>
+  <%= f.input :image, as: :file %>
+  <% if @dj.image.present? %>
+    <div class="show-image">
+      <%= image_tag @dj.image.url(:thumb) %>
+    </div>
+    <%= link_to "Original Size", @dj.image.url(:original), :target => "_blank"  %>
+  <% end %>
+  <br/>
+  <%= f.select :time_zone, ActiveSupport::TimeZone.all.sort.collect{|m| [m.to_s.split(") ").reverse.join(" -- ").concat(")"), m.name]},
+    {}, class: 'chosen-select' %>
+  <br/>
+  <br>
+  <%= f.submit "Save changes", class: 'btn btn-success', "data-disable-with" => "sending..."  %>
+<% end %>

@@ -109,5 +109,7 @@ Rails.application.routes.draw do
     resources :approvals, only: [:create]
   end
 
+  resources :profile, only: [:index, :create]
+
   root 'landing#index'
 end

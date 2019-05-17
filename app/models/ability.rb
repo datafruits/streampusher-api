@@ -124,6 +124,8 @@ class Ability
       can :update, :metadata if can_manage_radio?(user, radio)
 
       can :index, Listen
+      can :index, :profile
+      can :create, :profile
       cannot :admin
     else
       can :read, ScheduledShow if format == "json"
