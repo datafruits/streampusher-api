@@ -13,12 +13,17 @@
       </li>
     <% end %>
     <% if current_user.dj? %>
-      <li id="schedule-link">
+      <li id="profile-link">
         <%= link_to profile_index_path do %>
           <i class="fa fa-user"></i>Profile
         <% end %>
       </li>
     <% end %>
+    <li id="schedule-link">
+      <%= link_to schedule_path do %>
+        <i class="fa fa-calendar"></i>Schedule
+      <% end %>
+    </li>
     <li>
       <%= link_to stats_path do %>
         <i class="fa fa-line-chart"></i>Stats
