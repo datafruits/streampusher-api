@@ -134,6 +134,7 @@ class Ability
       can :embed, Track
       cannot :index, :stats
       can :index, Label if format == "json"
+      can :show, Label if format == "json"
       cannot :admin
       can :sign_up, :anniversary_slot if is_datafruits?(radio)
     end
