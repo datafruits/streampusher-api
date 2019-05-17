@@ -35,6 +35,8 @@ class Ability
       can :vj, :dashboard if is_datafruits?(radio)
       can :manage, SocialIdentity
       can :update, :metadata if can_manage_radio?(user, radio)
+      can :index, :profile
+      can :create, :profile
 
       can :index, Listen
     elsif user.manager? # same as owner except can't manage subscription
@@ -63,6 +65,9 @@ class Ability
       can :update, :metadata if can_manage_radio?(user, radio)
 
       can :index, Listen
+
+      can :index, :profile
+      can :create, :profile
     elsif user.dj?
       can :index, Radio if can_manage_radio?(user, radio)
       can :read, Podcast if radio.podcasts_enabled?
