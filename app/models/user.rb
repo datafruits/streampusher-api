@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
 
   default_scope { order(created_at: :desc) }
 
+  scope :profile_published, -> { where(profile_publish: true) }
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
