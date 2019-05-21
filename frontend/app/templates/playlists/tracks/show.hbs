@@ -38,10 +38,10 @@
 <div class="control-group">
   <h4>Link to Scheduled Show</h4>
   {{#power-select
+    search=(action "searchShows")
     renderInPlace=true
     options=model.scheduledShows
     selected=model.track.scheduledShow
-    matcher=scheduledShowMatcher
     onchange=(action 'selectScheduledShow') as |scheduledShow|
   }}
     {{scheduledShow.displayTitle}}

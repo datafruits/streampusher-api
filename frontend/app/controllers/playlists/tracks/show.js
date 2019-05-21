@@ -2,6 +2,8 @@ import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
 import { htmlSafe } from '@ember/template';
+import { debounce } from '@ember/runloop';
+import RSVP from 'rsvp';
 
 export default Controller.extend({
   currentPlaylist: service(),
@@ -13,10 +15,19 @@ export default Controller.extend({
   uploadProgressStyle: computed('model.track.roundedUploadProgress', function(){
     return htmlSafe(`width: ${this.model.track.roundedUploadProgress}%;`);
   }),
-  scheduledShowMatcher(show, term){
-    return `${show.title} ${show.formattedDate}`.indexOf(term);
+  _performSearch(term, resolve, reject){
+    this.store.query('scheduledShow', { term: term })
+      .then((scheduledShows) => {
+        return resolve(scheduledShows);
+      }, reject);
   },
   actions: {
+    searchShows(term){
+      return new RSVP.Promise((resolve, reject) => {
+        debounce(this, this._performSearch, term, resolve, reject, 600);
+      });
+    },
+
     focusEmbedCode(){
       this.select();
     },
