@@ -88,7 +88,7 @@ class ScheduledShowsController < ApplicationController
   private
   def setup_index
     if params[:term]
-      @scheduled_shows = @current_radio.scheduled_shows.where("title ilike ?", "%#{params[:term]}%").order("start_at ASC")
+      @scheduled_shows = @current_radio.scheduled_shows.where("title ilike ?", "%#{params[:term]}%").order("start_at DESC")
     else
       @scheduled_shows = @current_radio.scheduled_shows.where("start_at >= ? AND end_at <= ?", params[:start], params[:end]).order("start_at ASC")
     end
