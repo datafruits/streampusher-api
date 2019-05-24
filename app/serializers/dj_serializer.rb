@@ -1,5 +1,5 @@
 class DjSerializer < ActiveModel::Serializer
-  attributes :id, :username, :image_url, :bio, :image_thumb_url
+  attributes :id, :username, :image_url, :bio, :image_thumb_url, :image_medium_url
   has_many :links, embed: :ids, embed_in_root: true, each_serializer: LinkSerializer
   has_many :tracks, embed: :ids, key: :tracks, embed_in_root: true, each_serializer: TrackSerializer
   has_many :scheduled_shows, embed: :ids, key: :upcoming_shows, embed_in_root: true, each_serializer: ScheduledShowSerializer
