@@ -20,6 +20,12 @@ class DjSerializer < ActiveModel::Serializer
     end
   end
 
+  def image_medium_url
+    if object.image.present?
+      object.image.url(:medium)
+    end
+  end
+
   def tracks
     track_ids = ScheduledShow.find(ScheduledShowPerformer.where(user_id: object.id)
       .pluck(:scheduled_show_id)).map(&:track_ids).flatten

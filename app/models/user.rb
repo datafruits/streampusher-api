@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :recordings
   has_many :social_identities
   has_many :links
-  has_attached_file :image, styles: { :thumb => "x300" },
+  has_attached_file :image, styles: { :thumb => "150x150#", :medium => "250x250#" },
     path: ":attachment/:style/:basename.:extension"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
