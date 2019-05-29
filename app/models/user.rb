@@ -8,6 +8,11 @@ class User < ActiveRecord::Base
   has_many :recordings
   has_many :social_identities
   has_many :links
+  has_many :scheduled_show_performers, class_name: "::ScheduledShowPerformer", dependent: :destroy
+  has_many :performers, through: :scheduled_show_performers, source: :user
+  has_many :scheduled_shows, -> { includes :tracks }, through: :scheduled_show_performers
+  has_many :tracks, through: :scheduled_shows
+
   has_attached_file :image, styles: { :thumb => "150x150#", :medium => "250x250#" },
     path: ":attachment/:style/:basename.:extension"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/

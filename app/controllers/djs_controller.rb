@@ -1,7 +1,7 @@
 class DjsController < ApplicationController
   def index
     authorize! :index, :dj
-    @djs = @current_radio.djs.includes(:tracks)
+    @djs = @current_radio.djs
     if params[:search]
       @djs = @djs.where("username ilike (?)", "%#{params[:search].permit(:keyword)[:keyword]}%")
     end
@@ -13,14 +13,19 @@ class DjsController < ApplicationController
       format.json {
         @djs = @current_radio.active_djs
         response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
-        render json: @djs, each_serializer: DjSerializer
+        render json: @djs.includes([:scheduled_show_performers,
+                                    scheduled_shows: [ { performers: :links }, :radio, { tracks: [ :radio, :uploaded_by ] } ]]),
+          each_serializer: DjSerializer
       }
     end
   end
 
   def show
     authorize! :show, :dj
-    @dj = @current_radio.djs.find_by(username: params[:id])
+    @dj = @current_radio.djs
+      .includes([:scheduled_show_performers,
+                 scheduled_shows: [ { performers: :links }, :radio, { tracks: [ :radio, :uploaded_by, :labels ] } ]])
+      .find_by(username: params[:id])
     respond_to do |format|
       format.html
       format.json {
