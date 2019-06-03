@@ -22,10 +22,14 @@ class DjsController < ApplicationController
 
   def show
     authorize! :show, :dj
-    @dj = @current_radio.djs
+    djs = @current_radio.djs
       .includes([:scheduled_show_performers,
                  scheduled_shows: [ { performers: :links }, :radio, { tracks: [ :radio, :uploaded_by, :labels ] } ]])
-      .find_by(username: params[:id])
+    if params[:name].present?
+      @dj = djs.find_by(username: params[:name])
+    else
+      @dj = djs.find(params[:id])
+    end
     respond_to do |format|
       format.html
       format.json {

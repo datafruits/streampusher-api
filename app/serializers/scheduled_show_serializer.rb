@@ -6,7 +6,7 @@ class ScheduledShowSerializer < ActiveModel::Serializer
     :html_description, :slug
 
   has_many :tracks, embed: :ids, key: :tracks, embed_in_root: true, each_serializer: TrackSerializer
-  has_many :djs, embed: :usernames, key: :djs
+  has_many :djs, embed: :ids, key: :djs
 
   def djs
     object.performers
