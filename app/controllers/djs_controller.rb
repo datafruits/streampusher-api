@@ -13,9 +13,7 @@ class DjsController < ApplicationController
       format.json {
         @djs = @current_radio.active_djs
         response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
-        render json: @djs.includes([:scheduled_show_performers,
-                                    scheduled_shows: [ { performers: :links }, :radio, { tracks: [ :radio, :uploaded_by ] } ]]),
-          each_serializer: DjSerializer
+        render json: @djs, each_serializer: DjSerializer
       }
     end
   end
@@ -34,7 +32,7 @@ class DjsController < ApplicationController
       format.html
       format.json {
         response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
-        render json: @dj, serializer: DjSerializer
+        render json: @dj, serializer: DjWithRelationshipsSerializer, root: "dj"
       }
     end
   end

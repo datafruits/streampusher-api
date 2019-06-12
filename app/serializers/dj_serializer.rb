@@ -1,12 +1,5 @@
 class DjSerializer < ActiveModel::Serializer
-  attributes :id, :username, :image_url, :bio, :image_thumb_url, :image_medium_url, :tracks
-  has_many :links, embed: :ids, embed_in_root: true, each_serializer: LinkSerializer
-  has_many :scheduled_shows, embed: :ids, key: :scheduled_shows, embed_in_root: true, each_serializer: ScheduledShowSerializer
-
-  # tracks are already loaded via scheduled_shows, so we just need the ids here
-  def tracks
-    object.tracks.pluck :id
-  end
+  attributes :id, :username, :image_url, :bio, :image_thumb_url, :image_medium_url
 
   def image_url
     if object.image.present?
