@@ -5,7 +5,7 @@ class DjWithRelationshipsSerializer < ActiveModel::Serializer
 
   # tracks are already loaded via scheduled_shows, so we just need the ids here
   def tracks
-    object.tracks.order("created_at DESC").pluck :id
+    object.tracks.order("tracks.created_at DESC").pluck :id
   end
 
   def image_url
