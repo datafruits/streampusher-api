@@ -160,8 +160,13 @@ class ScheduledShow < ActiveRecord::Base
 
   def ensure_time_zone
     unless self.time_zone.blank?
-      self.start_at = ActiveSupport::TimeZone.new(self.time_zone).local_to_utc(self.start_at)
-      self.end_at = ActiveSupport::TimeZone.new(self.time_zone).local_to_utc(self.end_at)
+      # only take local times as input
+      unless self.start_at.utc?
+        self.start_at = ActiveSupport::TimeZone.new(self.time_zone).local_to_utc(self.start_at)
+      end
+      unless self.end_at.utc?
+        self.end_at = ActiveSupport::TimeZone.new(self.time_zone).local_to_utc(self.end_at)
+      end
     end
   end
 
