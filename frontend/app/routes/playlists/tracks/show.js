@@ -13,8 +13,8 @@ export default Route.extend({
       return scheduledShows;
     });
     return hash({
-      track: this.store.findRecord('track', params.id),
-      labels: this.store.findAll('label'),
+      track: this.store.peekRecord('track', params.id),
+      labels: this.store.peekAll('label'),
       scheduledShows: scheduledShowsQuery
     });
   }
