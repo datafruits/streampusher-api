@@ -141,6 +141,7 @@ class Ability
       can :next, ScheduledShow if format == "json"
       can :enabled, :vj
       can :embed, Track
+      can :show, Track if format == "json"
       cannot :index, :stats
       can :index, Label if format == "json"
       can :show, Label if format == "json"
