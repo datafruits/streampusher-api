@@ -123,7 +123,6 @@ namespace :deploy do
   before 'deploy:setup_config', 'nginx:remove_default_vhost'
 
   after 'deploy:symlink:shared', 'deploy:compile_assets_locally'
-  after 'deploy:symlink:shared', 'deploy:jekyll'
   after :finishing, 'deploy:cleanup'
   after 'deploy:setup_config', 'nginx:reload'
   after 'deploy:setup_config', 'monit:restart'

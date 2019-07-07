@@ -111,8 +111,6 @@ gem 'html-pipeline'
 gem 'github-markdown'
 gem 'ember-cli-rails'
 gem 'high_voltage'
-gem 'jekyll'
-gem 'jekyll-seo-tag'
 
 gem 'geocoder'
 gem 'ruby-liquidsoap', github: 'streampusher/ruby-liquidsoap', :require => 'liquidsoap'
