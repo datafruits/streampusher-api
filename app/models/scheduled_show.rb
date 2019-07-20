@@ -1,7 +1,7 @@
 require_relative "../../lib/time_utils"
 
 class ScheduledShow < ActiveRecord::Base
-  include FriendlyId
+  extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
   belongs_to :radio
@@ -127,6 +127,7 @@ class ScheduledShow < ActiveRecord::Base
         scheduled_show.recurrant_original_id = self.id
         scheduled_show.start_at = DateTime.new s.year, s.month, s.day, self.start_at.hour, self.start_at.min, self.start_at.sec, self.start_at.zone
         scheduled_show.end_at = DateTime.new e.year, e.month, e.day, self.end_at.hour, self.end_at.min, self.end_at.sec, self.end_at.zone
+        scheduled_show.slug = nil
         next if scheduled_show.start_at == self.start_at
         scheduled_show.save!
       end

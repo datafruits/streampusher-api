@@ -85,6 +85,16 @@ RSpec.describe ScheduledShow, :type => :model do
       expect(recurring_show.recurrences.count).to eq 600
     end
 
+    it "creates a unique slug for each recurrence" do
+      start_at = Chronic.parse("today at 1:15 pm").utc
+      end_at = Chronic.parse("today at 3:15 pm").utc
+      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey"
+      expect(ScheduledShow.where("start_at >= (?) AND start_at <= (?)", start_at.beginning_of_month, start_at.end_of_month).count).to eq 1
+      count = recurring_show.recurrences.count
+      expect(count).to eq 275
+      expect(recurring_show.recurrences.pluck(:slug).uniq.count).to eq count
+    end
+
     it "updates all recurring shows attributes" do
       start_at = Chronic.parse("today at 1:15 pm").utc
       end_at = Chronic.parse("today at 3:15 pm").utc
