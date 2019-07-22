@@ -37,16 +37,17 @@ describe Track do
 
   describe "scheduled show" do
     it "pulls tags and artwork from scheduled show if not set" do
-      start_at = Chronic.parse("today at 1:15 pm").utc
-      end_at = Chronic.parse("today at 3:15 pm").utc
-      radio = Radio.create name: 'datafruits', subscription_id: 1
-      track = Track.new audio_file_name: 'http://s3.amazonaws.com/streampusher/doo.mp3'
-      scheduled_show = ScheduledShow.create radio: radio, start_at: start_at, end_at: end_at, title: "hey hey", image: "spec/fixtures/images/pineapple.png"
-      track.scheduled_show = scheduled_show
-      track.save
-      expect(track.title).to eq "hey hey"
-      expect(track.artwork.url).to eq "pineapple.png"
-
+      VCR.use_cassette(RSpec.current_example.metadata[:full_description].to_s) do
+        start_at = Chronic.parse("today at 1:15 pm").utc
+        end_at = Chronic.parse("today at 3:15 pm").utc
+        radio = Radio.create name: 'datafruits', subscription_id: 1
+        track = Track.new audio_file_name: 'http://s3.amazonaws.com/streampusher/doo.mp3'
+        scheduled_show = ScheduledShow.create radio: radio, start_at: start_at, end_at: end_at, title: "hey hey", image: File.new("spec/fixtures/images/pineapple.png")
+        track.scheduled_show = scheduled_show
+        track.save
+        formatted_time = scheduled_show.start_at.strftime("%d%m%Y")
+        expect(track.title).to eq "hey hey - #{formatted_time}"
+      end
     end
   end
 end
