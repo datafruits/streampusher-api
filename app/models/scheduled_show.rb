@@ -12,6 +12,9 @@ class ScheduledShow < ActiveRecord::Base
     path: ":attachment/:style/:basename.:extension"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
+  has_many :scheduled_show_labels, dependent: :destroy
+  has_many :labels, through: :scheduled_show_labels
+
   has_many :tracks
   has_many :scheduled_show_performers, class_name: "::ScheduledShowPerformer", dependent: :destroy
   has_many :performers, through: :scheduled_show_performers, source: :user
