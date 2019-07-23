@@ -82,7 +82,7 @@ class Track < ActiveRecord::Base
   def set_tags_from_scheduled_show
     if self.scheduled_show.present?
       if self.title.blank?
-        self.title = "#{self.scheduled_show.title} - #{self.scheduled_show.start_at.strftime("%d%m%Y")}"
+        self.title = "#{self.scheduled_show.title} - #{self.scheduled_show.start_at.strftime("%m%d%Y")}"
       end
       unless self.artwork.present?
         if self.scheduled_show.image.present?

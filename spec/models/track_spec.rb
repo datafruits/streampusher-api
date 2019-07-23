@@ -45,7 +45,7 @@ describe Track do
         scheduled_show = ScheduledShow.create radio: radio, start_at: start_at, end_at: end_at, title: "hey hey", image: File.new("spec/fixtures/images/pineapple.png")
         track.scheduled_show = scheduled_show
         track.save
-        formatted_time = scheduled_show.start_at.strftime("%d%m%Y")
+        formatted_time = scheduled_show.start_at.strftime("%m%d%Y")
         expect(track.title).to eq "hey hey - #{formatted_time}"
       end
     end
