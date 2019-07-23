@@ -85,8 +85,11 @@ class Track < ActiveRecord::Base
         self.title = "#{self.scheduled_show.title} - #{self.scheduled_show.start_at.strftime("%d%m%Y")}"
       end
       unless self.artwork.present?
-        puts "setting artwork from scheduled_show"
-        self.artwork = self.scheduled_show.image
+        if self.scheduled_show.image.present?
+          self.artwork = self.scheduled_show.image
+        elsif self.scheduled_show.dj.image.present?
+          self.artwork = self.scheduled_show.dj.image
+        end
       end
     end
   end
