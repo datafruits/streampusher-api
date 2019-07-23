@@ -27,7 +27,7 @@ class UploadTrackToSoundcloud
         })
       end
     rescue SoundCloud::ResponseError => e
-      puts "soundcloud response error: #{e.inspect}"
+      puts "soundcloud response error: #{e.response}"
       track.soundcloud_upload_status = "soundcloud_upload_failed"
       track.save(validate: false)
       return
