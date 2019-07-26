@@ -9,7 +9,7 @@ class PlaylistTrackSerializer < ActiveModel::Serializer
   end
 
   def mixcloud_key
-    object.track.mixcloud_key
+    "https://mixcloud.com#{object.track.mixcloud_key}"
   end
 
   def scheduled_show_id
