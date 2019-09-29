@@ -109,5 +109,8 @@ Rails.application.routes.draw do
     resources :approvals, only: [:create]
   end
 
+  resources :current_user, only: [:index]
+  get "/users/current_user" => "current_user#index"
+
   root 'landing#index'
 end
