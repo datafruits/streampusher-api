@@ -139,7 +139,7 @@ class ScheduledShow < ActiveRecord::Base
 
   def update_recurrences
     recurrences_to_update.each do |r|
-      r.attributes = self.attributes.except("id","created_at","updated_at","start_at","end_at","recurring_interval","recurrence")
+      r.attributes = self.attributes.except("id","created_at","updated_at","start_at","end_at","recurring_interval","recurrence", "recurrant_original_id", "slug")
       new_start_at = DateTime.new r.start_at.year, r.start_at.month, r.start_at.day, self.start_at.hour, self.start_at.min, self.start_at.sec, self.start_at.zone
       r.start_at = new_start_at
       new_end_at = DateTime.new r.end_at.year, r.end_at.month, r.end_at.day, self.end_at.hour, self.end_at.min, self.end_at.sec, self.end_at.zone

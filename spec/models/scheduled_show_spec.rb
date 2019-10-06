@@ -95,10 +95,22 @@ RSpec.describe ScheduledShow, :type => :model do
       expect(recurring_show.recurrences.pluck(:slug).uniq.count).to eq count
     end
 
+    it "doesnt duplicate slugs on update" do
+      start_at = Chronic.parse("today at 1:15 pm").utc
+      end_at = Chronic.parse("today at 3:15 pm").utc
+      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey"
+      new_start_at = Chronic.parse("today at 11:00 am").utc
+      recurring_show.update start_at: new_start_at, update_all_recurrences: true
+
+      count = recurring_show.recurrences.count
+      expect(count).to eq 275
+      expect(recurring_show.recurrences.pluck(:slug).uniq.count).to eq count
+    end
+
     it "updates all recurring shows attributes" do
       start_at = Chronic.parse("today at 1:15 pm").utc
       end_at = Chronic.parse("today at 3:15 pm").utc
-      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "week", title: "hey"
+      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey"
       new_start_at = Chronic.parse("today at 11:00 am").utc
       recurring_show.update start_at: new_start_at, update_all_recurrences: true
       recurring_show.recurrences.each do |recurrence|
