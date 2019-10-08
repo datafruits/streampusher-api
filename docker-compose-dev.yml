@@ -39,6 +39,9 @@ services:
     user: root
     working_dir: /home/rails/app
     command: ./docker_wrapper.sh bundle exec sidekiq
+    env_file: .env
+    environment:
+      <<: *shared_env
     depends_on:
       - postgres
       - redis
