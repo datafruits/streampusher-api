@@ -104,6 +104,7 @@ Rails.application.routes.draw do
 
   resources :anniversary_slots, only: [:create, :index, :destroy]
   post '/metadata' => "metadata#create"
+  post '/publish_metadata' => "publish_metadata#create"
 
   resources :host_applications, only: [:create, :index] do
     resources :approvals, only: [:create]
