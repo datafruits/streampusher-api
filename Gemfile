@@ -121,3 +121,5 @@ gem 'paper_trail'
 gem 'friendly_id'
 
 gem 'discord-notifier'
+
+gem 'bootsnap', require: false
