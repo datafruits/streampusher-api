@@ -1,6 +1,6 @@
 class MetadataPublisher
-  def self.perform metadata
-    Redis.current.set "datafruits:metadata", metadata
-    Redis.current.publish "datafruits:metadata", metadata
+  def self.perform radio, metadata
+    Redis.current.set "#{radio}:metadata", metadata
+    Redis.current.publish "#{radio}:metadata", metadata
   end
 end
