@@ -2,10 +2,10 @@ class PublishMetadataController < ApplicationController
   before_action :current_radio_required
   def create
     if liq_authorized?
-      render json: "not permitted", status: :unauthorized
-    else
       MetadataPublisher.perform @current_radio.name, params[:metadata]
       head :ok
+    else
+      render json: "not permitted", status: :unauthorized
     end
   end
 
