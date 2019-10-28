@@ -1,7 +1,9 @@
 import { hash } from 'rsvp';
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 
 export default Route.extend({
+  currentPlaylist: service(),
   actions: {
     transitionAfterDelete(){
       let playlist = this.store.findAll('playlist').then((playlists) => {
@@ -21,5 +23,8 @@ export default Route.extend({
       playlists: this.store.findAll('playlist'),
       labels: this.store.findAll('label')
     });
+  },
+  afterModel(model){
+    this.get('currentPlaylist').set('playlist', model.playlist);
   }
 });

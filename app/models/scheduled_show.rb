@@ -1,7 +1,7 @@
 require_relative "../../lib/time_utils"
 
 class ScheduledShow < ActiveRecord::Base
-  include FriendlyId
+  extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
   belongs_to :radio
@@ -12,8 +12,11 @@ class ScheduledShow < ActiveRecord::Base
     path: ":attachment/:style/:basename.:extension"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
+  has_many :scheduled_show_labels, dependent: :destroy
+  has_many :labels, through: :scheduled_show_labels
+
   has_many :tracks
-  has_many :scheduled_show_performers, class_name: "::ScheduledShowPerformer"
+  has_many :scheduled_show_performers, class_name: "::ScheduledShowPerformer", dependent: :destroy
   has_many :performers, through: :scheduled_show_performers, source: :user
   accepts_nested_attributes_for :scheduled_show_performers
 
@@ -30,7 +33,7 @@ class ScheduledShow < ActiveRecord::Base
 
   before_save :update_recurring_intervals # probably not correct
   after_create :save_recurrences_in_background, if: :recurring?
-  after_update :update_recurrences_in_background, if: :recurring?
+  after_update :update_recurrences_in_background, if: :recurring_or_recurrence?
   after_update :save_recurrences_in_background, if: :recurring_interval_changed?
   before_destroy :maybe_destroy_recurrences
 
@@ -85,6 +88,10 @@ class ScheduledShow < ActiveRecord::Base
     !self.not_recurring? && !self.recurrence?
   end
 
+  def recurring_or_recurrence?
+    recurring? || self.recurrence?
+  end
+
   def human_readable_recurring
     case self.recurring_interval.to_sym
     when :day
@@ -105,7 +112,9 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def update_recurrences_in_background
-    UpdateRecurringShowsWorker.perform_later self.id, update_all_recurrences
+    if update_all_recurrences?
+      UpdateRecurringShowsWorker.perform_later self.id
+    end
   end
 
   def do_destroy_recurrences
@@ -121,6 +130,7 @@ class ScheduledShow < ActiveRecord::Base
         scheduled_show.recurrant_original_id = self.id
         scheduled_show.start_at = DateTime.new s.year, s.month, s.day, self.start_at.hour, self.start_at.min, self.start_at.sec, self.start_at.zone
         scheduled_show.end_at = DateTime.new e.year, e.month, e.day, self.end_at.hour, self.end_at.min, self.end_at.sec, self.end_at.zone
+        scheduled_show.slug = nil
         next if scheduled_show.start_at == self.start_at
         scheduled_show.save!
       end
@@ -128,15 +138,14 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def update_recurrences
-    if update_all_recurrences == true
-      recurrences_to_update.each do |r|
-        r.attributes = self.attributes.except("id","created_at","updated_at","start_at","end_at","recurring_interval","recurrence")
-        new_start_at = DateTime.new r.start_at.year, r.start_at.month, r.start_at.day, self.start_at.hour, self.start_at.min, self.start_at.sec, self.start_at.zone
-        r.start_at = new_start_at
-        new_end_at = DateTime.new r.end_at.year, r.end_at.month, r.end_at.day, self.end_at.hour, self.end_at.min, self.end_at.sec, self.end_at.zone
-        r.end_at = new_end_at
-        r.save!
-      end
+    recurrences_to_update.each do |r|
+      r.attributes = self.attributes.except("id","created_at","updated_at","start_at","end_at","recurring_interval","recurrence", "recurrant_original_id", "slug")
+      new_start_at = DateTime.new r.start_at.year, r.start_at.month, r.start_at.day, self.start_at.hour, self.start_at.min, self.start_at.sec, self.start_at.zone
+      r.start_at = new_start_at
+      new_end_at = DateTime.new r.end_at.year, r.end_at.month, r.end_at.day, self.end_at.hour, self.end_at.min, self.end_at.sec, self.end_at.zone
+      r.end_at = new_end_at
+      r.update_all_recurrences = false
+      r.save!
     end
   end
 
@@ -160,8 +169,13 @@ class ScheduledShow < ActiveRecord::Base
 
   def ensure_time_zone
     unless self.time_zone.blank?
-      self.start_at = ActiveSupport::TimeZone.new(self.time_zone).local_to_utc(self.start_at)
-      self.end_at = ActiveSupport::TimeZone.new(self.time_zone).local_to_utc(self.end_at)
+      # only take local times as input
+      unless self.start_at.utc?
+        self.start_at = ActiveSupport::TimeZone.new(self.time_zone).local_to_utc(self.start_at)
+      end
+      unless self.end_at.utc?
+        self.end_at = ActiveSupport::TimeZone.new(self.time_zone).local_to_utc(self.end_at)
+      end
     end
   end
 
@@ -233,6 +247,11 @@ class ScheduledShow < ActiveRecord::Base
     else # this is the original recurring show!
       recurrences.where("start_at > (?)", Time.now)
     end
+  end
+
+  private
+  def update_all_recurrences?
+    ActiveModel::Type::Boolean.new.cast update_all_recurrences
   end
 
   def is_original_recurrant?

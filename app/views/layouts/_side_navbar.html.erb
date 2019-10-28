@@ -12,6 +12,11 @@
         <% end %>
       </li>
     <% end %>
+    <li id="profile-link">
+      <%= link_to profile_index_path do %>
+        <i class="fa fa-user"></i>Profile
+      <% end %>
+    </li>
     <li id="schedule-link">
       <%= link_to schedule_path do %>
         <i class="fa fa-calendar"></i>Schedule

@@ -10,22 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190214063029) do
+ActiveRecord::Schema.define(version: 20190621075805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "available_slots", force: :cascade do |t|
-    t.integer  "radio_id",           null: false
-    t.integer  "selection_event_id", null: false
-    t.integer  "user_id"
-    t.datetime "start_at",           null: false
-    t.datetime "end_at",             null: false
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.index ["radio_id"], name: "index_available_slots_on_radio_id", using: :btree
-    t.index ["selection_event_id"], name: "index_available_slots_on_selection_event_id", using: :btree
-  end
 
   create_table "host_applications", force: :cascade do |t|
     t.integer  "radio_id",                      null: false
@@ -119,6 +107,7 @@ ActiveRecord::Schema.define(version: 20190214063029) do
     t.integer  "user_id"
     t.index ["interpolated_playlist_id"], name: "index_playlists_on_interpolated_playlist_id", using: :btree
     t.index ["radio_id"], name: "index_playlists_on_radio_id", using: :btree
+    t.index ["user_id"], name: "index_playlists_on_user_id", using: :btree
   end
 
   create_table "podcasts", force: :cascade do |t|
@@ -163,7 +152,6 @@ ActiveRecord::Schema.define(version: 20190214063029) do
     t.string   "container_name",                                              null: false
     t.boolean  "schedule_monitor_enabled",                    default: false, null: false
     t.string   "show_share_url"
-    t.boolean  "tweet_now_playing",                           default: false, null: false
     t.index ["default_playlist_id"], name: "index_radios_on_default_playlist_id", using: :btree
     t.index ["subscription_id"], name: "index_radios_on_subscription_id", using: :btree
   end
@@ -177,6 +165,9 @@ ActiveRecord::Schema.define(version: 20190214063029) do
     t.integer  "processing_status", default: 0, null: false
     t.integer  "track_id"
     t.datetime "file_created_at"
+    t.index ["dj_id"], name: "index_recordings_on_dj_id", using: :btree
+    t.index ["radio_id"], name: "index_recordings_on_radio_id", using: :btree
+    t.index ["track_id"], name: "index_recordings_on_track_id", using: :btree
   end
 
   create_table "scheduled_show_performers", force: :cascade do |t|
@@ -184,6 +175,7 @@ ActiveRecord::Schema.define(version: 20190214063029) do
     t.integer  "scheduled_show_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.index ["scheduled_show_id", "user_id"], name: "ssp_ssid_uid", using: :btree
     t.index ["scheduled_show_id"], name: "index_scheduled_show_performers_on_scheduled_show_id", using: :btree
     t.index ["user_id", "scheduled_show_id"], name: "index_scheduled_show_performers_on_uid_and_ssid", unique: true, using: :btree
     t.index ["user_id"], name: "index_scheduled_show_performers_on_user_id", using: :btree
@@ -207,23 +199,11 @@ ActiveRecord::Schema.define(version: 20190214063029) do
     t.integer  "dj_id"
     t.string   "title"
     t.string   "time_zone"
-    t.boolean  "repeat_playlist",       default: false, null: false
     t.string   "slug"
     t.index ["dj_id"], name: "index_scheduled_shows_on_dj_id", using: :btree
     t.index ["playlist_id"], name: "index_scheduled_shows_on_playlist_id", using: :btree
     t.index ["radio_id"], name: "index_scheduled_shows_on_radio_id", using: :btree
     t.index ["recurrant_original_id"], name: "index_scheduled_shows_on_recurrant_original_id", using: :btree
-  end
-
-  create_table "selection_events", force: :cascade do |t|
-    t.integer  "radio_id",    null: false
-    t.datetime "start_at",    null: false
-    t.datetime "end_at",      null: false
-    t.string   "title",       null: false
-    t.integer  "slot_length"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["radio_id"], name: "index_selection_events_on_radio_id", using: :btree
   end
 
   create_table "shows", force: :cascade do |t|
@@ -281,7 +261,9 @@ ActiveRecord::Schema.define(version: 20190214063029) do
     t.integer  "track_id",   null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["label_id"], name: "index_track_labels_on_label_id", using: :btree
     t.index ["track_id", "label_id"], name: "index_track_labels_on_track_id_and_label_id", unique: true, using: :btree
+    t.index ["track_id"], name: "index_track_labels_on_track_id", using: :btree
   end
 
   create_table "tracks", force: :cascade do |t|
@@ -309,6 +291,8 @@ ActiveRecord::Schema.define(version: 20190214063029) do
     t.integer  "soundcloud_upload_status",             default: 0,  null: false
     t.string   "soundcloud_key"
     t.index ["radio_id"], name: "index_tracks_on_radio_id", using: :btree
+    t.index ["scheduled_show_id"], name: "index_tracks_on_scheduled_show_id", using: :btree
+    t.index ["uploaded_by_id"], name: "index_tracks_on_uploaded_by_id", using: :btree
   end
 
   create_table "user_radios", force: :cascade do |t|
@@ -316,16 +300,18 @@ ActiveRecord::Schema.define(version: 20190214063029) do
     t.integer  "radio_id",   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["radio_id"], name: "index_user_radios_on_radio_id", using: :btree
     t.index ["user_id", "radio_id"], name: "index_user_radios_on_user_id_and_radio_id", unique: true, using: :btree
+    t.index ["user_id"], name: "index_user_radios_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 255, default: "",   null: false
-    t.string   "encrypted_password",     limit: 255, default: "",   null: false
+    t.string   "email",                  limit: 255, default: "",    null: false
+    t.string   "encrypted_password",     limit: 255, default: "",    null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0,    null: false
+    t.integer  "sign_in_count",                      default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
@@ -333,21 +319,20 @@ ActiveRecord::Schema.define(version: 20190214063029) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "role",                   limit: 255
-    t.string   "username",               limit: 255, default: "",   null: false
+    t.string   "username",               limit: 255, default: "",    null: false
     t.string   "time_zone"
-    t.string   "display_name",                       default: "",   null: false
+    t.string   "display_name",                       default: "",    null: false
     t.datetime "deleted_at"
-    t.boolean  "enabled",                            default: true, null: false
+    t.boolean  "enabled",                            default: true,  null: false
     t.string   "referer"
     t.text     "bio"
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.string   "stream_key"
+    t.boolean  "profile_publish",                    default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-    t.index ["stream_key"], name: "index_users_on_stream_key", unique: true, using: :btree
   end
 
   create_table "versions", force: :cascade do |t|

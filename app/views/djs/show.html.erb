@@ -6,6 +6,9 @@
     </div>
     <%= link_to "Original Size", @dj.image.url(:original), :target => "_blank"  %>
   <% end %>
+  <div>
+    <span>Profile published:</span><%= @dj.profile_publish %>
+  </div>
   <div class="actions">
     <%= link_to "Edit", edit_dj_path(@dj) %>
   </div>

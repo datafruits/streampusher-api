@@ -11,10 +11,12 @@
   <%= f.input :image, as: :file %>
   <% if @dj.image.present? %>
     <div class="show-image">
-    <%= image_tag @dj.image.url(:thumb) %>
+      <%= image_tag @dj.image.url(:thumb) %>
     </div>
     <%= link_to "Original Size", @dj.image.url(:original), :target => "_blank"  %>
   <% end %>
+  <br/>
+  <%= f.input :profile_publish, label: "Publish profile" %>
   <%= f.select :time_zone, ActiveSupport::TimeZone.all.sort.collect{|m| [m.to_s.split(") ").reverse.join(" -- ").concat(")"), m.name]},
     {}, class: 'chosen-select' %>
   <br/>

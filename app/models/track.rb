@@ -36,6 +36,8 @@ class Track < ActiveRecord::Base
   enum mixcloud_upload_status: ['mixcloud_not_uploaded', 'mixcloud_uploading', 'mixcloud_upload_complete', 'mixcloud_upload_failed']
   enum soundcloud_upload_status: ['soundcloud_not_uploaded', 'soundcloud_uploading', 'soundcloud_upload_complete', 'soundcloud_upload_failed']
 
+  before_save :set_tags_from_scheduled_show
+
   def s3_filepath
     file_name = URI.decode(self.audio_file_name)
     if file_name.include?(ENV["S3_BUCKET"])
@@ -77,6 +79,21 @@ class Track < ActiveRecord::Base
   end
 
   private
+  def set_tags_from_scheduled_show
+    if self.scheduled_show.present?
+      if self.title.blank?
+        self.title = "#{self.scheduled_show.title} - #{self.scheduled_show.start_at.strftime("%m%d%Y")}"
+      end
+      unless self.artwork.present?
+        if self.scheduled_show.image.present?
+          self.artwork = self.scheduled_show.image
+        elsif self.scheduled_show.dj.image.present?
+          self.artwork = self.scheduled_show.dj.image
+        end
+      end
+    end
+  end
+
   def transliterate_file_name
     base = "#{self.artist}_#{self.title}_#{self.album}"
     mime = self.artwork.content_type

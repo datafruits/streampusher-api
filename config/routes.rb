@@ -70,7 +70,7 @@ Rails.application.routes.draw do
   post 'admin/radios/:id/restart', to: 'admin#restart_radio', as: 'admin_restart_radio'
   post 'admin/radios/:id/disable', to: 'admin#disable_radio', as: 'admin_disable_radio'
 
-  resources :tracks, only: [:create, :edit, :update, :destroy, :index] do
+  resources :tracks do
     member do
       get :embed
     end
@@ -104,6 +104,8 @@ Rails.application.routes.draw do
 
   resources :anniversary_slots, only: [:create, :index, :destroy]
   post '/metadata' => "metadata#create"
+  post '/publish_metadata' => "publish_metadata#create"
+  post '/live_notification' => "live_notification#create"
 
   resources :host_applications, only: [:create, :index] do
     resources :approvals, only: [:create]
@@ -111,6 +113,7 @@ Rails.application.routes.draw do
 
   resources :current_user, only: [:index]
   get "/users/current_user" => "current_user#index"
+  resources :profile, only: [:index, :create]
 
   root 'landing#index'
 end

@@ -13,7 +13,8 @@ class RadioBooter
        "ICECAST_HOST", "icecast",
        "TUNEIN_PARTNER_ID=#{radio.tunein_partner_id}", "TUNEIN_PARTNER_KEY=#{radio.tunein_partner_key}",
        "TUNEIN_METADATA_UPDATES_ENABLED=#{radio.tunein_metadata_updates_enabled?}",
-       "TUNEIN_STATION_ID=#{radio.tunein_station_id}"],
+       "TUNEIN_STATION_ID=#{radio.tunein_station_id}",
+       "LIQ_SECRET=#{Rails.application.secrets.liq_secret}"],
       ["#{radio.tracks_directory}:/home/liquidsoap/tracks"]
     radio.update liquidsoap_container_id: liquidsoap_container.id
     if ::Rails.env.production?

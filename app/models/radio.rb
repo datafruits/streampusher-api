@@ -31,8 +31,7 @@ class Radio < ActiveRecord::Base
   end
 
   def active_djs
-    scheduled_show_user_ids = ScheduledShowPerformer.where("scheduled_show_id in (?)", self.scheduled_shows.pluck(:id)).pluck :user_id
-    self.users.find(scheduled_show_user_ids)
+    self.users.profile_published
   end
 
   def boot_radio

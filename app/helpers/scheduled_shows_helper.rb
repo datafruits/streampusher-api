@@ -1,5 +1,17 @@
 module ScheduledShowsHelper
   def tweet_text(show)
+    if show.start_at < Time.now && show.tracks.any?
+      archive_text show
+    else
+      schedule_text show
+    end
+  end
+
+  def archive_text show
+    "Listen back to #{show.title} - #{show.start_at.strftime("%d%m%Y")} on #{show.radio.name}"
+  end
+
+  def schedule_text show
     text = ""
     text << "#{show.title} on #{show.radio.name} "
     text << timezones_text(show)

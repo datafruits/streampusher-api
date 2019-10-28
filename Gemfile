@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.0.7'
+gem 'rails', '5.0.7.2'
 gem 'pg'
 gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
@@ -66,6 +66,7 @@ end
 group :test, :development do
   gem 'pry-byebug'
   gem 'rubocop', require: false
+  gem 'tzinfo-data'
 end
 
 group :production do
@@ -121,3 +122,5 @@ gem 'paper_trail'
 gem 'friendly_id'
 
 gem 'discord-notifier'
+
+gem 'bootsnap', require: false
