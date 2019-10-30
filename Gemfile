@@ -19,6 +19,7 @@ gem 'chosen-rails'
 gem 'spring',        group: :development
 
 gem 'devise'
+gem 'devise-jwt'
 gem 'omniauth'
 gem 'omniauth-soundcloud', github: "mcfiredrill/omniauth-soundcloud"
 gem 'omniauth-mixcloud', github: "streampusher/omniauth-mixcloud"
