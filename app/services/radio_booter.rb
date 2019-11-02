@@ -15,7 +15,8 @@ class RadioBooter
        "TUNEIN_METADATA_UPDATES_ENABLED=#{radio.tunein_metadata_updates_enabled?}",
        "TUNEIN_STATION_ID=#{radio.tunein_station_id}",
        "LIQ_SECRET=#{Rails.application.secrets.liq_secret}"],
-      ["#{radio.tracks_directory}:/home/liquidsoap/tracks"]
+      ["#{radio.tracks_directory}:/home/liquidsoap/tracks",
+       "#{radio.recordings_directory}:/home/liquidsoap/recordings"]
     radio.update liquidsoap_container_id: liquidsoap_container.id
     if ::Rails.env.production?
      port = redis.hget "proxy-domain", radio.liquidsoap_proxy_key

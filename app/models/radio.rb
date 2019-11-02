@@ -98,6 +98,16 @@ class Radio < ActiveRecord::Base
     dir
   end
 
+  def recordings_directory
+    if ::Rails.env.production?
+      dir = "/home/deploy/#{self.name}/recordings"
+    else
+      dir = "/tmp/#{self.name}/recordings".to_s
+    end
+    FileUtils.mkdir_p dir
+    dir
+  end
+
   def recording_files
     Dir["#{tracks_directory}/datafruits-LIVE*.mp3"]
   end
