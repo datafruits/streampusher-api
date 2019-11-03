@@ -109,7 +109,7 @@ class Radio < ActiveRecord::Base
   end
 
   def recording_files
-    Dir["#{tracks_directory}/datafruits-LIVE*.mp3"]
+    Dir["#{recordings_directory}/datafruits-*.mp3"]
   end
 
   def icecast_proxy_key
