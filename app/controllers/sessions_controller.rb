@@ -22,7 +22,10 @@ class SessionsController < Devise::SessionsController
         respond_with resource, :location => after_sign_in_path_for(resource)
       }
       format.json {
-        render :json => {:success => true, :redirect => stored_location_for(scope) || after_sign_in_path_for(resource)}
+        render :json => {:success => true,
+                         :redirect => stored_location_for(scope) || after_sign_in_path_for(resource),
+                         :login => resource.username,
+                         :token => request.env['warden-jwt_auth.token']}
       }
     end
   end
