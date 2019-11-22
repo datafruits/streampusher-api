@@ -11,13 +11,15 @@ class RadioBooter
       "#{radio_name}_liquidsoap",
       ["RADIO_NAME=#{radio_name}","RAILS_ENV=#{Rails.env}",
        "ICECAST_HOST", "icecast",
-       "TUNEIN_PARTNER_ID=#{radio.tunein_partner_id}", "TUNEIN_PARTNER_KEY=#{radio.tunein_partner_key}",
+       "TUNEIN_PARTNER_ID=#{radio.tunein_partner_id}",
+       "TUNEIN_PARTNER_KEY=#{radio.tunein_partner_key}",
        "TUNEIN_METADATA_UPDATES_ENABLED=#{radio.tunein_metadata_updates_enabled?}",
        "TUNEIN_STATION_ID=#{radio.tunein_station_id}",
        "LIQ_SECRET=#{Rails.application.secrets.liq_secret}"],
       ["#{radio.tracks_directory}:/home/liquidsoap/tracks",
        "#{radio.recordings_directory}:/home/liquidsoap/recordings"]
     radio.update liquidsoap_container_id: liquidsoap_container.id
+    # radio.update liquidsoap_container_id: liquidsoap_container.id, port_number: liquidsoap_container.port
     if ::Rails.env.production?
      port = redis.hget "proxy-domain", radio.liquidsoap_proxy_key
      if port.present?
@@ -26,7 +28,7 @@ class RadioBooter
     end
     liquidsoap_container.stop
     liquidsoap_container.start
-    redis.hset 'proxy-domain', radio.liquidsoap_proxy_key, liquidsoap_container.host_port(9000)
+    # redis.hset 'proxy-domain', radio.liquidsoap_proxy_key, liquidsoap_container.host_port(9000)
     if ::Rails.env.production?
      port = liquidsoap_container.host_port(9000)
      if port.present?
