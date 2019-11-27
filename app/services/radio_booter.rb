@@ -27,10 +27,11 @@ class RadioBooter
     liquidsoap_container = DockerWrapper.find_or_create image,
       name,
       env,
-      bind,
+      binds,
       host_ports
 
-    radio.update liquidsoap_container_id: liquidsoap_container.id, port_number: liquidsoap_container.port
+    radio.update liquidsoap_container_id: liquidsoap_container.id,
+      port_number: liquidsoap_container.host_port(9000)
     if ::Rails.env.production?
      port = redis.hget "proxy-domain", radio.liquidsoap_proxy_key
      if port.present?
