@@ -30,8 +30,6 @@ class RadioBooter
       binds,
       host_ports
 
-    radio.update liquidsoap_container_id: liquidsoap_container.id,
-      port_number: liquidsoap_container.host_port(9000)
     if ::Rails.env.production?
      port = redis.hget "proxy-domain", radio.liquidsoap_proxy_key
      if port.present?
@@ -40,6 +38,12 @@ class RadioBooter
     end
     liquidsoap_container.stop
     liquidsoap_container.start
+
+    host_port = liquidsoap_container.host_port(9000)
+
+    radio.update liquidsoap_container_id: liquidsoap_container.id,
+      port_number: host_port
+
     if ::Rails.env.production?
      port = liquidsoap_container.host_port(9000)
      if port.present?
