@@ -170,4 +170,21 @@ RSpec.describe ScheduledShow, :type => :model do
       end
     end
   end
+
+  describe "dst handling" do
+    it "updates all recurrences +1 hour for DST" do
+      start_at = Chronic.parse("today at 1:15 pm").utc
+      end_at = Chronic.parse("today at 3:15 pm").utc
+      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey"
+      recurring_show.recurrences.each do |r|
+        expect(r.start_at).to eq start_at
+        expect(r.end_at).to eq end_at
+      end
+      recurring_show.fall_forward_recurrances_for_dst!
+      recurring_show.recurrences.each do |r|
+        expect(r.start_at).to eq start_at+1.hour
+        expect(r.end_at).to eq end_at+1.hour
+      end
+    end
+  end
 end
