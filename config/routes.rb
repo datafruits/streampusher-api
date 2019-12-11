@@ -115,5 +115,8 @@ Rails.application.routes.draw do
   get "/users/current_user" => "current_user#index"
   resources :profile, only: [:index, :create]
 
+  resources :blog_posts, only: [:index, :create, :show, :update]
+  resources :blog_post_bodies, only: [:create, :update]
+
   root 'landing#index'
 end
