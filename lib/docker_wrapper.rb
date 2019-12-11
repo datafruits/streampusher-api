@@ -8,7 +8,7 @@ class DockerWrapper
     @container = container
   end
 
-  def self.find_or_create image, name, env=[], binds=[]
+  def self.find_or_create image, name, env=[], binds=[], host_ports={}
     begin
     container = Docker::Container.get name
     container.stop
@@ -16,12 +16,14 @@ class DockerWrapper
     rescue Docker::Error::NotFoundError
       # container doesn't exist, so take no action
     end
+
+    hc = host_config(binds, host_ports)
     begin
-      container = Docker::Container.create('Image' => image, 'name' => name, 'Env' => env, 'HostConfig' => host_config(binds))
+      container = Docker::Container.create('Image' => image, 'name' => name, 'Env' => env, 'HostConfig' => hc)
     rescue Docker::Error::NotFoundError
       # image is not pulled yet
       Docker::Image.create('fromImage' => image)
-      container = Docker::Container.create('Image' => image, 'name' => name, 'Env' => env, 'HostConfig' => host_config(binds))
+      container = Docker::Container.create('Image' => image, 'name' => name, 'Env' => env, 'HostConfig' => hc)
     end
     self.new container
   end
@@ -52,13 +54,21 @@ class DockerWrapper
 
   private
 
-  def self.host_config binds
-    {
+  def self.host_config binds, host_ports
+    conf = {
       'Binds' => binds,
       'ExtraHosts' => ["docker:#{local_private_ip}"],
       "PublishAllPorts" => true,
-      "NetworkMode" => network_mode
+      "NetworkMode" => network_mode,
     }
+    if host_ports.any?
+      port_bindings = {}
+      host_ports.each do |container_port, host_port|
+        port_bindings["#{container_port}/tcp"] = [{'HostPort' => "#{host_port}"}]
+      end
+      conf["PortBindings"] = port_bindings
+    end
+    conf
   end
 
   def self.network_mode
