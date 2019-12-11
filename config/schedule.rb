@@ -31,6 +31,6 @@ every 1.hours do
   backup 'rails_database', backup_path: 'backup'
 end
 
-every :weekday, at: '12am' do
-  command "/var/www/stream_pusher/current/script/remove_old_recordings.sh"
+every 7.days do
+  command "cd /var/www/stream_pusher/current/ && bundle exec rails runner script/remove_old_recordings.rb"
 end
