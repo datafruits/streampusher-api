@@ -1,3 +1,0 @@
-#!/bin/bash
-echo Removing $(find /home/deploy/datafruits/ -atime +365 | wc -l) files from ~/datafruits...
-find /home/deploy/datafruits -atime +365 -delete
