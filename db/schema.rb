@@ -183,6 +183,7 @@ ActiveRecord::Schema.define(version: 20191202115907) do
     t.string   "container_name",                                  null: false
     t.boolean  "schedule_monitor_enabled",        default: false, null: false
     t.string   "show_share_url"
+    t.integer  "port_number"
     t.index ["default_playlist_id"], name: "index_radios_on_default_playlist_id", using: :btree
     t.index ["subscription_id"], name: "index_radios_on_subscription_id", using: :btree
   end
