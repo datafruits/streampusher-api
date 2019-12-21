@@ -83,7 +83,7 @@ gem 'acts_as_list'
 gem 'kaminari'
 gem 'active_model_serializers', '< 0.10'
 gem 'chronic'
-gem 'aws-sdk', '2.0.39'
+gem 'aws-sdk'
 gem 'paperclip'
 
 gem 'rupeepeethree', github: "datafruits/rupeepeethree"
