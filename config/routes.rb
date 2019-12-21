@@ -118,5 +118,9 @@ Rails.application.routes.draw do
   resources :blog_posts, only: [:index, :create, :show, :update]
   resources :blog_post_bodies, only: [:create, :update]
 
+  # scope :api do
+  #   resources :blog_posts, only: [:show, :index]
+  # end
+
   root 'landing#index'
 end

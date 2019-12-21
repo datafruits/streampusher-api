@@ -18,9 +18,9 @@ class BlogPostsController < ApplicationController
   end
 
   def show
-    @blog_posts = @current_radio.blog_posts.includes(:blog_post_bodies).find(params[:id])
+    @blog_post = @current_radio.blog_posts.includes(:blog_post_bodies).find(params[:id])
 
-    render json: @blog_posts
+    render json: @blog_post
   end
 
   def update
