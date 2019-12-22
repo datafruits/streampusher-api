@@ -1,4 +1,5 @@
 class BlogPostBodiesController < ApplicationController
+  before_action :current_radio_required
   def create
     authorize! :create, BlogPost
     blog_post = @current_radio.blog_posts.find(params[:blog_post_body][:blog_post_id])
