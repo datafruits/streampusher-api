@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.1
-lock '3.11.0'
+lock '3.11.2'
 
 set :application, 'stream_pusher'
 set :repo_url, 'git@gitlab.com:streampusher/stream_pusher.git'
