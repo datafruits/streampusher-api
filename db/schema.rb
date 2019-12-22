@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191202115907) do
+ActiveRecord::Schema.define(version: 20191221025204) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,11 +25,21 @@ ActiveRecord::Schema.define(version: 20191202115907) do
     t.index ["blog_post_id"], name: "index_blog_post_bodies_on_blog_post_id", using: :btree
   end
 
+  create_table "blog_post_images", force: :cascade do |t|
+    t.integer  "blog_post_body_id"
+    t.string   "image_file_name"
+    t.integer  "filesize"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["blog_post_body_id"], name: "index_blog_post_images_on_blog_post_body_id", using: :btree
+  end
+
   create_table "blog_posts", force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.integer  "radio_id",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "user_id",                    null: false
+    t.integer  "radio_id",                   null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "published",  default: false, null: false
     t.index ["radio_id"], name: "index_blog_posts_on_radio_id", using: :btree
     t.index ["user_id"], name: "index_blog_posts_on_user_id", using: :btree
   end
@@ -389,6 +399,7 @@ ActiveRecord::Schema.define(version: 20191202115907) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   end
 
+  add_foreign_key "blog_post_images", "blog_post_bodies"
   add_foreign_key "invoice_payments", "subscriptions"
   add_foreign_key "invoice_payments", "users"
   add_foreign_key "scheduled_show_labels", "labels"
