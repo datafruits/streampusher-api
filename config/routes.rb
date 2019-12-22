@@ -100,12 +100,24 @@ Rails.application.routes.draw do
 
   resources :anniversary_slots, only: [:create, :index, :destroy]
   post '/metadata' => "metadata#create"
+  post '/publish_metadata' => "publish_metadata#create"
+  post '/live_notification' => "live_notification#create"
 
   resources :host_applications, only: [:create, :index] do
     resources :approvals, only: [:create]
   end
 
+  resources :current_user, only: [:index]
+  get "/users/current_user" => "current_user#index"
   resources :profile, only: [:index, :create]
+
+  resources :blog_posts, only: [:index, :create, :show, :update]
+  resources :blog_post_bodies, only: [:create, :update]
+  resources :blog_post_images, only: [:create]
+
+  # scope :api do
+  #   resources :blog_posts, only: [:show, :index]
+  # end
 
   root 'landing#index'
 end

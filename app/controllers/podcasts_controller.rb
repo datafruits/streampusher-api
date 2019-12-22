@@ -6,6 +6,12 @@ class PodcastsController < ApplicationController
   def index
     @podcasts = @current_radio.podcasts
     @podcast = Podcast.new
+    respond_to do |format|
+      format.html
+      format.json  {
+        render json: @podcasts
+      }
+    end
   end
 
   def create

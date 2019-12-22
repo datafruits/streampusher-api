@@ -1,8 +1,16 @@
 class PlaylistTrackSerializer < ActiveModel::Serializer
   attributes :audio_file_name, :podcast_published_date, :id,
     :track_id, :playlist_id, :title, :display_name, :position, :updated_at,
-    :cdn_url, :labels, :scheduled_show_id
+    :cdn_url, :labels, :scheduled_show_id, :soundcloud_key, :mixcloud_key
   has_many :labels, embed: :ids, key: :labels, embed_in_root: true
+
+  def soundcloud_key
+    object.track.soundcloud_key
+  end
+
+  def mixcloud_key
+    "https://mixcloud.com#{object.track.mixcloud_key}"
+  end
 
   def scheduled_show_id
     object.track.scheduled_show_id

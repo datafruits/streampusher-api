@@ -11,7 +11,7 @@ class Radio < ActiveRecord::Base
   has_many :recordings
   has_many :listens
   has_many :host_applications
-  # belongs_to :subscription
+  has_many :blog_posts
   belongs_to :default_playlist, class_name: "Playlist"
   after_create :create_default_playlist
 
@@ -21,10 +21,6 @@ class Radio < ActiveRecord::Base
   before_validation :copy_to_container_name
 
   scope :enabled, -> { where(enabled: true) }
-
-  # def owner
-  #   self.subscription.user
-  # end
 
   def djs
     self.users
@@ -98,8 +94,18 @@ class Radio < ActiveRecord::Base
     dir
   end
 
+  def recordings_directory
+    if ::Rails.env.production?
+      dir = "/home/deploy/#{self.name}/recordings"
+    else
+      dir = "/tmp/#{self.name}/recordings".to_s
+    end
+    FileUtils.mkdir_p dir
+    dir
+  end
+
   def recording_files
-    Dir["#{tracks_directory}/datafruits-LIVE*.mp3"]
+    Dir["#{recordings_directory}/datafruits-*.mp3"]
   end
 
   def icecast_proxy_key
