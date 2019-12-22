@@ -14,6 +14,7 @@ set :slack_webhook, 'https://hooks.slack.com/services/T03HKP2J8/B03NLRJ0D/MYmLKm
 set :deploy_user, "deploy"
 
 # Default branch is :master
+set :branch, ENV['DEPLOY_BRANCH'] || "master"
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app

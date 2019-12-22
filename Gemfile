@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.0.7'
+gem 'rails', '5.0.7.2'
 gem 'pg'
 gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
@@ -19,6 +19,7 @@ gem 'chosen-rails'
 gem 'spring',        group: :development
 
 gem 'devise'
+gem 'devise-jwt'
 gem 'omniauth'
 gem 'omniauth-soundcloud', github: "mcfiredrill/omniauth-soundcloud"
 gem 'omniauth-mixcloud', github: "streampusher/omniauth-mixcloud"
@@ -82,7 +83,7 @@ gem 'acts_as_list'
 gem 'kaminari'
 gem 'active_model_serializers', '< 0.10'
 gem 'chronic'
-gem 'aws-sdk', '2.0.39'
+gem 'aws-sdk'
 gem 'paperclip'
 
 gem 'rupeepeethree', github: "datafruits/rupeepeethree"
@@ -119,3 +120,5 @@ gem 'paper_trail'
 gem 'friendly_id'
 
 gem 'discord-notifier'
+
+gem 'bootsnap', require: false

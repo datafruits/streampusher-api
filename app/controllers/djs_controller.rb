@@ -69,7 +69,8 @@ class DjsController < ApplicationController
     @dj.attributes = dj_params
     if @dj.save
       flash[:notice] = "Updated dj account."
-      redirect_to dj_path(@dj.username)
+      @djs = @current_radio.djs.page(params[:page])
+      redirect_to djs_path
     else
       flash[:error] = "Couldn't update dj account"
       @djs = @current_radio.djs.page(params[:page])

@@ -20,7 +20,7 @@ class VjController < ApplicationController
     authorize! :vj, :dashboard
     @radio = @current_radio
     @radio.attributes = update_params
-    if @radio.save
+    if @radio.save && VjUpdater.perform(@radio.vj_enabled, @radio.name)
       flash[:notice] = "radio settings updated."
       redirect_to vj_path
     else

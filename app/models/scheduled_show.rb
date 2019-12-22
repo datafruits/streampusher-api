@@ -1,7 +1,7 @@
 require_relative "../../lib/time_utils"
 
 class ScheduledShow < ActiveRecord::Base
-  include FriendlyId
+  extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
   belongs_to :radio
@@ -11,6 +11,9 @@ class ScheduledShow < ActiveRecord::Base
   has_attached_file :image, styles: { :thumb => "x300" },
     path: ":attachment/:style/:basename.:extension"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+
+  has_many :scheduled_show_labels, dependent: :destroy
+  has_many :labels, through: :scheduled_show_labels
 
   has_many :tracks
   has_many :scheduled_show_performers, class_name: "::ScheduledShowPerformer", dependent: :destroy
@@ -127,6 +130,7 @@ class ScheduledShow < ActiveRecord::Base
         scheduled_show.recurrant_original_id = self.id
         scheduled_show.start_at = DateTime.new s.year, s.month, s.day, self.start_at.hour, self.start_at.min, self.start_at.sec, self.start_at.zone
         scheduled_show.end_at = DateTime.new e.year, e.month, e.day, self.end_at.hour, self.end_at.min, self.end_at.sec, self.end_at.zone
+        scheduled_show.slug = nil
         next if scheduled_show.start_at == self.start_at
         scheduled_show.save!
       end
@@ -135,7 +139,7 @@ class ScheduledShow < ActiveRecord::Base
 
   def update_recurrences
     recurrences_to_update.each do |r|
-      r.attributes = self.attributes.except("id","created_at","updated_at","start_at","end_at","recurring_interval","recurrence")
+      r.attributes = self.attributes.except("id","created_at","updated_at","start_at","end_at","recurring_interval","recurrence", "recurrant_original_id", "slug")
       new_start_at = DateTime.new r.start_at.year, r.start_at.month, r.start_at.day, self.start_at.hour, self.start_at.min, self.start_at.sec, self.start_at.zone
       r.start_at = new_start_at
       new_end_at = DateTime.new r.end_at.year, r.end_at.month, r.end_at.day, self.end_at.hour, self.end_at.min, self.end_at.sec, self.end_at.zone
@@ -149,6 +153,12 @@ class ScheduledShow < ActiveRecord::Base
     [
       [:title, :id]
     ]
+  end
+
+  def fall_forward_recurrances_for_dst!
+    recurrences_to_update.each do |r|
+      r.update start_at: r.start_at+1.hour, end_at: r.end_at+1.hour
+    end
   end
 
   private
@@ -245,7 +255,6 @@ class ScheduledShow < ActiveRecord::Base
     end
   end
 
-  private
   def update_all_recurrences?
     ActiveModel::Type::Boolean.new.cast update_all_recurrences
   end

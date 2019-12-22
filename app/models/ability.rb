@@ -18,6 +18,7 @@ class Ability
       can :manage, :dj if can_manage_radio?(user, radio)
       can :manage, Track if can_manage_radio?(user, radio)
       can :manage, Label if can_manage_radio?(user, radio)
+      can :manage, BlogPost if can_manage_radio?(user, radio)
       can :index, Label if format == "json"
       can :manage, Playlist do |playlist|
         can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)
@@ -47,6 +48,7 @@ class Ability
       can :manage, :dj if can_manage_radio?(user, radio)
       can :manage, Track if can_manage_radio?(user, radio)
       can :manage, Label if can_manage_radio?(user, radio)
+      can :manage, BlogPost if can_manage_radio?(user, radio)
       can :index, Label if format == "json"
       can :manage, Playlist do |playlist|
         can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)

@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   icecast:
     image: "mcfiredrill/icecast:latest"
@@ -19,6 +19,15 @@ services:
     user: rails
     working_dir: /home/rails/app
     command: ./docker_wrapper.sh bundle exec rails server -p 3000 -b '0.0.0.0'
+    env_file: .env
+    environment: &shared_env
+      POSTGRESQL_HOST: postgres
+      POSTGRESQL_PORT: 5432
+      POSTGRESQL_USERNAME: postgres
+      REDIS_HOST: redis
+    depends_on:
+      - postgres
+      - redis
     volumes:
       - .:/home/rails/app
       - /tmp:/tmp
@@ -30,6 +39,12 @@ services:
     user: root
     working_dir: /home/rails/app
     command: ./docker_wrapper.sh bundle exec sidekiq
+    env_file: .env
+    environment:
+      <<: *shared_env
+    depends_on:
+      - postgres
+      - redis
     volumes:
       - .:/home/rails/app
       -  /var/run/docker.sock:/var/run/docker.sock

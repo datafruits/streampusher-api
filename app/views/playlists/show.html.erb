@@ -1,7 +1,7 @@
 <!-- Your Ember app will be rendered here. -->
 <div id="app-data"
   data-connected-accounts="<%=
-    if current_user.manager? || current_user.owner?
+    if current_user.manager? || current_user.owner? || current_user.admin?
       json_escape(ActiveModel::ArraySerializer.new(@connected_accounts,
                                                       each_serializer: SocialIdentitySerializer).to_json)
     end
