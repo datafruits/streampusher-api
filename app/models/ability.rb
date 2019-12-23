@@ -139,7 +139,9 @@ class Ability
       can :create, :profile
       can :manage, Recording if can_manage_radio?(user, radio)
 
-      cannot :admin
+      cannot :admin, :dashboard
+      cannot :admin, :radios
+      cannot :admin, :sign_in_as
     else
       can :read, ScheduledShow if format == "json"
       can :index, :dj if format == "json"
@@ -151,7 +153,9 @@ class Ability
       cannot :index, :stats
       can :index, Label if format == "json"
       can :show, Label if format == "json"
-      cannot :admin
+      cannot :admin, :dashboard
+      cannot :admin, :radios
+      cannot :admin, :sign_in_as
       can :sign_up, :anniversary_slot if is_datafruits?(radio)
     end
   end
