@@ -108,6 +108,7 @@ gem 'whenever', require: false
 gem 'recurrence'
 
 gem 'html-pipeline'
+gem 'commonmarker'
 gem 'github-markdown'
 gem 'ember-cli-rails'
 gem 'high_voltage'
