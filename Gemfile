@@ -13,7 +13,6 @@ gem 'jquery-ui-rails'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails', '~> 3.2.2'
 gem 'font-awesome-sass', '~> 4.6.0'
-gem 'bourbon'
 gem 'chosen-rails'
 
 gem 'spring',        group: :development
@@ -93,7 +92,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-countUp.js'
   gem 'rails-assets-moment'
   gem 'rails-assets-moment-timezone'
-  gem 'rails-assets-fullcalendar'
+  gem 'rails-assets-fullcalendar', '3.2.0'
   gem 'rails-assets-jquery.payment'
   gem 'rails-assets-jplayer'
   gem 'rails-assets-chartjs'

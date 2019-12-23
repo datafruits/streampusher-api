@@ -993,8 +993,6 @@ GEM
     bcrypt (3.1.13)
     bootsnap (1.4.5)
       msgpack (~> 1.0)
-    bourbon (6.0.0)
-      thor (~> 0.19)
     builder (3.2.4)
     byebug (11.0.1)
     cancancan (3.0.1)
@@ -1259,7 +1257,9 @@ GEM
       rails-assets-jquery (>= 1.9.0)
     rails-assets-chartjs (2.8.0)
     rails-assets-countUp.js (2.0.4)
-    rails-assets-fullcalendar (4.3.0)
+    rails-assets-fullcalendar (3.2.0)
+      rails-assets-jquery (>= 2, < 4)
+      rails-assets-moment (>= 2.9.0, < 3)
     rails-assets-jplayer (2.9.2)
       rails-assets-jquery (>= 1.7.2)
     rails-assets-jquery (2.1.4)
@@ -1447,7 +1447,6 @@ DEPENDENCIES
   acts_as_list
   aws-sdk
   bootsnap
-  bourbon
   byebug
   cancancan
   capistrano
@@ -1499,7 +1498,7 @@ DEPENDENCIES
   rails-assets-bootstrap-tour!
   rails-assets-chartjs!
   rails-assets-countUp.js!
-  rails-assets-fullcalendar!
+  rails-assets-fullcalendar (= 3.2.0)!
   rails-assets-jplayer!
   rails-assets-jquery.payment!
   rails-assets-moment!
