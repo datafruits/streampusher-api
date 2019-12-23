@@ -89,7 +89,7 @@ gem 'rupeepeethree', github: "datafruits/rupeepeethree"
 gem "so_id3", github: "streampusher/so_id3"
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-countUp.js'
+  gem 'rails-assets-countUp.js', '1.8.2'
   gem 'rails-assets-moment'
   gem 'rails-assets-moment-timezone'
   gem 'rails-assets-fullcalendar', '3.2.0'

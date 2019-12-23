@@ -1256,7 +1256,7 @@ GEM
       rails-assets-bootstrap (>= 2.3.2)
       rails-assets-jquery (>= 1.9.0)
     rails-assets-chartjs (2.8.0)
-    rails-assets-countUp.js (2.0.4)
+    rails-assets-countUp.js (1.8.2)
     rails-assets-fullcalendar (3.2.0)
       rails-assets-jquery (>= 2, < 4)
       rails-assets-moment (>= 2.9.0, < 3)
@@ -1497,7 +1497,7 @@ DEPENDENCIES
   rails-assets-BaremetricsCalendar!
   rails-assets-bootstrap-tour!
   rails-assets-chartjs!
-  rails-assets-countUp.js!
+  rails-assets-countUp.js (= 1.8.2)!
   rails-assets-fullcalendar (= 3.2.0)!
   rails-assets-jplayer!
   rails-assets-jquery.payment!
