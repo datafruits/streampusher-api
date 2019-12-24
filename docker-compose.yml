@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   icecast:
     image: "mcfiredrill/icecast:latest"
@@ -6,8 +6,38 @@ services:
      - "8000:8000"
     restart: "always"
   redis:
-    image: "redis:3.2.1"
+    image: "redis:latest"
     ports:
       - "6379:6379"
     restart: "always"
     command: "redis-server --requirepass ${REDIS_PASSWORD}"
+  rails:
+    image: "streampusher/streampusher:latest"
+    user: rails
+    working_dir: /home/rails/app
+    command: ./docker_wrapper.sh bundle exec rails server -b '0.0.0.0'
+    env_file: .env
+    environment: &shared_env
+      REDIS_HOST: redis
+    depends_on:
+      - redis
+    volumes:
+      - .:/home/rails/app
+      - /tmp:/tmp
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "3000:3000"
+  sidekiq:
+    image: "streampusher/streampusher:latest"
+    user: root
+    working_dir: /home/rails/app
+    command: ./docker_wrapper.sh bundle exec sidekiq
+    env_file: .env
+    environment:
+      <<: *shared_env
+    depends_on:
+      - redis
+    volumes:
+      - .:/home/rails/app
+      -  /var/run/docker.sock:/var/run/docker.sock
+      - /tmp:/tmp
