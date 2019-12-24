@@ -34,7 +34,7 @@ RUN gpasswd -a rails docker
 USER rails
 ENV HOME /home/rails
 # Install rbenv and ruby-build
-ENV RUBY_VERSION 2.6.3
+ENV RUBY_VERSION 2.6.5
 RUN git clone https://github.com/rbenv/rbenv.git /home/rails/.rbenv
 RUN git clone https://github.com/rbenv/ruby-build.git /home/rails/.rbenv/plugins/ruby-build
 RUN echo "export RBENV_ROOT=/usr/local/rbenv" >> /home/rails/.bashrc
