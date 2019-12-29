@@ -158,7 +158,7 @@ class Radio < ActiveRecord::Base
   end
 
   def liquidsoap_harbor_port
-    Redis.current.hget "proxy-domain", liquidsoap_proxy_key
+    self.port_number
   end
 
   def current_scheduled_show now=Time.now
