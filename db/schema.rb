@@ -166,7 +166,7 @@ ActiveRecord::Schema.define(version: 20191221025204) do
     t.integer  "playlist_id"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.string   "extra_tags"
     t.index ["playlist_id"], name: "index_podcasts_on_playlist_id", using: :btree
@@ -242,7 +242,7 @@ ActiveRecord::Schema.define(version: 20191221025204) do
     t.text     "description"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.integer  "recurring_interval",    default: 0,     null: false
     t.boolean  "recurrence",            default: false, null: false
@@ -270,7 +270,7 @@ ActiveRecord::Schema.define(version: 20191221025204) do
     t.string   "color"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
   end
 
@@ -335,7 +335,7 @@ ActiveRecord::Schema.define(version: 20191221025204) do
     t.integer  "tag_processing_status",    default: 0,  null: false
     t.string   "artwork_file_name"
     t.string   "artwork_content_type"
-    t.integer  "artwork_file_size"
+    t.bigint   "artwork_file_size"
     t.datetime "artwork_updated_at"
     t.integer  "mixcloud_upload_status",   default: 0,  null: false
     t.string   "mixcloud_key"
@@ -381,7 +381,7 @@ ActiveRecord::Schema.define(version: 20191221025204) do
     t.text     "bio"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.boolean  "profile_publish",        default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
