@@ -6,7 +6,7 @@ set :repo_url, 'git@gitlab.com:streampusher/stream_pusher.git'
 
 # setup rbenv
 set :rbenv_type, :system
-set :rbenv_ruby, '2.3.1'
+set :rbenv_ruby, '2.6.5'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 
 set :slack_webhook, 'https://hooks.slack.com/services/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'
@@ -31,7 +31,10 @@ set :branch, ENV['DEPLOY_BRANCH'] || "master"
 
 # Default value for :pty is false
 # set :pty, true
-#
+
+set :init_system, :systemd
+set :bundler_path, '/usr/local/rbenv/shims/bundle' # for sidekiq systemd service
+
 # Default value for :linked_files is []
 set :linked_files, %w{config/database.yml config/application.yml backup/.env}
 
@@ -56,7 +59,6 @@ set(:config_files, %w(
   application.yml
   database.example.yml
   log_rotation
-  monit
   sidekiq_init.sh
   sidekiq.yml
   unicorn.rb
@@ -88,10 +90,10 @@ set(:symlinks, [
     source: "log_rotation",
    link: "/etc/logrotate.d/{{full_app_name}}"
   },
-  {
-    source: "monit",
-    link: "/etc/monit/conf.d/{{full_app_name}}.conf"
-  },
+  #{
+  #  source: "monit",
+  #  link: "/etc/monit/conf.d/{{full_app_name}}.conf"
+  #},
   {
     source: "sidekiq_init.sh",
     link: "/etc/init.d/sidekiq_{{full_app_name}}"
@@ -126,11 +128,14 @@ namespace :deploy do
   after 'deploy:symlink:shared', 'deploy:compile_assets_locally'
   after :finishing, 'deploy:cleanup'
   after 'deploy:setup_config', 'nginx:reload'
-  after 'deploy:setup_config', 'monit:restart'
-  after "deploy:setup_config", "backup:setup"
+  # after 'deploy:setup_config', 'monit:restart'
+  # after "deploy:setup_config", "backup:setup"
 
   after 'deploy:starting', 'sidekiq:quiet'
   # after 'deploy:updated', 'sidekiq:monit:stop'
-  after 'deploy:reverted', 'sidekiq:monit:stop'
-  after 'deploy:published', 'sidekiq:monit:restart'
+  # after 'deploy:reverted', 'sidekiq:monit:stop'
+  # after 'deploy:published', 'sidekiq:monit:restart'
+  after 'deploy:updated', 'sidekiq:stop'
+  after 'deploy:reverted', 'sidekiq:stop'
+  after 'deploy:published', 'sidekiq:restart'
 end

@@ -14,7 +14,7 @@
 set :server_name, ".streampusher.com"
 
 #server 'streampusher.com', user: 'deploy', roles: %w{web app db}, primary: true
-server '162.243.61.205', user: 'deploy', roles: %w{web app db}, primary: true
+server '167.99.155.33', user: 'deploy', roles: %w{web app db}, primary: true
 
 set :full_app_name, "#{fetch(:application)}_#{fetch(:stage)}"
 
