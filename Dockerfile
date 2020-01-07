@@ -10,7 +10,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt update
 RUN apt upgrade -y
 RUN apt-get install -y build-essential libtag1-dev libqtwebkit-dev qt4-qmake \
-  xvfb firefox git curl sox libsox-fmt-mp3 libpq-dev imagemagick sudo
+  xvfb firefox git curl sox libsox-fmt-mp3 libpq-dev imagemagick sudo postgresql-client
 
 # for ruby
 RUN apt-get install -y --force-yes libssl-dev libreadline-dev zlib1g-dev
@@ -34,7 +34,7 @@ RUN gpasswd -a rails docker
 USER rails
 ENV HOME /home/rails
 # Install rbenv and ruby-build
-ENV RUBY_VERSION 2.6.3
+ENV RUBY_VERSION 2.7.0
 RUN git clone https://github.com/rbenv/rbenv.git /home/rails/.rbenv
 RUN git clone https://github.com/rbenv/ruby-build.git /home/rails/.rbenv/plugins/ruby-build
 RUN echo "export RBENV_ROOT=/usr/local/rbenv" >> /home/rails/.bashrc

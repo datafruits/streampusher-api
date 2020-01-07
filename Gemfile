@@ -13,7 +13,6 @@ gem 'jquery-ui-rails'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails', '~> 3.2.2'
 gem 'font-awesome-sass', '~> 4.6.0'
-gem 'bourbon'
 gem 'chosen-rails'
 
 gem 'spring',        group: :development
@@ -88,10 +87,10 @@ gem 'rupeepeethree', github: "datafruits/rupeepeethree"
 gem "so_id3", github: "streampusher/so_id3"
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-countUp.js'
+  gem 'rails-assets-countUp.js', '1.8.2'
   gem 'rails-assets-moment'
   gem 'rails-assets-moment-timezone'
-  gem 'rails-assets-fullcalendar'
+  gem 'rails-assets-fullcalendar', '3.2.0'
   gem 'rails-assets-jplayer'
   gem 'rails-assets-chartjs'
   gem 'rails-assets-BaremetricsCalendar'
@@ -106,6 +105,7 @@ gem 'whenever', require: false
 gem 'recurrence'
 
 gem 'html-pipeline'
+gem 'commonmarker'
 gem 'github-markdown'
 gem 'ember-cli-rails'
 gem 'high_voltage'
@@ -119,3 +119,5 @@ gem 'friendly_id'
 gem 'discord-notifier'
 
 gem 'bootsnap', require: false
+gem 'thwait'
+gem 'e2mmap'

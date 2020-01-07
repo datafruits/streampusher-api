@@ -1,7 +1,6 @@
 // Place all the styles related to the playlists controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-@import "bourbon";
 
 ul#tracks {
   height: 400px;
@@ -65,7 +64,7 @@ li.track.ui-draggable-dragging:hover {
 }
 
 #dropzone.drop-fade {
-    @include transition(all 0.3s ease-out);
+    transition: all 0.3s ease-out;
     opacity: 1;
 }
 

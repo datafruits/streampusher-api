@@ -32,7 +32,6 @@
  *= require clock
  *= require spectrum
  */
-@import "bourbon";
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
@@ -188,15 +187,15 @@ table a:hover {
   color: lighten($blue2, 20%);
 }
 
-@include keyframes(bounce) {
+@keyframes(bounce) {
   0%, 20%, 50%, 80%, 100% {
-    @include transform(translateY(0));
+    transform: translateY(0);
   }
   40% {
-    @include transform(translateY(-10px));
+    transform: translateY(-10px);
   }
   60% {
-    @include transform(translateY(-3px));
+    transform: translateY(-3px);
   }
 }
 
@@ -212,7 +211,7 @@ table a:hover {
   padding: 7px;
   box-shadow: 3px 3px 3px #555;
 
-  @include animation(bounce 1s 1);
+  animation: bounce 1s 1;
   position: fixed;
   z-index: 9999;
 }
@@ -432,7 +431,7 @@ footer {
     padding: 7px;
     box-shadow: 3px 3px 3px #555;
 
-    @include animation(bounce 1s 1);
+    animation: bounce 1s 1;
   }
 }
 

@@ -993,8 +993,6 @@ GEM
     bcrypt (3.1.13)
     bootsnap (1.4.5)
       msgpack (~> 1.0)
-    bourbon (6.0.0)
-      thor (~> 0.19)
     builder (3.2.4)
     byebug (11.0.1)
     cancancan (3.0.1)
@@ -1043,6 +1041,8 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     commonjs (0.2.7)
+    commonmarker (0.20.2)
+      ruby-enum (~> 0.5)
     concurrent-ruby (1.1.5)
     connection_pool (2.2.2)
     crack (0.4.3)
@@ -1077,6 +1077,7 @@ GEM
       dry-configurable (~> 0.1, >= 0.1.3)
     dry-core (0.4.9)
       concurrent-ruby (~> 1.0)
+    e2mmap (0.1.0)
     ember-cli-rails (0.10.0)
       cocaine (~> 0.5.8)
       ember-cli-rails-assets (~> 0.6.2)
@@ -1258,8 +1259,10 @@ GEM
       rails-assets-bootstrap (>= 2.3.2)
       rails-assets-jquery (>= 1.9.0)
     rails-assets-chartjs (2.8.0)
-    rails-assets-countUp.js (2.0.4)
-    rails-assets-fullcalendar (4.3.0)
+    rails-assets-countUp.js (1.8.2)
+    rails-assets-fullcalendar (3.2.0)
+      rails-assets-jquery (>= 2, < 4)
+      rails-assets-moment (>= 2.9.0, < 3)
     rails-assets-jplayer (2.9.2)
       rails-assets-jquery (>= 1.7.2)
     rails-assets-jquery (2.1.4)
@@ -1323,6 +1326,8 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
+    ruby-enum (0.7.2)
+      i18n
     ruby-progressbar (1.10.1)
     rubyzip (1.3.0)
     rufus-scheduler (3.6.0)
@@ -1387,6 +1392,7 @@ GEM
       ref
     thor (0.20.3)
     thread_safe (0.3.6)
+    thwait (0.1.0)
     tilt (2.0.10)
     timecop (0.9.1)
     trollop (2.9.10)
@@ -1441,7 +1447,6 @@ DEPENDENCIES
   acts_as_list
   aws-sdk
   bootsnap
-  bourbon
   byebug
   cancancan
   capistrano
@@ -1455,12 +1460,14 @@ DEPENDENCIES
   chronic
   cocaine
   coffee-rails
+  commonmarker
   database_rewinder
   devise
   devise-jwt
   discord-notifier
   docker-api (~> 1.22.4)
   dotenv-rails
+  e2mmap
   ember-cli-rails
   exception_notification
   factory_girl_rails
@@ -1492,8 +1499,8 @@ DEPENDENCIES
   rails-assets-BaremetricsCalendar!
   rails-assets-bootstrap-tour!
   rails-assets-chartjs!
-  rails-assets-countUp.js!
-  rails-assets-fullcalendar!
+  rails-assets-countUp.js (= 1.8.2)!
+  rails-assets-fullcalendar (= 3.2.0)!
   rails-assets-jplayer!
   rails-assets-moment!
   rails-assets-moment-timezone!
@@ -1517,6 +1524,7 @@ DEPENDENCIES
   spring
   sprockets (= 3.7.0)
   therubyracer
+  thwait
   timecop
   tumblr_client
   twitter-bootstrap-rails (~> 3.2.2)
@@ -1528,4 +1536,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   2.0.2
+   2.1.3

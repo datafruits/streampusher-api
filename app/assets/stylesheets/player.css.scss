@@ -1,11 +1,9 @@
-@import "bourbon";
-
-@include keyframes(rotation){
+@keyframes rotation {
   from {
-    @include transform(rotate(0deg));
+    transform: rotate(0deg);
   }
   to {
-    @include transform(rotate(360deg));
+    transform: rotate(360deg);
   }
 }
 
@@ -47,7 +45,7 @@
 }
 
 .jp-loading {
-  @include animation(rotation 0.7s linear infinite);
+  animation: rotation 0.7s linear infinite;
 }
 
 a.jp-loading:hover {
