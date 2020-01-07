@@ -51,7 +51,7 @@ gem 'capistrano-sidekiq'
 gem 'capistrano-cookbook', require: false, group: :development
 
 group :test do
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'vcr'
   gem 'webmock'
   gem 'mock_redis'

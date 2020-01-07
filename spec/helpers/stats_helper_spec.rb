@@ -13,7 +13,7 @@ require 'rails_helper'
 RSpec.describe StatsHelper, type: :helper do
   describe "average_sessions_per_hour" do
     before do
-      @radio = FactoryGirl.create :radio
+      @radio = FactoryBot.create :radio
       3.times {
         @radio.listens.create start_at: Chronic.parse("yesterday at 8:02 pm"), end_at: Chronic.parse("yesterday at 8:08 pm"),
           icecast_listener_id: 1
@@ -35,7 +35,7 @@ RSpec.describe StatsHelper, type: :helper do
 
   describe "average_listening_minutes_per_session" do
     before do
-      @radio = FactoryGirl.create :radio
+      @radio = FactoryBot.create :radio
       3.times {
         @radio.listens.create start_at: Chronic.parse("yesterday at 8:02 pm"), end_at: Chronic.parse("yesterday at 8:08 pm"),
           icecast_listener_id: 1
@@ -57,7 +57,7 @@ RSpec.describe StatsHelper, type: :helper do
 
   describe "average_listening_minutes_per_hour" do
     before do
-      @radio = FactoryGirl.create :radio
+      @radio = FactoryBot.create :radio
       3.times {
         @radio.listens.create start_at: Chronic.parse("yesterday at 8:02 pm"), end_at: Chronic.parse("yesterday at 8:08 pm"),
           icecast_listener_id: 1

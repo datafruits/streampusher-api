@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe StripeEventHandler do
   it "handles customer_subscription_updated" do
-    user = FactoryGirl.create :user, subscription: FactoryGirl.create(:subscription, stripe_customer_token: "deadbeef")
+    user = FactoryBot.create :user, subscription: FactoryBot.create(:subscription, stripe_customer_token: "deadbeef")
     event = JSON.parse(File.read("spec/fixtures/stripe_events/customer.subscription.updated.json"), object_class: OpenStruct)
     StripeEventHandler.customer_subscription_updated event
   end

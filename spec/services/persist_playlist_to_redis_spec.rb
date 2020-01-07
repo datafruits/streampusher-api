@@ -7,8 +7,8 @@ describe PersistPlaylistToRedis do
   end
 
   it "saves playlists to a redis list" do
-    playlist = FactoryGirl.create :playlist
-    playlist.tracks << FactoryGirl.create_list(:track, 10, radio: playlist.radio)
+    playlist = FactoryBot.create :playlist
+    playlist.tracks << FactoryBot.create_list(:track, 10, radio: playlist.radio)
     PersistPlaylistToRedis.perform playlist
     redis = Redis.current
     expect(redis.llen("datafruits:playlist:my_playlist")).to eq 10
@@ -18,11 +18,11 @@ describe PersistPlaylistToRedis do
   end
 
   it "saves interpolated playlists" do
-    playlist = FactoryGirl.create :playlist
-    track_1 = FactoryGirl.create(:track, radio: playlist.radio)
+    playlist = FactoryBot.create :playlist
+    track_1 = FactoryBot.create(:track, radio: playlist.radio)
     6.times { playlist.tracks << track_1 }
-    jingles = FactoryGirl.create :playlist, name: "jingles", radio: playlist.radio
-    track_2 = FactoryGirl.create(:track, radio: playlist.radio, audio_file_name: "spec/fixtures/wau.mp3")
+    jingles = FactoryBot.create :playlist, name: "jingles", radio: playlist.radio
+    track_2 = FactoryBot.create(:track, radio: playlist.radio, audio_file_name: "spec/fixtures/wau.mp3")
     jingles.tracks << track_2
     # every 3 tracks play 1 track from the jingles playlist
     playlist.update interpolated_playlist_id: jingles.id,
@@ -44,8 +44,8 @@ describe PersistPlaylistToRedis do
   end
 
   it "shuffles playlist when shuffle option is set" do
-    playlist = FactoryGirl.create :playlist, shuffle: true
-    playlist.tracks << FactoryGirl.create_list(:track, 10, radio: playlist.radio)
+    playlist = FactoryBot.create :playlist, shuffle: true
+    playlist.tracks << FactoryBot.create_list(:track, 10, radio: playlist.radio)
     PersistPlaylistToRedis.perform playlist
   end
 end

@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Subscription, :type => :model do
   let(:hobbyist_plan) { Plan.create name: "Hobbyist" }
-  let(:owner) { FactoryGirl.create :user, username: "owner", role: "owner" }
-  let!(:subscription) { FactoryGirl.create :subscription, user: owner }
+  let(:owner) { FactoryBot.create :user, username: "owner", role: "owner" }
+  let!(:subscription) { FactoryBot.create :subscription, user: owner }
   before do
     Time.zone = 'UTC'
     Timecop.freeze Time.local(2017,10,18)

@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe EndFreeTrial do
   it "disables the radio and sets the subscription to trial_ended" do
-    user = FactoryGirl.create :user, subscription: FactoryGirl.create(:subscription, stripe_customer_token: "deadbeef")
-    # radio = FactoryGirl.create :radio, subscription: user.subscription
+    user = FactoryBot.create :user, subscription: FactoryBot.create(:subscription, stripe_customer_token: "deadbeef")
+    # radio = FactoryBot.create :radio, subscription: user.subscription
     subscription = user.subscription
     #allow(RadioDisableWorker).to receive(:perform_later).with(radio)
     EndFreeTrial.perform(subscription)

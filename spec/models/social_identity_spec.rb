@@ -9,7 +9,7 @@ RSpec.describe SocialIdentity, type: :model do
                                       }
                     }
                   }
-  let(:user) { FactoryGirl.create :user }
+  let(:user) { FactoryBot.create :user }
 
   it "creates an identity from an omniauth hash" do
     identity = SocialIdentity.create_with_omniauth auth_hash, user.id

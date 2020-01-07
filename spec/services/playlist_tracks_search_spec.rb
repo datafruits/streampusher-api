@@ -5,11 +5,11 @@ describe PlaylistTracksSearch do
   before do
     Sidekiq::Testing.fake!
   end
-  let(:radio){ FactoryGirl.create :radio }
+  let(:radio){ FactoryBot.create :radio }
   it "searches track titles by query" do
-    track_1 = FactoryGirl.create :track, radio: radio, title: "freedrull 10112018"
-    track_2 = FactoryGirl.create :track, radio: radio, title: "ducks volume 2"
-    playlist_1 = FactoryGirl.create :playlist, radio: radio
+    track_1 = FactoryBot.create :track, radio: radio, title: "freedrull 10112018"
+    track_2 = FactoryBot.create :track, radio: radio, title: "ducks volume 2"
+    playlist_1 = FactoryBot.create :playlist, radio: radio
     playlist_1.tracks << track_1
     playlist_1.tracks << track_2
 
@@ -20,11 +20,11 @@ describe PlaylistTracksSearch do
   it "searches track tags" do
     vaporwave_label = radio.labels.create name: "Vaporwave"
     dnb_label = radio.labels.create name: "dnb"
-    track_1 = FactoryGirl.create :track, radio: radio, title: "freedrull 10112018"
+    track_1 = FactoryBot.create :track, radio: radio, title: "freedrull 10112018"
     track_1.labels << vaporwave_label
-    track_2 = FactoryGirl.create :track, radio: radio, title: "ducks volume 2"
+    track_2 = FactoryBot.create :track, radio: radio, title: "ducks volume 2"
     track_2.labels << dnb_label
-    playlist_1 = FactoryGirl.create :playlist, radio: radio
+    playlist_1 = FactoryBot.create :playlist, radio: radio
     playlist_1.tracks << track_1
     playlist_1.tracks << track_2
 
@@ -37,15 +37,15 @@ describe PlaylistTracksSearch do
     expect(result).to_not include(track_2)
   end
   it "searches tracks by query and tags" do
-    track_1 = FactoryGirl.create :track, radio: radio, title: "freedrull 10112018"
-    track_2 = FactoryGirl.create :track, radio: radio, title: "ducks volume 2"
-    track_3 = FactoryGirl.create :track, radio: radio, title: "ducks volume 3"
+    track_1 = FactoryBot.create :track, radio: radio, title: "freedrull 10112018"
+    track_2 = FactoryBot.create :track, radio: radio, title: "ducks volume 2"
+    track_3 = FactoryBot.create :track, radio: radio, title: "ducks volume 3"
     vaporwave_label = radio.labels.create name: "Vaporwave"
     dnb_label = radio.labels.create name: "dnb"
     track_1.labels << vaporwave_label
     track_2.labels << dnb_label
     track_3.labels << dnb_label
-    playlist_1 = FactoryGirl.create :playlist, radio: radio
+    playlist_1 = FactoryBot.create :playlist, radio: radio
     playlist_1.tracks << track_1
     playlist_1.tracks << track_2
     playlist_1.tracks << track_3

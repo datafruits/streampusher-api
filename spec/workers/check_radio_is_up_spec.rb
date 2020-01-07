@@ -7,7 +7,7 @@ describe CheckRadioIsUp do
     Sidekiq::Testing.inline!
   end
   it "sends alert emails if the radio is down" do
-    radio = FactoryGirl.create :radio, name: "garf_radio"
+    radio = FactoryBot.create :radio, name: "garf_radio"
     url = radio.icecast_json
     stub_request(:any, url).
       to_return(body: File.read("spec/fixtures/icecast_json.json"))
@@ -16,7 +16,7 @@ describe CheckRadioIsUp do
   end
 
   it "doesn't alert emails if the radio is up" do
-    radio = FactoryGirl.create :radio, name: "datafruits"
+    radio = FactoryBot.create :radio, name: "datafruits"
     url = radio.icecast_json
     stub_request(:any, url).
       to_return(body: File.read("spec/fixtures/icecast_json.json"))

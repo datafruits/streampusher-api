@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe DjSignup do
   it "creates a new user account and adds to the radio" do
-    radio = FactoryGirl.create :radio
+    radio = FactoryBot.create :radio
     email = "mcfiredrill@gmail.com"
     username = "freedrool"
     user_params = {email: email, username: username}
@@ -12,8 +12,8 @@ describe DjSignup do
   end
 
   it "adds user radio to account if it already exists" do
-    radio = FactoryGirl.create :radio
-    radio2 = FactoryGirl.create :radio, name: 'daddyboots', subscription: radio.subscription
+    radio = FactoryBot.create :radio
+    radio2 = FactoryBot.create :radio, name: 'daddyboots', subscription: radio.subscription
     email = "mcfiredrill@gmail.com"
     username = "freedrool"
     user_params = {email: email, username: username}
@@ -26,8 +26,8 @@ describe DjSignup do
   end
 
   it "returns error if this user already belongs to this radio" do
-    radio = FactoryGirl.create :radio
-    radio2 = FactoryGirl.create :radio, name: 'daddyboots', subscription: radio.subscription
+    radio = FactoryBot.create :radio
+    radio2 = FactoryBot.create :radio, name: 'daddyboots', subscription: radio.subscription
     email = "mcfiredrill@gmail.com"
     username = "freedrool"
     user_params = {email: email, username: username}

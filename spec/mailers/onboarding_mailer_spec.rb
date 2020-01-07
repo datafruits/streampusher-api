@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe OnboardingMailer, type: :mailer do
-  let(:user){ FactoryGirl.create :user, subscription: FactoryGirl.create(:subscription) }
+  let(:user){ FactoryBot.create :user, subscription: FactoryBot.create(:subscription) }
   it "sends playlists email" do
     mail = OnboardingMailer.playlists(user).deliver_now
   end

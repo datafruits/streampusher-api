@@ -14,7 +14,7 @@ describe Track do
 
   describe "labels" do
     it "adds a label" do
-      radio = FactoryGirl.create :radio
+      radio = FactoryBot.create :radio
       label = radio.labels.create name: "Vaporwave"
       params = {
                  audio_file_name: 'http://s3.amazonaws.com/streampusher/doo.mp3',

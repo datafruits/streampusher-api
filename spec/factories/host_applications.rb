@@ -1,6 +1,6 @@
 require 'factory_girl'
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :host_application do
     username 'yoshibo'
     time_zone 'Tokyo'
