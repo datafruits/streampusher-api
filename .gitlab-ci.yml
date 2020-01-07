@@ -1,4 +1,4 @@
-image: streampusher/streampusher
+image: streampusher/streampusher:latest
 services:
   - postgres
   - redis
