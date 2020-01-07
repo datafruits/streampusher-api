@@ -9,8 +9,12 @@ class SignupForm
   def initialize user=User.new, subscription=Subscription.new, radio=Radio.new
     @user = user
     @user.role = "owner"
-    @subscription = subscription
+    #@subscription = subscription
     @radio = radio
+  end
+
+  def radio_name= name
+    @radio.name = name
   end
 
   def any_errors?
@@ -25,23 +29,24 @@ class SignupForm
     @user.referer = referer
   end
 
-  def subscription= attrs
-    @subscription.plan_id = attrs[:plan_id]
-    @subscription.stripe_card_token = attrs[:stripe_card_token]
-    @subscription.coupon = attrs[:coupon]
-    @radio.name = attrs[:radios][:name]
-  end
+  # def subscription= attrs
+  #   @subscription.plan_id = attrs[:plan_id]
+  #   @subscription.stripe_card_token = attrs[:stripe_card_token]
+  #   @subscription.coupon = attrs[:coupon]
+  #   @radio.name = attrs[:radios][:name]
+  # end
 
   def save
     begin
       ActiveRecord::Base.transaction do
         if @user.save!
-          @subscription.user_id = @user.id
-          @subscription.radios << @radio
+          # @subscription.user_id = @user.id
+          # @subscription.radios << @radio
           if @radio.save!
-            @user.subscription = subscription
-            @user.subscription.save_with_free_trial!
-            @user.radios << @user.subscription.radios.first
+            # @user.subscription = subscription
+            # @user.subscription.save_with_free_trial!
+            # @user.radios << @user.subscription.radios.first
+            @user.radios << @radio
             ActiveSupport::Notifications.instrument 'user.signup', email: @user.email, radio: @radio.name
             UserSignedUpNotifier.notify @user
             @radio.boot_radio
