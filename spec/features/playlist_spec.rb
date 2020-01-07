@@ -62,8 +62,7 @@ end
 feature 'playlists', :js => true do
   before do
     @owner =  FactoryGirl.create :owner
-    @subscription = FactoryGirl.create :subscription, user: @owner
-    @radio = FactoryGirl.create :radio, subscription: @subscription
+    @radio = FactoryGirl.create :radio
     @owner.radios << @radio
   end
 

@@ -25,14 +25,12 @@ end
 
 feature 'schedule', :js => true do
   let(:owner) { FactoryGirl.create :user, username: "owner", role: "owner" }
-  let(:subscription) { FactoryGirl.create :subscription, user: owner }
   let(:dj) { FactoryGirl.create :user, username: "dj", role: "dj", email: "dj@gmail.com" }
-  let(:radio) { FactoryGirl.create :radio, subscription: subscription }
+  let(:radio) { FactoryGirl.create :radio }
   let!(:playlist) { FactoryGirl.create :playlist, radio: radio, name: "my playlist" }
   before do
     owner.radios << radio
     dj.radios << radio
-    subscription.radios << radio
   end
   scenario 'non-logged in user can view schedule'
   scenario 'logged in user views schedule in their timezone'

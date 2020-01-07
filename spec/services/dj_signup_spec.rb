@@ -13,7 +13,7 @@ describe DjSignup do
 
   it "adds user radio to account if it already exists" do
     radio = FactoryGirl.create :radio
-    radio2 = FactoryGirl.create :radio, name: 'daddyboots', subscription: radio.subscription
+    radio2 = FactoryGirl.create :radio, name: 'daddyboots'
     email = "mcfiredrill@gmail.com"
     username = "freedrool"
     user_params = {email: email, username: username}
@@ -27,7 +27,7 @@ describe DjSignup do
 
   it "returns error if this user already belongs to this radio" do
     radio = FactoryGirl.create :radio
-    radio2 = FactoryGirl.create :radio, name: 'daddyboots', subscription: radio.subscription
+    radio2 = FactoryGirl.create :radio, name: 'daddyboots'
     email = "mcfiredrill@gmail.com"
     username = "freedrool"
     user_params = {email: email, username: username}
