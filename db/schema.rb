@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191221025204) do
+ActiveRecord::Schema.define(version: 20200107145056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,18 +69,6 @@ ActiveRecord::Schema.define(version: 20191221025204) do
     t.datetime "updated_at",                    null: false
     t.boolean  "approved",      default: false, null: false
     t.index ["radio_id"], name: "index_host_applications_on_radio_id", using: :btree
-  end
-
-  create_table "invoice_payments", force: :cascade do |t|
-    t.string   "stripe_id",       null: false
-    t.integer  "amount",          null: false
-    t.integer  "fee_amount",      null: false
-    t.integer  "user_id"
-    t.integer  "subscription_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.index ["subscription_id"], name: "index_invoice_payments_on_subscription_id", using: :btree
-    t.index ["user_id"], name: "index_invoice_payments_on_user_id", using: :btree
   end
 
   create_table "labels", force: :cascade do |t|
@@ -178,7 +166,6 @@ ActiveRecord::Schema.define(version: 20191221025204) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name",                            default: "",    null: false
-    t.integer  "subscription_id",                                 null: false
     t.string   "liquidsoap_container_id"
     t.integer  "default_playlist_id"
     t.boolean  "enabled",                         default: true,  null: false
@@ -195,7 +182,6 @@ ActiveRecord::Schema.define(version: 20191221025204) do
     t.string   "show_share_url"
     t.integer  "port_number"
     t.index ["default_playlist_id"], name: "index_radios_on_default_playlist_id", using: :btree
-    t.index ["subscription_id"], name: "index_radios_on_subscription_id", using: :btree
   end
 
   create_table "recordings", force: :cascade do |t|
@@ -285,28 +271,6 @@ ActiveRecord::Schema.define(version: 20191221025204) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.index ["user_id"], name: "index_social_identities_on_user_id", using: :btree
-  end
-
-  create_table "stripe_webhooks", force: :cascade do |t|
-    t.string   "stripe_id",  null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["stripe_id"], name: "index_stripe_webhooks_on_stripe_id", unique: true, using: :btree
-  end
-
-  create_table "subscriptions", force: :cascade do |t|
-    t.integer  "plan_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "stripe_customer_token"
-    t.integer  "user_id",                           null: false
-    t.string   "last_4_digits"
-    t.integer  "exp_month"
-    t.integer  "exp_year"
-    t.datetime "trial_ends_at"
-    t.integer  "status",                default: 0, null: false
-    t.index ["plan_id"], name: "index_subscriptions_on_plan_id", using: :btree
-    t.index ["user_id"], name: "index_subscriptions_on_user_id", using: :btree
   end
 
   create_table "track_labels", force: :cascade do |t|
@@ -400,8 +364,6 @@ ActiveRecord::Schema.define(version: 20191221025204) do
   end
 
   add_foreign_key "blog_post_images", "blog_post_bodies"
-  add_foreign_key "invoice_payments", "subscriptions"
-  add_foreign_key "invoice_payments", "users"
   add_foreign_key "scheduled_show_labels", "labels"
   add_foreign_key "scheduled_show_labels", "scheduled_shows"
 end
