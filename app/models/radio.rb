@@ -12,7 +12,6 @@ class Radio < ActiveRecord::Base
   has_many :listens
   has_many :host_applications
   has_many :blog_posts
-  belongs_to :subscription
   belongs_to :default_playlist, class_name: "Playlist"
   after_create :create_default_playlist
 
@@ -22,10 +21,6 @@ class Radio < ActiveRecord::Base
   before_validation :copy_to_container_name
 
   scope :enabled, -> { where(enabled: true) }
-
-  def owner
-    self.subscription.user
-  end
 
   def djs
     self.users

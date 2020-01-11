@@ -7,7 +7,6 @@ end
 def fill_in_sign_up_form_with email, password, radio_name
   fill_in "signup_form[email]", with: email
   fill_in "signup_form[password]", with: password
-  fill_in "signup_form[subscription][radios][name]", with: radio_name
 end
 
 def click_sign_up_button

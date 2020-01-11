@@ -4,17 +4,15 @@ class SignupForm
   attr_accessor :referer
   delegate :email, :email=, :password, :password=, to: :user
   delegate :name, to: :radio
-  delegate :plan_id, :coupon, to: :subscription
 
-  def initialize user=User.new, subscription=Subscription.new, radio=Radio.new
+  def initialize user=User.new, radio=Radio.new
     @user = user
     @user.role = "owner"
-    @subscription = subscription
     @radio = radio
   end
 
   def any_errors?
-    self.user.errors.any? || self.subscription.errors.any? || self.radio.errors.any?
+    self.user.errors.any? || self.radio.errors.any?
   end
 
   def attributes= attrs

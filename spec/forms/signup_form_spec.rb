@@ -6,10 +6,8 @@ describe SignupForm do
     signup_form = SignupForm.new
     attributes = { email: "mcfiredrill@gmail.com",
                    password: "2boobies",
-                   subscription: { plan_id: @plan.id,
-                                   radios: { name: ""}
+                   radios: { name: ""}
                    }
-    }
     signup_form.attributes = attributes
     signup_form.save
     expect(signup_form.radio.errors[:name].present?).to eq true

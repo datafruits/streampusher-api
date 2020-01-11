@@ -7,8 +7,6 @@ Rails.application.routes.draw do
       mount Sidekiq::Web => '/sidekiq'
   end
 
-  mount StripeEvent::Engine, at: '/stripe_events'
-
   resources :recordings, only: [:index, :show] do
     resources :process_recordings, only: [:create]
   end
@@ -31,8 +29,6 @@ Rails.application.routes.draw do
   end
 
   resources :playlists, only: [:show, :index, :create, :update, :destroy]
-
-  resources :subscriptions, only: [:edit, :update]
 
   resources :djs
 

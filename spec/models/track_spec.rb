@@ -40,7 +40,7 @@ describe Track do
       VCR.use_cassette(RSpec.current_example.metadata[:full_description].to_s) do
         start_at = Chronic.parse("today at 1:15 pm").utc
         end_at = Chronic.parse("today at 3:15 pm").utc
-        radio = Radio.create name: 'datafruits', subscription_id: 1
+        radio = Radio.create name: 'datafruits'
         track = Track.new audio_file_name: 'http://s3.amazonaws.com/streampusher/doo.mp3'
         scheduled_show = ScheduledShow.create radio: radio, start_at: start_at, end_at: end_at, title: "hey hey", image: File.new("spec/fixtures/images/pineapple.png")
         track.scheduled_show = scheduled_show
