@@ -1,2 +1,3 @@
 #!/bin/bash
+source .env
 docker-compose -p streampusher -f docker-compose-dev.yml  up
