@@ -30,7 +30,7 @@ class UploadTrackToSoundcloud
       puts "soundcloud response error: #{e.response}"
       track.soundcloud_upload_status = "soundcloud_upload_failed"
       track.save(validate: false)
-      return
+      raise e
     end
 
     # print new tracks link
