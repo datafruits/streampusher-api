@@ -37,11 +37,9 @@ ENV HOME /home/rails
 ENV RUBY_VERSION 2.7.0
 RUN git clone https://github.com/rbenv/rbenv.git /home/rails/.rbenv
 RUN git clone https://github.com/rbenv/ruby-build.git /home/rails/.rbenv/plugins/ruby-build
-RUN echo "export RBENV_ROOT=/usr/local/rbenv" >> /home/rails/.bashrc
-RUN echo 'export PATH="$RBENV_ROOT/bin:$PATH"' >> /home/rails/.bashrc
+RUN echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> /home/rails/.bashrc
 RUN echo 'eval "$(rbenv init -)"' >> /home/rails/.bashrc
 ENV PATH /home/rails/.rbenv/bin:$PATH
-ENV RBENV_ROOT /home/rails/.rbenv
 
 ENV CONFIGURE_OPTS --disable-install-doc
 RUN rbenv install $RUBY_VERSION

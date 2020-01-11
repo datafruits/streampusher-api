@@ -11,3 +11,5 @@ Paperclip::Attachment.default_options.merge!({
   url: ':s3_alias_url',
   s3_host_alias: ENV['CLOUDFRONT_URL']
 })
+
+Paperclip::DataUriAdapter.register

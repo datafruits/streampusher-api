@@ -25,6 +25,6 @@ class BlogPostBodiesController < ApplicationController
 
   private
   def blog_post_body_params
-    params.require(:blog_post_body).permit(:title, :body, :language, :blog_post_id, :published)
+    params.require(:blog_post_body).permit(:title, :body, :language, :blog_post_id, :published, :published_at)
   end
 end
