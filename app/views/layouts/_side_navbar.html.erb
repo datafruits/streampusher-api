@@ -46,14 +46,14 @@
       <% end %>
       </li>
     <% end %>
-    <% if current_user.owner? %>
+    <% if current_user.admin? %>
       <li>
         <%= link_to edit_radio_path(@current_radio) do %>
           <i class="fa fa-cog"></i>Radio Settings
         <% end %>
       </li>
     <% end %>
-    <% if current_user.owner? %>
+    <% if current_user.admin? || current_user.manager? %>
       <li>
         <%= link_to host_applications_path do %>
           Dj Applications
