@@ -57,6 +57,9 @@ $ bundle exec rake db:create
 $ bundle exec rake db:migrate
 ```
 
+You may need to fill in certain values in .env to get certain features working
+like uploading to s3 etc.
+
 If you want to work on the ember sections of the app you will need to install
 the npm dependencies with this command.
 ```
