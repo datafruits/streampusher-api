@@ -1,8 +1,4 @@
-if ENV['INSECURE_REDIS']
-  redis = Redis.new
-else
-  redis = Redis.new(password: ENV['REDIS_PASSWORD'])
-end
+redis = Redis.new(password: ENV['REDIS_PASSWORD'])
 
 Geocoder.configure(
   # Geocoding options

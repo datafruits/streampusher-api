@@ -8,17 +8,9 @@ else
   redis_url = "redis://#{host}:#{port}"
 end
 Sidekiq.configure_server do |config|
-  if ENV['INSECURE_REDIS']
-    config.redis = { url:  redis_url  }
-  else
-    config.redis = { url:  redis_url, password: password  }
-  end
+  config.redis = { url:  redis_url, password: password  }
 end
 
 Sidekiq.configure_client do |config|
-  if ENV['INSECURE_REDIS']
-    config.redis = { url:  redis_url  }
-  else
-    config.redis = { url:  redis_url, password: password  }
-  end
+  config.redis = { url:  redis_url, password: password  }
 end
