@@ -7,8 +7,6 @@ Rails.application.routes.draw do
       mount Sidekiq::Web => '/sidekiq'
   end
 
-  mount StripeEvent::Engine, at: '/stripe_events'
-
   resources :recordings, only: [:index, :show] do
     resources :process_recordings, only: [:create]
   end
@@ -32,25 +30,23 @@ Rails.application.routes.draw do
 
   resources :playlists, only: [:show, :index, :create, :update, :destroy]
 
-  resources :subscriptions, only: [:edit, :update]
-
   resources :djs
 
   devise_for :users, controllers: {
-    #registrations: "registrations",
+    registrations: "registrations",
     sessions: "sessions",
     omniauth_callbacks: "users/omniauth_callbacks"
   }
-  devise_scope :user do
-    resource :registration,
-      only: [:new, :create, :edit, :update],
-      path: 'users',
-      path_names: { new: 'sign_up' },
-      controller: 'devise/registrations',
-      as: :user_registration do
-	get :cancel
-      end
-  end
+  # devise_scope :user do
+  #   resource :registration,
+  #     only: [:new, :create, :edit, :update],
+  #     path: 'users',
+  #     path_names: { new: 'sign_up' },
+  #     controller: 'devise/registrations',
+  #     as: :user_registration do
+	# get :cancel
+  #     end
+  # end
 
   resources :anniversary_slots do
     collection do
@@ -119,9 +115,10 @@ Rails.application.routes.draw do
   resources :blog_post_bodies, only: [:create, :update]
   resources :blog_post_images, only: [:create]
 
-  # scope :api do
-  #   resources :blog_posts, only: [:show, :index]
-  # end
+  namespace :api do
+    resources :blog_posts, only: [:show, :index]
+  end
+  post "/setup" => "setup#create"
 
   root 'landing#index'
 end

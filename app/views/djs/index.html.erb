@@ -12,7 +12,7 @@
         <td><%= dj.email  %></td>
         <td><%= dj.time_zone %></td>
         <td><%= dj.role %></td>
-        <% if current_user.owner? %>
+        <% if current_user.admin? %>
           <td><%= link_to 'edit', edit_dj_path(dj) %></td>
         <% end %>
         <% if current_user.admin? %>

@@ -10,39 +10,7 @@ class Ability
       can :index, :stats if can_manage_radio?(user, radio)
       can :manage, :all
       can :update, :metadata
-    elsif user.owner?
-      can :manage, Radio do |radio|
-        can_manage_radio?(user, radio)
-      end
-      can :index, :stats if can_manage_radio?(user, radio)
-      can :manage, :dj if can_manage_radio?(user, radio)
-      can :manage, Track if can_manage_radio?(user, radio)
-      can :manage, Label if can_manage_radio?(user, radio)
-      can :manage, BlogPost do |blog_post|
-        can_manage_radio?(user, radio) && belongs_to_radio?(blog_post, radio)
-      end
-      can :index, Label if format == "json"
-      can :manage, Playlist do |playlist|
-        can_manage_radio?(user, radio) && belongs_to_radio?(playlist, radio)
-      end
-      can :manage, PlaylistTrack do |playlist_track|
-        can_manage_radio?(user, radio) && belongs_to_radio?(playlist_track.playlist, radio)
-      end
-      can :manage, Subscription, user_id: user.id
-      can :manage, ScheduledShow do |scheduled_show|
-        can_manage_radio?(user, radio) && belongs_to_radio?(scheduled_show, radio)
-      end
-      can :manage, Podcast if can_manage_radio?(user, radio) && radio.podcasts_enabled?
-      can :read, "embed"
-      can :manage, Recording if can_manage_radio?(user, radio)
-      can :vj, :dashboard if is_datafruits?(radio)
-      can :manage, SocialIdentity
-      can :update, :metadata if can_manage_radio?(user, radio)
-      can :index, :profile
-      can :create, :profile
-
-      can :index, Listen
-    elsif user.manager? # same as owner except can't manage subscription
+    elsif user.manager?
       can :manage, Radio do |radio|
         can_manage_radio?(user, radio)
       end

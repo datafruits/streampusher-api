@@ -19,7 +19,6 @@
 //= require moment
 //= require moment-timezone
 //= require fullcalendar/fullcalendar.js
-//= require jquery.payment
 //= require chartjs
 //= require jplayer/jquery.jplayer.js
 //= require underscore
@@ -38,7 +37,6 @@
 //= require registrations
 //= require scheduled_shows
 //= require stats
-//= require subscriptions
 //= require live
 //= require clock
 //= require bootstrap-tour

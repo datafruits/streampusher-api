@@ -66,9 +66,6 @@
                 <li><%= link_to "Admin", admin_path %></li>
                 <li><%= link_to 'Monitoring', sidekiq_web_path %></li>
               <% end %>
-              <% if current_user.owner? %>
-                <li><%= link_to "Subscription", edit_subscription_path(current_user.subscription) %></li>
-              <% end %>
               <li><a href="#" class="start-tour">User Tour</a></li>
               <li class="divider"></li>
               <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>

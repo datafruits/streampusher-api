@@ -1,16 +1,21 @@
 <!-- Your Ember app will be rendered here. -->
 <div id="app-data"
   data-connected-accounts="<%=
-    if current_user.manager? || current_user.owner? || current_user.admin?
+    if current_user.manager? || current_user.admin?
       json_escape(ActiveModel::ArraySerializer.new(@connected_accounts,
                                                       each_serializer: SocialIdentitySerializer).to_json)
     end
   %>">
 </div>
 <div id="ember-application"></div>
+<% if Rails.env.production? %>
+  <%= include_ember_script_tags :frontend %>
+  <%= include_ember_stylesheet_tags :frontend %>
+<% else %>
   <% prepend = asset_url("/assets/ember-cli/apps/frontend/") %>
   <%= include_ember_script_tags :frontend, prepend: prepend %>
   <%= include_ember_stylesheet_tags :frontend, prepend: prepend %>
+<% end %>
 <div id="disk-usage">
   You are currently using <strong><%= number_to_human_size(@current_radio.disk_usage) %></strong> of storage.
 </div>

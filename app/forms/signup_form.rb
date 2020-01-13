@@ -1,20 +1,22 @@
 class SignupForm
   include ActiveModel::Model
-  attr_reader :user, :subscription, :radio
+  attr_reader :user, :radio
   attr_accessor :referer
   delegate :email, :email=, :password, :password=, to: :user
   delegate :name, to: :radio
-  delegate :plan_id, :coupon, to: :subscription
 
-  def initialize user=User.new, subscription=Subscription.new, radio=Radio.new
+  def initialize user=User.new, radio=Radio.new
     @user = user
-    @user.role = "owner"
-    @subscription = subscription
+    @user.role = "admin"
     @radio = radio
   end
 
+  def radio_name= name
+    @radio.name = name
+  end
+
   def any_errors?
-    self.user.errors.any? || self.subscription.errors.any? || self.radio.errors.any?
+    self.user.errors.any? || self.radio.errors.any?
   end
 
   def attributes= attrs
@@ -25,23 +27,12 @@ class SignupForm
     @user.referer = referer
   end
 
-  def subscription= attrs
-    @subscription.plan_id = attrs[:plan_id]
-    @subscription.stripe_card_token = attrs[:stripe_card_token]
-    @subscription.coupon = attrs[:coupon]
-    @radio.name = attrs[:radios][:name]
-  end
-
   def save
     begin
       ActiveRecord::Base.transaction do
         if @user.save!
-          @subscription.user_id = @user.id
-          @subscription.radios << @radio
           if @radio.save!
-            @user.subscription = subscription
-            @user.subscription.save_with_free_trial!
-            @user.radios << @user.subscription.radios.first
+            @user.radios << @radio
             ActiveSupport::Notifications.instrument 'user.signup', email: @user.email, radio: @radio.name
             UserSignedUpNotifier.notify @user
             @radio.boot_radio

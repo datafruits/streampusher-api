@@ -9,4 +9,6 @@ describe UploadTrackToSoundcloud do
       track = FactoryBot.create :track, audio_file_name: "https://s3.amazonaws.com/streampushertest/datafruits-ovenrake-12-01-2015.mp3", artwork: File.new(File.join(Rails.root.to_s, "spec/fixtures/images/artwork2.png"))
     end
   end
+
+  xit "raises if there is an error"
 end
