@@ -1,8 +1,8 @@
-require 'factory_girl'
+require 'factory_bot'
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :playlist do
-    name :my_playlist
+    name { :my_playlist }
     association :radio
   end
 end

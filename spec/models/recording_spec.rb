@@ -7,9 +7,9 @@ RSpec.describe Recording, :type => :model do
   end
 
   xit "merges multiple recordings into one file" do
-    radio = FactoryGirl.create :radio
-    recording1 = FactoryGirl.create :recording, file: File.new("spec/fixtures/the_cowbell.mp3"), radio: radio
-    recording2 = FactoryGirl.create :recording, file: File.new("spec/fixtures/unhappy_supermarket_lektro.mp3"), radio: radio
+    radio = FactoryBot.create :radio
+    recording1 = FactoryBot.create :recording, file: File.new("spec/fixtures/the_cowbell.mp3"), radio: radio
+    recording2 = FactoryBot.create :recording, file: File.new("spec/fixtures/unhappy_supermarket_lektro.mp3"), radio: radio
     Recording.merge recording1, recording2
     new_recording = Recording.last
     expect(new_recording.file_file_name).to eq "the_cowbell.mp3"
@@ -21,9 +21,9 @@ RSpec.describe Recording, :type => :model do
   xit "works when recordings are stored on s3" do
     use_s3_for_paperclip do
       VCR.use_cassette "merge recordings when using S3 storage", :match_requests_on => [:method, :s3_uri_matcher] do
-        radio = FactoryGirl.create :radio
-        recording2 = FactoryGirl.create :recording, file: File.new("spec/fixtures/unhappy_supermarket_lektro.mp3"), radio: radio
-        recording1 = FactoryGirl.create :recording, file: File.new("spec/fixtures/the_cowbell.mp3"), radio: radio
+        radio = FactoryBot.create :radio
+        recording2 = FactoryBot.create :recording, file: File.new("spec/fixtures/unhappy_supermarket_lektro.mp3"), radio: radio
+        recording1 = FactoryBot.create :recording, file: File.new("spec/fixtures/the_cowbell.mp3"), radio: radio
         Recording.merge recording1, recording2
         new_recording = Recording.last
         expect(new_recording.file_file_name).to eq "unhappy_supermarket_lektro.mp3"

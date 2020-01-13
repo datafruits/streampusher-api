@@ -1,7 +1,7 @@
-require 'factory_girl'
+require 'factory_bot'
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :plan do
-    name "Free Trial"
+    name { "Free Trial" }
   end
 end

@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe SaveRecording do
   it "saves a new recording model given a path and radio" do
-    radio = FactoryGirl.create :radio, name: "datafruits"
-    shinta = FactoryGirl.create :user, username: "shintaro.yonezawa"
+    radio = FactoryBot.create :radio, name: "datafruits"
+    shinta = FactoryBot.create :user, username: "shintaro.yonezawa"
     filename = "/home/liquidsoap/tracks/datafruits/datafruits-LIVE -- shintaro.yonezawa - 05-30-2016, 12:12:02.mp3"
     local_path = File.join(radio.tracks_directory, File.basename(filename))
     FileUtils.copy "spec/fixtures/unhappy_supermarket_lektro.mp3", local_path

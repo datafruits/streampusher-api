@@ -7,7 +7,7 @@ describe UserSignedUpNotifier do
   end
 
   it "sets up the onboarding drip campaign" do
-    user = FactoryGirl.create :user
+    user = FactoryBot.create :user
     UserSignedUpNotifier.notify user
   end
 end

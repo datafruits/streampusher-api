@@ -1,7 +1,7 @@
-require 'factory_girl'
+require 'factory_bot'
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :scheduled_show do
-    title "hey"
+    title { "hey" }
   end
 end

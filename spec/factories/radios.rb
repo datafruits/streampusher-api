@@ -1,7 +1,8 @@
-require 'factory_girl'
+require 'factory_bot'
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :radio do
-    name 'datafruits'
+    name { 'datafruits' }
+    association :subscription
   end
 end
