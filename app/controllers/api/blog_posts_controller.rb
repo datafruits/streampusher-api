@@ -4,7 +4,7 @@ class Api::BlogPostsController < ApplicationController
   def index
     @blog_posts = @current_radio.blog_posts.published.includes(:blog_post_bodies)
 
-    render json: @blog_posts
+    render json: @blog_posts, each_serializer: PublicBlogPostSerializer
   end
 
   def show

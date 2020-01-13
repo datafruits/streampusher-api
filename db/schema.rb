@@ -10,18 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200111064532) do
+ActiveRecord::Schema.define(version: 20200113200131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "blog_post_bodies", force: :cascade do |t|
-    t.integer  "language",     default: 0, null: false
-    t.integer  "blog_post_id",             null: false
-    t.string   "title",                    null: false
+    t.integer  "language",     default: 0,     null: false
+    t.integer  "blog_post_id",                 null: false
+    t.string   "title",                        null: false
     t.text     "body"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "published",    default: false, null: false
     t.index ["blog_post_id"], name: "index_blog_post_bodies_on_blog_post_id", using: :btree
   end
 
@@ -35,11 +36,10 @@ ActiveRecord::Schema.define(version: 20200111064532) do
   end
 
   create_table "blog_posts", force: :cascade do |t|
-    t.integer  "user_id",                      null: false
-    t.integer  "radio_id",                     null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.boolean  "published",    default: false, null: false
+    t.integer  "user_id",      null: false
+    t.integer  "radio_id",     null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.datetime "published_at"
     t.index ["radio_id"], name: "index_blog_posts_on_radio_id", using: :btree
     t.index ["user_id"], name: "index_blog_posts_on_user_id", using: :btree
