@@ -14,11 +14,13 @@ services:
     image: "postgres:9.4"
     ports:
       - 5432
+    volumes:
+      - postgres_data_9.4:/var/lib/postgresql/data
   rails:
     image: "streampusher/streampusher:latest"
     user: rails
     working_dir: /home/rails/app
-    command: ./docker_wrapper.sh bundle exec rails server -p 3000 -b '0.0.0.0'
+    command: ./script/rails
     env_file: .env
     environment: &shared_env
       POSTGRESQL_HOST: postgres
@@ -49,3 +51,6 @@ services:
       - .:/home/rails/app
       -  /var/run/docker.sock:/var/run/docker.sock
       - /tmp:/tmp
+
+volumes:
+  postgres_data_9.4:
