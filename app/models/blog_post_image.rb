@@ -3,7 +3,8 @@ class BlogPostImage < ApplicationRecord
   before_save :clean_filename
 
   def cdn_url
-    "https://#{ENV['CLOUDFRONT_URL']}/#{s3_filepath}?#{self.updated_at.to_i}"
+    radio_name = blog_post_body.blog_post.radio.container_name
+    "https://#{ENV['CLOUDFRONT_URL']}/#{radio_name}/#{s3_filepath}?#{self.updated_at.to_i}"
   end
 
   def s3_url
