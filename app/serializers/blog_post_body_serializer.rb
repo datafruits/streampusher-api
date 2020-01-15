@@ -1,5 +1,5 @@
 class BlogPostBodySerializer < ActiveModel::Serializer
-  attributes :id, :body, :title, :language, :rendered_body
+  attributes :id, :body, :title, :language, :rendered_body, :published, :published_at
   has_many :blog_post_images, embed: :ids, key: :blog_post_images, embed_in_root: true
 
   def rendered_body
