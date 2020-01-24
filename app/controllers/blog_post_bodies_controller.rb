@@ -7,7 +7,7 @@ class BlogPostBodiesController < ApplicationController
     if @blog_post_body.save
       render json: @blog_post_body
     else
-      render json: @blog_post_body.errors
+      render json: @blog_post_body.errors, status: :unprocessable_entity
     end
   end
 
