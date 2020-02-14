@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200113200131) do
+ActiveRecord::Schema.define(version: 20200214175539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20200113200131) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.boolean  "approved",      default: false, null: false
+    t.string   "homepage_url"
     t.index ["radio_id"], name: "index_host_applications_on_radio_id", using: :btree
   end
 

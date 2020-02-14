@@ -4,6 +4,7 @@
     <th>created at</th>
     <th>username</th>
     <th>link</th>
+    <th>homepage</th>
     <th>interval</th>
     <th>desired time</th>
     <th>approve</th>
@@ -15,6 +16,7 @@
         <td><%= host_application.created_at%></td>
         <td><%= host_application.username %></td>
         <td><%= host_application.link %></td>
+        <td><%= host_application.homepage_url %></td>
         <td><%= host_application.interval %></td>
         <td><%= host_application.desired_time %></td>
         <% if host_application.approved? %>
