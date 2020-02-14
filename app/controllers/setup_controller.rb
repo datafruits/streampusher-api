@@ -15,6 +15,14 @@ class SetupController < ApplicationController
     end
   end
 
+  def allowed
+    if User.count > 0 && Radio.count > 0
+      render json: "not allowed", status: 401
+    else
+      render json: "ok", status: 200
+    end
+  end
+
   private
 
   def create_new_form
