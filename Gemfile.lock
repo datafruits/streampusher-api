@@ -1479,6 +1479,7 @@ DEPENDENCIES
   headless
   high_voltage
   html-pipeline
+  httparty
   jquery-rails
   jquery-ui-rails
   kaminari

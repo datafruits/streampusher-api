@@ -22,4 +22,8 @@ ExceptionNotification.configure do |config|
       :mrkdwn => true
     }
   }
+
+  config.add_notifier :webhook, {
+    url: ENV['DISCORD_ERROR_WEBHOOK_URL']
+  }
 end

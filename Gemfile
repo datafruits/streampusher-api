@@ -72,6 +72,7 @@ end
 
 gem 'byebug'
 gem 'slackistrano', require: false
+gem 'httparty'
 gem 'exception_notification'
 gem 'slack-notifier'
 
