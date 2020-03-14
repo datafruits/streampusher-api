@@ -161,6 +161,12 @@ class ScheduledShow < ActiveRecord::Base
     end
   end
 
+  def fall_back_recurrances_for_dst!
+    recurrences_to_update.each do |r|
+      r.update start_at: r.start_at-1.hour, end_at: r.end_at-1.hour
+    end
+  end
+
   private
   def recurring_interval_changed?
     self.changes.has_key? "recurring_interval"
