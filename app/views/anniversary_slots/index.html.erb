@@ -20,7 +20,7 @@ You are welcome to play for 60 minutes instead, just pick two slots in a row!
             <td><%= f.submit value: "Choose this slot" %></td>
           <% end %>
         <% else %>
-          <td><strong><%= show.title %></strong></td>
+          <td><strong><%= link_to show.title, scheduled_show_path(show.id) %></strong></td>
           <% if show.dj == current_user %>
             <td><%= link_to "Delete", anniversary_slot_path(show), method: :delete %></td>
           <% end %>
