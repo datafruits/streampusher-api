@@ -15,8 +15,8 @@ class AnniversarySlotsController < ApplicationController
   def index
     authorize! :index, :anniversary_slot
     @slots = []
-    start_time = Time.utc(2017,1,6).in_time_zone
-    end_time = Time.utc(2017,1,9).in_time_zone
+    start_time = Time.utc(2020,3,27).in_time_zone
+    end_time = Time.utc(2020,3,30).in_time_zone
     hour = start_time
     while hour < end_time
       start_at = hour
