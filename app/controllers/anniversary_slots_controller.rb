@@ -1,4 +1,6 @@
 class AnniversarySlotsController < ApplicationController
+  before_action :current_radio_required
+
   def create
     authorize! :create, :anniversary_slot
     @show = @current_radio.scheduled_shows.new show_params
@@ -21,12 +23,11 @@ class AnniversarySlotsController < ApplicationController
     while hour < end_time
       start_at = hour
       end_at = hour+30.minutes
-      # binding.pry
-      show = ScheduledShow.where("start_at <= (?) AND end_at >= (?)", start_at, end_at).first
+      show = @current_radio.scheduled_shows.where("start_at <= (?) AND end_at >= (?)", start_at, end_at).first
       if show
         @slots << show
       else
-        @slots << ScheduledShow.new(start_at: start_at, end_at: end_at)
+        @slots << @current_radio.scheduled_shows.new(start_at: start_at, end_at: end_at)
       end
       hour += 30.minutes
     end
