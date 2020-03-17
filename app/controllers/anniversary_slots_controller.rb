@@ -22,7 +22,7 @@ class AnniversarySlotsController < ApplicationController
       start_at = hour
       end_at = hour+30.minutes
       # binding.pry
-      show = ScheduledShow.where(start_at: start_at, end_at: end_at).first
+      show = ScheduledShow.where("start_at <= (?) AND end_at >= (?)", start_at, end_at).first
       if show
         @slots << show
       else
