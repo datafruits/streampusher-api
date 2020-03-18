@@ -23,7 +23,7 @@ ExceptionNotification.configure do |config|
     }
   }
 
-  config.add_notifier :webhook, {
-    url: ENV['DISCORD_ERROR_WEBHOOK_URL']
+  config.add_notifier :slack, {
+    webhook_url: ENV['DISCORD_ERROR_WEBHOOK_URL']
   }
 end
