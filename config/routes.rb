@@ -102,6 +102,7 @@ Rails.application.routes.draw do
   post '/metadata' => "metadata#create"
   post '/publish_metadata' => "publish_metadata#create"
   post '/live_notification' => "live_notification#create"
+  post '/donation_link' => "donation_link#create"
 
   resources :host_applications, only: [:create, :index] do
     resources :approvals, only: [:create]
