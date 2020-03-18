@@ -1,11 +1,13 @@
 class DonationLinkController < ApplicationController
   before_action :current_radio_required
   def create
-    if liq_authorized?
-      DonationLinkUpdater.perform @current_radio.name, donation_link_params[:url]
-      head :ok
+    authorize! :update, :metadata
+    if DonationLinkUpdater.perform @current_radio.name, donation_link_params[:url]
+      flash[:notice] = "Updated!"
+      render 'create'
     else
-      render json: "not permitted", status: :unauthorized
+      flash[:error] = "Sorry, there was an error..."
+      render 'error'
     end
   end
 
