@@ -2,7 +2,7 @@ class SkipTrackController < ApplicationController
   before_action :current_radio_required
   def create
     authorize! :update, :metadata
-    if SkipTrack.perform @current_radio.name
+    if SkipTrack.perform @current_radio
       flash[:notice] = "Updated!"
       render 'create'
     else
