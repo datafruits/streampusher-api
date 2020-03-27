@@ -1,11 +1,13 @@
+<h1>currently connected IPs</h1>
 <table>
   <tbody>
     <% @connections.each do |connection| %>
       <tr>
         <td>
-          <% connection %>
+          <%= connection %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<h1>banned users</h1>

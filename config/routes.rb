@@ -116,7 +116,7 @@ Rails.application.routes.draw do
   resources :blog_post_bodies, only: [:create, :update]
   resources :blog_post_images, only: [:create]
 
-  resources :chat_bans, only: [:index]
+  resources :chat_bans, only: [:index, :create, :destroy]
 
   namespace :api do
     resources :blog_posts, only: [:show, :index]
