@@ -17,6 +17,10 @@
         <%= f.text_field :url %>
         <%= f.submit value: "Update", class: "btn btn-success" %>
       <% end %>
+      <h3>Skip track</h3>
+      <%= form_for :skip_track, url: skip_track_path, remote: true do |f| %>
+        <%= f.submit value: "Skip", class: "btn btn-success" %>
+      <% end %>
     </div>
     <div class="col-md-6">
       <h3>Upcoming Show</h3>
