@@ -34,7 +34,9 @@ class Playlist < ActiveRecord::Base
     redis = Redis.current
     track_id = redis.rpop redis_key
     return if track_id.blank?
-    redis.lpush redis_key, track_id
+    if self.repeat?
+      redis.lpush redis_key, track_id
+    end
     track_id
   end
 

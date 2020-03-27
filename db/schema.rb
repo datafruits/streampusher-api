@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200214175539) do
+ActiveRecord::Schema.define(version: 20200327115945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(version: 20200214175539) do
     t.boolean  "no_cue_out",                                 default: false, null: false
     t.boolean  "shuffle",                                    default: false, null: false
     t.integer  "user_id"
+    t.boolean  "repeat",                                     default: false, null: false
     t.index ["interpolated_playlist_id"], name: "index_playlists_on_interpolated_playlist_id", using: :btree
     t.index ["radio_id"], name: "index_playlists_on_radio_id", using: :btree
     t.index ["user_id"], name: "index_playlists_on_user_id", using: :btree
@@ -350,6 +351,7 @@ ActiveRecord::Schema.define(version: 20200214175539) do
     t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.boolean  "profile_publish",        default: false, null: false
+    t.string   "donation_link"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
