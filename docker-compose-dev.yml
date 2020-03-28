@@ -28,7 +28,8 @@ services:
       POSTGRESQL_USERNAME: postgres
       REDIS_HOST: redis
     depends_on:
-      - postgres - redis
+      - postgres
+      - redis
     volumes:
       - .:/home/rails/app
       - /tmp:/tmp
