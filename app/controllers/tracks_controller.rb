@@ -54,7 +54,7 @@ class TracksController < ApplicationController
       render json: @track
     else
       flash[:error] = 'error uploading track :('
-      render json: @track.errors
+      render json: @track.errors, status: :unprocessable_entity
     end
   end
 
@@ -65,7 +65,7 @@ class TracksController < ApplicationController
       render json: @track
     else
       flash[:error] = "error destroying track. try again?"
-      render json: @track.errors
+      render json: @track.errors, status: :unprocessable_entity
     end
   end
 

@@ -38,7 +38,7 @@ class ScheduledShow < ActiveRecord::Base
   before_destroy :maybe_destroy_recurrences
 
   before_save :ensure_time_zone
-
+  before_validation :set_default_playlist_if_blank
 
   enum recurring_interval: [:not_recurring, :day, :week, :month, :year, :biweek]
 
@@ -267,5 +267,11 @@ class ScheduledShow < ActiveRecord::Base
 
   def is_original_recurrant?
     !self.recurrant_original_id.present?
+  end
+
+  def set_default_playlist_if_blank
+    unless self.playlist.present?
+      self.playlist = self.radio.default_playlist
+    end
   end
 end

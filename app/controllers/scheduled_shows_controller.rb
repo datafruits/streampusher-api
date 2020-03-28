@@ -1,6 +1,6 @@
 class ScheduledShowsController < ApplicationController
   load_and_authorize_resource except: [:edit, :update, :destroy]
-  before_action :current_radio_required, only: [:index, :edit]
+  before_action :current_radio_required, only: [:index, :edit, :create]
 
   def new
     performer = @scheduled_show.scheduled_show_performers.build
@@ -50,14 +50,29 @@ class ScheduledShowsController < ApplicationController
 
   def create
     @scheduled_show.dj_id = current_user.id
+    @scheduled_show.radio = current_radio
     if @scheduled_show.save
       ActiveSupport::Notifications.instrument 'scheduled_show.created', current_user: current_user.email, radio: @current_radio.name, show: @scheduled_show.title
       flash[:notice] = "Scheduled show!"
-      redirect_to_with_js scheduled_shows_path
+      respond_to do |format|
+        format.html {
+          redirect_to_with_js scheduled_shows_path
+        }
+        format.json {
+          render json: @scheduled_show
+        }
+      end
     else
       # setup_index
       flash[:error] = "Error scheduling show."
-      render 'new'
+      respond_to do |format|
+        format.html {
+          render 'new'
+        }
+        format.json {
+          render json: @scheduled_show.errors
+        }
+      end
     end
   end
 
@@ -100,6 +115,7 @@ class ScheduledShowsController < ApplicationController
     params.require(:scheduled_show).permit(:title, :radio_id, :start_at,
                                            :end_at, :description, :image, :update_all_recurrences,
                                            :recurring_interval, :playlist_id, :time_zone,
+                                           :start, :end,
                                            scheduled_show_performers_attributes: [:id, :user_id])
   end
 end
