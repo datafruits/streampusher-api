@@ -2,14 +2,14 @@
 lock '3.11.2'
 
 set :application, 'stream_pusher'
-set :repo_url, 'git@gitlab.com:streampusher/stream_pusher.git'
+set :repo_url, 'git@github.com:streampusher/api.git'
 
 # setup rbenv
 set :rbenv_type, :system
 set :rbenv_ruby, '2.6.5'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 
-set :slack_webhook, 'https://hooks.slack.com/services/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'
+set :slack_webhook, ENV['DEPLOY_NOTIFY_URL']
 
 set :deploy_user, "deploy"
 
