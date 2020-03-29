@@ -9,7 +9,16 @@ class NextTrack
       playlist = current_scheduled_show.playlist_or_default
       track_id = playlist.pop_next_track
       if track_id.blank?
-        return { error: "No tracks!" }
+        next_scheduled_show = radio.next_scheduled_show now
+        if next_scheduled_show
+          next_playlist = next_scheduled_show.playlist_or_default
+          next_track_id = next_playlist.pop_next_track
+          if next_track_id
+            track_id = next_track_id
+          end
+        else
+          return { error: "No tracks!" }
+        end
       end
       track = Track.find track_id
       if playlist.no_cue_out?
