@@ -14,6 +14,7 @@ class NextTrack
           next_playlist = next_scheduled_show.playlist_or_default
           next_track_id = next_playlist.pop_next_track
           if next_track_id
+            radio.set_current_show_playing next_scheduled_show.id
             track_id = next_track_id
           else
             return { error: "No tracks!" }
