@@ -4,7 +4,6 @@ class NextTrack
   def self.perform radio
     now = Time.now
     current_scheduled_show = radio.current_scheduled_show now+REQUEST_OFFSET
-    puts "current scheduled show in NextTrack is: #{current_scheduled_show.title}"
     if current_scheduled_show
       radio.set_current_show_playing current_scheduled_show.id
       playlist = current_scheduled_show.playlist_or_default
@@ -16,6 +15,8 @@ class NextTrack
           next_track_id = next_playlist.pop_next_track
           if next_track_id
             track_id = next_track_id
+          else
+            return { error: "No tracks!" }
           end
         else
           return { error: "No tracks!" }
