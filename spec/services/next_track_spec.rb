@@ -153,8 +153,4 @@ describe NextTrack do
       expect(NextTrack.perform(radio)).to eq({ cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0", track: track_1.audio_file_name })
     end
   end
-
-  it "queues next_scheduled_show's playlist if the current show has no more tracks" do
-
-  end
 end
