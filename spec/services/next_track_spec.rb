@@ -31,12 +31,12 @@ describe NextTrack do
       start_at: Chronic.parse("January 1st 2092 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2092 at 01:30 am")
 
     Timecop.travel Chronic.parse("January 1st 2090 at 11:30 pm") do
-      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0", track: track_1.cdn_url})
+      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0", track: track_1.audio_file_name })
     end
 
     Timecop.travel Chronic.parse("January 1st 2092 at 11:30 pm") do
-      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0",  track: track_3.cdn_url})
-      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0",  track: track_2.cdn_url})
+      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0",  track: track_3.audio_file_name })
+      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0",  track: track_2.audio_file_name})
     end
   end
 
@@ -61,7 +61,7 @@ describe NextTrack do
       start_at: Chronic.parse("January 1st 2090 at 11:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
 
     Timecop.travel Chronic.parse("January 1st 2090 at 10:30 pm") do
-      expect(NextTrack.perform(radio)).to eq({ cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "3599", track: track_1.cdn_url})
+      expect(NextTrack.perform(radio)).to eq({ cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "3599", track: track_1.audio_file_name })
     end
   end
 
@@ -83,7 +83,7 @@ describe NextTrack do
       start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
 
     Timecop.travel Chronic.parse("January 1st 2020 at 11:30 pm") do
-      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0", track: track_2.cdn_url})
+      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0", track: track_2.audio_file_name })
     end
   end
 
@@ -105,7 +105,7 @@ describe NextTrack do
       start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
 
     Timecop.travel Chronic.parse("January 1st 2090 at 09:30 pm") do
-      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "3599", track: track_2.cdn_url})
+      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "3599", track: track_2.audio_file_name })
     end
   end
 
@@ -150,31 +150,11 @@ describe NextTrack do
       start_at: Chronic.parse("January 1st 2090 at 11:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
 
     Timecop.travel Chronic.parse("January 1st 2090 at 10:30 pm") do
-      expect(NextTrack.perform(radio)).to eq({ cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0", track: track_1.cdn_url})
+      expect(NextTrack.perform(radio)).to eq({ cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0", track: track_1.audio_file_name })
     end
   end
 
   it "queues next_scheduled_show's playlist if the current show has no more tracks" do
-    track_1 = FactoryBot.create :track, radio: radio
-    track_1.update length: 120
-    playlist_1 = FactoryBot.create :playlist, radio: radio
-    playlist_1.tracks << track_1
-    PersistPlaylistToRedis.perform playlist_1
 
-    track_2 = FactoryBot.create :track, radio: radio, audio_file_name: "spec/fixtures/datafruits-ovenrake-12-01-2015.mp3"
-    track_2.update length: 8221
-    playlist_2 = FactoryBot.create :playlist, name: "my_playlist_2", radio: radio
-    playlist_2.tracks << track_2
-    PersistPlaylistToRedis.perform playlist_2
-
-    scheduled_show_1 = FactoryBot.create :scheduled_show, playlist: playlist_1, radio: radio,
-      start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 1st 2090 at 11:30 pm")
-    scheduled_show_2 = FactoryBot.create :scheduled_show, playlist: playlist_2, radio: radio,
-      start_at: Chronic.parse("January 1st 2090 at 11:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 12:30 am")
-
-    Timecop.travel Chronic.parse("January 1st 2090 at 10:30 pm") do
-      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0", track: track_1.cdn_url})
-      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "3599", track: track_2.cdn_url})
-    end
   end
 end
