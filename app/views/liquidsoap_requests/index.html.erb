@@ -1,0 +1,11 @@
+<table>
+  <tbody>
+    <% @requests.each do |request| %>
+      <tr>
+        <td><strong>Request ID:</strong> <%= request %></td>
+        <td><%= LiquidsoapRequests.metadata @current_radio, request %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<strong>On air request:</strong> <%= @on_air %>

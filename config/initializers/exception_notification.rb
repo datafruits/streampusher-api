@@ -13,16 +13,7 @@ ExceptionNotification.configure do |config|
     :exception_recipients => %w{info@streampusher.com}
   }
 
-  config.add_notifier :slack, {
-    :webhook_url => "https://hooks.slack.com/services/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",
-    :channel => "#dev",
-    :additional_parameters => {
-      #:icon_url => "http://image.jpg",
-      :icon_emoji => "boom",
-      :mrkdwn => true
-    }
-  }
-
+  # this is actually for discord
   config.add_notifier :slack, {
     webhook_url: ENV['DISCORD_ERROR_WEBHOOK_URL']
   }

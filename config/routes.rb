@@ -116,6 +116,7 @@ Rails.application.routes.draw do
   resources :blog_posts, only: [:index, :create, :show, :update]
   resources :blog_post_bodies, only: [:create, :update]
   resources :blog_post_images, only: [:create]
+  resources :liquidsoap_requests, only: [:index]
 
   namespace :api do
     resources :blog_posts, only: [:show, :index]
