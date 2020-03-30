@@ -78,6 +78,14 @@ class Track < ActiveRecord::Base
     end
   end
 
+  def formatted_duration
+    if self.length
+      minutes = (self.length / 60).floor
+      seconds = self.length - minutes * 60
+      "#{minutes}:#{seconds}"
+    end
+  end
+
   private
   def set_tags_from_scheduled_show
     if self.scheduled_show.present?
