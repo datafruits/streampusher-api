@@ -231,7 +231,7 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :mixcloud, ENV['MIXCLOUD_CLIENT_ID'], ENV['MIXCLOUD_SECRET'], provider_ignores_state: true
-  config.omniauth "soundcloud", ENV['SOUNDCLOUD_CLIENT_ID'], ENV['SOUNDCLOUD_SECRET']
+  config.omniauth "soundcloud", ENV['SOUNDCLOUD_CLIENT_ID'], ENV['SOUNDCLOUD_SECRET'], client_options: { redirect_uri: ENV['SOUNDCLOUD_REDIRECT_URI'] }
   config.omniauth :tumblr, ENV['TUMBLR_KEY'], ENV['TUMBLR_SECRET']
 
 
