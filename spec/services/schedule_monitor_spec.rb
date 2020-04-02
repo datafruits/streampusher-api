@@ -28,5 +28,5 @@ describe ScheduleMonitor do
   end
 
   xit "doesn't skip if the current show is not over yet and no_cue_out is set on the current show"
-  xit ""
+  xit "skips to the right track if the queue is full"
 end
