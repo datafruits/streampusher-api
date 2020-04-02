@@ -1,0 +1,30 @@
+<h1>currently connected IPs</h1>
+<table>
+  <tbody>
+    <% @connections.each do |connection| %>
+      <tr>
+        <td>
+          <%= connection %>
+        </td>
+        <td>
+          <%= form_for :chat_ban, url: chat_bans_path, remote: true do |f| %>
+            <%= f.hidden_field :socket_id, value: connection %>
+            <%= f.submit value: "Ban", class: "btn btn-success" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<h1>banned users</h1>
+<table>
+  <tbody>
+    <% @bans.each do |connection| %>
+      <tr>
+        <td>
+          <%= connection %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
