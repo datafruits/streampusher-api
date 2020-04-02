@@ -119,9 +119,7 @@ Rails.application.routes.draw do
   resources :liquidsoap_requests, only: [:index]
 
   resources :chat_bans, only: [:index, :create] do
-    collection do
-      post 'destroy'
-    end
+    delete :index, on: :collection, action: :destroy
   end
 
   namespace :api do
