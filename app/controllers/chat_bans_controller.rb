@@ -8,16 +8,24 @@ class ChatBansController < ApplicationController
   def create
     authorize! :admin, :chats
     Chat.ban chat_ban_params[:socket_id]
-    flash[:notice] = "Banned!"
-    render 'create'
+    respond_to do |format|
+      flash[:notice] = "Banned!"
+      format.html {
+        redirect_to chat_bans_path
+      }
+    end
   end
 
   def destroy
     authorize! :admin, :chats
     ip_address = chat_ban_params[:ip_address]
     Chat.unban ip_address
-    flash[:notice] = "Unbanned!"
-    render 'create'
+    respond_to do |format|
+      flash[:notice] = "Unbanned!"
+      format.html {
+        redirect_to chat_bans_path
+      }
+    end
   end
 
   private
