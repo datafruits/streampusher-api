@@ -14,13 +14,14 @@ class ChatBansController < ApplicationController
 
   def destroy
     authorize! :admin, :chats
-    Chat.unban chat_ban_params[:socket_id]
+    ip_address = chat_ban_params[:ip_address]
+    Chat.unban ip_address
     flash[:notice] = "Unbanned!"
     render 'create'
   end
 
   private
   def chat_ban_params
-    params.require(:chat_ban).permit(:socket_id)
+    params.require(:chat_ban).permit(:socket_id, :ip_address)
   end
 end

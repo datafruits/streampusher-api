@@ -24,6 +24,12 @@
         <td>
           <%= connection %>
         </td>
+        <td>
+          <%= form_for :chat_ban, url: chat_bans_path, remote: true do |f| %>
+            <%= f.hidden_field :ip_address, value: connection %>
+            <%= f.submit value: "Unban", class: "btn btn-success" %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

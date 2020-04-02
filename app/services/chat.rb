@@ -8,13 +8,12 @@ class Chat
   end
 
   def self.ban socket_id
-    ip_address = socket_id.split(":").last
+    ip_address = socket_id.split(":")[1]
     Redis.current.sadd "datafruits:chat:ips:banned", ip_address
     Redis.current.publish "datafruits:chat:bans", socket_id
   end
 
-  def self.unban socket_id
-    ip_address = socket_id.split(":").last
+  def self.unban ip_address
     Redis.current.srem "datafruits:chat:ips:banned", ip_address
   end
 end

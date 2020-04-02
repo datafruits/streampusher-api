@@ -118,7 +118,11 @@ Rails.application.routes.draw do
   resources :blog_post_images, only: [:create]
   resources :liquidsoap_requests, only: [:index]
 
-  resources :chat_bans, only: [:index, :create, :destroy]
+  resources :chat_bans, only: [:index, :create] do
+    collection do
+      post 'destroy'
+    end
+  end
 
   namespace :api do
     resources :blog_posts, only: [:show, :index]
