@@ -26,4 +26,7 @@ describe ScheduleMonitor do
       ScheduleMonitor.perform radio, Time.now, liquidsoap_socket_class
     end
   end
+
+  xit "doesn't skip if the current show is not over yet and no_cue_out is set on the current show"
+  xit ""
 end
