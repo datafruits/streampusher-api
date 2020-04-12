@@ -11,9 +11,9 @@ class DjsController < ApplicationController
         @dj = @djs.new
       }
       format.json {
-        @djs = @current_radio.active_djs
+        @djs = @current_radio.users
         response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
-        render json: @djs, each_serializer: DjSerializer
+        render json: @djs
       }
     end
   end
@@ -42,19 +42,39 @@ class DjsController < ApplicationController
     begin
       @dj = DjSignup.perform dj_params, @current_radio
       if @dj.persisted?
-        flash[:notice] = "Created DJ account for #{@dj.email}"
-        redirect_to djs_path
+        respond_to do |format|
+          format.html {
+            flash[:notice] = "Created DJ account for #{@dj.email}"
+            redirect_to djs_path
+          }
+          format.json {
+            render json: @dj
+          }
+        end
       else
-        flash[:error] = "Error saving this DJ account"
-        @djs = @current_radio.djs.page(params[:page])
-        render 'index'
+        respond_to do |format|
+          format.html {
+            flash[:error] = "Error saving this DJ account"
+            @djs = @current_radio.djs.page(params[:page])
+            render 'index'
+          }
+          format.json {
+            render json: @dj.errors, status: :unprocessable_entity
+          }
+        end
       end
     rescue ExistingUserRadio => e
-      flash[:error] = "User already exists on this radio."
-      # flash[:error] = "Couldn't create dj account"
-      @djs = @current_radio.djs.page(params[:page])
-      @dj = @djs.new
-      render 'index'
+      respond_to do |format|
+        format.html {
+          flash[:error] = "User already exists on this radio."
+          @djs = @current_radio.djs.page(params[:page])
+          @dj = @djs.new
+          render 'index'
+        }
+        format.json {
+          render json: @dj.errors, status: :unprocessable_entity
+        }
+      end
     end
   end
 
@@ -68,13 +88,27 @@ class DjsController < ApplicationController
     @dj = @current_radio.djs.find(params[:id])
     @dj.attributes = dj_params
     if @dj.save
-      flash[:notice] = "Updated dj account."
-      @djs = @current_radio.djs.page(params[:page])
-      redirect_to djs_path
+      respond_to do |format|
+        format.html {
+          flash[:notice] = "Updated dj account."
+          @djs = @current_radio.djs.page(params[:page])
+          redirect_to djs_path
+        }
+        format.json {
+          render json: @dj
+        }
+      end
     else
-      flash[:error] = "Couldn't update dj account"
-      @djs = @current_radio.djs.page(params[:page])
-      render 'edit'
+      respond_to do |format|
+        format.html {
+          flash[:error] = "Couldn't update dj account"
+          @djs = @current_radio.djs.page(params[:page])
+          render 'edit'
+        }
+        format.json {
+          render json: @dj.errors, status: :unprocessable_entity
+        }
+      end
     end
   end
 
