@@ -1,5 +1,6 @@
 class CurrentUserController < ApplicationController
   def index
+    authorize! :index, :current_user
     user = current_user
 
     respond_to do |format|
