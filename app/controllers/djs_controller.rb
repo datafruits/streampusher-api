@@ -5,15 +5,15 @@ class DjsController < ApplicationController
     if params[:search]
       @djs = @djs.where("username ilike (?)", "%#{params[:search].permit(:keyword)[:keyword]}%")
     end
+    @djs = @djs.page(params[:page])
     respond_to do |format|
       format.html {
-        @djs = @djs.page(params[:page])
         @dj = @djs.new
       }
       format.json {
-        @djs = @current_radio.users
         response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
-        render json: @djs
+        meta = { page: params[:page], total_pages: @djs.total_pages.to_i }
+        render json: @djs, meta: meta
       }
     end
   end
