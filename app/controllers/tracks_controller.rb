@@ -5,10 +5,15 @@ class TracksController < ApplicationController
 
   def index
     @tracks = @current_radio.tracks.includes(:labels)
+    if params[:search]
+      @tracks = @tracks.where("title ilike (?)", "%#{params[:search].permit(:keyword)[:keyword]}%")
+    end
+    @tracks = @tracks.page(params[:page])
     respond_to do |format|
       format.html
       format.json {
-        render json: @tracks
+        meta = { page: params[:page], total_pages: @tracks.total_pages.to_i }
+        render json: @tracks, meta: meta
       }
     end
   end
