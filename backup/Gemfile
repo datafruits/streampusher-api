@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
 
 #Backup related gems
-gem 'backup'
+gem 'backup', github: "mcfiredrill/backup"
 gem 'dotenv'
