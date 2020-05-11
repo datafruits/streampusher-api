@@ -1,106 +1,81 @@
-GEM
-  remote: http://rubygems.org/
+GIT
+  remote: git://github.com/mcfiredrill/backup.git
+  revision: dd7cd3e5f56441357c1299ce83110570d833c504
   specs:
-    CFPropertyList (2.3.1)
-    addressable (2.3.5)
-    atomic (1.1.14)
-    aws-ses (0.5.0)
-      builder
-      mail (> 2.2.5)
-      mime-types
-      xml-simple
-    backup (4.3.0)
-      CFPropertyList (= 2.3.1)
-      addressable (= 2.3.5)
-      atomic (= 1.1.14)
-      aws-ses (= 0.5.0)
-      buftok (= 0.2.0)
-      builder (= 3.2.2)
-      descendants_tracker (= 0.0.3)
-      dogapi (= 1.11.0)
+    backup (5.0.0.beta.2)
+      aws-sdk (~> 2)
       dropbox-sdk (= 1.6.5)
-      equalizer (= 0.0.9)
-      excon (= 0.44.4)
-      faraday (= 0.8.8)
-      fission (= 0.5.0)
+      excon (~> 0.44)
       flowdock (= 0.4.0)
-      fog (= 1.28.0)
-      fog-atmos (= 0.1.0)
-      fog-aws (= 0.1.1)
-      fog-brightbox (= 0.7.1)
-      fog-core (= 1.29.0)
-      fog-ecloud (= 0.0.2)
-      fog-json (= 1.0.0)
-      fog-profitbricks (= 0.0.2)
-      fog-radosgw (= 0.0.3)
-      fog-riakcs (= 0.1.0)
-      fog-sakuracloud (= 1.0.0)
-      fog-serverlove (= 0.1.1)
-      fog-softlayer (= 0.4.1)
-      fog-storm_on_demand (= 0.1.0)
-      fog-terremark (= 0.0.4)
-      fog-vmfusion (= 0.0.1)
-      fog-voxel (= 0.0.2)
-      fog-xml (= 0.1.1)
-      formatador (= 0.2.5)
+      fog (~> 1.28)
       hipchat (= 1.0.1)
-      http (= 0.5.0)
-      http_parser.rb (= 0.6.0)
-      httparty (= 0.12.0)
-      inflecto (= 0.0.2)
-      ipaddress (= 0.8.0)
-      json (= 1.8.2)
-      mail (= 2.6.3)
-      memoizable (= 0.4.0)
-      mime-types (= 2.4.3)
-      mini_portile (= 0.6.2)
-      multi_json (= 1.10.1)
-      multi_xml (= 0.5.5)
-      multipart-post (= 1.2.0)
+      mail (~> 2.6, >= 2.6.6)
       net-scp (= 1.2.1)
       net-sftp (= 2.1.2)
       net-ssh (= 3.2.0)
-      netrc (= 0.11.0)
-      nokogiri (= 1.6.6.2)
+      nokogiri (~> 1.8, >= 1.8.1)
       open4 (= 1.3.0)
       pagerduty (= 2.0.0)
-      qiniu (= 6.5.1)
-      rest-client (= 1.7.3)
-      ruby-hmac (= 0.4.0)
-      simple_oauth (= 0.2.0)
-      thor (= 0.18.1)
-      thread_safe (= 0.1.3)
-      twitter (= 5.5.0)
+      qiniu (~> 6.5)
+      thor (~> 0.18, >= 0.18.1)
+      twitter (~> 5.5)
       unf (= 0.1.3)
-      unf_ext (= 0.0.6)
-      xml-simple (= 1.1.4)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    CFPropertyList (2.3.6)
+    addressable (2.7.0)
+      public_suffix (>= 2.0.2, < 5.0)
+    aws-eventstream (1.1.0)
+    aws-sdk (2.11.504)
+      aws-sdk-resources (= 2.11.504)
+    aws-sdk-core (2.11.504)
+      aws-sigv4 (~> 1.0)
+      jmespath (~> 1.0)
+    aws-sdk-resources (2.11.504)
+      aws-sdk-core (= 2.11.504)
+    aws-sigv4 (1.1.3)
+      aws-eventstream (~> 1.0, >= 1.0.2)
     buftok (0.2.0)
-    builder (3.2.2)
-    descendants_tracker (0.0.3)
-    dogapi (1.11.0)
-      json (>= 1.5.1)
+    builder (3.2.4)
+    domain_name (0.5.20190701)
+      unf (>= 0.0.5, < 1.0.0)
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
     dotenv-deployment (0.0.2)
     dropbox-sdk (1.6.5)
       json
-    equalizer (0.0.9)
-    excon (0.44.4)
-    faraday (0.8.8)
-      multipart-post (~> 1.2.0)
+    dry-inflector (0.2.0)
+    equalizer (0.0.10)
+    excon (0.73.0)
+    faraday (0.9.2)
+      multipart-post (>= 1.2, < 3)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
     flowdock (0.4.0)
       httparty (~> 0.7)
       multi_json
-    fog (1.28.0)
+    fog (1.41.0)
+      fog-aliyun (>= 0.1.0)
       fog-atmos
-      fog-aws (~> 0.0)
+      fog-aws (>= 0.6.0)
       fog-brightbox (~> 0.4)
-      fog-core (~> 1.27, >= 1.27.3)
-      fog-ecloud
+      fog-cloudatcost (~> 0.1.0)
+      fog-core (~> 1.45)
+      fog-digitalocean (>= 0.3.0)
+      fog-dnsimple (~> 1.0)
+      fog-dynect (~> 0.0.2)
+      fog-ecloud (~> 0.1)
+      fog-google (<= 0.1.0)
+      fog-internet-archive
+      fog-joyent
       fog-json
+      fog-local
+      fog-openstack
+      fog-powerdns (>= 0.1.1)
       fog-profitbricks
+      fog-rackspace
       fog-radosgw (>= 0.0.2)
       fog-riakcs
       fog-sakuracloud (>= 0.0.4)
@@ -110,38 +85,86 @@ GEM
       fog-terremark
       fog-vmfusion
       fog-voxel
+      fog-vsphere (>= 0.4.0)
+      fog-xenserver
       fog-xml (~> 0.1.1)
       ipaddress (~> 0.5)
-      nokogiri (~> 1.5, >= 1.5.11)
+      json (>= 1.8, < 2.0)
+    fog-aliyun (0.3.10)
+      fog-core
+      fog-json
+      ipaddress (~> 0.8)
+      xml-simple (~> 1.1)
     fog-atmos (0.1.0)
       fog-core
       fog-xml
-    fog-aws (0.1.1)
-      fog-core (~> 1.27)
+    fog-aws (2.0.1)
+      fog-core (~> 1.38)
       fog-json (~> 1.0)
       fog-xml (~> 0.1)
       ipaddress (~> 0.8)
-    fog-brightbox (0.7.1)
-      fog-core (~> 1.22)
+    fog-brightbox (0.16.1)
+      dry-inflector
+      fog-core
       fog-json
-      inflecto (~> 0.0.2)
-    fog-core (1.29.0)
-      builder
-      excon (~> 0.38)
-      formatador (~> 0.2)
       mime-types
-      net-scp (~> 1.1)
-      net-ssh (>= 2.1.3)
-    fog-ecloud (0.0.2)
+    fog-cloudatcost (0.1.2)
+      fog-core (~> 1.36)
+      fog-json (~> 1.0)
+      fog-xml (~> 0.1)
+      ipaddress (~> 0.8)
+    fog-core (1.45.0)
+      builder
+      excon (~> 0.58)
+      formatador (~> 0.2)
+    fog-digitalocean (0.4.0)
+      fog-core
+      fog-json
+      fog-xml
+      ipaddress (>= 0.5)
+    fog-dnsimple (1.0.0)
+      fog-core (~> 1.38)
+      fog-json (~> 1.0)
+    fog-dynect (0.0.3)
+      fog-core
+      fog-json
+      fog-xml
+    fog-ecloud (0.3.0)
       fog-core
       fog-xml
-    fog-json (1.0.0)
-      multi_json (~> 1.0)
-    fog-profitbricks (0.0.2)
+    fog-google (0.1.0)
       fog-core
+      fog-json
       fog-xml
-      nokogiri
-    fog-radosgw (0.0.3)
+    fog-internet-archive (0.0.1)
+      fog-core
+      fog-json
+      fog-xml
+    fog-joyent (0.0.1)
+      fog-core (~> 1.42)
+      fog-json (>= 1.0)
+    fog-json (1.2.0)
+      fog-core
+      multi_json (~> 1.10)
+    fog-local (0.6.0)
+      fog-core (>= 1.27, < 3.0)
+    fog-openstack (0.3.10)
+      fog-core (>= 1.45, <= 2.1.0)
+      fog-json (>= 1.0)
+      ipaddress (>= 0.8)
+    fog-powerdns (0.2.0)
+      fog-core
+      fog-json
+      fog-xml
+    fog-profitbricks (4.1.1)
+      fog-core (~> 1.42)
+      fog-json (~> 1.0)
+    fog-rackspace (0.1.6)
+      fog-core (>= 1.35)
+      fog-json (>= 1.0)
+      fog-xml (>= 0.1)
+      ipaddress (>= 0.8)
+    fog-radosgw (0.0.5)
       fog-core (>= 1.21.0)
       fog-json
       fog-xml (>= 0.0.1)
@@ -149,97 +172,121 @@ GEM
       fog-core
       fog-json
       fog-xml
-    fog-sakuracloud (1.0.0)
+    fog-sakuracloud (1.7.5)
       fog-core
       fog-json
-    fog-serverlove (0.1.1)
+    fog-serverlove (0.1.2)
       fog-core
       fog-json
-    fog-softlayer (0.4.1)
+    fog-softlayer (1.1.4)
       fog-core
       fog-json
-    fog-storm_on_demand (0.1.0)
+    fog-storm_on_demand (0.1.1)
       fog-core
       fog-json
-    fog-terremark (0.0.4)
+    fog-terremark (0.1.0)
       fog-core
       fog-xml
-    fog-vmfusion (0.0.1)
+    fog-vmfusion (0.1.0)
       fission
       fog-core
-    fog-voxel (0.0.2)
+    fog-voxel (0.1.0)
       fog-core
       fog-xml
-    fog-xml (0.1.1)
+    fog-vsphere (3.3.0)
       fog-core
-      nokogiri (~> 1.5, >= 1.5.11)
+      rbvmomi (>= 1.9, < 3)
+    fog-xenserver (1.0.0)
+      fog-core
+      fog-xml
+      xmlrpc
+    fog-xml (0.1.3)
+      fog-core
+      nokogiri (>= 1.5.11, < 2.0.0)
     formatador (0.2.5)
     hipchat (1.0.1)
       httparty
-    http (0.5.0)
-      http_parser.rb
+    http (1.0.4)
+      addressable (~> 2.3)
+      http-cookie (~> 1.0)
+      http-form_data (~> 1.0.1)
+      http_parser.rb (~> 0.6.0)
+    http-accept (1.7.0)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
+    http-form_data (1.0.3)
     http_parser.rb (0.6.0)
-    httparty (0.12.0)
-      json (~> 1.8)
+    httparty (0.18.0)
+      mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
-    inflecto (0.0.2)
-    ipaddress (0.8.0)
-    json (1.8.2)
-    mail (2.6.3)
-      mime-types (>= 1.16, < 3)
-    memoizable (0.4.0)
-      thread_safe (~> 0.1.3)
-    mime-types (2.4.3)
-    mini_portile (0.6.2)
-    multi_json (1.10.1)
-    multi_xml (0.5.5)
-    multipart-post (1.2.0)
+    ipaddress (0.8.3)
+    jmespath (1.4.0)
+    json (1.8.6)
+    mail (2.7.1)
+      mini_mime (>= 0.1.1)
+    memoizable (0.4.2)
+      thread_safe (~> 0.3, >= 0.3.1)
+    mime-types (3.3.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2020.0425)
+    mini_mime (1.0.2)
+    mini_portile2 (2.4.0)
+    multi_json (1.14.1)
+    multi_xml (0.6.0)
+    multipart-post (2.1.1)
+    naught (1.1.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (3.2.0)
     netrc (0.11.0)
-    nokogiri (1.6.6.2)
-      mini_portile (~> 0.6.0)
+    nokogiri (1.10.9)
+      mini_portile2 (~> 2.4.0)
     open4 (1.3.0)
+    optimist (3.0.1)
     pagerduty (2.0.0)
       json (>= 1.7.7)
-    qiniu (6.5.1)
-      json (~> 1.8)
-      mime-types (~> 2.4.3)
-      rest-client (~> 1.7.3)
-      ruby-hmac (~> 0.4)
-    rest-client (1.7.3)
-      mime-types (>= 1.16, < 3.0)
-      netrc (~> 0.7)
-    ruby-hmac (0.4.0)
-    simple_oauth (0.2.0)
-    thor (0.18.1)
-    thread_safe (0.1.3)
-      atomic
-    twitter (5.5.0)
+    public_suffix (4.0.5)
+    qiniu (6.9.0)
+      mime-types (~> 3.1)
+      rest-client (~> 2.0)
+    rbvmomi (2.4.1)
+      builder (~> 3.0)
+      json (>= 1.8)
+      nokogiri (~> 1.5)
+      optimist (~> 3.0)
+    rest-client (2.1.0)
+      http-accept (>= 1.7.0, < 2.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
+    simple_oauth (0.3.1)
+    thor (0.20.3)
+    thread_safe (0.3.6)
+    twitter (5.17.0)
       addressable (~> 2.3)
       buftok (~> 0.2.0)
-      descendants_tracker (~> 0.0.3)
-      equalizer (~> 0.0.9)
-      faraday (>= 0.8, < 0.10)
-      http (~> 0.5.0)
+      equalizer (= 0.0.10)
+      faraday (~> 0.9.0)
+      http (~> 1.0)
       http_parser.rb (~> 0.6.0)
       json (~> 1.8)
       memoizable (~> 0.4.0)
-      simple_oauth (~> 0.2.0)
+      naught (~> 1.0)
+      simple_oauth (~> 0.3.0)
     unf (0.1.3)
       unf_ext
-    unf_ext (0.0.6)
-    xml-simple (1.1.4)
+    unf_ext (0.0.7.7)
+    xml-simple (1.1.5)
+    xmlrpc (0.3.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  backup
+  backup!
   dotenv
 
 BUNDLED WITH
-   1.12.5
+   1.16.0
