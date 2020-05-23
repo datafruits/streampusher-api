@@ -6,7 +6,9 @@ class TracksController < ApplicationController
   def index
     @tracks = @current_radio.tracks.includes(:labels)
     if params[:search]
-      @tracks = @tracks.where("title ilike (?)", "%#{params[:search].permit(:keyword)[:keyword]}%")
+      @tracks = @tracks.where("title ilike (?) or audio_file_name ilike (?)",
+                              "%#{params[:search].permit(:keyword)[:keyword]}%",
+                             "%#{params[:search].permit(:keyword)[:keyword]}%")
     end
     @tracks = @tracks.page(params[:page])
     respond_to do |format|
