@@ -19,12 +19,14 @@ class PlaylistsController < ApplicationController
     authorize! :index, Playlist, params[:format]
     @tracks = @current_radio.tracks
     @playlists = @current_radio.playlists.includes(tracks: [:labels])
+    @playlists = @playlists.page(params[:page])
     respond_to do |format|
       format.html {
         redirect_to playlist_path(@current_radio.default_playlist)
       }
       format.json {
-        render json: @playlists
+        meta = { page: params[:page], total_pages: @playlists.total_pages.to_i }
+        render json: @playlists, meta: meta
       }
     end
   end
