@@ -39,6 +39,7 @@ class Track < ActiveRecord::Base
   enum soundcloud_upload_status: ['soundcloud_not_uploaded', 'soundcloud_uploading', 'soundcloud_upload_complete', 'soundcloud_upload_failed']
 
   before_save :set_tags_from_scheduled_show
+  before_save :make_audio_file_name_unique
 
   def s3_filepath
     file_name = CGI.unescape(self.audio_file_name)
@@ -111,5 +112,8 @@ class Track < ActiveRecord::Base
 
     new_file_name = "#{base.parameterize}_#{Digest::SHA256.hexdigest(base)}#{ext}"
     self.artwork.instance_write(:file_name, new_file_name)
+  end
+
+  def make_audio_file_name_unique
   end
 end

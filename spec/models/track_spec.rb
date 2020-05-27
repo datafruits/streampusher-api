@@ -50,4 +50,17 @@ describe Track do
       end
     end
   end
+
+  describe "audio_file_name" do
+    it "is unique to each radio" do
+      radio = FactoryBot.create :radio
+      params = {
+                 audio_file_name: 'http://s3.amazonaws.com/streampusher/doo.mp3'
+                 radio: radio
+               }
+
+      track = Track.create params
+      track = Track.create params
+    end
+  end
 end
