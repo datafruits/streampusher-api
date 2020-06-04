@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   resources :djs
 
   devise_for :users, controllers: {
-    registrations: "registrations",
+    #registrations: "registrations",
     sessions: "sessions",
     omniauth_callbacks: "users/omniauth_callbacks"
   }
