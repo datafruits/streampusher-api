@@ -82,9 +82,10 @@ class Track < ActiveRecord::Base
 
   def formatted_duration
     if self.length
-      minutes = (self.length / 60).floor
-      seconds = self.length - minutes * 60
-      "#{minutes}:#{seconds}"
+      minutes = (self.length / 60) % 60
+      seconds = self.length % 60
+      hours = self.length / (60 * 60)
+      format("%02d:%02d:%02d", hours, minutes, seconds)
     end
   end
 
