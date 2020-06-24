@@ -43,11 +43,9 @@ class TracksController < ApplicationController
       @track.attributes = update_params.except(:artwork_filename).except(:artwork)
     end
     if @track.save
-      flash[:notice] = 'track tags updated!'
       ActiveSupport::Notifications.instrument 'track.updated', current_user: current_user.email, radio: @current_radio.name, track: @track.file_basename, params: update_params.except(:artwork)
       render json: @track
     else
-      flash[:error] = 'error updating track tags :('
       render json: @track.errors
     end
   end
@@ -57,10 +55,8 @@ class TracksController < ApplicationController
     @track.uploaded_by = current_user
     if @track.save
       ActiveSupport::Notifications.instrument 'track.created', current_user: current_user.email, radio: @current_radio.name, track: @track.file_basename
-      flash[:notice] = 'track uploaded!'
       render json: @track
     else
-      flash[:error] = 'error uploading track :('
       render json: @track.errors
     end
   end
@@ -68,10 +64,8 @@ class TracksController < ApplicationController
   def destroy
     @track = @current_radio.tracks.find params[:id]
     if @track.destroy
-      flash[:notice] = "removed track!"
       render json: @track
     else
-      flash[:error] = "error destroying track. try again?"
       render json: @track.errors
     end
   end
