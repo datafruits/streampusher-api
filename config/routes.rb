@@ -32,21 +32,10 @@ Rails.application.routes.draw do
 
   resources :djs
 
-  devise_for :users, controllers: {
-    #registrations: "registrations",
+  devise_for :users, skip: 'registrations', controllers: {
     sessions: "sessions",
     omniauth_callbacks: "users/omniauth_callbacks"
   }
-  # devise_scope :user do
-  #   resource :registration,
-  #     only: [:new, :create, :edit, :update],
-  #     path: 'users',
-  #     path_names: { new: 'sign_up' },
-  #     controller: 'devise/registrations',
-  #     as: :user_registration do
-	# get :cancel
-  #     end
-  # end
 
   resources :anniversary_slots do
     collection do
@@ -58,6 +47,8 @@ Rails.application.routes.draw do
     get "/login" => "sessions#new"
     post "/login" => "sessions#create"
     delete "/logout" => "sessions#destroy"
+    get 'users/edit' => 'registrations#edit', :as => 'edit_user_registration'
+    put 'users' => 'registrations#update', :as => 'user_registration'
   end
 
   get 'admin', to: 'admin#index', as: 'admin'
