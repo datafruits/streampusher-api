@@ -3,7 +3,7 @@ class ScheduledShowSerializer < ActiveModel::Serializer
   include ApplicationHelper
   include ActionView::Helpers::SanitizeHelper
   attributes :id, :start, :end, :title, :image_url, :thumb_image_url, :tweet_content, :description,
-    :html_description, :slug
+    :html_description, :slug, :recurring_interval
 
   has_many :tracks, embed: :ids, key: :tracks
   has_many :djs, embed: :ids, key: :djs
