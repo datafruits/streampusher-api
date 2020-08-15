@@ -271,6 +271,8 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def schedule_tweet
-    ScheduledShowNotificationWorker.perform_later self.id
+    if self.notify_twitter?
+      ScheduledShowNotificationWorker.perform_later self.id
+    end
   end
 end
