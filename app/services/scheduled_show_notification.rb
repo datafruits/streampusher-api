@@ -5,6 +5,6 @@ class ScheduledShowNotification
       ScheduledShowNotification::Twitter.perform(scheduled_show)
     end
     # always send to discord
-    ScheduledShowNotification::Discord.perform(scheduled_show)
+    # ScheduledShowNotification::Discord.perform(scheduled_show)
   end
 end
