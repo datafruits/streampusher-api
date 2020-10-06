@@ -83,10 +83,24 @@ class ScheduledShowsController < ApplicationController
     if @scheduled_show.save
       ActiveSupport::Notifications.instrument 'scheduled_show.updated', current_user: current_user.email, radio: @current_radio.name, show: @scheduled_show.title, params: create_params
       flash[:notice] = "Updated scheduled show!"
-      redirect_to_with_js scheduled_shows_path
+      respond_to do |format|
+        format.html {
+          redirect_to_with_js scheduled_shows_path
+        }
+        format.json {
+          render json: @scheduled_show
+        }
+      end
     else
       flash[:error] = "Error updating scheduling show."
-      render 'edit'
+      respond_to do |format|
+        format.html {
+          render 'edit'
+        }
+        format.json {
+          render json: @scheduled_show.errors, status: :unprocessable_entity
+        }
+      end
     end
   end
 
@@ -105,7 +119,8 @@ class ScheduledShowsController < ApplicationController
     if params[:term]
       @scheduled_shows = @current_radio.scheduled_shows.where("title ilike ?", "%#{params[:term]}%").order("start_at DESC")
     else
-      @scheduled_shows = @current_radio.scheduled_shows.where("start_at >= ? AND end_at <= ?", params[:start], params[:end]).order("start_at ASC")
+      start_at = DateTime.parse(params[:start]).in_time_zone(Time.zone.name)
+      @scheduled_shows = @current_radio.scheduled_shows.where("start_at >= ? AND end_at <= ?", start_at, params[:end]).order("start_at ASC")
     end
 
     @scheduled_show = ScheduledShow.new
