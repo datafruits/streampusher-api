@@ -119,7 +119,11 @@ class ScheduledShowsController < ApplicationController
     if params[:term]
       @scheduled_shows = @current_radio.scheduled_shows.where("title ilike ?", "%#{params[:term]}%").order("start_at DESC")
     else
-      start_at = DateTime.parse(params[:start]).in_time_zone(Time.zone.name)
+      if params[:start]
+        start_at = DateTime.parse(params[:start]).in_time_zone(Time.zone.name)
+      else
+        start_at = 1.month.ago
+      end
       @scheduled_shows = @current_radio.scheduled_shows.where("start_at >= ? AND end_at <= ?", start_at, params[:end]).order("start_at ASC")
     end
 
