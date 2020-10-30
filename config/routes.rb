@@ -116,7 +116,9 @@ Rails.application.routes.draw do
   namespace :api do
     resources :blog_posts, only: [:show, :index]
     resources :djs, only: [:show, :index]
+    resources :listeners, only: [:create]
   end
+
   post "/setup" => "setup#create"
   get "/setup/allowed" => "setup#allowed"
 
