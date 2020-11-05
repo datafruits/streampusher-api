@@ -23,6 +23,8 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
+      - name: Install deps
+        run: apt-get install libtag1-dev sox libsox-fmt-mp3 imagemagick
       - name: Build and run tests
         env:
           DATABASE_URL: postgres://postgres:@localhost:5432/test
