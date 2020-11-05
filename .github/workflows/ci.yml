@@ -1,4 +1,6 @@
 # .github/workflows/ci.yml
+env:
+  RUBY_VERSION: 2.7.0
 
 name: CI
 on: [push, pull_request]
@@ -19,7 +21,7 @@ jobs:
       - name: Setup Ruby
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: 2.7.1
+          ruby-version: ${{ env.RUBY_VERSION }}
       - name: Build and run tests
         env:
           DATABASE_URL: postgres://postgres:@localhost:5432/test
@@ -29,5 +31,5 @@ jobs:
         run: |
           gem install bundler
           bundle install --jobs 4 --retry 3
-          bundle exec rails db:prepare
+          bundle exec rails db:prepare RAILS_ENV=test
           bundle exec rspec
