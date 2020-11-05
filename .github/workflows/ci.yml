@@ -7,6 +7,7 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
+    container: streampusher/streampusher:latest
     services:
       db:
         image: postgres:11
@@ -29,7 +30,6 @@ jobs:
           RAILS_ENV: test
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |
-          gem install bundler
           bundle install --jobs 4 --retry 3
           bundle exec rails db:prepare RAILS_ENV=test
           bundle exec rspec
