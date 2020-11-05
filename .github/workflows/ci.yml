@@ -1,6 +1,6 @@
 # .github/workflows/ci.yml
 env:
-  RUBY_VERSION: 2.7.0
+  RUBY_VERSION: 2.7
 
 name: CI
 on: [push, pull_request]
@@ -17,7 +17,7 @@ jobs:
         options: --entrypoint redis-server
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Setup Ruby
         uses: actions/setup-ruby@v1
         with:
