@@ -13,4 +13,10 @@ class DjAccountMailer < ApplicationMailer
 
     mail subject: "Your dj account on #{@radio.name} has been created", to: @user.email
   end
+
+  def dj_manual user
+    @user = user
+
+    mail subject: "Datafruits DJ manual"
+  end
 end
