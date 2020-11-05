@@ -14,7 +14,6 @@ describe DjSignup do
   it "adds user radio to account if it already exists" do
     radio = FactoryBot.create :radio
     radio2 = FactoryBot.create :radio, name: 'daddyboots'
->>>>>>> origin/master
     email = "mcfiredrill@gmail.com"
     username = "freedrool"
     user_params = {email: email, username: username}
