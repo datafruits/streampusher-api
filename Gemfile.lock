@@ -1366,7 +1366,6 @@ GEM
       actionpack (>= 5.0)
       activemodel (>= 5.0)
     simple_oauth (0.3.1)
-    slack-notifier (2.3.2)
     slackistrano (4.0.1)
       capistrano (>= 3.8.1)
     soundcloud (0.3.4)
@@ -1518,7 +1517,6 @@ DEPENDENCIES
   sidekiq
   sidekiq-scheduler
   simple_form
-  slack-notifier
   slackistrano
   so_id3!
   soundcloud
