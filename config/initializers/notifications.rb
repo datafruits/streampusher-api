@@ -22,7 +22,7 @@ if Rails.env.production?
   events.each do |event|
     ActiveSupport::Notifications.subscribe event do |*args|
       event = ActiveSupport::Notifications::Event.new *args
-      SlackNotifier.perform_later "#{event.name}: #{event.payload.inspect}"
+      DiscordNotifier.perform_later "#{event.name}: #{event.payload.inspect}", ENV['DISCORD_ACTIVITY_WEBHOOK_URL']
     end
   end
 
