@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
 
   scope :profile_published, -> { where(profile_publish: true) }
 
+  enum style: [ :styleless, :party, :doom, :funky, :fruity, :sadness, :grumpy, :sexy, :chill ]
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
