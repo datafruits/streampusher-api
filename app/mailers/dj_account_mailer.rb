@@ -17,6 +17,6 @@ class DjAccountMailer < ApplicationMailer
   def dj_manual user
     @user = user
 
-    mail subject: "Datafruits DJ manual"
+    mail subject: "Datafruits DJ manual", to: @user.email
   end
 end
