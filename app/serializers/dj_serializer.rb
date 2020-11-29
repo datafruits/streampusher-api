@@ -1,5 +1,6 @@
 class DjSerializer < ActiveModel::Serializer
-  attributes :id, :username, :image_url, :bio, :image_thumb_url, :image_medium_url, :profile_publish
+  attributes :id, :username, :image_url, :bio, :image, :image_filename,
+    :image_thumb_url, :image_medium_url, :profile_publish
 
   def image_url
     if object.image.present?

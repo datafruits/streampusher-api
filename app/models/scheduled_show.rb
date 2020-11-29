@@ -20,7 +20,7 @@ class ScheduledShow < ActiveRecord::Base
   has_many :performers, through: :scheduled_show_performers, source: :user
   accepts_nested_attributes_for :scheduled_show_performers
 
-  validates_presence_of :start_at, :end_at, :playlist_id, :title
+  validates_presence_of :start_at, :end_at, :playlist_id, :title, :dj_id
   validates :description, length: { maximum: 10000 }
 
   validate :start_at_cannot_be_in_the_past, on: :create
@@ -38,7 +38,7 @@ class ScheduledShow < ActiveRecord::Base
   before_destroy :maybe_destroy_recurrences
 
   before_save :ensure_time_zone
-
+  before_save :add_performers
 
   enum recurring_interval: [:not_recurring, :day, :week, :month, :year, :biweek]
 
@@ -168,6 +168,13 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   private
+
+  def add_performers
+    if self.scheduled_show_performers.empty?
+      self.performers << self.dj
+    end
+  end
+
   def recurring_interval_changed?
     self.changes.has_key? "recurring_interval"
   end

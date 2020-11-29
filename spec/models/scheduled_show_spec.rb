@@ -13,11 +13,28 @@ RSpec.describe ScheduledShow, :type => :model do
     @date = Date.today.strftime("%m%d%Y")
   end
 
+  describe "performers" do
+    it "sets the DJ as the performer if no performers are specified" do
+      @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: @start_at, end_at: @end_at, title: "hey hey", dj: @dj
+      expect(@scheduled_show.performers).to include(@dj)
+      expect(@scheduled_show.performers.count).to eq 1
+    end
+
+    it "doesnt save extra performers" do
+      @scheduled_show = ScheduledShow.create radio: @radio,
+        playlist: @playlist, start_at: @start_at, end_at: @end_at, title: "hey hey",
+        dj: @dj,
+        scheduled_show_performers_attributes: { "0": { user_id: @dj.id } }
+      expect(@scheduled_show.performers).to include(@dj)
+      expect(@scheduled_show.performers.count).to eq 1
+    end
+  end
+
   describe "slugs" do
     it "saves the unique slug with title and id" do
       start_at = Chronic.parse("today at 3:15 pm").utc
       end_at = Chronic.parse("today at 5:15 pm").utc
-      @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey hey"
+      @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey hey", dj: @dj
       expect(@scheduled_show.slug).to eq "hey-hey"
     end
   end
@@ -30,7 +47,7 @@ RSpec.describe ScheduledShow, :type => :model do
           end_at = Time.zone.parse("2090-02-01 11:00")
 
           time_zone = "Eastern Time (US & Canada)"
-          @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, time_zone: time_zone, title: "my show with dj steve martin"
+          @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, time_zone: time_zone, title: "my show with dj steve martin", dj: @dj
 
           format = "%a, %d %b %Y %H:%M:%S"
           expect(@scheduled_show.start_at).to eq start_at.strftime(format).in_time_zone(time_zone)
@@ -44,7 +61,7 @@ RSpec.describe ScheduledShow, :type => :model do
     it "start time cannot be in the past" do
       start_at = Chronic.parse("yesterday at 3:15 pm").utc
       end_at = Chronic.parse("today at 2:15 pm").utc
-      @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey"
+      @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey", dj: @dj
       expect(@scheduled_show.errors[:start_at]).to be_present
     end
     it "end time cannot be in the past" do
@@ -56,7 +73,7 @@ RSpec.describe ScheduledShow, :type => :model do
     it "end time cannot be before start time" do
       start_at = Chronic.parse("today at 3:15 pm").utc
       end_at = Chronic.parse("today at 2:15 pm").utc
-      @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey"
+      @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey", dj: @dj
       expect(@scheduled_show.errors[:end_at]).to be_present
     end
   end
@@ -70,25 +87,28 @@ RSpec.describe ScheduledShow, :type => :model do
     it "saves recurring shows if recurring is true" do
       start_at = Chronic.parse("today at 1:15 pm").utc
       end_at = Chronic.parse("today at 3:15 pm").utc
-      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey"
+      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey", dj: @dj
       expect(ScheduledShow.where("start_at >= (?) AND start_at <= (?)", start_at.beginning_of_month, start_at.end_of_month).count).to eq 1
       expect(recurring_show.recurrences.count).to eq 275
+      # it copies the performers over
+      expect(recurring_show.recurrences.map {|m| m.performers.count }.uniq).to eq [1]
 
       start_at = Chronic.parse("today at 3:15 pm").utc
       end_at = Chronic.parse("today at 5:15 pm").utc
-      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "week", title: "hey weekly edition"
+      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "week", title: "hey weekly edition", dj: @dj
       expect(ScheduledShow.where(start_at: start_at).count).to eq 1
 
       start_at = Chronic.parse("today at 3:15 pm").utc
       end_at = Chronic.parse("today at 5:15 pm").utc
-      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "biweek", title: "hey weekly edition"
+      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "biweek", title: "hey weekly edition", dj: @dj
       expect(recurring_show.recurrences.count).to eq 600
+      expect(recurring_show.recurrences.map {|m| m.performers.count }.uniq).to eq [1]
     end
 
     it "creates a unique slug for each recurrence" do
       start_at = Chronic.parse("today at 1:15 pm").utc
       end_at = Chronic.parse("today at 3:15 pm").utc
-      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey"
+      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey", dj: @dj
       expect(ScheduledShow.where("start_at >= (?) AND start_at <= (?)", start_at.beginning_of_month, start_at.end_of_month).count).to eq 1
       count = recurring_show.recurrences.count
       expect(count).to eq 275
@@ -98,7 +118,7 @@ RSpec.describe ScheduledShow, :type => :model do
     it "doesnt duplicate slugs on update" do
       start_at = Chronic.parse("today at 1:15 pm").utc
       end_at = Chronic.parse("today at 3:15 pm").utc
-      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey"
+      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey", dj: @dj
       new_start_at = Chronic.parse("today at 11:00 am").utc
       recurring_show.update start_at: new_start_at, update_all_recurrences: true
 
@@ -110,7 +130,7 @@ RSpec.describe ScheduledShow, :type => :model do
     it "updates all recurring shows attributes" do
       start_at = Chronic.parse("today at 1:15 pm").utc
       end_at = Chronic.parse("today at 3:15 pm").utc
-      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey"
+      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey", dj: @dj
       new_start_at = Chronic.parse("today at 11:00 am").utc
       recurring_show.update start_at: new_start_at, update_all_recurrences: true
       recurring_show.recurrences.each do |recurrence|
@@ -123,7 +143,7 @@ RSpec.describe ScheduledShow, :type => :model do
     it "updates this recurrance only" do
       start_at = Chronic.parse("today at 1:15 pm").utc
       end_at = Chronic.parse("today at 3:15 pm").utc
-      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "week", title: "hey"
+      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "week", title: "hey", dj: @dj
       new_start_at = Chronic.parse("today at 11:00 am").utc
       recurring_show.update start_at: new_start_at, update_all_recurrences: false
       recurring_show.recurrences.each do |recurrence|
@@ -136,7 +156,7 @@ RSpec.describe ScheduledShow, :type => :model do
     it "updates all recurring shows with a new recurrence" do
       start_at = Chronic.parse("today at 1:15 pm").utc
       end_at = Chronic.parse("today at 3:15 pm").utc
-      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "week", title: "hey"
+      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "week", title: "hey", dj: @dj
       expect(recurring_show.recurrences.count).to eq 1200
       recurring_show.update recurring_interval: "month"
       expect(recurring_show.recurrences.count).to eq 275
@@ -145,7 +165,7 @@ RSpec.describe ScheduledShow, :type => :model do
     it "deletes all recurring shows if destroy_recurrences is set" do
       start_at = Chronic.parse("today at 1:15 pm").utc
       end_at = Chronic.parse("today at 3:15 pm").utc
-      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey"
+      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey", dj: @dj
       recurring_show.destroy_recurrences = true
       recurring_show.destroy
       expect(recurring_show.recurrences.count).to eq 0
@@ -154,7 +174,7 @@ RSpec.describe ScheduledShow, :type => :model do
     it "doesn't delete all recurring shows if destroy_recurrences is not set" do
       start_at = Chronic.parse("today at 1:15 pm").utc
       end_at = Chronic.parse("today at 3:15 pm").utc
-      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey"
+      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey", dj: @dj
       recurring_show.destroy
       expect(recurring_show.recurrences.count).to eq 275
     end
@@ -162,7 +182,7 @@ RSpec.describe ScheduledShow, :type => :model do
     it "only deletes recurring shows in the future" do
       start_at = Chronic.parse("today at 1:15 pm").utc
       end_at = Chronic.parse("today at 3:15 pm").utc
-      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey"
+      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey", dj: @dj
       Timecop.travel 6.months.from_now do
         recurring_show.destroy_recurrences = true
         recurring_show.destroy
@@ -175,7 +195,7 @@ RSpec.describe ScheduledShow, :type => :model do
     it "updates all recurrences +1 hour for DST" do
       start_at = Chronic.parse("today at 1:15 pm").utc
       end_at = Chronic.parse("today at 3:15 pm").utc
-      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey"
+      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey", dj: @dj
       recurring_show.recurrences.each do |r|
         expect(r.start_at).to eq start_at
         expect(r.end_at).to eq end_at
