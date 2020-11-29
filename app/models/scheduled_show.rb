@@ -20,7 +20,7 @@ class ScheduledShow < ActiveRecord::Base
   has_many :performers, through: :scheduled_show_performers, source: :user
   accepts_nested_attributes_for :scheduled_show_performers
 
-  validates_presence_of :start_at, :end_at, :playlist_id, :title
+  validates_presence_of :start_at, :end_at, :playlist_id, :title, :dj_id
   validates :description, length: { maximum: 10000 }
 
   validate :start_at_cannot_be_in_the_past, on: :create
@@ -170,7 +170,7 @@ class ScheduledShow < ActiveRecord::Base
   private
 
   def add_performers
-    if self.performers.empty?
+    if self.scheduled_show_performers.empty?
       self.performers << self.dj
     end
   end
