@@ -13,6 +13,13 @@ RSpec.describe ScheduledShow, :type => :model do
     @date = Date.today.strftime("%m%d%Y")
   end
 
+  describe "performers" do
+    it "sets the DJ as the performer if no performers are specified" do
+      @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: @start_at, end_at: @end_at, title: "hey hey", dj: @dj
+      expect(@scheduled_show.performers).to include(@dj)
+    end
+  end
+
   describe "slugs" do
     it "saves the unique slug with title and id" do
       start_at = Chronic.parse("today at 3:15 pm").utc
@@ -70,19 +77,22 @@ RSpec.describe ScheduledShow, :type => :model do
     it "saves recurring shows if recurring is true" do
       start_at = Chronic.parse("today at 1:15 pm").utc
       end_at = Chronic.parse("today at 3:15 pm").utc
-      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey"
+      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey", dj: @dj
       expect(ScheduledShow.where("start_at >= (?) AND start_at <= (?)", start_at.beginning_of_month, start_at.end_of_month).count).to eq 1
       expect(recurring_show.recurrences.count).to eq 275
+      # it copies the performers over
+      expect(recurring_show.recurrences.map {|m| m.performers.count }.uniq).to eq [1]
 
       start_at = Chronic.parse("today at 3:15 pm").utc
       end_at = Chronic.parse("today at 5:15 pm").utc
-      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "week", title: "hey weekly edition"
+      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "week", title: "hey weekly edition", dj: @dj
       expect(ScheduledShow.where(start_at: start_at).count).to eq 1
 
       start_at = Chronic.parse("today at 3:15 pm").utc
       end_at = Chronic.parse("today at 5:15 pm").utc
-      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "biweek", title: "hey weekly edition"
+      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "biweek", title: "hey weekly edition", dj: @dj
       expect(recurring_show.recurrences.count).to eq 600
+      expect(recurring_show.recurrences.map {|m| m.performers.count }.uniq).to eq [1]
     end
 
     it "creates a unique slug for each recurrence" do

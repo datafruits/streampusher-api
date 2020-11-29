@@ -38,7 +38,7 @@ class ScheduledShow < ActiveRecord::Base
   before_destroy :maybe_destroy_recurrences
 
   before_save :ensure_time_zone
-
+  before_save :add_performers
 
   enum recurring_interval: [:not_recurring, :day, :week, :month, :year, :biweek]
 
@@ -168,6 +168,13 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   private
+
+  def add_performers
+    if self.performers.empty?
+      self.performers << self.dj
+    end
+  end
+
   def recurring_interval_changed?
     self.changes.has_key? "recurring_interval"
   end
