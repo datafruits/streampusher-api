@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200731081550) do
+ActiveRecord::Schema.define(version: 20201116011656) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,16 @@ ActiveRecord::Schema.define(version: 20200731081550) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
+  end
+
+  create_table "host_application_votes", force: :cascade do |t|
+    t.integer  "host_application_id", null: false
+    t.integer  "user_id",             null: false
+    t.boolean  "approve",             null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["host_application_id"], name: "index_host_application_votes_on_host_application_id", using: :btree
+    t.index ["user_id"], name: "index_host_application_votes_on_user_id", using: :btree
   end
 
   create_table "host_applications", force: :cascade do |t|
@@ -241,6 +251,7 @@ ActiveRecord::Schema.define(version: 20200731081550) do
     t.string   "title"
     t.string   "time_zone"
     t.string   "slug"
+    t.boolean  "notify_twitter",        default: false, null: false
     t.index ["dj_id"], name: "index_scheduled_shows_on_dj_id", using: :btree
     t.index ["playlist_id"], name: "index_scheduled_shows_on_playlist_id", using: :btree
     t.index ["radio_id"], name: "index_scheduled_shows_on_radio_id", using: :btree

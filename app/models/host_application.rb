@@ -1,5 +1,6 @@
 class HostApplication < ApplicationRecord
   belongs_to :radio
+  has_many :host_application_votes
 
   validates :email, presence: true
   validates :username, presence: true

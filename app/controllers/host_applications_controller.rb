@@ -5,6 +5,13 @@ class HostApplicationsController < ApplicationController
   def index
     # authorize! :manage, HostApplication
     @host_applications = @current_radio.host_applications
+    respond_to do |format|
+      format.html
+      format.json {
+        response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
+        render json: @host_applications
+      }
+    end
   end
 
   def create
