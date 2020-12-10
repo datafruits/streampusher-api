@@ -117,6 +117,7 @@ Rails.application.routes.draw do
     resources :blog_posts, only: [:show, :index]
     resources :djs, only: [:show, :index]
     resources :listeners, only: [:create]
+    resources :microtexts, only: [:create, :index]
   end
 
   post "/setup" => "setup#create"
