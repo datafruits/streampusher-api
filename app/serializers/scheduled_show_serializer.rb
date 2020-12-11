@@ -9,7 +9,9 @@ class ScheduledShowSerializer < ActiveModel::Serializer
   has_many :djs, embed: :ids, key: :djs
 
   def hosted_by
-    object.performers.first.username
+    if object.performers.any?
+      object.performers.first.username
+    end
   end
 
   def djs
