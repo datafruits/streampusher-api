@@ -8,6 +8,10 @@ class ScheduledShowSerializer < ActiveModel::Serializer
   has_many :tracks, embed: :ids, key: :tracks
   has_many :djs, embed: :ids, key: :djs
 
+  def hosted_by
+    object.performers.first.username
+  end
+
   def djs
     object.performers
   end
