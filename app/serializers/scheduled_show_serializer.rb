@@ -19,7 +19,12 @@ class ScheduledShowSerializer < ActiveModel::Serializer
   end
 
   def tracks
-    object.tracks
+    # don't show tracks if the show isn't over yet...
+    if Time.now > object.end_at
+      return object.tracks
+    else
+      return []
+    end
   end
 
   def html_description
