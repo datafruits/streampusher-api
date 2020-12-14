@@ -111,6 +111,8 @@ class Ability
       can :create, :profile
       can :manage, Recording if can_manage_radio?(user, radio)
 
+      can :create, Microtext if can_manage_radio?(user, radio)
+
       cannot :admin, :dashboard
       cannot :admin, :radios
       cannot :admin, :sign_in_as
