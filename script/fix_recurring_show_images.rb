@@ -52,14 +52,12 @@ Radio.first.scheduled_shows.where.not(recurring_interval: 0).where(recurrant_ori
     if !uri.host.nil?
       puts "testing url... #{url}".light_blue
       if missing_image?(show.image.url)
-        if show.tracks.any?
-          if show.tracks.first.artwork.present?
-            puts "image missing! copying from track artwork...".red
-            show.image = show.tracks.first.artwork
-          else
-            puts "image missing! copying from original...".green
-            show.image = original.image
-          end
+        if show.tracks.any? && show.tracks.first.artwork.present?
+          puts "image missing! copying from track artwork...".red
+          show.image = show.tracks.first.artwork
+        else
+          puts "image missing! copying from original...".green
+          show.image = original.image
         end
         if show.save
           puts "saved!".green
