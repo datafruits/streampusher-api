@@ -125,6 +125,7 @@ class ScheduledShow < ActiveRecord::Base
     if recurring?
       start_and_end_recurrences.each do |s,e|
         scheduled_show = self.dup
+        scheduled_show.image = self.image
         scheduled_show.recurring_interval = self.recurring_interval
         scheduled_show.recurrence = true
         scheduled_show.recurrant_original_id = self.id
