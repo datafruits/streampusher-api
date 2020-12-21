@@ -145,6 +145,7 @@ class ScheduledShow < ActiveRecord::Base
       r.start_at = new_start_at
       new_end_at = DateTime.new r.end_at.year, r.end_at.month, r.end_at.day, self.end_at.hour, self.end_at.min, self.end_at.sec, self.end_at.zone
       r.end_at = new_end_at
+      r.image = self.image
       r.update_all_recurrences = false
       r.save!
     end
