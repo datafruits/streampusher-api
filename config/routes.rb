@@ -34,8 +34,11 @@ Rails.application.routes.draw do
 
   devise_for :users, skip: 'registrations', controllers: {
     sessions: "sessions",
-    omniauth_callbacks: "users/omniauth_callbacks"
+    omniauth_callbacks: "users/omniauth_callbacks",
+    passwords: "passwords"
   }
+
+  resources :password_resets, only: [:create]
 
   resources :anniversary_slots do
     collection do
@@ -113,11 +116,13 @@ Rails.application.routes.draw do
     delete :index, on: :collection, action: :destroy
   end
 
+  # meant only for consumption by datafruits frontend app
   namespace :api do
     resources :blog_posts, only: [:show, :index]
     resources :djs, only: [:show, :index]
     resources :listeners, only: [:create]
     resources :microtexts, only: [:create, :index]
+    resources :schedule, only: [:index]
   end
 
   post "/setup" => "setup#create"
