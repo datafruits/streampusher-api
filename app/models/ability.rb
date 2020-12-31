@@ -116,6 +116,13 @@ class Ability
       cannot :admin, :dashboard
       cannot :admin, :radios
       cannot :admin, :sign_in_as
+    elsif user.listener?
+      can :index, :current_user
+      can :create, Microtext if can_manage_radio?(user, radio)
+
+      cannot :admin, :dashboard
+      cannot :admin, :radios
+      cannot :admin, :sign_in_as
     else
       cannot :index, :current_user
       can :read, ScheduledShow if format == "json"
