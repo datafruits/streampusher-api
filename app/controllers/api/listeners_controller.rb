@@ -20,7 +20,7 @@ class Api::ListenersController < ApplicationController
   end
 
   def validate_username
-    if User.exists? email: params[:username]
+    if User.exists? username: params[:username]
       render json: { valid: false }.to_json
     else
       render json: { valid: true }.to_json
