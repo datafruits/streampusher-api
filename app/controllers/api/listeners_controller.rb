@@ -11,6 +11,22 @@ class Api::ListenersController < ApplicationController
     end
   end
 
+  def validate_email
+    if User.exists? email: params[:email]
+      render json: { valid: false }.to_json
+    else
+      render json: { valid: true }.to_json
+    end
+  end
+
+  def validate_username
+    if User.exists? username: params[:username]
+      render json: { valid: false }.to_json
+    else
+      render json: { valid: true }.to_json
+    end
+  end
+
   private
   def user_params
     params.require(:user).permit(:username, :email, :password)
