@@ -7,7 +7,7 @@ class RadioBooter
     radio_name = radio.container_name
     redis = Redis.current
 
-    image = 'mcfiredrill/liquidsoap:latest'
+    image = radio.docker_image_name.present? ? radio.docker_image_name : 'mcfiredrill/liquidsoap:latest'
     name = "#{radio_name}_liquidsoap"
     env = ["RADIO_NAME=#{radio_name}","RAILS_ENV=#{Rails.env}",
        "ICECAST_HOST", "icecast",
