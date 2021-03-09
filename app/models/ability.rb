@@ -120,6 +120,18 @@ class Ability
       can :index, :current_user
       can :create, Microtext if can_manage_radio?(user, radio)
 
+      can :read, ScheduledShow if format == "json"
+      can :index, :dj if format == "json"
+      can :read, :dj if format == "json"
+      can :next, ScheduledShow if format == "json"
+
+      can :enabled, :vj
+      can :embed, Track
+      can :show, Track if format == "json"
+      cannot :index, :stats
+      can :index, Label if format == "json"
+      can :show, Label if format == "json"
+
       cannot :admin, :dashboard
       cannot :admin, :radios
       cannot :admin, :sign_in_as
