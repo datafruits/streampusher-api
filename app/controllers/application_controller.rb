@@ -17,7 +17,10 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     if user_signed_in?
-      render :file => "#{Rails.root}/public/403.html", :status => 403
+      respond_to do |format|
+        format.html { render :file => "#{Rails.root}/public/403.html", :status => 403 }
+        format.json { head :forbidden }
+      end
     else
       store_location_for :user, request.path
       redirect_to new_user_session_path, :notice => "You need to login first!"
