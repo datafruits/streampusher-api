@@ -10,7 +10,7 @@ else # we have no args
 fi
 
 if docker ps &>/dev/null; then
-  command="docker-compose -f docker-compose-dev.yml run rails ./docker_wrapper.sh bundle exec rspec"
+  command="docker-compose -p streampusher -f docker-compose-dev.yml run rails ./docker_wrapper.sh bundle exec rspec"
 else
   command="bundle exec rspec"
 fi
