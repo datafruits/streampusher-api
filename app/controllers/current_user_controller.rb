@@ -9,4 +9,20 @@ class CurrentUserController < ApplicationController
       }
     end
   end
+
+  def update
+    authorize! :update, :current_user
+    user = current_user
+    user.attributes = user_params
+    if user.save
+      render json: user, serializer: UserSerializer
+    else
+      render json: { errors: user.errors }, status: 422
+    end
+  end
+
+  private
+  def user_params
+    params.require(:user).permit(:style)
+  end
 end
