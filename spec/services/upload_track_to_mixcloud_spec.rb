@@ -3,7 +3,6 @@ require 'sidekiq/testing'
 
 describe UploadTrackToMixcloud do
   let(:token){ ENV['MIXCLOUD_TOKEN'] }
-  :region='us-east-1'
   it "uploads a track to mixcloud account" do
     VCR.use_cassette(RSpec.current_example.metadata[:full_description].to_s) do
       track = FactoryBot.create :track, audio_file_name: "https://s3.amazonaws.com/streampushertest/datafruits-ovenrake-12-01-2015.mp3", artwork: File.new("spec/fixtures/images/pineapple.png")
