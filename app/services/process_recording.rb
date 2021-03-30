@@ -9,7 +9,7 @@ class ProcessRecording
 
       radio = recording.radio
       credentials = Aws::Credentials.new ENV['S3_KEY'], ENV['S3_SECRET']
-      s3_client = Aws::S3::Client.new credentials: credentials
+      s3_client = Aws::S3::Client.new(credentials: credentials, region:'us-east-1')
       bucket = ENV['S3_BUCKET']
       basename = File.basename(recording.path)
       key = "#{radio.name}/#{basename}"
