@@ -7,44 +7,50 @@ Run options: include {:focus=>true}
 
 All examples were filtered out; ignoring {:focus=>true}
 
-Randomized with seed 46796
+Randomized with seed 55144
 
 ScheduledShow
-  validations
-[32m    end time cannot be in the past[0m
-[32m    end time cannot be before start time[0m
-[32m    start time cannot be in the past[0m
   override time zone
 [32m    set time_zone to save in[0m
   recurring shows
-[32m    deletes all recurring shows if destroy_recurrences is set[0m
-[32m    doesn't delete all recurring shows if destroy_recurrences is not set[0m
+[32m    creates a unique slug for each recurrence[0m
 [32m    doesnt duplicate slugs on update[0m
 [32m    updates this recurrance only[0m
+[32m    updates all recurring shows attributes[0m
+[32m    deletes all recurring shows if destroy_recurrences is set[0m
+[32m    saves recurring shows if recurring is true[0m
+[32m    doesn't delete all recurring shows if destroy_recurrences is not set[0m
 [32m    updates all recurring shows with a new recurrence[0m
 [32m    only deletes recurring shows in the future[0m
-[32m    updates all recurring shows attributes[0m
-[32m    creates a unique slug for each recurrence[0m
-[32m    saves recurring shows if recurring is true[0m
+  validations
+[32m    start time cannot be in the past[0m
+[32m    end time cannot be in the past[0m
+[32m    end time cannot be before start time[0m
+  slugs
+[32m    saves the unique slug with title and id[0m
+  dst handling
+2015-01-01 00:00:00 UTC
+2015-01-01 00:00:00 UTC
+[31m    updates all recurrences +1 hour for DST (FAILED - 1)[0m
   performers
 [32m    doesnt save extra performers[0m
 [32m    sets the DJ as the performer if no performers are specified[0m
-  dst handling
-2015-01-01 13:15:00 UTC
-2015-01-01 13:15:00 UTC
-[31m    updates all recurrences +1 hour for DST (FAILED - 1)[0m
-  slugs
-[32m    saves the unique slug with title and id[0m
 
 Failures:
 
   1) ScheduledShow dst handling updates all recurrences +1 hour for DST
-     [31mFailure/Error: [0mexpect(r.start_at.strftime([31m[1;31m"[0m[31m%H:%M %d/%m/%y[1;31m"[0m[31m[0m)).to eq start_at.strftime([31m[1;31m"[0m[31m%H:%M %d/%m/%y[1;31m"[0m[31m[0m)[0m
+     [31mFailure/Error: [0mexpect(r.start_at).to eq start_at[0m
      [31m[0m
-     [31m  expected: "13:15 01/01/15"[0m
-     [31m       got: "13:15 05/02/15"[0m
+     [31m  expected: 2015-01-01 00:00:00.000000000 +0000[0m
+     [31m       got: 2015-02-05 00:00:00.000000000 +0000[0m
      [31m[0m
      [31m  (compared using ==)[0m
+     [31m[0m
+     [31m  Diff:[0m[0m
+     [31m  [0m[34m@@ -1 +1 @@[0m
+     [31m  [0m[31m-2015-01-01 00:00:00 UTC[0m
+     [31m  [0m[32m+Thu, 05 Feb 2015 00:00:00 UTC +00:00[0m
+     [31m  [0m[0m
      [36m# ./vendor/bundle/ruby/2.7.0/gems/rspec-support-3.5.0/lib/rspec/support.rb:87:in `block in <module:Support>'[0m
      [36m# ./vendor/bundle/ruby/2.7.0/gems/rspec-support-3.5.0/lib/rspec/support.rb:96:in `notify_failure'[0m
      [36m# ./vendor/bundle/ruby/2.7.0/gems/rspec-expectations-3.5.0/lib/rspec/expectations/fail_with.rb:27:in `fail_with'[0m
@@ -111,34 +117,34 @@ Failures:
      [36m# /home/rails/.rbenv/versions/2.7.2/bin/bundle:23:in `load'[0m
      [36m# /home/rails/.rbenv/versions/2.7.2/bin/bundle:23:in `<main>'[0m
 
-Top 10 slowest examples (77.87 seconds, 99.2% of total time):
+Top 10 slowest examples (77.17 seconds, 99.3% of total time):
   ScheduledShow recurring shows saves recurring shows if recurring is true
-    [1m23.91[0m [1mseconds[0m ./spec/models/scheduled_show_spec.rb:87
+    [1m23.52[0m [1mseconds[0m ./spec/models/scheduled_show_spec.rb:87
   ScheduledShow recurring shows updates all recurring shows with a new recurrence
-    [1m17.86[0m [1mseconds[0m ./spec/models/scheduled_show_spec.rb:156
+    [1m18.98[0m [1mseconds[0m ./spec/models/scheduled_show_spec.rb:156
   ScheduledShow recurring shows updates this recurrance only
-    [1m11.87[0m [1mseconds[0m ./spec/models/scheduled_show_spec.rb:143
-  ScheduledShow recurring shows deletes all recurring shows if destroy_recurrences is set
-    [1m4.19[0m [1mseconds[0m ./spec/models/scheduled_show_spec.rb:165
+    [1m11.61[0m [1mseconds[0m ./spec/models/scheduled_show_spec.rb:143
   ScheduledShow recurring shows only deletes recurring shows in the future
-    [1m3.92[0m [1mseconds[0m ./spec/models/scheduled_show_spec.rb:182
-  ScheduledShow recurring shows updates all recurring shows attributes
-    [1m3.8[0m [1mseconds[0m ./spec/models/scheduled_show_spec.rb:130
+    [1m3.76[0m [1mseconds[0m ./spec/models/scheduled_show_spec.rb:182
   ScheduledShow recurring shows doesnt duplicate slugs on update
-    [1m3.78[0m [1mseconds[0m ./spec/models/scheduled_show_spec.rb:118
-  ScheduledShow dst handling updates all recurrences +1 hour for DST
-    [1m2.92[0m [1mseconds[0m ./spec/models/scheduled_show_spec.rb:195
-  ScheduledShow recurring shows creates a unique slug for each recurrence
-    [1m2.83[0m [1mseconds[0m ./spec/models/scheduled_show_spec.rb:108
+    [1m3.57[0m [1mseconds[0m ./spec/models/scheduled_show_spec.rb:118
+  ScheduledShow recurring shows updates all recurring shows attributes
+    [1m3.46[0m [1mseconds[0m ./spec/models/scheduled_show_spec.rb:130
+  ScheduledShow recurring shows deletes all recurring shows if destroy_recurrences is set
+    [1m3.37[0m [1mseconds[0m ./spec/models/scheduled_show_spec.rb:165
   ScheduledShow recurring shows doesn't delete all recurring shows if destroy_recurrences is not set
-    [1m2.8[0m [1mseconds[0m ./spec/models/scheduled_show_spec.rb:174
+    [1m3.25[0m [1mseconds[0m ./spec/models/scheduled_show_spec.rb:174
+  ScheduledShow dst handling updates all recurrences +1 hour for DST
+    [1m2.95[0m [1mseconds[0m ./spec/models/scheduled_show_spec.rb:195
+  ScheduledShow recurring shows creates a unique slug for each recurrence
+    [1m2.69[0m [1mseconds[0m ./spec/models/scheduled_show_spec.rb:108
 
-Finished in 1 minute 18.52 seconds (files took 2.24 seconds to load)
+Finished in 1 minute 17.69 seconds (files took 2.11 seconds to load)
 [31m17 examples, 1 failure[0m
 
 Failed examples:
 
 [31mrspec ./spec/models/scheduled_show_spec.rb:195[0m [36m# ScheduledShow dst handling updates all recurrences +1 hour for DST[0m
 
-Randomized with seed 46796
+Randomized with seed 55144
 

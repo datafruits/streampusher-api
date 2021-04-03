@@ -13,7 +13,7 @@ services:
   db:
     image: "postgres"
     volumes:
-      - postgres_data_9.4:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     environment:
         POSTGRES_PASSWORD: password
   rails:
@@ -53,4 +53,4 @@ services:
       - /tmp:/tmp
 
 volumes:
-  postgres_data_9.4:
+  postgres_data:

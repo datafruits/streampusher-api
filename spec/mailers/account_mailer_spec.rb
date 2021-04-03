@@ -16,6 +16,8 @@ RSpec.describe AccountMailer, type: :mailer do
   end
 
   it "sends day_after_trial_ended email" do
+    puts "lol"
+    user.subscription= FactoryBot.create :subscription
     mail = AccountMailer.day_after_trial_ended(user).deliver_now
   end
 end
