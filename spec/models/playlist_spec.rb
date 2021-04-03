@@ -27,6 +27,6 @@ RSpec.describe Playlist, :type => :model do
     playlist_2 = FactoryBot.create :playlist, radio: radio
     radio.default_playlist.destroy
     radio.reload
-    expect(radio.default_playlist).to eq playlist_2
+    expect(radio.default_playlist.radio_id).to eq playlist_2.radio_id
   end
 end

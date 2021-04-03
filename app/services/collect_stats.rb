@@ -43,7 +43,6 @@ class CollectStats
   private
   def download_icecast_xml
     uri = URI.parse ICECAST_URL
-
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = uri.port == 443
     request = Net::HTTP::Get.new(uri.request_uri)

@@ -1,3 +1,4 @@
+require "stripe"
 class SignupForm
   include ActiveModel::Model
   attr_reader :user, :radio
@@ -16,7 +17,7 @@ class SignupForm
   end
 
   def radios= radios
-    @radio.name = radios["name"]
+    @radio.name = radios[:name]
   end
 
   def any_errors?
@@ -27,6 +28,7 @@ class SignupForm
     attrs.each do |k,v|
       self.send("#{k}=", v)
     end
+    puts radio.name.present?
     @user.username = radio.name.gsub(/\s/,"")
     @user.referer = referer
   end
@@ -43,7 +45,7 @@ class SignupForm
           end
         end
       end
-    rescue ActiveRecord::RecordInvalid, Stripe::InvalidRequestError
+    rescue ActiveRecord::RecordInvalid,Stripe::InvalidRequestError 
       return false
     end
   end

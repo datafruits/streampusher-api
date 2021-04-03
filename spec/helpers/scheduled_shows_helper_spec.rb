@@ -1,6 +1,6 @@
 require 'rails_helper'
 require 'sidekiq/testing'
-
+require 'date'
 RSpec.describe ScheduledShowsHelper, type: :helper do
   before do
     Sidekiq::Testing.inline!
@@ -17,6 +17,6 @@ RSpec.describe ScheduledShowsHelper, type: :helper do
     start_at = Chronic.parse("today at 3:15 pm").utc
     end_at = Chronic.parse("today at 5:15 pm").utc
     scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey hey"
-    expect(helper.timezones_text(scheduled_show)).to eq "07/27 - 23:15 PST - 07/28 - 02:15 EST - 07:15 UK - 15:15 日本"
+    expect(helper.timezones_text(scheduled_show)).to eq "#{DateTime.now.strftime('%m/%d')} - 07:15 PST - 10:15 EST - 15:15 UK - #{DateTime.tomorrow.strftime('%m/%d')} - 00:15 JST/KST"
   end
 end

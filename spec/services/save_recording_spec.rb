@@ -10,7 +10,7 @@ describe SaveRecording do
 
     VCR.use_cassette(RSpec.current_example.metadata[:full_description].to_s) do
       recording = SaveRecording.save filename, radio.name
-      expect(recording.file_file_size).to eq File.size(local_path)
+      expect(recording.filesize).to eq File.size(local_path)
       expect(recording.dj).to eq shinta
       expect(recording.radio).to eq radio
     end

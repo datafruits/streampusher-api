@@ -7,5 +7,5 @@ if [ ! -f config/database.yml ]; then
   cp config/database.example.yml config/database.yml
 fi
 docker-compose -p streampusher -f docker-compose-dev.yml  run rails ./docker_wrapper.sh bundle install --path vendor/bundle --jobs 20
-docker-compose -p streampusher -f docker-compose-dev.yml  run rails ./docker_wrapper.sh bundle exec rake db:create
+docker-compose -p streampusher -f docker-compose-dev.yml run rails ./docker_wrapper.sh bundle exec rake db:create
 docker-compose -p streampusher -f docker-compose-dev.yml  run rails ./docker_wrapper.sh bundle exec rake db:migrate

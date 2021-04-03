@@ -10,12 +10,12 @@ services:
     ports:
       - "6379:6379"
     command: "redis-server --requirepass ${REDIS_PASSWORD}"
-  postgres:
-    image: "postgres:9.4"
-    ports:
-      - 5432
+  db:
+    image: "postgres"
     volumes:
       - postgres_data_9.4:/var/lib/postgresql/data
+    environment:
+        POSTGRES_PASSWORD: password
   rails:
     image: "streampusher/streampusher:latest"
     user: rails
@@ -28,7 +28,7 @@ services:
       POSTGRESQL_USERNAME: postgres
       REDIS_HOST: redis
     depends_on:
-      - postgres
+      - db
       - redis
     volumes:
       - .:/home/rails/app
@@ -45,7 +45,7 @@ services:
     environment:
       <<: *shared_env
     depends_on:
-      - postgres
+      - db
       - redis
     volumes:
       - .:/home/rails/app

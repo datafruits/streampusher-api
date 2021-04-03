@@ -22,7 +22,7 @@ RSpec.describe Radio, :type => :model do
     radio = FactoryBot.create :radio
     playlist_1 = FactoryBot.create :playlist, radio: radio
     scheduled_show_1 = FactoryBot.create :scheduled_show, playlist: playlist_1, radio: radio,
-      start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
+      start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am"),dj: dj 
     Timecop.travel Chronic.parse("January 1st 2090 at 11:30 pm") do
       expect(radio.current_scheduled_show).to eq scheduled_show_1
     end
@@ -37,10 +37,10 @@ RSpec.describe Radio, :type => :model do
     PersistPlaylistToRedis.perform playlist_2
 
     scheduled_show_1 = FactoryBot.create :scheduled_show, playlist: playlist_1, radio: radio,
-      start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
+      start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am"),dj: dj
 
     scheduled_show_2 = FactoryBot.create :scheduled_show, playlist: playlist_2, radio: radio,
-      start_at: Chronic.parse("January 1st 2092 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2092 at 01:30 am")
+      start_at: Chronic.parse("January 1st 2092 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2092 at 01:30 am"),dj: dj
 
     Timecop.travel Chronic.parse("January 1st 2090 at 11:30 pm") do
       expect(radio.current_scheduled_show).to eq scheduled_show_1

@@ -6,7 +6,7 @@ gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails'
 gem 'sprockets', '3.7.0'
-
+gem 'stripe'
 # assets gems
 gem 'jquery-rails'
 gem 'jquery-ui-rails'

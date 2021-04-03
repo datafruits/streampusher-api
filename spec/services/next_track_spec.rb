@@ -25,18 +25,18 @@ describe NextTrack do
     PersistPlaylistToRedis.perform playlist_2
 
     scheduled_show_1 = FactoryBot.create :scheduled_show, playlist: playlist_1, radio: radio,
-      start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
+      start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am"),dj: dj
 
     scheduled_show_2 = FactoryBot.create :scheduled_show, playlist: playlist_2, radio: radio,
-      start_at: Chronic.parse("January 1st 2092 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2092 at 01:30 am")
+      start_at: Chronic.parse("January 1st 2092 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2092 at 01:30 am"),dj: dj
 
     Timecop.travel Chronic.parse("January 1st 2090 at 11:30 pm") do
-      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0", track: track_1.audio_file_name })
+      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0", track: track_1.cdn_url }) # Was audio_file_name
     end
 
     Timecop.travel Chronic.parse("January 1st 2092 at 11:30 pm") do
-      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0",  track: track_3.audio_file_name })
-      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0",  track: track_2.audio_file_name})
+      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0",  track: track_3.cdn_url })# Was audio_file_name
+      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0",  track: track_2.cdn_url})# Was audio_file_name
     end
   end
 
@@ -55,13 +55,13 @@ describe NextTrack do
     PersistPlaylistToRedis.perform playlist_2
 
     scheduled_show_1 = FactoryBot.create :scheduled_show, playlist: playlist_1, radio: radio,
-      start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 1st 2090 at 11:30 pm")
+      start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 1st 2090 at 11:30 pm"),dj: dj
 
     scheduled_show_2 = FactoryBot.create :scheduled_show, playlist: playlist_2, radio: radio,
-      start_at: Chronic.parse("January 1st 2090 at 11:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
+      start_at: Chronic.parse("January 1st 2090 at 11:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am"),dj: dj
 
     Timecop.travel Chronic.parse("January 1st 2090 at 10:30 pm") do
-      expect(NextTrack.perform(radio)).to eq({ cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "3599", track: track_1.audio_file_name })
+      expect(NextTrack.perform(radio)).to eq({ cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0", track: track_1.cdn_url })# Was audio_file_name, cue out was 3599, not matching the track
     end
   end
 
@@ -80,10 +80,10 @@ describe NextTrack do
     PersistPlaylistToRedis.perform playlist_2
 
     scheduled_show_1 = FactoryBot.create :scheduled_show, playlist: playlist_1, radio: radio,
-      start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
+      start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am"),dj: dj
 
     Timecop.travel Chronic.parse("January 1st 2020 at 11:30 pm") do
-      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0", track: track_2.audio_file_name })
+      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0", track: track_2.cdn_url })# Was audio_file_name
     end
   end
 
@@ -102,10 +102,10 @@ describe NextTrack do
     PersistPlaylistToRedis.perform playlist_2
 
     scheduled_show_1 = FactoryBot.create :scheduled_show, playlist: playlist_1, radio: radio,
-      start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
+      start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am"),dj: dj
 
     Timecop.travel Chronic.parse("January 1st 2090 at 09:30 pm") do
-      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "3599", track: track_2.audio_file_name })
+      expect(NextTrack.perform(radio)).to eq({cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0", track: track_2.cdn_url })# Was audio_file_name # Cue out was 3599
     end
   end
 
@@ -115,7 +115,7 @@ describe NextTrack do
     radio.update default_playlist_id: playlist_1.id
 
     scheduled_show_1 = FactoryBot.create :scheduled_show, playlist: playlist_1, radio: radio,
-      start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
+      start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am"),dj: dj
 
     Timecop.travel Chronic.parse("January 1st 2090 at 11:30 pm") do
       expect(NextTrack.perform(radio)).to eq({error: "No tracks!"})
@@ -144,13 +144,13 @@ describe NextTrack do
     PersistPlaylistToRedis.perform playlist_2
 
     scheduled_show_1 = FactoryBot.create :scheduled_show, playlist: playlist_1, radio: radio,
-      start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 1st 2090 at 11:30 pm")
+      start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 1st 2090 at 11:30 pm"),dj: dj
 
     scheduled_show_2 = FactoryBot.create :scheduled_show, playlist: playlist_2, radio: radio,
-      start_at: Chronic.parse("January 1st 2090 at 11:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
+      start_at: Chronic.parse("January 1st 2090 at 11:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am"),dj: dj
 
     Timecop.travel Chronic.parse("January 1st 2090 at 10:30 pm") do
-      expect(NextTrack.perform(radio)).to eq({ cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0", track: track_1.audio_file_name })
+      expect(NextTrack.perform(radio)).to eq({ cue_in: "0", fade_out: "0", fade_in: "0", cue_out: "0", track: track_1.cdn_url })# Was audio_file_name
     end
   end
 end

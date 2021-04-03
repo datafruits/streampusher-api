@@ -8,7 +8,7 @@ describe CollectStats do
   it "collects the stats from icecast's xml" do
     radio = FactoryBot.create :radio, name: "datafruits"
     VCR.use_cassette(RSpec.current_example.metadata[:full_description].to_s) do
-      CollectStats.new(radio).perform
+      CollectStats.new(radio).perform 
       expect(Listen.count).to eq 3
     end
   end
