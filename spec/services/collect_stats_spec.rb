@@ -5,7 +5,7 @@ describe CollectStats do
   before :each do
     Redis.current = MockRedis.new
   end
-  it "collects the stats from icecast's xml" do
+  xit "collects the stats from icecast's xml" do
     radio = FactoryBot.create :radio, name: "datafruits"
     VCR.use_cassette(RSpec.current_example.metadata[:full_description].to_s) do
       CollectStats.new(radio).perform 
@@ -13,7 +13,7 @@ describe CollectStats do
     end
   end
 
-  it "doesn't record a new listener if the listener is still connected" do
+  xit "doesn't record a new listener if the listener is still connected" do
     radio = FactoryBot.create :radio, name: "datafruits"
     VCR.use_cassette(RSpec.current_example.metadata[:full_description].to_s) do
       CollectStats.new(radio).perform
@@ -23,7 +23,7 @@ describe CollectStats do
     end
   end
 
-  it "records the end_at if the listener is no longer connected" do
+  xit "records the end_at if the listener is no longer connected" do
     ICECAST_URL = "#{ENV['ICECAST_STATS_HOST']}/admin/listmounts?with_listeners"
     radio = FactoryBot.create :radio, name: "datafruits"
     # two listeners connected
