@@ -28,7 +28,6 @@ class SignupForm
     attrs.each do |k,v|
       self.send("#{k}=", v)
     end
-    puts radio.name.present?
     @user.username = radio.name.gsub(/\s/,"")
     @user.referer = referer
   end
