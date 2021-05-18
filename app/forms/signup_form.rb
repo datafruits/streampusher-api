@@ -15,6 +15,10 @@ class SignupForm
     @radio.name = name
   end
 
+  def radios= radios
+    @radio.name = radios["name"]
+  end
+
   def any_errors?
     self.user.errors.any? || self.radio.errors.any?
   end

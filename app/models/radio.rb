@@ -12,6 +12,7 @@ class Radio < ActiveRecord::Base
   has_many :listens
   has_many :host_applications
   has_many :blog_posts
+  has_many :microtexts
   belongs_to :default_playlist, class_name: "Playlist"
   after_create :create_default_playlist
 
@@ -99,6 +100,16 @@ class Radio < ActiveRecord::Base
       dir = "/home/deploy/#{self.name}/recordings"
     else
       dir = "/tmp/#{self.name}/recordings".to_s
+    end
+    FileUtils.mkdir_p dir
+    dir
+  end
+
+  def hls_directory
+    if ::Rails.env.production?
+      dir = "/home/deploy/#{self.name}/hls"
+    else
+      dir = "/tmp/#{self.name}/hls".to_s
     end
     FileUtils.mkdir_p dir
     dir

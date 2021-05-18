@@ -1,3 +1,5 @@
+require 'cgi'
+
 class Track < ActiveRecord::Base
   include SoId3::BackgroundJobs
   belongs_to :radio
@@ -39,7 +41,7 @@ class Track < ActiveRecord::Base
   before_save :set_tags_from_scheduled_show
 
   def s3_filepath
-    file_name = URI.decode(self.audio_file_name)
+    file_name = CGI.unescape(self.audio_file_name)
     if file_name.include?(ENV["S3_BUCKET"])
       split = file_name.split(ENV["S3_BUCKET"])
       if split.first =~ /s3.amazonaws.com/
@@ -57,7 +59,7 @@ class Track < ActiveRecord::Base
   end
 
   def file_basename
-    File.basename URI.decode(self.audio_file_name.to_s)
+    File.basename CGI.unescape(self.audio_file_name.to_s)
   end
 
   def local_path
@@ -80,9 +82,10 @@ class Track < ActiveRecord::Base
 
   def formatted_duration
     if self.length
-      minutes = (self.length / 60).floor
-      seconds = self.length - minutes * 60
-      "#{minutes}:#{seconds}"
+      minutes = (self.length / 60) % 60
+      seconds = self.length % 60
+      hours = self.length / (60 * 60)
+      format("%02d:%02d:%02d", hours, minutes, seconds)
     end
   end
 

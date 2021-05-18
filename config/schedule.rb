@@ -32,5 +32,9 @@ every 1.hours do
 end
 
 every 7.days do
-  command "cd /var/www/stream_pusher/current/ && bundle exec rails runner script/remove_old_recordings.rb"
+  command "cd /var/www/stream_pusher/current/ && :environment_variable=:environment bundle exec rails runner script/remove_old_recordings.rb >> :output"
+end
+
+every 1.days do
+  command "/usr/sbin/logrotate /etc/logrotate.conf"
 end

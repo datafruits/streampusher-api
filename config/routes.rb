@@ -32,21 +32,13 @@ Rails.application.routes.draw do
 
   resources :djs
 
-  devise_for :users, controllers: {
-    registrations: "registrations",
+  devise_for :users, skip: 'registrations', controllers: {
     sessions: "sessions",
-    omniauth_callbacks: "users/omniauth_callbacks"
+    omniauth_callbacks: "users/omniauth_callbacks",
+    passwords: "passwords"
   }
-  # devise_scope :user do
-  #   resource :registration,
-  #     only: [:new, :create, :edit, :update],
-  #     path: 'users',
-  #     path_names: { new: 'sign_up' },
-  #     controller: 'devise/registrations',
-  #     as: :user_registration do
-	# get :cancel
-  #     end
-  # end
+
+  resources :password_resets, only: [:create]
 
   resources :anniversary_slots do
     collection do
@@ -58,6 +50,8 @@ Rails.application.routes.draw do
     get "/login" => "sessions#new"
     post "/login" => "sessions#create"
     delete "/logout" => "sessions#destroy"
+    get 'users/edit' => 'registrations#edit', :as => 'edit_user_registration'
+    put 'users' => 'registrations#update', :as => 'user_registration'
   end
 
   get 'admin', to: 'admin#index', as: 'admin'
@@ -109,8 +103,9 @@ Rails.application.routes.draw do
     resources :approvals, only: [:create]
   end
 
-  resources :current_user, only: [:index]
+  resources :current_user, only: [:index, :update]
   get "/users/current_user" => "current_user#index"
+  put "/users/current_user" => "current_user#update"
   resources :profile, only: [:index, :create]
 
   resources :blog_posts, only: [:index, :create, :show, :update]
@@ -118,9 +113,24 @@ Rails.application.routes.draw do
   resources :blog_post_images, only: [:create]
   resources :liquidsoap_requests, only: [:index]
 
+  resources :chat_bans, only: [:index, :create] do
+    delete :index, on: :collection, action: :destroy
+  end
+
+  # meant only for consumption by datafruits frontend app
   namespace :api do
     resources :blog_posts, only: [:show, :index]
+    resources :djs, only: [:show, :index]
+    resources :listeners, only: [:create] do
+      collection do
+        get 'validate_email'
+        get 'validate_username'
+      end
+    end
+    resources :microtexts, only: [:create, :index]
+    resources :schedule, only: [:index]
   end
+
   post "/setup" => "setup#create"
   get "/setup/allowed" => "setup#allowed"
 

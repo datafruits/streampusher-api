@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200327115945) do
+ActiveRecord::Schema.define(version: 20210214144929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,19 +91,30 @@ ActiveRecord::Schema.define(version: 20200327115945) do
 
   create_table "listens", force: :cascade do |t|
     t.integer  "radio_id"
-    t.string   "ip_address"
+    t.string   "ip_address",          limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "start_at"
     t.datetime "end_at"
     t.float    "lat"
     t.float    "lon"
-    t.integer  "icecast_listener_id", null: false
+    t.integer  "icecast_listener_id",             null: false
     t.string   "user_agent"
     t.string   "referer"
     t.string   "country"
     t.string   "address"
     t.index ["radio_id"], name: "index_listens_on_radio_id", using: :btree
+  end
+
+  create_table "microtexts", force: :cascade do |t|
+    t.integer  "user_id",                    null: false
+    t.integer  "radio_id",                   null: false
+    t.string   "content",                    null: false
+    t.boolean  "approved",   default: false, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["radio_id"], name: "index_microtexts_on_radio_id", using: :btree
+    t.index ["user_id"], name: "index_microtexts_on_user_id", using: :btree
   end
 
   create_table "plans", force: :cascade do |t|
@@ -125,18 +136,18 @@ ActiveRecord::Schema.define(version: 20200327115945) do
   end
 
   create_table "playlists", force: :cascade do |t|
-    t.integer  "radio_id",                                                   null: false
+    t.integer  "radio_id",                                                               null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
+    t.string   "name",                                       limit: 255
     t.integer  "interpolated_playlist_id"
     t.integer  "interpolated_playlist_track_play_count"
     t.integer  "interpolated_playlist_track_interval_count"
-    t.boolean  "interpolated_playlist_enabled",              default: false, null: false
-    t.boolean  "no_cue_out",                                 default: false, null: false
-    t.boolean  "shuffle",                                    default: false, null: false
+    t.boolean  "interpolated_playlist_enabled",                          default: false, null: false
+    t.boolean  "no_cue_out",                                             default: true,  null: false
+    t.boolean  "shuffle",                                                default: false, null: false
     t.integer  "user_id"
-    t.boolean  "repeat",                                     default: false, null: false
+    t.boolean  "repeat",                                                 default: false, null: false
     t.index ["interpolated_playlist_id"], name: "index_playlists_on_interpolated_playlist_id", using: :btree
     t.index ["radio_id"], name: "index_playlists_on_radio_id", using: :btree
     t.index ["user_id"], name: "index_playlists_on_user_id", using: :btree
@@ -157,7 +168,7 @@ ActiveRecord::Schema.define(version: 20200327115945) do
     t.integer  "playlist_id"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.bigint   "image_file_size"
+    t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.string   "extra_tags"
     t.index ["playlist_id"], name: "index_podcasts_on_playlist_id", using: :btree
@@ -165,25 +176,26 @@ ActiveRecord::Schema.define(version: 20200327115945) do
   end
 
   create_table "radios", force: :cascade do |t|
-    t.string   "icecast_container_id"
+    t.string   "icecast_container_id",            limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name",                            default: "",    null: false
-    t.string   "liquidsoap_container_id"
+    t.string   "name",                            limit: 255, default: "",    null: false
+    t.string   "liquidsoap_container_id",         limit: 255
     t.integer  "default_playlist_id"
-    t.boolean  "enabled",                         default: true,  null: false
-    t.boolean  "vj_enabled",                      default: false, null: false
-    t.boolean  "podcasts_enabled",                default: false, null: false
-    t.boolean  "stats_enabled",                   default: false, null: false
-    t.boolean  "social_identities_enabled",       default: false, null: false
+    t.boolean  "enabled",                                     default: true,  null: false
+    t.boolean  "vj_enabled",                                  default: false, null: false
+    t.boolean  "podcasts_enabled",                            default: false, null: false
+    t.boolean  "stats_enabled",                               default: false, null: false
     t.string   "tunein_partner_id"
     t.string   "tunein_partner_key"
     t.string   "tunein_station_id"
-    t.boolean  "tunein_metadata_updates_enabled", default: false, null: false
-    t.string   "container_name",                                  null: false
-    t.boolean  "schedule_monitor_enabled",        default: false, null: false
+    t.boolean  "tunein_metadata_updates_enabled",             default: false, null: false
+    t.boolean  "social_identities_enabled",                   default: false, null: false
+    t.string   "container_name",                                              null: false
+    t.boolean  "schedule_monitor_enabled",                    default: false, null: false
     t.string   "show_share_url"
     t.integer  "port_number"
+    t.string   "docker_image_name",                           default: "",    null: false
     t.index ["default_playlist_id"], name: "index_radios_on_default_playlist_id", using: :btree
   end
 
@@ -231,7 +243,7 @@ ActiveRecord::Schema.define(version: 20200327115945) do
     t.text     "description"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.bigint   "image_file_size"
+    t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.integer  "recurring_interval",    default: 0,     null: false
     t.boolean  "recurrence",            default: false, null: false
@@ -249,17 +261,17 @@ ActiveRecord::Schema.define(version: 20200327115945) do
   end
 
   create_table "shows", force: :cascade do |t|
-    t.string   "title",              default: "", null: false
-    t.integer  "dj_id",                           null: false
-    t.integer  "radio_id",                        null: false
-    t.text     "description",        default: "", null: false
+    t.string   "title",              limit: 255, default: "", null: false
+    t.integer  "dj_id",                                       null: false
+    t.integer  "radio_id",                                    null: false
+    t.text     "description",                    default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "playlist_id"
     t.string   "color"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.bigint   "image_file_size"
+    t.integer  "image_file_size"
     t.datetime "image_updated_at"
   end
 
@@ -287,29 +299,29 @@ ActiveRecord::Schema.define(version: 20200327115945) do
   end
 
   create_table "tracks", force: :cascade do |t|
-    t.string   "audio_file_name"
+    t.string   "audio_file_name",          limit: 255
     t.integer  "radio_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "description",              default: "", null: false
+    t.string   "description",                          default: "", null: false
     t.string   "artist"
     t.string   "title"
     t.string   "album"
     t.integer  "year"
     t.integer  "track"
+    t.integer  "filesize",                             default: 0,  null: false
+    t.integer  "tag_processing_status",                default: 0,  null: false
     t.integer  "length"
-    t.integer  "filesize",                 default: 0,  null: false
-    t.integer  "tag_processing_status",    default: 0,  null: false
     t.string   "artwork_file_name"
     t.string   "artwork_content_type"
-    t.bigint   "artwork_file_size"
+    t.integer  "artwork_file_size"
     t.datetime "artwork_updated_at"
-    t.integer  "mixcloud_upload_status",   default: 0,  null: false
+    t.integer  "mixcloud_upload_status",               default: 0,  null: false
     t.string   "mixcloud_key"
-    t.integer  "soundcloud_upload_status", default: 0,  null: false
-    t.string   "soundcloud_key"
     t.integer  "uploaded_by_id"
     t.integer  "scheduled_show_id"
+    t.integer  "soundcloud_upload_status",             default: 0,  null: false
+    t.string   "soundcloud_key"
     t.index ["radio_id"], name: "index_tracks_on_radio_id", using: :btree
     t.index ["scheduled_show_id"], name: "index_tracks_on_scheduled_show_id", using: :btree
     t.index ["uploaded_by_id"], name: "index_tracks_on_uploaded_by_id", using: :btree
@@ -326,32 +338,32 @@ ActiveRecord::Schema.define(version: 20200327115945) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
-    t.string   "reset_password_token"
+    t.string   "email",                  limit: 255, default: "",    null: false
+    t.string   "encrypted_password",     limit: 255, default: "",    null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
+    t.integer  "sign_in_count",                      default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "role"
-    t.string   "username",               default: "",    null: false
+    t.string   "role",                   limit: 255
+    t.string   "username",               limit: 255, default: "",    null: false
     t.string   "time_zone"
-    t.string   "display_name",           default: "",    null: false
+    t.string   "display_name",                       default: "",    null: false
     t.datetime "deleted_at"
-    t.boolean  "enabled",                default: true,  null: false
+    t.boolean  "enabled",                            default: true,  null: false
     t.string   "referer"
     t.text     "bio"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.bigint   "image_file_size"
+    t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.boolean  "profile_publish",        default: false, null: false
-    t.string   "donation_link"
+    t.boolean  "profile_publish",                    default: false, null: false
+    t.integer  "style",                              default: 0,     null: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end

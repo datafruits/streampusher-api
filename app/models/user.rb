@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 
   has_one :subscription
   has_many :radios, through: :user_radios
+  has_many :microtexts
   has_many :user_radios
   has_many :shows, foreign_key: :dj_id
   has_many :recordings
@@ -20,6 +21,8 @@ class User < ActiveRecord::Base
   default_scope { order(created_at: :desc) }
 
   scope :profile_published, -> { where(profile_publish: true) }
+
+  enum style: [ :unknown, :cold, :gooey, :party, :doom, :funky, :fruity, :sadness, :grumpy, :sexy, :chill, :freaky, :fancy ]
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

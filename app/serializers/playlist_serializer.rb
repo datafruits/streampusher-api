@@ -8,4 +8,15 @@ class PlaylistSerializer < ActiveModel::Serializer
   def created_by
     object.user.try(:username)
   end
+
+  def playlist_tracks
+    object.playlist_tracks.page(scope[:playlist_tracks][:page])
+  end
+
+  def meta
+    {
+      page: scope[:playlist_tracks][:page],
+      total_pages: playlist_tracks.page.total_pages.to_i
+    }
+  end
 end

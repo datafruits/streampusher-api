@@ -1,27 +1,4 @@
 class RegistrationsController < Devise::RegistrationsController
-  before_action :create_new_form, only: [:new, :create]
-
-  def new
-    @signup_form = SignupForm.new
-    @plan = Plan.find_or_create_by name: "Free Trial"
-  end
-
-  def create
-    @signup_form = SignupForm.new
-    @signup_form.referer = session['referer']
-    @signup_form.attributes = create_params
-    @plan = Plan.find_or_create_by name: "Free Trial"
-    respond_to do |format|
-      if @signup_form.save
-        sign_in :user, @signup_form.user
-        format.html { redirect_to radios_path, notice: "You have successfully signed up." }
-      else
-        flash[:error] = "Sorry, there was an error signing up. Please check the form."
-        format.html { render :new }
-      end
-    end
-  end
-
   def update
     @user = User.find(current_user.id)
 
@@ -55,11 +32,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   private
-
-  def create_new_form
-    user = User.new
-    @signup_form = SignupForm.new(User.new)
-  end
 
   def create_params
     params.require(:signup_form).permit(:email, :password, :password_confirmation, :current_password, :time_zone,

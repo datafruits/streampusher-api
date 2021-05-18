@@ -6,11 +6,16 @@ class Ability
     if user.admin?
       can :admin, :dashboard
       can :admin, :radios
+      can :admin, :chats
       can :admin, :sign_in_as
       can :index, :stats if can_manage_radio?(user, radio)
       can :manage, :all
       can :update, :metadata
+      can :index, :current_user
     elsif user.manager?
+      can :index, :current_user
+      can :update, :current_user
+
       can :manage, Radio do |radio|
         can_manage_radio?(user, radio)
       end
@@ -43,6 +48,9 @@ class Ability
       can :index, :profile
       can :create, :profile
     elsif user.dj?
+      can :index, :current_user
+      can :update, :current_user
+
       can :index, Radio if can_manage_radio?(user, radio)
       can :read, Podcast if radio.podcasts_enabled?
       can :index, :stats if can_manage_radio?(user, radio)
@@ -107,10 +115,36 @@ class Ability
       can :create, :profile
       can :manage, Recording if can_manage_radio?(user, radio)
 
+      can :create, Microtext if can_manage_radio?(user, radio)
+
+      cannot :admin, :dashboard
+      cannot :admin, :radios
+      cannot :admin, :sign_in_as
+    elsif user.listener?
+      can :index, :current_user
+      can :update, :current_user
+
+      can :create, Microtext if can_manage_radio?(user, radio)
+
+      can :read, ScheduledShow if format == "json"
+      can :index, :dj if format == "json"
+      can :read, :dj if format == "json"
+      can :next, ScheduledShow if format == "json"
+
+      can :enabled, :vj
+      can :embed, Track
+      can :show, Track if format == "json"
+      cannot :index, :stats
+      can :index, Label if format == "json"
+      can :show, Label if format == "json"
+
       cannot :admin, :dashboard
       cannot :admin, :radios
       cannot :admin, :sign_in_as
     else
+      cannot :index, :current_user
+      cannot :update, :current_user
+
       can :read, ScheduledShow if format == "json"
       can :index, :dj if format == "json"
       can :read, :dj if format == "json"

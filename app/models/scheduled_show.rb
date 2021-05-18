@@ -20,7 +20,7 @@ class ScheduledShow < ActiveRecord::Base
   has_many :performers, through: :scheduled_show_performers, source: :user
   accepts_nested_attributes_for :scheduled_show_performers
 
-  validates_presence_of :start_at, :end_at, :playlist_id, :title
+  validates_presence_of :start_at, :end_at, :playlist_id, :title, :dj_id
   validates :description, length: { maximum: 10000 }
 
   validate :start_at_cannot_be_in_the_past, on: :create
@@ -38,7 +38,7 @@ class ScheduledShow < ActiveRecord::Base
   before_destroy :maybe_destroy_recurrences
 
   before_save :ensure_time_zone
-
+  before_save :add_performers
 
   enum recurring_interval: [:not_recurring, :day, :week, :month, :year, :biweek]
 
@@ -137,6 +137,7 @@ class ScheduledShow < ActiveRecord::Base
     if recurring?
       start_and_end_recurrences.each do |s,e|
         scheduled_show = self.dup
+        scheduled_show.image = self.image
         scheduled_show.recurring_interval = self.recurring_interval
         scheduled_show.recurrence = true
         scheduled_show.recurrant_original_id = self.id
@@ -156,6 +157,7 @@ class ScheduledShow < ActiveRecord::Base
       r.start_at = new_start_at
       new_end_at = DateTime.new r.end_at.year, r.end_at.month, r.end_at.day, self.end_at.hour, self.end_at.min, self.end_at.sec, self.end_at.zone
       r.end_at = new_end_at
+      r.image = self.image
       r.update_all_recurrences = false
       r.save!
     end
@@ -180,6 +182,13 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   private
+
+  def add_performers
+    if self.scheduled_show_performers.empty?
+      self.performers << self.dj
+    end
+  end
+
   def recurring_interval_changed?
     self.changes.has_key? "recurring_interval"
   end

@@ -1,9 +1,0 @@
-Program
-  has_many :djs
-  name
-  artwork
-  has_many :shows
-
-Show
-  belongs_to :program
-  time

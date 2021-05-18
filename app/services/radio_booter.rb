@@ -7,7 +7,7 @@ class RadioBooter
     radio_name = radio.container_name
     redis = Redis.current
 
-    image = 'mcfiredrill/liquidsoap:latest'
+    image = radio.docker_image_name.present? ? radio.docker_image_name : 'mcfiredrill/liquidsoap:latest'
     name = "#{radio_name}_liquidsoap"
     env = ["RADIO_NAME=#{radio_name}","RAILS_ENV=#{Rails.env}",
        "ICECAST_HOST", "icecast",
@@ -17,7 +17,8 @@ class RadioBooter
        "TUNEIN_STATION_ID=#{radio.tunein_station_id}",
        "LIQ_SECRET=#{Rails.application.secrets.liq_secret}"]
     binds = ["#{radio.tracks_directory}:/home/liquidsoap/tracks",
-       "#{radio.recordings_directory}:/home/liquidsoap/recordings"]
+       "#{radio.recordings_directory}:/home/liquidsoap/recordings",
+       "#{radio.hls_directory}:/home/liquidsoap/hls"]
     host_ports = {}
 
     if radio.port_number
