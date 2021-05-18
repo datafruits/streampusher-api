@@ -58,6 +58,18 @@ class ScheduledShow < ActiveRecord::Base
   # TODO
   # validate :time_is_in_15_min_intervals
   #
+  #
+  def next_track!
+    if self.playlist.present?
+      track_id = self.playlist.pop_next_track
+      # if track_id.present?
+      track = Track.find track_id
+      if track
+        return track.s3_filepath
+      end
+    end
+  end
+
   def playlist_or_default
     # playlist presence is validated, but it might be deleted
     # and we can't add dependant destroy

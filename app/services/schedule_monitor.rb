@@ -4,11 +4,13 @@ class ScheduleMonitor
     current_scheduled_show = radio.current_scheduled_show now
     if current_scheduled_show && (current_scheduled_show.id != current_playing_show.id.to_i)
       liquidsoap_socket = liquidsoap_socket_class.new(radio.liquidsoap_socket_path)
-      on_air_file = LiquidsoapRequests.on_air_file
+
+      # on_air_file = LiquidsoapRequests.on_air_file
       # dont skip if current show is not over yet
+
       if current_playing_show.playlist.no_cue_out?
         # add next show's track to queue
-        LiquidsoapRequests.add_to_queue radio, current_playing_show.next_track
+        LiquidsoapRequests.add_to_queue radio, current_playing_show.next_track!
         # how to set current playing show when that next track plays??
       else
         LiquidsoapRequests.skip radio
