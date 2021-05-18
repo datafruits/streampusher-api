@@ -8,9 +8,10 @@ class ScheduleMonitor
       # dont skip if current show is not over yet
       if current_playing_show.playlist.no_cue_out?
         # add next show's track to queue
-        LiquidsoapRequests.add_to_queue current_playing_show.next_track
+        LiquidsoapRequests.add_to_queue radio, current_playing_show.next_track
         # how to set current playing show when that next track plays??
       else
+        LiquidsoapRequests.skip radio
         # skip!
         # unless queue.length == 1 && on_air_file == current_scheduled_show.playlist.tracks.first.audio_file_name
         #   clear queue
