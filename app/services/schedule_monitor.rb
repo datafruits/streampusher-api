@@ -1,26 +1,28 @@
 class ScheduleMonitor
   def self.perform radio, now, liquidsoap_socket_class=Liquidsoap::Socket
-    current_playing_show = ScheduledShow.find(Redis.current.get(radio.current_show_playing_key).to_i)
-    current_scheduled_show = radio.current_scheduled_show now
-    if current_scheduled_show && (current_scheduled_show.id != current_playing_show.id.to_i)
+    current_playing_show_id = radio.current_show_playing
+    if current_playing_show_id.present?
+      current_playing_show_in_redis = ScheduledShow.find(current_playing_show_id) # in redis
+    else
+      current_playing_show_in_redis = nil
+    end
+    current_scheduled_show_in_db = radio.current_scheduled_show now # database
+    if !current_scheduled_show_in_db  # no show scheduled now, clear it
+      radio.set_current_show_playing nil
+    elsif current_scheduled_show_in_db && (current_scheduled_show_in_db.id != current_playing_show_in_redis.try(:id).to_i) # its not the next show yet, but next_track will set it
       liquidsoap_socket = liquidsoap_socket_class.new(radio.liquidsoap_socket_path)
 
-      # on_air_file = LiquidsoapRequests.on_air_file
-      # dont skip if current show is not over yet
+      radio.set_current_show_playing current_scheduled_show_in_db.id
+      # current_scheduled_show_in_db and redis are synced now
 
-      if current_playing_show.playlist.no_cue_out?
-        # add next show's track to queue
-        LiquidsoapRequests.add_to_queue radio, current_playing_show.next_track!
-        # how to set current playing show when that next track plays??
+      if current_playing_show_in_db.playlist.no_cue_out?
+        # add next show's track (or entire playlist?) to queue
+        puts "adding to queue"
+        current_playing_show_in_db.queue_playlist!
       else
+        puts "skipping"
+        current_playing_show_in_db.queue_playlist!
         LiquidsoapRequests.skip radio
-        # skip!
-        # unless queue.length == 1 && on_air_file == current_scheduled_show.playlist.tracks.first.audio_file_name
-        #   clear queue
-        #   while queue.length > 1
-        #     liquidsoap_socket.write "icecast.1.skip"
-        #   end
-        # end
       end
     end
   end

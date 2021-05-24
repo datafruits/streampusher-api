@@ -40,6 +40,11 @@ class Playlist < ActiveRecord::Base
     track_id
   end
 
+  def redis_length
+    redis = Redis.current
+    return redis.llen redis_key
+  end
+
   def default?
     self.radio.default_playlist_id == self.id
   end

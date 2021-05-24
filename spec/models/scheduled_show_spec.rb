@@ -207,4 +207,20 @@ RSpec.describe ScheduledShow, :type => :model do
       end
     end
   end
+
+  describe "queue_playlist!" do
+  let(:liquidsoap_requests_class){ class_double("LiquidsoapRequests") }
+    it "queues the show's entire playlist in liquidsoap" do
+      # allow(liquidsoap_requests_class).to receive(:add_to_queue)
+      start_at = Chronic.parse("today at 2:15 pm").utc
+      end_at = Chronic.parse("today at 3:15 pm").utc
+      5.times do |i|
+        @playlist.tracks << Track.create(radio: @radio, audio_file_name: "spec/fixtures/the_cowbell.mp3", title: "pineapple_#{i}")
+      end
+      @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey", dj: @dj
+      @playlist.tracks.each do |track|
+        expect(LiquidsoapRequests).to receive(:add_to_queue).with(@radio, track.s3_filepath)
+      end
+    end
+  end
 end

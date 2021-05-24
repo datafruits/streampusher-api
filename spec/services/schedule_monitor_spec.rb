@@ -38,5 +38,7 @@ describe ScheduleMonitor do
       ScheduleMonitor.perform radio, Time.now, liquidsoap_socket_class
     end
   end
-  xit "skips to the right track if the queue is full" # what was this supposed to mean
+  xit "adds the track from the next show to the queue if the current show is not over and has no_cue_out set"
+  xit "skips to the track from the next show if the current show is not over and doesnt have no_cue_out set"
+  xit "sets current show playing in redis to nil if there is no scheduled show in the db"
 end

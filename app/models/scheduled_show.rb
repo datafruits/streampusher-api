@@ -59,11 +59,26 @@ class ScheduledShow < ActiveRecord::Base
   # validate :time_is_in_15_min_intervals
   #
   #
+  def queue_playlist!
+    if self.playlist.present?
+      while self.playlist.redis_length > 0
+        track_id = self.playlist.pop_next_track
+        # if track_id.present?
+        track = Track.find track_id
+        puts "popped next track: #{track.s3_filepath}"
+        if track
+          LiquidsoapRequests.add_to_queue radio, track.s3_filepath # should be cdn url on prod
+        end
+      end
+    end
+  end
+
   def next_track!
     if self.playlist.present?
       track_id = self.playlist.pop_next_track
       # if track_id.present?
       track = Track.find track_id
+      puts "popped next track: #{track.s3_filepath}"
       if track
         return track.s3_filepath
       end
