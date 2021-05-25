@@ -15,7 +15,8 @@ class RadioBooter
        "TUNEIN_PARTNER_KEY=#{radio.tunein_partner_key}",
        "TUNEIN_METADATA_UPDATES_ENABLED=#{radio.tunein_metadata_updates_enabled?}",
        "TUNEIN_STATION_ID=#{radio.tunein_station_id}",
-       "LIQ_SECRET=#{Rails.application.secrets.liq_secret}"]
+       "LIQ_SECRET=#{Rails.application.secrets.liq_secret}",
+       "STEREO_TOOL_KEY=#{Rails.application.secrets.stereo_tool_key}"]
     binds = ["#{radio.tracks_directory}:/home/liquidsoap/tracks",
        "#{radio.recordings_directory}:/home/liquidsoap/recordings",
        "#{radio.hls_directory}:/home/liquidsoap/hls"]
