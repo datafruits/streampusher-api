@@ -36,6 +36,13 @@ class ScheduledShow < ActiveRecord::Base
   after_update :update_recurrences_in_background, if: :recurring_or_recurrence?
   after_update :save_recurrences_in_background, if: :recurring_interval_changed?
   before_destroy :maybe_destroy_recurrences
+  before_destroy :clear_redis_if_playing
+  #
+  def clear_redis_if_playing
+    if self.radio.current_show_playing.to_i == self.id
+      self.radio.set_current_show_playing nil
+    end
+  end
 
   before_save :ensure_time_zone
   before_save :add_performers

@@ -210,6 +210,7 @@ RSpec.describe ScheduledShow, :type => :model do
 
   describe "queue_playlist!" do
   let(:liquidsoap_requests_class){ class_double("LiquidsoapRequests") }
+    xit "it clears the redis current_show_playing if destroyed and playing"
     it "queues the show's entire playlist in liquidsoap" do
       # allow(liquidsoap_requests_class).to receive(:add_to_queue)
       start_at = Chronic.parse("today at 2:15 pm").utc
