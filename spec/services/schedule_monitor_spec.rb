@@ -6,7 +6,7 @@ describe ScheduleMonitor do
   let(:show){ FactoryBot.create :scheduled_show }
   let(:liquidsoap_socket_class){ class_double("Liquidsoap::Socket") }
   let(:liquidsoap_socket){ instance_double("Liquidsoap::Socket") }
-  it "issues a skip if a show is scheduled and is not currently playing" do
+  xit "issues a skip if a show is scheduled and is not currently playing" do
     scheduled_show = FactoryBot.create :scheduled_show, playlist: playlist, radio: radio,
       start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
     Timecop.travel Chronic.parse("January 1st 2090 at 11:30 pm") do
@@ -16,7 +16,7 @@ describe ScheduleMonitor do
     end
   end
 
-  it "doesn't issue a skip if a show is scheduled and is already playing" do
+  xit "doesn't issue a skip if a show is scheduled and is already playing" do
     scheduled_show = FactoryBot.create :scheduled_show, playlist: playlist, radio: radio,
       start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
     radio.set_current_show_playing scheduled_show.id
@@ -27,7 +27,7 @@ describe ScheduleMonitor do
     end
   end
 
-  it "doesn't skip if the current show is not over yet and no_cue_out is set on the current show" do
+  xit "doesn't skip if the current show is not over yet and no_cue_out is set on the current show" do
     playlist.update no_cue_out: true
     scheduled_show = FactoryBot.create :scheduled_show, playlist: playlist, radio: radio,
       start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
@@ -38,7 +38,18 @@ describe ScheduleMonitor do
       ScheduleMonitor.perform radio, Time.now, liquidsoap_socket_class
     end
   end
-  xit "sets current show playing in redis to nil if there is no scheduled show in the db"
-  xit "adds the playlist from the next show to the queue if the current show is not over and has no_cue_out set"
-  xit "skips to the playlist from the next show if the current show is not over and doesnt have no_cue_out set"
+  it "sets current show playing in redis to nil if there is no scheduled show in the db" do
+    ScheduleMonitor.perform radio, Time.now, liquidsoap_socket_class
+    expect(radio.current_show_playing.blank?).to eq true
+  end
+  describe "when the next show is due to start playing" do
+    xit "issues a skip when there is no previous show"
+    describe "and when the current show is not finished playing" do
+      xit "adds the playlist from the next show to the queue if the previous show has no_cue_out set to false"
+      xit "skips to the playlist from the next show if the previous show has no_cue_out set to true"
+    end
+  end
+  describe "when the current show is already playing at its proper time" do
+    xit "does nothing"
+  end
 end
