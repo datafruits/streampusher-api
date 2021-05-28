@@ -4,8 +4,10 @@ describe ScheduleMonitor do
   let(:radio){ FactoryBot.create :radio }
   let(:playlist) { FactoryBot.create :playlist, radio: radio }
   let(:show){ FactoryBot.create :scheduled_show }
-  let(:liquidsoap_socket_class){ class_double("Liquidsoap::Socket") }
-  let(:liquidsoap_socket){ instance_double("Liquidsoap::Socket") }
+  let(:dj){ FactoryBot.create :user }
+  # let(:liquidsoap_socket_class){ class_double("Liquidsoap::Socket") }
+  # let(:liquidsoap_socket){ instance_double("Liquidsoap::Socket") }
+  let(:liquidsoap_requests) { class_double("LiquidsoapRequests").as_stubbed_const }
   # xit "issues a skip if a show is scheduled and is not currently playing" do
   #   scheduled_show = FactoryBot.create :scheduled_show, playlist: playlist, radio: radio,
   #     start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
@@ -39,11 +41,23 @@ describe ScheduleMonitor do
   #   end
   # end
   it "sets current show playing in redis to nil if there is no scheduled show in the db" do
-    ScheduleMonitor.perform radio, Time.now, liquidsoap_socket_class
+    ScheduleMonitor.perform radio, Time.now
     expect(radio.current_show_playing.blank?).to eq true
   end
   describe "when the next show is due to start playing" do
-    xit "issues a skip when there is no previous show"
+    it "issues a skip when there is no previous show" do
+      scheduled_show = FactoryBot.create :scheduled_show, playlist: playlist, radio: radio,
+        start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am"),
+        dj: dj
+      Timecop.travel Chronic.parse("January 1st 2090 at 10:31 pm") do
+        allow(liquidsoap_requests).to receive(:skip).with(radio).and_return(nil)
+        expect(liquidsoap_requests).to receive(:skip).with(radio)
+        # why doesn't this work
+        # expect(scheduled_show).to receive(:queue_playlist!)
+        ScheduleMonitor.perform radio, Time.now
+        expect(radio.current_show_playing.to_i).to eq scheduled_show.id.to_i
+      end
+    end
     describe "and when the current show is not finished playing" do
       xit "adds the playlist from the next show to the queue if the previous show has no_cue_out set to false"
       xit "skips to the playlist from the next show if the previous show has no_cue_out set to true"

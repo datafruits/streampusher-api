@@ -12,15 +12,13 @@ class ScheduleMonitor
       puts "no current show, clearing redis"
       radio.set_current_show_playing nil
     elsif current_scheduled_show_in_db && (current_scheduled_show_in_db.id != current_playing_show_in_redis.try(:id).to_i) # its not the next show yet, but next_track will set it
-      liquidsoap_socket = liquidsoap_socket_class.new(radio.liquidsoap_socket_path)
-
+      # add next show's track (or entire playlist?) to queue
+      puts "adding to queue"
+      current_scheduled_show_in_db.queue_playlist!
+      puts "received queue_playlist!"
+      # if previous show is set to no_cue_out, or previous show is blank, time to skip!
       if current_playing_show_in_redis.blank? || current_playing_show_in_redis.playlist.no_cue_out? # check cue out of previous show
-        # add next show's track (or entire playlist?) to queue
-        puts "adding to queue"
-        current_scheduled_show_in_db.queue_playlist!
-      else
         puts "skipping"
-        current_scheduled_show_in_db.queue_playlist!
         LiquidsoapRequests.skip radio
       end
       radio.set_current_show_playing current_scheduled_show_in_db.id
