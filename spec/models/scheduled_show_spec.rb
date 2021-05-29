@@ -34,11 +34,11 @@ RSpec.describe ScheduledShow, :type => :model do
         playlist: @playlist, start_at: @start_at, end_at: @end_at, title: "hey hey",
         dj: @dj, is_guest: true,
         scheduled_show_performers_attributes: { "0": { user_id: @dj.id } }
-      expect(@scheduled_show.valid).to eq false
+      expect(@scheduled_show.valid?).to eq false
       expect(@scheduled_show.errors[:guest]).to be_present
 
       @scheduled_show.guest = "special guest"
-      expect(@scheduled_show.valid).to eq true
+      expect(@scheduled_show.valid?).to eq true
     end
   end
 
