@@ -28,6 +28,18 @@ RSpec.describe ScheduledShow, :type => :model do
       expect(@scheduled_show.performers).to include(@dj)
       expect(@scheduled_show.performers.count).to eq 1
     end
+
+    it "requires a guest if is_guest?" do
+      @scheduled_show = ScheduledShow.new radio: @radio,
+        playlist: @playlist, start_at: @start_at, end_at: @end_at, title: "hey hey",
+        dj: @dj, is_guest: true,
+        scheduled_show_performers_attributes: { "0": { user_id: @dj.id } }
+      expect(@scheduled_show.valid).to eq false
+      expect(@scheduled_show.errors[:guest]).to be_present
+
+      @scheduled_show.guest = "special guest"
+      expect(@scheduled_show.valid).to eq true
+    end
   end
 
   describe "slugs" do
