@@ -1,6 +1,8 @@
 <div class="row">
   <h1><%= @scheduled_show.title %></h1>
-  <% if @scheduled_show.dj.present? %>
+  <% if @scheduled_show.is_guest? %>
+    <h3>Guest: <%= @scheduled_show.guest %></h3>
+  <% elsif @scheduled_show.dj.present? %>
     <h3><%= "Host: #{@scheduled_show.dj.username}" %></h3>
   <% end %>
   <% if @scheduled_show.image.present? %>
