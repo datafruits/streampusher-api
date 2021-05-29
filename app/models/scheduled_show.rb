@@ -20,6 +20,7 @@ class ScheduledShow < ActiveRecord::Base
   has_many :performers, through: :scheduled_show_performers, source: :user
   accepts_nested_attributes_for :scheduled_show_performers
 
+  validates_presence_of :guest, if: -> { is_guest? }
   validates_presence_of :start_at, :end_at, :playlist_id, :title, :dj_id
   validates :description, length: { maximum: 10000 }
 

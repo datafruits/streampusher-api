@@ -134,7 +134,7 @@ class ScheduledShowsController < ApplicationController
     params.require(:scheduled_show).permit(:title, :radio_id, :start_at,
                                            :end_at, :description, :image, :update_all_recurrences,
                                            :recurring_interval, :playlist_id, :time_zone,
-                                           :start, :end,
+                                           :start, :end, :is_guest, :guest,
                                            scheduled_show_performers_attributes: [:id, :user_id])
   end
 end
