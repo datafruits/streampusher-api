@@ -62,7 +62,7 @@ describe ScheduleMonitor do
       end
     end
     describe "and when the current show is not finished playing" do
-      it "adds the playlist from the next show to the queue if the previous show has no_cue_out set to true" do
+      it "adds the playlist from the next show to the queue if the previous show has no_cue_out set to true and doesn't skip" do
         playlist.update no_cue_out: true
         scheduled_show1 = FactoryBot.create :scheduled_show, playlist: playlist, radio: radio,
           start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 1st 2090 at 11:00 pm"),
@@ -112,6 +112,24 @@ describe ScheduleMonitor do
   end
   describe "when the current show is already playing at its proper time" do
     # how do i test that it does nothing???
-    xit "does nothing"
+    it "does nothing" do
+      scheduled_show1 = FactoryBot.create :scheduled_show, playlist: playlist, radio: radio,
+        start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 1st 2090 at 11:00 pm"),
+        dj: dj
+      Timecop.travel Chronic.parse("January 1st 2090 at 10:31 pm") do
+        allow(liquidsoap_requests).to receive(:skip).with(radio).and_return(nil)
+        expect(liquidsoap_requests).to receive(:skip).with(radio)
+        # why doesn't this work
+        # expect(scheduled_show1).to receive(:queue_playlist!)
+        ScheduleMonitor.perform radio, Time.now
+      end
+      Timecop.travel Chronic.parse("January 1st 2090 at 10:45 pm") do
+        allow(liquidsoap_requests).to receive(:skip).with(radio).and_return(nil)
+        expect(liquidsoap_requests).not_to receive(:skip).with(radio)
+        # why doesn't this work
+        expect(scheduled_show1).not_to receive(:queue_playlist!)
+        ScheduleMonitor.perform radio, Time.now
+      end
+    end
   end
 end
