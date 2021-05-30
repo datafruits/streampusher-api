@@ -22,8 +22,7 @@ describe ScheduleMonitor do
       Timecop.travel Chronic.parse("January 1st 2090 at 10:31 pm") do
         allow(liquidsoap_requests).to receive(:skip).with(radio).and_return(nil)
         expect(liquidsoap_requests).to receive(:skip).with(radio)
-        # why doesn't this work
-        # expect(scheduled_show).to receive(:queue_playlist!)
+        expect_any_instance_of(ScheduledShow).to receive(:queue_playlist!)
         ScheduleMonitor.perform radio, Time.now
         expect(radio.current_show_playing.to_i).to eq scheduled_show.id.to_i
       end
@@ -40,16 +39,16 @@ describe ScheduleMonitor do
         Timecop.travel Chronic.parse("January 1st 2090 at 10:31 pm") do
           allow(liquidsoap_requests).to receive(:skip).with(radio).and_return(nil)
           expect(liquidsoap_requests).to receive(:skip).with(radio)
-          # why doesn't this work
-          # expect(scheduled_show1).to receive(:queue_playlist!)
+          #expect_any_instance_of(ScheduledShow).to receive(:queue_playlist!)
           ScheduleMonitor.perform radio, Time.now
+          expect(radio.current_show_playing.to_i).to eq scheduled_show1.id.to_i
         end
         Timecop.travel Chronic.parse("January 1st 2090 at 11:01 pm") do
           allow(liquidsoap_requests).to receive(:skip).with(radio).and_return(nil)
           expect(liquidsoap_requests).not_to receive(:skip).with(radio)
-          # why doesn't this work
-          # expect(scheduled_show2).to receive(:queue_playlist!)
+          #expect_any_instance_of(ScheduledShow).to receive(:queue_playlist!)
           ScheduleMonitor.perform radio, Time.now
+          expect(radio.current_show_playing.to_i).to eq scheduled_show2.id.to_i
         end
       end
       it "skips to the playlist from the next show if the previous show has no_cue_out set to false" do
@@ -63,16 +62,16 @@ describe ScheduleMonitor do
         Timecop.travel Chronic.parse("January 1st 2090 at 10:31 pm") do
           allow(liquidsoap_requests).to receive(:skip).with(radio).and_return(nil)
           expect(liquidsoap_requests).to receive(:skip).with(radio)
-          # why doesn't this work
-          # expect(scheduled_show1).to receive(:queue_playlist!)
+          #expect_any_instance_of(ScheduledShow).to receive(:queue_playlist!)
           ScheduleMonitor.perform radio, Time.now
+          expect(radio.current_show_playing.to_i).to eq scheduled_show1.id.to_i
         end
         Timecop.travel Chronic.parse("January 1st 2090 at 11:01 pm") do
           allow(liquidsoap_requests).to receive(:skip).with(radio).and_return(nil)
           expect(liquidsoap_requests).to receive(:skip).with(radio)
-          # why doesn't this work
-          # expect(scheduled_show2).to receive(:queue_playlist!)
+          #expect_any_instance_of(ScheduledShow).to receive(:queue_playlist!)
           ScheduleMonitor.perform radio, Time.now
+          expect(radio.current_show_playing.to_i).to eq scheduled_show2.id.to_i
         end
       end
     end
@@ -86,15 +85,13 @@ describe ScheduleMonitor do
       Timecop.travel Chronic.parse("January 1st 2090 at 10:31 pm") do
         allow(liquidsoap_requests).to receive(:skip).with(radio).and_return(nil)
         expect(liquidsoap_requests).to receive(:skip).with(radio)
-        # why doesn't this work
-        # expect(scheduled_show1).to receive(:queue_playlist!)
+        expect_any_instance_of(ScheduledShow).to receive(:queue_playlist!)
         ScheduleMonitor.perform radio, Time.now
       end
       Timecop.travel Chronic.parse("January 1st 2090 at 10:45 pm") do
         allow(liquidsoap_requests).to receive(:skip).with(radio).and_return(nil)
         expect(liquidsoap_requests).not_to receive(:skip).with(radio)
-        # why doesn't this work
-        expect(scheduled_show1).not_to receive(:queue_playlist!)
+        expect_any_instance_of(ScheduledShow).not_to receive(:queue_playlist!)
         ScheduleMonitor.perform radio, Time.now
       end
     end
