@@ -70,11 +70,11 @@ class ScheduledShow < ActiveRecord::Base
     if self.playlist.present?
       while self.playlist.redis_length > 0
         track_id = self.playlist.pop_next_track
-        # if track_id.present?
-        track = Track.find track_id
-        puts "popped next track: #{track.s3_filepath}"
+        if track_id.present?
+          track = Track.find track_id
+        end
         if track
-          LiquidsoapRequests.add_to_queue radio, track.s3_filepath # should be cdn url on prod
+          LiquidsoapRequests.add_to_queue radio.id, track.cdn_url
         end
       end
     end

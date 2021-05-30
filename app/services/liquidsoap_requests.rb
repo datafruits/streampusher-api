@@ -22,7 +22,8 @@ class LiquidsoapRequests
     return uri_line.split(",").select{ |m| m.include?("http") }.first.split(":").last(2).join(":")
   end
 
-  def self.add_to_queue radio, uri, liquidsoap_socket_class=Liquidsoap::Socket
+  def self.add_to_queue radio_id, uri, liquidsoap_socket_class=Liquidsoap::Socket
+    radio = Radio.find radio_id
     liquidsoap_socket = liquidsoap_socket_class.new(radio.liquidsoap_socket_path)
     liquidsoap_socket.write("scheduled_shows.push #{uri}").encode("UTF-8")
   end

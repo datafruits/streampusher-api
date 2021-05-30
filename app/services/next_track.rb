@@ -9,6 +9,6 @@ class NextTrack
     end
     track = Track.find track_id
     # liquidsoap's json parser wants strings
-    { cue_out: 0.to_i.to_s, cue_in: 0.to_s, fade_out: 0.to_s, fade_in: 0.to_s, track: track.s3_filepath }
+    { cue_out: 0.to_i.to_s, cue_in: 0.to_s, fade_out: 0.to_s, fade_in: 0.to_s, track: track.cdn_url }
   end
 end
