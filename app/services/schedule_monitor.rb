@@ -22,13 +22,10 @@ class ScheduleMonitor
         puts "skipping"
         LiquidsoapRequests.skip radio
       end
+      # current_scheduled_show_in_db and redis should sync
       radio.set_current_show_playing current_scheduled_show_in_db.id
-      # current_scheduled_show_in_db and redis are synced now
     else
       puts "current show is already playing and queued?"
-      # have to actually check if the queue contains the files we want to be playing!
-      #
-      # or just rely on the radio.current_playing_show_in_redis to be accurate!
     end
   end
 end
