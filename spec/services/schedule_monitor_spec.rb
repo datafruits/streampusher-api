@@ -62,13 +62,13 @@ describe ScheduleMonitor do
       end
     end
     describe "and when the current show is not finished playing" do
-      it "adds the playlist from the next show to the queue if the previous show has no_cue_out set to false" do
+      it "adds the playlist from the next show to the queue if the previous show has no_cue_out set to true" do
         playlist.update no_cue_out: true
         scheduled_show1 = FactoryBot.create :scheduled_show, playlist: playlist, radio: radio,
-          start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 11:00 pm"),
+          start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 1st 2090 at 11:00 pm"),
           dj: dj
         scheduled_show2 = FactoryBot.create :scheduled_show, playlist: playlist, radio: radio,
-          start_at: Chronic.parse("January 1st 2090 at 11:00 pm"), end_at: Chronic.parse("January 2nd 2090 at 11:30 pm"),
+          start_at: Chronic.parse("January 1st 2090 at 11:00 pm"), end_at: Chronic.parse("January 1st 2090 at 11:30 pm"),
           dj: dj
         Timecop.travel Chronic.parse("January 1st 2090 at 10:31 pm") do
           allow(liquidsoap_requests).to receive(:skip).with(radio).and_return(nil)
@@ -85,7 +85,29 @@ describe ScheduleMonitor do
           ScheduleMonitor.perform radio, Time.now
         end
       end
-      xit "skips to the playlist from the next show if the previous show has no_cue_out set to false"
+      it "skips to the playlist from the next show if the previous show has no_cue_out set to false" do
+        playlist.update no_cue_out: false
+        scheduled_show1 = FactoryBot.create :scheduled_show, playlist: playlist, radio: radio,
+          start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 1st 2090 at 11:00 pm"),
+          dj: dj
+        scheduled_show2 = FactoryBot.create :scheduled_show, playlist: playlist, radio: radio,
+          start_at: Chronic.parse("January 1st 2090 at 11:00 pm"), end_at: Chronic.parse("January 1st 2090 at 11:30 pm"),
+          dj: dj
+        Timecop.travel Chronic.parse("January 1st 2090 at 10:31 pm") do
+          allow(liquidsoap_requests).to receive(:skip).with(radio).and_return(nil)
+          expect(liquidsoap_requests).to receive(:skip).with(radio)
+          # why doesn't this work
+          # expect(scheduled_show1).to receive(:queue_playlist!)
+          ScheduleMonitor.perform radio, Time.now
+        end
+        Timecop.travel Chronic.parse("January 1st 2090 at 11:01 pm") do
+          allow(liquidsoap_requests).to receive(:skip).with(radio).and_return(nil)
+          expect(liquidsoap_requests).to receive(:skip).with(radio)
+          # why doesn't this work
+          # expect(scheduled_show2).to receive(:queue_playlist!)
+          ScheduleMonitor.perform radio, Time.now
+        end
+      end
     end
   end
   describe "when the current show is already playing at its proper time" do
