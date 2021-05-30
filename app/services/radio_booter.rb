@@ -46,6 +46,8 @@ class RadioBooter
     radio.update liquidsoap_container_id: liquidsoap_container.id,
       port_number: host_port
 
+    radio.set_current_show_playing nil
+
     if ::Rails.env.production?
      port = liquidsoap_container.host_port(9000)
      if port.present?

@@ -37,6 +37,13 @@ class ScheduledShow < ActiveRecord::Base
   after_update :update_recurrences_in_background, if: :recurring_or_recurrence?
   after_update :save_recurrences_in_background, if: :recurring_interval_changed?
   before_destroy :maybe_destroy_recurrences
+  before_destroy :clear_redis_if_playing
+  #
+  def clear_redis_if_playing
+    if self.radio.current_show_playing.to_i == self.id
+      self.radio.set_current_show_playing nil
+    end
+  end
 
   before_save :ensure_time_zone
   before_save :add_performers
@@ -59,6 +66,33 @@ class ScheduledShow < ActiveRecord::Base
   # TODO
   # validate :time_is_in_15_min_intervals
   #
+  #
+  def queue_playlist!
+    if self.playlist.present?
+      while self.playlist.redis_length > 0
+        track_id = self.playlist.pop_next_track
+        if track_id.present?
+          track = Track.find track_id
+        end
+        if track
+          LiquidsoapRequests.add_to_queue radio.id, track.cdn_url
+        end
+      end
+    end
+  end
+
+  def next_track!
+    if self.playlist.present?
+      track_id = self.playlist.pop_next_track
+      # if track_id.present?
+      track = Track.find track_id
+      puts "popped next track: #{track.s3_filepath}"
+      if track
+        return track.s3_filepath
+      end
+    end
+  end
+
   def playlist_or_default
     # playlist presence is validated, but it might be deleted
     # and we can't add dependant destroy

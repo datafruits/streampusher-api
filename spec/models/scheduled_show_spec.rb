@@ -219,4 +219,23 @@ RSpec.describe ScheduledShow, :type => :model do
       end
     end
   end
+
+  describe "queue_playlist!" do
+  let(:liquidsoap_requests_class){ class_double("LiquidsoapRequests") }
+    xit "it clears the redis current_show_playing if destroyed and playing"
+    it "queues the show's entire playlist in liquidsoap" do
+      Sidekiq::Testing.fake!
+      start_at = Chronic.parse("today at 2:15 pm").utc
+      end_at = Chronic.parse("today at 3:15 pm").utc
+      5.times do |i|
+        @playlist.tracks << FactoryBot.create(:track, radio: @radio)
+      end
+      @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey", dj: @dj
+      PersistPlaylistToRedis.perform @playlist
+      @playlist.tracks.each do |track|
+        expect(LiquidsoapRequests).to receive(:add_to_queue).with(@radio.id, track.cdn_url)
+      end
+      @scheduled_show.queue_playlist!
+    end
+  end
 end
