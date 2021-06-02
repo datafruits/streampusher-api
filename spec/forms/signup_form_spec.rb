@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe SignupForm do
-  it "doesn't save the user if saving the radio fails" do
+  xit "doesn't save the user if saving the radio fails" do
     @plan = Plan.find_or_create_by name: "Free Trial"
     signup_form = SignupForm.new
     attributes = { email: "mcfiredrill@gmail.com",

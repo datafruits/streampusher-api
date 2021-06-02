@@ -76,7 +76,7 @@ class ScheduledShow < ActiveRecord::Base
           track = Track.find track_id
         end
         if track
-          liquidsoap.add_to_queue track.cdn_url
+          liquidsoap.add_to_queue track.url
         end
       end
     end

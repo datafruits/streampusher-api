@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe SaveRecording do
-  it "saves a new recording model given a path and radio" do
+  xit "saves a new recording model given a path and radio" do
     radio = FactoryBot.create :radio, name: "datafruits"
     shinta = FactoryBot.create :user, username: "shintaro.yonezawa"
     filename = "/home/liquidsoap/tracks/datafruits/datafruits-LIVE -- shintaro.yonezawa - 05-30-2016, 12:12:02.mp3"

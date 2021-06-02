@@ -1,6 +1,10 @@
 require 'rails_helper'
+require 'sidekiq/testing'
 
 RSpec.describe Radio, :type => :model do
+  before do
+    Sidekiq::Testing.fake!
+  end
   let(:dj){ FactoryBot.create :user }
   it "knows its default playlist redis key" do
     radio = FactoryBot.create :radio
@@ -21,7 +25,7 @@ RSpec.describe Radio, :type => :model do
   it "tells you the currently scheduled show" do
     radio = FactoryBot.create :radio
     playlist_1 = FactoryBot.create :playlist, radio: radio
-    scheduled_show_1 = FactoryBot.create :scheduled_show, playlist: playlist_1, radio: radio,
+    scheduled_show_1 = FactoryBot.create :scheduled_show, playlist: playlist_1, radio: radio, dj: dj,
       start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
     Timecop.travel Chronic.parse("January 1st 2090 at 11:30 pm") do
       expect(radio.current_scheduled_show).to eq scheduled_show_1
@@ -36,10 +40,10 @@ RSpec.describe Radio, :type => :model do
     playlist_2 = FactoryBot.create :playlist, name: "my_playlist_2", radio: radio
     PersistPlaylistToRedis.perform playlist_2
 
-    scheduled_show_1 = FactoryBot.create :scheduled_show, playlist: playlist_1, radio: radio,
+    scheduled_show_1 = FactoryBot.create :scheduled_show, playlist: playlist_1, radio: radio, dj: dj,
       start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
 
-    scheduled_show_2 = FactoryBot.create :scheduled_show, playlist: playlist_2, radio: radio,
+    scheduled_show_2 = FactoryBot.create :scheduled_show, playlist: playlist_2, radio: radio, dj: dj,
       start_at: Chronic.parse("January 1st 2092 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2092 at 01:30 am")
 
     Timecop.travel Chronic.parse("January 1st 2090 at 11:30 pm") do
