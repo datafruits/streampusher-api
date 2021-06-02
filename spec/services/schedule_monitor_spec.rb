@@ -8,7 +8,8 @@ describe ScheduleMonitor do
   let(:playlist) { FactoryBot.create :playlist, radio: radio }
   let(:show){ FactoryBot.create :scheduled_show }
   let(:dj){ FactoryBot.create :user }
-  let(:liquidsoap_requests) { class_double("LiquidsoapRequests").as_stubbed_const }
+  let(:liquidsoap_requests_class) { class_double("LiquidsoapRequests").as_stubbed_const }
+  let(:liquidsoap) { instance_double("LiquidsoapRequests") }
 
   it "sets current show playing in redis to nil if there is no scheduled show in the db" do
     ScheduleMonitor.perform radio, Time.now
@@ -20,8 +21,8 @@ describe ScheduleMonitor do
         start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am"),
         dj: dj
       Timecop.travel Chronic.parse("January 1st 2090 at 10:31 pm") do
-        allow(liquidsoap_requests).to receive(:skip).with(radio).and_return(nil)
-        expect(liquidsoap_requests).to receive(:skip).with(radio)
+        allow(liquidsoap_requests_class).to receive(:new).with(radio.id).and_return(liquidsoap)
+        expect(liquidsoap).to receive(:skip)
         expect_any_instance_of(ScheduledShow).to receive(:queue_playlist!)
         ScheduleMonitor.perform radio, Time.now
         expect(radio.current_show_playing.to_i).to eq scheduled_show.id.to_i
@@ -37,15 +38,15 @@ describe ScheduleMonitor do
           start_at: Chronic.parse("January 1st 2090 at 11:00 pm"), end_at: Chronic.parse("January 1st 2090 at 11:30 pm"),
           dj: dj
         Timecop.travel Chronic.parse("January 1st 2090 at 10:31 pm") do
-          allow(liquidsoap_requests).to receive(:skip).with(radio).and_return(nil)
-          expect(liquidsoap_requests).to receive(:skip).with(radio)
+          allow(liquidsoap_requests_class).to receive(:new).with(radio.id).and_return(liquidsoap)
+          expect(liquidsoap).to receive(:skip)
           #expect_any_instance_of(ScheduledShow).to receive(:queue_playlist!)
           ScheduleMonitor.perform radio, Time.now
           expect(radio.current_show_playing.to_i).to eq scheduled_show1.id.to_i
         end
         Timecop.travel Chronic.parse("January 1st 2090 at 11:01 pm") do
-          allow(liquidsoap_requests).to receive(:skip).with(radio).and_return(nil)
-          expect(liquidsoap_requests).not_to receive(:skip).with(radio)
+          allow(liquidsoap_requests_class).to receive(:new).with(radio.id).and_return(liquidsoap)
+          expect(liquidsoap).not_to receive(:skip)
           #expect_any_instance_of(ScheduledShow).to receive(:queue_playlist!)
           ScheduleMonitor.perform radio, Time.now
           expect(radio.current_show_playing.to_i).to eq scheduled_show2.id.to_i
@@ -60,15 +61,15 @@ describe ScheduleMonitor do
           start_at: Chronic.parse("January 1st 2090 at 11:00 pm"), end_at: Chronic.parse("January 1st 2090 at 11:30 pm"),
           dj: dj
         Timecop.travel Chronic.parse("January 1st 2090 at 10:31 pm") do
-          allow(liquidsoap_requests).to receive(:skip).with(radio).and_return(nil)
-          expect(liquidsoap_requests).to receive(:skip).with(radio)
+          allow(liquidsoap_requests_class).to receive(:new).with(radio.id).and_return(liquidsoap)
+          expect(liquidsoap).to receive(:skip)
           #expect_any_instance_of(ScheduledShow).to receive(:queue_playlist!)
           ScheduleMonitor.perform radio, Time.now
           expect(radio.current_show_playing.to_i).to eq scheduled_show1.id.to_i
         end
         Timecop.travel Chronic.parse("January 1st 2090 at 11:01 pm") do
-          allow(liquidsoap_requests).to receive(:skip).with(radio).and_return(nil)
-          expect(liquidsoap_requests).to receive(:skip).with(radio)
+          allow(liquidsoap_requests_class).to receive(:new).with(radio.id).and_return(liquidsoap)
+          expect(liquidsoap).to receive(:skip)
           #expect_any_instance_of(ScheduledShow).to receive(:queue_playlist!)
           ScheduleMonitor.perform radio, Time.now
           expect(radio.current_show_playing.to_i).to eq scheduled_show2.id.to_i
@@ -83,14 +84,14 @@ describe ScheduleMonitor do
         start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 1st 2090 at 11:00 pm"),
         dj: dj
       Timecop.travel Chronic.parse("January 1st 2090 at 10:31 pm") do
-        allow(liquidsoap_requests).to receive(:skip).with(radio).and_return(nil)
-        expect(liquidsoap_requests).to receive(:skip).with(radio)
+        allow(liquidsoap_requests_class).to receive(:new).with(radio.id).and_return(liquidsoap)
+        expect(liquidsoap).to receive(:skip)
         expect_any_instance_of(ScheduledShow).to receive(:queue_playlist!)
         ScheduleMonitor.perform radio, Time.now
       end
       Timecop.travel Chronic.parse("January 1st 2090 at 10:45 pm") do
-        allow(liquidsoap_requests).to receive(:skip).with(radio).and_return(nil)
-        expect(liquidsoap_requests).not_to receive(:skip).with(radio)
+        allow(liquidsoap_requests_class).to receive(:new).with(radio.id).and_return(liquidsoap)
+        expect(liquidsoap).not_to receive(:skip)
         expect_any_instance_of(ScheduledShow).not_to receive(:queue_playlist!)
         ScheduleMonitor.perform radio, Time.now
       end

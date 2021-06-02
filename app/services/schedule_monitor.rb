@@ -19,7 +19,8 @@ class ScheduleMonitor
       # if previous show is set to no_cue_out, or previous show is blank, time to skip!
       if current_playing_show_in_redis.blank? || !current_playing_show_in_redis.playlist.no_cue_out? # check cue out of previous show
         puts "skipping"
-        LiquidsoapRequests.skip radio
+        liquidsoap = LiquidsoapRequests.new radio.id
+        liquidsoap.skip
       end
       # current_scheduled_show_in_db and redis should sync
       radio.set_current_show_playing current_scheduled_show_in_db.id

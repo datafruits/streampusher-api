@@ -1,6 +1,7 @@
 class SkipTrack
-  def self.perform radio, liquidsoap_socket_class=Liquidsoap::Socket
-    liquidsoap_socket = liquidsoap_socket_class.new(radio.liquidsoap_socket_path)
-    liquidsoap_socket.write "icecast.1.skip"
+  def self.perform radio
+    liquidsoap = LiquidsoapRequests.new radio.id
+    liquidsoap.skip
+    ScheduleMonitor.perform radio, Time.now
   end
 end

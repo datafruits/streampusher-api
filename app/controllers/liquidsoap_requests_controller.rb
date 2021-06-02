@@ -1,7 +1,8 @@
 class LiquidsoapRequestsController < ApplicationController
   before_action :current_radio_required
   def index
-    @requests = LiquidsoapRequests.alive @current_radio
-    @on_air = LiquidsoapRequests.on_air @current_radio
+    @liquidsoap = LiquidsoapRequests.new @current_radio.id
+    @requests = @liquidsoap.alive
+    @on_air = @liquidsoap.on_air
   end
 end
