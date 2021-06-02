@@ -235,7 +235,7 @@ RSpec.describe ScheduledShow, :type => :model do
       @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey", dj: @dj
       PersistPlaylistToRedis.perform @playlist
       @playlist.tracks.each do |track|
-        expect(liquidsoap).to receive(:add_to_queue).with(track.cdn_url)
+        expect(liquidsoap).to receive(:add_to_queue).with(track.url)
       end
       @scheduled_show.queue_playlist!
     end

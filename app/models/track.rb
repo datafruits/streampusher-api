@@ -40,6 +40,14 @@ class Track < ActiveRecord::Base
 
   before_save :set_tags_from_scheduled_show
 
+  def url
+    if ::Rails.env.production?
+      return cdn_url
+    else
+      return s3_filepath
+    end
+  end
+
   def s3_filepath
     file_name = CGI.unescape(self.audio_file_name)
     if file_name.include?(ENV["S3_BUCKET"])
