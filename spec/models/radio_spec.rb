@@ -1,6 +1,10 @@
 require 'rails_helper'
+require 'sidekiq/testing'
 
 RSpec.describe Radio, :type => :model do
+  before do
+    Sidekiq::Testing.fake!
+  end
   let(:dj){ FactoryBot.create :user }
   it "knows its default playlist redis key" do
     radio = FactoryBot.create :radio
