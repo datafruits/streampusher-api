@@ -44,6 +44,7 @@ jobs:
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |
           cp config/database.example.yml config/database.yml
+          cp .env.sample .env
           gem install bundler
           bundle install --jobs 4 --retry 3
           bundle exec rails db:setup RAILS_ENV=test
