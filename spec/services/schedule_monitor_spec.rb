@@ -97,4 +97,10 @@ describe ScheduleMonitor do
       end
     end
   end
+  describe "if current show is_live" do
+    it "does nothing"
+  end
+  describe "if current show's playlist is the default one" do
+    it "does nothing"
+  end
 end

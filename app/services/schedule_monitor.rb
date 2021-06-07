@@ -11,6 +11,9 @@ class ScheduleMonitor
     if !current_scheduled_show_in_db  # no show scheduled now, clear it
       puts "no current show, clearing redis"
       radio.set_current_show_playing nil
+    # hacks
+    elsif current_scheduled_show_in_db.is_live? || current_scheduled_show_in_db.playlist.id == radio.default_playlist.id
+      puts "shouldn't queue a playlist for a live show!"
     elsif current_scheduled_show_in_db && (current_scheduled_show_in_db.id != current_playing_show_in_redis.try(:id).to_i) # its not the next show yet, but next_track will set it
       # add next show's track (or entire playlist?) to queue
       puts "adding to queue"
