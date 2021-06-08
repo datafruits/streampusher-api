@@ -6,6 +6,7 @@
   <%= f.simple_fields_for :scheduled_show_performers do |g| %>
     <%= g.input :user_id, collection: @current_radio.djs, label_method: :username, value_method: :id, label: 'Host' %>
   <% end %>
+  <%= f.input :is_live, label: "Live Broadcast" %>
   <%= f.input :is_guest, label: "Guest Host" %>
   <%= f.input :guest %>
   <div class="note">

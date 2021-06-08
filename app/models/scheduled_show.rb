@@ -69,7 +69,7 @@ class ScheduledShow < ActiveRecord::Base
   #
   def queue_playlist!
     liquidsoap = LiquidsoapRequests.new radio.id
-    if self.playlist.present?
+    if self.playlist.present? && self.playlist.redis_length > 0
       while self.playlist.redis_length > 0
         track_id = self.playlist.pop_next_track
         if track_id.present?
@@ -79,6 +79,8 @@ class ScheduledShow < ActiveRecord::Base
           liquidsoap.add_to_queue track.url
         end
       end
+    else
+      puts "tried to queue #{self.inspect}'s playlist, but playlist empty in redis!"
     end
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210528014036) do
+ActiveRecord::Schema.define(version: 20210606145058) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -255,6 +255,7 @@ ActiveRecord::Schema.define(version: 20210528014036) do
     t.string   "slug"
     t.boolean  "is_guest",              default: false, null: false
     t.string   "guest",                 default: "",    null: false
+    t.boolean  "is_live",               default: false, null: false
     t.index ["dj_id"], name: "index_scheduled_shows_on_dj_id", using: :btree
     t.index ["playlist_id"], name: "index_scheduled_shows_on_playlist_id", using: :btree
     t.index ["radio_id"], name: "index_scheduled_shows_on_radio_id", using: :btree

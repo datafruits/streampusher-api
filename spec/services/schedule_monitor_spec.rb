@@ -78,7 +78,6 @@ describe ScheduleMonitor do
     end
   end
   describe "when the current show is already playing at its proper time" do
-    # how do i test that it does nothing???
     it "does nothing" do
       scheduled_show1 = FactoryBot.create :scheduled_show, playlist: playlist, radio: radio,
         start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 1st 2090 at 11:00 pm"),
@@ -94,6 +93,35 @@ describe ScheduleMonitor do
         expect(liquidsoap).not_to receive(:skip)
         expect_any_instance_of(ScheduledShow).not_to receive(:queue_playlist!)
         ScheduleMonitor.perform radio, Time.now
+      end
+    end
+  end
+  describe "if current show is_live" do
+    it "does nothing" do
+      scheduled_show1 = FactoryBot.create :scheduled_show, playlist: playlist, radio: radio,
+        start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 1st 2090 at 11:00 pm"),
+        dj: dj, is_live: true
+      Timecop.travel Chronic.parse("January 1st 2090 at 10:32 pm") do
+        allow(liquidsoap_requests_class).to receive(:new).with(radio.id).and_return(liquidsoap)
+        expect(liquidsoap).not_to receive(:skip)
+        expect_any_instance_of(ScheduledShow).not_to receive(:queue_playlist!)
+        ScheduleMonitor.perform radio, Time.now
+        expect(radio.current_show_playing.to_i).to eq scheduled_show1.id.to_i
+      end
+    end
+  end
+  describe "if current show's playlist is the default one" do
+    it "does nothing except set current_playing_show_in_redis" do
+      scheduled_show1 = FactoryBot.create :scheduled_show, playlist: playlist, radio: radio,
+        start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 1st 2090 at 11:00 pm"),
+        dj: dj, is_live: true
+      radio.update default_playlist: playlist
+      Timecop.travel Chronic.parse("January 1st 2090 at 10:32 pm") do
+        allow(liquidsoap_requests_class).to receive(:new).with(radio.id).and_return(liquidsoap)
+        expect(liquidsoap).not_to receive(:skip)
+        expect_any_instance_of(ScheduledShow).not_to receive(:queue_playlist!)
+        ScheduleMonitor.perform radio, Time.now
+        expect(radio.current_show_playing.to_i).to eq scheduled_show1.id.to_i
       end
     end
   end
