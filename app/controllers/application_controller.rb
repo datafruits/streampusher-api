@@ -68,12 +68,18 @@ class ApplicationController < ActionController::Base
   end
 
   def current_radio
-    if !request.subdomain.blank?
-      @current_radio ||= Radio.where("lower(container_name) = ?", request.subdomain.downcase).first
-    end
-    unless @current_radio.present?
-      if user_signed_in?
-        @current_radio ||= current_user.radios.first
+    # this code can be adjusted depending on what you are working on in development
+    # but usually you just want the first record in the database
+    if ::Rails.env.development?
+      @current_radio = Radio.first
+    else
+      if !request.subdomain.blank?
+        @current_radio ||= Radio.where("lower(container_name) = ?", request.subdomain.downcase).first
+      end
+      unless @current_radio.present?
+        if user_signed_in?
+          @current_radio ||= current_user.radios.first
+        end
       end
     end
   end
