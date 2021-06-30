@@ -1141,6 +1141,7 @@ GEM
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
     json (2.3.0)
+    json-api-vanilla (1.0.2)
     jwt (2.2.1)
     kaminari (1.1.1)
       activesupport (>= 4.1.0)
@@ -1225,6 +1226,9 @@ GEM
     parallel (1.19.1)
     parser (2.6.5.0)
       ast (~> 2.4.0)
+    patreon (0.5.0)
+      json-api-vanilla (~> 1.0.1)
+      rack
     pg (1.1.4)
     pry (0.12.2)
       coderay (~> 1.1.0)
@@ -1494,6 +1498,7 @@ DEPENDENCIES
   omniauth-tumblr
   paper_trail
   paperclip
+  patreon
   pg
   pry-byebug
   rack-cors
