@@ -8,5 +8,8 @@ class CreatePatreons < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
+
+    add_index :patreons, [:full_name, :id], unique: true
+    add_index :patreons, [:patreon_id, :id], unique: true
   end
 end

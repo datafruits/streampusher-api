@@ -124,6 +124,8 @@ ActiveRecord::Schema.define(version: 20210630064951) do
     t.integer  "user_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.index ["full_name", "id"], name: "index_patreons_on_full_name_and_id", unique: true, using: :btree
+    t.index ["patreon_id", "id"], name: "index_patreons_on_patreon_id_and_id", unique: true, using: :btree
     t.index ["user_id"], name: "index_patreons_on_user_id", using: :btree
   end
 
