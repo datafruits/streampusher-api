@@ -239,5 +239,19 @@ RSpec.describe ScheduledShow, :type => :model do
       end
       @scheduled_show.queue_playlist!
     end
+    it "calls PersistPlaylistToRedis if empty in redis" do
+      allow(liquidsoap_requests_class).to receive(:new).with(@radio.id).and_return(liquidsoap)
+      Sidekiq::Testing.fake!
+      start_at = Chronic.parse("today at 2:15 pm").utc
+      end_at = Chronic.parse("today at 3:15 pm").utc
+      5.times do |i|
+        @playlist.tracks << FactoryBot.create(:track, radio: @radio)
+      end
+      @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey", dj: @dj
+      @playlist.tracks.each do |track|
+        expect(liquidsoap).to receive(:add_to_queue).with(track.url)
+      end
+      @scheduled_show.queue_playlist!
+    end
   end
 end
