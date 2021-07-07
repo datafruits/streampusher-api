@@ -47,4 +47,13 @@ VCR.configure do |config|
     uri2.query = nil
     uri1.to_s.gsub(/\/\d{3}/,"") == uri2.to_s.gsub(/\/\d{3}/,"")
   end
+
+  config.register_request_matcher :s3_image_matcher do |request1, request2|
+    uri1 = URI(request1.uri)
+    uri2 = URI(request2.uri)
+
+    uri_regex = /^\/artworks\/(original|thumb)\/_hey-hey-[0-9]{8}__[A-z0-9]{64}\.png/
+  
+    uri1.host == uri2.host && uri_regex.match?(uri1.path) && uri_regex.match?(uri2.path)
+  end
 end

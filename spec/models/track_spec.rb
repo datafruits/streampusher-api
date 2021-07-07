@@ -37,7 +37,7 @@ describe Track do
 
   describe "scheduled show" do
     it "pulls tags and artwork from scheduled show if not set" do
-      VCR.use_cassette(RSpec.current_example.metadata[:full_description].to_s) do
+      VCR.use_cassette(RSpec.current_example.metadata[:full_description].to_s, match_requests_on: [:method, :host, :s3_image_matcher]) do
         start_at = Chronic.parse("today at 1:15 pm").utc
         end_at = Chronic.parse("today at 3:15 pm").utc
         radio = Radio.create name: 'datafruits'
