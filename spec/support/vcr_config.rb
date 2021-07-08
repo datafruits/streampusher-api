@@ -54,6 +54,6 @@ VCR.configure do |config|
 
     uri_regex = /^\/artworks\/(original|thumb)\/_hey-hey-[0-9]+__[A-z0-9]+\.png/
   
-    uri1.host == uri2.host && uri_regex.match?(uri1.path) && uri_regex.match?(uri2.path)
+    uri_regex.match?(uri1.path) && uri_regex.match?(uri2.path)
   end
 end
