@@ -52,7 +52,7 @@ VCR.configure do |config|
     uri1 = URI(request1.uri)
     uri2 = URI(request2.uri)
 
-    uri_regex = /^\/artworks\/(original|thumb)\/_hey-hey-[0-9]{8}__[A-z0-9]{64}\.png/
+    uri_regex = /^\/artworks\/(original|thumb)\/_hey-hey-[0-9]+__[A-z0-9]+\.png/
   
     uri1.host == uri2.host && uri_regex.match?(uri1.path) && uri_regex.match?(uri2.path)
   end
