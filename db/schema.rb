@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210606145058) do
+ActiveRecord::Schema.define(version: 20210630064951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,18 @@ ActiveRecord::Schema.define(version: 20210606145058) do
     t.datetime "updated_at",                 null: false
     t.index ["radio_id"], name: "index_microtexts_on_radio_id", using: :btree
     t.index ["user_id"], name: "index_microtexts_on_user_id", using: :btree
+  end
+
+  create_table "patreons", force: :cascade do |t|
+    t.integer  "patreon_id",   null: false
+    t.string   "full_name",    null: false
+    t.integer  "amount_cents", null: false
+    t.integer  "user_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["full_name", "id"], name: "index_patreons_on_full_name_and_id", unique: true, using: :btree
+    t.index ["patreon_id", "id"], name: "index_patreons_on_patreon_id_and_id", unique: true, using: :btree
+    t.index ["user_id"], name: "index_patreons_on_user_id", using: :btree
   end
 
   create_table "plans", force: :cascade do |t|

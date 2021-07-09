@@ -13,5 +13,8 @@
   schedule_monitor:
     every: 1m
     class: ScheduleMonitorWorker
+  sync_patreons:
+    every: 24h
+    class: SyncPatreonsWorker
 production:
   :concurrency: 5
