@@ -96,6 +96,10 @@ RSpec.describe ScheduledShow, :type => :model do
       Timecop.freeze Time.local(2015)
     end
 
+    after do
+      Timecop.return
+    end
+
     it "saves recurring shows if recurring is true" do
       start_at = Chronic.parse("today at 1:15 pm").utc
       end_at = Chronic.parse("today at 3:15 pm").utc
