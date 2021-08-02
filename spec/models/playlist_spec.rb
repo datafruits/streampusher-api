@@ -21,12 +21,11 @@ RSpec.describe Playlist, :type => :model do
     expect(playlist.tracks.include?(track)).to eq false
   end
 
-  it "sets another playlist to default if default is being destroyed" do
+  it "reset default to most recently updated playlist if default is destroyed" do
     radio  = FactoryBot.create :radio
-    playlist_1 = FactoryBot.create :playlist, radio: radio
-    playlist_2 = FactoryBot.create :playlist, radio: radio
+    playlist_1 = FactoryBot.create :playlist, radio: radio, updated_at: 2.days.ago
+    playlist_2 = FactoryBot.create :playlist, radio: radio, updated_at: 1.day.ago
     radio.default_playlist.destroy
-    radio.reload
-    expect(radio.default_playlist).to eq playlist_2
+    expect(radio.reload.default_playlist).to eq playlist_2
   end
 end
