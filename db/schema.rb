@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210726054445) do
+ActiveRecord::Schema.define(version: 20210822051650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,26 @@ ActiveRecord::Schema.define(version: 20210726054445) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
+  end
+
+  create_table "fruit_tips", force: :cascade do |t|
+    t.integer  "amount",     null: false
+    t.integer  "from_id",    null: false
+    t.string   "to",         null: false
+    t.integer  "fruit_id",   null: false
+    t.integer  "user_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["from_id"], name: "index_fruit_tips_on_from_id", using: :btree
+    t.index ["fruit_id"], name: "index_fruit_tips_on_fruit_id", using: :btree
+    t.index ["user_id"], name: "index_fruit_tips_on_user_id", using: :btree
+  end
+
+  create_table "fruits", force: :cascade do |t|
+    t.integer  "cost",       null: false
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "host_applications", force: :cascade do |t|
@@ -115,6 +135,18 @@ ActiveRecord::Schema.define(version: 20210726054445) do
     t.datetime "updated_at",                 null: false
     t.index ["radio_id"], name: "index_microtexts_on_radio_id", using: :btree
     t.index ["user_id"], name: "index_microtexts_on_user_id", using: :btree
+  end
+
+  create_table "patreons", force: :cascade do |t|
+    t.integer  "patreon_id",   null: false
+    t.string   "full_name",    null: false
+    t.integer  "amount_cents", null: false
+    t.integer  "user_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["full_name", "id"], name: "index_patreons_on_full_name_and_id", unique: true, using: :btree
+    t.index ["patreon_id", "id"], name: "index_patreons_on_patreon_id_and_id", unique: true, using: :btree
+    t.index ["user_id"], name: "index_patreons_on_user_id", using: :btree
   end
 
   create_table "plans", force: :cascade do |t|
@@ -368,6 +400,7 @@ ActiveRecord::Schema.define(version: 20210726054445) do
     t.boolean  "profile_publish",                    default: false, null: false
     t.integer  "style",                              default: 0,     null: false
     t.string   "pronouns",                           default: "",    null: false
+    t.integer  "fruit_balance",                      default: 0,     null: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
@@ -384,6 +417,9 @@ ActiveRecord::Schema.define(version: 20210726054445) do
   end
 
   add_foreign_key "blog_post_images", "blog_post_bodies"
+  add_foreign_key "fruit_tips", "fruits"
+  add_foreign_key "fruit_tips", "users"
+  add_foreign_key "fruit_tips", "users", column: "from_id"
   add_foreign_key "scheduled_show_labels", "labels"
   add_foreign_key "scheduled_show_labels", "scheduled_shows"
 end
