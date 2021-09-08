@@ -14,6 +14,15 @@ RSpec.describe ScheduledShow, :type => :model do
   end
 
   describe "performers" do
+    before do
+      Time.zone = 'UTC'
+      Timecop.freeze Time.local(2015)
+    end
+
+    after do
+      Timecop.return
+    end
+
     it "sets the DJ as the performer if no performers are specified" do
       @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: @start_at, end_at: @end_at, title: "hey hey", dj: @dj
       expect(@scheduled_show.performers).to include(@dj)
@@ -43,6 +52,15 @@ RSpec.describe ScheduledShow, :type => :model do
   end
 
   describe "slugs" do
+    before do
+      Time.zone = 'UTC'
+      Timecop.freeze Time.local(2015)
+    end
+
+    after do
+      Timecop.return
+    end
+
     it "saves the unique slug with title and id" do
       start_at = Chronic.parse("today at 3:15 pm").utc
       end_at = Chronic.parse("today at 5:15 pm").utc
