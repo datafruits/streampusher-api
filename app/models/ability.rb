@@ -117,6 +117,8 @@ class Ability
 
       can :create, Microtext if can_manage_radio?(user, radio)
 
+      can :index, :dj
+
       cannot :admin, :dashboard
       cannot :admin, :radios
       cannot :admin, :sign_in_as
