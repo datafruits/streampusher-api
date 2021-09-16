@@ -162,15 +162,23 @@ RSpec.describe ScheduledShow, :type => :model do
     end
 
     it "updates all recurring shows attributes" do
-      start_at = Chronic.parse("today at 1:15 pm").utc
-      end_at = Chronic.parse("today at 3:15 pm").utc
-      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey", dj: @dj
-      new_start_at = Chronic.parse("today at 11:00 am").utc
-      recurring_show.update start_at: new_start_at, update_all_recurrences: true
-      recurring_show.recurrences.each do |recurrence|
-        expect(recurrence.start_at.hour).to eq new_start_at.hour
-        expect(recurrence.start_at.min).to eq new_start_at.min
-        expect(recurrence.start_at.sec).to eq new_start_at.sec
+      Timecop.return do
+        VCR.use_cassette(RSpec.current_example.metadata[:full_description].to_s, match_requests_on: [:method, :host, :s3_image_matcher]) do
+          start_at = 4.hours.from_now.utc
+          end_at = 6.hours.from_now.utc
+          recurring_show = ScheduledShow.create! radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey", dj: @dj, image: File.new("spec/fixtures/images/pineapple.png")
+          new_start_at = 2.hours.from_now.utc
+          new_title = "new title 2"
+          new_image = File.new("spec/fixtures/images/hacktheplanet2021.png")
+          recurring_show.update! start_at: new_start_at, title: new_title, image: new_image, update_all_recurrences: true
+          recurring_show.recurrences.each do |recurrence|
+            expect(recurrence.start_at.hour).to eq new_start_at.hour
+            expect(recurrence.start_at.min).to eq new_start_at.min
+            expect(recurrence.start_at.sec).to eq new_start_at.sec
+            expect(recurrence.title).to eq new_title
+            expect(recurrence.image).to eq new_image
+          end
+        end
       end
     end
 

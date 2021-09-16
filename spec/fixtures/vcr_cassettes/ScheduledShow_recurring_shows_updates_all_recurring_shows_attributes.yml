@@ -1,0 +1,139 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://streampushertest.s3.amazonaws.com/images/original/pineapple.png
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.86.0 ruby/2.7.2 x86_64-linux aws-sdk-s3/1.60.1
+      X-Amz-Date:
+      - 20210916T212849Z
+      X-Amz-Content-Sha256:
+      - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<S3_KEY>/20210916/us-east-1/s3/aws4_request, SignedHeaders=host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=8c8685f342fd3658b751da0e7437d5d0c585fc416e6ff889a69affa2c684bf7b
+      Content-Length:
+      - '0'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      X-Amz-Request-Id:
+      - ZN0M0RC5NG44AJK0
+      X-Amz-Id-2:
+      - KRtoExJoVkFHfJfCKB3/aGluO7kX+m+5jvfCRNW3lEyPkPmzsWJSzhNP0/m5WHd4MlZhDG1dP0E=
+      Content-Type:
+      - application/xml
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Thu, 16 Sep 2021 21:28:49 GMT
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <Error><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message><Key>images/original/pineapple.png</Key><RequestId>ZN0M0RC5NG44AJK0</RequestId><HostId>KRtoExJoVkFHfJfCKB3/aGluO7kX+m+5jvfCRNW3lEyPkPmzsWJSzhNP0/m5WHd4MlZhDG1dP0E=</HostId></Error>
+    http_version: 
+  recorded_at: Thu, 16 Sep 2021 21:28:49 GMT
+- request:
+    method: head
+    uri: https://streampushertest.s3.amazonaws.com/images/original/pineapple.png
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.86.0 ruby/2.7.2 x86_64-linux aws-sdk-s3/1.60.1
+      X-Amz-Date:
+      - 20210916T212849Z
+      X-Amz-Content-Sha256:
+      - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<S3_KEY>/20210916/us-east-1/s3/aws4_request, SignedHeaders=host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=a5c5e8620100e9a69c9ca571dff569d3c3de208ab01858d4364d8aca00e6ab63
+      Content-Length:
+      - '0'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      X-Amz-Request-Id:
+      - ZN0XQRX2QTV74W7W
+      X-Amz-Id-2:
+      - VQ4Lm5ODoQLYrq6HUk0UYXdtiXxFw9bb8p/YKUv+SZ5wj1YuthcGpheQG9l/wLEBzuhHp92ItxM=
+      Content-Type:
+      - application/xml
+      Date:
+      - Thu, 16 Sep 2021 21:28:49 GMT
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 16 Sep 2021 21:28:49 GMT
+- request:
+    method: head
+    uri: https://streampushertest.s3.amazonaws.com/images/thumb/pineapple.png
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.86.0 ruby/2.7.2 x86_64-linux aws-sdk-s3/1.60.1
+      X-Amz-Date:
+      - 20210916T212849Z
+      X-Amz-Content-Sha256:
+      - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<S3_KEY>/20210916/us-east-1/s3/aws4_request, SignedHeaders=host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=6f616d7a69735c65c6d39ffd2a730d1cc75b13dc2b2abea50bb01dec119fb0d3
+      Content-Length:
+      - '0'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      X-Amz-Request-Id:
+      - RT0H252NFGQRVVTY
+      X-Amz-Id-2:
+      - nxCysG83ZyZO+K6oHwkv1D5XzPEAUdT5dxI3jEE9Riu3IKLg+QfMnR6INO/E38ADvvbfIqas3yE=
+      Content-Type:
+      - application/xml
+      Date:
+      - Thu, 16 Sep 2021 21:28:49 GMT
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 16 Sep 2021 21:28:50 GMT
+recorded_with: VCR 5.0.0
