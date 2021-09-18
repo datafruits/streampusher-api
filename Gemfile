@@ -30,7 +30,7 @@ gem 'tumblr_client'
 gem 'cancancan'
 gem 'docker-api', '~> 1.22.4', require: 'docker'
 gem 'simple_form'
-gem 'cocaine'
+gem 'terrapin'
 gem 'lograge'
 gem 'rack-cors', :require => 'rack/cors'
 

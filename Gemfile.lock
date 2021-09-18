@@ -1713,7 +1713,6 @@ DEPENDENCIES
   capybara
   chosen-rails
   chronic
-  cocaine
   coffee-rails
   commonmarker
   database_rewinder
@@ -1778,6 +1777,7 @@ DEPENDENCIES
   soundcloud
   spring
   sprockets (= 3.7.0)
+  terrapin
   therubyracer
   thwait
   timecop
