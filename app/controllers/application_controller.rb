@@ -5,8 +5,6 @@ class ApplicationController < ActionController::API
   before_action :current_radio
   around_action :set_time_zone
 
-  layout :layout_by_resource
-
   def next
     render json: NextTrack.perform(@current_radio)
   end
