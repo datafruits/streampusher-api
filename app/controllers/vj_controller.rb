@@ -2,19 +2,11 @@ class VjController < ApplicationController
   def index
     authorize! :vj, :dashboard, params[:format]
     @radio = @current_radio
-    respond_to do |format|
-      format.html
-    end
   end
   def enabled
     @radio = @current_radio
-    respond_to do |format|
-      format.html
-      format.json {
-        response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
-        render json: {vj_enabled: @radio.vj_enabled?}.to_json
-      }
-    end
+    response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
+    render json: {vj_enabled: @radio.vj_enabled?}.to_json
   end
   def update
     authorize! :vj, :dashboard

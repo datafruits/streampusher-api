@@ -11,22 +11,13 @@ class TracksController < ApplicationController
                              "%#{params[:search].permit(:keyword)[:keyword]}%")
     end
     @tracks = @tracks.page(params[:page])
-    respond_to do |format|
-      format.html
-      format.json {
-        meta = { page: params[:page], total_pages: @tracks.total_pages.to_i }
-        render json: @tracks, meta: meta
-      }
-    end
+    meta = { page: params[:page], total_pages: @tracks.total_pages.to_i }
+    render json: @tracks, meta: meta
   end
 
   def show
     @track = @current_radio.tracks.find params[:id]
-    respond_to do |format|
-      format.json {
-        render json: @track
-      }
-    end
+    render json: @track
   end
 
   def edit
