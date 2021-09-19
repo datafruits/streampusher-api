@@ -103,8 +103,9 @@ Rails.application.routes.draw do
     resources :approvals, only: [:create]
   end
 
-  resources :current_user, only: [:index]
+  resources :current_user, only: [:index, :update]
   get "/users/current_user" => "current_user#index"
+  put "/users/current_user" => "current_user#update"
   resources :profile, only: [:index, :create]
 
   resources :blog_posts, only: [:index, :create, :show, :update]
@@ -120,7 +121,12 @@ Rails.application.routes.draw do
   namespace :api do
     resources :blog_posts, only: [:show, :index]
     resources :djs, only: [:show, :index]
-    resources :listeners, only: [:create]
+    resources :listeners, only: [:create] do
+      collection do
+        get 'validate_email'
+        get 'validate_username'
+      end
+    end
     resources :microtexts, only: [:create, :index]
     resources :schedule, only: [:index]
   end

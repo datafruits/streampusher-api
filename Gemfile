@@ -1,12 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.0.7.2'
+gem 'rails', '5.1.7'
 gem 'pg'
 
 gem 'spring',        group: :development
 
 gem 'devise'
 gem 'devise-jwt'
+gem 'warden-jwt_auth', github: "waiting-for-dev/warden-jwt_auth"
 gem 'omniauth'
 gem 'omniauth-soundcloud', github: "mcfiredrill/omniauth-soundcloud"
 gem 'omniauth-mixcloud', github: "streampusher/omniauth-mixcloud"
@@ -16,7 +17,7 @@ gem 'omniauth-tumblr'
 gem 'tumblr_client'
 gem 'cancancan'
 gem 'docker-api', '~> 1.22.4', require: 'docker'
-gem 'cocaine'
+gem 'terrapin'
 gem 'lograge'
 gem 'rack-cors', :require => 'rack/cors'
 

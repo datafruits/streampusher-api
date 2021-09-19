@@ -2,13 +2,14 @@ class ExistingUserRadio < StandardError; end
 
 class DjSignup
   def self.perform user_params, radio
-    user = User.find_by_email(user_params[:email])
+    user = User.find_by(email: user_params.with_indifferent_access[:email])
     if user.present?
       user_radio = user.user_radios.build(radio: radio)
       unless user_radio.save
         raise ExistingUserRadio
       end
-      user.save
+      user.role = "dj"
+      user.save!
       DjAccountMailer.added_to_radio(user, radio).deliver_later
       ActiveSupport::Notifications.instrument 'dj.added_to_radio', current_user: user.email, radio: radio.name, dj: user.email
     else

@@ -20,6 +20,7 @@ class ScheduledShow < ActiveRecord::Base
   has_many :performers, through: :scheduled_show_performers, source: :user
   accepts_nested_attributes_for :scheduled_show_performers
 
+  validates_presence_of :guest, if: -> { is_guest? }
   validates_presence_of :start_at, :end_at, :playlist_id, :title, :dj_id
   validates :description, length: { maximum: 10000 }
 
@@ -36,6 +37,13 @@ class ScheduledShow < ActiveRecord::Base
   after_update :update_recurrences_in_background, if: :recurring_or_recurrence?
   after_update :save_recurrences_in_background, if: :recurring_interval_changed?
   before_destroy :maybe_destroy_recurrences
+  before_destroy :clear_redis_if_playing
+  #
+  def clear_redis_if_playing
+    if self.radio.current_show_playing.to_i == self.id
+      self.radio.set_current_show_playing nil
+    end
+  end
 
   before_save :ensure_time_zone
   before_save :add_performers
@@ -58,6 +66,40 @@ class ScheduledShow < ActiveRecord::Base
   # TODO
   # validate :time_is_in_15_min_intervals
   #
+  #
+  def queue_playlist!
+    liquidsoap = LiquidsoapRequests.new radio.id
+    if self.playlist.present? && self.playlist.redis_length < 1 && self.playlist.tracks.length > 0
+      puts "playlist empty in redis for some reason, persisting to redis!"
+      PersistPlaylistToRedis.perform self.playlist
+    end
+    if self.playlist.present? && self.playlist.redis_length > 0
+      while self.playlist.redis_length > 0
+        track_id = self.playlist.pop_next_track
+        if track_id.present?
+          track = Track.find track_id
+        end
+        if track
+          liquidsoap.add_to_queue track.url
+        end
+      end
+    else
+      puts "tried to queue #{self.inspect}'s playlist, but playlist empty in redis!"
+    end
+  end
+
+  def next_track!
+    if self.playlist.present?
+      track_id = self.playlist.pop_next_track
+      # if track_id.present?
+      track = Track.find track_id
+      puts "popped next track: #{track.s3_filepath}"
+      if track
+        return track.s3_filepath
+      end
+    end
+  end
+
   def playlist_or_default
     # playlist presence is validated, but it might be deleted
     # and we can't add dependant destroy

@@ -17,7 +17,10 @@ class ApplicationController < ActionController::API
 
   rescue_from CanCan::AccessDenied do |exception|
     if user_signed_in?
-      render :file => "#{Rails.root}/public/403.html", :status => 403
+      respond_to do |format|
+        format.html { render :file => "#{Rails.root}/public/403.html", :status => 403 }
+        format.json { head :forbidden }
+      end
     else
       store_location_for :user, request.path
       redirect_to new_user_session_path, :notice => "You need to login first!"
@@ -65,12 +68,18 @@ class ApplicationController < ActionController::API
   end
 
   def current_radio
-    if !request.subdomain.blank?
-      @current_radio ||= Radio.where("lower(container_name) = ?", request.subdomain.downcase).first
-    end
-    unless @current_radio.present?
-      if user_signed_in?
-        @current_radio ||= current_user.radios.first
+    # this code can be adjusted depending on what you are working on in development
+    # but usually you just want the first record in the database
+    if ::Rails.env.development?
+      @current_radio = Radio.first
+    else
+      if !request.subdomain.blank?
+        @current_radio ||= Radio.where("lower(container_name) = ?", request.subdomain.downcase).first
+      end
+      unless @current_radio.present?
+        if user_signed_in?
+          @current_radio ||= current_user.radios.first
+        end
       end
     end
   end

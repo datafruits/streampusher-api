@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201209054216) do
+ActiveRecord::Schema.define(version: 20210726054445) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -182,19 +182,20 @@ ActiveRecord::Schema.define(version: 20201209054216) do
     t.string   "name",                            default: "",    null: false
     t.string   "liquidsoap_container_id"
     t.integer  "default_playlist_id"
-    t.boolean  "enabled",                         default: true,  null: false
-    t.boolean  "vj_enabled",                      default: false, null: false
-    t.boolean  "podcasts_enabled",                default: false, null: false
-    t.boolean  "stats_enabled",                   default: false, null: false
-    t.boolean  "social_identities_enabled",       default: false, null: false
+    t.boolean  "enabled",                                     default: true,  null: false
+    t.boolean  "vj_enabled",                                  default: false, null: false
+    t.boolean  "podcasts_enabled",                            default: false, null: false
+    t.boolean  "stats_enabled",                               default: false, null: false
     t.string   "tunein_partner_id"
     t.string   "tunein_partner_key"
     t.string   "tunein_station_id"
-    t.boolean  "tunein_metadata_updates_enabled", default: false, null: false
-    t.string   "container_name",                                  null: false
-    t.boolean  "schedule_monitor_enabled",        default: false, null: false
+    t.boolean  "tunein_metadata_updates_enabled",             default: false, null: false
+    t.boolean  "social_identities_enabled",                   default: false, null: false
+    t.string   "container_name",                                              null: false
+    t.boolean  "schedule_monitor_enabled",                    default: false, null: false
     t.string   "show_share_url"
     t.integer  "port_number"
+    t.string   "docker_image_name",                           default: "",    null: false
     t.index ["default_playlist_id"], name: "index_radios_on_default_playlist_id", using: :btree
   end
 
@@ -252,6 +253,9 @@ ActiveRecord::Schema.define(version: 20201209054216) do
     t.string   "title"
     t.string   "time_zone"
     t.string   "slug"
+    t.boolean  "is_guest",              default: false, null: false
+    t.string   "guest",                 default: "",    null: false
+    t.boolean  "is_live",               default: false, null: false
     t.index ["dj_id"], name: "index_scheduled_shows_on_dj_id", using: :btree
     t.index ["playlist_id"], name: "index_scheduled_shows_on_playlist_id", using: :btree
     t.index ["radio_id"], name: "index_scheduled_shows_on_radio_id", using: :btree
@@ -317,10 +321,17 @@ ActiveRecord::Schema.define(version: 20201209054216) do
     t.datetime "artwork_updated_at"
     t.integer  "mixcloud_upload_status",   default: 0,  null: false
     t.string   "mixcloud_key"
+<<<<<<< HEAD
     t.integer  "soundcloud_upload_status", default: 0,  null: false
     t.string   "soundcloud_key"
     t.integer  "uploaded_by_id"
     t.integer  "scheduled_show_id"
+=======
+    t.integer  "uploaded_by_id"
+    t.integer  "scheduled_show_id"
+    t.integer  "soundcloud_upload_status",             default: 0,  null: false
+    t.string   "soundcloud_key"
+>>>>>>> origin/master
     t.index ["radio_id"], name: "index_tracks_on_radio_id", using: :btree
     t.index ["scheduled_show_id"], name: "index_tracks_on_scheduled_show_id", using: :btree
     t.index ["uploaded_by_id"], name: "index_tracks_on_uploaded_by_id", using: :btree
@@ -359,10 +370,16 @@ ActiveRecord::Schema.define(version: 20201209054216) do
     t.text     "bio"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.bigint   "image_file_size"
+    t.integer  "image_file_size"
     t.datetime "image_updated_at"
+<<<<<<< HEAD
     t.boolean  "profile_publish",        default: false, null: false
     t.integer  "style",                  default: 0,     null: false
+=======
+    t.boolean  "profile_publish",                    default: false, null: false
+    t.integer  "style",                              default: 0,     null: false
+    t.string   "pronouns",                           default: "",    null: false
+>>>>>>> origin/master
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
