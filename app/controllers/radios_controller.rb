@@ -13,10 +13,8 @@ class RadiosController < ApplicationController
     @radio.attributes = update_params
     if @radio.save
       SaveRadioSettingsToRedisWorker.perform_later @radio.id
-      flash[:notice] = "radio settings updated."
       redirect_to edit_radio_path(@radio)
     else
-      flash[:error] = "error updating radio settings."
       render 'edit'
     end
   end

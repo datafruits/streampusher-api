@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::API
   include ActionController::Serialization
 
-  after_action :flash_to_headers
   before_action :current_radio
   around_action :set_time_zone
 
@@ -77,26 +76,5 @@ class ApplicationController < ActionController::API
 
   def current_ability
     @current_ability ||= Ability.new(current_user, @current_radio, params[:format])
-  end
-
-  def flash_to_headers
-    return unless request.xhr?
-    return if flash.empty?
-    response.headers['X-Message'] = flash_message
-    response.headers["X-Message-Type"] = flash_type.to_s
-
-    flash.discard # don't want the flash to appear when you reload page
-  end
-
-  def flash_message
-    [:error, :warning, :notice].each do |type|
-      return flash[type] unless flash[type].blank?
-    end
-  end
-
-  def flash_type
-    [:error, :warning, :notice].each do |type|
-      return type unless flash[type].blank?
-    end
   end
 end

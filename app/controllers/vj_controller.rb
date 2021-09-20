@@ -13,10 +13,8 @@ class VjController < ApplicationController
     @radio = @current_radio
     @radio.attributes = update_params
     if @radio.save && VjUpdater.perform(@radio.vj_enabled, @radio.name)
-      flash[:notice] = "radio settings updated."
       redirect_to vj_path
     else
-      flash[:error] = "error updating radio settings."
       render 'index'
     end
   end

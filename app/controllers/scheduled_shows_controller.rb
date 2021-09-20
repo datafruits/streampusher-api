@@ -39,11 +39,8 @@ class ScheduledShowsController < ApplicationController
     @scheduled_show.dj_id = current_user.id
     if @scheduled_show.save
       ActiveSupport::Notifications.instrument 'scheduled_show.created', current_user: current_user.email, radio: @current_radio.name, show: @scheduled_show.title
-      flash[:notice] = "Scheduled show!"
       render json: @scheduled_show
     else
-      # setup_index
-      flash[:error] = "Error scheduling show."
       render json: @scheduled_show.errors, status: :unprocessable_entity
     end
   end
@@ -54,10 +51,8 @@ class ScheduledShowsController < ApplicationController
     @scheduled_show.attributes = create_params
     if @scheduled_show.save
       ActiveSupport::Notifications.instrument 'scheduled_show.updated', current_user: current_user.email, radio: @current_radio.name, show: @scheduled_show.title, params: create_params
-      flash[:notice] = "Updated scheduled show!"
       render json: @scheduled_show
     else
-      flash[:error] = "Error updating scheduling show."
       render json: @scheduled_show.errors, status: :unprocessable_entity
     end
   end
@@ -68,7 +63,6 @@ class ScheduledShowsController < ApplicationController
     @scheduled_show.destroy_recurrences = params[:destroy_recurrences]
     @scheduled_show.destroy
     ActiveSupport::Notifications.instrument 'scheduled_show.deleted', current_user: current_user.email, radio: @current_radio.name, show: @scheduled_show.title
-    flash[:notice] = "Deleted scheduled show!"
     redirect_to scheduled_shows_path
   end
 

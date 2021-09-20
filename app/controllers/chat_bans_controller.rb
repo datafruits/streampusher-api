@@ -9,7 +9,6 @@ class ChatBansController < ApplicationController
     authorize! :admin, :chats
     Chat.ban chat_ban_params[:socket_id]
     respond_to do |format|
-      flash[:notice] = "Banned!"
       format.html {
         redirect_to chat_bans_path
       }
@@ -21,7 +20,6 @@ class ChatBansController < ApplicationController
     ip_address = chat_ban_params[:ip_address]
     Chat.unban ip_address
     respond_to do |format|
-      flash[:notice] = "Unbanned!"
       format.html {
         redirect_to chat_bans_path
       }

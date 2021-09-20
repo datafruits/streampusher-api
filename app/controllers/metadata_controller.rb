@@ -3,10 +3,8 @@ class MetadataController < ApplicationController
     authorize! :update, :metadata
     if MetadataUpdate.perform(@current_radio, metadata_params)
       MetadataPublisher.perform @current_radio.name, metadata_params[:title]
-      flash[:notice] = "Updated!"
       render 'create'
     else
-      flash[:error] = "Sorry, there was an error..."
       render 'error'
     end
   end
