@@ -29,7 +29,7 @@ class PlaylistsController < ApplicationController
       ActiveSupport::Notifications.instrument 'playlist.created', current_user: current_user.email, radio: @current_radio.name, playlist: @playlist.name
       render json: @playlist
     else
-      render json: @playlist.errors
+      render json: @playlist.errors, status: :unprocessable_entity
     end
   end
 
