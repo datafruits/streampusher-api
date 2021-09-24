@@ -46,6 +46,9 @@ module StreamPusher
       end if File.exists?(env_file)
     end
 
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
+
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
