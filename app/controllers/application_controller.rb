@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   include ActionController::Serialization
+  include ActionController::Cookies
 
   before_action :current_radio
   around_action :set_time_zone
