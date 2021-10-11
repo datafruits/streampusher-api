@@ -4,7 +4,8 @@ class HostApplicationsController < ApplicationController
 
   def index
     # authorize! :manage, HostApplication
-    @host_applications = @current_radio.host_applications
+    @host_applications = @current_radio.host_applications.order("created_at DESC")
+    render json: @host_applications
   end
 
   def create
