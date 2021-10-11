@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.1
-lock '3.11.2'
+lock '3.16.0'
 
 set :application, 'stream_pusher'
 set :repo_url, 'git@github.com:streampusher/api.git'
@@ -131,7 +131,7 @@ namespace :deploy do
   # after 'deploy:setup_config', 'monit:restart'
   # after "deploy:setup_config", "backup:setup"
 
-  after 'deploy:starting', 'sidekiq:quiet'
+  # after 'deploy:starting', 'sidekiq:quiet'
   # after 'deploy:updated', 'sidekiq:monit:stop'
   # after 'deploy:reverted', 'sidekiq:monit:stop'
   # after 'deploy:published', 'sidekiq:monit:restart'
