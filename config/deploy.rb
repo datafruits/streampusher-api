@@ -13,6 +13,9 @@ set :slack_webhook, ENV['DEPLOY_NOTIFY_URL']
 
 set :deploy_user, "deploy"
 
+set :nvm_type, :user # or :system, depends on your nvm setup
+set :nvm_node, 'v6.17.1'
+
 # Default branch is :master
 set :branch, ENV['DEPLOY_BRANCH'] || "master"
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
