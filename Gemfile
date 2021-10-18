@@ -120,6 +120,6 @@ gem 'friendly_id'
 
 gem 'discord-notifier'
 
-gem 'bootsnap', require: false
+# gem 'bootsnap', require: false
 gem 'thwait'
 gem 'e2mmap'
