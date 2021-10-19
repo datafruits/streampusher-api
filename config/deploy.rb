@@ -1,6 +1,10 @@
 # config valid only for Capistrano 3.1
 lock '3.16.0'
 
+set :default_env, {
+  "EXECJS_RUNTIME": "node"
+}
+
 set :application, 'stream_pusher'
 set :repo_url, 'git@github.com:streampusher/api.git'
 
