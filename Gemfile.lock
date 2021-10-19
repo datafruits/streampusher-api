@@ -1721,6 +1721,7 @@ DEPENDENCIES
   e2mmap
   ember-cli-rails
   exception_notification
+  execjs
   factory_bot_rails
   font-awesome-sass (~> 4.6.0)
   friendly_id
