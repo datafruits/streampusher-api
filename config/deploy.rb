@@ -1,5 +1,7 @@
 # config valid only for Capistrano 3.1
-lock '3.11.2'
+lock '3.16.0'
+
+set :log_level, ENV.fetch('CAP_LOG_LEVEL', :info)
 
 set :application, 'stream_pusher'
 set :repo_url, 'git@github.com:streampusher/api.git'
@@ -12,6 +14,9 @@ set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rben
 set :slack_webhook, ENV['DEPLOY_NOTIFY_URL']
 
 set :deploy_user, "deploy"
+
+set :nvm_type, :user # or :system, depends on your nvm setup
+set :nvm_node, 'v6.17.1'
 
 # Default branch is :master
 set :branch, ENV['DEPLOY_BRANCH'] || "master"
@@ -46,7 +51,9 @@ set :sidekiq_service_name, "sidekiq_worker"
 set :sidekiq_default_hooks, false
 
 # Default value for default_env is {}
-set :default_env, { path: "/home/deploy/.nvm/versions/node/v6.10.3/bin:$PATH" }
+set :default_env, {
+  "EXECJS_RUNTIME": "node"
+}
 
 # Default value for keep_releases is 5
 set :keep_releases, 2
@@ -131,7 +138,7 @@ namespace :deploy do
   # after 'deploy:setup_config', 'monit:restart'
   # after "deploy:setup_config", "backup:setup"
 
-  after 'deploy:starting', 'sidekiq:quiet'
+  # after 'deploy:starting', 'sidekiq:quiet'
   # after 'deploy:updated', 'sidekiq:monit:stop'
   # after 'deploy:reverted', 'sidekiq:monit:stop'
   # after 'deploy:published', 'sidekiq:monit:restart'

@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '5.2.6'
 gem 'pg'
 gem 'sass-rails'
-gem 'uglifier', '>= 1.3.0'
+# gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails'
 gem 'sprockets', '3.7.0'
 
@@ -36,6 +36,7 @@ gem 'rack-cors', :require => 'rack/cors'
 
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
+gem 'execjs'
 gem 'therubyracer'
 gem 'rspec-rails', '~> 3.5.2', :group => [:development, :test]
 
@@ -46,6 +47,7 @@ gem 'capistrano'
 gem 'capistrano-rails'
 gem 'capistrano-bundler'
 gem 'capistrano-rbenv', "~>2.0"
+gem 'capistrano-nvm', require: false
 gem 'capistrano-sidekiq'
 gem 'capistrano-cookbook', require: false, group: :development
 
@@ -119,6 +121,6 @@ gem 'friendly_id'
 
 gem 'discord-notifier'
 
-gem 'bootsnap', require: false
+# gem 'bootsnap', require: false
 gem 'thwait'
 gem 'e2mmap'
