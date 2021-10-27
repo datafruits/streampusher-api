@@ -95,7 +95,6 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-moment-timezone'
   gem 'rails-assets-fullcalendar', '3.2.0'
   gem 'rails-assets-jplayer'
-  gem 'rails-assets-chartjs'
   gem 'rails-assets-BaremetricsCalendar'
   gem 'rails-assets-underscore'
   gem 'rails-assets-bootstrap-tour'
