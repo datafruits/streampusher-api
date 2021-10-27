@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'https://rubygems.org/'
 
 gem 'rails', '5.1.7'
 gem 'pg'
@@ -89,7 +89,7 @@ gem 'paperclip'
 gem 'rupeepeethree', github: "datafruits/rupeepeethree"
 gem "so_id3", github: "streampusher/so_id3"
 
-source 'https://rails-assets.org' do
+source 'https://rails-assets.org/' do
   gem 'rails-assets-countUp.js', '1.8.2'
   gem 'rails-assets-moment'
   gem 'rails-assets-moment-timezone'
