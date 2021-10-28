@@ -142,7 +142,7 @@ namespace :deploy do
   # after 'deploy:updated', 'sidekiq:monit:stop'
   # after 'deploy:reverted', 'sidekiq:monit:stop'
   # after 'deploy:published', 'sidekiq:monit:restart'
-  after 'deploy:updated', 'sidekiq:stop'
-  after 'deploy:reverted', 'sidekiq:stop'
-  after 'deploy:published', 'sidekiq:restart'
+  # after 'deploy:updated', 'sidekiq:stop'
+  # after 'deploy:reverted', 'sidekiq:stop'
+  # after 'deploy:published', 'sidekiq:restart'
 end

@@ -1,9 +1,9 @@
-source 'https://rubygems.org'
+source 'https://rubygems.org/'
 
 gem 'rails', '5.1.7'
 gem 'pg'
 gem 'sass-rails'
-# gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails'
 gem 'sprockets', '3.7.0'
 
@@ -89,13 +89,12 @@ gem 'paperclip'
 gem 'rupeepeethree', github: "datafruits/rupeepeethree"
 gem "so_id3", github: "streampusher/so_id3"
 
-source 'https://rails-assets.org' do
+source 'https://rails-assets.org/' do
   gem 'rails-assets-countUp.js', '1.8.2'
   gem 'rails-assets-moment'
   gem 'rails-assets-moment-timezone'
   gem 'rails-assets-fullcalendar', '3.2.0'
   gem 'rails-assets-jplayer'
-  gem 'rails-assets-chartjs'
   gem 'rails-assets-BaremetricsCalendar'
   gem 'rails-assets-underscore'
   gem 'rails-assets-bootstrap-tour'

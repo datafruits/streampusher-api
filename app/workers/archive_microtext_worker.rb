@@ -1,4 +1,4 @@
-class ArchiveMicrotextWorker
+class ArchiveMicrotextWorker < ActiveJob::Base
   queue_as :default
 
   def perform microtext_id
