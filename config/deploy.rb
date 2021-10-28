@@ -52,7 +52,7 @@ set :sidekiq_default_hooks, false
 
 # Default value for default_env is {}
 set :default_env, {
-  "EXECJS_RUNTIME": "node"
+  "EXECJS_RUNTIME": "Node"
 }
 
 # Default value for keep_releases is 5
