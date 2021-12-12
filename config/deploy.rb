@@ -49,6 +49,8 @@ set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/sys
 set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
 set :sidekiq_service_name, "sidekiq_worker"
 set :sidekiq_default_hooks, false
+set :sidekiq_service_unit_name, 'sidekiq-production'
+
 
 # Default value for default_env is {}
 set :default_env, {
