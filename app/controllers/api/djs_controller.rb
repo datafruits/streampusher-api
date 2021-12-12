@@ -11,12 +11,16 @@ class Api::DjsController < ApplicationController
   def show
     djs = @current_radio.djs
       .includes([:scheduled_show_performers,
-                 scheduled_shows: [ { performers: :links }, :radio, { tracks: [ :radio, :uploaded_by, :labels ] } ]])
+                 scheduled_shows: [ { performers: :links }, :radio, { tracks: [ :radio, :uploaded_by, :labels ] } ]]).where(enabled: true)
     if params[:name].present?
       @dj = djs.find_by(username: params[:name])
     else
       @dj = djs.find(params[:id])
     end
-    render json: @dj, serializer: DjWithRelationshipsSerializer, root: "dj"
+    if @dj
+      render json: @dj, serializer: DjWithRelationshipsSerializer, root: "dj"
+    else
+      render json: { "error": "not found" } , status: 404
+    end
   end
 end

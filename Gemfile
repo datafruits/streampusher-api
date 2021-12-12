@@ -1,6 +1,6 @@
-source 'https://rubygems.org'
+source 'https://rubygems.org/'
 
-gem 'rails', '5.0.7.2'
+gem 'rails', '5.1.7'
 gem 'pg'
 gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
@@ -19,6 +19,7 @@ gem 'spring',        group: :development
 
 gem 'devise'
 gem 'devise-jwt'
+gem 'warden-jwt_auth', github: "waiting-for-dev/warden-jwt_auth"
 gem 'omniauth'
 gem 'omniauth-soundcloud', github: "mcfiredrill/omniauth-soundcloud"
 gem 'omniauth-mixcloud', github: "streampusher/omniauth-mixcloud"
@@ -29,12 +30,13 @@ gem 'tumblr_client'
 gem 'cancancan'
 gem 'docker-api', '~> 1.22.4', require: 'docker'
 gem 'simple_form'
-gem 'cocaine'
+gem 'terrapin'
 gem 'lograge'
 gem 'rack-cors', :require => 'rack/cors'
 
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
+gem 'execjs'
 gem 'therubyracer'
 gem 'rspec-rails', '~> 3.5.2', :group => [:development, :test]
 
@@ -45,6 +47,7 @@ gem 'capistrano'
 gem 'capistrano-rails'
 gem 'capistrano-bundler'
 gem 'capistrano-rbenv', "~>2.0"
+gem 'capistrano-nvm', require: false
 gem 'capistrano-sidekiq'
 gem 'capistrano-cookbook', require: false, group: :development
 
@@ -86,13 +89,12 @@ gem 'paperclip'
 gem 'rupeepeethree', github: "datafruits/rupeepeethree"
 gem "so_id3", github: "streampusher/so_id3"
 
-source 'https://rails-assets.org' do
+source 'https://rails-assets.org/' do
   gem 'rails-assets-countUp.js', '1.8.2'
   gem 'rails-assets-moment'
   gem 'rails-assets-moment-timezone'
   gem 'rails-assets-fullcalendar', '3.2.0'
   gem 'rails-assets-jplayer'
-  gem 'rails-assets-chartjs'
   gem 'rails-assets-BaremetricsCalendar'
   gem 'rails-assets-underscore'
   gem 'rails-assets-bootstrap-tour'
@@ -118,6 +120,6 @@ gem 'friendly_id'
 
 gem 'discord-notifier'
 
-gem 'bootsnap', require: false
+# gem 'bootsnap', require: false
 gem 'thwait'
 gem 'e2mmap'

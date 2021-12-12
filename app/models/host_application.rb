@@ -22,19 +22,20 @@ class HostApplication < ApplicationRecord
     if user.persisted?
       update! approved: true
     else
-      raise "Couldn't create user account"
+      raise "Couldn't create user account: #{user.errors.inspect}"
     end
   end
 
   private
+
   def username_not_taken
-    unless User.where(username: username).none?
+    if User.where(username: username).where.not("role LIKE ?", "%listener%").or(User.where(username: username, role: nil)).any?
       errors.add(:username, "is already taken")
     end
   end
 
   def email_not_taken
-    unless User.where(email: email).none?
+    if User.where(username: username).where.not("role LIKE ?", "%listener%").or(User.where(username: username, role: nil)).any?
       errors.add(:email, "is already taken")
     end
   end

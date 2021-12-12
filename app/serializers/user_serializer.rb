@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :username, :email, :time_zone, :role, :avatar_url, :style, :avatar, :avatar_filename
+  attributes :id, :username, :email, :time_zone, :role, :avatar_url, :style, :avatar, :avatar_filename, :pronouns
   has_many :social_identities
 
   def avatar_url

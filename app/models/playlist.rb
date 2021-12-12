@@ -14,7 +14,7 @@ class Playlist < ActiveRecord::Base
   after_save :set_default_playlist
   after_save :persist_to_redis
   after_touch :persist_to_redis
-  before_destroy :set_another_playlist_to_default
+  before_destroy :set_most_recently_updated_playlist_to_default
 
   default_scope { order(updated_at: :desc) }
 
@@ -60,7 +60,7 @@ class Playlist < ActiveRecord::Base
     end
   end
 
-  def set_another_playlist_to_default
+  def set_most_recently_updated_playlist_to_default
     if default?
       self.radio.update default_playlist_id: self.radio.playlists.where.not(id: id).first.id
     end
