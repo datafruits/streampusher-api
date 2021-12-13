@@ -18,8 +18,8 @@ set :deploy_user, "deploy"
 set :nvm_type, :user # or :system, depends on your nvm setup
 set :nvm_node, 'v6.17.1'
 
-# Default branch is :master
-set :branch, ENV['DEPLOY_BRANCH'] || "master"
+# Default branch is :main
+set :branch, ENV['DEPLOY_BRANCH'] || "main"
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app
