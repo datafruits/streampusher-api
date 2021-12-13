@@ -36,6 +36,6 @@ if Rails.env.production?
 
   ActiveSupport::Notifications.subscribe "live_now" do |*args|
     event = ActiveSupport::Notifications::Event.new *args
-    DiscordNotifier.perform_later "#{event.payload[:user]} is live now!"
+    DiscordNotifier.perform_later "#{event.payload[:user]} is live now!", ENV['DISCORD_LIVE_BOT_WEBHOOK_URL']
   end
 end
