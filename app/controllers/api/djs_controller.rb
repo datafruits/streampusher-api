@@ -1,4 +1,6 @@
 class Api::DjsController < ApplicationController
+  serialization_scope :serializer_scope
+
   def index
     @djs = @current_radio.djs.order("username DESC")
     if params[:search]
@@ -22,5 +24,15 @@ class Api::DjsController < ApplicationController
     else
       render json: { "error": "not found" } , status: 404
     end
+  end
+
+  private
+
+  def serializer_scope
+    {
+      scheduled_shows: {
+        page: params[:page]
+      }
+    }
   end
 end
