@@ -20,7 +20,7 @@ class Api::DjsController < ApplicationController
       @dj = djs.find(params[:id])
     end
     if @dj
-      render json: @dj, serializer: DjWithRelationshipsSerializer, root: "dj"
+      render json: @dj, serializer: DjSerializer, root: "dj"
     else
       render json: { "error": "not found" } , status: 404
     end
