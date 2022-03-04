@@ -5,6 +5,7 @@ class Api::Djs::TracksController < ApplicationController
     @dj = djs.find(params[:dj_id])
     tracks = @dj.tracks.page(params[:page])
 
-    render json: tracks
+    meta = { page: params[:page], total_pages: tracks.total_pages.to_i }
+    render json: tracks, meta: meta
   end
 end
