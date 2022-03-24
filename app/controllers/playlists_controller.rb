@@ -20,6 +20,9 @@ class PlaylistsController < ApplicationController
     authorize! :index, Playlist, params[:format]
     @tracks = @current_radio.tracks
     @playlists = @current_radio.playlists.includes(tracks: [:labels])
+    if search_params[:keyword].present?
+      @playlists = @playlists.where("name ilike (?)", "%#{search_params[:keyword]}%")
+    end
     @playlists = @playlists.page(params[:page])
     respond_to do |format|
       format.html {
@@ -68,6 +71,14 @@ class PlaylistsController < ApplicationController
   end
 
   private
+  def search_params
+    if params[:search]
+      params[:search].permit(:keyword)
+    else
+      return {}
+    end
+  end
+
   def create_params
     params.require(:playlist).permit(:name, :radio_id)
   end

@@ -55,11 +55,16 @@ class PodcastsController < ApplicationController
   end
 
   def serializer_scope
+    if params[:tags].is_a? String
+      tags = Array(params[:tags].split(","))
+    else
+      tags = Array(params[:tags])
+    end
     {
       tracks: {
         page: params[:page],
         query: params[:query],
-        tags: Array(params[:tags])
+        tags: tags
       }
     }
   end

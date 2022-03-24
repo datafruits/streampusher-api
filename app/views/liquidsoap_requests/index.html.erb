@@ -3,9 +3,9 @@
     <% @requests.each do |request| %>
       <tr>
         <td><strong>Request ID:</strong> <%= request %></td>
-        <td><%= LiquidsoapRequests.metadata @current_radio, request %></td>
+        <td><%= @liquidsoap.metadata request %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<strong>On air request:</strong> <%= @on_air %>
+<strong>On air requests:</strong> <%= @on_air.to_s %>

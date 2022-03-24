@@ -8,7 +8,8 @@ class ScheduledShow < ActiveRecord::Base
   belongs_to :dj, class_name: "User"
   belongs_to :playlist
   belongs_to :recurrant_original, class_name: "ScheduledShow"
-  has_attached_file :image, styles: { :thumb => "x300" },
+  has_attached_file :image,
+    styles: { :thumb => "x300" },
     path: ":attachment/:style/:basename.:extension"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
@@ -20,6 +21,7 @@ class ScheduledShow < ActiveRecord::Base
   has_many :performers, through: :scheduled_show_performers, source: :user
   accepts_nested_attributes_for :scheduled_show_performers
 
+  validates_presence_of :guest, if: -> { is_guest? }
   validates_presence_of :start_at, :end_at, :playlist_id, :title, :dj_id
   validates :description, length: { maximum: 10000 }
 
@@ -36,6 +38,13 @@ class ScheduledShow < ActiveRecord::Base
   after_update :update_recurrences_in_background, if: :recurring_or_recurrence?
   after_update :save_recurrences_in_background, if: :recurring_interval_changed?
   before_destroy :maybe_destroy_recurrences
+  before_destroy :clear_redis_if_playing
+  #
+  def clear_redis_if_playing
+    if self.radio.current_show_playing.to_i == self.id
+      self.radio.set_current_show_playing nil
+    end
+  end
 
   before_save :ensure_time_zone
   before_save :add_performers
@@ -58,6 +67,44 @@ class ScheduledShow < ActiveRecord::Base
   # TODO
   # validate :time_is_in_15_min_intervals
   #
+  #
+  def queue_playlist!
+    liquidsoap = LiquidsoapRequests.new radio.id
+    # should this always happen ?
+    if self.playlist.present? && self.playlist.redis_length < 1 && self.playlist.tracks.length > 0
+      puts "playlist empty in redis for some reason, persisting to redis!"
+      PersistPlaylistToRedis.perform self.playlist
+    end
+    if self.playlist.present? && self.playlist.redis_length > 0
+      while self.playlist.redis_length > 0
+        track_id = self.playlist.pop_next_track
+        puts "popped next track: #{track_id}"
+        if track_id.present?
+          track = Track.find track_id
+        end
+        puts "found track: #{track}"
+        if track
+          liquidsoap.add_to_queue track.url
+          puts "added to queue: #{track.url}"
+        end
+      end
+    else
+      puts "tried to queue #{self.inspect}'s playlist, but playlist empty in redis!"
+    end
+  end
+
+  def next_track!
+    if self.playlist.present?
+      track_id = self.playlist.pop_next_track
+      # if track_id.present?
+      track = Track.find track_id
+      puts "popped next track: #{track.s3_filepath}"
+      if track
+        return track.s3_filepath
+      end
+    end
+  end
+
   def playlist_or_default
     # playlist presence is validated, but it might be deleted
     # and we can't add dependant destroy
@@ -125,7 +172,7 @@ class ScheduledShow < ActiveRecord::Base
     if recurring?
       start_and_end_recurrences.each do |s,e|
         scheduled_show = self.dup
-        scheduled_show.image = self.image
+        scheduled_show.image = self.image if self.image.present?
         scheduled_show.recurring_interval = self.recurring_interval
         scheduled_show.recurrence = true
         scheduled_show.recurrant_original_id = self.id
@@ -140,12 +187,12 @@ class ScheduledShow < ActiveRecord::Base
 
   def update_recurrences
     recurrences_to_update.each do |r|
-      r.attributes = self.attributes.except("id","created_at","updated_at","start_at","end_at","recurring_interval","recurrence", "recurrant_original_id", "slug")
+      r.attributes = self.attributes.except("id","created_at","updated_at","start_at","end_at","recurring_interval","recurrence", "recurrant_original_id", "slug", "image")
       new_start_at = DateTime.new r.start_at.year, r.start_at.month, r.start_at.day, self.start_at.hour, self.start_at.min, self.start_at.sec, self.start_at.zone
       r.start_at = new_start_at
       new_end_at = DateTime.new r.end_at.year, r.end_at.month, r.end_at.day, self.end_at.hour, self.end_at.min, self.end_at.sec, self.end_at.zone
       r.end_at = new_end_at
-      r.image = self.image
+      r.image = self.image if self.image.present?
       r.update_all_recurrences = false
       r.save!
     end
@@ -201,13 +248,13 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def start_at_cannot_be_in_the_past
-    if start_at < Time.now
+    if start_at < Time.current
       errors.add(:start_at, "cannot be in the past")
     end
   end
 
   def end_at_cannot_be_in_the_past
-    if end_at < Time.now
+    if end_at < Time.current
       errors.add(:end_at, "cannot be in the past")
     end
   end
@@ -264,9 +311,9 @@ class ScheduledShow < ActiveRecord::Base
 
   def recurrences_to_update
     if !is_original_recurrant?
-      self.radio.scheduled_shows.where(recurrant_original_id: self.recurrant_original_id).where("start_at > (?)", Time.now)
+      self.radio.scheduled_shows.where(recurrant_original_id: self.recurrant_original_id).where("start_at > (?)", Time.current)
     else # this is the original recurring show!
-      recurrences.where("start_at > (?)", Time.now)
+      recurrences.where("start_at > (?)", Time.current)
     end
   end
 

@@ -1,6 +1,5 @@
-# streampusher rails app
-[![build
-status](https://gitlab.com/ci/projects/4542/status.png?ref=master)](https://gitlab.com/ci/projects/4542?ref=master)
+# Streampusher API
+[![Build Status](https://github.com/datafruits/streampusher-api/workflows/CI/badge.svg)](https://github.com/datafruits/streampusher-api/actions?workflow=CI)
 
 # dev environment
 

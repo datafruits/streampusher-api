@@ -1,8 +1,9 @@
-<%= fetch(:deploy_to) %>/shared/log/*.log {
+<%= fetch(:deploy_to) %>/shared/log/**/*.log {
     su deploy deploy
     daily
     missingok
     rotate 52
+    maxsize 5G
     compress
     delaycompress
     notifempty

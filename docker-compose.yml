@@ -8,6 +8,8 @@ services:
     ports:
      - "8000:8000"
     restart: "always"
+    volumes:
+      - /usr/local/share/icecast/logs:/var/www/stream_pusher/shared/log/icecast
   redis:
     image: "redis:latest"
     ports:

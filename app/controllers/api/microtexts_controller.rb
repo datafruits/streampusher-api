@@ -3,7 +3,7 @@ class Api::MicrotextsController < ApplicationController
   before_action :current_radio_required
 
   def index
-    @microtexts = @current_radio.microtexts.order("RANDOM()").take(10)
+    @microtexts = @current_radio.microtexts.where(archived: false).order("RANDOM()").take(10)
 
     render json: @microtexts
   end

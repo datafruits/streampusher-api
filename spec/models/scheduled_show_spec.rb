@@ -14,6 +14,15 @@ RSpec.describe ScheduledShow, :type => :model do
   end
 
   describe "performers" do
+    before do
+      Time.zone = 'UTC'
+      Timecop.freeze Time.local(2015)
+    end
+
+    after do
+      Timecop.return
+    end
+
     it "sets the DJ as the performer if no performers are specified" do
       @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: @start_at, end_at: @end_at, title: "hey hey", dj: @dj
       expect(@scheduled_show.performers).to include(@dj)
@@ -28,9 +37,30 @@ RSpec.describe ScheduledShow, :type => :model do
       expect(@scheduled_show.performers).to include(@dj)
       expect(@scheduled_show.performers.count).to eq 1
     end
+
+    it "requires a guest if is_guest?" do
+      @scheduled_show = ScheduledShow.new radio: @radio,
+        playlist: @playlist, start_at: @start_at, end_at: @end_at, title: "hey hey",
+        dj: @dj, is_guest: true,
+        scheduled_show_performers_attributes: { "0": { user_id: @dj.id } }
+      expect(@scheduled_show.valid?).to eq false
+      expect(@scheduled_show.errors[:guest]).to be_present
+
+      @scheduled_show.guest = "special guest"
+      expect(@scheduled_show.valid?).to eq true
+    end
   end
 
   describe "slugs" do
+    before do
+      Time.zone = 'UTC'
+      Timecop.freeze Time.local(2015)
+    end
+
+    after do
+      Timecop.return
+    end
+
     it "saves the unique slug with title and id" do
       start_at = Chronic.parse("today at 3:15 pm").utc
       end_at = Chronic.parse("today at 5:15 pm").utc
@@ -84,6 +114,10 @@ RSpec.describe ScheduledShow, :type => :model do
       Timecop.freeze Time.local(2015)
     end
 
+    after do
+      Timecop.return
+    end
+
     it "saves recurring shows if recurring is true" do
       start_at = Chronic.parse("today at 1:15 pm").utc
       end_at = Chronic.parse("today at 3:15 pm").utc
@@ -128,15 +162,21 @@ RSpec.describe ScheduledShow, :type => :model do
     end
 
     it "updates all recurring shows attributes" do
-      start_at = Chronic.parse("today at 1:15 pm").utc
-      end_at = Chronic.parse("today at 3:15 pm").utc
-      recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey", dj: @dj
-      new_start_at = Chronic.parse("today at 11:00 am").utc
-      recurring_show.update start_at: new_start_at, update_all_recurrences: true
-      recurring_show.recurrences.each do |recurrence|
-        expect(recurrence.start_at.hour).to eq new_start_at.hour
-        expect(recurrence.start_at.min).to eq new_start_at.min
-        expect(recurrence.start_at.sec).to eq new_start_at.sec
+      Timecop.return do
+        VCR.use_cassette(RSpec.current_example.metadata[:full_description].to_s, match_requests_on: [:method, :host, :s3_image_matcher]) do
+          start_at = 4.hours.from_now.utc
+          end_at = 6.hours.from_now.utc
+          recurring_show = ScheduledShow.create! radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey", dj: @dj
+          new_start_at = 2.hours.from_now.utc
+          new_title = "new title 2"
+          recurring_show.update! start_at: new_start_at, title: new_title, update_all_recurrences: true
+          recurring_show.recurrences.each do |recurrence|
+            expect(recurrence.start_at.hour).to eq new_start_at.hour
+            expect(recurrence.start_at.min).to eq new_start_at.min
+            expect(recurrence.start_at.sec).to eq new_start_at.sec
+            expect(recurrence.title).to eq new_title
+          end
+        end
       end
     end
 
@@ -192,7 +232,7 @@ RSpec.describe ScheduledShow, :type => :model do
   end
 
   describe "dst handling" do
-    it "updates all recurrences +1 hour for DST" do
+    xit "updates all recurrences +1 hour for DST" do
       start_at = Chronic.parse("today at 1:15 pm").utc
       end_at = Chronic.parse("today at 3:15 pm").utc
       recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "month", title: "hey", dj: @dj
@@ -205,6 +245,41 @@ RSpec.describe ScheduledShow, :type => :model do
         expect(r.start_at).to eq start_at+1.hour
         expect(r.end_at).to eq end_at+1.hour
       end
+    end
+  end
+
+  describe "queue_playlist!" do
+  let(:liquidsoap_requests_class) { class_double("LiquidsoapRequests").as_stubbed_const }
+  let(:liquidsoap) { instance_double("LiquidsoapRequests") }
+    xit "it clears the redis current_show_playing if destroyed and playing"
+    it "queues the show's entire playlist in liquidsoap" do
+      allow(liquidsoap_requests_class).to receive(:new).with(@radio.id).and_return(liquidsoap)
+      Sidekiq::Testing.fake!
+      start_at = Chronic.parse("today at 2:15 pm").utc
+      end_at = Chronic.parse("today at 3:15 pm").utc
+      5.times do |i|
+        @playlist.tracks << FactoryBot.create(:track, radio: @radio)
+      end
+      @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey", dj: @dj
+      PersistPlaylistToRedis.perform @playlist
+      @playlist.tracks.each do |track|
+        expect(liquidsoap).to receive(:add_to_queue).with(track.url)
+      end
+      @scheduled_show.queue_playlist!
+    end
+    it "calls PersistPlaylistToRedis if empty in redis" do
+      allow(liquidsoap_requests_class).to receive(:new).with(@radio.id).and_return(liquidsoap)
+      Sidekiq::Testing.fake!
+      start_at = Chronic.parse("today at 2:15 pm").utc
+      end_at = Chronic.parse("today at 3:15 pm").utc
+      5.times do |i|
+        @playlist.tracks << FactoryBot.create(:track, radio: @radio)
+      end
+      @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey", dj: @dj
+      @playlist.tracks.each do |track|
+        expect(liquidsoap).to receive(:add_to_queue).with(track.url)
+      end
+      @scheduled_show.queue_playlist!
     end
   end
 end

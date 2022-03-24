@@ -6,7 +6,7 @@ describe CheckRadioIsUp do
   before do
     Sidekiq::Testing.inline!
   end
-  it "sends alert emails if the radio is down" do
+  xit "sends alert emails if the radio is down" do
     radio = FactoryBot.create :radio, name: "garf_radio"
     url = radio.icecast_json
     stub_request(:any, url).
@@ -15,7 +15,7 @@ describe CheckRadioIsUp do
     expect(ActionMailer::Base.deliveries.last.subject).to eq "Radio garf_radio is not reachable"
   end
 
-  it "doesn't alert emails if the radio is up" do
+  xit "doesn't alert emails if the radio is up" do
     radio = FactoryBot.create :radio, name: "datafruits"
     url = radio.icecast_json
     stub_request(:any, url).

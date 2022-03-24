@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:latest
 
 # locale
 # RUN locale-gen ja_JP.UTF-8 && \
@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt update
 RUN apt upgrade -y
-RUN apt-get install -y build-essential libtag1-dev libqtwebkit-dev qt4-qmake \
+RUN apt-get install -y build-essential libtag1-dev libffi-dev \
   xvfb firefox git curl sox libsox-fmt-mp3 libpq-dev imagemagick sudo postgresql-client
 
 # for ruby

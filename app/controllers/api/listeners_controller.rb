@@ -5,7 +5,7 @@ class Api::ListenersController < ApplicationController
     @user = User.create user_params.merge(role: "listener", password_confirmation: user_params[:password])
     if @user.save
       ActiveSupport::Notifications.instrument 'listener.created', radio: @current_radio.name, username: @user.username
-      render json: @user
+      render json: @user, root: "user"
     else
       render json: { errors: @user.errors }, status: 422
     end

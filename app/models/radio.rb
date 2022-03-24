@@ -28,7 +28,7 @@ class Radio < ActiveRecord::Base
   end
 
   def active_djs
-    self.users.profile_published
+    self.users.where(enabled: true).profile_published
   end
 
   def boot_radio
@@ -100,6 +100,16 @@ class Radio < ActiveRecord::Base
       dir = "/home/deploy/#{self.name}/recordings"
     else
       dir = "/tmp/#{self.name}/recordings".to_s
+    end
+    FileUtils.mkdir_p dir
+    dir
+  end
+
+  def hls_directory
+    if ::Rails.env.production?
+      dir = "/home/deploy/#{self.name}/hls"
+    else
+      dir = "/tmp/#{self.name}/hls".to_s
     end
     FileUtils.mkdir_p dir
     dir

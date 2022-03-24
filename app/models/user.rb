@@ -2,9 +2,9 @@ class User < ActiveRecord::Base
   include ::User::Roles
 
   has_one :subscription
-  has_many :radios, through: :user_radios
   has_many :microtexts
   has_many :user_radios
+  has_many :radios, through: :user_radios
   has_many :shows, foreign_key: :dj_id
   has_many :recordings
   has_many :social_identities

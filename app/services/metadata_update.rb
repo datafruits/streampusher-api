@@ -7,7 +7,7 @@ class MetadataUpdate
 
   private
   def self.equalify_hash hash
-    hash.map{|k,v| "#{k}=#{v}" }.join(",")
+    Hash(hash).map{|k,v| "#{k}=#{v}" }.join(",")
   end
 
   def self.massage_metadata metadata

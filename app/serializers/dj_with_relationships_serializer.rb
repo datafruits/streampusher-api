@@ -1,7 +1,18 @@
 class DjWithRelationshipsSerializer < ActiveModel::Serializer
-  attributes :id, :username, :image_url, :bio, :image_thumb_url, :image_medium_url, :tracks
+  attributes :id, :username, :image_url, :bio, :image_thumb_url, :image_medium_url, :style, :tracks, :pronouns
   has_many :links, embed: :ids, embed_in_root: true, each_serializer: LinkSerializer
   has_many :scheduled_shows, embed: :ids, key: :scheduled_shows, embed_in_root: true, each_serializer: ScheduledShowSerializer
+
+  def scheduled_shows
+    object.scheduled_shows.page(scope[:scheduled_shows][:page])
+  end
+
+  def meta
+    {
+      page: scope[:scheduled_shows][:page],
+      total_pages: scheduled_shows.page.total_pages.to_i
+    }
+  end
 
   # tracks are already loaded via scheduled_shows, so we just need the ids here
   def tracks
