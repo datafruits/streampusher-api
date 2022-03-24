@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210204002111) do
+ActiveRecord::Schema.define(version: 20211017035826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,26 +57,26 @@ ActiveRecord::Schema.define(version: 20210204002111) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
-<<<<<<< HEAD
-  create_table "host_applications", force: :cascade do |t|
-    t.integer  "radio_id",                      null: false
-    t.string   "email",                         null: false
-    t.string   "username",                      null: false
-    t.string   "link",                          null: false
-    t.integer  "interval",      default: 0,     null: false
-    t.text     "desired_time",                  null: false
-    t.string   "time_zone",                     null: false
-    t.string   "other_comment"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.boolean  "approved",      default: false, null: false
-    t.string   "homepage_url"
-    t.index ["radio_id"], name: "index_host_applications_on_radio_id", using: :btree
+  create_table "fruit_tips", id: :serial, force: :cascade do |t|
+    t.integer "amount", null: false
+    t.integer "from_id", null: false
+    t.string "to", null: false
+    t.integer "fruit_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["from_id"], name: "index_fruit_tips_on_from_id"
+    t.index ["fruit_id"], name: "index_fruit_tips_on_fruit_id"
+    t.index ["user_id"], name: "index_fruit_tips_on_user_id"
   end
 
-  create_table "labels", force: :cascade do |t|
-    t.string   "name",       null: false
-=======
+  create_table "fruits", id: :serial, force: :cascade do |t|
+    t.integer "cost", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "host_applications", id: :serial, force: :cascade do |t|
     t.integer "radio_id", null: false
     t.string "email", null: false
@@ -86,7 +86,6 @@ ActiveRecord::Schema.define(version: 20210204002111) do
     t.text "desired_time", null: false
     t.string "time_zone", null: false
     t.string "other_comment"
->>>>>>> origin/main
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "approved", default: false, null: false
@@ -127,207 +126,11 @@ ActiveRecord::Schema.define(version: 20210204002111) do
     t.index ["radio_id"], name: "index_listens_on_radio_id"
   end
 
-<<<<<<< HEAD
-  create_table "microtexts", force: :cascade do |t|
-    t.integer  "user_id",                    null: false
-    t.integer  "radio_id",                   null: false
-    t.string   "content",                    null: false
-    t.boolean  "approved",   default: false, null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.index ["radio_id"], name: "index_microtexts_on_radio_id", using: :btree
-    t.index ["user_id"], name: "index_microtexts_on_user_id", using: :btree
-  end
-
-  create_table "plans", force: :cascade do |t|
-    t.decimal  "price"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "name",       default: "", null: false
-  end
-
-  create_table "playlist_track_favorites", force: :cascade do |t|
-    t.integer  "user_id",           null: false
-    t.integer  "playlist_track_id", null: false
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.index ["playlist_track_id"], name: "index_playlist_track_favorites_on_playlist_track_id", using: :btree
-    t.index ["user_id"], name: "index_playlist_track_favorites_on_user_id", using: :btree
-  end
-
-  create_table "playlist_tracks", force: :cascade do |t|
-    t.integer  "track_id",               null: false
-    t.integer  "playlist_id",            null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "position"
-    t.datetime "podcast_published_date"
-    t.index ["playlist_id"], name: "index_playlist_tracks_on_playlist_id", using: :btree
-    t.index ["track_id"], name: "index_playlist_tracks_on_track_id", using: :btree
-  end
-
-  create_table "playlists", force: :cascade do |t|
-    t.integer  "radio_id",                                                               null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "name",                                       limit: 255
-    t.integer  "interpolated_playlist_id"
-    t.integer  "interpolated_playlist_track_play_count"
-    t.integer  "interpolated_playlist_track_interval_count"
-    t.boolean  "interpolated_playlist_enabled",                          default: false, null: false
-    t.boolean  "no_cue_out",                                             default: true,  null: false
-    t.boolean  "shuffle",                                                default: false, null: false
-    t.integer  "user_id"
-    t.boolean  "repeat",                                                 default: false, null: false
-    t.index ["interpolated_playlist_id"], name: "index_playlists_on_interpolated_playlist_id", using: :btree
-    t.index ["radio_id"], name: "index_playlists_on_radio_id", using: :btree
-    t.index ["user_id"], name: "index_playlists_on_user_id", using: :btree
-  end
-
-  create_table "podcasts", force: :cascade do |t|
-    t.integer  "radio_id",                        null: false
-    t.string   "title"
-    t.string   "link"
-    t.string   "description"
-    t.datetime "last_build_date"
-    t.string   "itunes_summary"
-    t.string   "itunes_name"
-    t.string   "itunes_email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "name",               default: "", null: false
-    t.integer  "playlist_id"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-    t.string   "extra_tags"
-    t.index ["playlist_id"], name: "index_podcasts_on_playlist_id", using: :btree
-    t.index ["radio_id"], name: "index_podcasts_on_radio_id", using: :btree
-  end
-
-  create_table "radios", force: :cascade do |t|
-    t.string   "icecast_container_id",            limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "name",                            limit: 255, default: "",    null: false
-    t.string   "liquidsoap_container_id",         limit: 255
-    t.integer  "default_playlist_id"
-    t.boolean  "enabled",                                     default: true,  null: false
-    t.boolean  "vj_enabled",                                  default: false, null: false
-    t.boolean  "podcasts_enabled",                            default: false, null: false
-    t.boolean  "stats_enabled",                               default: false, null: false
-    t.string   "tunein_partner_id"
-    t.string   "tunein_partner_key"
-    t.string   "tunein_station_id"
-    t.boolean  "tunein_metadata_updates_enabled",             default: false, null: false
-    t.boolean  "social_identities_enabled",                   default: false, null: false
-    t.string   "container_name",                                              null: false
-    t.boolean  "schedule_monitor_enabled",                    default: false, null: false
-    t.string   "show_share_url"
-    t.integer  "port_number"
-    t.index ["default_playlist_id"], name: "index_radios_on_default_playlist_id", using: :btree
-  end
-
-  create_table "recordings", force: :cascade do |t|
-    t.integer  "radio_id",                      null: false
-    t.integer  "dj_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "path"
-    t.integer  "processing_status", default: 0, null: false
-    t.integer  "track_id"
-    t.datetime "file_created_at"
-    t.index ["dj_id"], name: "index_recordings_on_dj_id", using: :btree
-    t.index ["radio_id"], name: "index_recordings_on_radio_id", using: :btree
-    t.index ["track_id"], name: "index_recordings_on_track_id", using: :btree
-  end
-
-  create_table "scheduled_show_labels", force: :cascade do |t|
-    t.integer  "label_id"
-    t.integer  "scheduled_show_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.index ["label_id"], name: "index_scheduled_show_labels_on_label_id", using: :btree
-    t.index ["scheduled_show_id", "label_id"], name: "index_scheduled_show_labels_on_scheduled_show_id_and_label_id", unique: true, using: :btree
-    t.index ["scheduled_show_id"], name: "index_scheduled_show_labels_on_scheduled_show_id", using: :btree
-  end
-
-  create_table "scheduled_show_performers", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "scheduled_show_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.index ["scheduled_show_id", "user_id"], name: "ssp_ssid_uid", using: :btree
-    t.index ["scheduled_show_id"], name: "index_scheduled_show_performers_on_scheduled_show_id", using: :btree
-    t.index ["user_id", "scheduled_show_id"], name: "index_scheduled_show_performers_on_uid_and_ssid", unique: true, using: :btree
-    t.index ["user_id"], name: "index_scheduled_show_performers_on_user_id", using: :btree
-  end
-
-  create_table "scheduled_shows", force: :cascade do |t|
-    t.integer  "radio_id",                              null: false
-    t.datetime "start_at",                              null: false
-    t.datetime "end_at",                                null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "description"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-    t.integer  "recurring_interval",    default: 0,     null: false
-    t.boolean  "recurrence",            default: false, null: false
-    t.integer  "recurrant_original_id"
-    t.integer  "playlist_id"
-    t.integer  "dj_id"
-    t.string   "title"
-    t.string   "time_zone"
-    t.string   "slug"
-    t.index ["dj_id"], name: "index_scheduled_shows_on_dj_id", using: :btree
-    t.index ["playlist_id"], name: "index_scheduled_shows_on_playlist_id", using: :btree
-    t.index ["radio_id"], name: "index_scheduled_shows_on_radio_id", using: :btree
-    t.index ["recurrant_original_id"], name: "index_scheduled_shows_on_recurrant_original_id", using: :btree
-    t.index ["slug", "id"], name: "index_scheduled_shows_on_slug_and_id", unique: true, using: :btree
-  end
-
-  create_table "shows", force: :cascade do |t|
-    t.string   "title",              limit: 255, default: "", null: false
-    t.integer  "dj_id",                                       null: false
-    t.integer  "radio_id",                                    null: false
-    t.text     "description",                    default: "", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "playlist_id"
-    t.string   "color"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-  end
-
-  create_table "social_identities", force: :cascade do |t|
-    t.string   "uid",          default: "", null: false
-    t.string   "provider",     default: "", null: false
-    t.integer  "user_id",                   null: false
-    t.string   "token"
-    t.string   "string"
-    t.string   "token_secret"
-    t.string   "name",         default: "", null: false
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.index ["user_id"], name: "index_social_identities_on_user_id", using: :btree
-  end
-
-  create_table "track_labels", force: :cascade do |t|
-    t.integer  "label_id",   null: false
-    t.integer  "track_id",   null: false
-=======
   create_table "microtexts", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "radio_id", null: false
     t.string "content", null: false
     t.boolean "approved", default: false, null: false
->>>>>>> origin/main
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "archived", default: false, null: false
@@ -537,31 +340,6 @@ ActiveRecord::Schema.define(version: 20210204002111) do
     t.string "artwork_content_type"
     t.integer "artwork_file_size"
     t.datetime "artwork_updated_at"
-<<<<<<< HEAD
-    t.integer  "mixcloud_upload_status",               default: 0,  null: false
-    t.string   "mixcloud_key"
-    t.integer  "uploaded_by_id"
-    t.integer  "scheduled_show_id"
-    t.integer  "soundcloud_upload_status",             default: 0,  null: false
-    t.string   "soundcloud_key"
-    t.index ["radio_id"], name: "index_tracks_on_radio_id", using: :btree
-    t.index ["scheduled_show_id"], name: "index_tracks_on_scheduled_show_id", using: :btree
-    t.index ["uploaded_by_id"], name: "index_tracks_on_uploaded_by_id", using: :btree
-  end
-
-  create_table "user_follows", force: :cascade do |t|
-    t.integer  "user_id",     null: false
-    t.integer  "followee_id", null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["followee_id"], name: "index_user_follows_on_followee_id", using: :btree
-    t.index ["user_id"], name: "index_user_follows_on_user_id", using: :btree
-  end
-
-  create_table "user_radios", force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.integer  "radio_id",   null: false
-=======
     t.integer "mixcloud_upload_status", default: 0, null: false
     t.string "mixcloud_key"
     t.integer "uploaded_by_id"
@@ -573,10 +351,18 @@ ActiveRecord::Schema.define(version: 20210204002111) do
     t.index ["uploaded_by_id"], name: "index_tracks_on_uploaded_by_id"
   end
 
+  create_table "user_follows", id: :serial, force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "followee_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followee_id"], name: "index_user_follows_on_followee_id"
+    t.index ["user_id"], name: "index_user_follows_on_user_id"
+  end
+
   create_table "user_radios", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "radio_id", null: false
->>>>>>> origin/main
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["radio_id"], name: "index_user_radios_on_radio_id"
@@ -602,25 +388,17 @@ ActiveRecord::Schema.define(version: 20210204002111) do
     t.string "time_zone"
     t.string "display_name", default: "", null: false
     t.datetime "deleted_at"
-<<<<<<< HEAD
-    t.boolean  "enabled",                            default: true,  null: false
-    t.string   "referer"
-    t.text     "bio"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-=======
     t.boolean "enabled", default: true, null: false
     t.string "referer"
     t.text "bio"
     t.string "image_file_name"
     t.string "image_content_type"
     t.integer "image_file_size"
->>>>>>> origin/main
     t.datetime "image_updated_at"
     t.boolean "profile_publish", default: false, null: false
     t.integer "style", default: 0, null: false
     t.string "pronouns", default: "", null: false
+    t.integer "fruit_balance", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -637,6 +415,9 @@ ActiveRecord::Schema.define(version: 20210204002111) do
   end
 
   add_foreign_key "blog_post_images", "blog_post_bodies"
+  add_foreign_key "fruit_tips", "fruits"
+  add_foreign_key "fruit_tips", "users"
+  add_foreign_key "fruit_tips", "users", column: "from_id"
   add_foreign_key "scheduled_show_labels", "labels"
   add_foreign_key "scheduled_show_labels", "scheduled_shows"
 end

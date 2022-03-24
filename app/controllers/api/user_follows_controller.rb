@@ -3,6 +3,8 @@ class Api::UserFollowsController < ApplicationController
 
   def create
     @user_follow = UserFollow.create user_follow_params
+
+    render json: @user_follow
   end
 
   def destroy
