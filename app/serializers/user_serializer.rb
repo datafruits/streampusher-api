@@ -1,9 +1,10 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :username, :email, :time_zone, :role, :avatar_url, :style, :avatar, :avatar_filename, :pronouns, :user_follow_ids
+  attributes :id, :username, :email, :time_zone, :role, :avatar_url, :style, :avatar, :avatar_filename, :pronouns
   has_many :social_identities
+  has_many :user_follows, embed: :ids, key: :user_follows, embed_in_root: true, each_serializer: UserFollowSerializer
 
-  def user_follow_ids
-    object.user_follow_ids
+  def user_follows
+    object.user_follows
   end
 
   def avatar_url
