@@ -49,6 +49,8 @@ class Ability
       can :create, :profile
 
       can :manage, HostApplication if can_manage_radio?(user, radio)
+      can :create, WikiPage
+      can :create, WikiPageEdit
     elsif user.dj?
       can :index, :current_user
       can :update, :current_user
@@ -120,6 +122,9 @@ class Ability
       can :create, Microtext if can_manage_radio?(user, radio)
 
       can :index, :dj
+
+      can :create, WikiPage
+      can :create, WikiPageEdit
 
       cannot :admin, :dashboard
       cannot :admin, :radios
