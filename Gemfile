@@ -123,3 +123,5 @@ gem 'discord-notifier'
 # gem 'bootsnap', require: false
 gem 'thwait'
 gem 'e2mmap'
+
+gem 'bcrypt', '~> 3.1.7'
