@@ -65,7 +65,7 @@ RSpec.describe ScheduledShow, :type => :model do
       start_at = Chronic.parse("today at 3:15 pm").utc
       end_at = Chronic.parse("today at 5:15 pm").utc
       @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey hey", dj: @dj
-      expect(@scheduled_show.slug).to eq "hey-hey"
+      expect(@scheduled_show.slug).to eq "hey-hey-01012015"
     end
   end
 

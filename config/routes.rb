@@ -120,7 +120,9 @@ Rails.application.routes.draw do
   # meant only for consumption by datafruits frontend app
   namespace :api do
     resources :blog_posts, only: [:show, :index]
-    resources :djs, only: [:show, :index]
+    resources :djs, only: [:show, :index] do
+      resources :tracks, only: [:index], controller: 'djs/tracks'
+    end
     resources :listeners, only: [:create] do
       collection do
         get 'validate_email'
@@ -129,6 +131,7 @@ Rails.application.routes.draw do
     end
     resources :microtexts, only: [:create, :index]
     resources :schedule, only: [:index]
+    resources :scheduled_shows, only: [:show]
   end
 
   post "/setup" => "setup#create"

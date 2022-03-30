@@ -70,6 +70,7 @@ class ScheduledShow < ActiveRecord::Base
   #
   def queue_playlist!
     liquidsoap = LiquidsoapRequests.new radio.id
+    # should this always happen ?
     if self.playlist.present? && self.playlist.redis_length < 1 && self.playlist.tracks.length > 0
       puts "playlist empty in redis for some reason, persisting to redis!"
       PersistPlaylistToRedis.perform self.playlist
@@ -77,11 +78,14 @@ class ScheduledShow < ActiveRecord::Base
     if self.playlist.present? && self.playlist.redis_length > 0
       while self.playlist.redis_length > 0
         track_id = self.playlist.pop_next_track
+        puts "popped next track: #{track_id}"
         if track_id.present?
           track = Track.find track_id
         end
+        puts "found track: #{track}"
         if track
           liquidsoap.add_to_queue track.url
+          puts "added to queue: #{track.url}"
         end
       end
     else
@@ -194,9 +198,14 @@ class ScheduledShow < ActiveRecord::Base
     end
   end
 
+  def formatted_date
+    "#{self.start_at.strftime("%d%m%Y")}"
+  end
+
   def slug_candidates
     [
-      [:title, :id]
+      [:title, :formatted_date],
+      [:title, :formatted_date, :id]
     ]
   end
 

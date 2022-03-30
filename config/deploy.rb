@@ -18,8 +18,8 @@ set :deploy_user, "deploy"
 set :nvm_type, :user # or :system, depends on your nvm setup
 set :nvm_node, 'v6.17.1'
 
-# Default branch is :master
-set :branch, ENV['DEPLOY_BRANCH'] || "master"
+# Default branch is :main
+set :branch, ENV['DEPLOY_BRANCH'] || "main"
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app
@@ -49,10 +49,12 @@ set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/sys
 set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
 set :sidekiq_service_name, "sidekiq_worker"
 set :sidekiq_default_hooks, false
+set :sidekiq_service_unit_name, 'sidekiq-production'
+
 
 # Default value for default_env is {}
 set :default_env, {
-  "EXECJS_RUNTIME": "node"
+  "EXECJS_RUNTIME": "Node"
 }
 
 # Default value for keep_releases is 5
@@ -142,7 +144,7 @@ namespace :deploy do
   # after 'deploy:updated', 'sidekiq:monit:stop'
   # after 'deploy:reverted', 'sidekiq:monit:stop'
   # after 'deploy:published', 'sidekiq:monit:restart'
-  after 'deploy:updated', 'sidekiq:stop'
-  after 'deploy:reverted', 'sidekiq:stop'
-  after 'deploy:published', 'sidekiq:restart'
+  # after 'deploy:updated', 'sidekiq:stop'
+  # after 'deploy:reverted', 'sidekiq:stop'
+  # after 'deploy:published', 'sidekiq:restart'
 end
