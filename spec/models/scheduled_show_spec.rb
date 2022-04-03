@@ -199,6 +199,7 @@ RSpec.describe ScheduledShow, :type => :model do
       recurring_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, recurring_interval: "week", title: "hey", dj: @dj
       expect(recurring_show.recurrences.count).to eq 1200
       recurring_show.update recurring_interval: "month"
+      recurring_show.reload
       expect(recurring_show.recurrences.count).to eq 275
     end
 

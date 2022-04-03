@@ -48,7 +48,11 @@ RSpec.configure do |config|
     DatabaseRewinder.clean_all
     # or
     # DatabaseRewinder.clean_with :any_arg_that_would_be_actually_ignored_anyway
-    Redis.current = MockRedis.new
+  end
+
+  config.before :each do
+    mock_redis = MockRedis.new
+    allow(Redis).to receive(:new).and_return(mock_redis)
   end
 
   config.after :each do
