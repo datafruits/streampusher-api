@@ -321,17 +321,10 @@ ActiveRecord::Schema.define(version: 20210726054445) do
     t.datetime "artwork_updated_at"
     t.integer  "mixcloud_upload_status",   default: 0,  null: false
     t.string   "mixcloud_key"
-<<<<<<< HEAD
-    t.integer  "soundcloud_upload_status", default: 0,  null: false
-    t.string   "soundcloud_key"
-    t.integer  "uploaded_by_id"
-    t.integer  "scheduled_show_id"
-=======
     t.integer  "uploaded_by_id"
     t.integer  "scheduled_show_id"
     t.integer  "soundcloud_upload_status",             default: 0,  null: false
     t.string   "soundcloud_key"
->>>>>>> origin/master
     t.index ["radio_id"], name: "index_tracks_on_radio_id", using: :btree
     t.index ["scheduled_show_id"], name: "index_tracks_on_scheduled_show_id", using: :btree
     t.index ["uploaded_by_id"], name: "index_tracks_on_uploaded_by_id", using: :btree
@@ -372,14 +365,9 @@ ActiveRecord::Schema.define(version: 20210726054445) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-<<<<<<< HEAD
-    t.boolean  "profile_publish",        default: false, null: false
-    t.integer  "style",                  default: 0,     null: false
-=======
     t.boolean  "profile_publish",                    default: false, null: false
     t.integer  "style",                              default: 0,     null: false
     t.string   "pronouns",                           default: "",    null: false
->>>>>>> origin/master
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
