@@ -3,9 +3,8 @@ class HostApplicationsController < ApplicationController
   before_action :current_radio_required, only: [:create]
 
   def index
-    # authorize! :manage, HostApplication
+    authorize! :manage, HostApplication
     @host_applications = @current_radio.host_applications.order("created_at DESC")
-    render json: @host_applications
   end
 
   def create

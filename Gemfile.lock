@@ -1336,8 +1336,6 @@ GEM
     aws-sigv4 (1.4.0)
       aws-eventstream (~> 1, >= 1.0.2)
     bcrypt (3.1.17)
-    bootsnap (1.11.1)
-      msgpack (~> 1.2)
     builder (3.2.4)
     byebug (11.1.3)
     cancancan (3.3.0)
@@ -1352,6 +1350,8 @@ GEM
       capistrano (~> 3.16)
       capistrano-sidekiq (~> 2.0)
       capistrano3-puma (~> 5.0.4)
+    capistrano-nvm (0.0.7)
+      capistrano (~> 3.1)
     capistrano-rails (1.6.2)
       capistrano (~> 3.1)
       capistrano-bundler (>= 1.1, < 3)
@@ -1423,6 +1423,7 @@ GEM
       actionmailer (>= 5.2, < 8)
       activesupport (>= 5.2, < 8)
     excon (0.92.2)
+    execjs (2.8.1)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.2.0)
@@ -1500,7 +1501,6 @@ GEM
     minitest (5.15.0)
     mock_redis (0.30.0)
       ruby2_keywords
-    msgpack (1.4.5)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
@@ -1718,12 +1718,12 @@ DEPENDENCIES
   active_model_serializers (< 0.10)
   acts_as_list
   aws-sdk
-  bootsnap
   byebug
   cancancan
   capistrano
   capistrano-bundler
   capistrano-cookbook
+  capistrano-nvm
   capistrano-rails
   capistrano-rbenv (~> 2.0)
   capistrano-sidekiq
@@ -1738,6 +1738,7 @@ DEPENDENCIES
   dotenv-rails
   e2mmap
   exception_notification
+  execjs
   factory_bot_rails
   friendly_id
   geocoder

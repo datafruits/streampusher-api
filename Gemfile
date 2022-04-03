@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'https://rubygems.org/'
 
 gem 'rails', '5.2.7'
 gem 'pg'
@@ -23,6 +23,7 @@ gem 'rack-cors', :require => 'rack/cors'
 
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
+gem 'execjs'
 gem 'therubyracer'
 gem 'rspec-rails', '~> 3.5.2', :group => [:development, :test]
 
@@ -33,6 +34,7 @@ gem 'capistrano'
 gem 'capistrano-rails'
 gem 'capistrano-bundler'
 gem 'capistrano-rbenv', "~>2.0"
+gem 'capistrano-nvm', require: false
 gem 'capistrano-sidekiq'
 gem 'capistrano-cookbook', require: false, group: :development
 
@@ -90,6 +92,6 @@ gem 'friendly_id'
 
 gem 'discord-notifier'
 
-gem 'bootsnap', require: false
+# gem 'bootsnap', require: false
 gem 'thwait'
 gem 'e2mmap'

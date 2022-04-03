@@ -19,6 +19,7 @@ if Rails.env.production?
             "radio.down",
             "microtext.created",
             "listener.created",
+            "live_now"
            ]
 
   events.each do |event|
@@ -31,5 +32,10 @@ if Rails.env.production?
   ActiveSupport::Notifications.subscribe "host_application.created" do |*args|
     event = ActiveSupport::Notifications::Event.new *args
     DiscordNotifier.perform_later "New DJ Application: \n name: #{event.payload[:username]} \n link: #{event.payload[:link]}"
+  end
+
+  ActiveSupport::Notifications.subscribe "live_now" do |*args|
+    event = ActiveSupport::Notifications::Event.new *args
+    DiscordNotifier.perform_later "#{event.payload[:user]} is live now!", ENV['DISCORD_LIVE_BOT_WEBHOOK_URL']
   end
 end

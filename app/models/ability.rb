@@ -47,6 +47,8 @@ class Ability
 
       can :index, :profile
       can :create, :profile
+
+      can :manage, HostApplication if can_manage_radio?(user, radio)
     elsif user.dj?
       can :index, :current_user
       can :update, :current_user
