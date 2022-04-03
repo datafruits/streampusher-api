@@ -250,8 +250,8 @@ RSpec.describe ScheduledShow, :type => :model do
   end
 
   describe "queue_playlist!" do
-  let(:liquidsoap_requests_class) { class_double("LiquidsoapRequests").as_stubbed_const }
-  let(:liquidsoap) { instance_double("LiquidsoapRequests") }
+    let(:liquidsoap_requests_class) { class_double("LiquidsoapRequests").as_stubbed_const }
+    let(:liquidsoap) { instance_double("LiquidsoapRequests") }
     xit "it clears the redis current_show_playing if destroyed and playing"
     it "queues the show's entire playlist in liquidsoap" do
       allow(liquidsoap_requests_class).to receive(:new).with(@radio.id).and_return(liquidsoap)
@@ -268,6 +268,7 @@ RSpec.describe ScheduledShow, :type => :model do
       end
       @scheduled_show.queue_playlist!
     end
+
     it "calls PersistPlaylistToRedis if empty in redis" do
       allow(liquidsoap_requests_class).to receive(:new).with(@radio.id).and_return(liquidsoap)
       Sidekiq::Testing.fake!

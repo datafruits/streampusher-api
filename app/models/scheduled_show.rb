@@ -1,6 +1,8 @@
 require_relative "../../lib/time_utils"
 
 class ScheduledShow < ActiveRecord::Base
+  include RedisConnection
+
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
@@ -73,6 +75,9 @@ class ScheduledShow < ActiveRecord::Base
       puts "playlist empty in redis for some reason, persisting to redis!"
       PersistPlaylistToRedis.perform self.playlist
     end
+    puts "redis keys: #{redis.keys}"
+    puts self.playlist.redis_length
+    puts redis.inspect
     if self.playlist.present? && self.playlist.redis_length > 0
       while self.playlist.redis_length > 0
         track_id = self.playlist.pop_next_track

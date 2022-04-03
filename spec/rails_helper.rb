@@ -3,7 +3,6 @@ ENV["RAILS_ENV"] ||= 'test'
 require 'spec_helper'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'mock_redis'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -48,11 +47,6 @@ RSpec.configure do |config|
     DatabaseRewinder.clean_all
     # or
     # DatabaseRewinder.clean_with :any_arg_that_would_be_actually_ignored_anyway
-  end
-
-  config.before :each do
-    mock_redis = MockRedis.new
-    allow(Redis).to receive(:new).and_return(mock_redis)
   end
 
   config.after :each do
