@@ -2,6 +2,8 @@ require 'rails_helper'
 require 'sidekiq/testing'
 
 describe PersistPlaylistToRedis do
+  include RedisConnection
+
   before do
     Sidekiq::Testing.fake!
   end
@@ -10,7 +12,6 @@ describe PersistPlaylistToRedis do
     playlist = FactoryBot.create :playlist
     playlist.tracks << FactoryBot.create_list(:track, 10, radio: playlist.radio)
     PersistPlaylistToRedis.perform playlist
-    redis = Redis.current
     expect(redis.llen("datafruits:playlist:my_playlist")).to eq 10
     ids = redis.lrange("datafruits:playlist:my_playlist", 0, 9)
     tracks = Track.find ids
@@ -30,7 +31,6 @@ describe PersistPlaylistToRedis do
       interpolated_playlist_track_interval_count: 3,
       interpolated_playlist_enabled: true
     PersistPlaylistToRedis.perform playlist
-    redis = Redis.current
     expect(redis.llen("datafruits:playlist:my_playlist")).to eq 8
     expected_array = [track_1.id.to_s,
                       track_2.id.to_s,
