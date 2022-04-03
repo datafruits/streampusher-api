@@ -40,6 +40,7 @@ jobs:
           PGHOST: localhost
           PGUSER: postgres
           REDIS_URL: redis://localhost:6379/0
+          REDIS_HOST: localhost
           RAILS_ENV: test
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |
