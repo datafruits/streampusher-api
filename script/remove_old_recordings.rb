@@ -1,3 +1,4 @@
+puts "RUNNING REMOVE OLD RECORDINGS SCRIPT"
 old_recordings = Recording.where("created_at < ?", 7.days.ago)
 puts "Removing #{old_recordings.count} old recordings..."
 

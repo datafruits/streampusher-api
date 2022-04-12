@@ -32,7 +32,7 @@ every 1.hours do
 end
 
 every 7.days do
-  command "cd /var/www/stream_pusher/current/ && :environment_variable=:environment bundle exec rails runner script/remove_old_recordings.rb >> :output"
+  command "cd /var/www/stream_pusher/current/ && :environment_variable=:environment bundle exec rails runner script/remove_old_recordings.rb :output"
 end
 
 every 1.days do
