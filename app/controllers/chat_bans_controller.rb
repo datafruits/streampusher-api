@@ -3,27 +3,20 @@ class ChatBansController < ApplicationController
     authorize! :admin, :chats
     @connections = Chat.all_connections
     @bans = Chat.bans
+    render json: { bans: @bans, connections: @connections }}
   end
 
   def create
     authorize! :admin, :chats
     Chat.ban chat_ban_params[:socket_id]
-    respond_to do |format|
-      format.html {
-        redirect_to chat_bans_path
-      }
-    end
+    head :ok
   end
 
   def destroy
     authorize! :admin, :chats
     ip_address = chat_ban_params[:ip_address]
     Chat.unban ip_address
-    respond_to do |format|
-      format.html {
-        redirect_to chat_bans_path
-      }
-    end
+    head :ok
   end
 
   private
