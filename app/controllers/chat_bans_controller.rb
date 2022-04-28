@@ -3,7 +3,7 @@ class ChatBansController < ApplicationController
     authorize! :admin, :chats
     @connections = Chat.all_connections
     @bans = Chat.bans
-    render json: { bans: @bans, connections: @connections }}
+    render json: { bans: @bans, connections: @connections }
   end
 
   def create

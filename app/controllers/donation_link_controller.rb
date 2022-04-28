@@ -3,9 +3,9 @@ class DonationLinkController < ApplicationController
   def create
     authorize! :update, :metadata
     if DonationLinkUpdater.perform @current_radio.name, donation_link_params[:url]
-      render 'create'
+      head :ok
     else
-      render 'error'
+      head :error
     end
   end
 
