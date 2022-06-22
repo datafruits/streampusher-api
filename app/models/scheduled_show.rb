@@ -198,9 +198,14 @@ class ScheduledShow < ActiveRecord::Base
     end
   end
 
+  def formatted_date
+    "#{self.start_at.strftime("%d%m%Y")}"
+  end
+
   def slug_candidates
     [
-      [:title, :id]
+      [:title, :formatted_date],
+      [:title, :formatted_date, :id]
     ]
   end
 

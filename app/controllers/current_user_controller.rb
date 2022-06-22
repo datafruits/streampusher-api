@@ -34,6 +34,6 @@ class CurrentUserController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:style, :avatar, :avatar_filename, :pronouns)
+    params.require(:user).permit(:style, :avatar, :avatar_filename, :pronouns, :bio)
   end
 end
