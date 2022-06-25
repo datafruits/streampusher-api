@@ -394,6 +394,24 @@ ActiveRecord::Schema.define(version: 20220512014325) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  create_table "wiki_page_edits", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
+    t.bigint "user_id", null: false
+    t.bigint "wiki_page_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_wiki_page_edits_on_user_id"
+    t.index ["wiki_page_id"], name: "index_wiki_page_edits_on_wiki_page_id"
+  end
+
+  create_table "wiki_pages", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "blog_post_images", "blog_post_bodies"
   add_foreign_key "scheduled_show_labels", "labels"
   add_foreign_key "scheduled_show_labels", "scheduled_shows"
