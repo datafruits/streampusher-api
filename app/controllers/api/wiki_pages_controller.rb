@@ -13,7 +13,12 @@ class Api::WikiPagesController < ApplicationController
   end
 
   def create
-    @wiki_page = WikiPage.create wiki_page_params
+    @wiki_page = WikiPage.new wiki_page_params
+    if @wiki_page.save
+      render json: @wiki_page, root: "wiki_page"
+    else
+      render json: { errors: @wiki_page.errors }, status: 422
+    end
   end
 
   private
