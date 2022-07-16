@@ -1,3 +1,3 @@
 class WikiPageSerializer < ActiveModel::Serializer
-  attributes :title, :body
+  attributes :title, :body, :id
 end
