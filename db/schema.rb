@@ -395,8 +395,8 @@ ActiveRecord::Schema.define(version: 20220512014325) do
   end
 
   create_table "wiki_page_edits", force: :cascade do |t|
-    t.string "title"
-    t.text "body"
+    t.string "title", null: false
+    t.text "body", null: false
     t.bigint "user_id", null: false
     t.bigint "wiki_page_id"
     t.datetime "created_at", null: false
@@ -406,8 +406,8 @@ ActiveRecord::Schema.define(version: 20220512014325) do
   end
 
   create_table "wiki_pages", force: :cascade do |t|
-    t.string "title"
-    t.text "body"
+    t.string "title", null: false
+    t.text "body", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
