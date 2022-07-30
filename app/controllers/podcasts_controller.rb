@@ -44,7 +44,7 @@ class PodcastsController < ApplicationController
       format.xml { render 'show', layout: false }
       format.json {
         response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
-        render json: @podcast
+        render json: @podcast, include: 'tracks'
       }
     end
   end

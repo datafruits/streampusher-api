@@ -4,6 +4,8 @@ class PlaylistTrackSerializer < ActiveModel::Serializer
     :cdn_url, :labels, :scheduled_show_id, :soundcloud_key, :mixcloud_key, :formatted_duration
   has_many :labels, embed: :ids, key: :labels, embed_in_root: true
 
+  type 'tracks'
+
   def formatted_duration
     object.track.formatted_duration
   end
