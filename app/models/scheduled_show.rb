@@ -9,7 +9,7 @@ class ScheduledShow < ActiveRecord::Base
   belongs_to :playlist
   belongs_to :recurrant_original, class_name: "ScheduledShow"
   has_attached_file :image,
-    styles: { :thumb => "x300" },
+    styles: { :thumb => "x300", :medium => "x600" },
     path: ":attachment/:style/:basename.:extension"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
@@ -199,7 +199,7 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def formatted_date
-    "#{self.start_at.strftime("%d%m%Y")}"
+    "#{self.start_at.strftime("%m%d%Y")}"
   end
 
   def slug_candidates

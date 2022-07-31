@@ -131,7 +131,7 @@ Rails.application.routes.draw do
     end
     resources :microtexts, only: [:create, :index]
     resources :schedule, only: [:index]
-    resources :scheduled_shows, only: [:show]
+    resources :scheduled_shows, only: [:show, :index]
     resources :track_favorites, only: [:create, :destroy]
   end
 
