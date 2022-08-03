@@ -3,9 +3,22 @@ class TrackSerializer < ActiveModel::Serializer
     :created_at, :updated_at, :artwork, :artwork_filename, :mixcloud_upload_status, :mixcloud_key,
     :soundcloud_upload_status, :soundcloud_key,
     :embed_link, :cdn_url, :label_ids, :uploaded_by, :scheduled_show_id, :formatted_duration
+  has_many :labels, embed: :ids, key: :labels, embed_in_root: true
+
+  def labels
+    object.labels
+  end
 
   def formatted_duration
     object.formatted_duration
+  end
+
+  def cdn_url
+    object.cdn_url
+  end
+
+  def display_name
+    object.display_name
   end
 
   def uploaded_by
