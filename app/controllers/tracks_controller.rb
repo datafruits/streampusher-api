@@ -11,6 +11,7 @@ class TracksController < ApplicationController
                              "%#{params[:search].permit(:keyword)[:keyword]}%")
     end
     @tracks = @tracks.page(params[:page])
+
     respond_to do |format|
       format.html
       format.json {
