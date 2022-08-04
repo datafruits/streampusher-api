@@ -1,6 +1,6 @@
 class PodcastSerializer < ActiveModel::Serializer
   attributes :id, :name, :meta
-  has_many :tracks, embed: :ids, key: :tracks, embed_in_root: true, each_serializer: PlaylistTrackSerializer
+  has_many :tracks, embed: :ids, key: :tracks, embed_in_root: true, each_serializer: PodcastTrackSerializer
 
   def tracks
     playlist_tracks = object.playlist.playlist_tracks
