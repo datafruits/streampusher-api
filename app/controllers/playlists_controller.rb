@@ -11,7 +11,7 @@ class PlaylistsController < ApplicationController
         render 'show'
       }
       format.json {
-        render json: @playlist
+        render json: @playlist, include: 'playlist_tracks'
       }
     end
   end
