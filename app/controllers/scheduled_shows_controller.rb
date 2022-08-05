@@ -131,10 +131,12 @@ class ScheduledShowsController < ApplicationController
   end
 
   def create_params
-    params.require(:scheduled_show).permit(:title, :radio_id, :start_at,
-                                           :end_at, :description, :image, :update_all_recurrences,
-                                           :recurring_interval, :playlist_id, :time_zone,
-                                           :start, :end, :is_guest, :guest, :is_live,
-                                           scheduled_show_performers_attributes: [:id, :user_id])
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :title, :radio_id, :start_at,
+      :end_at, :description, :image, :update_all_recurrences,
+      :recurring_interval, :playlist_id, :time_zone,
+      :start, :end, :is_guest, :guest, :is_live,
+      scheduled_show_performers_attributes: [:id, :user_id]
+    ])
   end
 end
