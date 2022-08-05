@@ -51,6 +51,9 @@ class ScheduledShowsController < ApplicationController
   def create
     @scheduled_show = @current_radio.scheduled_shows.new create_params
     @scheduled_show.dj_id = current_user.id
+    scheduled_show_performers_params[:dj_ids].each do |id|
+      @scheduled_show.scheduled_show_performers << ScheduledShowPerformer.new(user_id: id)
+    end
     if @scheduled_show.save
       ActiveSupport::Notifications.instrument 'scheduled_show.created', current_user: current_user.email, radio: @current_radio.name, show: @scheduled_show.title
       flash[:notice] = "Scheduled show!"
@@ -130,13 +133,20 @@ class ScheduledShowsController < ApplicationController
     @scheduled_show = ScheduledShow.new
   end
 
+  def scheduled_show_performers_params
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :djs
+    ])
+  end
+
   def create_params
     ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
       :title, :radio_id, :start_at,
       :end_at, :description, :image, :update_all_recurrences,
-      :recurring_interval, :playlist_id, :time_zone,
+      :recurring_interval, :playlist, :time_zone,
       :start, :end, :is_guest, :guest, :is_live,
-      scheduled_show_performers_attributes: [:id, :user_id]
+      #:djs
+      #scheduled_show_performers_attributes: [:id, :user_id]
     ])
   end
 end
