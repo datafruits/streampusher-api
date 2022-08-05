@@ -3,3 +3,5 @@ ActiveSupport.on_load(:action_controller) do
 end
 
 ActiveModelSerializers.config.adapter = :json_api # Default: `:attributes`
+
+ActiveModelSerializers.config.key_transform = :unaltered
