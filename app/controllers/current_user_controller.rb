@@ -34,6 +34,8 @@ class CurrentUserController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:style, :avatar, :avatar_filename, :pronouns, :bio)
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :style, :avatar, :avatar_filename, :pronouns, :bio
+    ])
   end
 end
