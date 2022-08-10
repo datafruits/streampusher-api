@@ -2,7 +2,7 @@ class Api::ListenersController < ApplicationController
   before_action :current_radio_required
 
   def create
-    @user = User.create user_params.merge(role: "listener", password_confirmation: user_params[:password])
+    @user = @current_radio.users.create user_params.merge(role: "listener", password_confirmation: user_params[:password])
     if @user.save
       ActiveSupport::Notifications.instrument 'listener.created', radio: @current_radio.name, username: @user.username
       render json: @user, root: "user"
