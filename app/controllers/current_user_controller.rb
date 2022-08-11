@@ -28,7 +28,7 @@ class CurrentUserController < ApplicationController
     if user.save
       render json: user, serializer: UserSerializer
     else
-      render json: { errors: user.errors }, status: 422
+      respond_with_errors user
     end
   end
 
