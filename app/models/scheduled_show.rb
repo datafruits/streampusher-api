@@ -23,7 +23,7 @@ class ScheduledShow < ActiveRecord::Base
 
   validates_presence_of :guest, if: -> { is_guest? }
   validates_presence_of :start_at, :end_at, :playlist_id, :title, :dj_id
-  validates :description, length: { maximum: 10000 }
+  validates :description, length: { maximum: 10_000 }
 
   validate :start_at_cannot_be_in_the_past, on: :create
   validate :end_at_cannot_be_in_the_past, on: :create

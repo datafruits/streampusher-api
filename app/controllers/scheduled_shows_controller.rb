@@ -1,5 +1,5 @@
 class ScheduledShowsController < ApplicationController
-  load_and_authorize_resource except: [:edit, :update, :destroy]
+  load_and_authorize_resource except: [:create, :edit, :update, :destroy]
   before_action :current_radio_required, only: [:index, :edit]
 
   def new
@@ -49,7 +49,15 @@ class ScheduledShowsController < ApplicationController
   end
 
   def create
-    @scheduled_show = @current_radio.scheduled_shows.new create_params
+    authorize! :create, ScheduledShow
+    if create_params[:image].present?
+      image = Paperclip.io_adapters.for(create_params[:image])
+      image.original_filename = create_params.delete(:image_filename)
+      @scheduled_show = @current_radio.scheduled_shows.new create_params.except(:image_filename).merge({image: image})
+    else
+      @scheduled_show = @current_radio.scheduled_shows.new create_params.except(:image_filename).except(:image)
+    end
+    # @scheduled_show = @current_radio.scheduled_shows.new create_params
     @scheduled_show.dj_id = current_user.id
     scheduled_show_performers_params[:dj_ids].each do |id|
       @scheduled_show.scheduled_show_performers << ScheduledShowPerformer.new(user_id: id)
@@ -142,7 +150,7 @@ class ScheduledShowsController < ApplicationController
   def create_params
     ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
       :title, :radio_id, :start_at,
-      :end_at, :description, :image, :update_all_recurrences,
+      :end_at, :description, :image, :image_filename, :update_all_recurrences,
       :recurring_interval, :playlist, :time_zone,
       :start, :end, :is_guest, :guest, :is_live,
       #:djs
