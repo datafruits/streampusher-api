@@ -7,7 +7,7 @@ class Api::DjsController < ApplicationController
       @djs = @djs.where("username ilike (?)", "%#{params[:search].permit(:keyword)[:keyword]}%")
     end
     @djs = @current_radio.active_djs
-    render json: @djs, each_serializer: DjSerializer
+    render json: @djs
   end
 
   def show

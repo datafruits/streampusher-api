@@ -13,14 +13,15 @@ class HostApplicationsController < ApplicationController
       ActiveSupport::Notifications.instrument 'host_application.created', radio: @current_radio.name, username: @host_application.username, link: @host_application.link
       render json: @host_application
     else
-      render json: { errors: @host_application.errors }, status: 422
+      respond_with_errors(@host_application)
     end
   end
 
   private
   def host_application_params
-    params.require(:host_application).permit(:username, :email, :time_zone,
-                                             :link, :interval, :desired_time,
-                                             :other_comment, :homepage_url)
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :username, :email, :time_zone,
+      :link, :interval, :desired_time,
+      :other_comment, :homepage_url])
   end
 end
