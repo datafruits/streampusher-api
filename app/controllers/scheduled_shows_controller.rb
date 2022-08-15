@@ -57,7 +57,6 @@ class ScheduledShowsController < ApplicationController
     else
       @scheduled_show = @current_radio.scheduled_shows.new create_params.except(:image_filename).except(:image)
     end
-    # @scheduled_show = @current_radio.scheduled_shows.new create_params
     @scheduled_show.dj_id = current_user.id
     scheduled_show_performers_params[:dj_ids].each do |id|
       @scheduled_show.scheduled_show_performers << ScheduledShowPerformer.new(user_id: id)
@@ -153,8 +152,6 @@ class ScheduledShowsController < ApplicationController
       :end_at, :description, :image, :image_filename, :update_all_recurrences,
       :recurring_interval, :playlist, :time_zone,
       :start, :end, :is_guest, :guest, :is_live,
-      #:djs
-      #scheduled_show_performers_attributes: [:id, :user_id]
     ])
   end
 end
