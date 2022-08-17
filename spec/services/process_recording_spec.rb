@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe ProcessRecording do
-  it 'processes a recording' do
+  xit 'processes a recording' do
     recording = FactoryBot.create :recording
     VCR.use_cassette(RSpec.current_example.metadata[:full_description].to_s, :preserve_exact_body_bytes => true) do
       ProcessRecording.new.perform recording

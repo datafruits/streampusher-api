@@ -22,7 +22,7 @@ class DjsController < ApplicationController
       @dj = djs.find(params[:id])
     end
     response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
-    render json: @dj, serializer: DjSerializer, root: "dj"
+    render json: @dj, serializer: DjWithRelationshipsSerializer, root: "dj"
   end
 
   def create
@@ -32,10 +32,10 @@ class DjsController < ApplicationController
       if @dj.persisted?
         render json: @dj
       else
-        render json: @dj.errors, status: :unprocessable_entity
+        respond_with_errors(@dj)
       end
     rescue ExistingUserRadio => e
-      render json: @dj.errors, status: :unprocessable_entity
+      respond_with_errors(@dj)
     end
   end
 
@@ -51,7 +51,7 @@ class DjsController < ApplicationController
     if @dj.save
       render json: @dj
     else
-      render json: @dj.errors, status: :unprocessable_entity
+      respond_with_errors(@dj)
     end
   end
 
@@ -61,6 +61,8 @@ class DjsController < ApplicationController
 
   private
   def dj_params
-    params.require(:user).permit(:email, :username, :time_zone, :image, :bio, :role, :profile_publish)
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :email, :username, :time_zone, :image, :bio, :role, :profile_publish
+    ])
   end
 end

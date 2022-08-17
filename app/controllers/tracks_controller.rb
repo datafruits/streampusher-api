@@ -69,12 +69,16 @@ class TracksController < ApplicationController
 
   private
   def create_params
-    params.require(:track).permit(:radio_id, :audio_file_name, :filesize, label_ids: [])
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :radio_id, :audio_file_name, :filesize, :label_ids
+    ])
   end
 
   def update_params
-    params.require(:track).permit(:artist, :title, :album, :artwork, :audio_file_name,
-                                  :artwork_filename, :scheduled_show_id, label_ids: [])
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :artist, :title, :album, :artwork, :audio_file_name,
+      :artwork_filename, :scheduled_show_id, label_ids: []
+    ])
   end
 
   def set_frame_headers

@@ -6,7 +6,7 @@ class PlaylistsController < ApplicationController
       @connected_accounts = @current_user.social_identities
     end
     authorize! :index, @playlist, params[:format]
-    render json: @playlist
+    render json: @playlist, include: 'playlist_tracks'
   end
 
   def index
@@ -66,15 +66,19 @@ class PlaylistsController < ApplicationController
   end
 
   def create_params
-    params.require(:playlist).permit(:name, :radio_id)
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :name, :radio_id
+    ])
   end
 
   def update_params
-    params.require(:playlist).permit(:name, :interpolated_playlist_id,
-                                     :interpolated_playlist_track_play_count,
-                                     :interpolated_playlist_track_interval_count,
-                                     :interpolated_playlist_enabled, :no_cue_out,
-                                     :shuffle)
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :name, :interpolated_playlist_id,
+      :interpolated_playlist_track_play_count,
+      :interpolated_playlist_track_interval_count,
+      :interpolated_playlist_enabled, :no_cue_out,
+      :shuffle
+    ])
   end
 
   def serializer_scope

@@ -18,6 +18,11 @@ class ApplicationController < ActionController::API
     end
   end
 
+  def respond_with_errors(resource)
+    render json: resource, status: :unprocessable_entity, adapter: :json_api,
+      serializer: ActiveModel::Serializer::ErrorSerializer
+  end
+
   protected
   def current_radio_required
     raise ActiveRecord::RecordNotFound unless @current_radio

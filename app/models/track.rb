@@ -9,6 +9,7 @@ class Track < ActiveRecord::Base
   has_many :playlists, through: :playlist_tracks
   has_many :track_labels, dependent: :destroy
   has_many :labels, through: :track_labels
+  has_many :track_favorites
   has_attached_file :artwork,
     storage: :s3,
     s3_protocol: :https,
@@ -95,6 +96,10 @@ class Track < ActiveRecord::Base
       hours = self.length / (60 * 60)
       format("%02d:%02d:%02d", hours, minutes, seconds)
     end
+  end
+
+  def thumb_artwork_url
+    self.artwork.url(:thumb)
   end
 
   private
