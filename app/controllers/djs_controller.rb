@@ -22,7 +22,7 @@ class DjsController < ApplicationController
       @dj = djs.find(params[:id])
     end
     response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
-    render json: @dj, serializer: DjWithRelationshipsSerializer, root: "dj"
+    render json: @dj, serializer: DjSerializer, root: "dj"
   end
 
   def create
