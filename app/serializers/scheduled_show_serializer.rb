@@ -7,6 +7,7 @@ class ScheduledShowSerializer < ActiveModel::Serializer
 
   has_many :tracks, embed: :ids, key: :tracks
   has_many :djs, embed: :ids, key: :djs
+  belongs_to :playlist
 
   def hosted_by
     if object.performers.any?
