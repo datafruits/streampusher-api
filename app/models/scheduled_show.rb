@@ -1,6 +1,8 @@
 require_relative "../../lib/time_utils"
 
 class ScheduledShow < ActiveRecord::Base
+  include RedisConnection
+
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
@@ -33,10 +35,8 @@ class ScheduledShow < ActiveRecord::Base
   alias_attribute :end, :end_at
   attr_accessor :update_all_recurrences, :destroy_recurrences
 
-  before_save :update_recurring_intervals # probably not correct
-  after_create :save_recurrences_in_background, if: :recurring?
+  after_create :save_recurrences_in_background_on_create, if: :recurring?
   after_update :update_recurrences_in_background, if: :recurring_or_recurrence?
-  after_update :save_recurrences_in_background, if: :recurring_interval_changed?
   before_destroy :maybe_destroy_recurrences
   before_destroy :clear_redis_if_playing
   #
@@ -154,12 +154,16 @@ class ScheduledShow < ActiveRecord::Base
     end
   end
 
-  def save_recurrences_in_background
+  def save_recurrences_in_background_on_create
     SaveRecurringShowsWorker.perform_later self.id
   end
 
   def update_recurrences_in_background
-    if update_all_recurrences?
+    # if the recurring interval was changed, we need to destroy all the recurring shows and call save_recurrences again
+    if self.saved_changes.include?("recurring_interval") && !self.saved_changes.include?("id")
+      self.recurrences.destroy_all
+      SaveRecurringShowsWorker.perform_later self.id
+    elsif update_all_recurrences?
       UpdateRecurringShowsWorker.perform_later self.id
     end
   end
@@ -304,14 +308,6 @@ class ScheduledShow < ActiveRecord::Base
       options[:every] = "week"
     end
     Recurrence.new(options).events
-  end
-
-  def update_recurring_intervals
-    # if the recurring interval was changed, we need to destroy all the recurring shows and call save_recurrences again
-    if self.changes.include?("recurring_interval") && !self.new_record?
-      self.recurrences.destroy_all
-      # save_recurrences_in_background
-    end
   end
 
   def recurrences_to_update

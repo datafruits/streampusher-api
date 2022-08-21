@@ -1,4 +1,6 @@
 class PodcastsController < ApplicationController
+  include ActionController::MimeResponds
+
   load_and_authorize_resource except: [:show]
   before_action :current_radio_required, only: [:show]
   serialization_scope :serializer_scope
@@ -6,12 +8,7 @@ class PodcastsController < ApplicationController
   def index
     @podcasts = @current_radio.podcasts
     @podcast = Podcast.new
-    respond_to do |format|
-      format.html
-      format.json  {
-        render json: @podcasts
-      }
-    end
+    render json: @podcasts
   end
 
   def create

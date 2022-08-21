@@ -3,11 +3,7 @@ class CurrentUserController < ApplicationController
     authorize! :index, :current_user
     user = current_user
 
-    respond_to do |format|
-      format.json {
-        render json: user, serializer: UserSerializer
-      }
-    end
+    render json: user, serializer: UserSerializer
   end
 
   def update
