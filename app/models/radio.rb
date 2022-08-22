@@ -1,6 +1,8 @@
 require_relative '../../lib/docker_wrapper'
 
 class Radio < ActiveRecord::Base
+  include RedisConnection
+
   has_many :user_radios
   has_many :users, through: :user_radios
   has_many :scheduled_shows
@@ -140,11 +142,11 @@ class Radio < ActiveRecord::Base
   end
 
   def set_current_show_playing show_id
-    Redis.current.set "#{self.name}:current_show_playing", show_id
+    redis.set "#{self.name}:current_show_playing", show_id
   end
 
   def current_show_playing
-    Redis.current.get current_show_playing_key
+    redis.get current_show_playing_key
   end
 
   def current_show_playing?
@@ -156,11 +158,11 @@ class Radio < ActiveRecord::Base
   end
 
   def set_current_track_playing track_id
-    Redis.current.set "#{self.name}:current_track_playing", track_id
+    redis.set "#{self.name}:current_track_playing", track_id
   end
 
   def current_track_playing
-    Redis.current.get current_track_playing_key
+    redis.get current_track_playing_key
   end
 
   def liquidsoap_harbor_port

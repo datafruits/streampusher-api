@@ -13,11 +13,9 @@ class SubscriptionsController < ApplicationController
 
   def update
     if @subscription.update_with_new_card create_params
-      flash[:notice] = "Updated your subscription successfully."
       ActiveSupport::Notifications.instrument 'subscription.updated', user: current_user.email, radio: @current_radio.name, subscription: @subscription.inspect
       redirect_to edit_subscription_path @subscription
     else
-      flash[:error] = "Error updating your subscription."
       render 'edit'
     end
   end

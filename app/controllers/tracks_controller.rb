@@ -11,22 +11,13 @@ class TracksController < ApplicationController
                              "%#{params[:search].permit(:keyword)[:keyword]}%")
     end
     @tracks = @tracks.page(params[:page])
-    respond_to do |format|
-      format.html
-      format.json {
-        meta = { page: params[:page], total_pages: @tracks.total_pages.to_i }
-        render json: @tracks, meta: meta
-      }
-    end
+    meta = { page: params[:page], total_pages: @tracks.total_pages.to_i }
+    render json: @tracks, meta: meta
   end
 
   def show
     @track = @current_radio.tracks.find params[:id]
-    respond_to do |format|
-      format.json {
-        render json: @track
-      }
-    end
+    render json: @track
   end
 
   def edit
@@ -78,12 +69,16 @@ class TracksController < ApplicationController
 
   private
   def create_params
-    params.require(:track).permit(:radio_id, :audio_file_name, :filesize, label_ids: [])
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :radio_id, :audio_file_name, :filesize, :label_ids
+    ])
   end
 
   def update_params
-    params.require(:track).permit(:artist, :title, :album, :artwork, :audio_file_name,
-                                  :artwork_filename, :scheduled_show_id, label_ids: [])
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :artist, :title, :album, :artwork, :audio_file_name,
+      :artwork_filename, :scheduled_show_id, label_ids: []
+    ])
   end
 
   def set_frame_headers

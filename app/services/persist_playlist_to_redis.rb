@@ -1,7 +1,8 @@
 class PersistPlaylistToRedis
+  extend RedisConnection
+
   def self.perform playlist
-    @redis = Redis.current
-    @redis.del playlist.redis_key
+    redis.del playlist.redis_key
     count = 0
     interpolated_playlist_count = 0
     if playlist.shuffle?
@@ -30,6 +31,6 @@ class PersistPlaylistToRedis
 
   private
   def self.push_track playlist, track
-    @redis.rpush playlist.redis_key, track.id
+    redis.rpush playlist.redis_key, track.id
   end
 end

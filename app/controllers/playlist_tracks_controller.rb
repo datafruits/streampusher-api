@@ -35,6 +35,8 @@ class PlaylistTracksController < ApplicationController
 
   private
   def playlist_track_params
-    params.require(:playlist_track).permit(:podcast_published_date, :playlist_id, :track_id, :position)
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :podcast_published_date, :playlist, :track, :position
+    ])
   end
 end

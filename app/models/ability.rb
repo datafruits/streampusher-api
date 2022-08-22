@@ -122,6 +122,7 @@ class Ability
       can :create, Microtext if can_manage_radio?(user, radio)
 
       can :index, :dj
+      can :show, :dj
 
       can :create, WikiPage
       can :create, WikiPageEdit

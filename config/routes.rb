@@ -1,8 +1,6 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  mount_ember_assets :frontend, to: "/"
-  # mount_ember_app :frontend, to: "/playlists", controller: "playlists", action: "index"
   authenticate :user, lambda { |u| u.admin? } do
       mount Sidekiq::Web => '/sidekiq'
   end
@@ -106,6 +104,7 @@ Rails.application.routes.draw do
   resources :current_user, only: [:index, :update]
   get "/users/current_user" => "current_user#index"
   put "/users/current_user" => "current_user#update"
+  patch "/users/current_user" => "current_user#update"
   resources :profile, only: [:index, :create]
 
   resources :blog_posts, only: [:index, :create, :show, :update]
@@ -133,7 +132,7 @@ Rails.application.routes.draw do
     resources :schedule, only: [:index]
     resources :wiki_pages, only: [:create, :destroy, :show, :index]
     resources :wiki_page_edits, only: [:create]
-    resources :scheduled_shows, only: [:show]
+    resources :scheduled_shows, only: [:show, :index]
     resources :track_favorites, only: [:create, :destroy]
   end
 

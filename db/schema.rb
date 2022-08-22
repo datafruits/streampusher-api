@@ -57,6 +57,36 @@ ActiveRecord::Schema.define(version: 20220512014325) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
+  create_table "fruit_point_transactions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "transaction_type", null: false
+    t.integer "amount", default: 0, null: false
+    t.integer "source_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_fruit_point_transactions_on_user_id"
+  end
+
+  create_table "fruit_tips", id: :serial, force: :cascade do |t|
+    t.integer "amount", null: false
+    t.integer "from_id", null: false
+    t.string "to", null: false
+    t.integer "fruit_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["from_id"], name: "index_fruit_tips_on_from_id"
+    t.index ["fruit_id"], name: "index_fruit_tips_on_fruit_id"
+    t.index ["user_id"], name: "index_fruit_tips_on_user_id"
+  end
+
+  create_table "fruits", id: :serial, force: :cascade do |t|
+    t.integer "cost", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "host_applications", id: :serial, force: :cascade do |t|
     t.integer "radio_id", null: false
     t.string "email", null: false
@@ -341,6 +371,16 @@ ActiveRecord::Schema.define(version: 20220512014325) do
     t.index ["uploaded_by_id"], name: "index_tracks_on_uploaded_by_id"
   end
 
+  create_table "user_follows", id: :serial, force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "followee_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followee_id"], name: "index_user_follows_on_followee_id"
+    t.index ["user_id", "followee_id"], name: "index_user_follows_on_user_id_and_followee_id", unique: true
+    t.index ["user_id"], name: "index_user_follows_on_user_id"
+  end
+
   create_table "user_radios", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "radio_id", null: false
@@ -379,6 +419,8 @@ ActiveRecord::Schema.define(version: 20220512014325) do
     t.boolean "profile_publish", default: false, null: false
     t.integer "style", default: 0, null: false
     t.string "pronouns", default: "", null: false
+    t.integer "fruit_balance", default: 0, null: false
+    t.string "stream_key"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -413,6 +455,9 @@ ActiveRecord::Schema.define(version: 20220512014325) do
   end
 
   add_foreign_key "blog_post_images", "blog_post_bodies"
+  add_foreign_key "fruit_tips", "fruits"
+  add_foreign_key "fruit_tips", "users"
+  add_foreign_key "fruit_tips", "users", column: "from_id"
   add_foreign_key "scheduled_show_labels", "labels"
   add_foreign_key "scheduled_show_labels", "scheduled_shows"
 end
