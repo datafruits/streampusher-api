@@ -23,6 +23,8 @@ class Api::WikiPagesController < ApplicationController
 
   private
   def wiki_page_params
-    params.require(:wiki_page).permit(:title, :body)
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :title, :body
+    ])
   end
 end
