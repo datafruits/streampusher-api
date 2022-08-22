@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.1
-lock '3.16.0'
+lock '3.17.1'
 
 set :log_level, ENV.fetch('CAP_LOG_LEVEL', :info)
 
@@ -8,7 +8,7 @@ set :repo_url, 'git@github.com:streampusher/api.git'
 
 # setup rbenv
 set :rbenv_type, :system
-set :rbenv_ruby, '2.6.5'
+set :rbenv_ruby, '2.7.6'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 
 set :slack_webhook, ENV['DEPLOY_NOTIFY_URL']
@@ -134,7 +134,7 @@ namespace :deploy do
   before :deploy, "deploy:check_revision"
   before 'deploy:setup_config', 'nginx:remove_default_vhost'
 
-  after 'deploy:symlink:shared', 'deploy:compile_assets_locally'
+  # after 'deploy:symlink:shared', 'deploy:compile_assets_locally'
   after :finishing, 'deploy:cleanup'
   after 'deploy:setup_config', 'nginx:reload'
   # after 'deploy:setup_config', 'monit:restart'
