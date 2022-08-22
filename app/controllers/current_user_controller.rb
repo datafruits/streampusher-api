@@ -3,11 +3,7 @@ class CurrentUserController < ApplicationController
     authorize! :index, :current_user
     user = current_user
 
-    respond_to do |format|
-      format.json {
-        render json: user, serializer: UserSerializer
-      }
-    end
+    render json: user, serializer: UserSerializer
   end
 
   def update
@@ -28,12 +24,14 @@ class CurrentUserController < ApplicationController
     if user.save
       render json: user, serializer: UserSerializer
     else
-      render json: { errors: user.errors }, status: 422
+      respond_with_errors user
     end
   end
 
   private
   def user_params
-    params.require(:user).permit(:style, :avatar, :avatar_filename, :pronouns, :bio)
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :style, :avatar, :avatar_filename, :pronouns, :bio
+    ])
   end
 end

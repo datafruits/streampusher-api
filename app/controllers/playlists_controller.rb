@@ -6,14 +6,7 @@ class PlaylistsController < ApplicationController
       @connected_accounts = @current_user.social_identities
     end
     authorize! :index, @playlist, params[:format]
-    respond_to do |format|
-      format.html {
-        render 'show'
-      }
-      format.json {
-        render json: @playlist
-      }
-    end
+    render json: @playlist, include: 'playlist_tracks'
   end
 
   def index
@@ -24,15 +17,8 @@ class PlaylistsController < ApplicationController
       @playlists = @playlists.where("name ilike (?)", "%#{search_params[:keyword]}%")
     end
     @playlists = @playlists.page(params[:page])
-    respond_to do |format|
-      format.html {
-        redirect_to playlist_path(@current_radio.default_playlist)
-      }
-      format.json {
-        meta = { page: params[:page], total_pages: @playlists.total_pages.to_i }
-        render json: @playlists, meta: meta
-      }
-    end
+    meta = { page: params[:page], total_pages: @playlists.total_pages.to_i }
+    render json: @playlists, meta: meta
   end
 
   def create
@@ -43,7 +29,7 @@ class PlaylistsController < ApplicationController
       ActiveSupport::Notifications.instrument 'playlist.created', current_user: current_user.email, radio: @current_radio.name, playlist: @playlist.name
       render json: @playlist
     else
-      render json: @playlist.errors
+      render json: @playlist.errors, status: :unprocessable_entity
     end
   end
 
@@ -80,15 +66,19 @@ class PlaylistsController < ApplicationController
   end
 
   def create_params
-    params.require(:playlist).permit(:name, :radio_id)
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :name, :radio_id
+    ])
   end
 
   def update_params
-    params.require(:playlist).permit(:name, :interpolated_playlist_id,
-                                     :interpolated_playlist_track_play_count,
-                                     :interpolated_playlist_track_interval_count,
-                                     :interpolated_playlist_enabled, :no_cue_out,
-                                     :shuffle)
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :name, :interpolated_playlist_id,
+      :interpolated_playlist_track_play_count,
+      :interpolated_playlist_track_interval_count,
+      :interpolated_playlist_enabled, :no_cue_out,
+      :shuffle
+    ])
   end
 
   def serializer_scope

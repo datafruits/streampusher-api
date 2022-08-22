@@ -16,6 +16,10 @@ class LiquidsoapRequests
     @liquidsoap_socket.write("request.metadata #{rid}").force_encoding("UTF-8")
   end
 
+  def request_metadatas requests
+    requests.map {|r| self.metadata(r) }
+  end
+
   # TODO
   # def on_air_filename
   #   on_air_rid = on_air radio

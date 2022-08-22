@@ -1,15 +1,9 @@
-class ApplicationController < ActionController::Base
+class ApplicationController < ActionController::API
   include ActionController::Serialization
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
-  # protect_from_forgery with: :exception
-  protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
+  include ActionController::Cookies
 
-  after_action :flash_to_headers
   before_action :current_radio
   around_action :set_time_zone
-
-  layout :layout_by_resource
 
   def next
     render json: NextTrack.perform(@current_radio)
@@ -17,38 +11,21 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     if user_signed_in?
-      respond_to do |format|
-        format.html { render :file => "#{Rails.root}/public/403.html", :status => 403 }
-        format.json { head :forbidden }
-      end
+      format.json { head :forbidden }
     else
       store_location_for :user, request.path
       redirect_to new_user_session_path, :notice => "You need to login first!"
     end
   end
 
+  def respond_with_errors(resource)
+    render json: resource, status: :unprocessable_entity, adapter: :json_api,
+      serializer: ActiveModel::Serializer::ErrorSerializer
+  end
+
   protected
   def current_radio_required
     raise ActiveRecord::RecordNotFound unless @current_radio
-  end
-
-  def layout_by_resource
-    if params["controller"] == "landing"
-      "landing"
-    elsif devise_controller? && action_name != "edit"
-      "login"
-    else
-      "application"
-    end
-  end
-
-  def redirect_to_with_js(options = {}, response_status = {})
-    redirect_to(options,response_status)
-    if request.xhr?
-      self.status = 200
-      self.content_type ||= Mime::JS
-      self.response_body = "window.location = '#{location}';"
-    end
   end
 
   def set_time_zone(&block)
@@ -86,26 +63,5 @@ class ApplicationController < ActionController::Base
 
   def current_ability
     @current_ability ||= Ability.new(current_user, @current_radio, params[:format])
-  end
-
-  def flash_to_headers
-    return unless request.xhr?
-    return if flash.empty?
-    response.headers['X-Message'] = flash_message
-    response.headers["X-Message-Type"] = flash_type.to_s
-
-    flash.discard # don't want the flash to appear when you reload page
-  end
-
-  def flash_message
-    [:error, :warning, :notice].each do |type|
-      return flash[type] unless flash[type].blank?
-    end
-  end
-
-  def flash_type
-    [:error, :warning, :notice].each do |type|
-      return type unless flash[type].blank?
-    end
   end
 end

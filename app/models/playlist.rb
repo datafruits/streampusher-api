@@ -1,4 +1,6 @@
 class Playlist < ActiveRecord::Base
+  include RedisConnection
+
   belongs_to :radio
   belongs_to :user
   has_many :playlist_tracks, -> { order("position" => "ASC") }
@@ -31,7 +33,6 @@ class Playlist < ActiveRecord::Base
   end
 
   def pop_next_track
-    redis = Redis.current
     track_id = redis.rpop redis_key
     return if track_id.blank?
     if self.repeat?
@@ -41,7 +42,6 @@ class Playlist < ActiveRecord::Base
   end
 
   def redis_length
-    redis = Redis.current
     return redis.llen redis_key
   end
 

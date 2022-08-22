@@ -3,10 +3,8 @@ class SkipTrackController < ApplicationController
   def create
     authorize! :update, :metadata
     if SkipTrack.perform @current_radio
-      flash[:notice] = "Updated!"
       render 'create'
     else
-      flash[:error] = "Sorry, there was an error..."
       render 'error'
     end
   end

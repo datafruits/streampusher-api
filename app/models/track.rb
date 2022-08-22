@@ -98,6 +98,10 @@ class Track < ActiveRecord::Base
     end
   end
 
+  def thumb_artwork_url
+    self.artwork.url(:thumb)
+  end
+
   private
   def set_tags_from_scheduled_show
     if self.scheduled_show.present?

@@ -21,6 +21,8 @@ class Api::MicrotextsController < ApplicationController
 
   private
   def microtext_params
-    params.require(:microtext).permit(:content)
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :content
+    ])
   end
 end

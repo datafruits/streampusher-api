@@ -1,6 +1,5 @@
 class ListensController < ApplicationController
   load_and_authorize_resource
-  respond_to :json
 
   def index
     @start_at = params[:start_at] || 7.days.ago
