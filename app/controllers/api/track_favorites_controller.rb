@@ -23,6 +23,8 @@ class Api::TrackFavoritesController < ApplicationController
 
   private
   def track_favorite_params
-    params.require(:track_favorite).permit(:track_id)
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :track
+    ])
   end
 end
