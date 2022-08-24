@@ -1,6 +1,6 @@
 class RecordingsController < ApplicationController
-  load_and_authorize_resource
   def index
+    authorize! :index, Recording
     @recordings = @current_radio.recordings.unscoped.order("file_created_at DESC")
     @recordings = @recordings.page(params[:page])
     meta = { page: params[:page], total_pages: @recordings.total_pages.to_i }
@@ -8,6 +8,7 @@ class RecordingsController < ApplicationController
   end
 
   def show
+    @recording = @current_radio.recordings.find(params[:id])
     send_file @recording.path
   end
 end
