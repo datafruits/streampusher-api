@@ -23,8 +23,6 @@ gem 'rack-cors', :require => 'rack/cors'
 
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
-gem 'execjs'
-gem 'therubyracer'
 gem 'rspec-rails', '~> 3.5.2', :group => [:development, :test]
 
 gem 'dotenv-rails'

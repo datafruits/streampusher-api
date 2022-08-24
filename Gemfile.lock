@@ -1466,7 +1466,6 @@ GEM
       actionmailer (>= 5.2, < 8)
       activesupport (>= 5.2, < 8)
     excon (0.92.4)
-    execjs (2.8.1)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.2.0)
@@ -1520,7 +1519,6 @@ GEM
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
     kgio (2.11.4)
-    libv8 (3.16.14.19)
     lograge (0.12.0)
       actionpack (>= 4)
       activesupport (>= 4)
@@ -1636,7 +1634,6 @@ GEM
       activesupport
       i18n
     redis (4.7.1)
-    ref (2.0.0)
     regexp_parser (2.5.0)
     remote_syslog_logger (1.0.4)
       syslog_protocol
@@ -1714,9 +1711,6 @@ GEM
     taglib-ruby (0.7.1)
     terrapin (0.6.0)
       climate_control (>= 0.0.3, < 1.0)
-    therubyracer (0.12.3)
-      libv8 (~> 3.16.14.15)
-      ref
     thor (1.2.1)
     thread_safe (0.3.6)
     thwait (0.2.0)
@@ -1781,7 +1775,6 @@ DEPENDENCIES
   dotenv-rails
   e2mmap
   exception_notification
-  execjs
   factory_bot_rails
   friendly_id
   geocoder
@@ -1818,7 +1811,6 @@ DEPENDENCIES
   soundcloud
   spring
   terrapin
-  therubyracer
   thwait
   timecop
   tumblr_client
