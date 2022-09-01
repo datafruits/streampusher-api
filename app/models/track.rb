@@ -40,6 +40,7 @@ class Track < ActiveRecord::Base
   enum soundcloud_upload_status: ['soundcloud_not_uploaded', 'soundcloud_uploading', 'soundcloud_upload_complete', 'soundcloud_upload_failed']
 
   before_save :set_tags_from_scheduled_show
+  after_commit :sync_tags_in_background, on: :update, if: :saved_change_to_audio_file_name?
 
   def url
     if ::Rails.env.production?
