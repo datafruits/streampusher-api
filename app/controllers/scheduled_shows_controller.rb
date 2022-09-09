@@ -25,11 +25,7 @@ class ScheduledShowsController < ApplicationController
     end
 
     response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
-    if params[:fullcalendar]
-      render json: @scheduled_shows, root: false
-    else
-      render json: @scheduled_shows
-    end
+    render json: @scheduled_shows
   end
 
   def show
