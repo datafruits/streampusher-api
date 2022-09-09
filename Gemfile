@@ -54,6 +54,10 @@ group :test, :development do
   gem 'tzinfo-data'
 end
 
+group :development do
+  gem 'bullet'
+end
+
 group :production do
   gem 'remote_syslog_logger'
 end
@@ -67,6 +71,7 @@ gem 'groupdate'
 gem 'acts_as_list'
 gem 'kaminari'
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'jsonapi-serializer'
 gem 'chronic'
 gem 'aws-sdk'
 gem 'paperclip'
@@ -93,3 +98,5 @@ gem 'discord-notifier'
 # gem 'bootsnap', require: false
 gem 'thwait'
 gem 'e2mmap'
+
+gem 'rack-mini-profiler'

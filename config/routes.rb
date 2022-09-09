@@ -138,5 +138,7 @@ Rails.application.routes.draw do
   post "/setup" => "setup#create"
   get "/setup/allowed" => "setup#allowed"
 
+  get '/performance_tests', to: 'performance_tests#index'
+
   root 'landing#index'
 end

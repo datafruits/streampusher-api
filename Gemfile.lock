@@ -1379,6 +1379,9 @@ GEM
       aws-eventstream (~> 1, >= 1.0.2)
     bcrypt (3.1.18)
     builder (3.2.4)
+    bullet (7.0.3)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
     byebug (11.1.3)
     cancancan (3.4.0)
     capistrano (3.17.1)
@@ -1505,6 +1508,8 @@ GEM
     jmespath (1.6.1)
     json (2.6.2)
     jsonapi-renderer (0.2.2)
+    jsonapi-serializer (2.2.0)
+      activesupport (>= 4.2)
     jwt (2.4.1)
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
@@ -1601,6 +1606,8 @@ GEM
     rack (2.2.4)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
+    rack-mini-profiler (3.0.0)
+      rack (>= 1.2.0)
     rack-test (2.0.2)
       rack (>= 1.3)
     rails (5.2.8.1)
@@ -1732,6 +1739,7 @@ GEM
     unicorn (6.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
+    uniform_notifier (1.16.0)
     vcr (6.1.0)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -1755,6 +1763,7 @@ DEPENDENCIES
   active_model_serializers (~> 0.10.0)
   acts_as_list
   aws-sdk
+  bullet
   byebug
   cancancan
   capistrano
@@ -1783,6 +1792,7 @@ DEPENDENCIES
   headless
   html-pipeline
   httparty
+  jsonapi-serializer
   kaminari
   lograge
   mixcloud!
@@ -1796,6 +1806,7 @@ DEPENDENCIES
   pg
   pry-byebug
   rack-cors
+  rack-mini-profiler
   rails (= 5.2.8.1)
   recurrence
   remote_syslog_logger

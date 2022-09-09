@@ -35,4 +35,10 @@ Rails.application.configure do
   #   :address        => 'localhost',
   #   :port           => '1025'
   # }
+  #
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.rails_logger = true
+  end
 end

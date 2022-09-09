@@ -55,6 +55,5 @@ module StreamPusher
         resource '*', :headers => :any, :methods => [:get, :post, :patch, :put, :options, :delete]
       end
     end
-
   end
 end
