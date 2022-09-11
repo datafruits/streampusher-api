@@ -25,7 +25,7 @@ class ScheduledShowsController < ApplicationController
     end
 
     response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
-    render json: @scheduled_shows
+    render json: Fast::ScheduledShowSerializer.new(@scheduled_shows).serializable_hash.to_json
   end
 
   def show
