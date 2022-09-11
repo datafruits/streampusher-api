@@ -14,14 +14,14 @@ class ScheduledShowsController < ApplicationController
 
   def index
     if params[:term]
-      @scheduled_shows = @current_radio.scheduled_shows.where("title ilike ?", "%#{params[:term]}%").order("start_at DESC").includes(:performers, :scheduled_show_performers, :tracks, [:playlist])
+      @scheduled_shows = @current_radio.scheduled_shows.where("title ilike ?", "%#{params[:term]}%").order("start_at DESC").includes(:performers, :scheduled_show_performers)
     else
       if params[:start]
         start_at = DateTime.parse(params[:start]).in_time_zone(Time.zone.name)
       else
         start_at = 1.month.ago
       end
-      @scheduled_shows = @current_radio.scheduled_shows.where("start_at >= ? AND end_at <= ?", start_at, params[:end]).order("start_at ASC").includes(:performers, :scheduled_show_performers, :tracks, [:playlist])
+      @scheduled_shows = @current_radio.scheduled_shows.where("start_at >= ? AND end_at <= ?", start_at, params[:end]).order("start_at ASC").includes(:performers, :scheduled_show_performers)
     end
 
     response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later

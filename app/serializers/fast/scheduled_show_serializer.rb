@@ -2,7 +2,7 @@ class Fast::ScheduledShowSerializer
   include JSONAPI::Serializer
 
   attributes :id, :start, :end, :title, :image_url, :thumb_image_url, :description,
-    :slug, :recurring_interval, :is_guest, :guest, :playlist_id, :image, :image_filename
+    :slug, :recurring_interval, :is_guest, :guest, :image, :image_filename
 
   attribute :hosted_by do |object|
     if object.performers.any?
