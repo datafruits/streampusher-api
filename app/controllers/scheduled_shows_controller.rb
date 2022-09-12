@@ -52,6 +52,9 @@ class ScheduledShowsController < ApplicationController
     scheduled_show_performers_params[:dj_ids].each do |id|
       @scheduled_show.scheduled_show_performers << ScheduledShowPerformer.new(user_id: id)
     end
+    scheduled_show_labels_params[:label_ids].each do |id|
+      @scheduled_show.labels << Label.find(id)
+    end
     if @scheduled_show.save
       ActiveSupport::Notifications.instrument 'scheduled_show.created', current_user: current_user.email, radio: @current_radio.name, show: @scheduled_show.title
       render json: @scheduled_show
@@ -91,6 +94,12 @@ class ScheduledShowsController < ApplicationController
   def scheduled_show_performers_params
     ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
       :djs
+    ])
+  end
+
+  def scheduled_show_labels_params
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :labels
     ])
   end
 
