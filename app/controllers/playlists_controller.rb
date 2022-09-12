@@ -11,14 +11,13 @@ class PlaylistsController < ApplicationController
 
   def index
     authorize! :index, Playlist, params[:format]
-    @tracks = @current_radio.tracks
-    @playlists = @current_radio.playlists.includes(tracks: [:labels])
+    @playlists = @current_radio.playlists
     if search_params[:keyword].present?
       @playlists = @playlists.where("name ilike (?)", "%#{search_params[:keyword]}%")
     end
     @playlists = @playlists.page(params[:page])
     meta = { page: params[:page], total_pages: @playlists.total_pages.to_i }
-    render json: @playlists, meta: meta
+    render json: Fast::PlaylistSerializer.new(@playlists).serializable_hash.to_json, meta: meta
   end
 
   def create
