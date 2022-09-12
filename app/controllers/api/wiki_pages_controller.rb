@@ -8,7 +8,7 @@ class Api::WikiPagesController < ApplicationController
   end
 
   def show
-    @wiki_page = WikiPage.friendly.find(params[:id])
+    @wiki_page = WikiPage.friendly.find(params[:id].gsub(" ", "-"))
     render json: @wiki_page
   end
 
