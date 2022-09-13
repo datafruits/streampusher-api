@@ -21,6 +21,16 @@ class Api::WikiPagesController < ApplicationController
     end
   end
 
+  def update
+    @wiki_page = WikiPage.friendly.find(params[:id].gsub(" ", "-"))
+    # create new edit here
+    if @wiki_page.save_new_edit! wiki_page_params[:title], wiki_page_params[:body], current_user.id
+      render json: @wiki_page, root: "wiki_page"
+    else
+      render json: { errors: @wiki_page.errors }, status: 422
+    end
+  end
+
   private
   def wiki_page_params
     ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
