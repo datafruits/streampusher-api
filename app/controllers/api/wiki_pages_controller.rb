@@ -9,12 +9,13 @@ class Api::WikiPagesController < ApplicationController
 
   def show
     @wiki_page = WikiPage.friendly.find(params[:id].gsub(" ", "-"))
-    render json: @wiki_page
+    render json: @wiki_page, include: 'wiki_page_edits'
   end
 
   def create
-    @wiki_page = WikiPage.new wiki_page_params
-    if @wiki_page.save
+    @wiki_page = WikiPage.new
+    binding.pry
+    if @wiki_page.save_new_edit! wiki_page_params, current_user.id
       render json: @wiki_page, root: "wiki_page"
     else
       render json: { errors: @wiki_page.errors }, status: 422
@@ -23,8 +24,7 @@ class Api::WikiPagesController < ApplicationController
 
   def update
     @wiki_page = WikiPage.friendly.find(params[:id].gsub(" ", "-"))
-    # create new edit here
-    if @wiki_page.save_new_edit! wiki_page_params[:title], wiki_page_params[:body], current_user.id
+    if @wiki_page.save_new_edit! wiki_page_params, current_user.id
       render json: @wiki_page, root: "wiki_page"
     else
       render json: { errors: @wiki_page.errors }, status: 422
@@ -34,7 +34,7 @@ class Api::WikiPagesController < ApplicationController
   private
   def wiki_page_params
     ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
-      :title, :body
+      :title, :body, :summary
     ])
   end
 end

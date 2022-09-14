@@ -50,7 +50,7 @@ class Ability
 
       can :manage, HostApplication if can_manage_radio?(user, radio)
       can :create, WikiPage
-      can :create, WikiPageEdit
+      can :update, WikiPage
     elsif user.dj?
       can :index, :current_user
       can :update, :current_user
@@ -125,7 +125,7 @@ class Ability
       can :show, :dj
 
       can :create, WikiPage
-      can :create, WikiPageEdit
+      can :update, WikiPage
 
       cannot :admin, :dashboard
       cannot :admin, :radios
