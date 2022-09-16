@@ -8,7 +8,7 @@ class Api::WikiPagesController < ApplicationController
   end
 
   def show
-    @wiki_page = WikiPage.friendly.find(params[:id].gsub(" ", "-"))
+    @wiki_page = WikiPage.friendly.find(params[:id].downcase.gsub(" ", "-").gsub(/[^0-9a-z-]/i, ''))
     render json: @wiki_page, include: 'wiki_page_edits'
   end
 
@@ -23,7 +23,7 @@ class Api::WikiPagesController < ApplicationController
   end
 
   def update
-    @wiki_page = WikiPage.friendly.find(params[:id].gsub(" ", "-"))
+    @wiki_page = WikiPage.friendly.find(params[:id].downcase.gsub(" ", "-").gsub(/[^0-9a-z-]/i, ''))
     if @wiki_page.save_new_edit! wiki_page_params, current_user.id
       render json: @wiki_page, root: "wiki_page"
     else
