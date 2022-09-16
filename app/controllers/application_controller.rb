@@ -11,7 +11,7 @@ class ApplicationController < ActionController::API
 
   rescue_from CanCan::AccessDenied do |exception|
     if user_signed_in?
-      format.json { head :forbidden }
+      render json: { error: "forbidden" }, status: 403
     else
       store_location_for :user, request.path
       redirect_to new_user_session_path, :notice => "You need to login first!"

@@ -131,6 +131,7 @@ Rails.application.routes.draw do
     end
     resources :microtexts, only: [:create, :index]
     resources :schedule, only: [:index]
+    resources :wiki_pages, only: [:create, :destroy, :show, :index, :update]
     resources :scheduled_shows, only: [:show, :index]
     resources :track_favorites, only: [:create, :destroy]
   end
