@@ -1,5 +1,5 @@
 class Api::WikiPagesController < ApplicationController
-  load_and_authorize_resource except: [:show, :index]
+  load_and_authorize_resource except: [:show, :index, :create]
   before_action :current_radio_required
 
   def index
@@ -13,9 +13,9 @@ class Api::WikiPagesController < ApplicationController
   end
 
   def create
+    authorize! :create, WikiPage
     @wiki_page = WikiPage.new
-    binding.pry
-    if @wiki_page.save_new_edit! wiki_page_params, current_user.id
+    if @wiki_page.save_new_edit! wiki_page_params.except(:summary), current_user.id
       render json: @wiki_page, root: "wiki_page"
     else
       render json: { errors: @wiki_page.errors }, status: 422
