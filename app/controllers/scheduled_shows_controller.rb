@@ -68,7 +68,7 @@ class ScheduledShowsController < ApplicationController
   def update
     @scheduled_show = @current_radio.scheduled_shows.friendly.find(params[:id])
     authorize! :update, @scheduled_show
-    if create_params[:image].present? && create_params[:image][:basename] != @scheduled_show.image_file_name
+    if create_params[:image].present? && !create_params[:image].is_a?(Hash)
       image = Paperclip.io_adapters.for(create_params[:image])
       image.original_filename = create_params.delete(:image_filename)
       @scheduled_show.attributes = create_params.except(:image_filename).merge({image: image})
