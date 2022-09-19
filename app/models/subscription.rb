@@ -1,5 +1,4 @@
 class Subscription < ActiveRecord::Base
-  has_paper_trail
   belongs_to :plan
   validates_presence_of :plan_id
   belongs_to :user
