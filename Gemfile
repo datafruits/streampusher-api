@@ -13,8 +13,6 @@ gem 'omniauth-soundcloud', github: "mcfiredrill/omniauth-soundcloud"
 gem 'omniauth-mixcloud', github: "streampusher/omniauth-mixcloud"
 gem 'mixcloud', github: 'streampusher/mixcloud-ruby'
 gem 'soundcloud'
-gem 'omniauth-tumblr'
-gem 'tumblr_client'
 gem 'cancancan'
 gem 'docker-api', '~> 1.22.4', require: 'docker'
 gem 'terrapin'
@@ -89,7 +87,6 @@ gem 'github-markdown'
 
 gem 'geocoder'
 gem 'ruby-liquidsoap', github: 'streampusher/ruby-liquidsoap', :require => 'liquidsoap'
-gem 'paper_trail'
 
 gem 'friendly_id'
 
