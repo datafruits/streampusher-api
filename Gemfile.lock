@@ -1476,8 +1476,6 @@ GEM
       railties (>= 5.0.0)
     faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
-    faraday_middleware (0.9.2)
-      faraday (>= 0.7.4, < 0.10)
     ffi (1.15.5)
     friendly_id (5.4.2)
       activerecord (>= 4.0.0)
@@ -1558,7 +1556,6 @@ GEM
     nokogiri (1.13.8)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
-    oauth (0.5.10)
     oauth2 (1.4.8)
       faraday (>= 0.8, < 3.0)
       jwt (>= 1.0, < 3.0)
@@ -1568,20 +1565,11 @@ GEM
     omniauth (1.9.2)
       hashie (>= 3.4.6)
       rack (>= 1.6.2, < 3)
-    omniauth-oauth (1.2.0)
-      oauth
-      omniauth (>= 1.0, < 3)
     omniauth-oauth2 (1.4.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
-    omniauth-tumblr (1.2)
-      multi_json
-      omniauth-oauth (~> 1.0)
     optimist (3.0.1)
     orm_adapter (0.5.0)
-    paper_trail (13.0.0)
-      activerecord (>= 5.2)
-      request_store (~> 1.1)
     paperclip (6.1.0)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
@@ -1697,7 +1685,6 @@ GEM
       rufus-scheduler (~> 3.2)
       sidekiq (>= 4)
       tilt (>= 1.4.0)
-    simple_oauth (0.3.1)
     slackistrano (4.0.1)
       capistrano (>= 3.8.1)
     soundcloud (0.3.7)
@@ -1724,13 +1711,6 @@ GEM
       e2mmap
     tilt (2.0.11)
     timecop (0.9.5)
-    tumblr_client (0.8.5)
-      faraday (~> 0.9.0)
-      faraday_middleware (~> 0.9.0)
-      json
-      mime-types
-      oauth
-      simple_oauth
     tzinfo (1.2.10)
       thread_safe (~> 0.1)
     tzinfo-data (1.2022.3)
@@ -1800,8 +1780,6 @@ DEPENDENCIES
   omniauth
   omniauth-mixcloud!
   omniauth-soundcloud!
-  omniauth-tumblr
-  paper_trail
   paperclip
   pg
   pry-byebug
@@ -1824,7 +1802,6 @@ DEPENDENCIES
   terrapin
   thwait
   timecop
-  tumblr_client
   tzinfo-data
   unicorn
   vcr
