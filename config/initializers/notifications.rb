@@ -19,7 +19,9 @@ if Rails.env.production?
             "radio.down",
             "microtext.created",
             "listener.created",
-            "live_now"
+            "live_now",
+            "wiki_page.created",
+            "wiki_page.updated"
            ]
 
   events.each do |event|
