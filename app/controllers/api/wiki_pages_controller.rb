@@ -3,7 +3,7 @@ class Api::WikiPagesController < ApplicationController
   before_action :current_radio_required
 
   def index
-    @wiki_pages = WikiPage.all
+    @wiki_pages = WikiPage.all.order("updated_at DESC")
     render json: @wiki_pages
   end
 
