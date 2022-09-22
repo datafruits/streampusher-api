@@ -1,5 +1,7 @@
 class PodcastsController < ApplicationController
   include ActionController::MimeResponds
+  include ActionView::Layouts
+  include ActionController::Rendering
 
   load_and_authorize_resource except: [:show]
   before_action :current_radio_required, only: [:show]
