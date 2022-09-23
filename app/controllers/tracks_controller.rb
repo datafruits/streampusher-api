@@ -77,6 +77,7 @@ class TracksController < ApplicationController
   def update_params
     ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
       :artist, :title, :album, :artwork, :audio_file_name,
+      :youtube_link, :soundcloud_key, :mixcloud_key,
       :artwork_filename, :scheduled_show_id, label_ids: []
     ])
   end
