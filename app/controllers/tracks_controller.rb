@@ -26,7 +26,7 @@ class TracksController < ApplicationController
 
   def update
     @track = @current_radio.tracks.find params[:id]
-    if update_params[:artwork].present?
+    if update_params[:artwork].present? && !update_params[:artwork].is_a?(Hash)
       artwork = Paperclip.io_adapters.for(update_params[:artwork])
       artwork.original_filename = update_params.delete(:artwork_filename)
       @track.attributes = update_params.except(:artwork_filename).merge({artwork: artwork})
@@ -78,7 +78,7 @@ class TracksController < ApplicationController
     ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
       :artist, :title, :album, :artwork, :audio_file_name,
       :youtube_link, :soundcloud_key, :mixcloud_key,
-      :artwork_filename, :scheduled_show_id, label_ids: []
+      :artwork_filename, :scheduled_show_id, :label_ids
     ])
   end
 
