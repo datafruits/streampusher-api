@@ -9,6 +9,7 @@ class ScheduledShow < ActiveRecord::Base
   belongs_to :radio
   belongs_to :dj, class_name: "User"
   belongs_to :playlist
+  belongs_to :show_series
   belongs_to :recurrant_original, class_name: "ScheduledShow"
   has_attached_file :image,
     styles: { :thumb => "x300", :medium => "x600" },
