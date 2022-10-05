@@ -4,4 +4,6 @@ class ShowSeries < ApplicationRecord
 
   has_many :show_series_labels, dependent: :destroy
   has_many :labels, through: :show_series_labels
+
+  has_many :scheduled_shows
 end
