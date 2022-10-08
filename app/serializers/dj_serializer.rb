@@ -1,5 +1,5 @@
 class DjSerializer < ActiveModel::Serializer
-  attributes :id, :username, :image_url, :bio, :image, :style,
+  attributes :id, :username, :image_url, :bio, :image, :style, :email,
     :image_thumb_url, :image_medium_url, :profile_publish, :pronouns, :role, :fruits_affinity
 
   def image_url
