@@ -1,6 +1,6 @@
 module User::Roles
   extend ActiveSupport::Concern
-  VALID_ROLES = %w[admin dj manager listener]
+  VALID_ROLES = %w[admin dj manager listener vj supporter]
 
   included do
     validate :valid_role
