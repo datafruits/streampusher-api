@@ -1,5 +1,3 @@
-require_relative '../../lib/docker_wrapper'
-
 class Radio < ActiveRecord::Base
   include RedisConnection
 
