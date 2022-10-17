@@ -5,7 +5,7 @@ Your account has been added to the radio <%= @radio.name %>.
 You can now stream to this station. Your login and password is the same, just specifiy <%= @radio.virtual_host %> when broadcasting from your client.
 
 You can log in here.
-<%== login_url(host: @radio.virtual_host) %>
+<%== login_url %>
 
 You can stream to the station using the same login and password from your source client.
 

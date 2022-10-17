@@ -1,5 +1,3 @@
-require './lib/download_tempfile'
-
 class UploadTrackToSoundcloud
   def perform track, soundcloud_token
     track.soundcloud_upload_status = "soundcloud_uploading"

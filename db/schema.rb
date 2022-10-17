@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_13_173636) do
+ActiveRecord::Schema.define(version: 2022_09_22_162955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -336,6 +336,7 @@ ActiveRecord::Schema.define(version: 2022_09_13_173636) do
     t.integer "scheduled_show_id"
     t.integer "soundcloud_upload_status", default: 0, null: false
     t.string "soundcloud_key"
+    t.string "youtube_link"
     t.index ["radio_id"], name: "index_tracks_on_radio_id"
     t.index ["scheduled_show_id"], name: "index_tracks_on_scheduled_show_id"
     t.index ["uploaded_by_id"], name: "index_tracks_on_uploaded_by_id"
@@ -412,6 +413,7 @@ ActiveRecord::Schema.define(version: 2022_09_13_173636) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug"
+    t.datetime "deleted_at"
     t.index ["slug"], name: "index_wiki_pages_on_slug", unique: true
   end
 
