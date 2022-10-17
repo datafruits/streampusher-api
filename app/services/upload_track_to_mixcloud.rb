@@ -1,5 +1,3 @@
-require './lib/download_tempfile'
-
 class UploadTrackToMixcloud
   def perform track, mixcloud_token
     track.mixcloud_upload_status = "mixcloud_uploading"
