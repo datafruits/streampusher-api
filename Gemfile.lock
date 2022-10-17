@@ -8,13 +8,6 @@ GIT
       taglib-ruby (~> 0.7.0)
 
 GIT
-  remote: https://github.com/streampusher/mixcloud-ruby.git
-  revision: d00100b4f6a991bdb3deab402154c93dcb14c4f7
-  specs:
-    mixcloud (0.0.1)
-      httmultiparty
-
-GIT
   remote: https://github.com/streampusher/ruby-liquidsoap.git
   revision: 2af252ac058d329d48235205ad1d89c1b0ac9e1c
   specs:
@@ -1512,10 +1505,6 @@ GEM
     html-pipeline (2.14.3)
       activesupport (>= 2)
       nokogiri (>= 1.4)
-    httmultiparty (0.3.16)
-      httparty (>= 0.7.3)
-      mimemagic
-      multipart-post
     httparty (0.20.0)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
@@ -1565,7 +1554,6 @@ GEM
     mock_redis (0.34.0)
       ruby2_keywords
     multi_xml (0.6.0)
-    multipart-post (2.2.3)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (7.0.1)
@@ -1700,9 +1688,6 @@ GEM
       tilt (>= 1.4.0)
     slackistrano (4.0.1)
       capistrano (>= 3.8.1)
-    soundcloud (0.3.7)
-      hashie
-      httmultiparty (~> 0.3.0)
     spring (4.1.0)
     sprockets (4.1.1)
       concurrent-ruby (~> 1.0)
@@ -1788,7 +1773,6 @@ DEPENDENCIES
   jsonapi-serializer
   kaminari
   lograge
-  mixcloud!
   mock_redis
   omniauth
   paperclip
@@ -1808,7 +1792,6 @@ DEPENDENCIES
   sidekiq-scheduler
   slackistrano
   so_id3!
-  soundcloud
   spring
   terrapin
   thwait

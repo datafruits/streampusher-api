@@ -11,8 +11,8 @@ gem 'warden-jwt_auth', github: "waiting-for-dev/warden-jwt_auth"
 gem 'omniauth'
 #gem 'omniauth-soundcloud', github: "mcfiredrill/omniauth-soundcloud"
 #gem 'omniauth-mixcloud', github: "streampusher/omniauth-mixcloud"
-gem 'mixcloud', github: 'streampusher/mixcloud-ruby'
-gem 'soundcloud'
+# gem 'mixcloud', github: 'streampusher/mixcloud-ruby'
+# gem 'soundcloud'
 gem 'cancancan'
 gem 'docker-api', '~> 1.22.4', require: 'docker'
 gem 'terrapin'
