@@ -23,7 +23,32 @@ class User < ActiveRecord::Base
 
   scope :profile_published, -> { where(profile_publish: true) }
 
-  enum style: [ :unknown, :cold, :gooey, :party, :doom, :funky, :fruity, :sadness, :grumpy, :sexy, :chill, :freaky, :fancy ]
+  enum style: [
+    :funny,
+    :gooey,
+    :party,
+    :fruity,
+    :prickly,
+    :cold,
+    :goofy,
+    :funky,
+    :freaky,
+    :fishy,
+    :undefined,
+    :chunky,
+    :doom,
+    :sleepy,
+    :thinking,
+    :slimey,
+    :pokey,
+    :grumpy,
+    :fancy,
+    :sexy,
+    :sadness,
+    :chill,
+    :lazy,
+    :unknown,
+  ]
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
