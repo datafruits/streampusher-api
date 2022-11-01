@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
     :sexy,
     :sadness,
     :chill,
-    :lazy,
+    :layzee,
     :unknown,
   ]
 
