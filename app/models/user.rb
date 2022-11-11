@@ -8,7 +8,6 @@ class User < ActiveRecord::Base
   has_many :shows, foreign_key: :dj_id
   has_many :recordings
   has_many :social_identities
-  has_many :links
   has_many :scheduled_show_performers, class_name: "::ScheduledShowPerformer", dependent: :destroy
   has_many :performers, through: :scheduled_show_performers, source: :user
   has_many :scheduled_shows, -> { includes :tracks }, through: :scheduled_show_performers
