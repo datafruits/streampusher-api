@@ -8,6 +8,9 @@ RSpec.describe FruitTicketTransaction, type: :model do
     fruit_ticket_transaction = FruitTicketTransaction.new transaction_type: :fruit_summon, amount: 200, from_user_id: user.id
 
     fruit_ticket_transaction.transact_and_save!
+
+    expect(fruit_ticket_transaction.persisted?).to eq true
+    expect(user.reload.fruit_ticket_balance).to eq 300
   end
 
   it 'raises not enough balance error' do
