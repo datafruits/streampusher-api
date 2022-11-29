@@ -33,6 +33,9 @@ class FruitTicketTransaction < ApplicationRecord
         end
         self.from_user.update fruit_ticket_balance: self.from_user.fruit_ticket_balance - self.amount
         self.save!
+      when "supporter_membership"
+        self.to_user.update fruit_ticket_balance: self.to_user.fruit_ticket_balance + self.amount
+        self.save!
       else
         raise "invalid transaction_type"
       end
