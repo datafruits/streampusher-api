@@ -15,9 +15,10 @@ class FruitTicketTransaction < ApplicationRecord
     :archive_playback,
     :supporter_membership,
     :code_contribution,
+
     # purchase
-    :fruit_summon,
-    :profile_sticker
+    :fruit_summon, # metal pineapple, real lemoner, XL shrimp shake
+    :profile_sticker,
   ]
 
   def transact_and_save!
@@ -25,6 +26,8 @@ class FruitTicketTransaction < ApplicationRecord
       case self.transaction_type
       when "fruit_summon"
         # check if user's balance is enough
+        fruit_summon_entity = FruitSummonEntity.find(source_id)
+        self.amount = fruit_summon_entity.cost
         if self.from_user.fruit_ticket_balance < self.amount
           raise "not enough balance"
         end

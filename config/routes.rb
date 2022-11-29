@@ -120,6 +120,8 @@ Rails.application.routes.draw do
 
   # meant only for consumption by datafruits frontend app
   namespace :api do
+    resources :fruit_summons, only: [:create]
+
     resources :archives, only: [:index]
     resources :blog_posts, only: [:show, :index]
     resources :tracks, only: [:show, :index]
