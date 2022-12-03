@@ -58,8 +58,10 @@ ActiveRecord::Schema.define(version: 2022_11_27_193523) do
   end
 
   create_table "fruit_summon_entities", force: :cascade do |t|
-    t.string "name"
-    t.integer "cost"
+    t.string "name", null: false
+    t.integer "cost", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "fruit_summons", force: :cascade do |t|
