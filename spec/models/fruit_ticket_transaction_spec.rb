@@ -49,4 +49,16 @@ RSpec.describe FruitTicketTransaction, type: :model do
       fruit_ticket_transaction.transact_and_save!
     end.to raise_error
   end
+
+  it 'requires a sender or receiver' do
+    radio = FactoryBot.create :radio
+
+    entity = FruitSummonEntity.create!(name: 'metal_pineaple', cost: 200)
+
+    fruit_ticket_transaction = FruitTicketTransaction.new transaction_type: :fruit_summon, source_id: entity.id
+
+    expect do
+      fruit_ticket_transaction.transact_and_save!
+    end.to raise_error(ActiveRecord::RecordInvalid)
+  end
 end
