@@ -38,6 +38,7 @@ class FruitTicketTransaction < ApplicationRecord
           self.from_user.update fruit_ticket_balance: self.from_user.fruit_ticket_balance - self.amount
           self.save!
         when "supporter_membership"
+          self.from_user_id = -1
           self.to_user.update fruit_ticket_balance: self.to_user.fruit_ticket_balance + self.amount
           self.save!
         else

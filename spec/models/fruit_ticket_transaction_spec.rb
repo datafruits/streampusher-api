@@ -17,6 +17,20 @@ RSpec.describe FruitTicketTransaction, type: :model do
     expect(fruit_ticket_transaction.to_user_id).to eq(-1)
   end
 
+  it 'gives supporter_membership tickets' do
+    radio = FactoryBot.create :radio
+    user = FactoryBot.create :user
+
+    fruit_ticket_transaction = FruitTicketTransaction.new transaction_type: :supporter_membership, amount: 1000, to_user: user
+
+    fruit_ticket_transaction.transact_and_save!
+
+    expect(fruit_ticket_transaction.persisted?).to eq true
+    expect(user.reload.fruit_ticket_balance).to eq 1000
+
+    expect(fruit_ticket_transaction.from_user_id).to eq(-1)
+  end
+
   it 'raises fruit summon not found error' do
     radio = FactoryBot.create :radio
     user = FactoryBot.create :user, fruit_ticket_balance: 500
