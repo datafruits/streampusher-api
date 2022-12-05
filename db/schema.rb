@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_11_184715) do
+ActiveRecord::Schema.define(version: 2022_11_27_193523) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,34 @@ ActiveRecord::Schema.define(version: 2022_11_11_184715) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
+  create_table "fruit_summon_entities", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "cost", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "fruit_summons", force: :cascade do |t|
+    t.bigint "fruit_ticket_transaction_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "fruit_summon_entity_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fruit_summon_entity_id"], name: "index_fruit_summons_on_fruit_summon_entity_id"
+    t.index ["fruit_ticket_transaction_id"], name: "index_fruit_summons_on_fruit_ticket_transaction_id"
+    t.index ["user_id"], name: "index_fruit_summons_on_user_id"
+  end
+
+  create_table "fruit_ticket_transactions", force: :cascade do |t|
+    t.integer "transaction_type", null: false
+    t.integer "source_id"
+    t.integer "amount", default: 0, null: false
+    t.integer "from_user_id"
+    t.integer "to_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "host_applications", id: :serial, force: :cascade do |t|
@@ -405,6 +433,7 @@ ActiveRecord::Schema.define(version: 2022_11_11_184715) do
     t.integer "style", default: 0, null: false
     t.string "pronouns", default: "", null: false
     t.string "homepage"
+    t.integer "fruit_ticket_balance", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
