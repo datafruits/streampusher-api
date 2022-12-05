@@ -13,6 +13,8 @@ RSpec.describe FruitTicketTransaction, type: :model do
 
     expect(fruit_ticket_transaction.persisted?).to eq true
     expect(user.reload.fruit_ticket_balance).to eq 300
+
+    expect(fruit_ticket_transaction.to_user_id).to eq(-1)
   end
 
   it 'raises fruit summon not found error' do
