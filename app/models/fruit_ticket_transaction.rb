@@ -30,6 +30,7 @@ class FruitTicketTransaction < ApplicationRecord
         when "fruit_summon"
           # check if user's balance is enough
           fruit_summon_entity = FruitSummonEntity.find(source_id)
+          raise "invalid fruit summon" unless fruit_summon_entity
           self.amount = fruit_summon_entity.cost
           self.to_user_id = -1
           if self.from_user.fruit_ticket_balance < self.amount
