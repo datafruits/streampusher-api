@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_22_162955) do
+ActiveRecord::Schema.define(version: 2022_11_27_193523) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,34 @@ ActiveRecord::Schema.define(version: 2022_09_22_162955) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
+  create_table "fruit_summon_entities", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "cost", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "fruit_summons", force: :cascade do |t|
+    t.bigint "fruit_ticket_transaction_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "fruit_summon_entity_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fruit_summon_entity_id"], name: "index_fruit_summons_on_fruit_summon_entity_id"
+    t.index ["fruit_ticket_transaction_id"], name: "index_fruit_summons_on_fruit_ticket_transaction_id"
+    t.index ["user_id"], name: "index_fruit_summons_on_user_id"
+  end
+
+  create_table "fruit_ticket_transactions", force: :cascade do |t|
+    t.integer "transaction_type", null: false
+    t.integer "source_id"
+    t.integer "amount", default: 0, null: false
+    t.integer "from_user_id"
+    t.integer "to_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "host_applications", id: :serial, force: :cascade do |t|
     t.integer "radio_id", null: false
     t.string "email", null: false
@@ -79,14 +107,6 @@ ActiveRecord::Schema.define(version: 2022_09_22_162955) do
     t.datetime "updated_at", null: false
     t.integer "radio_id", null: false
     t.index ["radio_id"], name: "index_labels_on_radio_id"
-  end
-
-  create_table "links", id: :serial, force: :cascade do |t|
-    t.string "url"
-    t.integer "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_links_on_user_id"
   end
 
   create_table "listens", id: :serial, force: :cascade do |t|
@@ -257,11 +277,43 @@ ActiveRecord::Schema.define(version: 2022_09_22_162955) do
     t.boolean "is_guest", default: false, null: false
     t.string "guest", default: "", null: false
     t.boolean "is_live", default: false, null: false
+    t.integer "show_series_id"
     t.index ["dj_id"], name: "index_scheduled_shows_on_dj_id"
     t.index ["playlist_id"], name: "index_scheduled_shows_on_playlist_id"
     t.index ["radio_id"], name: "index_scheduled_shows_on_radio_id"
     t.index ["recurrant_original_id"], name: "index_scheduled_shows_on_recurrant_original_id"
     t.index ["slug", "id"], name: "index_scheduled_shows_on_slug_and_id", unique: true
+  end
+
+  create_table "show_series", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.bigint "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "show_series_hosts", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "show_series_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["show_series_id", "user_id"], name: "index_show_series_hosts_on_show_series_id_and_user_id", unique: true
+    t.index ["show_series_id"], name: "index_show_series_hosts_on_show_series_id"
+    t.index ["user_id"], name: "index_show_series_hosts_on_user_id"
+  end
+
+  create_table "show_series_labels", force: :cascade do |t|
+    t.bigint "label_id"
+    t.bigint "show_series_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["label_id"], name: "index_show_series_labels_on_label_id"
+    t.index ["show_series_id", "label_id"], name: "index_show_series_labels_on_show_series_id_and_label_id", unique: true
+    t.index ["show_series_id"], name: "index_show_series_labels_on_show_series_id"
   end
 
   create_table "shows", id: :serial, force: :cascade do |t|
@@ -380,6 +432,8 @@ ActiveRecord::Schema.define(version: 2022_09_22_162955) do
     t.boolean "profile_publish", default: false, null: false
     t.integer "style", default: 0, null: false
     t.string "pronouns", default: "", null: false
+    t.string "homepage"
+    t.integer "fruit_ticket_balance", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -420,4 +474,8 @@ ActiveRecord::Schema.define(version: 2022_09_22_162955) do
   add_foreign_key "blog_post_images", "blog_post_bodies"
   add_foreign_key "scheduled_show_labels", "labels"
   add_foreign_key "scheduled_show_labels", "scheduled_shows"
+  add_foreign_key "show_series_hosts", "show_series"
+  add_foreign_key "show_series_hosts", "users"
+  add_foreign_key "show_series_labels", "labels"
+  add_foreign_key "show_series_labels", "show_series"
 end

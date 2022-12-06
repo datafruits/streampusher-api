@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :recordings, only: [:index, :show] do
     resources :process_recordings, only: [:create]
   end
+
   resources :podcasts
 
   resources :scheduled_shows do
@@ -23,6 +24,7 @@ Rails.application.routes.draw do
   resources :radios, only: [:index, :edit, :update] do
     member do
       get 'next'
+      post 'queue_current_show'
     end
   end
 
@@ -118,6 +120,9 @@ Rails.application.routes.draw do
 
   # meant only for consumption by datafruits frontend app
   namespace :api do
+    resources :fruit_summons, only: [:create]
+
+    resources :archives, only: [:index]
     resources :blog_posts, only: [:show, :index]
     resources :tracks, only: [:show, :index]
     resources :djs, only: [:show, :index] do

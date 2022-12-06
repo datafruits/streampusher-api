@@ -1,5 +1,7 @@
 class PodcastsController < ApplicationController
   include ActionController::MimeResponds
+  include ActionView::Layouts
+  include ActionController::Rendering
 
   load_and_authorize_resource except: [:show]
   before_action :current_radio_required, only: [:show]
@@ -39,13 +41,11 @@ class PodcastsController < ApplicationController
     @podcast = @current_radio.podcasts.find_by_name(params[:id])
     respond_to do |format|
       format.xml {
-        self.class.include ActionView::Layouts
-        self.class.include ActionController::Rendering
         render 'show', layout: false
       }
       format.json {
         response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
-        render json: @podcast, include: 'tracks', meta: { total_pages: @podcast.playlist.playlist_tracks.page.total_pages.to_i, page: params[:page] }
+        render json: @podcast, include: 'tracks', meta: { total_pages: @podcast.playlist.playlist_tracks.page.total_pages.to_i, page: params[:page] }, serializer: PodcastSerializer, layout: false
       }
     end
   end

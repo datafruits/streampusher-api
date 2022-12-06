@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :username, :email, :time_zone, :role, :avatar_url, :style, :avatar_filename, :pronouns, :track_favorites, :fruits_affinity, :bio
+  attributes :id, :username, :email, :time_zone, :role, :avatar_url, :style, :avatar_filename, :pronouns, :track_favorites, :fruits_affinity, :bio, :homepage, :fruit_ticket_balance
   has_many :track_favorites
   has_many :social_identities
 
