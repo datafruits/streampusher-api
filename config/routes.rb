@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   resources :stats, only: [:index]
   resources :listens, only: [:index]
 
-  resources :radios, only: [:index, :edit, :update] do
+  resources :radios, only: [:index, :update] do
     member do
       get 'next'
       post 'queue_current_show'
