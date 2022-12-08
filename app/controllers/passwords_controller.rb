@@ -18,10 +18,11 @@ class PasswordsController < Devise::PasswordsController
   end
 
   def update
-    if User.reset_password_by_token(user_params)
+    user = User.reset_password_by_token(user_params)
+    if user.valid?
       render head: :ok
     else
-      render status: :unprocessable_entity
+      render json: user.errors, status: :unprocessable_entity
     end
   end
 
@@ -29,7 +30,7 @@ class PasswordsController < Devise::PasswordsController
 
   def user_params
     params.transform_keys(&:underscore).require(:user).permit(
-      :token, :password, :password_confirmation, :email
+      :reset_password_token, :password, :password_confirmation, :email
     )
   end
 end
