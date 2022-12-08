@@ -9,8 +9,9 @@ class AccountMailer < ApplicationMailer
     mail subject: "Anything I can help you with?", to: @user.email
   end
 
-  def reset_password user
+  def reset_password user, token
     @user = user
+    @token = token
     mail subject: 'Reset your datafruits password', to: @user.email
   end
 end

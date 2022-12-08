@@ -38,8 +38,6 @@ Rails.application.routes.draw do
     passwords: "passwords"
   }
 
-  resources :password_resets, only: [:create]
-
   resources :anniversary_slots do
     collection do
       post "sign_up"
