@@ -1,6 +1,6 @@
 source 'https://rubygems.org/'
 
-gem 'rails', '5.2.8.1'
+gem 'rails', '6.1.7'
 gem 'pg'
 
 gem 'spring',        group: :development
@@ -9,10 +9,10 @@ gem 'devise'
 gem 'devise-jwt'
 gem 'warden-jwt_auth', github: "waiting-for-dev/warden-jwt_auth"
 gem 'omniauth'
-gem 'omniauth-soundcloud', github: "mcfiredrill/omniauth-soundcloud"
-gem 'omniauth-mixcloud', github: "streampusher/omniauth-mixcloud"
-gem 'mixcloud', github: 'streampusher/mixcloud-ruby'
-gem 'soundcloud'
+#gem 'omniauth-soundcloud', github: "mcfiredrill/omniauth-soundcloud"
+#gem 'omniauth-mixcloud', github: "streampusher/omniauth-mixcloud"
+# gem 'mixcloud', github: 'streampusher/mixcloud-ruby'
+# gem 'soundcloud'
 gem 'cancancan'
 gem 'docker-api', '~> 1.22.4', require: 'docker'
 gem 'terrapin'

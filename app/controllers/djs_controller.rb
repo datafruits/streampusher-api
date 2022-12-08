@@ -15,7 +15,7 @@ class DjsController < ApplicationController
     authorize! :show, :dj
     djs = @current_radio.djs
       .includes([:scheduled_show_performers,
-                 scheduled_shows: [ { performers: :links }, :radio, { tracks: [ :radio, :uploaded_by, :labels ] } ]])
+                 scheduled_shows: [ :performers, :radio, { tracks: [ :radio, :uploaded_by, :labels ] } ]])
     if params[:name].present?
       @dj = djs.find_by(username: params[:name])
     else

@@ -1,10 +1,10 @@
 class PlaylistsController < ApplicationController
   serialization_scope :serializer_scope
   def show
-    @playlist = Playlist.includes(playlist_tracks: [track: [:labels]]).find params[:id]
-    if current_user.manager? || current_user.admin?
-      @connected_accounts = @current_user.social_identities
-    end
+    @playlist = Playlist.find params[:id]
+    # if current_user.manager? || current_user.admin?
+    #   @connected_accounts = @current_user.social_identities
+    # end
     authorize! :index, @playlist, params[:format]
     render json: @playlist, include: 'playlist_tracks'
   end
