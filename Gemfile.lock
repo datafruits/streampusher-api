@@ -1554,8 +1554,16 @@ GEM
     mock_redis (0.34.0)
       ruby2_keywords
     multi_xml (0.6.0)
+    net-imap (0.3.1)
+      net-protocol
+    net-pop (0.1.2)
+      net-protocol
+    net-protocol (0.2.1)
+      timeout
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
+    net-smtp (0.3.3)
+      net-protocol
     net-ssh (7.0.1)
     nio4r (2.5.8)
     nokogiri (1.13.8)
@@ -1708,6 +1716,7 @@ GEM
       e2mmap
     tilt (2.0.11)
     timecop (0.9.5)
+    timeout (0.3.1)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     tzinfo-data (1.2022.5)
@@ -1774,6 +1783,9 @@ DEPENDENCIES
   kaminari
   lograge
   mock_redis
+  net-imap
+  net-pop
+  net-smtp
   omniauth
   paperclip
   pg
