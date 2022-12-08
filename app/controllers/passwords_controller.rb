@@ -29,7 +29,7 @@ class PasswordsController < Devise::PasswordsController
   private
 
   def user_params
-    params.transform_keys(&:underscore).require(:user).permit(
+    params.deep_transform_keys(&:underscore).require(:user).permit(
       :reset_password_token, :password, :password_confirmation, :email
     )
   end
