@@ -5,7 +5,7 @@ class PasswordsController < Devise::PasswordsController
     user = User.find_by(email: user_params[:email])
 
     if user
-      raw, hashed = Devise.token_generator.generate(User, :reset_password_token).first
+      raw, hashed = Devise.token_generator.generate(User, :reset_password_token)
       user.reset_password_token = hashed
       user.reset_password_sent_at = Time.now.utc
       user.save!
