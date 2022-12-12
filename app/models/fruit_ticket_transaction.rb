@@ -14,7 +14,7 @@ class FruitTicketTransaction < ApplicationRecord
   enum transaction_type: [
     # receiving
     :show_listeners_count,
-    :archive_playback,
+    :archive_playback, # 1 ticket per playback??
     :supporter_membership,
     :code_contribution,
 
@@ -39,6 +39,10 @@ class FruitTicketTransaction < ApplicationRecord
           self.from_user.update fruit_ticket_balance: self.from_user.fruit_ticket_balance - self.amount
           self.save!
         when "supporter_membership"
+          self.from_user_id = -1
+          self.to_user.update fruit_ticket_balance: self.to_user.fruit_ticket_balance + self.amount
+          self.save!
+        when "archive_playback"
           self.from_user_id = -1
           self.to_user.update fruit_ticket_balance: self.to_user.fruit_ticket_balance + self.amount
           self.save!
