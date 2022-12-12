@@ -22,5 +22,8 @@ describe PayoutFruitTicketTrackPlaysWorker do
     PayoutFruitTicketTrackPlaysWorker.perform_now
     user.reload
     expect(user.fruit_ticket_balance).to eq 3
+
+    fruit_ticket_transaction = FruitTicketTransaction.last
+    expect(fruit_ticket_transaction.source_id).to eq track.id
   end
 end
