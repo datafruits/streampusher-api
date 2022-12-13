@@ -13,8 +13,8 @@ class FruitTicketTransaction < ApplicationRecord
   #
   enum transaction_type: [
     # receiving
-    :show_listeners_count,
-    :archive_playback, # 1 ticket per playback??
+    :show_listeners_count, # how ?
+    :archive_playback, # 1 ticket per playback
     :supporter_membership,
     :code_contribution,
 
