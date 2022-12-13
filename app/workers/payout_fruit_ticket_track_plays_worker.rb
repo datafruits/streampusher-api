@@ -15,6 +15,6 @@ class PayoutFruitTicketTrackPlaysWorker < ActiveJob::Base
       end
     end
 
-    Redis.current.del "datafruits:track_plays"
+    redis.del "datafruits:track_plays"
   end
 end
