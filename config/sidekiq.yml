@@ -4,6 +4,9 @@
   - monitor
   - process_recordings
 :schedule:
+  payout_fruit_ticket_track_plays:
+    every: 24h
+    class: PayoutFruitTicketTrackPlaysWorker
   collect_recordings:
     every: 1h
     class: CollectRecordingsWorker
