@@ -4,7 +4,7 @@ class PayoutFruitTicketTrackPlaysWorker < ActiveJob::Base
   queue_as :default
 
   def perform
-    Redis.current.hgetall("datafruits:track_plays").each do |track_id, count|
+    redis.hgetall("datafruits:track_plays").each do |track_id, count|
       track = Track.find track_id
       if track
         user = track.scheduled_show.performers.first
