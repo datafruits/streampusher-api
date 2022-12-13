@@ -1,4 +1,6 @@
 class PayoutFruitTicketTrackPlaysWorker < ActiveJob::Base
+  include RedisConnection
+
   queue_as :default
 
   def perform
