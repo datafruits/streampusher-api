@@ -10,6 +10,8 @@ class Track < ActiveRecord::Base
   has_many :track_labels, dependent: :destroy
   has_many :labels, through: :track_labels
   has_many :track_favorites
+  has_many :posts, as: :postable
+
   has_attached_file :artwork,
     storage: :s3,
     s3_protocol: :https,
