@@ -3,7 +3,7 @@ class BadgeAwardsWorker < ActiveJob::Base
   AWARD_THRESHOLD = 50_000
 
   include RedisConnection
-  queue :default
+  queue_as :default
 
   def perform radio_id
     radio = Radio.find radio_id
