@@ -10,8 +10,8 @@ class BadgeAwardsWorker < ActiveJob::Base
     radio.users.find_each do |user|
       FRUITS.each do |fruit|
         count = redis.hget "datafruits:user_fruit_count:#{user.username}", fruit
-        if count >= AWARD_THRESHOLD & !user.roles.include?(fruit)
-          user.roles << fruit
+        if count.to_i >= AWARD_THRESHOLD && !user.roles.include?(fruit)
+          user.add_role fruit
           user.save
         end
       end
