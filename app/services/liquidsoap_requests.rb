@@ -34,6 +34,6 @@ class LiquidsoapRequests
   end
 
   def skip
-    @liquidsoap_socket.write("icecast.1.skip").encode("UTF-8")
+    @liquidsoap_socket.write("icecast.skip").encode("UTF-8")
   end
 end
