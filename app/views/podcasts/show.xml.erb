@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+  <channel>
+    <title><%= @podcast.name %></title>
+    <link>http://www.datafruits.fm</link>
+    <description>datafruits.fm podcast j-pop chip garage skweee</description>
+    <language>en-us</language>
+    <copyright/>
+    <lastBuildDate>Tue, 16 Jul 2013 11:54:39 PDT</lastBuildDate>
+    <ttl>1</ttl>
+    <atom:link href="<%= Rails.application.routes.url_helpers.podcast_url(id: @podcast.name, format: :xml, host: ActionMailer::Base.default_url_options[:host]) %>" rel="self" type="application/rss+xml"/>
+    <itunes:image href="<%= @podcast.image.url %>"/>
+    <itunes:summary>
+      DATAFRUITS.FM podcast latest mixes from datafruits.fm internet radio station
+    </itunes:summary>
+    <itunes:category text="Music"/>
+    <itunes:explicit>No</itunes:explicit>
+    <itunes:owner>
+      <itunes:name>Various Artists</itunes:name>
+      <itunes:email>info@datafruits.fm (Tony Miller)</itunes:email>
+    </itunes:owner>
+    <% @podcast.extra_tags.each do |key,value| %>
+      <<%=key%>><%=value%></<%=key%>>
+    <% end %>
+    <% @podcast.playlist.playlist_tracks.order("podcast_published_date ASC").each do |playlist_track| %>
+      <% track = playlist_track.track %>
+      <item>
+        <title><%=track.title%></title>
+        <description>
+          <%=track.try(:description).to_s%>
+        </description>
+        <pubDate><%=(playlist_track.podcast_published_date || track.created_at).strftime("%a, %d %b %Y %H:%M:%S %Z")%></pubDate>
+        <enclosure url="<%=track.audio_file_name%>" length="" type="audio/mpeg"/>
+        <guid><%=track.audio_file_name%></guid>
+      </item>
+    <% end %>
+  </channel>
+</rss>
