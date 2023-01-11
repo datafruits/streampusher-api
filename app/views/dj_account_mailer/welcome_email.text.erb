@@ -1,15 +1,17 @@
 <%= "Hey #{@user.username}," %>
 ====================================
 
-Your account on <%= @radio.name %> has been created.
+Your DJ account on <%= @radio.name %> has been created.
 
-Your username is <%= @user.username %>.
-Your password is <%= @password %>.
+<% if !@user.roles.includes?("listener") %>
+  Your username is <%= @user.username %>.
+  Your password is <%= @password %>.
+<% end %>
+
+You can log in to https://datafruits.fm/ or https://streampusher.com/login with the same login.
 
 You can change your password here.
 https://datafruits.fm/user/settings
-
-You can log in to https://datafruits.fm/ or https://streampusher.com/login with the same login.
 
 Check out our DJ guide , on the datafruits wiki, Fruitstopiyeah.
 https://datafruits.fm/wiki/datafruits%20anysong%20DJ%20manual

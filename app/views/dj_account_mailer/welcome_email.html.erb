@@ -3,17 +3,22 @@
 </h2>
 
 <p>
-Your account on <%= @radio.name %> has been created.
+Your DJ account on <%= @radio.name %> has been created.
 </p>
 
-<p>
-Your username is <%= @user.username %>.
-Your password is <%= @password %>.
-You can change your password <a href="https://datafruits.fm/user/settings">here.</a>
-</p>
+<% if !@user.roles.includes?("listener") %>
+  <p>
+  Your username is <%= @user.username %>.
+  Your password is <%= @password %>.
+  </p>
+<% end %>
 
 <p>
   You can log in to <a href="https://datafruits.fm/">datafruits</a> or <a href="https://streampusher.com/login">streampusher</a> with the same login.
+</p>
+
+<p>
+You can change your password <a href="https://datafruits.fm/user/settings">here.</a>
 </p>
 
 <p>
