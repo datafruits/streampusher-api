@@ -3,7 +3,7 @@
 
 Your DJ account on <%= @radio.name %> has been created.
 
-<% if !@user.roles.includes?("listener") %>
+<% if !@user.roles.include?("listener") %>
   Your username is <%= @user.username %>.
   Your password is <%= @password %>.
 <% end %>
