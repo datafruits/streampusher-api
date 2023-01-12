@@ -1,6 +1,6 @@
 class BadgeAwardsWorker < ActiveJob::Base
   FRUITS = ["strawberry", "lemon", "orange", "cabbage", "banana", "watermel"]
-  AWARD_THRESHOLD = 50_000
+  AWARD_THRESHOLD = 10_000
 
   include RedisConnection
   queue_as :default
