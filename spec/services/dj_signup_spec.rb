@@ -25,7 +25,7 @@ describe DjSignup do
     expect(user.radios).to include(radio2)
   end
 
-  it "returns error if this user already belongs to this radio" do
+  it "returns error if this user already belongs to this radio with a dj role" do
     radio = FactoryBot.create :radio
     radio2 = FactoryBot.create :radio, name: 'daddyboots'
     email = "mcfiredrill@gmail.com"
@@ -41,5 +41,20 @@ describe DjSignup do
     expect do
       DjSignup.perform user_params, radio2
     end.to raise_error ExistingUserRadio
+  end
+
+  it "adds the dj role if the user already exists on this radio without dj role" do
+    radio = FactoryBot.create :radio
+    user = FactoryBot.create :user
+    user.user_radios.create(radio: radio)
+    user.add_role "listener"
+    user.save!
+    user_params = {email: user.email, username: user.username}
+    DjSignup.perform user_params, radio
+
+    expect(User.where(email: user.email).count).to eq 1
+    user = User.find_by_email(user.email)
+    expect(user.radios).to include(radio)
+    expect(user.roles).to include("dj")
   end
 end
