@@ -1,4 +1,10 @@
 class Api::ForumThreadsController < ApprovalsController
+  def index
+    forum_threads = ForumThread.all
+
+    render json: forum_threads
+  end
+
   def create
     forum_thread = ForumThread.new forum_thread_params
     authorize! :create, ForumThread
