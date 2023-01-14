@@ -1,4 +1,6 @@
 class Api::ForumThreadsController < ApprovalsController
+  load_and_authorize_resource except: [:index, :show]
+
   def index
     forum_threads = ForumThread.all
 
@@ -6,9 +8,9 @@ class Api::ForumThreadsController < ApprovalsController
   end
 
   def create
-    forum_thread = ForumThread.new forum_thread_params
+    forum_thread = ForumThread.new
     authorize! :create, ForumThread
-    if forum_thread.save
+    if forum_thread.save_new_thread! current_user, forum_thread_params[:title], forum_thread_params[:body]
       render json: forum_thread
     else
       render json: { errors: forum_thread.errors }, status: 422
@@ -24,7 +26,7 @@ class Api::ForumThreadsController < ApprovalsController
   private
   def forum_thread_params
     ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
-      :title
+      :title, :body
     ])
   end
 end
