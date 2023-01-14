@@ -1,6 +1,4 @@
 class Api::ForumThreadsController < ApprovalsController
-  load_and_authorize_resource except: [:index, :show]
-
   def index
     forum_threads = ForumThread.all
 
@@ -11,16 +9,16 @@ class Api::ForumThreadsController < ApprovalsController
     forum_thread = ForumThread.new
     authorize! :create, ForumThread
     if forum_thread.save_new_thread! current_user, forum_thread_params[:title], forum_thread_params[:body]
-      render json: forum_thread
+      render json: forum_thread, include: 'posts'
     else
       render json: { errors: forum_thread.errors }, status: 422
     end
   end
 
   def show
-    forum_thread = ForumThread.find params[:id]
+    forum_thread = ForumThread.friendly.find(params[:id].downcase.gsub(" ", "-").gsub(/[^0-9a-z-]/i, ''))
 
-    render json: forum_thread
+    render json: forum_thread, include: 'posts'
   end
 
   private
