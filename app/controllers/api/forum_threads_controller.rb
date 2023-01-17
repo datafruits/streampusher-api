@@ -1,4 +1,4 @@
-class Api::ForumThreadsController < ApprovalsController
+class Api::ForumThreadsController < ApplicationController
   def index
     forum_threads = ForumThread.all
 
