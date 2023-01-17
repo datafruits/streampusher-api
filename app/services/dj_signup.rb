@@ -13,7 +13,7 @@ class DjSignup
         user.add_role "dj"
       end
       user.save!
-      DjAccountMailer.added_to_radio(user, radio).deliver_later
+      DjAccountMailer.welcome_email(user, '', radio).deliver_later
       ActiveSupport::Notifications.instrument 'dj.added_to_radio', current_user: user.email, radio: radio.name, dj: user.email
     else
       user = User.new user_params
