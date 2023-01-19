@@ -21,7 +21,9 @@ if Rails.env.production?
             "listener.created",
             "live_now",
             "wiki_page.created",
-            "wiki_page.updated"
+            "wiki_page.updated",
+            "forum_thread.created",
+            "post.created",
            ]
 
   events.each do |event|
