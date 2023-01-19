@@ -1495,7 +1495,7 @@ GEM
       raabro (~> 1.4)
     geocoder (1.8.1)
     github-markdown (0.6.9)
-    globalid (1.0.0)
+    globalid (1.0.1)
       activesupport (>= 5.0)
     groupdate (6.1.0)
       activesupport (>= 5.2)
@@ -1550,7 +1550,7 @@ GEM
       rake
     mini_mime (1.1.2)
     mini_portile2 (2.8.0)
-    minitest (5.16.3)
+    minitest (5.17.0)
     mock_redis (0.34.0)
       ruby2_keywords
     multi_json (1.15.0)
@@ -1742,7 +1742,7 @@ GEM
       chronic (>= 0.6.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.1)
+    zeitwerk (2.6.6)
 
 PLATFORMS
   ruby
