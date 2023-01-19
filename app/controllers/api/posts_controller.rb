@@ -10,6 +10,7 @@ class Api::PostsController < ApplicationController
     post.user = current_user
 
     if post.save
+      ActiveSupport::Notifications.instrument 'post.created', current_user: current_user.email, post: post.body
       render json: post
     else
       render json: { errors: post.errors }, status: 422
