@@ -1,6 +1,4 @@
 require 'uri'
-require_relative '../../lib/docker_wrapper'
-require_relative '../../lib/ufw'
 
 class RadioBooter
   def self.boot radio

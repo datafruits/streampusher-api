@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :recordings, only: [:index, :show] do
     resources :process_recordings, only: [:create]
   end
+
   resources :podcasts
 
   resources :scheduled_shows do
@@ -20,9 +21,10 @@ Rails.application.routes.draw do
   resources :stats, only: [:index]
   resources :listens, only: [:index]
 
-  resources :radios, only: [:index, :edit, :update] do
+  resources :radios, only: [:index, :update] do
     member do
       get 'next'
+      post 'queue_current_show'
     end
   end
 
@@ -35,8 +37,6 @@ Rails.application.routes.draw do
     omniauth_callbacks: "users/omniauth_callbacks",
     passwords: "passwords"
   }
-
-  resources :password_resets, only: [:create]
 
   resources :anniversary_slots do
     collection do
@@ -118,9 +118,14 @@ Rails.application.routes.draw do
 
   # meant only for consumption by datafruits frontend app
   namespace :api do
+    resources :posts, only: [:create]
+    resources :forum_threads, only: [:index, :show, :create]
+    resources :fruit_summons, only: [:create]
+
+    resources :archives, only: [:index]
     resources :blog_posts, only: [:show, :index]
     resources :tracks, only: [:show, :index]
-    resources :djs, only: [:show, :index] do
+    resources :djs, id: /[A-Za-z0-9_\.]+?/, only: [:show, :index] do
       resources :tracks, only: [:index], controller: 'djs/tracks'
     end
     resources :listeners, only: [:create] do

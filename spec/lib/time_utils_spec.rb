@@ -1,4 +1,3 @@
-require_relative '../../lib/time_utils'
 require 'spec_helper'
 
 describe TimeUtils do

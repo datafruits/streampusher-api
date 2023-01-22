@@ -1,4 +1,3 @@
-require_relative '../../lib/docker_wrapper'
 require 'rails_helper'
 
 describe DockerWrapper do

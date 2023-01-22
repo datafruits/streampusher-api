@@ -1,5 +1,3 @@
-require_relative "../../lib/time_utils"
-
 class ScheduledShow < ActiveRecord::Base
   include RedisConnection
 
