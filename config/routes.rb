@@ -119,7 +119,7 @@ Rails.application.routes.draw do
   # meant only for consumption by datafruits frontend app
   namespace :api do
     resources :posts, only: [:create]
-    resources :forum_threads, id: /[A-Za-z0-9_\.]+?/, only: [:index, :show, :create]
+    resources :forum_threads, only: [:index, :show, :create]
     resources :fruit_summons, only: [:create]
 
     resources :archives, only: [:index]
