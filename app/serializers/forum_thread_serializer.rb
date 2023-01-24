@@ -1,5 +1,5 @@
 class ForumThreadSerializer < ActiveModel::Serializer
-  attributes :id, :title, :poster_username, :poster_avatar, :posts, :created_at
+  attributes :id, :title, :poster_username, :poster_avatar, :posts, :created_at, :slug
   has_many :posts, embed: :ids, key: :posts, embed_in_root: true, each_serializer: PostSerializer
 
   def posts
