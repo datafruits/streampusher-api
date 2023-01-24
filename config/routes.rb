@@ -118,6 +118,7 @@ Rails.application.routes.draw do
 
   # meant only for consumption by datafruits frontend app
   namespace :api do
+    resources :my_shows
     resources :posts, only: [:create]
     resources :forum_threads, only: [:index, :show, :create]
     resources :fruit_summons, only: [:create]
@@ -137,7 +138,9 @@ Rails.application.routes.draw do
     resources :microtexts, only: [:create, :index]
     resources :schedule, only: [:index]
     resources :wiki_pages, only: [:create, :destroy, :show, :index, :update]
-    resources :scheduled_shows, only: [:show, :index]
+    resources :scheduled_shows, only: [:show, :index] do
+      resources :episodes, only: [:show]
+    end
     resources :track_favorites, only: [:create, :destroy]
   end
 
