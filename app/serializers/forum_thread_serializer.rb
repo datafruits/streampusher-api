@@ -23,6 +23,10 @@ class ForumThreadSerializer < ActiveModel::Serializer
   end
 
   def reply_poster_avatars
-    object.posts.last(5).map(&:user).uniq.map {|user| user.image.url(:thumb)}
+    object.posts.last(5)
+      .map(&:user)
+      .uniq
+      .reject{|user| user == object.posts.first.user }
+      .map {|user| user.image.url(:thumb)}
   end
 end
