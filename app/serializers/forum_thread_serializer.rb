@@ -1,5 +1,5 @@
 class ForumThreadSerializer < ActiveModel::Serializer
-  attributes :id, :title, :poster_username, :poster_avatar, :posts, :created_at, :slug, :replies_count
+  attributes :id, :title, :poster_username, :poster_avatar, :posts, :created_at, :slug, :replies_count, :reply_poster_avatars
   has_many :posts, embed: :ids, key: :posts, embed_in_root: true, each_serializer: PostSerializer
 
   def posts
@@ -20,5 +20,9 @@ class ForumThreadSerializer < ActiveModel::Serializer
     unless object.posts.empty?
       object.posts.first.user.image.url(:thumb)
     end
+  end
+
+  def reply_poster_avatars
+    object.posts.last(5).map(&:user).uniq.map {|user| user.image.url(:thumb)}
   end
 end
