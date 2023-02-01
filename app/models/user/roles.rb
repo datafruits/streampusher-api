@@ -24,8 +24,10 @@ module User::Roles
     if self.role.blank?
       self.role = ""
     end
-    self.role << " #{new_role}"
-    self.save
+    unless self.role.include? new_role
+      self.role << " #{new_role}"
+      self.save
+    end
   end
 
   private
