@@ -21,10 +21,10 @@ module User::Roles
   end
 
   def add_role new_role
+    if self.role.blank?
+      self.role = ""
+    end
     unless self.role.include? new_role
-      if self.role.blank?
-        self.role = ""
-      end
       self.role << " #{new_role}"
       self.save
     end
