@@ -17,12 +17,6 @@ class ScheduleMonitor
         puts "adding to queue"
         current_scheduled_show_in_db.queue_playlist!
         puts "received queue_playlist!"
-        # if previous show is set to no_cue_out, or previous show is blank, time to skip!
-        if current_playing_show_in_redis.blank? || !current_playing_show_in_redis.playlist.no_cue_out? # check cue out of previous show
-          puts "skipping"
-          liquidsoap = LiquidsoapRequests.new radio.id
-          liquidsoap.skip
-        end
       else
         # hacks
         puts "shouldn't queue a playlist for a live show!"
