@@ -36,4 +36,16 @@ class LiquidsoapRequests
   def skip
     @liquidsoap_socket.write("icecast.skip").encode("UTF-8")
   end
+
+  def scheduled_shows_queue
+    queue = socket.write "scheduled_shows.queue"
+    rids = queue.split(" ")[0..-2]
+
+    metadatas = rids.map { |rid| self.metadata(rid) }
+    metadatas.map {|m| self.metadata_to_hash(m) }
+  end
+
+  def metadata_to_hash m
+    Hash[m.each_line { |line| line.chomp.gsub("\"", "").split("=", 2) }]
+  end
 end
