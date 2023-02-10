@@ -38,7 +38,7 @@ class LiquidsoapRequests
   end
 
   def scheduled_shows_queue
-    queue = socket.write "scheduled_shows.queue"
+    queue = @liquidsoap_socket.write "scheduled_shows.queue"
     rids = queue.split(" ")[0..-2]
 
     metadatas = rids.map { |rid| self.metadata(rid) }
@@ -46,6 +46,6 @@ class LiquidsoapRequests
   end
 
   def metadata_to_hash m
-    Hash[m.each_line { |line| line.chomp.gsub("\"", "").split("=", 2) }]
+    Hash[m.each_line.map { |line| line.chomp.gsub("\"", "").split("=", 2) }]
   end
 end
