@@ -9,6 +9,7 @@ class PayoutFruitTicketTrackPlaysWorker < ActiveJob::Base
       if track && track.scheduled_show
         user = track.scheduled_show.performers.first
         if user
+          # TODO check this transaction didn't already happen for this month
           fruit_ticket_transaction = FruitTicketTransaction.new to_user: user, amount: count, transaction_type: :archive_playback, source_id: track.id
           fruit_ticket_transaction.transact_and_save!
         end

@@ -36,6 +36,8 @@ Rails.application.configure do
   #   :port           => '1025'
   # }
   #
+  #
+  config.hosts << "rails"
 
   config.after_initialize do
     Bullet.enable = true

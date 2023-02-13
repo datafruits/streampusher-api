@@ -17,7 +17,7 @@ class Api::ForumThreadsController < ApplicationController
   end
 
   def show
-    forum_thread = ForumThread.friendly.find(params[:id].downcase.gsub(" ", "-").gsub(/[^0-9a-z-]/i, ''))
+    forum_thread = ForumThread.friendly.find(params[:id])
 
     render json: forum_thread, include: 'posts'
   end
