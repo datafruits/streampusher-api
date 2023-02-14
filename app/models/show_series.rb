@@ -7,6 +7,8 @@ class ShowSeries < ApplicationRecord
 
   has_many :scheduled_shows
 
+  has_one_attached :image
+
   enum recurring_interval: [:not_recurring, :day, :week, :month, :year, :biweek]
   enum recurring_weekday: [
     'Sunday',

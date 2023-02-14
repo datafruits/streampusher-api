@@ -73,6 +73,7 @@ gem 'jsonapi-serializer'
 gem 'chronic'
 gem 'aws-sdk'
 gem 'paperclip'
+gem "image_processing", ">= 1.2"
 
 gem 'rupeepeethree', github: "datafruits/rupeepeethree"
 gem "so_id3", github: "streampusher/so_id3"
