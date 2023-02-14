@@ -6,4 +6,21 @@ class Api::MyShowsController < ApplicationController
 
     render json: show_series
   end
+
+  def create
+    show_series = ShowSeries.new my_show_params
+    authorize! :create, ShowSeries
+    if show_series.save
+      render json: show_series
+    else
+      render json: { errors: show_series.errors }, status: 422
+    end
+  end
+
+  private
+  def my_show_params
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :title, :description
+    ])
+  end
 end

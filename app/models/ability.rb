@@ -13,6 +13,7 @@ class Ability
       can :update, :metadata
       can :index, :current_user
       can :create, ForumThread
+      can :create, ShowSeries
       can :index, :my_shows
     elsif user.manager?
       can :index, :current_user
@@ -54,6 +55,7 @@ class Ability
       can :create, WikiPage
       can :update, WikiPage
       can :create, ForumThread
+      can :create, ShowSeries
       can :index, :my_shows
     elsif user.dj?
       can :index, :current_user
@@ -131,6 +133,7 @@ class Ability
       can :create, WikiPage
       can :update, WikiPage
       can :create, ForumThread
+      can :create, ShowSeries
 
       can :index, :my_shows
 
