@@ -7,7 +7,12 @@ class ShowSeries < ApplicationRecord
 
   has_many :scheduled_shows
 
-  has_one_attached :image
+  # TODO move to active storage I guess?
+  # has_one_attached :image
+  has_attached_file :image,
+    styles: { :thumb => "x300", :medium => "x600" },
+    path: ":attachment/:style/:basename.:extension"
+  validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
   enum recurring_interval: [:not_recurring, :day, :week, :month, :year, :biweek]
   enum recurring_weekday: [
