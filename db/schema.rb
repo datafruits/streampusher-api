@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_14_030100) do
+ActiveRecord::Schema.define(version: 2023_03_09_060928) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -355,6 +355,10 @@ ActiveRecord::Schema.define(version: 2023_02_14_030100) do
     t.integer "recurring_interval", default: 0, null: false
     t.integer "recurring_weekday", default: 0, null: false
     t.integer "recurring_cadence", default: 0, null: false
+    t.datetime "start_at", null: false
+    t.datetime "end_at", null: false
+    t.datetime "start_date", null: false
+    t.datetime "end_date"
   end
 
   create_table "show_series_hosts", force: :cascade do |t|

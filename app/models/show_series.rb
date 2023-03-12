@@ -25,4 +25,15 @@ class ShowSeries < ApplicationRecord
     'Saturday'
   ]
   enum recurring_cadence: ['First', 'Second', 'Third', 'Forth', 'Last']
+
+  def save_recurrences
+# # Monthly by week day
+# r = Recurrence.new(every: :month, on: :first, weekday: :sunday)
+# r = Recurrence.new(every: :month, on: :third, weekday: :monday)
+# r = Recurrence.new(every: :month, on: :last,  weekday: :friday)
+# r = Recurrence.new(every: :month, on: :last,  weekday: :friday, interval: 2)
+# r = Recurrence.new(every: :month, on: :last,  weekday: :friday, interval: :quarterly)
+# r = Recurrence.new(every: :month, on: :last,  weekday: :friday, interval: :semesterly)
+# r = Recurrence.new(every: :month, on: :last,  weekday: :friday, repeat: 3)
+  end
 end
