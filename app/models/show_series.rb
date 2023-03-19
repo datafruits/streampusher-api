@@ -26,6 +26,14 @@ class ShowSeries < ApplicationRecord
   ]
   enum recurring_cadence: ['First', 'Second', 'Third', 'Forth', 'Last']
 
+  def image_url
+    self.image.url(:original)
+  end
+
+  def thumb_image_url
+    self.image.url(:thumb)
+  end
+
   def save_recurrences
 # # Monthly by week day
 # r = Recurrence.new(every: :month, on: :first, weekday: :sunday)
