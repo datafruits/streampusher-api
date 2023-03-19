@@ -42,4 +42,24 @@ if Rails.env.production?
     event = ActiveSupport::Notifications::Event.new *args
     DiscordNotifier.perform_later "#{event.payload[:user]} is live now!", ENV['DISCORD_LIVE_BOT_WEBHOOK_URL']
   end
+
+  ActiveSupport::Notifications.subscribe "forum_thread.created" do |*args|
+    event = ActiveSupport::Notifications::Event.new *args
+    DiscordNotifier.perform_later "New forum post by #{event.payload[:username]}: #{event.payload[:forum_thread]}", ENV['DISCORD_FORUM_BOT_WEBHOOK_URL']
+  end
+
+  ActiveSupport::Notifications.subscribe "post.created" do |*args|
+    event = ActiveSupport::Notifications::Event.new *args
+    DiscordNotifier.perform_later "New reply by #{event.payload[:username]}: #{event.payload[:forum_thread]}", ENV['DISCORD_FORUM_BOT_WEBHOOK_URL']
+  end
+
+  ActiveSupport::Notifications.subscribe "wiki_page.created" do |*args|
+    event = ActiveSupport::Notifications::Event.new *args
+    DiscordNotifier.perform_later "New wiki page created by #{event.payload[:username]}: #{event.payload[:wiki_page]}", ENV['DISCORD_WIKI_BOT_WEBHOOK_URL']
+  end
+
+  ActiveSupport::Notifications.subscribe "wiki_page.update" do |*args|
+    event = ActiveSupport::Notifications::Event.new *args
+    DiscordNotifier.perform_later "Wiki page updated by #{event.payload[:username]}: #{event.payload[:wiki_page]}", ENV['DISCORD_WIKI_BOT_WEBHOOK_URL']
+  end
 end

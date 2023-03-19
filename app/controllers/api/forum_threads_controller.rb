@@ -9,7 +9,7 @@ class Api::ForumThreadsController < ApplicationController
     forum_thread = ForumThread.new
     authorize! :create, ForumThread
     if forum_thread.save_new_thread! current_user, forum_thread_params[:title], forum_thread_params[:body]
-      ActiveSupport::Notifications.instrument 'forum_thread.created', current_user: current_user.email, forum_thread: forum_thread.title
+      ActiveSupport::Notifications.instrument 'forum_thread.created', username: current_user.username, forum_thread: forum_thread.title
       render json: forum_thread, include: 'posts'
     else
       render json: { errors: forum_thread.errors }, status: 422
