@@ -16,6 +16,7 @@ class Api::MyShowsController < ApplicationController
     else
       show_series = ShowSeries.new my_show_params.except(:image_filename).except(:image)
     end
+    show_series.show_series_hosts.build user: current_user
     if show_series.save
       render json: show_series
     else
