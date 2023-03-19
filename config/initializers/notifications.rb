@@ -45,21 +45,25 @@ if Rails.env.production?
 
   ActiveSupport::Notifications.subscribe "forum_thread.created" do |*args|
     event = ActiveSupport::Notifications::Event.new *args
-    DiscordNotifier.perform_later "New forum post by #{event.payload[:username]}: #{event.payload[:forum_thread]}", ENV['DISCORD_FORUM_BOT_WEBHOOK_URL']
+    link = "https://datafruits.fm/forum/#{event.payload[:slug]}"
+    DiscordNotifier.perform_later "New forum post by #{event.payload[:username]}: #{event.payload[:forum_thread]} \n #{link}", ENV['DISCORD_FORUM_BOT_WEBHOOK_URL']
   end
 
   ActiveSupport::Notifications.subscribe "post.created" do |*args|
     event = ActiveSupport::Notifications::Event.new *args
-    DiscordNotifier.perform_later "New reply by #{event.payload[:username]}: #{event.payload[:post]}", ENV['DISCORD_FORUM_BOT_WEBHOOK_URL']
+    link = "https://datafruits.fm/forum/#{event.payload[:slug]}"
+    DiscordNotifier.perform_later "New reply by #{event.payload[:username]}: #{event.payload[:post]} \n #{link}", ENV['DISCORD_FORUM_BOT_WEBHOOK_URL']
   end
 
   ActiveSupport::Notifications.subscribe "wiki_page.created" do |*args|
     event = ActiveSupport::Notifications::Event.new *args
-    DiscordNotifier.perform_later "New wiki page created by #{event.payload[:username]}: #{event.payload[:wiki_page]}", ENV['DISCORD_WIKI_BOT_WEBHOOK_URL']
+    link = "https://datafruits.fm/wiki/#{event.payload[:slug]}"
+    DiscordNotifier.perform_later "New wiki page created by #{event.payload[:username]}: #{event.payload[:wiki_page]} \n #{link}", ENV['DISCORD_WIKI_BOT_WEBHOOK_URL']
   end
 
   ActiveSupport::Notifications.subscribe "wiki_page.update" do |*args|
     event = ActiveSupport::Notifications::Event.new *args
-    DiscordNotifier.perform_later "Wiki page updated by #{event.payload[:username]}: #{event.payload[:wiki_page]}", ENV['DISCORD_WIKI_BOT_WEBHOOK_URL']
+    link = "https://datafruits.fm/wiki/#{event.payload[:slug]}"
+    DiscordNotifier.perform_later "Wiki page updated by #{event.payload[:username]}: #{event.payload[:wiki_page]} \n #{link}", ENV['DISCORD_WIKI_BOT_WEBHOOK_URL']
   end
 end
