@@ -357,6 +357,8 @@ ActiveRecord::Schema.define(version: 2023_03_09_060928) do
     t.integer "recurring_cadence", default: 0, null: false
     t.datetime "start_at", null: false
     t.datetime "end_at", null: false
+    t.datetime "start_time", null: false
+    t.datetime "end_time", null: false
     t.datetime "start_date", null: false
     t.datetime "end_date"
   end
