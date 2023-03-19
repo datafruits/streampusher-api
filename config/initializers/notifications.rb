@@ -50,7 +50,7 @@ if Rails.env.production?
 
   ActiveSupport::Notifications.subscribe "post.created" do |*args|
     event = ActiveSupport::Notifications::Event.new *args
-    DiscordNotifier.perform_later "New reply by #{event.payload[:username]}: #{event.payload[:forum_thread]}", ENV['DISCORD_FORUM_BOT_WEBHOOK_URL']
+    DiscordNotifier.perform_later "New reply by #{event.payload[:username]}: #{event.payload[:post]}", ENV['DISCORD_FORUM_BOT_WEBHOOK_URL']
   end
 
   ActiveSupport::Notifications.subscribe "wiki_page.created" do |*args|
