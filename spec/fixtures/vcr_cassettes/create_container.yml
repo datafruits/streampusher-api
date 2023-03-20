@@ -29,7 +29,6 @@ http_interactions:
         -c /icecast.xml"],"Image":"mcfiredrill/icecast","Volumes":null,"WorkingDir":"","Entrypoint":null,"OnBuild":null,"Labels":{},"MacAddress":"","NetworkDisabled":false,"ExposedPorts":{"8000/tcp":{}},"VolumeDriver":"","Memory":0,"MemorySwap":0,"CpuShares":0,"Cpuset":""},"NetworkSettings":{"Bridge":"","SandboxID":"","HairpinMode":false,"LinkLocalIPv6Address":"","LinkLocalIPv6PrefixLen":0,"Ports":null,"SandboxKey":"","SecondaryIPAddresses":null,"SecondaryIPv6Addresses":null,"EndpointID":"","Gateway":"","GlobalIPv6Address":"","GlobalIPv6PrefixLen":0,"IPAddress":"","IPPrefixLen":0,"IPv6Gateway":"","MacAddress":""}}
 
 '
-    http_version: 
   recorded_at: Tue, 31 May 2016 13:00:13 GMT
 - request:
     method: post
@@ -56,7 +55,6 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ''
-    http_version: 
   recorded_at: Tue, 31 May 2016 13:00:13 GMT
 - request:
     method: delete
@@ -81,7 +79,6 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ''
-    http_version: 
   recorded_at: Tue, 31 May 2016 13:00:13 GMT
 - request:
     method: post
@@ -112,6 +109,145 @@ http_interactions:
       string: '{"Id":"4874a957b8606313c17ee00ee5712f28a5f9ac42d3a85e7c8483c77c3a215a37","Warnings":null}
 
 '
-    http_version: 
   recorded_at: Tue, 31 May 2016 13:00:13 GMT
-recorded_with: VCR 3.0.2
+- request:
+    method: get
+    uri: "<DOCKER_HOST>/containers/coolradio_icecast/json"
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swipely/Docker-API 2.2.0
+      Accept:
+      - "*/*"
+      Content-Type:
+      - text/plain
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Api-Version:
+      - '1.42'
+      Content-Type:
+      - application/json
+      Docker-Experimental:
+      - 'false'
+      Ostype:
+      - linux
+      Server:
+      - Docker/23.0.1 (linux)
+      Date:
+      - Sat, 18 Mar 2023 23:36:15 GMT
+    body:
+      encoding: ASCII-8BIT
+      string: '{"Id":"d8409a41db72f8076a95ce4cb7f173470ebad18fdc6694415dc6272fdd2aa4d3","Created":"2023-03-18T23:36:04.030964577Z","Path":"/bin/sh","Args":["-c","icecast
+        -c /icecast.xml"],"State":{"Status":"exited","Running":false,"Paused":false,"Restarting":false,"OOMKilled":false,"Dead":false,"Pid":0,"ExitCode":137,"Error":"","StartedAt":"2023-03-18T23:36:04.758512294Z","FinishedAt":"2023-03-18T23:36:14.848221046Z"},"Image":"sha256:ad39addd259a88bbc98eb80671f981930cb50873d4ba49b51b12abe5697f4d8b","ResolvConfPath":"/var/lib/docker/containers/d8409a41db72f8076a95ce4cb7f173470ebad18fdc6694415dc6272fdd2aa4d3/resolv.conf","HostnamePath":"/var/lib/docker/containers/d8409a41db72f8076a95ce4cb7f173470ebad18fdc6694415dc6272fdd2aa4d3/hostname","HostsPath":"/var/lib/docker/containers/d8409a41db72f8076a95ce4cb7f173470ebad18fdc6694415dc6272fdd2aa4d3/hosts","LogPath":"/var/lib/docker/containers/d8409a41db72f8076a95ce4cb7f173470ebad18fdc6694415dc6272fdd2aa4d3/d8409a41db72f8076a95ce4cb7f173470ebad18fdc6694415dc6272fdd2aa4d3-json.log","Name":"/coolradio_icecast","RestartCount":0,"Driver":"overlay2","Platform":"linux","MountLabel":"","ProcessLabel":"","AppArmorProfile":"docker-default","ExecIDs":null,"HostConfig":{"Binds":[],"ContainerIDFile":"","LogConfig":{"Type":"json-file","Config":{}},"NetworkMode":"streampusher_default","PortBindings":null,"RestartPolicy":{"Name":"","MaximumRetryCount":0},"AutoRemove":false,"VolumeDriver":"","VolumesFrom":null,"ConsoleSize":[0,0],"CapAdd":null,"CapDrop":null,"CgroupnsMode":"private","Dns":null,"DnsOptions":null,"DnsSearch":null,"ExtraHosts":["docker:172.22.0.8"],"GroupAdd":null,"IpcMode":"private","Cgroup":"","Links":null,"OomScoreAdj":0,"PidMode":"","Privileged":false,"PublishAllPorts":true,"ReadonlyRootfs":false,"SecurityOpt":null,"UTSMode":"","UsernsMode":"","ShmSize":67108864,"Runtime":"runc","Isolation":"","CpuShares":0,"Memory":0,"NanoCpus":0,"CgroupParent":"","BlkioWeight":0,"BlkioWeightDevice":null,"BlkioDeviceReadBps":null,"BlkioDeviceWriteBps":null,"BlkioDeviceReadIOps":null,"BlkioDeviceWriteIOps":null,"CpuPeriod":0,"CpuQuota":0,"CpuRealtimePeriod":0,"CpuRealtimeRuntime":0,"CpusetCpus":"","CpusetMems":"","Devices":null,"DeviceCgroupRules":null,"DeviceRequests":null,"MemoryReservation":0,"MemorySwap":0,"MemorySwappiness":null,"OomKillDisable":null,"PidsLimit":null,"Ulimits":null,"CpuCount":0,"CpuPercent":0,"IOMaximumIOps":0,"IOMaximumBandwidth":0,"MaskedPaths":["/proc/asound","/proc/acpi","/proc/kcore","/proc/keys","/proc/latency_stats","/proc/timer_list","/proc/timer_stats","/proc/sched_debug","/proc/scsi","/sys/firmware"],"ReadonlyPaths":["/proc/bus","/proc/fs","/proc/irq","/proc/sys","/proc/sysrq-trigger"]},"GraphDriver":{"Data":{"LowerDir":"/var/lib/docker/overlay2/517423d6350f72f77ef1fd27dcd2c6259d9b4240a5aa52435fecf41be38e8d5c-init/diff:/var/lib/docker/overlay2/1fe3931df124d158f1282488e497f6d6b521c99860d34dcecd7d54131e98071e/diff:/var/lib/docker/overlay2/40011994e31c170765cc238de36ba9614afd28d8d4827a14ed04f073e8d9981d/diff:/var/lib/docker/overlay2/c6f4bdba00ae329a6a99f7dbd5608df98b464fc88ad7b36979fb510e8529c7a5/diff:/var/lib/docker/overlay2/d19b5a756967a5d545a057bcc54da41f4fbd36637104f9c745e912fb298ff1cc/diff:/var/lib/docker/overlay2/61cd75881de505b160e21d68f520f50c9d2e0cc847e4ab66a56dd0db2d06d19c/diff:/var/lib/docker/overlay2/ceb8e1571c1c47a224c6775c1b503ea0e29a50da33d4552db0891a600e24bd72/diff:/var/lib/docker/overlay2/674bb8a5390157b8904dfc7771773f7a6025c74c66fb643fc757bb998ccf517a/diff:/var/lib/docker/overlay2/bbf6593337591cbb92612feb3ea1012e56806121ccf66b244d1e6f766600d4d3/diff:/var/lib/docker/overlay2/9b718ee5f53ffb9217142ab7ff851b0331f024fb2f0cda38abfa4a2e40c323fb/diff:/var/lib/docker/overlay2/1c354b95e907e5437223750c1b17cb262ac58e3c44082289d167338de0a62ab1/diff:/var/lib/docker/overlay2/d6821aab8eed7bae33cea9f9a15053d778add33ab32032a0e7072e53958c379a/diff:/var/lib/docker/overlay2/c2c9da17bf36ad02b8acc74c4a7d4f62abd7115abda40f98f446d8b99a124ea4/diff:/var/lib/docker/overlay2/59d44fc586cf5d0d88dfdc6adb0958507625073ccc8882cd80ab62403346f8b5/diff:/var/lib/docker/overlay2/b150e1c7956cc6712d28e2756ec8564393572309ba2da4377ddea99a7c3fabb2/diff:/var/lib/docker/overlay2/82506a891ca6d09aa63c8c0a35c1173915e9a71c4dd572c9e6523cfc31a2d0c9/diff:/var/lib/docker/overlay2/202ee4db85ad30bd82ff9422cc40e9b2f134291c748d490320f067bf952b8245/diff:/var/lib/docker/overlay2/39d93cc4443ca8eb6337d16ec37b883f8a13e151661fdf5baea178a8018f01dc/diff:/var/lib/docker/overlay2/5bb8ce482558ff5e7e3dd81be48052974182e18073d8d570c598c31f2bbcaf4f/diff:/var/lib/docker/overlay2/93ae552fa71f3a1517c8fd90165566c5f85727090755a2093db7646f42994b03/diff:/var/lib/docker/overlay2/638040e8a3a3da5b766c296c2548bca901cb9444ecacfea107088ce64f63a49c/diff","MergedDir":"/var/lib/docker/overlay2/517423d6350f72f77ef1fd27dcd2c6259d9b4240a5aa52435fecf41be38e8d5c/merged","UpperDir":"/var/lib/docker/overlay2/517423d6350f72f77ef1fd27dcd2c6259d9b4240a5aa52435fecf41be38e8d5c/diff","WorkDir":"/var/lib/docker/overlay2/517423d6350f72f77ef1fd27dcd2c6259d9b4240a5aa52435fecf41be38e8d5c/work"},"Name":"overlay2"},"Mounts":[],"Config":{"Hostname":"d8409a41db72","Domainname":"","User":"icecast","AttachStdin":false,"AttachStdout":false,"AttachStderr":false,"ExposedPorts":{"8000/tcp":{}},"Tty":false,"OpenStdin":false,"StdinOnce":false,"Env":["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","LANG=en_US.UTF-8","DEBIAN_FRONTEND=noninteractive"],"Cmd":["/bin/sh","-c","icecast
+        -c /icecast.xml"],"Image":"mcfiredrill/icecast","Volumes":null,"WorkingDir":"","Entrypoint":null,"OnBuild":null,"Labels":{}},"NetworkSettings":{"Bridge":"","SandboxID":"b1690ac4d8eea50f1993699206efbe486c856aba08c298d5c6b124e142fee3db","HairpinMode":false,"LinkLocalIPv6Address":"","LinkLocalIPv6PrefixLen":0,"Ports":{},"SandboxKey":"/var/run/docker/netns/b1690ac4d8ee","SecondaryIPAddresses":null,"SecondaryIPv6Addresses":null,"EndpointID":"","Gateway":"","GlobalIPv6Address":"","GlobalIPv6PrefixLen":0,"IPAddress":"","IPPrefixLen":0,"IPv6Gateway":"","MacAddress":"","Networks":{"streampusher_default":{"IPAMConfig":null,"Links":null,"Aliases":["d8409a41db72"],"NetworkID":"7a6c1fa216e40b3ab41f11fb90c69fcf53a67cdb181e093bd60a2b9851814fd1","EndpointID":"","Gateway":"","IPAddress":"","IPPrefixLen":0,"IPv6Gateway":"","GlobalIPv6Address":"","GlobalIPv6PrefixLen":0,"MacAddress":"","DriverOpts":null}}}}
+
+'
+  recorded_at: Sat, 18 Mar 2023 23:36:15 GMT
+- request:
+    method: post
+    uri: "<DOCKER_HOST>/containers/d8409a41db72f8076a95ce4cb7f173470ebad18fdc6694415dc6272fdd2aa4d3/stop"
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      User-Agent:
+      - Swipely/Docker-API 2.2.0
+      Accept:
+      - "*/*"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 304
+      message: Not Modified
+    headers:
+      Api-Version:
+      - '1.42'
+      Docker-Experimental:
+      - 'false'
+      Ostype:
+      - linux
+      Server:
+      - Docker/23.0.1 (linux)
+      Date:
+      - Sat, 18 Mar 2023 23:36:15 GMT
+    body:
+      encoding: ASCII-8BIT
+      string: ''
+  recorded_at: Sat, 18 Mar 2023 23:36:15 GMT
+- request:
+    method: delete
+    uri: "<DOCKER_HOST>/containers/d8409a41db72f8076a95ce4cb7f173470ebad18fdc6694415dc6272fdd2aa4d3"
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swipely/Docker-API 2.2.0
+      Accept:
+      - "*/*"
+      Content-Type:
+      - text/plain
+  response:
+    status:
+      code: 204
+      message: No Content
+    headers:
+      Api-Version:
+      - '1.42'
+      Docker-Experimental:
+      - 'false'
+      Ostype:
+      - linux
+      Server:
+      - Docker/23.0.1 (linux)
+      Date:
+      - Sat, 18 Mar 2023 23:36:15 GMT
+    body:
+      encoding: ASCII-8BIT
+      string: ''
+  recorded_at: Sat, 18 Mar 2023 23:36:15 GMT
+- request:
+    method: post
+    uri: "<DOCKER_HOST>/containers/create?name=coolradio_icecast"
+    body:
+      encoding: UTF-8
+      string: '{"Image":"mcfiredrill/icecast","Env":[],"HostConfig":{"Binds":[],"ExtraHosts":["docker:172.22.0.8"],"PublishAllPorts":true,"NetworkMode":"streampusher_default"}}'
+    headers:
+      User-Agent:
+      - Swipely/Docker-API 2.2.0
+      Accept:
+      - "*/*"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Api-Version:
+      - '1.42'
+      Content-Type:
+      - application/json
+      Docker-Experimental:
+      - 'false'
+      Ostype:
+      - linux
+      Server:
+      - Docker/23.0.1 (linux)
+      Date:
+      - Sat, 18 Mar 2023 23:36:15 GMT
+      Content-Length:
+      - '88'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"Id":"758b0361373575e3fcc1bfc358043a0c35fcc004e929c34ac5433c1cba047202","Warnings":[]}
+
+'
+  recorded_at: Sat, 18 Mar 2023 23:36:15 GMT
+recorded_with: VCR 6.1.0
