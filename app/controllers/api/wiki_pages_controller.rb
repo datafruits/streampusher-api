@@ -3,8 +3,8 @@ class Api::WikiPagesController < ApplicationController
   before_action :current_radio_required
 
   def index
-    if(params[:q])
-      @wiki_page = WikiPage.where("title ilike (?)", "%#{params[:q]}%")
+    if(params[:q].present?)
+      @wiki_pages = WikiPage.where("title ilike (?)", "%#{params[:q]}%")
     else
       @wiki_pages = WikiPage.all.order("updated_at DESC")
     end
