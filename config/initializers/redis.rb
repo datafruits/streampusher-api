@@ -1,5 +1,6 @@
-host = ENV['REDIS_HOST'] || 'redis'
-port = ENV['REDIS_PORT'] || 6379
-password = ENV['REDIS_PASSWORD']
+opts = {}
+opts[:host] = ENV['REDIS_HOST'] || 'redis'
+opts[:port] = ENV['REDIS_PORT'] || 6379
+opts[:password] = ENV['REDIS_PASSWORD'] unless ENV['REDIS_PASSWORD'].nil?
 
-Redis.current = Redis.new host: host, port: port, password: password
+Redis.current = Redis.new(**opts)
