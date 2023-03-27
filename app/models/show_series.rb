@@ -1,11 +1,14 @@
 class ShowSeries < ApplicationRecord
+  extend FriendlyId
+  friendly_id :slug_candidates, use: :slugged
+
   has_many :show_series_hosts, class_name: "::ShowSeriesHost", dependent: :destroy
   has_many :users, through: :show_series_hosts
 
   has_many :show_series_labels, dependent: :destroy
   has_many :labels, through: :show_series_labels
 
-  has_many :scheduled_shows
+  has_many :episodes, class_name: "::ScheduledShows"
 
   # TODO move to active storage I guess?
   # has_one_attached :image
@@ -43,5 +46,17 @@ class ShowSeries < ApplicationRecord
 # r = Recurrence.new(every: :month, on: :last,  weekday: :friday, interval: :quarterly)
 # r = Recurrence.new(every: :month, on: :last,  weekday: :friday, interval: :semesterly)
 # r = Recurrence.new(every: :month, on: :last,  weekday: :friday, repeat: 3)
+  end
+
+  def recurrence_times options={}
+    options = {:every => self.recurring_interval}.merge(options)
+    options[:on] = self.recurring_cadence.downcase.to_sym
+    options[:weekday] = self.recurring_weekday.downcase.to_sym
+
+    if options[:every] == "biweek"
+      options[:interval] = 2
+      options[:every] = "week"
+    end
+    Recurrence.new(options).events
   end
 end
