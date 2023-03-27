@@ -1,6 +1,6 @@
 class ShowSeries < ApplicationRecord
   extend FriendlyId
-  friendly_id :slug_candidates, use: :slugged
+  friendly_id :title, use: :slugged
 
   has_many :show_series_hosts, class_name: "::ShowSeriesHost", dependent: :destroy
   has_many :users, through: :show_series_hosts
