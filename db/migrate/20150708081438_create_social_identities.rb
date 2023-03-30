@@ -5,8 +5,8 @@ class CreateSocialIdentities < ActiveRecord::Migration[4.2]
       t.string :provider, null: false, default: ""
       t.references :user, null: false
 
-      t.string :token, :string
-      t.string :token_secret, :string
+      t.string :token
+      t.string :token_secret
       t.string :name, null: false, default: ""
 
       t.timestamps null: false

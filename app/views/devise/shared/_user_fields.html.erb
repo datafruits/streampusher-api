@@ -1,8 +1,0 @@
-<div><%= form.label :email %><br />
-<%= form.email_field :email, autofocus: true %></div>
-
-<div>
-  <%= form.label :time_zone %></br />
-  <%= form.select :time_zone, ActiveSupport::TimeZone.all.sort.collect{|m| [m.to_s.split(") ").reverse.join(" -- ").concat(")"), m.name]},
-    {}, class: 'chosen-select' %>
-</div>

@@ -1,6 +1,6 @@
 module User::Roles
   extend ActiveSupport::Concern
-  VALID_ROLES = %w[admin dj manager listener vj supporter]
+  VALID_ROLES = %w[admin dj manager listener vj supporter strawberry lemon orange cabbage banana watermelon]
 
   included do
     validate :valid_role
@@ -21,8 +21,13 @@ module User::Roles
   end
 
   def add_role new_role
-    self.role << " #{new_role}"
-    self.save
+    if self.role.blank?
+      self.role = ""
+    end
+    unless self.role.include? new_role
+      self.role << " #{new_role}"
+      self.save
+    end
   end
 
   private

@@ -12,6 +12,7 @@ class Ability
       can :manage, :all
       can :update, :metadata
       can :index, :current_user
+      can :create, ForumThread
     elsif user.manager?
       can :index, :current_user
       can :update, :current_user
@@ -51,6 +52,7 @@ class Ability
       can :manage, HostApplication if can_manage_radio?(user, radio)
       can :create, WikiPage
       can :update, WikiPage
+      can :create, ForumThread
     elsif user.dj?
       can :index, :current_user
       can :update, :current_user
@@ -126,6 +128,7 @@ class Ability
 
       can :create, WikiPage
       can :update, WikiPage
+      can :create, ForumThread
 
       cannot :admin, :dashboard
       cannot :admin, :radios
@@ -147,6 +150,7 @@ class Ability
       cannot :index, :stats
       can :index, Label if format == "json"
       can :show, Label if format == "json"
+      can :create, ForumThread
 
       cannot :admin, :dashboard
       cannot :admin, :radios

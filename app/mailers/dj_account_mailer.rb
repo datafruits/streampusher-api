@@ -7,13 +7,6 @@ class DjAccountMailer < ApplicationMailer
     mail subject: "Your dj account on #{@radio.name} has been created", to: @user.email
   end
 
-  def added_to_radio user, radio
-    @user = user
-    @radio = radio
-
-    mail subject: "Your dj account on #{@radio.name} has been created", to: @user.email
-  end
-
   def dj_manual user
     @user = user
 
