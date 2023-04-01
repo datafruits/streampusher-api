@@ -6,6 +6,7 @@ module User::Rpg
   end
 
   def should_level_up?
+    # what if you gain multiple levels at once???
     self.experience_points >= next_level
   end
 
