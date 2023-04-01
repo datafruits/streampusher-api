@@ -8,7 +8,11 @@ class Api::WikiPagesController < ApplicationController
     else
       @wiki_pages = WikiPage.all.order("updated_at DESC")
     end
-    render json: @wiki_pages
+    if @wiki_pages.count > 0
+      render json: @wiki_pages
+    else
+      render json: { "error": "not found" } , status: 404
+    end
   end
 
   def show
