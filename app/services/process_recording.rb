@@ -19,7 +19,7 @@ class ProcessRecording
         content_type: content_type
       audio_file_name = "https://#{ENV['S3_BUCKET']}.s3.amazonaws.com/#{key}"
       username = basename.split("datafruits-").last.split("-").first
-      user = User.find_by(name: username)
+      user = User.find_by(username: username)
       track = radio.tracks.create! audio_file_name: audio_file_name, uploaded_by: user
       StreamingExpAward.perform track
 
