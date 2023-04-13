@@ -33,6 +33,8 @@ class Track < ActiveRecord::Base
                              secret_access_key: ENV['S3_SECRET'],
                              region: ENV['S3_REGION'] }
 
+  after_create :sync_tags_in_background
+
   default_scope { order(updated_at: :desc) }
 
   accepts_nested_attributes_for :labels
