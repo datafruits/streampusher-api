@@ -1,0 +1,89 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: https://streampushertest.s3.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.160.0 ruby/2.7.2 x86_64-linux aws-sdk-s3/1.114.0
+      X-Amz-Date:
+      - 20230416T175316Z
+      X-Amz-Content-Sha256:
+      - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<S3_KEY>/20230416/us-east-1/s3/aws4_request, SignedHeaders=host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=861241e5bfb336b519c912b32058f57ccd897fe6fb53f550b3698a2ec73836c9
+      Content-Length:
+      - '0'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - WJLdTS8cCxKFU/dwdh4dhBbnX6JqXx8f66fTHAC3VQ12vql4MYHlvtRClzo9CAuEDOjV7DhT26g=
+      X-Amz-Request-Id:
+      - BMN6TBE4A0QM2VQ1
+      Date:
+      - Sun, 16 Apr 2023 17:53:19 GMT
+      Location:
+      - "/streampushertest"
+      Server:
+      - AmazonS3
+      Content-Length:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Sun, 16 Apr 2023 17:53:17 GMT
+- request:
+    method: get
+    uri: https://streampushertest.s3.amazonaws.com/spec/fixtures/the_cowbell.mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.160.0 ruby/2.7.2 x86_64-linux aws-sdk-s3/1.114.0
+      X-Amz-Date:
+      - 20230416T175317Z
+      X-Amz-Content-Sha256:
+      - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<S3_KEY>/20230416/us-east-1/s3/aws4_request, SignedHeaders=host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=d6c237de8a6fb651a8aff7e2917594e643f7ddde24a3ca59590e0e00d43903b1
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      X-Amz-Request-Id:
+      - BMNAAW35JT5V79WR
+      X-Amz-Id-2:
+      - tQVejepbkivnC03prkkV1K+1+HZ4yJEAPqWuzoV2MuKT6TlkWiU+EfGB8Es7JqVqsigpKR19d54=
+      Content-Type:
+      - application/xml
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Sun, 16 Apr 2023 17:53:17 GMT
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <Error><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message><Key>spec/fixtures/the_cowbell.mp3</Key><RequestId>BMNAAW35JT5V79WR</RequestId><HostId>tQVejepbkivnC03prkkV1K+1+HZ4yJEAPqWuzoV2MuKT6TlkWiU+EfGB8Es7JqVqsigpKR19d54=</HostId></Error>
+  recorded_at: Sun, 16 Apr 2023 17:53:17 GMT
+recorded_with: VCR 6.1.0
