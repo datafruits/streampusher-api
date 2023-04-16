@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe PayoutFruitTicketTrackPlaysWorker do
+describe PayoutFruitTicketTrackPlays do
   include RedisConnection
 
   before :each do
