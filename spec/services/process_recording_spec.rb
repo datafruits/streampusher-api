@@ -1,6 +1,10 @@
 require 'rails_helper'
+require 'sidekiq/testing'
 
 describe ProcessRecording do
+  before do
+    Sidekiq::Testing.inline!
+  end
   it 'processes a recording' do
     user = FactoryBot.create :user, username: "emadj"
     recording = FactoryBot.create :recording
