@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include ::User::Roles
+  include ::User::Rpg
 
   has_one :subscription
   has_many :microtexts

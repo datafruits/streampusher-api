@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(version: 2023_01_14_181911) do
     t.index ["user_id"], name: "index_blog_posts_on_user_id"
   end
 
+  create_table "experience_point_awards", force: :cascade do |t|
+    t.bigint "user_id"
+    t.integer "amount", null: false
+    t.integer "award_type", null: false
+    t.integer "source_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_experience_point_awards_on_user_id"
+  end
+
   create_table "forum_threads", force: :cascade do |t|
     t.string "title", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -420,6 +430,8 @@ ActiveRecord::Schema.define(version: 2023_01_14_181911) do
     t.string "pronouns", default: "", null: false
     t.string "homepage"
     t.integer "fruit_ticket_balance", default: 0, null: false
+    t.integer "experience_points", default: 0, null: false
+    t.integer "level", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
