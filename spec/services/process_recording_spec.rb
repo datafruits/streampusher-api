@@ -5,6 +5,9 @@ describe ProcessRecording do
   before do
     Sidekiq::Testing.inline!
   end
+  after do
+    Sidekiq::Testing.disable!
+  end
   it 'processes a recording' do
     user = FactoryBot.create :user, username: "emadj"
     recording = FactoryBot.create :recording

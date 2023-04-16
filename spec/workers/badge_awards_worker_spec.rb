@@ -7,6 +7,10 @@ describe BadgeAwardsWorker do
   before do
     Sidekiq::Testing.inline!
   end
+  after do
+    Sidekiq::Testing.disable!
+  end
+
   before :each do
     host = ENV['REDIS_HOST'] || 'redis'
     port = ENV['REDIS_PORT'] || 6379
