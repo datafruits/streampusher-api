@@ -5,6 +5,7 @@ class CreateNotifications < ActiveRecord::Migration[6.1]
       t.integer :notification_type, null: false
       t.boolean :send_to_chat, null: false, default: false
       t.boolean :send_to_user, null: false, default: true
+      t.integer :source_id
 
       t.timestamps
     end
