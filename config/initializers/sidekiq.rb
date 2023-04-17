@@ -3,11 +3,7 @@ port = ENV['REDIS_PORT'] || 6379
 password = ENV['REDIS_PASSWORD']
 redis_opts = {}
 
-if ENV['CI']
-  redis_opts[:url] = "#{host}:#{port}"
-else
-  redis_opts[:url] = "redis://#{host}:#{port}"
-end
+redis_opts[:url] = "redis://#{host}:#{port}"
 
 redis_opts[:password] = ENV['REDIS_PASSWORD'] unless ENV['REDIS_PASSWORD'].nil?
 

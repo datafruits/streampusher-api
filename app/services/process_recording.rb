@@ -21,7 +21,7 @@ class ProcessRecording
       username = basename.split("datafruits-").last.split("-").first
       user = User.find_by(username: username)
       track = radio.tracks.create! audio_file_name: audio_file_name, uploaded_by: user
-      StreamingExpAward.perform track
+      StreamingExpAwardWorker.perform_later track.id
 
       # if scheduled_show.present?
       #   # grab scheduled show's info to use metadata and artwork

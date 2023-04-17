@@ -12,6 +12,9 @@ RSpec.describe ScheduledShow, :type => :model do
     @end_at = Chronic.parse("today at 3:15 pm").utc
     @date = Date.today.strftime("%m%d%Y")
   end
+  after do
+    Sidekiq::Testing.disable!
+  end
 
   describe "performers" do
     before do
