@@ -1,15 +1,9 @@
 require 'rails_helper'
-require 'sidekiq/testing'
 
-describe PayoutFruitTicketTrackPlaysWorker do
+describe PayoutFruitTicketTrackPlays do
   include RedisConnection
 
-  before do
-    Sidekiq::Testing.inline!
-  end
   before :each do
-    host = ENV['REDIS_HOST'] || 'redis'
-    port = ENV['REDIS_PORT'] || 6379
     redis.flushall
   end
   it "pays out royalties for track plays" do
@@ -19,7 +13,7 @@ describe PayoutFruitTicketTrackPlaysWorker do
     scheduled_show = FactoryBot.create :scheduled_show, dj: user, start_at: 2.days.from_now, end_at: 3.days.from_now, playlist: playlist, radio: radio
     track = FactoryBot.create :track, scheduled_show: scheduled_show, radio: radio
     redis.hset("datafruits:track_plays", track.id, 3)
-    PayoutFruitTicketTrackPlaysWorker.perform_now
+    PayoutFruitTicketTrackPlays.new.perform
     user.reload
     expect(user.fruit_ticket_balance).to eq 3
 

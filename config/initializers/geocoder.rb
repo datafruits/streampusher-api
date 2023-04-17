@@ -1,4 +1,6 @@
-redis = Redis.new(password: ENV['REDIS_PASSWORD'])
+redis_opts = {}
+redis_opts[:password] = ENV['REDIS_PASSWORD'] unless ENV['REDIS_PASSWORD'].nil?
+redis = Redis.new(**redis_opts)
 
 Geocoder.configure(
   # Geocoding options

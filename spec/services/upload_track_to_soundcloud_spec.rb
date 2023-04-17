@@ -3,6 +3,9 @@ describe UploadTrackToSoundcloud do
   before do
     Sidekiq::Testing.inline!
   end
+  after do
+    Sidekiq::Testing.disable!
+  end
 
   xit "uploads track to soundcloud account" do
     VCR.use_cassette(RSpec.current_example.metadata[:full_description].to_s) do
