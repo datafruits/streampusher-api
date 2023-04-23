@@ -1,4 +1,4 @@
-class Notification < ApplicatinoRecord
+class Notification < ApplicationRecord
   include RedisConnection
 
   after_create :send_notification
