@@ -11,27 +11,27 @@ class Notification < ApplicationRecord
     :banana_badge_award,
     :cabbage_badge_award,
     :watermelon_badge_award,
-    :level_up_award,
+    :level_up,
     :experience_point_award
   ]
 
   def message
     case self.notification_type
-    when :strawberry_badge_award
+    when "strawberry_badge_award"
       "#{self.user.username} got the strawbur badge!"
-    when :lemon_badge_award
+    when "lemon_badge_award"
       "#{self.user.username} got the lemoner badge!"
-    when :orange_badge_award
+    when "orange_badge_award"
       "#{self.user.username} got the orangey badge!"
-    when :banana_badge_award
+    when "banana_badge_award"
       "#{self.user.username} got the banaynay badge!"
-    when :cabbage_badge_award
+    when "cabbage_badge_award"
       "#{self.user.username} got the evil cabbage badge!"
-    when :watermelon_badge_award
+    when "watermelon_badge_award"
       "#{self.user.username} got the watermel badge!"
-    when :level_up
+    when "level_up"
       "#{self.user.username} reached level #{self.user.level}!"
-    when :experience_point_award
+    when "experience_point_award"
       "You got #{self.source.amount} #{self.source.award_type} points!"
     end
   end
@@ -42,7 +42,7 @@ class Notification < ApplicationRecord
       # TODO
       # send to chat
       #
-      redis.publish "datafruits:user_notifications", self.to_json
+      redis.publish "datafruits:user_notifications", self.message
     end
   end
 end
