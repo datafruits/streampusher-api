@@ -1,7 +1,3 @@
 class NotificationSerializer < ActiveModel::Serializer
-  attributes :id, :created_at
-
-  def message
-    object.message
-  end
+  attributes :id, :created_at, :message
 end

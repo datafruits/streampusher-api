@@ -139,6 +139,7 @@ Rails.application.routes.draw do
     resources :wiki_pages, only: [:create, :destroy, :show, :index, :update]
     resources :scheduled_shows, only: [:show, :index]
     resources :track_favorites, only: [:create, :destroy]
+    resources :notifications, only: [:index]
   end
 
   post "/setup" => "setup#create"

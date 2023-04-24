@@ -2,6 +2,7 @@ class Notification < ApplicationRecord
   include RedisConnection
 
   after_create :send_notification
+  before_save :set_message
 
   belongs_to :user
   enum notification_type: [
@@ -15,8 +16,9 @@ class Notification < ApplicationRecord
     :experience_point_award
   ]
 
-  def message
-    case self.notification_type
+  private
+  def set_message
+    self.message = case self.notification_type
     when "strawberry_badge_award"
       "#{self.user.username} got the strawbur badge!"
     when "lemon_badge_award"
@@ -36,12 +38,8 @@ class Notification < ApplicationRecord
     end
   end
 
-  private
   def send_notification
     if self.send_to_chat?
-      # TODO
-      # send to chat
-      #
       redis.publish "datafruits:user_notifications", self.message
     end
   end
