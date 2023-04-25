@@ -13,6 +13,7 @@ class BadgeAwardsWorker < ActiveJob::Base
         if count.to_i >= AWARD_THRESHOLD && !user.roles.include?(fruit)
           user.add_role fruit
           user.save
+          Notification.create notification_type: "#{fruit}_badge_award", user: user, send_to_chat: true
         end
       end
     end

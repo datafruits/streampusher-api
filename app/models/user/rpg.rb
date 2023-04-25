@@ -22,5 +22,6 @@ module User::Rpg
   def level_up!
     self.level += 1
     self.save!
+    Notification.create notification_type: "level_up", user: self, send_to_chat: true
   end
 end
