@@ -7,11 +7,11 @@ class ExperiencePointAward < ApplicationRecord
   enum award_type: [
     :chat_lurker, # lurking in chat
     :music_enjoyer, # listening to stream or podcasts
-    :textbox_poster, # posting chats
-    :uploaderer, # uploading podcast
+    :textbox_like, # posting chats
+    :uploaderzog, # uploading podcast
     :radio_enthusiast, # scheduling show
     :fruit_maniac, # clicking fruit buttons
-    :streaming_streamer, # streaming live
+    :streamingatron, # streaming live
   ]
 
   private
