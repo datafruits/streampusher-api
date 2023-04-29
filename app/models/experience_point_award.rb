@@ -1,5 +1,6 @@
 class ExperiencePointAward < ApplicationRecord
   belongs_to :user
+  belongs_to :source, polymorphic: true
 
   after_save :maybe_level_up
   after_save :send_notification

@@ -39,6 +39,6 @@ RSpec.describe PlaylistTrack, :type => :model do
     radio.update default_playlist_id: playlist.id
     track = FactoryBot.create :track, uploaded_by: user, radio: radio
     playlist_track = PlaylistTrack.create! playlist: playlist, track: track
-    expect(user.experience_points).to eq 20
+    expect(user.experience_points).to eq 30
   end
 end

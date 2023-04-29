@@ -29,7 +29,7 @@ class PlaylistTrack < ActiveRecord::Base
           amount += 10
         end
       end
-      ExperiencePointAward.create! user: self.track.uploaded_by, source: self, amount: amount, type: :uploaderzog
+      ExperiencePointAward.create! user: self.track.uploaded_by, source: self, amount: amount, award_type: :uploaderzog
     end
   end
 end
