@@ -5,6 +5,7 @@ class Notification < ApplicationRecord
   before_save :set_message
 
   belongs_to :user
+  belongs_to :source, polymorphic: true
   enum notification_type: [
     :strawberry_badge_award,
     :lemon_badge_award,
