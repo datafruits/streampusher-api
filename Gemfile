@@ -85,7 +85,6 @@ gem 'html-pipeline'
 gem 'commonmarker'
 gem 'github-markdown'
 
-gem 'geocoder'
 gem 'ruby-liquidsoap', github: 'streampusher/ruby-liquidsoap', :require => 'liquidsoap'
 
 gem 'friendly_id'

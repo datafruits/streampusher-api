@@ -1596,7 +1596,6 @@ GEM
     fugit (1.8.1)
       et-orbi (~> 1, >= 1.2.7)
       raabro (~> 1.4)
-    geocoder (1.8.1)
     github-markdown (0.6.9)
     globalid (1.1.0)
       activesupport (>= 5.0)
@@ -1882,7 +1881,6 @@ DEPENDENCIES
   exception_notification
   factory_bot_rails
   friendly_id
-  geocoder
   github-markdown
   groupdate
   headless
