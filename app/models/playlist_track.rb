@@ -12,7 +12,7 @@ class PlaylistTrack < ActiveRecord::Base
   end
 
   def maybe_give_xp
-    if self.playlist.id == self.track.radio.default_playlist_id
+    if (self.playlist.id == self.track.radio.default_playlist_id) && self.track.uploaded_by.present?
       amount = 20
       if self.track.artwork.present?
         amount += 15
