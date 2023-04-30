@@ -81,10 +81,6 @@ gem 'whenever', require: false
 
 gem 'recurrence'
 
-gem 'html-pipeline'
-gem 'commonmarker'
-gem 'github-markdown'
-
 gem 'geocoder'
 gem 'ruby-liquidsoap', github: 'streampusher/ruby-liquidsoap', :require => 'liquidsoap'
 
