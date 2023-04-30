@@ -30,4 +30,15 @@ RSpec.describe PlaylistTrack, :type => :model do
     expect(SavePlaylistToRedisWorker).to receive(:perform_later).with(playlist.id)
     playlist_track.destroy
   end
+
+  it "gives you XP if you added to the default_playlist_id" do
+    radio = FactoryBot.create :radio
+    user = FactoryBot.create :user
+    user.radios << radio
+    playlist = FactoryBot.create :playlist, radio: radio
+    radio.update default_playlist_id: playlist.id
+    track = FactoryBot.create :track, uploaded_by: user, radio: radio
+    playlist_track = PlaylistTrack.create! playlist: playlist, track: track
+    expect(user.experience_points).to eq 30
+  end
 end
