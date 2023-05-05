@@ -3,7 +3,7 @@ class ScheduledShowSerializer < ActiveModel::Serializer
   include ApplicationHelper
   include ActionView::Helpers::SanitizeHelper
   attributes :id, :start, :end, :title, :image_url, :thumb_image_url, :tweet_content, :description,
-    :html_description, :slug, :recurring_interval, :hosted_by, :is_guest, :guest, :playlist_id, :image, :image_filename
+    :slug, :recurring_interval, :hosted_by, :is_guest, :guest, :playlist_id, :image, :image_filename
 
   has_many :tracks, embed: :ids, key: :tracks
   has_many :djs, embed: :ids, key: :djs
@@ -26,10 +26,6 @@ class ScheduledShowSerializer < ActiveModel::Serializer
     else
       return []
     end
-  end
-
-  def html_description
-    html_pipeline(object.description)
   end
 
   def image_url
