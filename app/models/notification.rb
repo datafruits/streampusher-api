@@ -14,6 +14,9 @@ class Notification < ApplicationRecord
     :banana_badge_award,
     :cabbage_badge_award,
     :watermelon_badge_award,
+    :dj_badge_award,
+    :vj_badge_award,
+    :supporter_badge_award,
     :level_up,
     :experience_point_award
   ]
@@ -33,6 +36,12 @@ class Notification < ApplicationRecord
       "#{self.user.username} got the evil cabbage badge!"
     when "watermelon_badge_award"
       "#{self.user.username} got the watermel badge!"
+    when "dj_badge_award"
+      "#{self.user.username} got the DJ badge!"
+    when "vj_badge_award"
+      "#{self.user.username} got the VJ badge!"
+    when "supporter_badge_award"
+      "#{self.user.username} got the supporter badge!"
     when "level_up"
       "#{self.user.username} reached level #{self.user.level}!"
     when "experience_point_award"
