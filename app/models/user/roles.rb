@@ -29,8 +29,10 @@ module User::Roles
     unless self.role.include? new_role
       self.role << " #{new_role}"
       self.save!
-      Notification.create notification_type: "#{new_role}_badge_award", user_id: self.id, send_to_chat: true
-      ActiveSupport::Notifications.instrument 'user.badge_award', username: self.username, badge: new_role
+      if BADGE_ROLES.include? self.role
+        Notification.create notification_type: "#{new_role}_badge_award", user_id: self.id, send_to_chat: true
+        ActiveSupport::Notifications.instrument 'user.badge_award', username: self.username, badge: new_role
+      end
     end
   end
 
