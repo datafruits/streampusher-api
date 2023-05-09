@@ -87,7 +87,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_09_20_032802) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "source_type"
-    t.index ["source_id", "award_type"], name: "index_experience_point_awards_on_source_id_and_award_type", unique: true
+    t.index ["source_id", "award_type", "user_id"], name: "index_xp_awards_on_sid_award_type_uid", unique: true
     t.index ["user_id"], name: "index_experience_point_awards_on_user_id"
   end
 
