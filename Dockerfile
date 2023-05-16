@@ -15,13 +15,7 @@ RUN apt-get install -y build-essential libtag1-dev libffi-dev \
 # for ruby
 RUN apt-get install -y --force-yes libssl-dev libreadline-dev zlib1g-dev
 
-# yarn
-RUN sudo apt-get install apt-transport-https
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-RUN sudo apt-get update && sudo apt-get install -y yarn
-
-RUN apt-get clean
+# RUN apt-get clean
 
 # add user
 RUN groupadd -g 1000 rails && useradd --create-home -s /bin/bash -u 1000 -g 1000 rails ;\
@@ -34,7 +28,7 @@ RUN gpasswd -a rails docker
 USER rails
 ENV HOME /home/rails
 # Install rbenv and ruby-build
-ENV RUBY_VERSION 3.1.2
+ENV RUBY_VERSION 3.2.2
 RUN git clone https://github.com/rbenv/rbenv.git /home/rails/.rbenv
 RUN git clone https://github.com/rbenv/ruby-build.git /home/rails/.rbenv/plugins/ruby-build
 RUN echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> /home/rails/.bashrc
@@ -50,19 +44,6 @@ RUN rbenv exec gem install bundler
 RUN rbenv rehash
 RUN rbenv exec bundle config --global github.https true
 
-# node
-ENV NODE_VERSION 6.17.0
-
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash \
-    && export NVM_DIR="$HOME/.nvm" \
-    && . $NVM_DIR/nvm.sh \
-    && nvm install $NODE_VERSION \
-    && nvm alias default $NODE_VERSION \
-    && nvm use default
-
-ENV NVM_DIR /home/rails/.nvm
-ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
-ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
 # Configure the main working directory. This is the base
 # # directory used in any further RUN, COPY, and ENTRYPOINT
 # # commands.
