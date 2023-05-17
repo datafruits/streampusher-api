@@ -13,7 +13,8 @@ RUN apt-get install -y build-essential libtag1-dev libffi-dev \
   xvfb firefox git curl sox libsox-fmt-mp3 libpq-dev imagemagick sudo postgresql-client
 
 # for ruby
-RUN apt-get install -y --force-yes libssl-dev libreadline-dev zlib1g-dev
+RUN apt-get install -y --force-yes autoconf patch build-essential rustc libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libgmp-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev uuid-dev
+
 
 # RUN apt-get clean
 
