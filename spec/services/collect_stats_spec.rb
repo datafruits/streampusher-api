@@ -3,7 +3,7 @@ require 'webmock/rspec'
 
 describe CollectStats do
   before :each do
-    Redis.current = MockRedis.new
+    StreamPusher.redis = MockRedis.new
   end
   xit "collects the stats from icecast's xml" do
     radio = FactoryBot.create :radio, name: "datafruits"

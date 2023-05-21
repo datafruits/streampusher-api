@@ -3,7 +3,7 @@ require 'uri'
 class RadioBooter
   def self.boot radio
     radio_name = radio.container_name
-    redis = Redis.current
+    redis = StreamPusher.redis
 
     image = radio.docker_image_name.present? ? radio.docker_image_name : 'mcfiredrill/liquidsoap:latest'
     name = "#{radio_name}_liquidsoap"
