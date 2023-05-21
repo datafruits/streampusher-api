@@ -6,6 +6,6 @@ describe StreamingExpAward do
     track = FactoryBot.create :track, uploaded_by: user
     StreamingExpAward.perform track
     expect(
-      ExperiencePointAward.where(award_type: "streaming_streamer", amount: track.length / 30, user: track.uploaded_by).count).to eq 1
+      ExperiencePointAward.where(award_type: :streamingatron, amount: track.length / 30, user: track.uploaded_by).count).to eq 1
   end
 end
