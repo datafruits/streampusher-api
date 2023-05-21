@@ -54,6 +54,7 @@ end
 
 group :development do
   gem 'bullet'
+  gem "ruby-lsp", require: false
 end
 
 group :production do
@@ -76,15 +77,11 @@ gem 'paperclip'
 gem "image_processing", ">= 1.2"
 
 gem 'rupeepeethree', github: "datafruits/rupeepeethree"
-gem "so_id3", github: "streampusher/so_id3"
+gem "so_id3", github: "streampusher/so_id3", branch: "rp3-bump"
 
 gem 'whenever', require: false
 
 gem 'recurrence'
-
-gem 'html-pipeline'
-gem 'commonmarker'
-gem 'github-markdown'
 
 gem 'geocoder'
 gem 'ruby-liquidsoap', github: 'streampusher/ruby-liquidsoap', :require => 'liquidsoap'

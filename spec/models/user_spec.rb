@@ -1,20 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe User, :type => :model do
-  let(:user){ User.create username: "mcfiredrill", time_zone: "Tokyo", role: "admin owner" }
+  let(:user){ User.create username: "mcfiredrill", time_zone: "Tokyo", role: "admin", email: "mcfiredrill@datafruits.fm", password: "abc12345678" }
   describe "username" do
     it "is set from email if no username is present" do
-      user = User.create email: "mcfiredrill@gmail.com", time_zone: "Tokyo", role: "admin owner"
+      user = User.create email: "mcfiredrill@gmail.com", time_zone: "Tokyo", role: "admin"
       expect(user.username).to eq "mcfiredrill"
     end
 
     it "downcases username" do
-      user = User.create username: "McFireDRILl", email: "mcfiredrill@gmail.com", time_zone: "Tokyo", role: "admin owner"
+      user = User.create username: "McFireDRILl", email: "mcfiredrill@gmail.com", time_zone: "Tokyo", role: "admin"
       expect(user.username).to eq "mcfiredrill"
     end
 
     it "only allows alphanumeric" do
-      user = User.create username: "McFirelLl@gmail.com", email: "mcfiredrill@gmail.com", time_zone: "Tokyo", role: "admin owner"
+      user = User.create username: "McFirelLl@gmail.com", email: "mcfiredrill@gmail.com", time_zone: "Tokyo", role: "admin"
       expect(user.valid?).to eq false
       expect(user.errors.messages[:username]).to eq ["must contain only alphanumeric characters"]
     end
@@ -24,7 +24,6 @@ RSpec.describe User, :type => :model do
     it "adds a new role" do
       user.add_role "dj"
       expect(user.roles.include?("admin")).to eq true
-      expect(user.roles.include?("owner")).to eq true
       expect(user.roles.include?("dj")).to eq true
     end
   end

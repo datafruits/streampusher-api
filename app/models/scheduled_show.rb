@@ -85,6 +85,7 @@ class ScheduledShow < ActiveRecord::Base
         if track
           liquidsoap.add_to_queue track.url
           puts "added to queue: #{track.url}"
+          ScheduledShowExpAwardWorker.perform_later self.id
         end
       end
     else

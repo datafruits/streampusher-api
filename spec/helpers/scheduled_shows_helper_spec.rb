@@ -12,6 +12,9 @@ RSpec.describe ScheduledShowsHelper, type: :helper do
     @end_at = Chronic.parse("today at 3:15 pm").utc
     @date = Date.today.strftime("%m%d%Y")
   end
+  after do
+    Sidekiq::Testing.disable!
+  end
 
   it 'shows the timezones' do
     Timecop.travel Chronic.parse("July 27 2090 at 08:00 am") do

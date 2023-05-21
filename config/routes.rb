@@ -143,6 +143,7 @@ Rails.application.routes.draw do
       resources :episodes, only: [:show]
     end
     resources :track_favorites, only: [:create, :destroy]
+    resources :notifications, only: [:index]
   end
 
   post "/setup" => "setup#create"

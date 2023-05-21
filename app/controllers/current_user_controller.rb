@@ -31,7 +31,7 @@ class CurrentUserController < ApplicationController
   private
   def user_params
     ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
-      :style, :avatar, :avatar_filename, :pronouns, :bio, :homepage
+      :style, :avatar, :avatar_filename, :pronouns, :bio, :homepage, :time_zone
     ])
   end
 end

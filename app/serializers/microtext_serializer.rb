@@ -1,5 +1,5 @@
 class MicrotextSerializer < ActiveModel::Serializer
-  attributes :content, :id, :username, :avatar_url
+  attributes :content, :id, :username, :avatar_url, :created_at
 
   def username
     object.user.username

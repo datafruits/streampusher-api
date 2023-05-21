@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_27_054312) do
+ActiveRecord::Schema.define(version: 2023_04_29_171319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 2023_03_27_054312) do
     t.integer "source_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "source_type"
     t.index ["user_id"], name: "index_experience_point_awards_on_user_id"
   end
 
@@ -182,6 +183,19 @@ ActiveRecord::Schema.define(version: 2023_03_27_054312) do
     t.boolean "archived", default: false, null: false
     t.index ["radio_id"], name: "index_microtexts_on_radio_id"
     t.index ["user_id"], name: "index_microtexts_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "notification_type", null: false
+    t.boolean "send_to_chat", default: false, null: false
+    t.boolean "send_to_user", default: true, null: false
+    t.integer "source_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "message", null: false
+    t.string "source_type"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "plans", id: :serial, force: :cascade do |t|
@@ -524,6 +538,7 @@ ActiveRecord::Schema.define(version: 2023_03_27_054312) do
     t.string "homepage"
     t.integer "fruit_ticket_balance", default: 0, null: false
     t.integer "experience_points", default: 0, null: false
+    t.integer "level", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

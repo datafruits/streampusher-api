@@ -3,8 +3,16 @@ class Api::WikiPagesController < ApplicationController
   before_action :current_radio_required
 
   def index
-    @wiki_pages = WikiPage.all.order("updated_at DESC")
-    render json: @wiki_pages
+    if(params[:q].present?)
+      @wiki_pages = WikiPage.where("title ilike (?)", "%#{params[:q]}%")
+    else
+      @wiki_pages = WikiPage.all.order("updated_at DESC")
+    end
+    if @wiki_pages.count > 0
+      render json: @wiki_pages
+    else
+      render json: { "error": "not found" } , status: 404
+    end
   end
 
   def show
@@ -16,7 +24,7 @@ class Api::WikiPagesController < ApplicationController
     authorize! :create, WikiPage
     @wiki_page = WikiPage.new
     if @wiki_page.save_new_edit! wiki_page_params.except(:summary), current_user.id
-      ActiveSupport::Notifications.instrument 'wiki_page.created', current_user: current_user.email, wiki_page: @wiki_page.title
+      ActiveSupport::Notifications.instrument 'wiki_page.created', username: current_user.username, wiki_page: @wiki_page.title, slug: @wiki_page.slug
       render json: @wiki_page, root: "wiki_page"
     else
       render json: { errors: @wiki_page.errors }, status: 422
@@ -26,7 +34,7 @@ class Api::WikiPagesController < ApplicationController
   def update
     @wiki_page = WikiPage.friendly.find(params[:id].downcase.gsub(" ", "-").gsub(/[^0-9a-z-]/i, ''))
     if @wiki_page.save_new_edit! wiki_page_params, current_user.id
-      ActiveSupport::Notifications.instrument 'wiki_page.updated', current_user: current_user.email, wiki_page: @wiki_page.title
+      ActiveSupport::Notifications.instrument 'wiki_page.updated', username: current_user.username, wiki_page: @wiki_page.title, slug: @wiki_page.slug
       render json: @wiki_page, root: "wiki_page"
     else
       render json: { errors: @wiki_page.errors }, status: 422
