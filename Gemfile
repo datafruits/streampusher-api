@@ -75,7 +75,7 @@ gem 'aws-sdk'
 gem 'paperclip'
 
 gem 'rupeepeethree', github: "datafruits/rupeepeethree"
-gem "so_id3", github: "streampusher/so_id3"
+gem "so_id3", github: "streampusher/so_id3", branch: "rp3-bump"
 
 gem 'whenever', require: false
 

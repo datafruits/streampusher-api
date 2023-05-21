@@ -1,10 +1,10 @@
 version: "3"
 services:
-  icecast:
-    image: "mcfiredrill/icecast:latest"
-    ports:
-      - "8000:8000"
-    restart: "always"
+  # icecast:
+  #   image: "mcfiredrill/icecast:latest"
+  #   ports:
+  #     - "8000:8000"
+  #   restart: "always"
   redis:
     image: "redis:latest"
     ports:
