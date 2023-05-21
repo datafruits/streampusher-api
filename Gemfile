@@ -1,6 +1,6 @@
 source 'https://rubygems.org/'
 
-gem 'rails', '6.1.7.1'
+gem 'rails', '6.1.7.3'
 gem 'pg'
 
 gem 'spring',        group: :development
@@ -22,6 +22,9 @@ gem 'rack-cors', :require => 'rack/cors'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
 gem 'rspec-rails', '~> 3.5.2', :group => [:development, :test]
+
+gem 'redis'
+gem 'connection_pool'
 
 gem 'dotenv-rails'
 gem 'unicorn'

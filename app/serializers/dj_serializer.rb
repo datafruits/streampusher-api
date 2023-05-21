@@ -23,6 +23,6 @@ class DjSerializer < ActiveModel::Serializer
   end
 
   def fruits_affinity
-    Redis.current.hgetall "datafruits:user_fruit_count:#{object.username}"
+    StreamPusher.redis.hgetall "datafruits:user_fruit_count:#{object.username}"
   end
 end
