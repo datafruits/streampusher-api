@@ -1,6 +1,6 @@
 # .github/workflows/ci.yml
 env:
-  RUBY_VERSION: 3.1.2
+  RUBY_VERSION: 3.2.2
   TEST_REDIS_PASS: testpass
 
 name: CI
