@@ -54,6 +54,7 @@ end
 
 group :development do
   gem 'bullet'
+  gem "ruby-lsp", require: false
 end
 
 group :production do
@@ -97,5 +98,3 @@ gem 'rack-mini-profiler'
 gem 'net-smtp', require: false
 gem 'net-imap', require: false
 gem 'net-pop', require: false
-
-gem 'ruby-lsp'
