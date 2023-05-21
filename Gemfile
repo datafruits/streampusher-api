@@ -23,6 +23,9 @@ gem 'sidekiq'
 gem 'sidekiq-scheduler'
 gem 'rspec-rails', '~> 3.5.2', :group => [:development, :test]
 
+gem 'redis'
+gem 'connection_pool'
+
 gem 'dotenv-rails'
 gem 'unicorn'
 

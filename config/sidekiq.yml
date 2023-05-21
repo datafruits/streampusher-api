@@ -3,7 +3,7 @@
   - mailers
   - monitor
   - process_recordings
-:schedule:
+:scheduler:
   badge_awards:
     every: 24h
     class: BadgeAwardsWorker
