@@ -83,7 +83,6 @@ gem 'whenever', require: false
 
 gem 'recurrence'
 
-gem 'geocoder'
 gem 'ruby-liquidsoap', github: 'streampusher/ruby-liquidsoap', :require => 'liquidsoap'
 
 gem 'friendly_id'
