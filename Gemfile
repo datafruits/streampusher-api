@@ -54,6 +54,7 @@ end
 
 group :development do
   gem 'bullet'
+  gem "ruby-lsp", require: false
 end
 
 group :production do
