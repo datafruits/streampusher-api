@@ -6,6 +6,7 @@ FROM ubuntu:latest
 # ENV LANG en_US.UTF-8
 
 ENV DEBIAN_FRONTEND noninteractive
+ARG DOCKER_GROUP_ID
 
 RUN apt update
 RUN apt upgrade -y
@@ -23,7 +24,7 @@ RUN groupadd -g 1000 rails && useradd --create-home -s /bin/bash -u 1000 -g 1000
  adduser rails sudo
 RUN echo "Defaults    !requiretty" >> /etc/sudoers
 RUN echo "%sudo ALL=NOPASSWD: ALL" >> /etc/sudoers
-RUN groupadd -g 999 docker
+RUN groupadd -g $DOCKER_GROUP_ID docker
 RUN gpasswd -a rails docker
 
 USER rails
