@@ -26,10 +26,6 @@ VCR.configure do |config|
     test_docker_uri
   end
 
-  config.define_cassette_placeholder("<STRIPE_KEY>") do
-    ENV['STRIPE_KEY']
-  end
-
   config.filter_sensitive_data("<S3_KEY>") do
     ENV.fetch 'S3_KEY', "x"*40
   end
