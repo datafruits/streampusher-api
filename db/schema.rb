@@ -360,9 +360,9 @@ ActiveRecord::Schema.define(version: 2023_04_29_171319) do
     t.string "title", null: false
     t.text "description"
     t.string "image_file_name"
+    t.integer "image_file_size"
     t.string "image_content_type"
-    t.bigint "image_file_size"
-    t.datetime "image_updated_at"
+    t.datetime "image_update_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "recurring", default: false, null: false
@@ -410,28 +410,6 @@ ActiveRecord::Schema.define(version: 2023_04_29_171319) do
     t.string "image_content_type"
     t.integer "image_file_size"
     t.datetime "image_updated_at"
-  end
-
-  create_table "shrimpo_entries", force: :cascade do |t|
-    t.bigint "shrimpo_id", null: false
-    t.bigint "user_id", null: false
-    t.string "title"
-    t.text "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["shrimpo_id"], name: "index_shrimpo_entries_on_shrimpo_id"
-    t.index ["user_id"], name: "index_shrimpo_entries_on_user_id"
-  end
-
-  create_table "shrimpos", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "title", null: false
-    t.datetime "start_at", null: false
-    t.datetime "end_at", null: false
-    t.text "rule_pack"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_shrimpos_on_user_id"
   end
 
   create_table "social_identities", id: :serial, force: :cascade do |t|
