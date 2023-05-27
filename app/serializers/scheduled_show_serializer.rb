@@ -30,13 +30,13 @@ class ScheduledShowSerializer < ActiveModel::Serializer
 
   def image_url
     if object.image.present?
-      object.image_url
+      CGI.unescape(object.image_url)
     end
   end
 
   def thumb_image_url
     if object.image.present?
-      object.thumb_image_url
+      CGI.unescape(object.thumb_image_url)
     end
   end
 

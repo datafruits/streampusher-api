@@ -7,7 +7,7 @@ class UserSerializer < ActiveModel::Serializer
 
   def avatar_url
     if object.image.present?
-      object.image.url(:thumb)
+      CGI.unescape(object.image.url(:thumb))
     end
   end
 
@@ -19,7 +19,7 @@ class UserSerializer < ActiveModel::Serializer
 
   def image_url
     if object.image.present?
-      object.image.url(:thumb)
+      CGI.unescape(object.image.url(:thumb))
     end
   end
 
