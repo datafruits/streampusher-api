@@ -10,6 +10,8 @@ services:
     ports:
       - "6379:6379"
     command: "redis-server --requirepass ${REDIS_PASSWORD}"
+    volumes:
+      - ./redis-data:/data
   postgres:
     image: "postgres:9.4"
     ports:
