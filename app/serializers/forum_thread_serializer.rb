@@ -27,6 +27,6 @@ class ForumThreadSerializer < ActiveModel::Serializer
       .map(&:user)
       .uniq
       .reject{|user| user == object.posts.first.user }
-      .map {|user| CGI.unescape(user.image.url(:thumb)})
+      .map {|user| CGI.unescape(user.image.url(:thumb))}
   end
 end
