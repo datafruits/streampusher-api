@@ -7,7 +7,7 @@ class MicrotextSerializer < ActiveModel::Serializer
 
   def avatar_url
     if object.user.image.present?
-      object.user.image.url(:thumb)
+      CGI.unescape(object.user.image.url(:thumb))
     end
   end
 end
