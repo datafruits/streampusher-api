@@ -20,19 +20,19 @@ class DjWithRelationshipsSerializer < ActiveModel::Serializer
 
   def image_url
     if object.image.present?
-      object.image.url
+      CGI.unescape(object.image.url)
     end
   end
 
   def image_thumb_url
     if object.image.present?
-      object.image.url(:thumb)
+      CGI.unescape(object.image.url(:thumb))
     end
   end
 
   def image_medium_url
     if object.image.present?
-      object.image.url(:medium)
+      CGI.unescape(object.image.url(:medium))
     end
   end
 end

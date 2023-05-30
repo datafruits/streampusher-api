@@ -7,7 +7,7 @@ class TrackSerializer < ActiveModel::Serializer
 
   def thumb_artwork_url
     if object.artwork.present?
-      object.thumb_artwork_url
+      CGI.unescape(object.thumb_artwork_url)
     end
   end
 

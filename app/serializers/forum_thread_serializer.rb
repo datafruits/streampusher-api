@@ -18,7 +18,7 @@ class ForumThreadSerializer < ActiveModel::Serializer
 
   def poster_avatar
     unless object.posts.empty?
-      object.posts.first.user.image.url(:thumb)
+      CGI.unescape(object.posts.first.user.image.url(:thumb))
     end
   end
 
@@ -27,6 +27,6 @@ class ForumThreadSerializer < ActiveModel::Serializer
       .map(&:user)
       .uniq
       .reject{|user| user == object.posts.first.user }
-      .map {|user| user.image.url(:thumb)}
+      .map {|user| CGI.unescape(user.image.url(:thumb))}
   end
 end

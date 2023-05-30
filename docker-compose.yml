@@ -16,6 +16,8 @@ services:
       - "6379:6379"
     restart: "always"
     command: "redis-server --requirepass ${REDIS_PASSWORD}"
+    volumes:
+      - ./redis-data:/data
   rails:
     image: "streampusher/streampusher:latest"
     user: rails
