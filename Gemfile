@@ -76,7 +76,7 @@ gem 'active_model_serializers', '~> 0.10.0'
 gem 'jsonapi-serializer'
 gem 'chronic'
 gem 'aws-sdk'
-gem 'paperclip'
+gem "kt-paperclip", "~> 6.4", ">= 6.4.1"
 
 gem 'rupeepeethree', github: "datafruits/rupeepeethree"
 gem "so_id3", github: "streampusher/so_id3", branch: "rp3-bump"
