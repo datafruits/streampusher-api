@@ -1634,6 +1634,12 @@ GEM
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
     kgio (2.11.4)
+    kt-paperclip (6.4.2)
+      activemodel (>= 4.2.0)
+      activesupport (>= 4.2.0)
+      mime-types
+      mimemagic (~> 0.3.0)
+      terrapin (~> 0.6.0)
     language_server-protocol (3.17.0.3)
     lograge (0.12.0)
       actionpack (>= 4)
@@ -1687,12 +1693,6 @@ GEM
       rack-protection
     optimist (3.0.1)
     orm_adapter (0.5.0)
-    paperclip (6.1.0)
-      activemodel (>= 4.2.0)
-      activesupport (>= 4.2.0)
-      mime-types
-      mimemagic (~> 0.3.0)
-      terrapin (~> 0.6.0)
     parallel (1.23.0)
     parser (3.2.2.1)
       ast (~> 2.4.1)
@@ -1904,13 +1904,13 @@ DEPENDENCIES
   image_processing (>= 1.2)
   jsonapi-serializer
   kaminari
+  kt-paperclip (~> 6.4, >= 6.4.1)
   lograge
   mock_redis
   net-imap
   net-pop
   net-smtp
   omniauth
-  paperclip
   pg
   pry-byebug
   rack-cors
