@@ -9,18 +9,28 @@ class Api::MyShowsController < ApplicationController
 
   def create
     authorize! :create, ShowSeries
-    if my_show_params[:image].present?
-      image = Paperclip.io_adapters.for(my_show_params[:image])
-      image.original_filename = my_show_params.delete(:image_filename)
-      show_series = ShowSeries.new my_show_params.except(:image_filename).merge({image: image})
+    if my_show_params[:recurring_interval] === "not_recurring"
+      guest_series = ShowSeries.find_by(title: "GuestFruits")
+      episode = guest_series.episodes.create my_show_params.except(:recurring_interval)
+      if episode.save
+        render json: guest_series
+      else
+        render json: { errors: guest_series.errors }, status: 422
+      end
     else
-      show_series = ShowSeries.new my_show_params.except(:image_filename).except(:image)
-    end
-    show_series.show_series_hosts.build user: current_user
-    if show_series.save
-      render json: show_series
-    else
-      render json: { errors: show_series.errors }, status: 422
+      if my_show_params[:image].present?
+        image = Paperclip.io_adapters.for(my_show_params[:image])
+        image.original_filename = my_show_params.delete(:image_filename)
+        show_series = ShowSeries.new my_show_params.except(:image_filename).merge({image: image})
+      else
+        show_series = ShowSeries.new my_show_params.except(:image_filename).except(:image)
+      end
+      show_series.show_series_hosts.build user: current_user
+      if show_series.save
+        render json: show_series
+      else
+        render json: { errors: show_series.errors }, status: 422
+      end
     end
   end
 
