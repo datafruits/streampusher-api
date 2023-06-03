@@ -14,8 +14,11 @@ class ShowSeries < ApplicationRecord
   # has_one_attached :image
   has_attached_file :image,
     styles: { :thumb => "x300", :medium => "x600" },
-    path: ":attachment/:style/:basename.:extension"
+    path: ":attachment/:style/:basename.:extension",
+    validate_media_type: false
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+
+  enum status: [:active, :archived, :disabled]
 
   enum recurring_interval: [:not_recurring, :day, :week, :month, :year, :biweek]
   enum recurring_weekday: [
@@ -64,16 +67,18 @@ class ShowSeries < ApplicationRecord
 
   private
   def recurring_cadence_is_unique
-    case self.recurring_interval
-    # TODO
-    # when "day"
-    when "week"
-      # scope by weekday
-    when "biweek"
-      # scope by week and weekday
-    when "month"
-      if ShowSeries.where(recurring_interval: self.recurring_interval, recurring_weekday: self.recurring_weekday, recurring_cadence: self.recurring_cadence).where.not(id: self.id).exists?
-        return self.errors.add(:recurring_cadence, "This monthly slot is already taken")
+    if self.active?
+      case self.recurring_interval
+      # TODO
+      # when "day"
+      when "week"
+        # scope by weekday
+      when "biweek"
+        # scope by week and weekday
+      when "month"
+        if ShowSeries.where(recurring_interval: self.recurring_interval, recurring_weekday: self.recurring_weekday, recurring_cadence: self.recurring_cadence).where.not(id: self.id).exists?
+          return self.errors.add(:recurring_cadence, "This monthly slot is already taken")
+        end
       end
     end
   end
