@@ -34,6 +34,10 @@ class Api::MyShowsController < ApplicationController
     end
   end
 
+  def update
+    authorize! :create, ShowSeries
+  end
+
   private
   def my_show_params
     ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
