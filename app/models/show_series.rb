@@ -8,7 +8,7 @@ class ShowSeries < ApplicationRecord
   has_many :show_series_labels, dependent: :destroy
   has_many :labels, through: :show_series_labels
 
-  has_many :episodes, class_name: "::ScheduledShows"
+  has_many :episodes, class_name: "::ScheduledShow"
   
   # TODO move to active storage I guess?
   # has_one_attached :image
