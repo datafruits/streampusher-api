@@ -1,4 +1,10 @@
 class Api::MyShowsController < ApplicationController
+  def show
+    show_series = ShowSeries.friendly.find params[:id]
+
+    render json: show_series
+  end
+
   def index
     authorize! :index, :my_shows
 
