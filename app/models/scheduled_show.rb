@@ -1,4 +1,5 @@
 class ScheduledShow < ActiveRecord::Base
+  # episode
   include RedisConnection
 
   extend FriendlyId
@@ -49,6 +50,8 @@ class ScheduledShow < ActiveRecord::Base
   before_save :add_performers
 
   enum recurring_interval: [:not_recurring, :day, :week, :month, :year, :biweek]
+
+  enum status: [:archive_unpublished, :archive_published]
 
   def self.recurring_interval_attributes_for_select
     recurring_intervals.map do |recurring_interval, _|
@@ -309,6 +312,8 @@ class ScheduledShow < ActiveRecord::Base
   def update_all_recurrences?
     ActiveModel::Type::Boolean.new.cast update_all_recurrences
   end
+
+  private
 
   def is_original_recurrant?
     !self.recurrant_original_id.present?
