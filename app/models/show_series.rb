@@ -1,6 +1,6 @@
 class ShowSeries < ApplicationRecord
   extend FriendlyId
-  friendly_id :title, use: :slugged
+  friendly_id :slug_candidates, use: :slugged
 
   has_many :show_series_hosts, class_name: "::ShowSeriesHost", dependent: :destroy
   has_many :users, through: :show_series_hosts
@@ -63,6 +63,13 @@ class ShowSeries < ApplicationRecord
       options[:every] = "week"
     end
     Recurrence.new(options).events
+  end
+
+  def slug_candidates
+    [
+      [:title],
+      [:title, :id]
+    ]
   end
 
   private
