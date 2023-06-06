@@ -2,7 +2,7 @@ class Api::MyShowsController < ApplicationController
   def show
     show_series = ShowSeries.friendly.find params[:id]
 
-    render json: show_series
+    render json: show_series, include: 'episodes'
   end
 
   def index

@@ -3,11 +3,16 @@ class ScheduledShowSerializer < ActiveModel::Serializer
   include ApplicationHelper
   include ActionView::Helpers::SanitizeHelper
   attributes :id, :start, :end, :title, :image_url, :thumb_image_url, :tweet_content, :description,
-    :slug, :recurring_interval, :hosted_by, :is_guest, :guest, :playlist_id, :image, :image_filename
+    :slug, :recurring_interval, :hosted_by, :is_guest, :guest, :playlist_id, :image, :image_filename, :formatted_episode_title
 
   has_many :tracks, embed: :ids, key: :tracks
   has_many :djs, embed: :ids, key: :djs
   belongs_to :playlist
+  belongs_to :show_series
+
+  def formatted_episode_title
+    "#{object.title} - #{object.start.strftime("%m%d%Y")}"
+  end
 
   def hosted_by
     if object.performers.any?
