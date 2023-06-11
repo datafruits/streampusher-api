@@ -1,11 +1,11 @@
 class ShowSeriesSerializer < ActiveModel::Serializer
   attributes :id, :recurring_interval, :recurring_cadence, :recurring_weekday, :title, :description,
     :image_url, :thumb_image_url, :image, :image_filename, :slug
-  has_many :episodes, embed: :ids, key: :episodes, embed_in_root: true, each_serializer: ScheduledShowSerializer
-
-  def episodes
-    object.episodes
-  end
+  # has_many :episodes, embed: :ids, key: :episodes, embed_in_root: true, each_serializer: ScheduledShowSerializer
+  #
+  # def episodes
+  #   object.episodes
+  # end
 
   def image_url
     if object.image.present?

@@ -34,6 +34,9 @@ class ShowSeries < ApplicationRecord
 
   validate :recurring_cadence_is_unique
 
+  # after_create :save_recurrences_in_background_on_create, if: :recurring?
+  # after_update :update_recurrences_in_background, if: :recurring_or_recurrence?
+
   def image_url
     self.image.url(:original)
   end
