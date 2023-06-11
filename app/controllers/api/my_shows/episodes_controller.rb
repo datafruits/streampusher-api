@@ -16,4 +16,14 @@ class Api::MyShows::EpisodesController < ApplicationController
       render json: @scheduled_show.errors, status: :unprocessable_entity
     end
   end
+
+  private
+  def create_params
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :title, :radio_id, :start_at,
+      :end_at, :description, :image, :image_filename,
+      :recurring_interval, :playlist, :time_zone,
+      :start, :end, :is_guest, :guest, :is_live,
+    ])
+  end
 end

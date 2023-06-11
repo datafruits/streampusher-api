@@ -119,7 +119,7 @@ Rails.application.routes.draw do
   # meant only for consumption by datafruits frontend app
   namespace :api do
     resources :my_shows, only: [:index, :create, :update, :destroy, :show] do
-      resources :episodes, only: [:update]
+      resources :episodes, only: [:update], controller: 'my_shows/episodes'
     end
     resources :show_series, only: [:index, :show] do
       resources :episodes, only: [:index, :show], controller: 'show_series/episodes'
