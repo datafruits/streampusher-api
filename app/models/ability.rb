@@ -14,6 +14,7 @@ class Ability
       can :index, :current_user
       can :create, ForumThread
       can :create, ShowSeries
+      can :update, ShowSeries
       can :index, :my_shows
     elsif user.manager?
       can :index, :current_user
@@ -134,6 +135,9 @@ class Ability
       can :update, WikiPage
       can :create, ForumThread
       can :create, ShowSeries
+      can :update, ShowSeries do |show_series|
+        show_series.users.include?(user)
+      end
 
       can :index, :my_shows
 

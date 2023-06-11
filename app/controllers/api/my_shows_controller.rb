@@ -41,7 +41,20 @@ class Api::MyShowsController < ApplicationController
   end
 
   def update
-    authorize! :create, ShowSeries
+    show_series = ShowSeries.friendly.find params[:id]
+    authorize! :update, show_series
+    if my_show_params[:image].present?
+      image = Paperclip.io_adapters.for(my_show_params[:image])
+      image.original_filename = my_show_params.delete(:image_filename)
+      show_series = ShowSeries.new my_show_params.except(:image_filename).merge({image: image})
+    else
+      show_series = ShowSeries.new my_show_params.except(:image_filename).except(:image)
+    end
+    if show_series.save
+      render json: show_series
+    else
+      render json: { errors: show_series.errors }, status: 422
+    end
   end
 
   private
