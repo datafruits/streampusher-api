@@ -35,7 +35,7 @@ class Api::MyShowsController < ApplicationController
       if show_series.save
         render json: show_series
       else
-        render json: { errors: show_series.errors }, status: 422
+        render json: { errors: [show_series.errors] }, status: 422
       end
     end
   end
@@ -53,7 +53,7 @@ class Api::MyShowsController < ApplicationController
     if show_series.save
       render json: show_series
     else
-      render json: { errors: show_series.errors }, status: 422
+      render json: { errors: [show_series.errors] }, status: 422
     end
   end
 
