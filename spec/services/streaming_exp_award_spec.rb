@@ -9,7 +9,8 @@ describe StreamingExpAward do
     track = FactoryBot.create :track, uploaded_by: user, radio: radio
     show = FactoryBot.create :scheduled_show, start_at: 1.hours.from_now, end_at: 2.hours.from_now, playlist: playlist, dj: user, radio: radio
     show.performers << user2
-    StreamingExpAward.perform track, show
+    track.update scheduled_show_id: show.id
+    StreamingExpAward.perform track
     expect(
       ExperiencePointAward.where(award_type: :streamingatron, amount: track.length / 30, user: user).count).to eq 1
     expect(
