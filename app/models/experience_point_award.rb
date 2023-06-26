@@ -17,7 +17,8 @@ class ExperiencePointAward < ApplicationRecord
 
   private
   def maybe_level_up
-    self.user.update experience_points: self.amount
+    xp = self.amount + self.user.experience_points
+    self.user.update experience_points: xp
     while self.user.should_level_up?
       if self.user.should_level_up?
         self.user.level_up!
