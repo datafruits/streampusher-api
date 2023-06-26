@@ -3,6 +3,13 @@ require 'rails_helper'
 RSpec.describe ExperiencePointAward, type: :model do
   let(:user){ User.create username: "mcfiredrill", time_zone: "Tokyo", role: "admin owner" }
   describe "leveling up" do
+    it "accumulates xp" do
+      user = FactoryBot.create :user
+
+      ExperiencePointAward.create user: user, amount: 1000, award_type: :music_enjoyer
+      ExperiencePointAward.create user: user, amount: 1000, award_type: :music_enjoyer
+      expect(user.experience_points).to eq 2000
+    end
     it "shows required xp to level up" do
       user = FactoryBot.create :user
 
