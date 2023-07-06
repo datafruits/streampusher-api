@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_03_230331) do
+ActiveRecord::Schema.define(version: 2023_07_04_195025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -376,6 +376,8 @@ ActiveRecord::Schema.define(version: 2023_06_03_230331) do
     t.datetime "end_date"
     t.string "slug"
     t.integer "status", default: 0, null: false
+    t.integer "radio_id", default: 1, null: false
+    t.integer "default_playlist_id"
     t.index ["slug"], name: "index_show_series_on_slug", unique: true
   end
 

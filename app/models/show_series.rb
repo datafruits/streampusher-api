@@ -2,6 +2,8 @@ class ShowSeries < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
+  belongs_to :radio
+  belongs_to :default_playlist, class_name: "Playlist"
   has_many :show_series_hosts, class_name: "::ShowSeriesHost", dependent: :destroy
   has_many :users, through: :show_series_hosts
 
@@ -34,7 +36,7 @@ class ShowSeries < ApplicationRecord
 
   validate :recurring_cadence_is_unique
 
-  # after_create :save_recurrences_in_background_on_create, if: :recurring?
+  after_create :save_recurrences_in_background_on_create, if: :recurring?
   # after_update :update_recurrences_in_background, if: :recurring_or_recurrence?
 
   def image_url
@@ -45,27 +47,22 @@ class ShowSeries < ApplicationRecord
     self.image.url(:thumb)
   end
 
-  def save_recurrences
-# # Monthly by week day
-# r = Recurrence.new(every: :month, on: :first, weekday: :sunday)
-# r = Recurrence.new(every: :month, on: :third, weekday: :monday)
-# r = Recurrence.new(every: :month, on: :last,  weekday: :friday)
-# r = Recurrence.new(every: :month, on: :last,  weekday: :friday, interval: 2)
-# r = Recurrence.new(every: :month, on: :last,  weekday: :friday, interval: :quarterly)
-# r = Recurrence.new(every: :month, on: :last,  weekday: :friday, interval: :semesterly)
-# r = Recurrence.new(every: :month, on: :last,  weekday: :friday, repeat: 3)
-  end
-
-  def recurrence_times options={}
-    options = {:every => self.recurring_interval}.merge(options)
-    options[:on] = self.recurring_cadence.downcase.to_sym
-    options[:weekday] = self.recurring_weekday.downcase.to_sym
-
-    if options[:every] == "biweek"
+  def recurrences
+    options = { every: self.recurring_interval.to_sym }
+    case self.recurring_interval.to_sym
+    # TODO
+    # when "day"
+    when :week
+      options[:weekday] = self.recurring_weekday.downcase.to_sym
+    when :biweek
+      options[:every] = :week
+      options[:weekday] = self.recurring_weekday.downcase.to_sym
       options[:interval] = 2
-      options[:every] = "week"
+    when :month
+      options[:weekday] = self.recurring_weekday.downcase.to_sym
+      options[:on] = self.recurring_cadence.downcase.to_sym
     end
-    Recurrence.new(options).events
+    Recurrence.new options
   end
 
   def slug_candidates
@@ -73,6 +70,27 @@ class ShowSeries < ApplicationRecord
       [:title],
       [:title, :id]
     ]
+  end
+
+  def save_episodes
+    if recurring?
+      recurrences.each do |r|
+        scheduled_show = self.episodes.new
+        scheduled_show.radio = self.radio
+        scheduled_show.dj = self.users.first # TODO drop dj_id from ScheduledShow?
+        scheduled_show.image = self.image if self.image.present?
+        scheduled_show.start_at = DateTime.new r.year, r.month, r.day, self.start_time.hour, self.start_time.min, self.start_time.sec, self.start_time.zone
+        scheduled_show.end_at = DateTime.new r.year, r.month, r.day, self.end_time.hour, self.end_time.min, self.end_time.sec, self.end_time.zone
+        scheduled_show.slug = nil
+        scheduled_show.title = "#{self.title} - #{scheduled_show.start_at.strftime("M%d%Y")}"
+        if self.default_playlist.present?
+          scheduled_show.playlist = self.default_playlist
+        else
+          scheduled_show.playlist = self.radio.default_playlist
+        end
+        scheduled_show.save!
+      end
+    end
   end
 
   private
@@ -91,5 +109,13 @@ class ShowSeries < ApplicationRecord
         end
       end
     end
+  end
+
+  def recurring?
+    !self.not_recurring?
+  end
+
+  def save_recurrences_in_background_on_create
+    SaveRecurringShowsWorker.perform_later self.id
   end
 end
