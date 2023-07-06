@@ -9,6 +9,7 @@ RSpec.describe ShowSeries, type: :model do
       Timecop.freeze Time.local(2015)
 
       @radio = Radio.create name: 'datafruits'
+      @dj = User.create role: 'dj', username: 'dakota', email: "dakota@gmail.com", password: "2boobies", time_zone: "UTC"
     end
 
     after do
@@ -17,8 +18,10 @@ RSpec.describe ShowSeries, type: :model do
     end
 
     it "saves recurring shows" do
-      show_series = ShowSeries.create title: "monthly jammer jam", recurring_interval: "month", recurring_weekday: 'Sunday', recurring_cadence: 'First', start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month, radio: @radio
-      expect(show_series.episodes.count).to eq 275
+      show_series = ShowSeries.new title: "monthly jammer jam", recurring_interval: "month", recurring_weekday: 'Sunday', recurring_cadence: 'First', start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month, radio: @radio
+      show_series.users << @dj
+      show_series.save!
+      expect(show_series.episodes.count).to eq 276
     end
 
     xit "creates a unique slug for each recurrence"
