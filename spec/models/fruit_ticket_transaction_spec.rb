@@ -77,4 +77,8 @@ RSpec.describe FruitTicketTransaction, type: :model do
       fruit_ticket_transaction.transact_and_save!
     end.to raise_error(ActiveRecord::RecordInvalid)
   end
+
+  it 'sends fruit ticket gifts to another user' do
+    # TODO
+  end
 end
