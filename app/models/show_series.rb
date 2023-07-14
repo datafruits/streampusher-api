@@ -34,10 +34,11 @@ class ShowSeries < ApplicationRecord
   ]
   enum recurring_cadence: ['First', 'Second', 'Third', 'Forth', 'Last']
 
+  validates_presence_of :title, :description
   validate :recurring_cadence_is_unique
 
   after_create :save_recurrences_in_background_on_create, if: :recurring?
-  # after_update :update_recurrences_in_background, if: :recurring_or_recurrence?
+  after_update :update_episodes_in_background, if: :should_update_episodes?
 
   def image_url
     self.image.url(:original)
@@ -93,6 +94,10 @@ class ShowSeries < ApplicationRecord
     end
   end
 
+  def update_episodes
+    # TODO
+  end
+
   private
   def recurring_cadence_is_unique
     if self.active?
@@ -117,5 +122,13 @@ class ShowSeries < ApplicationRecord
 
   def save_recurrences_in_background_on_create
     SaveRecurringShowsWorker.perform_later self.id
+  end
+
+  def should_update_episodes?
+    return start_time_changed? || end_time_changed? || image_changed? || description_changed? || title_changed?
+  end
+
+  def update_episodes_in_background
+    UpdateRecurringShowsWorker.perform_later self.id
   end
 end

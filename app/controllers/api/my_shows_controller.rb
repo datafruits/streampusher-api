@@ -17,7 +17,10 @@ class Api::MyShowsController < ApplicationController
     authorize! :create, ShowSeries
     if my_show_params[:recurring_interval] === "not_recurring"
       guest_series = ShowSeries.find_by(title: "GuestFruits")
-      episode = guest_series.episodes.create my_show_params.except(:recurring_interval)
+      episode = guest_series.episodes.new my_show_params.except(:recurring_interval, :start_date, :end_date, :start_time, :end_time)
+      episode.start_at = my_show_params[:start_time]
+      episode.end_at = my_show_params[:end_time]
+      # TODO image??
       if episode.save
         render json: guest_series
       else
