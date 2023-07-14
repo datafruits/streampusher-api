@@ -34,7 +34,16 @@ class Api::MyShowsController < ApplicationController
       else
         show_series = ShowSeries.new my_show_params.except(:image_filename).except(:image)
       end
-      show_series.show_series_hosts.build user: current_user
+      if users_params.has_key? :user_ids
+        users_params[:user_ids].each do |user_id|
+          show_series.show_series_hosts.build user_id: user_id
+        end
+      end
+      if labels_params.has_key? :label_ids
+        labels_params[:label_ids].each do |label_id|
+          show_series.show_series_labels.build label_id: label_id
+        end
+      end
       if show_series.save
         render json: show_series
       else
@@ -71,6 +80,18 @@ class Api::MyShowsController < ApplicationController
       :description, :image, :image_filename,
       :recurring_interval,
       :start, :end
+    ])
+  end
+
+  def labels_params
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :labels
+    ])
+  end
+
+  def users_params
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :users
     ])
   end
 end

@@ -12,7 +12,8 @@ class ScheduledShow < ActiveRecord::Base
   belongs_to :recurrant_original, class_name: "ScheduledShow"
   has_attached_file :image,
     styles: { :thumb => "x300", :medium => "x600" },
-    path: ":attachment/:style/:basename.:extension"
+    path: ":attachment/:style/:basename.:extension",
+    validate_media_type: false # TODO comment out for prod
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
   has_many :scheduled_show_labels, dependent: :destroy
