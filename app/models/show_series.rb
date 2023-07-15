@@ -125,7 +125,7 @@ class ShowSeries < ApplicationRecord
   end
 
   def should_update_episodes?
-    return start_time_changed? || end_time_changed? || image_changed? || description_changed? || title_changed?
+    return start_time_changed? || end_time_changed? || image_update_at_changed? || description_changed? || title_changed?
   end
 
   def update_episodes_in_background
