@@ -83,7 +83,7 @@ class ShowSeries < ApplicationRecord
         scheduled_show.start_at = DateTime.new r.year, r.month, r.day, self.start_time.hour, self.start_time.min, self.start_time.sec, self.start_time.zone
         scheduled_show.end_at = DateTime.new r.year, r.month, r.day, self.end_time.hour, self.end_time.min, self.end_time.sec, self.end_time.zone
         scheduled_show.slug = nil
-        scheduled_show.title = "#{self.title} - #{scheduled_show.start_at.strftime("M%d%Y")}"
+        scheduled_show.title = "#{self.title} - #{scheduled_show.start_at.strftime("%m%d%Y")}"
         if self.default_playlist.present?
           scheduled_show.playlist = self.default_playlist
         else
