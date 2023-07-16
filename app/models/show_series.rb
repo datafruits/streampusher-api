@@ -109,7 +109,7 @@ class ShowSeries < ApplicationRecord
       when "biweek"
         # scope by week and weekday
       when "month"
-        if ShowSeries.where(recurring_interval: self.recurring_interval, recurring_weekday: self.recurring_weekday, recurring_cadence: self.recurring_cadence).where.not(id: self.id).exists?
+        if ShowSeries.where(recurring_interval: self.recurring_interval, recurring_weekday: self.recurring_weekday, recurring_cadence: self.recurring_cadence, status: :active).where.not(id: self.id).exists?
           return self.errors.add(:recurring_cadence, "This monthly slot is already taken")
         end
       end
