@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_04_195025) do
+ActiveRecord::Schema.define(version: 2023_07_16_191245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,6 +195,7 @@ ActiveRecord::Schema.define(version: 2023_07_04_195025) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "message", null: false
     t.string "source_type"
+    t.boolean "read", default: false, null: false
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
@@ -369,7 +370,7 @@ ActiveRecord::Schema.define(version: 2023_07_04_195025) do
     t.boolean "recurring", default: false, null: false
     t.integer "recurring_interval", default: 0, null: false
     t.integer "recurring_weekday", default: 0, null: false
-    t.integer "recurring_cadence", default: 0, null: false
+    t.integer "recurring_cadence", default: 0
     t.datetime "start_time", null: false
     t.datetime "end_time", null: false
     t.datetime "start_date", null: false
