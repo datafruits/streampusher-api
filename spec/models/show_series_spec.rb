@@ -18,7 +18,7 @@ RSpec.describe ShowSeries, type: :model do
     end
 
     it "saves recurring shows" do
-      show_series = ShowSeries.new title: "monthly jammer jam", recurring_interval: "month", recurring_weekday: 'Sunday', recurring_cadence: 'First', start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month, radio: @radio
+      show_series = ShowSeries.new title: "monthly jammer jam", description: "wow", recurring_interval: "month", recurring_weekday: 'Sunday', recurring_cadence: 'First', start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month, radio: @radio
       show_series.users << @dj
       show_series.save!
       expect(show_series.episodes.count).to eq 276
