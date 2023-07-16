@@ -79,6 +79,8 @@ class Api::MyShowsController < ApplicationController
       :end_time,
       :description, :image, :image_filename,
       :recurring_interval,
+      :recurring_cadence,
+      :recurring_weekday,
       :start, :end
     ])
   end
