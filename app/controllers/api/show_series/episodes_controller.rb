@@ -1,6 +1,12 @@
 class Api::ShowSeries::EpisodesController < ApplicationController
   def index
-    episodes = ::ShowSeries.friendly.find(params[:show_series_id]).episodes.page(params[:page])
+    episodes = ::ShowSeries.friendly.find(params[:show_series_id]).episodes #.page(params[:page])
+    if params[:status] === "archive_published"
+      episodes = episodes.where(status: "archive_published")
+    elsif params[:status] === "archive_unpublished"
+      episodes = episodes.where(status: "archive_unpublished")
+    end
+    episodes = episodes.page(params[:page])
     render json: episodes
   end
 
