@@ -1,6 +1,6 @@
 require 'terrapin'
 
-class UFW
+class Ufw
   def self.open_port port
     line = Terrapin::CommandLine.new("sudo /usr/sbin/ufw", "allow #{port}")
     line.run

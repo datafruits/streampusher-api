@@ -1,6 +1,6 @@
 source 'https://rubygems.org/'
 
-gem 'rails', '6.1.7.3'
+gem 'rails', '7.0.5'
 gem 'pg'
 
 gem 'spring',        group: :development

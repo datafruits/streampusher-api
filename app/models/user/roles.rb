@@ -1,6 +1,6 @@
 module User::Roles
   extend ActiveSupport::Concern
-  VALID_ROLES = %w[admin dj manager listener vj supporter strawberry lemon orange cabbage banana watermelon]
+  VALID_ROLES = %w[admin dj manager listener vj supporter strawberry lemon orange cabbage banana watermelon pineapple]
 
   BADGE_ROLES = VALID_ROLES - %w[admin manager listener]
 
