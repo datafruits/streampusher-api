@@ -13,6 +13,8 @@ class ExperiencePointAward < ApplicationRecord
     :radio_enthusiast, # scheduling show
     :fruit_maniac, # clicking fruit buttons
     :streamingatron, # streaming live
+    :glorpy, # daily glorp lottery
+    :gloppy, # daily glop lottery
   ]
 
   private
