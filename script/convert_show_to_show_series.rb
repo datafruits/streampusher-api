@@ -25,6 +25,14 @@ shows.find_each do |show|
       end
       show_series.save!
       show.recurrences.update_all show_series_id: show_series.id
+      # TODO should we publish all archives???
+      show.recurrences.where("start_at <= ?", Time.now).find_each do |s|
+        if s.tracks.any?
+          # publish if show has tracks associated
+          s.update status: "archive_published"
+          puts "published archive"
+        end
+      end
     else
       puts "no dj present for this show :(...better fix it later!"
     end
