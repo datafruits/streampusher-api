@@ -67,7 +67,7 @@ end
 gem 'byebug'
 gem 'slackistrano', require: false
 gem 'httparty'
-gem 'exception_notification'
+gem 'exception_notification', github: "mcfiredrill/exception_notification"
 
 gem 'groupdate'
 gem 'acts_as_list'

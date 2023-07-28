@@ -8,6 +8,14 @@ GIT
       taglib-ruby (~> 1.1)
 
 GIT
+  remote: https://github.com/mcfiredrill/exception_notification.git
+  revision: baaef27bde3c039c84c239b6f78c67fd009e60a2
+  specs:
+    exception_notification (4.5.0)
+      actionmailer (>= 5.2, < 8)
+      activesupport (>= 5.2, < 8)
+
+GIT
   remote: https://github.com/streampusher/ruby-liquidsoap.git
   revision: 2af252ac058d329d48235205ad1d89c1b0ac9e1c
   specs:
@@ -1591,9 +1599,6 @@ GEM
     erubi (1.12.0)
     et-orbi (1.2.7)
       tzinfo
-    exception_notification (4.5.0)
-      actionmailer (>= 5.2, < 8)
-      activesupport (>= 5.2, < 8)
     excon (0.99.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -1889,7 +1894,7 @@ DEPENDENCIES
   docker-api (~> 2.2.0)
   dotenv-rails
   e2mmap
-  exception_notification
+  exception_notification!
   factory_bot_rails
   friendly_id
   groupdate
