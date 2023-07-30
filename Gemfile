@@ -90,6 +90,7 @@ gem 'ruby-liquidsoap', github: 'streampusher/ruby-liquidsoap', :require => 'liqu
 gem 'friendly_id'
 
 gem 'discord-notifier'
+gem 'slack-notifier'
 
 # gem 'bootsnap', require: false
 gem 'thwait'
