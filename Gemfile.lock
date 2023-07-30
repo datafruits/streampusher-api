@@ -1621,7 +1621,7 @@ GEM
     httparty (0.21.0)
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
-    i18n (1.13.0)
+    i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     jmespath (1.6.2)
     json (2.6.3)
@@ -1672,13 +1672,13 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.1.2)
-    mini_portile2 (2.8.2)
-    minitest (5.18.0)
+    mini_portile2 (2.8.4)
+    minitest (5.19.0)
     mock_redis (0.36.0)
       ruby2_keywords
     multi_json (1.15.0)
     multi_xml (0.6.0)
-    net-imap (0.3.4)
+    net-imap (0.3.7)
       date
       net-protocol
     net-pop (0.1.2)
@@ -1691,7 +1691,7 @@ GEM
       net-protocol
     net-ssh (7.1.0)
     nio4r (2.5.9)
-    nokogiri (1.15.2)
+    nokogiri (1.15.3)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     omniauth (2.1.1)
@@ -1716,7 +1716,7 @@ GEM
     puma (5.6.5)
       nio4r (~> 2.0)
     raabro (1.4.0)
-    racc (1.6.2)
+    racc (1.7.1)
     rack (2.2.7)
     rack-cors (2.0.1)
       rack (>= 2.0.0)
@@ -1740,11 +1740,13 @@ GEM
       activesupport (= 7.0.5)
       bundler (>= 1.15.0)
       railties (= 7.0.5)
-    rails-dom-testing (2.0.3)
-      activesupport (>= 4.2.0)
+    rails-dom-testing (2.1.1)
+      activesupport (>= 5.0.0)
+      minitest
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.5.0)
-      loofah (~> 2.19, >= 2.19.1)
+    rails-html-sanitizer (1.6.0)
+      loofah (~> 2.21)
+      nokogiri (~> 1.14)
     railties (7.0.5)
       actionpack (= 7.0.5)
       activesupport (= 7.0.5)
@@ -1823,6 +1825,7 @@ GEM
       rufus-scheduler (~> 3.2)
       sidekiq (>= 6, < 8)
       tilt (>= 1.4.0)
+    slack-notifier (2.4.0)
     slackistrano (4.0.1)
       capistrano (>= 3.8.1)
     sorbet-runtime (0.5.10914)
@@ -1841,7 +1844,7 @@ GEM
       e2mmap
     tilt (2.1.0)
     timecop (0.9.6)
-    timeout (0.3.2)
+    timeout (0.4.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     tzinfo-data (1.2023.3)
@@ -1926,6 +1929,7 @@ DEPENDENCIES
   selenium-webdriver (< 3.0)
   sidekiq
   sidekiq-scheduler
+  slack-notifier
   slackistrano
   so_id3!
   spring
