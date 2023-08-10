@@ -1,5 +1,5 @@
 class BadgeAwardsWorker < ActiveJob::Base
-  FRUITS = ["strawberry", "lemon", "orange", "cabbage", "banana", "watermelon", "pineapple"]
+  FRUITS = ["strawberry", "lemon", "orange", "cabbage", "banana", "watermelon", "pineapple", "limer", "dragionfruit", "blueberrinies", "beamsprout"]
   AWARD_THRESHOLD = 10_000
 
   include RedisConnection
