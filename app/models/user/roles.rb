@@ -34,7 +34,7 @@ module User::Roles
         ActiveSupport::Notifications.instrument 'user.badge_award', username: self.username, badge: new_role
       end
       if new_role === "dj"
-        DjAccountMailer.welcome_email(self.username, '', self.radios.first).deliver_later
+        DjAccountMailer.welcome_email(self, '', self.radios.first).deliver_later
       end
     end
   end
