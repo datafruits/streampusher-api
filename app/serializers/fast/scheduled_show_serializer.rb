@@ -12,13 +12,13 @@ class Fast::ScheduledShowSerializer
 
   attribute :image_url do |object|
     if object.image.present?
-      object.image_url
+      CGI.unescape(object.image_url)
     end
   end
 
   attribute :thumb_image_url do |object|
     if object.image.present?
-      object.thumb_image_url
+      CGI.unescape(object.thumb_image_url)
     end
   end
 

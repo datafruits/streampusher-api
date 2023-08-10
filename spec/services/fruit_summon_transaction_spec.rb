@@ -7,6 +7,7 @@ describe FruitTicketTransaction do
     entity = FruitSummonEntity.create!(name: 'metal_pineaple', cost: 200)
 
     fruit_summon = FruitSummonTransaction.perform 'metal_pineaple', user
+
     expect(fruit_summon.persisted?).to eq true
     expect(fruit_summon.user).to eq user
     expect(fruit_summon.fruit_summon_entity).to eq entity

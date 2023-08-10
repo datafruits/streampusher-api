@@ -38,6 +38,7 @@ Rails.application.configure do
 
   # Use a different logger for distributed setups.
   # config.logger = RemoteSyslogLogger.new('logs2.papertrailapp.com', 22006)
+  config.logger = Logger.new(Rails.root.join("log/production.log"))
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store

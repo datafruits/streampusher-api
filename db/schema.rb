@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_28_195834) do
-
+ActiveRecord::Schema[7.0].define(version: 2023_07_09_013526) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,8 +47,8 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
     t.integer "blog_post_id", null: false
     t.string "title", null: false
     t.text "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "published", default: false, null: false
     t.index ["blog_post_id"], name: "index_blog_post_bodies_on_blog_post_id"
   end
@@ -58,17 +57,17 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
     t.integer "blog_post_body_id"
     t.string "image_file_name"
     t.integer "filesize"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["blog_post_body_id"], name: "index_blog_post_images_on_blog_post_body_id"
   end
 
   create_table "blog_posts", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "radio_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "published_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "published_at", precision: nil
     t.index ["radio_id"], name: "index_blog_posts_on_radio_id"
     t.index ["user_id"], name: "index_blog_posts_on_user_id"
   end
@@ -78,15 +77,18 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
     t.integer "amount", null: false
     t.integer "award_type", null: false
     t.integer "source_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "source_type"
     t.index ["user_id"], name: "index_experience_point_awards_on_user_id"
   end
 
   create_table "forum_threads", force: :cascade do |t|
     t.string "title", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "slug"
+    t.index ["slug"], name: "index_forum_threads_on_slug", unique: true
   end
 
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
@@ -94,7 +96,7 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
     t.integer "sluggable_id", null: false
     t.string "sluggable_type", limit: 50
     t.string "scope"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
@@ -104,16 +106,16 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
   create_table "fruit_summon_entities", force: :cascade do |t|
     t.string "name", null: false
     t.integer "cost", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "fruit_summons", force: :cascade do |t|
     t.bigint "fruit_ticket_transaction_id", null: false
     t.bigint "user_id", null: false
     t.bigint "fruit_summon_entity_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["fruit_summon_entity_id"], name: "index_fruit_summons_on_fruit_summon_entity_id"
     t.index ["fruit_ticket_transaction_id"], name: "index_fruit_summons_on_fruit_ticket_transaction_id"
     t.index ["user_id"], name: "index_fruit_summons_on_user_id"
@@ -125,8 +127,8 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
     t.integer "amount", default: 0, null: false
     t.integer "from_user_id"
     t.integer "to_user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "host_applications", id: :serial, force: :cascade do |t|
@@ -138,8 +140,8 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
     t.text "desired_time", null: false
     t.string "time_zone", null: false
     t.string "other_comment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "approved", default: false, null: false
     t.string "homepage_url"
     t.index ["radio_id"], name: "index_host_applications_on_radio_id"
@@ -147,19 +149,19 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
 
   create_table "labels", id: :serial, force: :cascade do |t|
     t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "radio_id", null: false
     t.index ["radio_id"], name: "index_labels_on_radio_id"
   end
 
   create_table "listens", id: :serial, force: :cascade do |t|
     t.integer "radio_id"
-    t.string "ip_address", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "start_at"
-    t.datetime "end_at"
+    t.string "ip_address"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.datetime "start_at", precision: nil
+    t.datetime "end_at", precision: nil
     t.float "lat"
     t.float "lon"
     t.integer "icecast_listener_id", null: false
@@ -175,36 +177,50 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
     t.integer "radio_id", null: false
     t.string "content", null: false
     t.boolean "approved", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "archived", default: false, null: false
     t.index ["radio_id"], name: "index_microtexts_on_radio_id"
     t.index ["user_id"], name: "index_microtexts_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "notification_type", null: false
+    t.boolean "send_to_chat", default: false, null: false
+    t.boolean "send_to_user", default: true, null: false
+    t.integer "source_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "message", null: false
+    t.string "source_type"
+    t.boolean "read", default: false, null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "plans", id: :serial, force: :cascade do |t|
     t.decimal "price"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "name", default: "", null: false
   end
 
   create_table "playlist_tracks", id: :serial, force: :cascade do |t|
     t.integer "track_id", null: false
     t.integer "playlist_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "position"
-    t.datetime "podcast_published_date"
+    t.datetime "podcast_published_date", precision: nil
     t.index ["playlist_id"], name: "index_playlist_tracks_on_playlist_id"
     t.index ["track_id"], name: "index_playlist_tracks_on_track_id"
   end
 
   create_table "playlists", id: :serial, force: :cascade do |t|
     t.integer "radio_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string "name", limit: 255
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.string "name"
     t.integer "interpolated_playlist_id"
     t.integer "interpolated_playlist_track_play_count"
     t.integer "interpolated_playlist_track_interval_count"
@@ -223,18 +239,18 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
     t.string "title"
     t.string "link"
     t.string "description"
-    t.datetime "last_build_date"
+    t.datetime "last_build_date", precision: nil
     t.string "itunes_summary"
     t.string "itunes_name"
     t.string "itunes_email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "name", default: "", null: false
     t.integer "playlist_id"
     t.string "image_file_name"
     t.string "image_content_type"
-    t.integer "image_file_size"
-    t.datetime "image_updated_at"
+    t.bigint "image_file_size"
+    t.datetime "image_updated_at", precision: nil
     t.string "extra_tags"
     t.index ["playlist_id"], name: "index_podcasts_on_playlist_id"
     t.index ["radio_id"], name: "index_podcasts_on_radio_id"
@@ -245,28 +261,28 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
     t.string "postable_type", null: false
     t.bigint "postable_id", null: false
     t.text "body", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["postable_type", "postable_id"], name: "index_posts_on_postable"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "radios", id: :serial, force: :cascade do |t|
-    t.string "icecast_container_id", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string "name", limit: 255, default: "", null: false
-    t.string "liquidsoap_container_id", limit: 255
+    t.string "icecast_container_id"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.string "name", default: "", null: false
+    t.string "liquidsoap_container_id"
     t.integer "default_playlist_id"
     t.boolean "enabled", default: true, null: false
     t.boolean "vj_enabled", default: false, null: false
     t.boolean "podcasts_enabled", default: false, null: false
     t.boolean "stats_enabled", default: false, null: false
+    t.boolean "social_identities_enabled", default: false, null: false
     t.string "tunein_partner_id"
     t.string "tunein_partner_key"
     t.string "tunein_station_id"
     t.boolean "tunein_metadata_updates_enabled", default: false, null: false
-    t.boolean "social_identities_enabled", default: false, null: false
     t.string "container_name", null: false
     t.boolean "schedule_monitor_enabled", default: false, null: false
     t.string "show_share_url"
@@ -278,12 +294,12 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
   create_table "recordings", id: :serial, force: :cascade do |t|
     t.integer "radio_id", null: false
     t.integer "dj_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "path"
     t.integer "processing_status", default: 0, null: false
     t.integer "track_id"
-    t.datetime "file_created_at"
+    t.datetime "file_created_at", precision: nil
     t.index ["dj_id"], name: "index_recordings_on_dj_id"
     t.index ["radio_id"], name: "index_recordings_on_radio_id"
     t.index ["track_id"], name: "index_recordings_on_track_id"
@@ -292,8 +308,8 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
   create_table "scheduled_show_labels", id: :serial, force: :cascade do |t|
     t.integer "label_id"
     t.integer "scheduled_show_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["label_id"], name: "index_scheduled_show_labels_on_label_id"
     t.index ["scheduled_show_id", "label_id"], name: "index_scheduled_show_labels_on_scheduled_show_id_and_label_id", unique: true
     t.index ["scheduled_show_id"], name: "index_scheduled_show_labels_on_scheduled_show_id"
@@ -302,8 +318,8 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
   create_table "scheduled_show_performers", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.integer "scheduled_show_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["scheduled_show_id", "user_id"], name: "ssp_ssid_uid"
     t.index ["scheduled_show_id"], name: "index_scheduled_show_performers_on_scheduled_show_id"
     t.index ["user_id", "scheduled_show_id"], name: "index_scheduled_show_performers_on_uid_and_ssid", unique: true
@@ -312,15 +328,15 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
 
   create_table "scheduled_shows", id: :serial, force: :cascade do |t|
     t.integer "radio_id", null: false
-    t.datetime "start_at", null: false
-    t.datetime "end_at", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "start_at", precision: nil, null: false
+    t.datetime "end_at", precision: nil, null: false
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.text "description"
     t.string "image_file_name"
     t.string "image_content_type"
-    t.integer "image_file_size"
-    t.datetime "image_updated_at"
+    t.bigint "image_file_size"
+    t.datetime "image_updated_at", precision: nil
     t.integer "recurring_interval", default: 0, null: false
     t.boolean "recurrence", default: false, null: false
     t.integer "recurrant_original_id"
@@ -333,6 +349,7 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
     t.string "guest", default: "", null: false
     t.boolean "is_live", default: false, null: false
     t.integer "show_series_id"
+    t.integer "status", default: 0, null: false
     t.index ["dj_id"], name: "index_scheduled_shows_on_dj_id"
     t.index ["playlist_id"], name: "index_scheduled_shows_on_playlist_id"
     t.index ["radio_id"], name: "index_scheduled_shows_on_radio_id"
@@ -344,11 +361,24 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
     t.string "title", null: false
     t.text "description"
     t.string "image_file_name"
+    t.integer "image_file_size"
     t.string "image_content_type"
-    t.bigint "image_file_size"
-    t.datetime "image_updated_at"
+    t.datetime "image_update_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "recurring", default: false, null: false
+    t.integer "recurring_interval", default: 0, null: false
+    t.integer "recurring_weekday", default: 0, null: false
+    t.integer "recurring_cadence", default: 0, null: false
+    t.datetime "start_time", null: false
+    t.datetime "end_time", null: false
+    t.datetime "start_date", null: false
+    t.datetime "end_date"
+    t.string "slug"
+    t.integer "status", default: 0, null: false
+    t.integer "radio_id", default: 1, null: false
+    t.integer "default_playlist_id"
+    t.index ["slug"], name: "index_show_series_on_slug", unique: true
   end
 
   create_table "show_series_hosts", force: :cascade do |t|
@@ -372,18 +402,18 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
   end
 
   create_table "shows", id: :serial, force: :cascade do |t|
-    t.string "title", limit: 255, default: "", null: false
+    t.string "title", default: "", null: false
     t.integer "dj_id", null: false
     t.integer "radio_id", null: false
     t.text "description", default: "", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "playlist_id"
     t.string "color"
     t.string "image_file_name"
     t.string "image_content_type"
-    t.integer "image_file_size"
-    t.datetime "image_updated_at"
+    t.bigint "image_file_size"
+    t.datetime "image_updated_at", precision: nil
   end
 
   create_table "shrimpo_entries", force: :cascade do |t|
@@ -413,19 +443,18 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
     t.string "provider", default: "", null: false
     t.integer "user_id", null: false
     t.string "token"
-    t.string "string"
     t.string "token_secret"
     t.string "name", default: "", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["user_id"], name: "index_social_identities_on_user_id"
   end
 
   create_table "track_favorites", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "track_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["track_id"], name: "index_track_favorites_on_track_id"
     t.index ["user_id", "track_id"], name: "index_track_favorites_on_user_id_and_track_id", unique: true
     t.index ["user_id"], name: "index_track_favorites_on_user_id"
@@ -434,37 +463,37 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
   create_table "track_labels", id: :serial, force: :cascade do |t|
     t.integer "label_id", null: false
     t.integer "track_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["label_id"], name: "index_track_labels_on_label_id"
     t.index ["track_id", "label_id"], name: "index_track_labels_on_track_id_and_label_id", unique: true
     t.index ["track_id"], name: "index_track_labels_on_track_id"
   end
 
   create_table "tracks", id: :serial, force: :cascade do |t|
-    t.string "audio_file_name", limit: 255
+    t.string "audio_file_name"
     t.integer "radio_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "description", default: "", null: false
     t.string "artist"
     t.string "title"
     t.string "album"
     t.integer "year"
     t.integer "track"
+    t.integer "length"
     t.integer "filesize", default: 0, null: false
     t.integer "tag_processing_status", default: 0, null: false
-    t.integer "length"
     t.string "artwork_file_name"
     t.string "artwork_content_type"
-    t.integer "artwork_file_size"
-    t.datetime "artwork_updated_at"
+    t.bigint "artwork_file_size"
+    t.datetime "artwork_updated_at", precision: nil
     t.integer "mixcloud_upload_status", default: 0, null: false
     t.string "mixcloud_key"
-    t.integer "uploaded_by_id"
-    t.integer "scheduled_show_id"
     t.integer "soundcloud_upload_status", default: 0, null: false
     t.string "soundcloud_key"
+    t.integer "uploaded_by_id"
+    t.integer "scheduled_show_id"
     t.string "youtube_link"
     t.index ["radio_id"], name: "index_tracks_on_radio_id"
     t.index ["scheduled_show_id"], name: "index_tracks_on_scheduled_show_id"
@@ -474,44 +503,45 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
   create_table "user_radios", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "radio_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["radio_id"], name: "index_user_radios_on_radio_id"
     t.index ["user_id", "radio_id"], name: "index_user_radios_on_user_id_and_radio_id", unique: true
     t.index ["user_id"], name: "index_user_radios_on_user_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
-    t.string "email", limit: 255, default: "", null: false
-    t.string "encrypted_password", limit: 255, default: "", null: false
-    t.string "reset_password_token", limit: 255
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string "current_sign_in_ip", limit: 255
-    t.string "last_sign_in_ip", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string "role", limit: 255
-    t.string "username", limit: 255, default: "", null: false
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.string "role"
+    t.string "username", default: "", null: false
     t.string "time_zone"
     t.string "display_name", default: "", null: false
-    t.datetime "deleted_at"
+    t.datetime "deleted_at", precision: nil
     t.boolean "enabled", default: true, null: false
     t.string "referer"
     t.text "bio"
     t.string "image_file_name"
     t.string "image_content_type"
-    t.integer "image_file_size"
-    t.datetime "image_updated_at"
+    t.bigint "image_file_size"
+    t.datetime "image_updated_at", precision: nil
     t.boolean "profile_publish", default: false, null: false
     t.integer "style", default: 0, null: false
     t.string "pronouns", default: "", null: false
     t.string "homepage"
     t.integer "fruit_ticket_balance", default: 0, null: false
     t.integer "experience_points", default: 0, null: false
+    t.integer "level", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -522,7 +552,7 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
     t.string "event", null: false
     t.string "whodunnit"
     t.text "object"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.text "object_changes"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
@@ -532,8 +562,8 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
     t.text "body", null: false
     t.bigint "user_id", null: false
     t.bigint "wiki_page_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "summary"
     t.index ["user_id"], name: "index_wiki_page_edits_on_user_id"
     t.index ["wiki_page_id"], name: "index_wiki_page_edits_on_wiki_page_id"
@@ -542,10 +572,10 @@ ActiveRecord::Schema.define(version: 2022_12_28_195834) do
   create_table "wiki_pages", force: :cascade do |t|
     t.string "title", null: false
     t.text "body", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "slug"
-    t.datetime "deleted_at"
+    t.datetime "deleted_at", precision: nil
     t.index ["slug"], name: "index_wiki_pages_on_slug", unique: true
   end
 

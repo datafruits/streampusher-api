@@ -3,20 +3,27 @@
 </h2>
 
 <p>
-Your account on <%= @radio.name %> has been created.
+Your DJ account on <%= @radio.name %> has been created.
+</p>
+
+<% if !@user.roles.include?("listener") %>
+  <p>
+  Your username is <%= @user.username %>.
+  Your password is <%= @password %>.
+  </p>
+<% end %>
+
+<p>
+  You can log in to <a href="https://datafruits.fm/">datafruits</a> or <a href="https://streampusher.com/login">streampusher</a> with the same login.
 </p>
 
 <p>
-Your username is <%= @user.username %>.
-Your password is <%= @password %>. You can change your password <%== link_to "here.", edit_user_registration_url(@user) %>
+You can change your password <a href="https://datafruits.fm/user/settings">here.</a>
 </p>
 
 <p>
-You can log in <%== link_to "here.", login_url %>
-</p>
-
-<p>
-Check out our DJ guide <a href="https://docs.google.com/document/d/1SJvZ5BeG8yUGVrskcwGR3KeMLbQO4GTVkpggJh_Ze8Y/edit?usp=sharing">here</a>.
+Check out our <a href="https://datafruits.fm/wiki/datafruits-anysong-dj-manual">DJ guide </a>, on the datafruits wiki, Fruitstopiyeah.
+There you can find out how to stream from your computer and schedule shows.
 </p>
 
 <p>
@@ -24,7 +31,7 @@ Feel free to do a test stream whenever there is no other DJ or event scheduled.
 </p>
 
 <p>
-Then when you have decided when you want to do your show, you can add it to the <%== link_to "schedule.", scheduled_shows_url %>. Feel free to grab any time slot that is open.
+  Then when you have decided when you want to do your show, you can add it to the <a href="schedule">https://streampusher.com/schedule</a>. Feel free to grab any time slot that is open.
 </p>
 
 <p>
@@ -33,10 +40,15 @@ If you have any questions or need help with anything, just reply to this email!
 
 <p>
 Also feel free to <a href="https://discord.gg/KbNq4bb">join our discord chat!</a>
+It's a great place to ask for help
+</p>
+
+<p>
+  And there's lots more info on the <a href="https://datafruits.fm/wiki">wiki!</a>
 </p>
 
 <p>
 Thanks
 </br >
--Tony
+-freedrull
 </p>

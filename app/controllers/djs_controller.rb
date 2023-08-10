@@ -47,7 +47,15 @@ class DjsController < ApplicationController
   def update
     authorize! :update, :dj
     @dj = @current_radio.djs.find(params[:id])
-    @dj.attributes = dj_params
+
+    if dj_params[:image].present?
+      avatar = Paperclip.io_adapters.for(dj_params[:image])
+      avatar.original_filename = dj_params.delete(:image_filename)
+      @dj.attributes = dj_params.except(:image_filename).merge({image: avatar})
+    else
+      @dj.attributes = dj_params.except(:image_filename).except(:image)
+    end
+
     if @dj.save
       render json: @dj
     else

@@ -8,7 +8,7 @@ class UploadTrackToMixcloud
     # TODO rescue network errors
     tags = track.labels.pluck(:name).take(5)
     if track.artwork.present?
-      artwork = download_tempfile track.artwork.url
+      artwork = Utils.download_tempfile track.artwork.url
       result = Mixcloud::Client.new(mixcloud_token).upload track.local_path, track.title, artwork.path, tags
     else
       result = Mixcloud::Client.new(mixcloud_token).upload track.local_path, track.title, nil, tags

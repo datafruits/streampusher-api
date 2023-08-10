@@ -84,22 +84,11 @@ class ScheduledShow < ActiveRecord::Base
         if track
           liquidsoap.add_to_queue track.url
           puts "added to queue: #{track.url}"
+          ScheduledShowExpAwardWorker.perform_later self.id
         end
       end
     else
       puts "tried to queue #{self.inspect}'s playlist, but playlist empty in redis!"
-    end
-  end
-
-  def next_track!
-    if self.playlist.present?
-      track_id = self.playlist.pop_next_track
-      # if track_id.present?
-      track = Track.find track_id
-      puts "popped next track: #{track.s3_filepath}"
-      if track
-        return track.s3_filepath
-      end
     end
   end
 

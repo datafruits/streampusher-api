@@ -5,6 +5,10 @@ RSpec.describe Recording, :type => :model do
   before do
     Sidekiq::Testing.inline!
   end
+  after do
+    Sidekiq::Testing.disable!
+  end
+
 
   xit "merges multiple recordings into one file" do
     radio = FactoryBot.create :radio

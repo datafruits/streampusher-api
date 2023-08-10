@@ -18,7 +18,17 @@ class ProcessRecording
         body: File.open(trimmed_file_path),
         content_type: content_type
       audio_file_name = "https://#{ENV['S3_BUCKET']}.s3.amazonaws.com/#{key}"
-      track = radio.tracks.create audio_file_name: audio_file_name
+      username = basename.split("datafruits-").last.split("-").first
+      user = User.find_by(username: username)
+      track = radio.tracks.create! audio_file_name: audio_file_name, uploaded_by: user
+
+      date = Chronic.parse basename.split("datafruits-").last.split("-")[1..3].join('-')
+
+      show = ScheduledShow.where(dj: user).where(start_at: (date-2.days)..(date+2.days))
+      if show.any?
+        track.update scheduled_show_id: show.first.id
+      end
+      StreamingExpAwardWorker.set(wait: 15.minute).perform_later(track.id)
 
       # if scheduled_show.present?
       #   # grab scheduled show's info to use metadata and artwork

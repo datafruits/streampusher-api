@@ -2,116 +2,192 @@
 http_interactions:
 - request:
     method: get
-    uri: "<DOCKER_HOST>/v1.16/containers/coolradio_icecast/json"
+    uri: "<DOCKER_HOST>///containers/coolradio_icecast/json"
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.22.4
+      - Swipely/Docker-API 2.2.0
+      Accept:
+      - "*/*"
       Content-Type:
       - text/plain
   response:
     status:
-      code: 200
-      message: ''
+      code: 404
+      message: Not Found
     headers:
+      Api-Version:
+      - '1.42'
       Content-Type:
       - application/json
+      Docker-Experimental:
+      - 'false'
+      Ostype:
+      - linux
       Server:
-      - Docker/1.11.1 (linux)
+      - Docker/23.0.6 (linux)
       Date:
-      - Tue, 31 May 2016 13:00:13 GMT
+      - Sun, 21 May 2023 05:28:52 GMT
+      Content-Length:
+      - '51'
     body:
-      encoding: UTF-8
-      string: '{"Id":"62f30169ff87591ce13d86bf63acda0a07d9555b7cf81c3b1c5488417219511d","Created":"2016-05-31T12:57:38.88340132Z","Path":"/bin/sh","Args":["-c","icecast
-        -c /icecast.xml"],"State":{"Status":"created","Running":false,"Paused":false,"Restarting":false,"OOMKilled":false,"Dead":false,"Pid":0,"ExitCode":0,"Error":"","StartedAt":"0001-01-01T00:00:00Z","FinishedAt":"0001-01-01T00:00:00Z"},"Image":"sha256:f0a66ef46dcde0e1de1815f898325aa8530198bc885bc0db58330f0f8793c9c9","ResolvConfPath":"","HostnamePath":"","HostsPath":"","LogPath":"","Name":"/coolradio_icecast","RestartCount":0,"Driver":"aufs","MountLabel":"","ProcessLabel":"","AppArmorProfile":"","ExecIDs":null,"HostConfig":{"Binds":[],"ContainerIDFile":"","LogConfig":{"Type":"json-file","Config":{}},"NetworkMode":"streampusher_default","PortBindings":null,"RestartPolicy":{"Name":"","MaximumRetryCount":0},"AutoRemove":false,"VolumeDriver":"","VolumesFrom":null,"CapAdd":null,"CapDrop":null,"Dns":null,"DnsOptions":null,"DnsSearch":null,"ExtraHosts":["docker:172.19.0.5"],"GroupAdd":null,"IpcMode":"","Cgroup":"","Links":null,"OomScoreAdj":0,"PidMode":"","Privileged":false,"PublishAllPorts":true,"ReadonlyRootfs":false,"SecurityOpt":null,"StorageOpt":null,"UTSMode":"","UsernsMode":"","ShmSize":67108864,"ConsoleSize":[0,0],"Isolation":"","CpuShares":0,"Memory":0,"CgroupParent":"","BlkioWeight":0,"BlkioWeightDevice":null,"BlkioDeviceReadBps":null,"BlkioDeviceWriteBps":null,"BlkioDeviceReadIOps":null,"BlkioDeviceWriteIOps":null,"CpuPeriod":0,"CpuQuota":0,"CpusetCpus":"","CpusetMems":"","Devices":null,"DiskQuota":0,"KernelMemory":0,"MemoryReservation":0,"MemorySwap":0,"MemorySwappiness":-1,"OomKillDisable":false,"PidsLimit":0,"Ulimits":null,"CpuCount":0,"CpuPercent":0,"BlkioIOps":0,"BlkioBps":0,"SandboxSize":0},"GraphDriver":{"Name":"aufs","Data":null},"Volumes":{},"VolumesRW":{},"Config":{"Hostname":"62f30169ff87","Domainname":"","User":"icecast","AttachStdin":false,"AttachStdout":false,"AttachStderr":false,"Tty":false,"OpenStdin":false,"StdinOnce":false,"Env":["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","LANG=en_US.UTF-8","DEBIAN_FRONTEND=noninteractive"],"Cmd":["/bin/sh","-c","icecast
-        -c /icecast.xml"],"Image":"mcfiredrill/icecast","Volumes":null,"WorkingDir":"","Entrypoint":null,"OnBuild":null,"Labels":{},"MacAddress":"","NetworkDisabled":false,"ExposedPorts":{"8000/tcp":{}},"VolumeDriver":"","Memory":0,"MemorySwap":0,"CpuShares":0,"Cpuset":""},"NetworkSettings":{"Bridge":"","SandboxID":"","HairpinMode":false,"LinkLocalIPv6Address":"","LinkLocalIPv6PrefixLen":0,"Ports":null,"SandboxKey":"","SecondaryIPAddresses":null,"SecondaryIPv6Addresses":null,"EndpointID":"","Gateway":"","GlobalIPv6Address":"","GlobalIPv6PrefixLen":0,"IPAddress":"","IPPrefixLen":0,"IPv6Gateway":"","MacAddress":""}}
+      encoding: ASCII-8BIT
+      string: '{"message":"No such container: coolradio_icecast"}
 
-'
-    http_version: 
-  recorded_at: Tue, 31 May 2016 13:00:13 GMT
+        '
+  recorded_at: Sun, 21 May 2023 05:28:52 GMT
 - request:
-    method: post
-    uri: "<DOCKER_HOST>/v1.16/containers/62f30169ff87591ce13d86bf63acda0a07d9555b7cf81c3b1c5488417219511d/stop"
-    body:
-      encoding: UTF-8
-      string: "{}"
-    headers:
-      User-Agent:
-      - Swipely/Docker-API 1.22.4
-      Content-Type:
-      - application/json
-  response:
-    status:
-      code: 304
-      message: ''
-    headers:
-      Server:
-      - Docker/1.11.1 (linux)
-      X-Content-Type-Options:
-      - nosniff
-      Date:
-      - Tue, 31 May 2016 13:00:13 GMT
-    body:
-      encoding: UTF-8
-      string: ''
-    http_version: 
-  recorded_at: Tue, 31 May 2016 13:00:13 GMT
-- request:
-    method: delete
-    uri: "<DOCKER_HOST>/v1.16/containers/62f30169ff87591ce13d86bf63acda0a07d9555b7cf81c3b1c5488417219511d"
+    method: get
+    uri: "<DOCKER_HOST>///containers/coolradio_icecast/json"
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.22.4
+      - Swipely/Docker-API 2.2.0
+      Accept:
+      - "*/*"
       Content-Type:
       - text/plain
   response:
     status:
-      code: 204
-      message: ''
+      code: 404
+      message: Not Found
     headers:
+      Api-Version:
+      - '1.42'
+      Content-Type:
+      - application/json
+      Docker-Experimental:
+      - 'false'
+      Ostype:
+      - linux
       Server:
-      - Docker/1.11.1 (linux)
+      - Docker/23.0.6 (linux)
       Date:
-      - Tue, 31 May 2016 13:00:13 GMT
+      - Sun, 21 May 2023 05:28:52 GMT
+      Content-Length:
+      - '51'
     body:
-      encoding: UTF-8
-      string: ''
-    http_version: 
-  recorded_at: Tue, 31 May 2016 13:00:13 GMT
+      encoding: ASCII-8BIT
+      string: '{"message":"No such container: coolradio_icecast"}
+
+        '
+  recorded_at: Sun, 21 May 2023 05:28:52 GMT
 - request:
-    method: post
-    uri: "<DOCKER_HOST>/v1.16/containers/create?name=coolradio_icecast"
+    method: get
+    uri: "<DOCKER_HOST>///containers/coolradio_icecast/json"
     body:
-      encoding: UTF-8
-      string: '{"Image":"mcfiredrill/icecast","Env":[],"HostConfig":{"Binds":[],"ExtraHosts":["docker:172.19.0.5"],"PublishAllPorts":true,"NetworkMode":"streampusher_default"}}'
+      encoding: US-ASCII
+      string: ''
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.22.4
+      - Swipely/Docker-API 2.2.0
+      Accept:
+      - "*/*"
+      Content-Type:
+      - text/plain
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Api-Version:
+      - '1.42'
+      Content-Type:
+      - application/json
+      Docker-Experimental:
+      - 'false'
+      Ostype:
+      - linux
+      Server:
+      - Docker/23.0.6 (linux)
+      Date:
+      - Sun, 21 May 2023 05:28:52 GMT
+      Content-Length:
+      - '51'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"message":"No such container: coolradio_icecast"}
+
+        '
+  recorded_at: Sun, 21 May 2023 05:28:52 GMT
+- request:
+    method: get
+    uri: "<DOCKER_HOST>///containers/coolradio_icecast/json"
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swipely/Docker-API 2.2.0
+      Accept:
+      - "*/*"
+      Content-Type:
+      - text/plain
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Api-Version:
+      - '1.42'
+      Content-Type:
+      - application/json
+      Docker-Experimental:
+      - 'false'
+      Ostype:
+      - linux
+      Server:
+      - Docker/23.0.6 (linux)
+      Date:
+      - Sun, 21 May 2023 05:28:52 GMT
+      Content-Length:
+      - '51'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"message":"No such container: coolradio_icecast"}
+
+        '
+  recorded_at: Sun, 21 May 2023 05:28:52 GMT
+- request:
+    method: post
+    uri: "<DOCKER_HOST>///containers/create?name=coolradio_icecast"
+    body:
+      encoding: UTF-8
+      string: '{"Image":"mcfiredrill/icecast","Env":[],"HostConfig":{"Binds":[],"ExtraHosts":["docker:172.17.0.5"],"PublishAllPorts":true,"NetworkMode":"streampusher_default"}}'
+    headers:
+      User-Agent:
+      - Swipely/Docker-API 2.2.0
+      Accept:
+      - "*/*"
       Content-Type:
       - application/json
   response:
     status:
       code: 201
-      message: ''
+      message: Created
     headers:
+      Api-Version:
+      - '1.42'
       Content-Type:
       - application/json
+      Docker-Experimental:
+      - 'false'
+      Ostype:
+      - linux
       Server:
-      - Docker/1.11.1 (linux)
+      - Docker/23.0.6 (linux)
       Date:
-      - Tue, 31 May 2016 13:00:13 GMT
+      - Sun, 21 May 2023 05:28:52 GMT
       Content-Length:
-      - '90'
+      - '88'
     body:
-      encoding: UTF-8
-      string: '{"Id":"4874a957b8606313c17ee00ee5712f28a5f9ac42d3a85e7c8483c77c3a215a37","Warnings":null}
+      encoding: ASCII-8BIT
+      string: '{"Id":"e73143ac3b4ab6ab6de631266b338690908a1dfd24b73b7f53a64906709acb8e","Warnings":[]}
 
-'
-    http_version: 
-  recorded_at: Tue, 31 May 2016 13:00:13 GMT
-recorded_with: VCR 3.0.2
+        '
+  recorded_at: Sun, 21 May 2023 05:28:52 GMT
+recorded_with: VCR 6.1.0

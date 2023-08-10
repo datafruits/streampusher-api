@@ -1,6 +1,6 @@
 source 'https://rubygems.org/'
 
-gem 'rails', '6.1.7'
+gem 'rails', '7.0.5'
 gem 'pg'
 
 gem 'spring',        group: :development
@@ -22,6 +22,9 @@ gem 'rack-cors', :require => 'rack/cors'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
 gem 'rspec-rails', '~> 3.5.2', :group => [:development, :test]
+
+gem 'redis'
+gem 'connection_pool'
 
 gem 'dotenv-rails'
 gem 'unicorn'
@@ -54,6 +57,7 @@ end
 
 group :development do
   gem 'bullet'
+  gem "ruby-lsp", require: false
 end
 
 group :production do
@@ -63,7 +67,7 @@ end
 gem 'byebug'
 gem 'slackistrano', require: false
 gem 'httparty'
-gem 'exception_notification'
+gem 'exception_notification', github: "mcfiredrill/exception_notification"
 
 gem 'groupdate'
 gem 'acts_as_list'
@@ -72,25 +76,21 @@ gem 'active_model_serializers', '~> 0.10.0'
 gem 'jsonapi-serializer'
 gem 'chronic'
 gem 'aws-sdk'
-gem 'paperclip'
+gem "kt-paperclip", "~> 6.4", ">= 6.4.1"
 
 gem 'rupeepeethree', github: "datafruits/rupeepeethree"
-gem "so_id3", github: "streampusher/so_id3"
+gem "so_id3", github: "streampusher/so_id3", branch: "rp3-bump"
 
 gem 'whenever', require: false
 
 gem 'recurrence'
 
-gem 'html-pipeline'
-gem 'commonmarker'
-gem 'github-markdown'
-
-gem 'geocoder'
 gem 'ruby-liquidsoap', github: 'streampusher/ruby-liquidsoap', :require => 'liquidsoap'
 
 gem 'friendly_id'
 
 gem 'discord-notifier'
+gem 'slack-notifier'
 
 # gem 'bootsnap', require: false
 gem 'thwait'

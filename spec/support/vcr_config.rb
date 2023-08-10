@@ -20,12 +20,10 @@ VCR.configure do |config|
   config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
   config.hook_into :webmock # or :fakeweb
 
+  config.debug_logger = File.open("log/vcr.log", 'w')
+
   config.define_cassette_placeholder("<DOCKER_HOST>") do
     test_docker_uri
-  end
-
-  config.define_cassette_placeholder("<STRIPE_KEY>") do
-    ENV['STRIPE_KEY']
   end
 
   config.filter_sensitive_data("<S3_KEY>") do
@@ -55,5 +53,17 @@ VCR.configure do |config|
     uri_regex = /^\/artworks\/(original|thumb)\/_hey-hey-[0-9]+__[A-z0-9]+\.png/
   
     uri_regex.match?(uri1.path) && uri_regex.match?(uri2.path)
+  end
+
+    config.register_request_matcher :docker_api_uri_matcher do |request_1, request_2|
+    uri_1 = URI(request_1.uri)
+    uri_2 = URI(request_2.uri)
+
+    # Remove consecutive slashes from the URI paths
+    path_1 = uri_1.path.gsub(/\/+/, '/')
+    path_2 = uri_2.path.gsub(/\/+/, '/')
+
+    # Compare the modified paths for equality
+    path_1 == path_2
   end
 end

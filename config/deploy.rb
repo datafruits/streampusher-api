@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.1
-lock '3.17.1'
+lock '3.17.3'
 
 set :log_level, ENV.fetch('CAP_LOG_LEVEL', :info)
 
@@ -8,7 +8,7 @@ set :repo_url, 'git@github.com:streampusher/api.git'
 
 # setup rbenv
 set :rbenv_type, :system
-set :rbenv_ruby, '2.7.6'
+set :rbenv_ruby, '3.2.2'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 
 set :slack_webhook, ENV['DEPLOY_NOTIFY_URL']

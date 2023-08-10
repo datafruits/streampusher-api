@@ -10,6 +10,8 @@ class Track < ActiveRecord::Base
   has_many :track_labels, dependent: :destroy
   has_many :labels, through: :track_labels
   has_many :track_favorites
+  has_many :posts, as: :postable
+
   has_attached_file :artwork,
     storage: :s3,
     s3_protocol: :https,
@@ -30,6 +32,8 @@ class Track < ActiveRecord::Base
                              access_key_id: ENV['S3_KEY'],
                              secret_access_key: ENV['S3_SECRET'],
                              region: ENV['S3_REGION'] }
+
+  after_create :sync_tags_in_background
 
   default_scope { order(updated_at: :desc) }
 

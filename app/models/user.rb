@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include ::User::Roles
+  include ::User::Rpg
 
   has_one :subscription
   has_many :microtexts
@@ -14,6 +15,8 @@ class User < ActiveRecord::Base
   has_many :tracks, through: :scheduled_shows
   has_many :track_favorites
   has_many :fruit_summons
+  has_many :posts
+  has_many :notifications
 
   has_attached_file :image, styles: { :thumb => "150x150#", :medium => "250x250#" },
     path: ":attachment/:style/:basename.:extension"

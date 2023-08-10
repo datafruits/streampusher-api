@@ -1,6 +1,7 @@
 # .github/workflows/ci.yml
 env:
-  RUBY_VERSION: 3.1.2
+  RUBY_VERSION: 3.2.2
+  TEST_REDIS_PASS: testpass
 
 name: CI
 on: [push, pull_request]
@@ -14,25 +15,26 @@ jobs:
           POSTGRES_DB: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_USER: postgres
-        ports: ['5432:5432']
+        ports:
+          - 5432:5432
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-      redis:
-        image: redis
-        ports: ['6379:6379']
-        options: >-
-          --entrypoint redis-server
-
     steps:
       - uses: actions/checkout@v3
+      - name: Setup Redis
+        uses: getong/redis-action@v1
+        with:
+          redis password: ${{ env.TEST_REDIS_PASS }}
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
+      - name: Update Ubuntu Repos
+        run: sudo apt-get update
       - name: Install deps
         run: sudo apt-get install libtag1-dev sox libsox-fmt-mp3 imagemagick
       - name: Build and run tests
@@ -42,6 +44,7 @@ jobs:
           PGUSER: postgres
           REDIS_URL: redis://localhost:6379/0
           REDIS_HOST: localhost
+          REDIS_PASSWORD: ${{ env.TEST_REDIS_PASS }}
           RAILS_ENV: test
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |

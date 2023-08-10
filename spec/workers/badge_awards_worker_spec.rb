@@ -7,6 +7,10 @@ describe BadgeAwardsWorker do
   before do
     Sidekiq::Testing.inline!
   end
+  after do
+    Sidekiq::Testing.disable!
+  end
+
   before :each do
     host = ENV['REDIS_HOST'] || 'redis'
     port = ENV['REDIS_PORT'] || 6379
@@ -22,5 +26,6 @@ describe BadgeAwardsWorker do
     BadgeAwardsWorker.perform_now radio.id
     user.reload
     expect(user.roles).to include("strawberry")
+    expect(Notification.count).to eq 1
   end
 end
