@@ -15,6 +15,7 @@ class Notification < ApplicationRecord
     :cabbage_badge_award,
     :watermelon_badge_award,
     :pineapple_badge_award,
+    :limer_badge_award,
     :dj_badge_award,
     :vj_badge_award,
     :supporter_badge_award,
@@ -39,6 +40,14 @@ class Notification < ApplicationRecord
       "#{self.user.username} got the watermel badge!"
     when "pineapple_badge_award"
       "#{self.user.username} got the pineapplee badge!"
+    when "limer_badge_award"
+      "#{self.user.username} got the limer badge!"
+    when "dragionfruit badge_award"
+      "#{self.user.username} got the dragionfruit badge!"
+    when "blueberrinies badge_award"
+      "#{self.user.username} got the blueberrinies badge!"
+    when "beamsprout_badge_award"
+      "#{self.user.username} got the beamsprout badge!"
     when "dj_badge_award"
       "#{self.user.username} got the DJ badge!"
     when "vj_badge_award"
