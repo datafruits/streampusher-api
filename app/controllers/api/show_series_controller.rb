@@ -6,6 +6,6 @@ class Api::ShowSeriesController < ApplicationController
 
   def show
     show_series = ShowSeries.where.not(status: "disabled").friendly.find params[:id]
-    render json: show_series, include: 'users'
+    render json: show_series, include: ['users', 'labels']
   end
 end
