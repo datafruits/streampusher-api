@@ -54,10 +54,10 @@ class ShowSeries < ApplicationRecord
     # TODO
     # when "day"
     when :week
-      options[:weekday] = self.recurring_weekday.downcase.to_sym
+      options[:on] = self.recurring_weekday.downcase.to_sym
     when :biweek
       options[:every] = :week
-      options[:weekday] = self.recurring_weekday.downcase.to_sym
+      options[:on] = self.recurring_weekday.downcase.to_sym
       options[:interval] = 2
     when :month
       options[:weekday] = self.recurring_weekday.downcase.to_sym

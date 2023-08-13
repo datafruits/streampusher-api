@@ -22,6 +22,18 @@ RSpec.describe ShowSeries, type: :model do
       show_series.users << @dj
       show_series.save!
       expect(show_series.episodes.count).to eq 276
+
+      # test biweek
+      show_series = ShowSeries.new title: "biweekly jammer jam", description: "wow", recurring_interval: "biweek", recurring_weekday: "Tuesday", start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month, radio: @radio
+      show_series.users << @dj
+      show_series.save!
+      expect(show_series.episodes.count).to eq 600
+
+      # test week
+      show_series = ShowSeries.new title: "weekly jammer jam", description: "wow", recurring_interval: "week", recurring_weekday: "Monday", start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month, radio: @radio
+      show_series.users << @dj
+      show_series.save!
+      expect(show_series.episodes.count).to eq 1200
     end
 
     xit "updates all episodes"

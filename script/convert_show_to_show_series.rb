@@ -33,6 +33,7 @@ shows.find_each do |show|
           puts "published archive"
         end
       end
+      # TODO should we add date string to archives???
     else
       puts "no dj present for this show :(...better fix it later!"
     end
