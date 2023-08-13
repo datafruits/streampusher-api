@@ -10,11 +10,11 @@ ExceptionNotification.configure do |config|
   config.add_notifier :email, {
     :email_prefix => "[Exception] ",
     :sender_address => %{"Exception Notifier" <exception@streampusher.com>},
-    :exception_recipients => %w{info@streampusher.com}
+    :exception_recipients => %w{info@datafruits.fm}
   }
 
   # this is actually for discord
   config.add_notifier :slack, {
-    webhook_url: "#{ENV['DISCORD_ERROR_WEBHOOK_URL']}/slack"
+    webhook_url: ENV['DISCORD_ERROR_WEBHOOK_URL']
   }
 end

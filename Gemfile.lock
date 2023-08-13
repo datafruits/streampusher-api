@@ -8,6 +8,14 @@ GIT
       taglib-ruby (~> 1.1)
 
 GIT
+  remote: https://github.com/mcfiredrill/exception_notification.git
+  revision: baaef27bde3c039c84c239b6f78c67fd009e60a2
+  specs:
+    exception_notification (4.5.0)
+      actionmailer (>= 5.2, < 8)
+      activesupport (>= 5.2, < 8)
+
+GIT
   remote: https://github.com/streampusher/ruby-liquidsoap.git
   revision: 2af252ac058d329d48235205ad1d89c1b0ac9e1c
   specs:
@@ -1591,9 +1599,6 @@ GEM
     erubi (1.12.0)
     et-orbi (1.2.7)
       tzinfo
-    exception_notification (4.5.0)
-      actionmailer (>= 5.2, < 8)
-      activesupport (>= 5.2, < 8)
     excon (0.99.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -1616,7 +1621,7 @@ GEM
     httparty (0.21.0)
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
-    i18n (1.13.0)
+    i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
       mini_magick (>= 4.9.5, < 5)
@@ -1671,13 +1676,13 @@ GEM
       rake
     mini_magick (4.12.0)
     mini_mime (1.1.2)
-    mini_portile2 (2.8.2)
-    minitest (5.18.0)
+    mini_portile2 (2.8.4)
+    minitest (5.19.0)
     mock_redis (0.36.0)
       ruby2_keywords
     multi_json (1.15.0)
     multi_xml (0.6.0)
-    net-imap (0.3.4)
+    net-imap (0.3.7)
       date
       net-protocol
     net-pop (0.1.2)
@@ -1690,7 +1695,7 @@ GEM
       net-protocol
     net-ssh (7.1.0)
     nio4r (2.5.9)
-    nokogiri (1.15.2)
+    nokogiri (1.15.3)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     omniauth (2.1.1)
@@ -1715,7 +1720,7 @@ GEM
     puma (5.6.5)
       nio4r (~> 2.0)
     raabro (1.4.0)
-    racc (1.6.2)
+    racc (1.7.1)
     rack (2.2.7)
     rack-cors (2.0.1)
       rack (>= 2.0.0)
@@ -1739,11 +1744,13 @@ GEM
       activesupport (= 7.0.5)
       bundler (>= 1.15.0)
       railties (= 7.0.5)
-    rails-dom-testing (2.0.3)
-      activesupport (>= 4.2.0)
+    rails-dom-testing (2.1.1)
+      activesupport (>= 5.0.0)
+      minitest
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.5.0)
-      loofah (~> 2.19, >= 2.19.1)
+    rails-html-sanitizer (1.6.0)
+      loofah (~> 2.21)
+      nokogiri (~> 1.14)
     railties (7.0.5)
       actionpack (= 7.0.5)
       activesupport (= 7.0.5)
@@ -1824,6 +1831,7 @@ GEM
       rufus-scheduler (~> 3.2)
       sidekiq (>= 6, < 8)
       tilt (>= 1.4.0)
+    slack-notifier (2.4.0)
     slackistrano (4.0.1)
       capistrano (>= 3.8.1)
     sorbet-runtime (0.5.10914)
@@ -1842,7 +1850,7 @@ GEM
       e2mmap
     tilt (2.1.0)
     timecop (0.9.6)
-    timeout (0.3.2)
+    timeout (0.4.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     tzinfo-data (1.2023.3)
@@ -1896,7 +1904,7 @@ DEPENDENCIES
   docker-api (~> 2.2.0)
   dotenv-rails
   e2mmap
-  exception_notification
+  exception_notification!
   factory_bot_rails
   friendly_id
   groupdate
@@ -1928,6 +1936,7 @@ DEPENDENCIES
   selenium-webdriver (< 3.0)
   sidekiq
   sidekiq-scheduler
+  slack-notifier
   slackistrano
   so_id3!
   spring

@@ -67,7 +67,7 @@ end
 gem 'byebug'
 gem 'slackistrano', require: false
 gem 'httparty'
-gem 'exception_notification'
+gem 'exception_notification', github: "mcfiredrill/exception_notification"
 
 gem 'groupdate'
 gem 'acts_as_list'
@@ -91,6 +91,7 @@ gem 'ruby-liquidsoap', github: 'streampusher/ruby-liquidsoap', :require => 'liqu
 gem 'friendly_id'
 
 gem 'discord-notifier'
+gem 'slack-notifier'
 
 # gem 'bootsnap', require: false
 gem 'thwait'
