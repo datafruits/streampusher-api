@@ -36,7 +36,17 @@ RSpec.describe ShowSeries, type: :model do
       expect(show_series.episodes.count).to eq 1200
     end
 
-    xit "updates all episodes"
+    it "updates all episodes with new time" do
+      show_series = ShowSeries.new title: "monthly jammer jam", description: "wow", recurring_interval: "month", recurring_weekday: 'Sunday', recurring_cadence: 'First', start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month, radio: @radio
+      show_series.users << @dj
+      show_series.save!
+      expect(show_series.episodes.count).to eq 276
+
+      new_start_time =  show_series.start_time + 2.hours
+      new_end_time =  show_series.end_time + 2.hours
+      show_series.update start_time: new_start_time, end_time: new_end_time
+      expect(show_series.episodes.first.start_at.hour).to eq new_start_time.hour
+    end
 
     xit "creates a unique slug for each recurrence"
     xit "updates all recurring shows attributes"
