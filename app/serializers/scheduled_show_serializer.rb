@@ -3,13 +3,22 @@ class ScheduledShowSerializer < ActiveModel::Serializer
   include ApplicationHelper
   include ActionView::Helpers::SanitizeHelper
   attributes :id, :start, :end, :title, :image_url, :thumb_image_url, :tweet_content, :description,
-    :slug, :recurring_interval, :hosted_by, :is_guest, :guest, :playlist_id, :image, :image_filename, :formatted_episode_title, :status
+    :slug, :recurring_interval, :hosted_by, :is_guest, :guest, :playlist_id, :image, :image_filename, :formatted_episode_title, :status,
+    :show_series_title, :show_series_slug
 
   has_many :tracks, embed: :ids, key: :tracks
   has_many :djs, embed: :ids, key: :djs
   belongs_to :playlist
   belongs_to :show_series
   has_many :posts, embed: :ids, key: :posts, embed_in_root: true, each_serializer: PostSerializer
+
+  def show_series_slug
+    object.show_series.slug
+  end
+
+  def show_series_title
+    object.show_series.title
+  end
 
   def posts
     object.posts
