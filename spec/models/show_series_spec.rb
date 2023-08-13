@@ -44,7 +44,11 @@ RSpec.describe ShowSeries, type: :model do
 
       new_start_time =  show_series.start_time + 2.hours
       new_end_time =  show_series.end_time + 2.hours
-      show_series.update start_time: new_start_time, end_time: new_end_time
+      show_series.start_time = new_start_time
+      show_series.end_time = new_end_time
+      show_series.title = "hey"
+      show_series.save!
+      show_series.reload
       expect(show_series.episodes.first.start_at.hour).to eq new_start_time.hour
     end
 

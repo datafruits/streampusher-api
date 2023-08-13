@@ -95,10 +95,21 @@ class ShowSeries < ApplicationRecord
   end
 
   def update_episodes
-    # TODO
+    episodes_to_update.each do |episode|
+      episode.start_at = DateTime.new episode.start_at.year, episode.start_at.month, episode.start_at.day, self.start_time.hour, self.start_time.min, self.start_time.sec, self.start_time.zone
+      episode.end_at = DateTime.new episode.end_at.year, episode.end_at.month, episode.end_at.day, self.end_time.hour, self.end_time.min, self.end_time.sec, self.end_time.zone
+      # TODO title, description
+      episode.image = self.image if self.image.present?
+      episode.save!
+    end
   end
 
   private
+
+  def episodes_to_update
+    self.episodes.where("start_at > (?)", Time.current)
+  end
+
   def recurring_cadence_is_unique
     if self.active?
       case self.recurring_interval
@@ -125,7 +136,11 @@ class ShowSeries < ApplicationRecord
   end
 
   def should_update_episodes?
-    return start_time_changed? || end_time_changed? || image_update_at_changed? || description_changed? || title_changed?
+    return saved_change_to_start_time? || 
+      saved_change_to_end_time? || 
+      saved_change_to_image_update_at? || 
+      saved_change_to_description? || 
+      saved_change_to_title?
   end
 
   def update_episodes_in_background
