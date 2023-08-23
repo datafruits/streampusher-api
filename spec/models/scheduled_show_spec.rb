@@ -290,4 +290,15 @@ RSpec.describe ScheduledShow, :type => :model do
       @scheduled_show.queue_playlist!
     end
   end
+
+  describe "prerecord_file" do
+    it "makes a playlist and sets it when assigning the prerecord_file attr" do
+      track = FactoryBot.create :track, radio: @radio, audio_file_name: "spec/fixtures/wau.mp3"
+      @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: @start_at, end_at: @end_at, title: "hey hey", dj: @dj
+      @scheduled_show.prerecord_track_id = track.id
+      @scheduled_show.save!
+      expect(@scheduled_show.playlist.tracks.first.id).to eq(track.id)
+      expect(@scheduled_show.prerecord_track_id).to eq(track.id)
+    end
+  end
 end

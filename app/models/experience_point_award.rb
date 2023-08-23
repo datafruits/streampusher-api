@@ -6,12 +6,12 @@ class ExperiencePointAward < ApplicationRecord
   after_save :send_notification
 
   enum award_type: [
-    :chat_lurker, # lurking in chat
-    :music_enjoyer, # listening to stream or podcasts
-    :textbox_like, # posting chats
+    :chat_lurker, # lurking in chat TODO implement
+    :music_enjoyer, # listening to stream or podcasts TODO implement???
+    :textbox_like, # posting chats TODO implement???
     :uploaderzog, # uploading podcast
     :radio_enthusiast, # scheduling show
-    :fruit_maniac, # clicking fruit buttons
+    :fruit_maniac, # clicking fruit buttons TODO implement???
     :streamingatron, # streaming live
   ]
 

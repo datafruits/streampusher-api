@@ -55,6 +55,17 @@ class ScheduledShow < ActiveRecord::Base
 
   enum status: [:archive_unpublished, :archive_published]
 
+  attr_accessor :prerecord_track_id
+
+  def prerecord_track_id
+    self.playlist.tracks.first.id
+  end
+
+  def prerecord_track_id= track_id
+    playlist = self.radio.playlists.create! name: self.title
+    playlist.tracks << Track.find(track_id)
+  end
+
   # TODO
   # validate :time_is_in_15_min_intervals
   #
