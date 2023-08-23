@@ -140,6 +140,7 @@ Rails.application.routes.draw do
     resources :scheduled_shows, only: [:show, :index]
     resources :track_favorites, only: [:create, :destroy]
     resources :notifications, only: [:index]
+    resources :shrimpos, only: [:index, :show, :create]
   end
 
   post "/setup" => "setup#create"
