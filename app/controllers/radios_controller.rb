@@ -24,6 +24,15 @@ class RadiosController < ApplicationController
     render json: NextTrack.perform(@radio)
   end
 
+  def queue_current_show
+    @radio = @current_scheduled_show
+    current_show = @radio.current_scheduled_show
+    if current_shows && (current_show.playlist_id != @radio.default_playlist_id)
+      current_show.queue_playlist!
+      render head: :ok
+    end
+  end
+
   private
   def update_params
     params.require(:radio).permit(:default_playlist_id,

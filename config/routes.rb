@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   resources :radios, only: [:index, :update] do
     member do
       get 'next'
+    end
+    collection do
       post 'queue_current_show'
     end
   end
