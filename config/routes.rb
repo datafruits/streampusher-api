@@ -150,5 +150,7 @@ Rails.application.routes.draw do
 
   get '/performance_tests', to: 'performance_tests#index'
 
+  post '/rails/active_storage/direct_uploads' => 'direct_uploads#create'
+
   root 'landing#index'
 end
