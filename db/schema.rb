@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_09_013526) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_27_195236) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -157,7 +157,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_09_013526) do
 
   create_table "listens", id: :serial, force: :cascade do |t|
     t.integer "radio_id"
-    t.string "ip_address"
+    t.string "ip_address", limit: 255
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.datetime "start_at", precision: nil
@@ -220,7 +220,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_09_013526) do
     t.integer "radio_id", null: false
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
-    t.string "name"
+    t.string "name", limit: 255
     t.integer "interpolated_playlist_id"
     t.integer "interpolated_playlist_track_play_count"
     t.integer "interpolated_playlist_track_interval_count"
@@ -249,7 +249,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_09_013526) do
     t.integer "playlist_id"
     t.string "image_file_name"
     t.string "image_content_type"
-    t.bigint "image_file_size"
+    t.integer "image_file_size"
     t.datetime "image_updated_at", precision: nil
     t.string "extra_tags"
     t.index ["playlist_id"], name: "index_podcasts_on_playlist_id"
@@ -268,21 +268,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_09_013526) do
   end
 
   create_table "radios", id: :serial, force: :cascade do |t|
-    t.string "icecast_container_id"
+    t.string "icecast_container_id", limit: 255
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
-    t.string "name", default: "", null: false
-    t.string "liquidsoap_container_id"
+    t.string "name", limit: 255, default: "", null: false
+    t.string "liquidsoap_container_id", limit: 255
     t.integer "default_playlist_id"
     t.boolean "enabled", default: true, null: false
     t.boolean "vj_enabled", default: false, null: false
     t.boolean "podcasts_enabled", default: false, null: false
     t.boolean "stats_enabled", default: false, null: false
-    t.boolean "social_identities_enabled", default: false, null: false
     t.string "tunein_partner_id"
     t.string "tunein_partner_key"
     t.string "tunein_station_id"
     t.boolean "tunein_metadata_updates_enabled", default: false, null: false
+    t.boolean "social_identities_enabled", default: false, null: false
     t.string "container_name", null: false
     t.boolean "schedule_monitor_enabled", default: false, null: false
     t.string "show_share_url"
@@ -335,7 +335,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_09_013526) do
     t.text "description"
     t.string "image_file_name"
     t.string "image_content_type"
-    t.bigint "image_file_size"
+    t.integer "image_file_size"
     t.datetime "image_updated_at", precision: nil
     t.integer "recurring_interval", default: 0, null: false
     t.boolean "recurrence", default: false, null: false
@@ -348,8 +348,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_09_013526) do
     t.boolean "is_guest", default: false, null: false
     t.string "guest", default: "", null: false
     t.boolean "is_live", default: false, null: false
-    t.integer "show_series_id"
-    t.integer "status", default: 0, null: false
     t.index ["dj_id"], name: "index_scheduled_shows_on_dj_id"
     t.index ["playlist_id"], name: "index_scheduled_shows_on_playlist_id"
     t.index ["radio_id"], name: "index_scheduled_shows_on_radio_id"
@@ -402,7 +400,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_09_013526) do
   end
 
   create_table "shows", id: :serial, force: :cascade do |t|
-    t.string "title", default: "", null: false
+    t.string "title", limit: 255, default: "", null: false
     t.integer "dj_id", null: false
     t.integer "radio_id", null: false
     t.text "description", default: "", null: false
@@ -412,7 +410,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_09_013526) do
     t.string "color"
     t.string "image_file_name"
     t.string "image_content_type"
-    t.bigint "image_file_size"
+    t.integer "image_file_size"
     t.datetime "image_updated_at", precision: nil
   end
 
@@ -421,8 +419,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_09_013526) do
     t.bigint "user_id", null: false
     t.string "title"
     t.text "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["shrimpo_id"], name: "index_shrimpo_entries_on_shrimpo_id"
     t.index ["user_id"], name: "index_shrimpo_entries_on_user_id"
   end
@@ -430,11 +428,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_09_013526) do
   create_table "shrimpos", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "title", null: false
-    t.datetime "start_at", null: false
-    t.datetime "end_at", null: false
+    t.datetime "start_at", precision: nil, null: false
+    t.datetime "end_at", precision: nil, null: false
     t.text "rule_pack"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "status", default: 0, null: false
+    t.string "slug"
+    t.index ["slug"], name: "index_shrimpos_on_slug", unique: true
     t.index ["user_id"], name: "index_shrimpos_on_user_id"
   end
 
@@ -443,6 +444,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_09_013526) do
     t.string "provider", default: "", null: false
     t.integer "user_id", null: false
     t.string "token"
+    t.string "string"
     t.string "token_secret"
     t.string "name", default: "", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -471,7 +473,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_09_013526) do
   end
 
   create_table "tracks", id: :serial, force: :cascade do |t|
-    t.string "audio_file_name"
+    t.string "audio_file_name", limit: 255
     t.integer "radio_id"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
@@ -481,19 +483,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_09_013526) do
     t.string "album"
     t.integer "year"
     t.integer "track"
-    t.integer "length"
     t.integer "filesize", default: 0, null: false
     t.integer "tag_processing_status", default: 0, null: false
+    t.integer "length"
     t.string "artwork_file_name"
     t.string "artwork_content_type"
-    t.bigint "artwork_file_size"
+    t.integer "artwork_file_size"
     t.datetime "artwork_updated_at", precision: nil
     t.integer "mixcloud_upload_status", default: 0, null: false
     t.string "mixcloud_key"
-    t.integer "soundcloud_upload_status", default: 0, null: false
-    t.string "soundcloud_key"
     t.integer "uploaded_by_id"
     t.integer "scheduled_show_id"
+    t.integer "soundcloud_upload_status", default: 0, null: false
+    t.string "soundcloud_key"
     t.string "youtube_link"
     t.index ["radio_id"], name: "index_tracks_on_radio_id"
     t.index ["scheduled_show_id"], name: "index_tracks_on_scheduled_show_id"
