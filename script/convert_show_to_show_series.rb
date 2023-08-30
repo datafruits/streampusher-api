@@ -8,7 +8,8 @@ guest_series.start_date = Date.today
 guest_series.save!
 
 shows.find_each do |show|
-  if show.recurrences.count > 0 && show.recurrant_original_id.nil? && show.recurring_interval != "not_recurring"
+  recurrences = show.radio.scheduled_shows.where(recurrant_original_id: show.id)
+  if recurrences.count > 0 && show.recurrant_original_id.nil? && show.recurring_interval != "not_recurring"
     if show.dj.present?
       # create a show series that repeats
       puts "creating show series for #{show.title}"
@@ -24,9 +25,9 @@ shows.find_each do |show|
         end
       end
       show_series.save!
-      show.recurrences.update_all show_series_id: show_series.id
+      recurrences.update_all show_series_id: show_series.id
       # TODO should we publish all archives???
-      show.recurrences.where("start_at <= ?", Time.now).find_each do |s|
+      recurrences.where("start_at <= ?", Time.now).find_each do |s|
         if s.tracks.any?
           # publish if show has tracks associated
           s.update status: "archive_published"
