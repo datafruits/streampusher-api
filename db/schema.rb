@@ -415,6 +415,31 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_13_180416) do
     t.datetime "image_updated_at", precision: nil
   end
 
+  create_table "shrimpo_entries", force: :cascade do |t|
+    t.bigint "shrimpo_id", null: false
+    t.bigint "user_id", null: false
+    t.string "title"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shrimpo_id"], name: "index_shrimpo_entries_on_shrimpo_id"
+    t.index ["user_id"], name: "index_shrimpo_entries_on_user_id"
+  end
+
+  create_table "shrimpos", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "title", null: false
+    t.datetime "start_at", precision: nil, null: false
+    t.datetime "end_at", precision: nil, null: false
+    t.text "rule_pack"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "status", default: 0, null: false
+    t.string "slug"
+    t.index ["slug"], name: "index_shrimpos_on_slug", unique: true
+    t.index ["user_id"], name: "index_shrimpos_on_user_id"
+  end
+
   create_table "social_identities", id: :serial, force: :cascade do |t|
     t.string "uid", default: "", null: false
     t.string "provider", default: "", null: false
