@@ -77,4 +77,16 @@ RSpec.describe FruitTicketTransaction, type: :model do
       fruit_ticket_transaction.transact_and_save!
     end.to raise_error(ActiveRecord::RecordInvalid)
   end
+
+  it 'sends fruit ticket gifts to another user' do
+    radio = FactoryBot.create :radio
+    user1 = FactoryBot.create :user
+    user2 = FactoryBot.create :user, email: "tttt@tv.com", username: "fengir"
+    user1.update fruit_ticket_balance: 150
+    fruit_ticket_transaction = FruitTicketTransaction.new from_user: user1, to_user: user2, amount: 50, transaction_type: :user_gift
+    fruit_ticket_transaction.transaction_type = :user_gift
+    fruit_ticket_transaction.transact_and_save!
+    expect(user1.reload.fruit_ticket_balance).to eq 100
+    expect(user2.reload.fruit_ticket_balance).to eq 50
+  end
 end

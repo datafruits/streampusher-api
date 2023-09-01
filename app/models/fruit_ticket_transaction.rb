@@ -21,6 +21,8 @@ class FruitTicketTransaction < ApplicationRecord
     # purchase
     :fruit_summon, # metal pineapple, real lemoner, XL shrimp shake
     :profile_sticker,
+
+    :user_gift
   ]
 
   def transact_and_save!
@@ -44,6 +46,10 @@ class FruitTicketTransaction < ApplicationRecord
           self.save!
         when "archive_playback"
           self.from_user_id = -1
+          self.to_user.update fruit_ticket_balance: self.to_user.fruit_ticket_balance + self.amount
+          self.save!
+        when "user_gift"
+          self.from_user.update fruit_ticket_balance: self.from_user.fruit_ticket_balance - self.amount
           self.to_user.update fruit_ticket_balance: self.to_user.fruit_ticket_balance + self.amount
           self.save!
         else

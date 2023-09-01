@@ -123,6 +123,7 @@ Rails.application.routes.draw do
     resources :posts, only: [:create]
     resources :forum_threads, only: [:index, :show, :create]
     resources :fruit_summons, only: [:create]
+    resources :fruit_ticket_gifts, only: [:create]
 
     resources :archives, only: [:index]
     resources :blog_posts, only: [:show, :index]
