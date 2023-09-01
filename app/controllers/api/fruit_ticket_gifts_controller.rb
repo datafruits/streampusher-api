@@ -3,6 +3,7 @@ class Api::FruitTicketGiftsController < ApplicationController
 
   def create
     fruit_ticket_transaction = FruitTicketTransaction.new fruit_ticket_gift_params
+    fruit_ticket_transaction.from_user = current_user
     fruit_ticket_transaction.transaction_type = :user_gift
     fruit_ticket_transaction.transact_and_save!
     render json: fruit_ticket_transaction
@@ -11,6 +12,6 @@ class Api::FruitTicketGiftsController < ApplicationController
   private
   def fruit_ticket_gift_params
     ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
-      :from_user_id, :to_user_id, :amount])
+      :to_user_id, :amount])
   end
 end
