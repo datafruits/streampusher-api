@@ -4,6 +4,8 @@ class FruitTicketTransaction < ApplicationRecord
 
   validate :to_or_from_user_is_present
 
+  after_create :maybe_send_notification
+
   # how do you get fruit tickets
   #   - people listen to your show
   #   - 1 fruit ticket for every listener?
@@ -65,6 +67,15 @@ class FruitTicketTransaction < ApplicationRecord
   def to_or_from_user_is_present
     if !from_user_id.present? && !to_user_id.present?
       errors.add(:from_user, "from_user to to_user must be present")
+    end
+  end
+
+  def maybe_send_notification
+    case self.transaction_type
+    when "user_gift"
+      Notification.create! source: self, send_to_chat: false, user: to_user, notification_type: "fruit_ticket_gift"
+    when "supporter_membership"
+      Notification.create! source: self, send_to_chat: false, user: to_user, notification_type: "supporter_fruit_ticket_stipend"
     end
   end
 end
