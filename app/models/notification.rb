@@ -61,8 +61,8 @@ class Notification < ApplicationRecord
     when "experience_point_award"
       "You got #{self.source.amount} #{self.source.award_type} points!"
     when "fruit_ticket_gift"
-      "#{self.source.from_user.username" sent you Ƒ#{self.source.amount} fruit tickets!"
-    when "supporter_membership"
+      "#{self.source.from_user.username} sent you Ƒ#{self.source.amount} fruit tickets!"
+    when "supporter_fruit_ticket_stipend"
       "You got Ƒ#{self.source.amount} fruit tickets for supporting datafruits. The bank of fruit tickets thanks you for your support!"
     end
   end
