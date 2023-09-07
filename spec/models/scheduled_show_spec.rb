@@ -292,8 +292,18 @@ RSpec.describe ScheduledShow, :type => :model do
   end
 
   describe "prerecord_file" do
+    before do
+      Sidekiq::Testing.fake!
+      Time.zone = 'UTC'
+      Timecop.freeze Time.local(2015)
+    end
+
+    after do
+      Timecop.return
+    end
+
     it "makes a playlist and sets it when assigning the prerecord_file attr" do
-      track = FactoryBot.create :track, radio: @radio, audio_file_name: "spec/fixtures/wau.mp3"
+      track = FactoryBot.create :track, radio: @radio, audio_file_name: "http://s3.amazonaws.com/streampusher/doo.mp3"
       @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: @start_at, end_at: @end_at, title: "hey hey", dj: @dj
       @scheduled_show.prerecord_track_id = track.id
       @scheduled_show.save!

@@ -62,8 +62,8 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def prerecord_track_id= track_id
-    playlist = self.radio.playlists.create! name: self.title
-    playlist.tracks << Track.find(track_id)
+    self.playlist = self.radio.playlists.create! name: self.title
+    self.playlist.tracks << Track.find(track_id)
   end
 
   # TODO

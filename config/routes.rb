@@ -130,7 +130,7 @@ Rails.application.routes.draw do
 
     resources :archives, only: [:index]
     resources :blog_posts, only: [:show, :index]
-    resources :tracks, only: [:show, :index]
+    resources :tracks, only: [:show, :index, :create]
     resources :djs, id: /[A-Za-z0-9_\.]+?/, only: [:show, :index] do
       resources :tracks, only: [:index], controller: 'djs/tracks'
     end
