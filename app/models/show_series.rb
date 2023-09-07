@@ -28,7 +28,7 @@ class ShowSeries < ApplicationRecord
     'Monday',
     'Tuesday',
     'Wednesday',
-    'Thusday',
+    'Thursday',
     'Friday',
     'Saturday'
   ]
