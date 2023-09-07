@@ -10,6 +10,8 @@ class ScheduledShow < ActiveRecord::Base
   belongs_to :playlist
   belongs_to :show_series
   belongs_to :recurrant_original, class_name: "ScheduledShow"
+  belongs_to :recording
+
   has_attached_file :image,
     styles: { :thumb => "x300", :medium => "x600" },
     path: ":attachment/:style/:basename.:extension",
@@ -41,6 +43,8 @@ class ScheduledShow < ActiveRecord::Base
   # after_update :update_recurrences_in_background, if: :recurring_or_recurrence?
   # before_destroy :maybe_destroy_recurrences
   before_destroy :clear_redis_if_playing
+
+  after_update :maybe_process_recording
   #
   def clear_redis_if_playing
     if self.radio.current_show_playing.to_i == self.id
@@ -318,4 +322,11 @@ class ScheduledShow < ActiveRecord::Base
   # def is_original_recurrant?
   #   !self.recurrant_original_id.present?
   # end
+  #
+  private
+  def maybe_process_recording 
+    if self.recording && self.recording.processing_status === 'unprocessed'
+      ProcessRecordingWorker.perform_later self.recording.id
+    end
+  end
 end

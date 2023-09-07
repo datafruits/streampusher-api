@@ -291,6 +291,10 @@ RSpec.describe ScheduledShow, :type => :model do
     end
   end
 
+  describe "archive recordings" do
+    xit "starts processing the recording after assigning a recording"
+  end
+
   describe "prerecord_file" do
     before do
       Sidekiq::Testing.fake!

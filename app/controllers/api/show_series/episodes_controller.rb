@@ -12,6 +12,6 @@ class Api::ShowSeries::EpisodesController < ApplicationController
 
   def show
     episode = ::ShowSeries.friendly.find(params[:show_series_id]).episodes.friendly.find(params[:id])
-    render json: episode, include: ['posts', 'labels', 'tracks']
+    render json: episode, include: ['posts', 'labels', 'tracks', 'recording']
   end
 end

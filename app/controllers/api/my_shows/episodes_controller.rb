@@ -24,7 +24,8 @@ class Api::MyShows::EpisodesController < ApplicationController
       :end_at, :description, :image, :image_filename,
       :recurring_interval, :playlist, :time_zone,
       :start, :end, :is_guest, :guest, :is_live,
-      :prerecord_track_id
+      :prerecord_track_id,
+      :recording
     ])
   end
 end
