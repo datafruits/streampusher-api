@@ -18,7 +18,7 @@ class DailyGlorpLotteryWorker < ActiveJob::Base
  
     if prize
       # pick random winner
-      winner = current_chat_users.sample
+      winner = User.find_by(username: current_chat_users.sample)
       if winner
         puts "the winner is: #{winner.username}"
         ExperiencePointAward.create! award_type: prize, user: winner, amount: rand(5)
@@ -27,8 +27,8 @@ class DailyGlorpLotteryWorker < ActiveJob::Base
 
     def current_chat_users
       sockets = redis.smembers "datafruits:chat:sockets"
-      usernames = sockets.map { |s| return s.split(":").last }
-      usernames.filter do |u|
+      usernames = sockets.map { |s| s.split(":").last }
+      return usernames.filter do |u|
         User.where(username: u).any?
       end
     end
