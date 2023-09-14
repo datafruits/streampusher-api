@@ -1,4 +1,5 @@
 class DailyGlorpLotteryWorker < ActiveJob::Base
+  include RedisConnection
   queue_as :default
 
   def perform
@@ -7,17 +8,29 @@ class DailyGlorpLotteryWorker < ActiveJob::Base
     prize = nil
     if chance <= 30
       # congratulations, you've won :glorp:
-      prize = :glorpy
+      prize = :glorppy
+      puts "today's prize is #{prize}!"
     elsif chance >= 80
       # congratulations, you've won :glop:
       prize = :gloppy
+      puts "today's prize is #{prize}!"
     end
  
     if prize
-      # how to get current chat users???
-      current_chat_users = Redis.hget
-      winner = current_chat_users
-      ExperiencePointAward.create! award_type: prize, user: winner, amount: rand(5)
+      # pick random winner
+      winner = current_chat_users.sample
+      if winner
+        puts "the winner is: #{winner.username}"
+        ExperiencePointAward.create! award_type: prize, user: winner, amount: rand(5)
+      end
+    end
+
+    def current_chat_users
+      sockets = redis.smembers "datafruits:chat:sockets"
+      usernames = sockets.map { |s| return s.split(":").last }
+      usernames.filter do |u|
+        User.where(username: u).any?
+      end
     end
   end
 end

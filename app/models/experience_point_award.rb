@@ -13,7 +13,7 @@ class ExperiencePointAward < ApplicationRecord
     :radio_enthusiast, # scheduling show
     :fruit_maniac, # clicking fruit buttons
     :streamingatron, # streaming live
-    :glorpy, # daily glorp lottery
+    :glorppy, # daily glorp lottery
     :gloppy, # daily glop lottery
   ]
 
@@ -30,5 +30,8 @@ class ExperiencePointAward < ApplicationRecord
 
   def send_notification
     Notification.create! source: self, notification_type: "experience_point_award", user: self.user, send_to_chat: false
+    if award_type === "glorpy" || award_type === "gloppy"
+      Notification.create! source: self, notification_type: "experience_point_award", user: self.user, send_to_chat: true
+    end
   end
 end
