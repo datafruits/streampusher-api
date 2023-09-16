@@ -24,7 +24,7 @@ class DailyGlorpLotteryWorker < ActiveJob::Base
       winner = User.find_by(username: winner_username)
       if winner
         puts "the winner is: #{winner.username}"
-        ExperiencePointAward.create! award_type: prize, user: winner, amount: rand(5)
+        ExperiencePointAward.create! award_type: prize, user: winner, amount: rand(5) + 1
       end
     end
 
