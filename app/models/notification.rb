@@ -66,7 +66,7 @@ class Notification < ApplicationRecord
     when "supporter_fruit_ticket_stipend"
       "You got Ƒ#{self.source.amount} fruit tickets for supporting datafruits. The bank of fruit tickets thanks you for your support!"
     when "glorp_lottery_winner"
-      ":#{self.award_type.split("py").first}:!!! #{self.user.username} got #{self.award_type} points!"
+      ":#{self.source.award_type.split("py").first}:!!! #{self.user.username} got #{self.award_type} points!"
     end
   end
 
