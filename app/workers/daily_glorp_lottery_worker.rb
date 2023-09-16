@@ -18,7 +18,8 @@ class DailyGlorpLotteryWorker < ActiveJob::Base
  
     if prize
       # pick random winner
-      winner = User.find_by(username: current_chat_users.sample)
+      winner_username = current_chat_users.sample
+      winner = User.find_by(username: winner_username)
       if winner
         puts "the winner is: #{winner.username}"
         ExperiencePointAward.create! award_type: prize, user: winner, amount: rand(5)
