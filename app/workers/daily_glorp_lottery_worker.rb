@@ -14,6 +14,8 @@ class DailyGlorpLotteryWorker < ActiveJob::Base
       # congratulations, you've won :glop:
       prize = :gloppy
       puts "today's prize is #{prize}!"
+    else
+      puts "no winner today!"
     end
  
     if prize
