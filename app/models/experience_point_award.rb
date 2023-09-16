@@ -31,7 +31,7 @@ class ExperiencePointAward < ApplicationRecord
   def send_notification
     Notification.create! source: self, notification_type: "experience_point_award", user: self.user, send_to_chat: false
     if award_type === "glorpy" || award_type === "gloppy"
-      Notification.create! source: self, notification_type: "experience_point_award", user: self.user, send_to_chat: true, send_to_user: false
+      Notification.create! source: self, notification_type: "glorp_lottery_winner", user: self.user, send_to_chat: true, send_to_user: false
     end
   end
 end
