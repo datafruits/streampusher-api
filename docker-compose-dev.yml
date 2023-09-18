@@ -40,6 +40,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "3000:3000"
+    tty: true
+    stdin_open: true
   sidekiq:
     image: "streampusher/streampusher:latest"
     user: root
