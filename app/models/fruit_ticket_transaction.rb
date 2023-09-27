@@ -3,6 +3,9 @@ class FruitTicketTransaction < ApplicationRecord
   belongs_to :to_user, class_name: "User" # null means bought something from the website
 
   validate :to_or_from_user_is_present
+  validates :amount, 
+    numericality: { only_integer: true, greater_than: 0 }, 
+    if: Proc.new { |t| !t.fruit_summon? }
 
   after_create :maybe_send_notification
 
@@ -51,6 +54,9 @@ class FruitTicketTransaction < ApplicationRecord
           self.to_user.update fruit_ticket_balance: self.to_user.fruit_ticket_balance + self.amount
           self.save!
         when "user_gift"
+          if self.from_user.fruit_ticket_balance < self.amount
+            raise "not enough balance"
+          end
           self.from_user.update fruit_ticket_balance: self.from_user.fruit_ticket_balance - self.amount
           self.to_user.update fruit_ticket_balance: self.to_user.fruit_ticket_balance + self.amount
           self.save!

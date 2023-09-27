@@ -89,4 +89,15 @@ RSpec.describe FruitTicketTransaction, type: :model do
     expect(user1.reload.fruit_ticket_balance).to eq 100
     expect(user2.reload.fruit_ticket_balance).to eq 50
   end
+
+  it "doesn't let you send negative amounts" do
+    radio = FactoryBot.create :radio
+    user1 = FactoryBot.create :user
+    user2 = FactoryBot.create :user, email: "tttt@tv.com", username: "fengir"
+    user1.update fruit_ticket_balance: 150
+    fruit_ticket_transaction = FruitTicketTransaction.new from_user: user1, to_user: user2, amount: -5000, transaction_type: :user_gift
+    fruit_ticket_transaction.transaction_type = :user_gift
+    expect(fruit_ticket_transaction.valid?).to eq false
+    expect(fruit_ticket_transaction.errors[:amount].length).to eq 1
+  end
 end
