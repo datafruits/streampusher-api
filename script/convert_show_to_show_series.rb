@@ -14,6 +14,10 @@ shows.find_each do |show|
       # create a show series that repeats
       puts "creating show series for #{show.title}"
       show_series = ShowSeries.new title: show.title, description: show.description, recurring_interval: show.recurring_interval, start_time: show.start_at, end_time: show.end_at, start_date: show.start_at, status: "disabled"
+      show_series.recurring_weekday = show.start_at.strftime("%A")
+      # TODO get recurring cadence if monthly
+      # if show_series.recurring_interval === :month
+      # end
       if show_series.description.blank?
         show_series.description = show_series.title
       end
