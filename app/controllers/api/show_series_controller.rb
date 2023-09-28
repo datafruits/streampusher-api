@@ -1,7 +1,8 @@
 class Api::ShowSeriesController < ApplicationController
   def index
     show_series = ShowSeries.where.not(status: "disabled").where.not(title: "GuestFruits")
-    render json: show_series
+    render json: show_series, include: ['users', 'labels']
+
   end
 
   def show
