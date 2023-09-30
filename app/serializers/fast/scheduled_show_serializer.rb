@@ -41,6 +41,8 @@ class Fast::ScheduledShowSerializer
   end
 
   attribute :show_series_slug do |object|
-    object.show_series.slug
+    if object.show_series.present?
+      object.show_series.slug
+    end
   end
 end
