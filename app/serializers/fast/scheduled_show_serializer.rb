@@ -1,6 +1,8 @@
 class Fast::ScheduledShowSerializer
   include JSONAPI::Serializer
 
+  has_many :tracks # , serializer: TrackSerializer
+
   attributes :id, :start, :end, :title, :image_url, :thumb_image_url, :description,
     :slug, :recurring_interval, :is_guest, :guest, :image, :image_filename
 
@@ -35,6 +37,12 @@ class Fast::ScheduledShowSerializer
   attribute :image_filename do |object|
     if object.image.present?
       object.image_file_name
+    end
+  end
+
+  attribute :show_series_slug do |object|
+    if object.show_series.present?
+      object.show_series.slug
     end
   end
 end

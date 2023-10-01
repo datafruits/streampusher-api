@@ -2,11 +2,10 @@ class Api::DjsController < ApplicationController
   serialization_scope :serializer_scope
 
   def index
-    @djs = @current_radio.djs.order("username DESC")
+    @djs = @current_radio.active_djs.order("username DESC")
     if params[:search]
       @djs = @djs.where("username ilike (?)", "%#{params[:search].permit(:keyword)[:keyword]}%")
     end
-    @djs = @current_radio.active_djs
     render json: @djs
   end
 
