@@ -11,9 +11,4 @@ RSpec.describe ForumThread, type: :model do
     expect(forum_thread.posts.first.body).to eq "hey blahblahblahbalbhah"
     expect(forum_thread.posts.first.user).to eq user
   end
-
-  # describe '.friendly_find' do
-  #   thread = ForumThread.create! title: "can glorp do a glorp ?? ! "
-  #   expect(ForumThread.friendly.find("can a glorp do a glorp ?? ! ")).to eq thread
-  # end
 end

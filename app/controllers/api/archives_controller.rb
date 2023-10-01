@@ -3,12 +3,9 @@ class Api::ArchivesController < ApplicationController
   serialization_scope :serializer_scope
 
   def index
-    shows = @current_radio.scheduled_shows.where(status: :archive_published).page(params[:page])
+    playlist = @current_radio.default_playlist
 
-    options = {}
-    options[:meta] = { total_pages: shows.page.total_pages.to_i, page: params[:page] }
-    options[:include] = ['tracks']
-    render json: Fast::ScheduledShowSerializer.new(shows, options).serializable_hash.to_json
+    render json: playlist, serializer: ArchivesPlaylistSerializer, include: 'tracks', meta: { total_pages: playlist.tracks.page.total_pages.to_i, page: params[:page] }
   end
 
   private
