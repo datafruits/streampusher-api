@@ -13,6 +13,9 @@ class Ability
       can :update, :metadata
       can :index, :current_user
       can :create, ForumThread
+      can :create, ShowSeries
+      can :update, ShowSeries
+      can :index, :my_shows
     elsif user.manager?
       can :index, :current_user
       can :update, :current_user
@@ -53,6 +56,8 @@ class Ability
       can :create, WikiPage
       can :update, WikiPage
       can :create, ForumThread
+      can :create, ShowSeries
+      can :index, :my_shows
     elsif user.dj?
       can :index, :current_user
       can :update, :current_user
@@ -129,6 +134,12 @@ class Ability
       can :create, WikiPage
       can :update, WikiPage
       can :create, ForumThread
+      can :create, ShowSeries
+      can :update, ShowSeries do |show_series|
+        show_series.users.include?(user)
+      end
+
+      can :index, :my_shows
 
       cannot :admin, :dashboard
       cannot :admin, :radios

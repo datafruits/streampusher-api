@@ -66,5 +66,4 @@ class TrackSerializer < ActiveModel::Serializer
   def display_name
     object.display_name
   end
-
 end
