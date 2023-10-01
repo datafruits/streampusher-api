@@ -7,6 +7,25 @@ guest_series.end_time = Date.today
 guest_series.start_date = Date.today
 guest_series.save!
 
+def get_weekday_cadence_from_month date
+    day_of_month = date.day
+  day_of_week = date.wday
+  first_day = day_of_month - day_of_week
+  position = (first_day / 7).floor + 1
+
+  if position == 1
+    return 'First'
+  elsif position == 2
+    return 'Second'
+  elsif position == 3
+    return 'Third'
+  elsif position == 4 || (position == 5 && day_of_month + 7 > Date.new(date.year, date.month + 1, 0).day)
+    return 'Last'
+  else
+    return 'Fourth'
+  end
+end
+
 shows.find_each do |show|
   recurrences = show.radio.scheduled_shows.where(recurrant_original_id: show.id)
   if recurrences.count > 0 && show.recurrant_original_id.nil? && show.recurring_interval != "not_recurring"
@@ -15,9 +34,9 @@ shows.find_each do |show|
       puts "creating show series for #{show.title}"
       show_series = ShowSeries.new title: show.title, description: show.description, recurring_interval: show.recurring_interval, start_time: show.start_at, end_time: show.end_at, start_date: show.start_at, status: "disabled"
       show_series.recurring_weekday = show.start_at.strftime("%A")
-      # TODO get recurring cadence if monthly
-      # if show_series.recurring_interval === :month
-      # end
+      if show_series.recurring_interval === :month
+        show_series.recurring_cadence get_weekday_cadence_from_month(show.start_at)
+      end
       if show_series.description.blank?
         show_series.description = show_series.title
       end
