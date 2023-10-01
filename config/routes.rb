@@ -120,12 +120,6 @@ Rails.application.routes.draw do
 
   # meant only for consumption by datafruits frontend app
   namespace :api do
-    resources :my_shows, only: [:index, :create, :update, :destroy, :show] do
-      resources :episodes, only: [:update], controller: 'my_shows/episodes'
-    end
-    resources :show_series, only: [:index, :show] do
-      resources :episodes, only: [:index, :show], controller: 'show_series/episodes'
-    end
     resources :posts, only: [:create]
     resources :forum_threads, only: [:index, :show, :create]
     resources :fruit_summons, only: [:create]
@@ -133,7 +127,7 @@ Rails.application.routes.draw do
 
     resources :archives, only: [:index]
     resources :blog_posts, only: [:show, :index]
-    resources :tracks, only: [:show, :index, :create]
+    resources :tracks, only: [:show, :index]
     resources :djs, id: /[A-Za-z0-9_\.]+?/, only: [:show, :index] do
       resources :tracks, only: [:index], controller: 'djs/tracks'
     end
@@ -149,7 +143,6 @@ Rails.application.routes.draw do
     resources :scheduled_shows, only: [:show, :index]
     resources :track_favorites, only: [:create, :destroy]
     resources :notifications, only: [:index]
-    resources :labels, only: [:create, :index, :show]
   end
 
   post "/setup" => "setup#create"

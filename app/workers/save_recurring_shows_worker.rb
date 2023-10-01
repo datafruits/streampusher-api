@@ -1,8 +1,8 @@
 class SaveRecurringShowsWorker < ActiveJob::Base
   queue_as :default
 
-  def perform show_series_id
-    show_series = ShowSeries.find show_series_id
-    show_series.save_episodes
+  def perform scheduled_show_id
+    scheduled_show = ScheduledShow.find scheduled_show_id
+    scheduled_show.save_recurrences
   end
 end
