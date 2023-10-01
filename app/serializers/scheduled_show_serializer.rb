@@ -20,11 +20,15 @@ class ScheduledShowSerializer < ActiveModel::Serializer
   end
 
   def show_series_slug
-    object.show_series.slug
+    if object.show_series.present?
+      object.show_series.slug
+    end
   end
 
   def show_series_title
-    object.show_series.title
+    if object.show_series.present?
+      object.show_series.title
+    end
   end
 
   def posts
