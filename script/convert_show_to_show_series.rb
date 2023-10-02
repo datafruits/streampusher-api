@@ -30,7 +30,7 @@ shows.find_each do |show|
   recurrences = show.radio.scheduled_shows.where(recurrant_original_id: show.id)
   if recurrences.count > 0 && show.recurrant_original_id.nil? && show.recurring_interval != "not_recurring"
     unless show.show_series.present?
-      if show.dj.present?
+      if show.dj.present? && show.dj.enabled?
         # create a show series that repeats
         puts "creating show series for #{show.title}"
         show_series = ShowSeries.new title: show.title, description: show.description, recurring_interval: show.recurring_interval, start_time: show.start_at, end_time: show.end_at, start_date: show.start_at, status: "disabled"
