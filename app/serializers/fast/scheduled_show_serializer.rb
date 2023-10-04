@@ -12,6 +12,12 @@ class Fast::ScheduledShowSerializer
     end
   end
 
+  attribute :host_avatar_url do |object|
+    if object.performers.any?
+      CGI.unescape(object.performers.first.image.url(:thumb))
+    end
+  end
+
   attribute :image_url do |object|
     if object.image.present?
       CGI.unescape(object.image_url)
