@@ -50,7 +50,6 @@ shows.find_each do |show|
         end
         show_series.save!
         recurrences.update_all show_series_id: show_series.id
-        # TODO should we publish all archives???
         recurrences.where("start_at <= ?", Time.now).find_each do |s|
           if s.tracks.any?
             # publish if show has tracks associated
@@ -63,7 +62,7 @@ shows.find_each do |show|
         puts "no dj present for this show :(...better fix it later!"
       end
     end
-  elsif !show.recurrence?
+  elsif !show.recurrence? && show.start_at < Time.now
     puts "adding #{show.title} to guest series"
     # add to guest shows
     show.update show_series_id: guest_series.id
