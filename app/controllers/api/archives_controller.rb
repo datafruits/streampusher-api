@@ -3,7 +3,10 @@ class Api::ArchivesController < ApplicationController
   serialization_scope :serializer_scope
 
   def index
-    shows = @current_radio.scheduled_shows.where(status: :archive_published).page(params[:page])
+    shows = @current_radio.scheduled_shows.
+      where(status: :archive_published).
+      order("start_at DESC").
+      page(params[:page])
 
     options = {}
     options[:meta] = { total_pages: shows.page.total_pages.to_i, page: params[:page] }
