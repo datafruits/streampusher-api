@@ -5,6 +5,10 @@ class ShowSeriesSerializer < ActiveModel::Serializer
   has_many :labels, embed: :ids, key: :labels, embed_in_root: true, each_serializer: LabelSerializer
   has_many :users, embed: :ids, key: :users, embed_in_root: true, each_serializer: DjSerializer
 
+  def id
+    object.slug
+  end
+
   def users
     object.users
   end
