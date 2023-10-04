@@ -62,7 +62,7 @@ class ScheduledShow < ActiveRecord::Base
   attr_accessor :prerecord_track_id
 
   def prerecord_track_id
-    self.playlist.tracks.first.id
+    self.playlist.tracks.first.id if self.playlist.present?
   end
 
   def prerecord_track_id= track_id
