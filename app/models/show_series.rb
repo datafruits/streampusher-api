@@ -83,7 +83,7 @@ class ShowSeries < ApplicationRecord
         scheduled_show.start_at = DateTime.new r.year, r.month, r.day, self.start_time.hour, self.start_time.min, self.start_time.sec, self.start_time.zone
         scheduled_show.end_at = DateTime.new r.year, r.month, r.day, self.end_time.hour, self.end_time.min, self.end_time.sec, self.end_time.zone
         scheduled_show.slug = nil
-        scheduled_show.title = "#{self.title} - #{scheduled_show.start_at.strftime("%m%d%Y")}"
+        scheduled_show.title = self.title
         if self.default_playlist.present?
           scheduled_show.playlist = self.default_playlist
         else
@@ -99,7 +99,9 @@ class ShowSeries < ApplicationRecord
       episode.start_at = DateTime.new episode.start_at.year, episode.start_at.month, episode.start_at.day, self.start_time.hour, self.start_time.min, self.start_time.sec, self.start_time.zone
       episode.end_at = DateTime.new episode.end_at.year, episode.end_at.month, episode.end_at.day, self.end_time.hour, self.end_time.min, self.end_time.sec, self.end_time.zone
       # TODO title, description
-      episode.image = self.image if self.image.present?
+      unless episode.image.present?
+        episode.image = self.image if self.image.present?
+      end
       episode.save!
     end
   end
