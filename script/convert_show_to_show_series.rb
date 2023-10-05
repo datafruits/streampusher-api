@@ -41,13 +41,14 @@ shows.find_each do |show|
         if show_series.description.blank?
           show_series.description = show_series.title
         end
-        # show_series.image = show.image if show.image.present?
+        show_series.image = show.image if show.image.present?
         show_series.show_series_hosts.build user: show.dj
         show.performers.each do |user|
           unless user.id === show.dj.id
             show_series.show_series_hosts.build user: user
           end
         end
+        # TODO should skip save_recurrences_in_background_on_create callback
         show_series.save!
         recurrences.update_all show_series_id: show_series.id
         recurrences.where("start_at <= ?", Time.now).find_each do |s|
