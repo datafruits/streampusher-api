@@ -51,4 +51,8 @@ class Fast::ScheduledShowSerializer
       object.show_series.slug
     end
   end
+
+  attribute :formatted_episode_title do |object|
+    "#{object.title} - #{object.start.strftime("%m%d%Y")}"
+  end
 end
