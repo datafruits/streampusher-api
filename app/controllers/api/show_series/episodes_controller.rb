@@ -6,7 +6,7 @@ class Api::ShowSeries::EpisodesController < ApplicationController
     elsif params[:status] === "archive_unpublished"
       episodes = episodes.where(status: "archive_unpublished")
     end
-    episodes = episodes.page(params[:page])
+    episodes = episodes.order("start_at DESC").page(params[:page])
     render json: episodes
   end
 
