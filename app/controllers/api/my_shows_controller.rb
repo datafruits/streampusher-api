@@ -58,7 +58,7 @@ class Api::MyShowsController < ApplicationController
   def update
     show_series = ShowSeries.friendly.find params[:id]
     authorize! :update, show_series
-    show_series = ShowSeries.new my_show_params
+    show_series.attributes = my_show_params
     if show_series.save
       render json: show_series
     else
