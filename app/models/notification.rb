@@ -23,7 +23,8 @@ class Notification < ApplicationRecord
     :experience_point_award,
     :fruit_ticket_gift,
     :supporter_fruit_ticket_stipend,
-    :glorp_lottery_winner
+    :glorp_lottery_winner,
+    :show_comment
   ]
 
   private
@@ -67,6 +68,8 @@ class Notification < ApplicationRecord
       "You got Ƒ#{self.source.amount} fruit tickets for supporting datafruits. The bank of fruit tickets thanks you for your support!"
     when "glorp_lottery_winner"
       ":#{self.source.award_type.split("py").first}:!!! #{self.user.username} got #{self.source.amount} #{self.source.award_type} points!"
+    when "show_comment"
+      "#{self.source.title} has a new comment!"
     end
   end
 

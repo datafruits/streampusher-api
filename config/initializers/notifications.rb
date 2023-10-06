@@ -54,8 +54,14 @@ if Rails.env.production?
 
   ActiveSupport::Notifications.subscribe "post.created" do |*args|
     event = ActiveSupport::Notifications::Event.new *args
-    link = "https://datafruits.fm/forum/#{event.payload[:slug]}"
-    DiscordNotifier.perform_later "New reply by #{event.payload[:username]}: #{event.payload[:post]} \n #{link}", ENV['DISCORD_FORUM_BOT_WEBHOOK_URL']
+    if event.payload[:postable_type] === "ScheduledShow"
+      link = "https://datafruits.fm/shows/#{}/episodes/#{event.payload[:slug]}"
+      message = "New comment on #{event.payload[:title]} by #{event.payload[:username]} \n #{link}"
+    else
+      link = "https://datafruits.fm/forum/#{event.payload[:slug]}"
+      message = "New reply by #{event.payload[:username]}: #{event.payload[:post]} \n #{link}"
+    end
+    DiscordNotifier.perform_later message, ENV['DISCORD_FORUM_BOT_WEBHOOK_URL']
   end
 
   ActiveSupport::Notifications.subscribe "wiki_page.created" do |*args|
