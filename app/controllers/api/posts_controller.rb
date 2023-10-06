@@ -10,7 +10,11 @@ class Api::PostsController < ApplicationController
     post.user = current_user
 
     if post.save
-      ActiveSupport::Notifications.instrument 'post.created', username: current_user.username, post: post.body.first(15)+"...", postable_type: post.postable_type, slug: post.postable.slug
+      payload = username: current_user.username, post: post.body.first(15)+"...", postable_type: post.postable_type, slug: post.postable.slug
+      if post_params[:postable_type] === 'ScheduledShow'
+        payload[:show_series_slug] = post.postable.show_series.slug
+      end
+      ActiveSupport::Notifications.instrument 'post.created', payload
       render json: post
     else
       render json: { errors: post.errors }, status: 422
