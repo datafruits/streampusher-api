@@ -9,8 +9,8 @@ class Post < ApplicationRecord
   def maybe_send_notification
     if self.postable_type === "ScheduledShow"
       show = self.postable
-      show.users.each do |user|
-        Notification.create notification_type: :show_comment, source: show, to_user: user, send_to_chat: false
+      show.performers.each do |user|
+        Notification.create notification_type: :show_comment, source: show, user: user, send_to_chat: false
       end
     end
   end
