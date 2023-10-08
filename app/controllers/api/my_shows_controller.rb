@@ -30,6 +30,11 @@ class Api::MyShowsController < ApplicationController
       #   end
       # end
       # TODO add labels
+      if labels_params.has_key? :label_ids
+        labels_params[:label_ids].each do |label_id|
+          episode.scheduled_show_labels.build label_id: label_id
+        end
+      end
       if episode.save
         render json: guest_series
       else
