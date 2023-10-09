@@ -28,7 +28,7 @@ class Radio < ActiveRecord::Base
   end
 
   def active_djs
-    self.users.where(enabled: true).profile_published
+    self.users.where(enabled: true)
   end
 
   def boot_radio

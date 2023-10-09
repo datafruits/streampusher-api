@@ -55,7 +55,7 @@ if Rails.env.production?
   ActiveSupport::Notifications.subscribe "post.created" do |*args|
     event = ActiveSupport::Notifications::Event.new *args
     if event.payload[:postable_type] === "ScheduledShow"
-      link = "https://datafruits.fm/shows/#{}/episodes/#{event.payload[:slug]}"
+      link = "https://datafruits.fm/shows/#{payload[:show_series_slug]}/episodes/#{event.payload[:slug]}"
       message = "New comment on #{event.payload[:title]} by #{event.payload[:username]} \n #{link}"
     else
       link = "https://datafruits.fm/forum/#{event.payload[:slug]}"
