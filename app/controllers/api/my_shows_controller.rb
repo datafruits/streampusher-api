@@ -64,11 +64,7 @@ class Api::MyShowsController < ApplicationController
     authorize! :update, show_series
     show_series.attributes = my_show_params
     if labels_params.has_key? :label_ids
-      labels_params[:label_ids].each do |label_id|
-        unless show_series.show_series_labels.where(label_id: label_id).any?
-          show_series.show_series_labels.build label_id: label_id
-        end
-      end
+      show_series.labels = Label.find(labels_params[:label_ids])
     end
     if show_series.save
       render json: show_series
