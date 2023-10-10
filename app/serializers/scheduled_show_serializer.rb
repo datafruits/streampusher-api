@@ -16,7 +16,9 @@ class ScheduledShowSerializer < ActiveModel::Serializer
   has_many :posts, embed: :ids, key: :posts, embed_in_root: true, each_serializer: PostSerializer
 
   def prerecord_track_filename
-    Track.find(object.prerecord_track_id).audio_file_name
+    if object.prerecord_track_id.present?
+      Track.find(object.prerecord_track_id).audio_file_name
+    end
   end
 
   def show_series_slug
