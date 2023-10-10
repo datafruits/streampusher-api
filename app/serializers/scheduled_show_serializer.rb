@@ -3,7 +3,7 @@ class ScheduledShowSerializer < ActiveModel::Serializer
   include ApplicationHelper
   include ActionView::Helpers::SanitizeHelper
   attributes :id, :start, :end, :title, :image_url, :thumb_image_url, :tweet_content, :description,
-    :slug, :recurring_interval, :hosted_by, :is_guest, :guest, :playlist_id, :image, :image_filename, :formatted_episode_title, :status,
+    :slug, :recurring_interval, :hosted_by, :is_guest, :guest, :playlist_id, :image_filename, :formatted_episode_title, :status,
     :show_series_title, :show_series_slug,
     :prerecord_track_id,
     :prerecord_track_filename
@@ -67,16 +67,6 @@ class ScheduledShowSerializer < ActiveModel::Serializer
   def thumb_image_url
     if object.image.present?
       CGI.unescape(object.thumb_image_url)
-    end
-  end
-
-  def image
-    if object.image.present?
-      {
-        basename: object.image_file_name,
-        attachment: "images",
-        updated_at: object.image.updated_at
-      }
     end
   end
 
