@@ -29,7 +29,6 @@ class Api::MyShowsController < ApplicationController
       #     show_series.show_series_hosts.build user_id: user_id
       #   end
       # end
-      # TODO add labels
       if labels_params.has_key? :label_ids
         labels_params[:label_ids].each do |label_id|
           episode.scheduled_show_labels.build label_id: label_id
@@ -64,6 +63,13 @@ class Api::MyShowsController < ApplicationController
     show_series = ShowSeries.friendly.find params[:id]
     authorize! :update, show_series
     show_series.attributes = my_show_params
+    if labels_params.has_key? :label_ids
+      labels_params[:label_ids].each do |label_id|
+        unless show_series.show_series_labels.where(label_id: label_id).any?
+          show_series.show_series_labels.build label_id: label_id
+        end
+      end
+    end
     if show_series.save
       render json: show_series
     else
