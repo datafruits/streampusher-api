@@ -25,7 +25,7 @@ class Api::MyShows::EpisodesController < ApplicationController
       :recurring_interval, :playlist, :time_zone,
       :start, :end, :is_guest, :guest, :is_live,
       :prerecord_track_id,
-      :recording
+      :recording, :status
     ])
   end
 end
