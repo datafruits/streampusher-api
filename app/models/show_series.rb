@@ -50,6 +50,7 @@ class ShowSeries < ApplicationRecord
 
   def recurrences
     options = { every: self.recurring_interval.to_sym }
+    options[:starts] = self.start_date
     case self.recurring_interval.to_sym
     # TODO
     # when "day"
@@ -95,10 +96,12 @@ class ShowSeries < ApplicationRecord
   end
 
   def update_episodes
+    # TODO what if start time needs to change???
     episodes_to_update.each do |episode|
       episode.start_at = DateTime.new episode.start_at.year, episode.start_at.month, episode.start_at.day, self.start_time.hour, self.start_time.min, self.start_time.sec, self.start_time.zone
       episode.end_at = DateTime.new episode.end_at.year, episode.end_at.month, episode.end_at.day, self.end_time.hour, self.end_time.min, self.end_time.sec, self.end_time.zone
       # TODO title, description
+      # not sure how that should work
       unless episode.image.present?
         episode.image = self.image if self.image.present?
       end
