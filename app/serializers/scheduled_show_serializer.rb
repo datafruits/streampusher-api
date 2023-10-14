@@ -38,7 +38,7 @@ class ScheduledShowSerializer < ActiveModel::Serializer
   end
 
   def formatted_episode_title
-    "#{object.title} - #{object.start.strftime("%m%d%Y")}"
+    object.formatted_episode_title
   end
 
   def hosted_by

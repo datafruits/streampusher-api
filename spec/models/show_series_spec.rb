@@ -36,6 +36,15 @@ RSpec.describe ShowSeries, type: :model do
       expect(show_series.episodes.count).to eq 1200
     end
 
+    it "saves biweek with start date" do
+      # test biweek
+      show_series = ShowSeries.new title: "biweekly jammer jam", description: "wow", recurring_interval: "biweek", recurring_weekday: "Tuesday", start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: 1.month.from_now.beginning_of_month, radio: @radio
+      show_series.users << @dj
+      show_series.save!
+      expect(show_series.episodes.count).to eq 598
+
+    end
+
     it "updates all episodes with new time" do
       show_series = ShowSeries.new title: "monthly jammer jam", description: "wow", recurring_interval: "month", recurring_weekday: 'Sunday', recurring_cadence: 'First', start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month, radio: @radio
       show_series.users << @dj
