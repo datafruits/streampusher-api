@@ -68,7 +68,7 @@ class ScheduledShow < ActiveRecord::Base
   def prerecord_track_id= track_id
     if track_id
       self.playlist = self.radio.playlists.create! name: self.slug
-      track = Track.find!(track_id)
+      track = Track.find(track_id)
       self.playlist.tracks << track
       if track.title.blank?
         track.title = self.formatted_episode_title
