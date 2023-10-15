@@ -78,7 +78,7 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def formatted_episode_title
-    "#{object.title} - #{object.start.strftime("%m%d%Y")}"
+    "#{self.title} - #{self.start_at.strftime("%m%d%Y")}"
   end
 
   # TODO
