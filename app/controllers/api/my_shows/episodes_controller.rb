@@ -9,6 +9,7 @@ class Api::MyShows::EpisodesController < ApplicationController
     else
       @scheduled_show.attributes = create_params.except(:image_filename).except(:image)
     end
+
     if @scheduled_show.save
       ActiveSupport::Notifications.instrument 'scheduled_show.updated', current_user: current_user.email, radio: @current_radio.name, show: @scheduled_show.title, params: create_params
       render json: @scheduled_show
@@ -24,7 +25,7 @@ class Api::MyShows::EpisodesController < ApplicationController
       :end_at, :description, :image, :image_filename,
       :recurring_interval, :playlist, :time_zone,
       :start, :end, :is_guest, :guest, :is_live,
-      :prerecord_track_id,
+      :prerecord_track_id, :use_prerecorded_file_for_archive,
       :recording, :status
     ])
   end

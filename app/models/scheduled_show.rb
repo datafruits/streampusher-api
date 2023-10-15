@@ -60,6 +60,14 @@ class ScheduledShow < ActiveRecord::Base
   enum status: [:archive_unpublished, :archive_published]
 
   attr_accessor :prerecord_track_id
+  attr_accessor :use_prerecorded_file_for_archive
+
+  def use_prerecorded_file_for_archive= y
+    if y && self.prerecord_track_id.present?
+      track = Track.find self.prerecord_track_id
+      self.tracks << track      
+    end
+  end
 
   def prerecord_track_id
     self.playlist.tracks.first.id if self.playlist.present? && self.playlist.tracks.any? && !(self.playlist.id === self.radio.default_playlist_id)
