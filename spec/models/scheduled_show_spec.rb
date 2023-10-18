@@ -292,7 +292,23 @@ RSpec.describe ScheduledShow, :type => :model do
   end
 
   describe "archive recordings" do
-    xit "starts processing the recording after assigning a recording"
+    before do
+      Sidekiq::Testing.inline!
+    end
+    after do
+      Sidekiq::Testing.disable!
+    end
+
+    it "starts processing the recording after assigning a recording, then assigns the track to the show" do
+      VCR.use_cassette(RSpec.current_example.metadata[:full_description].to_s, match_requests_on: [:method, :host, :uri], preserve_exact_body_bytes: true) do
+        recording1 = FactoryBot.create :recording, path: "spec/fixtures/the_cowbell.mp3", radio: @radio
+        start_at = 4.hours.from_now.utc
+        end_at = 6.hours.from_now.utc
+        @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey hey", dj: @dj, recording: recording1
+        @scheduled_show.save!
+      end
+      expect(@scheduled_show.tracks.count).to eq 1
+    end
   end
 
   describe "prerecord_file" do
@@ -320,6 +336,7 @@ RSpec.describe ScheduledShow, :type => :model do
       @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: @start_at, end_at: @end_at, title: "hey hey", dj: @dj
       @scheduled_show.prerecord_track_id = track.id
       @scheduled_show.save!
+      expect(@scheduled_show.tracks.count).to eq 0
       expect(@scheduled_show.playlist.tracks.first.id).to eq(track.id)
       expect(@scheduled_show.prerecord_track_id).to eq(track.id)
       @scheduled_show.use_prerecorded_file_for_archive = true
