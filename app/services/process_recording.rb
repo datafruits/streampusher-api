@@ -1,5 +1,5 @@
 class ProcessRecording
-  def perform recording, scheduled_show: nil
+  def perform recording, scheduled_show= nil
     recording.update processing_status: 'processing'
 
     begin

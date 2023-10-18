@@ -300,9 +300,13 @@ RSpec.describe ScheduledShow, :type => :model do
     end
 
     it "starts processing the recording after assigning a recording, then assigns the track to the show" do
-      recording1 = FactoryBot.create :recording, file: File.new("spec/fixtures/the_cowbell.mp3"), radio: @radio
-      @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: @start_at, end_at: @end_at, title: "hey hey", dj: @dj, recording: recording1
-      @scheduled_show.save!
+      VCR.use_cassette(RSpec.current_example.metadata[:full_description].to_s, match_requests_on: [:method, :host, :s3_image_matcher], preserve_exact_body_bytes: true) do
+        recording1 = FactoryBot.create :recording, path: "spec/fixtures/the_cowbell.mp3", radio: @radio
+        start_at = 4.hours.from_now.utc
+        end_at = 6.hours.from_now.utc
+        @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey hey", dj: @dj, recording: recording1
+        @scheduled_show.save!
+      end
       expect(@scheduled_show.tracks.count).to eq 1
     end
   end
