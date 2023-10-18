@@ -32,7 +32,7 @@ class ShowSeries < ApplicationRecord
     'Friday',
     'Saturday'
   ]
-  enum recurring_cadence: ['First', 'Second', 'Third', 'Forth', 'Last']
+  enum recurring_cadence: ['First', 'Second', 'Third', 'Fourth', 'Last']
 
   validates_presence_of :title, :description
   validate :recurring_cadence_is_unique
