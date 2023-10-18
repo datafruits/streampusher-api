@@ -27,6 +27,9 @@ class ScheduledShow < ActiveRecord::Base
   accepts_nested_attributes_for :scheduled_show_performers
   has_many :posts, as: :postable
 
+  scope :future, -> { where("start_at > ?", Time.now) }
+  scope :past, -> { where("start_at < ?", Time.now) }
+
   validates_presence_of :guest, if: -> { is_guest? }
   validates_presence_of :start_at, :end_at, :playlist_id, :title, :dj_id
   validates :description, length: { maximum: 10_000 }
