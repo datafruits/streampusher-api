@@ -6,7 +6,8 @@ class ScheduledShowSerializer < ActiveModel::Serializer
     :slug, :recurring_interval, :hosted_by, :is_guest, :guest, :playlist_id, :image_filename, :formatted_episode_title, :status,
     :show_series_title, :show_series_slug,
     :prerecord_track_id,
-    :prerecord_track_filename
+    :prerecord_track_filename,
+    :youtube_link
 
   has_many :tracks, embed: :ids, key: :tracks
   has_many :djs, embed: :ids, key: :djs
