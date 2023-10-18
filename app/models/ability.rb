@@ -63,7 +63,6 @@ class Ability
       can :update, :current_user
 
       can :index, Radio if can_manage_radio?(user, radio)
-      can :read, Podcast if radio.podcasts_enabled?
       can :index, :stats if can_manage_radio?(user, radio)
 
       can :edit, ScheduledShow do |scheduled_show|
