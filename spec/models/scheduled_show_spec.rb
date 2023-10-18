@@ -292,7 +292,19 @@ RSpec.describe ScheduledShow, :type => :model do
   end
 
   describe "archive recordings" do
-    it "starts processing the recording after assigning a recording, then assigns the track to the show"
+    before do
+      Sidekiq::Testing.inline!
+    end
+    after do
+      Sidekiq::Testing.disable!
+    end
+
+    it "starts processing the recording after assigning a recording, then assigns the track to the show" do
+      recording1 = FactoryBot.create :recording, file: File.new("spec/fixtures/the_cowbell.mp3"), radio: @radio
+      @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: @start_at, end_at: @end_at, title: "hey hey", dj: @dj, recording: recording1
+      @scheduled_show.save!
+      expect(@scheduled_show.tracks.count).to eq 1
+    end
   end
 
   describe "prerecord_file" do
