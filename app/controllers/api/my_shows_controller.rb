@@ -67,6 +67,11 @@ class Api::MyShowsController < ApplicationController
     if labels_params.has_key? :label_ids
       show_series.labels = Label.find(labels_params[:label_ids])
     end
+    if users_params.has_key? :user_ids
+      users_params[:user_ids].each do |user_id|
+        show_series.show_series_hosts.build user_id: user_id
+      end
+    end
     if show_series.save
       ActiveSupport::Notifications.instrument 'show_series.updated', current_user: current_user.email, show_series: show_series.title
       render json: show_series
