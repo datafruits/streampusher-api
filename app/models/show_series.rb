@@ -11,7 +11,7 @@ class ShowSeries < ApplicationRecord
   has_many :labels, through: :show_series_labels
 
   has_many :episodes, class_name: "::ScheduledShow"
-  
+
   # TODO move to active storage I guess?
   # has_one_attached :image
   has_attached_file :image,
@@ -35,7 +35,8 @@ class ShowSeries < ApplicationRecord
   enum recurring_cadence: ['First', 'Second', 'Third', 'Fourth', 'Last']
 
   validates_presence_of :title, :description
-  validate :recurring_cadence_is_unique
+  # TODO this doesn't check for overlapping times at all, disabling for now
+  # validate :recurring_cadence_is_unique
 
   after_create :save_recurrences_in_background_on_create, if: :recurring?
   after_update :update_episodes_in_background, if: :should_update_episodes?
@@ -141,10 +142,10 @@ class ShowSeries < ApplicationRecord
   end
 
   def should_update_episodes?
-    return saved_change_to_start_time? || 
-      saved_change_to_end_time? || 
-      saved_change_to_image_update_at? || 
-      saved_change_to_description? || 
+    return saved_change_to_start_time? ||
+      saved_change_to_end_time? ||
+      saved_change_to_image_update_at? ||
+      saved_change_to_description? ||
       saved_change_to_title?
   end
 
