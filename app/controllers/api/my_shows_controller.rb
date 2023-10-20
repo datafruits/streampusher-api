@@ -68,6 +68,7 @@ class Api::MyShowsController < ApplicationController
       show_series.labels = Label.find(labels_params[:label_ids])
     end
     if users_params.has_key? :user_ids
+      show_series.show_series_hosts = []
       users_params[:user_ids].each do |user_id|
         show_series.show_series_hosts.build user_id: user_id
       end
