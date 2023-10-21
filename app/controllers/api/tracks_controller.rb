@@ -1,6 +1,6 @@
 class Api::TracksController < ApplicationController
   load_and_authorize_resource except: [:index, :show]
-  before_action :current_radio
+  before_action :current_radio_required
 
   def index
     @tracks = @current_radio.tracks.where("id in (?)", params[:id])
