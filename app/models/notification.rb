@@ -24,7 +24,11 @@ class Notification < ApplicationRecord
     :fruit_ticket_gift,
     :supporter_fruit_ticket_stipend,
     :glorp_lottery_winner,
-    :show_comment
+    :show_comment,
+    :new_thread,
+    :new_thread_reply,
+    :new_wiki_page,
+    :wiki_page_update,
   ]
 
   private
@@ -70,6 +74,14 @@ class Notification < ApplicationRecord
       ":#{self.source.award_type.split("py").first}:!!! #{self.user.username} got #{self.source.amount} #{self.source.award_type} points!"
     when "show_comment"
       "#{self.source.title} has a new comment!"
+    when "new_thread"
+      "New thread posted in da fruit standz: #{self.source.title}"
+    when "new_thread_reply"
+      "New reply to thread #{self.source.title}"
+    when "new_wiki_page"
+      "New wiki page created: #{self.source.title}"
+    when "wiki_page_update"
+      "wiki page #{self.source.title} was updated!"
     end
   end
 
