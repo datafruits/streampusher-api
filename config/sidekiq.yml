@@ -22,5 +22,8 @@
     schedule_monitor:
       every: 1m
       class: ScheduleMonitorWorker
+    daily_glorp_lottery:
+      every: 24h
+      class: DailyGlorpLotteryWorker
 production:
   :concurrency: 5

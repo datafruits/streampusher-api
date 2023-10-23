@@ -35,4 +35,19 @@ RSpec.describe ExperiencePointAward, type: :model do
       expect(user.level).to eq 3
     end
   end
+
+  describe "glorpy awards" do
+    it "creates a notification that is sent to chat" do
+      winner = FactoryBot.create :user
+      ExperiencePointAward.create! award_type: :glorppy, user: winner, amount: rand(5) + 1
+      expect(Notification.count).to eq 2
+      expect(Notification.last.send_to_chat).to eq true
+      expect(Notification.last.send_to_user).to eq false
+
+      ExperiencePointAward.create! award_type: :gloppy, user: winner, amount: rand(5) + 1
+      expect(Notification.count).to eq 4
+      expect(Notification.last.send_to_chat).to eq true
+      expect(Notification.last.send_to_user).to eq false
+    end
+  end
 end

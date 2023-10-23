@@ -1,12 +1,20 @@
 class Fast::ScheduledShowSerializer
   include JSONAPI::Serializer
 
+  has_many :tracks # , serializer: TrackSerializer
+
   attributes :id, :start, :end, :title, :image_url, :thumb_image_url, :description,
     :slug, :recurring_interval, :is_guest, :guest, :image, :image_filename
 
   attribute :hosted_by do |object|
     if object.performers.any?
       object.performers.first.username
+    end
+  end
+
+  attribute :host_avatar_url do |object|
+    if object.performers.any?
+      CGI.unescape(object.performers.first.image.url(:thumb))
     end
   end
 
@@ -36,5 +44,15 @@ class Fast::ScheduledShowSerializer
     if object.image.present?
       object.image_file_name
     end
+  end
+
+  attribute :show_series_slug do |object|
+    if object.show_series.present?
+      object.show_series.slug
+    end
+  end
+
+  attribute :formatted_episode_title do |object|
+    "#{object.title} - #{object.start.strftime("%m%d%Y")}"
   end
 end

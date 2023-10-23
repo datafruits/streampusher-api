@@ -28,7 +28,8 @@ class Radio < ActiveRecord::Base
   end
 
   def active_djs
-    self.users.where(enabled: true).profile_published
+    dj_roles = ["dj", "vj"]
+    self.users.where(enabled: true).where(dj_roles.map { |r| "role ILIKE ?" }.join(" OR "), *dj_roles.map { |r| "%#{r}%" })
   end
 
   def boot_radio

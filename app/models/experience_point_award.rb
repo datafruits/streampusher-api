@@ -6,13 +6,15 @@ class ExperiencePointAward < ApplicationRecord
   after_save :send_notification
 
   enum award_type: [
-    :chat_lurker, # lurking in chat
-    :music_enjoyer, # listening to stream or podcasts
-    :textbox_like, # posting chats
+    :chat_lurker, # lurking in chat TODO implement
+    :music_enjoyer, # listening to stream or podcasts TODO implement???
+    :textbox_like, # posting chats TODO implement???
     :uploaderzog, # uploading podcast
     :radio_enthusiast, # scheduling show
-    :fruit_maniac, # clicking fruit buttons
+    :fruit_maniac, # clicking fruit buttons TODO implement???
     :streamingatron, # streaming live
+    :glorppy, # daily glorp lottery
+    :gloppy, # daily glop lottery
   ]
 
   private
@@ -28,5 +30,8 @@ class ExperiencePointAward < ApplicationRecord
 
   def send_notification
     Notification.create! source: self, notification_type: "experience_point_award", user: self.user, send_to_chat: false
+    if self.award_type === "glorppy" || self.award_type === "gloppy"
+      Notification.create! source: self, notification_type: "glorp_lottery_winner", user: self.user, send_to_chat: true, send_to_user: false
+    end
   end
 end

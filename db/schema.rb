@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_27_195236) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_15_032113) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,7 +19,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_27_195236) do
     t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
@@ -32,7 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_27_195236) do
     t.string "service_name", null: false
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
@@ -348,6 +348,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_27_195236) do
     t.boolean "is_guest", default: false, null: false
     t.string "guest", default: "", null: false
     t.boolean "is_live", default: false, null: false
+    t.integer "show_series_id"
+    t.integer "status", default: 0, null: false
+    t.integer "recording_id"
+    t.string "youtube_link"
     t.index ["dj_id"], name: "index_scheduled_shows_on_dj_id"
     t.index ["playlist_id"], name: "index_scheduled_shows_on_playlist_id"
     t.index ["radio_id"], name: "index_scheduled_shows_on_radio_id"
@@ -361,17 +365,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_27_195236) do
     t.string "image_file_name"
     t.integer "image_file_size"
     t.string "image_content_type"
-    t.datetime "image_update_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "recurring", default: false, null: false
+    t.datetime "image_update_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "recurring_interval", default: 0, null: false
     t.integer "recurring_weekday", default: 0, null: false
-    t.integer "recurring_cadence", default: 0, null: false
-    t.datetime "start_time", null: false
-    t.datetime "end_time", null: false
-    t.datetime "start_date", null: false
-    t.datetime "end_date"
+    t.integer "recurring_cadence", default: 0
+    t.datetime "start_time", precision: nil, null: false
+    t.datetime "end_time", precision: nil, null: false
+    t.datetime "start_date", precision: nil, null: false
+    t.datetime "end_date", precision: nil
     t.string "slug"
     t.integer "status", default: 0, null: false
     t.integer "radio_id", default: 1, null: false
@@ -382,8 +385,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_27_195236) do
   create_table "show_series_hosts", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "show_series_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["show_series_id", "user_id"], name: "index_show_series_hosts_on_show_series_id_and_user_id", unique: true
     t.index ["show_series_id"], name: "index_show_series_hosts_on_show_series_id"
     t.index ["user_id"], name: "index_show_series_hosts_on_user_id"
@@ -392,8 +395,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_27_195236) do
   create_table "show_series_labels", force: :cascade do |t|
     t.bigint "label_id"
     t.bigint "show_series_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["label_id"], name: "index_show_series_labels_on_label_id"
     t.index ["show_series_id", "label_id"], name: "index_show_series_labels_on_show_series_id_and_label_id", unique: true
     t.index ["show_series_id"], name: "index_show_series_labels_on_show_series_id"
@@ -513,20 +516,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_27_195236) do
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
+    t.string "email", limit: 255, default: "", null: false
+    t.string "encrypted_password", limit: 255, default: "", null: false
+    t.string "reset_password_token", limit: 255
     t.datetime "reset_password_sent_at", precision: nil
     t.datetime "remember_created_at", precision: nil
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at", precision: nil
     t.datetime "last_sign_in_at", precision: nil
-    t.string "current_sign_in_ip"
-    t.string "last_sign_in_ip"
+    t.string "current_sign_in_ip", limit: 255
+    t.string "last_sign_in_ip", limit: 255
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
-    t.string "role"
-    t.string "username", default: "", null: false
+    t.string "role", limit: 255
+    t.string "username", limit: 255, default: "", null: false
     t.string "time_zone"
     t.string "display_name", default: "", null: false
     t.datetime "deleted_at", precision: nil
@@ -535,7 +538,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_27_195236) do
     t.text "bio"
     t.string "image_file_name"
     t.string "image_content_type"
-    t.bigint "image_file_size"
+    t.integer "image_file_size"
     t.datetime "image_updated_at", precision: nil
     t.boolean "profile_publish", default: false, null: false
     t.integer "style", default: 0, null: false
