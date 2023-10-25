@@ -27,11 +27,6 @@ class ProcessRecording
       if scheduled_show.present?
         # grab scheduled show's info to use metadata and artwork
         track.update scheduled_show_id: scheduled_show.id, title: scheduled_show.formatted_episode_title
-      else
-        show = ScheduledShow.where(dj: user).where(start_at: (date-2.days)..(date+2.days))
-        if show.any?
-          track.update scheduled_show_id: show.first.id
-        end
       end
       StreamingExpAwardWorker.set(wait: 15.minute).perform_later(track.id)
     rescue Exception => e
