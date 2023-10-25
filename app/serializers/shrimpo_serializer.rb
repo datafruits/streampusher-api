@@ -1,5 +1,5 @@
 class ShrimpoSerializer < ActiveModel::Serializer
-  attributes :title, :rule_pack, :start_at, :end_at, :status, :zip_file_url, :shrimpo_entries
+  attributes :title, :rule_pack, :start_at, :end_at, :status, :zip_file_url, :shrimpo_entries, :slug
 
   def zip_file_url
   end

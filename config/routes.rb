@@ -149,7 +149,9 @@ Rails.application.routes.draw do
     resources :scheduled_shows, only: [:show, :index]
     resources :track_favorites, only: [:create, :destroy]
     resources :notifications, only: [:index]
-    resources :shrimpos, only: [:index, :show, :create]
+    resources :shrimpos, only: [:index, :show, :create] do
+      resources :shrimpo_entries, only: [:create]
+    end
     resources :labels, only: [:create, :index, :show]
   end
 

@@ -15,6 +15,11 @@ class Api::ShrimposController < ApplicationController
     end
   end
 
+  def show
+    shrimpo = Shrimpo.friendly.find params[:id]
+    render json: shrimpo
+  end
+
   private
   def shrimpo_params
     ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
