@@ -173,7 +173,7 @@ class Radio < ActiveRecord::Base
   end
 
   def next_scheduled_show now=Time.now
-    self.scheduled_shows.where("start_at >= ?", now).order("start_at ASC").first
+    self.scheduled_shows.where("start_at >= ?", now).where("show_series_id in (?)", ShowSeries.active.pluck(:id)).order("start_at ASC").first
   end
 
   def disk_usage
