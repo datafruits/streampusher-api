@@ -41,6 +41,16 @@ class ShowSeries < ApplicationRecord
   after_create :save_recurrences_in_background_on_create, if: :recurring?
   after_update :update_episodes_in_background, if: :should_update_episodes?
 
+  # very destructive
+  def convert_to! interval, new_start_date
+    case interval.to_sym
+    when :biweek
+      self.update start_date: new_start_date, recurring_interval: interval
+      self.episodes.where("start_at >= ?", new_start_date).destroy_all
+      self.save_episodes
+    end
+  end
+
   def image_url
     self.image.url(:original)
   end
