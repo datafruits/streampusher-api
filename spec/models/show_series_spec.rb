@@ -69,7 +69,7 @@ RSpec.describe ShowSeries, type: :model do
 
       new_start_time = 1.week.from_now
       show_series.convert_to! "biweek", 1.week.from_now
-      expect(show_series.reload.episodes.count).to eq 601
+      expect(show_series.reload.episodes.count).to eq 600
       expect(show_series.episodes.future.first.start_at).to eq new_start_time
     end
 

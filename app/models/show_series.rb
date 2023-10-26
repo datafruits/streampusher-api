@@ -46,7 +46,9 @@ class ShowSeries < ApplicationRecord
     case interval.to_sym
     when :biweek
       # TODO sometimes have to subtract 2 weeks for recurrences to generate properly???
-      self.update start_date: new_start_date - 2.weeks, recurring_interval: interval
+      # will investigate further
+      # self.update start_date: new_start_date - 2.weeks, recurring_interval: interval
+      self.update start_date: new_start_date, recurring_interval: interval
       self.episodes.where("start_at >= ?", new_start_date).destroy_all
       self.save_episodes
     end
