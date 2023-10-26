@@ -45,6 +45,9 @@ class ShowSeries < ApplicationRecord
   def convert_to! interval, new_start_date
     case interval.to_sym
     when :biweek
+      # TODO sometimes have to subtract 2 weeks for recurrences to generate properly???
+      # will investigate further
+      # self.update start_date: new_start_date - 2.weeks, recurring_interval: interval
       self.update start_date: new_start_date, recurring_interval: interval
       self.episodes.where("start_at >= ?", new_start_date).destroy_all
       self.save_episodes
@@ -92,8 +95,10 @@ class ShowSeries < ApplicationRecord
         scheduled_show.radio = self.radio
         scheduled_show.dj = self.users.first # TODO drop dj_id from ScheduledShow?
         scheduled_show.image = self.image if self.image.present?
-        scheduled_show.start_at = DateTime.new r.year, r.month, r.day, self.start_time.hour, self.start_time.min, self.start_time.sec, self.start_time.zone
-        scheduled_show.end_at = DateTime.new r.year, r.month, r.day, self.end_time.hour, self.end_time.min, self.end_time.sec, self.end_time.zone
+        start_at = DateTime.new r.year, r.month, r.day, self.start_time.hour, self.start_time.min, self.start_time.sec, self.start_time.zone
+
+        scheduled_show.start_at = start_at
+        scheduled_show.end_at = start_at + (self.end_time - self.start_time)
         scheduled_show.slug = nil
         scheduled_show.title = self.title
         if self.default_playlist.present?

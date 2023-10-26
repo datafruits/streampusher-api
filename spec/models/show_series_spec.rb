@@ -67,8 +67,10 @@ RSpec.describe ShowSeries, type: :model do
       show_series.save!
       expect(show_series.episodes.count).to eq 1200
 
+      new_start_time = 1.week.from_now
       show_series.convert_to! "biweek", 1.week.from_now
       expect(show_series.reload.episodes.count).to eq 600
+      expect(show_series.episodes.future.first.start_at).to eq new_start_time
     end
 
     xit "creates a unique slug for each recurrence"
