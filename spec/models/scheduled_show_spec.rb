@@ -164,7 +164,7 @@ RSpec.describe ScheduledShow, :type => :model do
   #     expect(recurring_show.recurrences.pluck(:slug).uniq.count).to eq count
   #   end
   #
-  #   # FIXME end_at cannot be before start_at 
+  #   # FIXME end_at cannot be before start_at
   #   #
   #   # updating recurrances needs to take into account that end_at should update as well
   #   xit "updates all recurring shows attributes" do
@@ -308,6 +308,8 @@ RSpec.describe ScheduledShow, :type => :model do
         @scheduled_show.save!
       end
       expect(@scheduled_show.tracks.count).to eq 1
+
+      expect(@scheduled_show.radio.default_playlist.tracks.includes?(@scheduled_show.tracks.first)).to eq true
     end
   end
 
