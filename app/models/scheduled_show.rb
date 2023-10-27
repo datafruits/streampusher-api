@@ -48,6 +48,7 @@ class ScheduledShow < ActiveRecord::Base
   before_destroy :clear_redis_if_playing
 
   after_update :maybe_process_recording
+  after_update :maybe_add_to_default_playlist
   #
   def clear_redis_if_playing
     if self.radio.current_show_playing.to_i == self.id
@@ -68,7 +69,7 @@ class ScheduledShow < ActiveRecord::Base
   def use_prerecorded_file_for_archive= y
     if y && self.prerecord_track_id.present?
       track = Track.find self.prerecord_track_id
-      self.tracks << track      
+      self.tracks << track
     end
   end
 
@@ -346,7 +347,17 @@ class ScheduledShow < ActiveRecord::Base
   # end
   #
   private
-  def maybe_process_recording 
+  def maybe_add_to_default_playlist
+    if self.archive_published?
+      self.tracks.each do |t|
+        unless self.radio.default_playlist.tracks.include? t
+          self.radio.default_playlist.tracks << t
+        end
+      end
+    end
+  end
+
+  def maybe_process_recording
     if self.recording && self.recording.processing_status === 'unprocessed'
       ProcessRecordingWorker.perform_later self.recording.id, self.id
     end
