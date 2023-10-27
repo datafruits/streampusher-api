@@ -15,6 +15,11 @@ class ScheduledShowSerializer < ActiveModel::Serializer
   belongs_to :show_series
   belongs_to :recording
   has_many :posts, embed: :ids, key: :posts, embed_in_root: true, each_serializer: PostSerializer
+  has_many :labels, embed: :ids, key: :labels, embed_in_root: true
+
+  def labels
+    object.labels
+  end
 
   def prerecord_track_filename
     if object.prerecord_track_id.present?
