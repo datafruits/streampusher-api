@@ -306,10 +306,11 @@ RSpec.describe ScheduledShow, :type => :model do
         end_at = 6.hours.from_now.utc
         @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey hey", dj: @dj, recording: recording1
         @scheduled_show.save!
+        expect(@scheduled_show.tracks.count).to eq 1
+        @scheduled_show.update status: :archive_published
       end
-      expect(@scheduled_show.tracks.count).to eq 1
 
-      expect(@scheduled_show.radio.default_playlist.tracks.includes?(@scheduled_show.tracks.first)).to eq true
+      expect(@scheduled_show.radio.default_playlist.tracks.include?(@scheduled_show.tracks.first)).to eq true
     end
   end
 

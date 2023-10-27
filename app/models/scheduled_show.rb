@@ -350,7 +350,7 @@ class ScheduledShow < ActiveRecord::Base
   def maybe_add_to_default_playlist
     if self.archive_published?
       self.tracks.each do |t|
-        unless self.radio.default_playlist.tracks.includes? t
+        unless self.radio.default_playlist.tracks.include? t
           self.radio.default_playlist.tracks << t
         end
       end
