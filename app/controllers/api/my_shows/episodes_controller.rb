@@ -10,6 +10,10 @@ class Api::MyShows::EpisodesController < ApplicationController
       @scheduled_show.attributes = create_params.except(:image_filename).except(:image)
     end
 
+    if labels_params.has_key? :label_ids
+      @scheduled_show.labels = Label.find(labels_params[:label_ids])
+    end
+
     if @scheduled_show.save
       ActiveSupport::Notifications.instrument 'scheduled_show.updated', current_user: current_user.email, radio: @current_radio.name, show: @scheduled_show.title, params: create_params
       render json: @scheduled_show
@@ -19,6 +23,12 @@ class Api::MyShows::EpisodesController < ApplicationController
   end
 
   private
+  def labels_params
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :labels
+    ])
+  end
+
   def create_params
     ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
       :title, :radio_id, :start_at,
