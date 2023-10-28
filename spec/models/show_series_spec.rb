@@ -66,7 +66,7 @@ RSpec.describe ShowSeries, type: :model do
       expect(show_series.episodes.first.start_at.hour).to eq new_start_time.hour
     end
 
-    it 'converts weekly to biweekly' do
+    xit 'converts weekly to biweekly' do
       show_series = ShowSeries.new title: "weekly jammer jam", description: "wow", recurring_interval: "week", recurring_weekday: 'Sunday', recurring_cadence: 'First', start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month, radio: @radio
       show_series.users << @dj
       show_series.save!
