@@ -1,6 +1,6 @@
 class Api::ShowSeriesController < ApplicationController
   def index
-    show_series = ShowSeries.where.not(status: "disabled").where.not(title: "GuestFruits").order("title ASC")
+    show_series = ShowSeries.where.not(status: "disabled").order("title ASC")
     render json: show_series, include: ['users', 'labels']
 
   end
