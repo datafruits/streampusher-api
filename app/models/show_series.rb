@@ -90,13 +90,19 @@ class ShowSeries < ApplicationRecord
 
   def save_episodes
     if recurring?
-      recurrences.each do |r|
+      start_day = DateTime.new self.start_date.year,
+                               self.start_date.month,
+                               self.start_date.day,
+                               self.start_time.hour,
+                               self.start_time.min
+      recurrences.each_with_index do |r, index|
         scheduled_show = self.episodes.new
         scheduled_show.radio = self.radio
         scheduled_show.dj = self.users.first # TODO drop dj_id from ScheduledShow?
         scheduled_show.image = self.image if self.image.present?
-        start_at = DateTime.new r.year, r.month, r.day, self.start_time.hour, self.start_time.min, self.start_time.sec, self.start_time.zone
-
+        new_date = DateTime.new r.year, r.month, r.day
+        difference_in_hours = (new_date - start_day).to_i * 24
+        start_at = start_day.advance(hours: difference_in_hours)
         scheduled_show.start_at = start_at
         scheduled_show.end_at = start_at + (self.end_time - self.start_time).seconds
         scheduled_show.slug = nil

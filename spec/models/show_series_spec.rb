@@ -66,6 +66,19 @@ RSpec.describe ShowSeries, type: :model do
       expect(show_series.episodes.first.start_at.hour).to eq new_start_time.hour
     end
 
+    it "handles crossing the DST boundry" do
+      Timecop.travel Time.zone.parse("2015-11-13") do
+        show_series = ShowSeries.new title: "monthly jammer jam", description: "wow", recurring_interval: "month", recurring_weekday: 'Sunday', recurring_cadence: 'First', start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month + 1.month, radio: @radio
+        show_series.users << @dj
+        show_series.save!
+
+        pre_dst_start_hour = show_series.episodes.first.start_at.in_time_zone("US/Pacific").hour
+        dst_episode = show_series.episodes.where("start_at >= ?", show_series.start_date + 6.months).first
+        post_dst_start_hour = dst_episode.start_at.in_time_zone("US/Pacific").hour
+        expect(post_dst_start_hour).to eq(pre_dst_start_hour + 1)
+      end
+    end
+
     xit 'converts weekly to biweekly' do
       show_series = ShowSeries.new title: "weekly jammer jam", description: "wow", recurring_interval: "week", recurring_weekday: 'Sunday', recurring_cadence: 'First', start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month, radio: @radio
       show_series.users << @dj
