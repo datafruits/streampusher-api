@@ -1,4 +1,4 @@
-class Api::Shrimpos:ShrimpoEntriesController < ApplicationController
+class Api::Shrimpos::ShrimpoEntriesController < ApplicationController
   def create
     shrimpo = Shrimpo.friendly.find params[:shrimpo_id]
     entry = shrimpo.shrimpo_entries.new shrimpo_entry_params

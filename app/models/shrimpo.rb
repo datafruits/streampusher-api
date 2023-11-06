@@ -29,7 +29,7 @@ class Shrimpo < ApplicationRecord
   end
 
   def duration= d
-    if VALID_DURATIONS.includes? d
+    if VALID_DURATIONS.include? d
       # using eval is an extremely *safe* ~good~ thing TO DO >: 3
       self.end_at = self.start_at + eval(d.gsub(' ', '.'))
     end
