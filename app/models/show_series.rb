@@ -95,7 +95,7 @@ class ShowSeries < ApplicationRecord
                                self.start_date.day,
                                self.start_time.hour,
                                self.start_time.min
-      recurrences.each_with_index do |r, index|
+      recurrences.each_with_index do |r|
         scheduled_show = self.episodes.new
         scheduled_show.radio = self.radio
         scheduled_show.dj = self.users.first # TODO drop dj_id from ScheduledShow?
