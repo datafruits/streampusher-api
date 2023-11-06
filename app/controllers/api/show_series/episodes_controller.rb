@@ -1,6 +1,6 @@
 class Api::ShowSeries::EpisodesController < ApplicationController
   def index
-    episodes = ::ShowSeries.friendly.find(params[:show_series_id]).episodes #.page(params[:page])
+    episodes = ::ShowSeries.friendly.find(params[:show_series_id]).episodes
     # FIXME change the query param naming
     # past episodes, could be published or unpublished
     if params[:status] === "archive_published"
@@ -10,7 +10,8 @@ class Api::ShowSeries::EpisodesController < ApplicationController
       episodes = episodes.where("start_at > ?", Time.now).order("start_at ASC")
     end
     episodes = episodes.page(params[:page])
-    render json: episodes
+    meta = { page: params[:page], total_pages: episodes.total_pages.to_i }
+    render json: episodes, meta: meta
   end
 
   def show
