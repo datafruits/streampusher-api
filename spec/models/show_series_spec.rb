@@ -25,6 +25,8 @@ RSpec.describe ShowSeries, type: :model do
       show_series.users << @dj
       show_series.save!
       expect(show_series.episodes.count).to eq 276
+      expect(show_series.episodes.future.pluck(:start_at).map {|m| m.hour }.uniq.count).to eq 1
+      expect(show_series.episodes.future.pluck(:end_at).map {|m| m.hour }.uniq.count).to eq 1
       expect(show_series.episodes.first.start_at).to eq(Time.zone.parse('2015-01-04'))
       expect(show_series.episodes.first.end_at).to eq(Time.zone.parse('2015-01-04') + 1.hours)
 
@@ -68,14 +70,14 @@ RSpec.describe ShowSeries, type: :model do
 
     it "handles crossing the DST boundry" do
       Timecop.travel Time.zone.parse("2015-11-13") do
-        show_series = ShowSeries.new title: "monthly jammer jam", description: "wow", recurring_interval: "month", recurring_weekday: 'Sunday', recurring_cadence: 'First', start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month + 1.month, radio: @radio
+        show_series = ShowSeries.new title: "monthly jammer jam", description: "wow", recurring_interval: "month", recurring_weekday: 'Sunday', recurring_cadence: 'First', start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month + 1.month, radio: @radio, time_zone: "US/Pacific"
         show_series.users << @dj
         show_series.save!
 
         pre_dst_start_hour = show_series.episodes.first.start_at.in_time_zone("US/Pacific").hour
         dst_episode = show_series.episodes.where("start_at >= ?", show_series.start_date + 6.months).first
         post_dst_start_hour = dst_episode.start_at.in_time_zone("US/Pacific").hour
-        expect(post_dst_start_hour).to eq(pre_dst_start_hour + 1)
+        expect(post_dst_start_hour).to eq(pre_dst_start_hour)
       end
     end
 

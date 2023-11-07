@@ -95,24 +95,28 @@ class ShowSeries < ApplicationRecord
                                self.start_date.day,
                                self.start_time.hour,
                                self.start_time.min
-      recurrences.each_with_index do |r|
+      recurrences.each do |r|
         scheduled_show = self.episodes.new
         scheduled_show.radio = self.radio
         scheduled_show.dj = self.users.first # TODO drop dj_id from ScheduledShow?
         scheduled_show.image = self.image if self.image.present?
-        new_date = DateTime.new r.year, r.month, r.day
-        difference_in_hours = (new_date - start_day).to_i * 24
-        start_at = start_day.advance(hours: difference_in_hours)
-        scheduled_show.start_at = start_at
-        scheduled_show.end_at = start_at + (self.end_time - self.start_time).seconds
-        scheduled_show.slug = nil
-        scheduled_show.title = self.title
-        if self.default_playlist.present?
-          scheduled_show.playlist = self.default_playlist
-        else
-          scheduled_show.playlist = self.radio.default_playlist
+        new_date = DateTime.new(r.year, r.month, r.day).new_offset(0)
+        # puts "new_date: #{new_date}"
+        if new_date > Time.now
+          difference_in_days = (new_date - start_day).to_i
+          start_at = start_day.in_time_zone(self.time_zone).advance(days: difference_in_days)
+          scheduled_show.start_at = start_at
+          # puts "start_at: #{scheduled_show.start_at}"
+          scheduled_show.end_at = start_at + (self.end_time - self.start_time).seconds
+          scheduled_show.slug = nil
+          scheduled_show.title = self.title
+          if self.default_playlist.present?
+            scheduled_show.playlist = self.default_playlist
+          else
+            scheduled_show.playlist = self.radio.default_playlist
+          end
+          scheduled_show.save!
         end
-        scheduled_show.save!
       end
     end
   end
