@@ -40,6 +40,7 @@ class ShowSeries < ApplicationRecord
   validates_presence_of :time_zone
   validates_inclusion_of :time_zone, :in => ActiveSupport::TimeZone.all.map { |m| m.name }, :message => "is not a valid Time Zone"
 
+
   after_create :save_recurrences_in_background_on_create, if: :recurring?
   after_update :update_episodes_in_background, if: :should_update_episodes?
 
@@ -92,23 +93,29 @@ class ShowSeries < ApplicationRecord
 
   def save_episodes
     if recurring?
-      start_day = DateTime.new self.start_date.year,
-                               self.start_date.month,
-                               self.start_date.day,
-                               self.start_time.hour,
-                               self.start_time.min
+      first_recurrence = DateTime.new recurrences.first.year,
+                                      recurrences.first.month,
+                                      recurrences.first.day
+      start_day = DateTime.new first_recurrence.year,
+                               first_recurrence.month,
+                               first_recurrence.day,
+                               self.start_time.in_time_zone(self.time_zone).hour,
+                               self.start_time.in_time_zone(self.time_zone).min,
+                               self.start_time.in_time_zone(self.time_zone).sec,
+                               ActiveSupport::TimeZone[self.time_zone].formatted_offset
+
       recurrences.each do |r|
         scheduled_show = self.episodes.new
         scheduled_show.radio = self.radio
         scheduled_show.dj = self.users.first # TODO drop dj_id from ScheduledShow?
-        scheduled_show.image = self.image if self.image.present?
-        new_date = DateTime.new(r.year, r.month, r.day).new_offset(0)
-        # puts "new_date: #{new_date}"
-        if new_date > Time.now
-          difference_in_days = (new_date - start_day).to_i
+        # scheduled_show.image = self.image if self.image.present?
+        new_start_at = DateTime.new(r.year, r.month, r.day, self.start_time.in_time_zone(self.time_zone).hour, self.start_time.in_time_zone(self.time_zone).min, self.start_time.sec, ActiveSupport::TimeZone[self.time_zone].formatted_offset)
+        if new_start_at > Time.now
+          difference_in_days = (new_start_at - start_day).to_i
+          # have to calculate time with .advance to preserve correct hour across time zone boundry
           start_at = start_day.in_time_zone(self.time_zone).advance(days: difference_in_days)
+
           scheduled_show.start_at = start_at
-          # puts "start_at: #{scheduled_show.start_at}"
           scheduled_show.end_at = start_at + (self.end_time - self.start_time).seconds
           scheduled_show.slug = nil
           scheduled_show.title = self.title
