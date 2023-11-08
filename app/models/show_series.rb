@@ -101,7 +101,7 @@ class ShowSeries < ApplicationRecord
                                first_recurrence.day,
                                self.start_time.in_time_zone(self.time_zone).hour,
                                self.start_time.in_time_zone(self.time_zone).min,
-                               self.start_time.in_time_zone(self.time_zone).sec,
+                               0,
                                ActiveSupport::TimeZone[self.time_zone].formatted_offset
 
       recurrences.each do |r|
@@ -109,7 +109,14 @@ class ShowSeries < ApplicationRecord
         scheduled_show.radio = self.radio
         scheduled_show.dj = self.users.first # TODO drop dj_id from ScheduledShow?
         # scheduled_show.image = self.image if self.image.present?
-        new_start_at = DateTime.new(r.year, r.month, r.day, self.start_time.in_time_zone(self.time_zone).hour, self.start_time.in_time_zone(self.time_zone).min, self.start_time.sec, ActiveSupport::TimeZone[self.time_zone].formatted_offset)
+        new_start_at = DateTime.new(
+          r.year,
+          r.month,
+          r.day,
+          self.start_time.in_time_zone(self.time_zone).hour,
+          self.start_time.in_time_zone(self.time_zone).min,
+          0,
+          ActiveSupport::TimeZone[self.time_zone].formatted_offset)
         if new_start_at > Time.now
           difference_in_days = (new_start_at - start_day).to_i
           # have to calculate time with .advance to preserve correct hour across time zone boundry
