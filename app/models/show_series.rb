@@ -37,6 +37,8 @@ class ShowSeries < ApplicationRecord
   validates_presence_of :title, :description
   # TODO this doesn't check for overlapping times at all, disabling for now
   # validate :recurring_cadence_is_unique
+  validates_presence_of :time_zone
+  validates_inclusion_of :time_zone, :in => ActiveSupport::TimeZone.all.map { |m| m.name }, :message => "is not a valid Time Zone"
 
   after_create :save_recurrences_in_background_on_create, if: :recurring?
   after_update :update_episodes_in_background, if: :should_update_episodes?
