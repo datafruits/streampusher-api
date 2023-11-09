@@ -51,8 +51,9 @@ class Api::MyShowsController < ApplicationController
           show_series.show_series_labels.build label_id: label_id
         end
       end
+      show_series.time_zone = current_user.time_zone
       if show_series.save
-      ActiveSupport::Notifications.instrument 'show_series.created', current_user: current_user.email, show_series: show_series.title
+        ActiveSupport::Notifications.instrument 'show_series.created', current_user: current_user.email, show_series: show_series.title
         render json: show_series
       else
         render json: { errors: [show_series.errors] }, status: 422
