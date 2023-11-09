@@ -93,12 +93,9 @@ class ShowSeries < ApplicationRecord
 
   def save_episodes
     if recurring?
-      first_recurrence = DateTime.new recurrences.first.year,
-                                      recurrences.first.month,
-                                      recurrences.first.day
-      start_day = DateTime.new first_recurrence.year,
-                               first_recurrence.month,
-                               first_recurrence.day,
+      start_day = DateTime.new recurrences.first.year,
+                               recurrences.first.month,
+                               recurrences.first.day,
                                self.start_time.in_time_zone(self.time_zone).hour,
                                self.start_time.in_time_zone(self.time_zone).min,
                                0,
@@ -108,7 +105,7 @@ class ShowSeries < ApplicationRecord
         scheduled_show = self.episodes.new
         scheduled_show.radio = self.radio
         scheduled_show.dj = self.users.first # TODO drop dj_id from ScheduledShow?
-        # scheduled_show.image = self.image if self.image.present?
+        scheduled_show.image = self.image if self.image.present?
         new_start_at = DateTime.new(
           r.year,
           r.month,
