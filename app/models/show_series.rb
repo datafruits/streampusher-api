@@ -105,7 +105,8 @@ class ShowSeries < ApplicationRecord
         scheduled_show = self.episodes.new
         scheduled_show.radio = self.radio
         scheduled_show.dj = self.users.first # TODO drop dj_id from ScheduledShow?
-        scheduled_show.image = self.image if self.image.present?
+        # TODO use a reference instead of copying a million new images
+        # scheduled_show.image = self.image if self.image.present?
         new_start_at = DateTime.new(
           r.year,
           r.month,
