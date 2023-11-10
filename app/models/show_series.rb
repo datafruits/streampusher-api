@@ -121,7 +121,7 @@ class ShowSeries < ApplicationRecord
           start_at = start_day.in_time_zone(self.time_zone).advance(days: difference_in_days)
 
           scheduled_show.start_at = start_at
-          scheduled_show.end_at = start_at + (self.end_time - self.start_time).seconds
+          scheduled_show.end_at = start_at + ((self.end_time.hour - self.start_time.hour) * 60).minutes
           scheduled_show.slug = nil
           scheduled_show.title = self.title
           if self.default_playlist.present?
