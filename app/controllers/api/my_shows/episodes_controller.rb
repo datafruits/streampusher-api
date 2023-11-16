@@ -36,7 +36,7 @@ class Api::MyShows::EpisodesController < ApplicationController
       :recurring_interval, :playlist, :time_zone,
       :start, :end, :is_guest, :guest, :is_live,
       :prerecord_track_id, :use_prerecorded_file_for_archive,
-      :recording, :status, :youtube_link
+      :recording, :status, :youtube_link, :mixcloud_link, :soundcloud_link
     ])
   end
 end
