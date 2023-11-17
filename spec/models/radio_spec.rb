@@ -25,8 +25,10 @@ RSpec.describe Radio, :type => :model do
   it "tells you the currently scheduled show" do
     radio = FactoryBot.create :radio
     playlist_1 = FactoryBot.create :playlist, radio: radio
-    scheduled_show_1 = FactoryBot.create :scheduled_show, playlist: playlist_1, radio: radio, dj: dj,
-      start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
+    show_series = ShowSeries.new title: "monthly jammer jam", description: "wow", recurring_interval: "month", recurring_weekday: 'Sunday', recurring_cadence: 'First', start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month, radio: radio
+    show_series.users << dj
+    show_series.save!
+    scheduled_show_1 = FactoryBot.create :scheduled_show, playlist: playlist_1, radio: radio, dj: dj, show_series: show_series, start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 2nd 2090 at 01:30 am")
     Timecop.travel Chronic.parse("January 1st 2090 at 11:30 pm") do
       expect(radio.current_scheduled_show).to eq scheduled_show_1
     end
