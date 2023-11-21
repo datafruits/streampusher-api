@@ -22,6 +22,14 @@ class Api::MyShows::EpisodesController < ApplicationController
     end
   end
 
+  def destroy
+    @scheduled_show = @current_radio.scheduled_shows.friendly.find(params[:id])
+    authorize! :destroy, @scheduled_show
+    if @scheduled_show.destroy
+      render json: @scheduled_show
+    end
+  end
+
   private
   def labels_params
     ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
