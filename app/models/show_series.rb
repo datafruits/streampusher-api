@@ -80,6 +80,8 @@ class ShowSeries < ApplicationRecord
     when :month
       options[:weekday] = self.recurring_weekday.downcase.to_sym
       options[:on] = self.recurring_cadence.downcase.to_sym
+    when :year
+      options[:on] = [self.start_date.month, self.start_date.day]
     end
     Recurrence.new options
   end
