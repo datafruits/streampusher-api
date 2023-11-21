@@ -47,6 +47,15 @@ RSpec.describe ShowSeries, type: :model do
       expect(show_series.episodes.future.pluck(:start_at).map{|m| m.strftime("%a")}.uniq.first).to eq "Mon"
     end
 
+    it "saves yearly show" do
+      show_series = ShowSeries.new title: "annual fest", description: "wow", recurring_interval: "year", recurring_weekday: "Monday", start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month, radio: @radio
+      show_series.users << @dj
+      show_series.save!
+      expect(show_series.episodes.count).to eq 22
+      expect(show_series.episodes.future.pluck(:start_at).map{|m| m.month}.uniq).to eq [Date.today.beginning_of_month.month]
+      expect(show_series.episodes.future.pluck(:start_at).map{|m| m.day}.uniq).to eq [Date.today.beginning_of_month.day]
+    end
+
     it "saves biweek with start date" do
       # test biweek
       show_series = ShowSeries.new title: "biweekly jammer jam", description: "wow", recurring_interval: "biweek", recurring_weekday: "Tuesday", start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: 1.month.from_now.beginning_of_month, radio: @radio
