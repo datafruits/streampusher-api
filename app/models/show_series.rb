@@ -44,6 +44,8 @@ class ShowSeries < ApplicationRecord
   after_create :save_recurrences_in_background_on_create, if: :recurring?
   after_update :update_episodes_in_background, if: :should_update_episodes?
 
+  before_save :set_required_columns
+
   # very destructive
   def convert_to! interval, new_start_date
     case interval.to_sym
@@ -152,6 +154,12 @@ class ShowSeries < ApplicationRecord
   end
 
   private
+
+  def set_required_columns
+    if self.year? && self.recurring_weekday.blank?
+      self.recurring_weekday = 'Sunday'
+    end
+  end
 
   def episodes_to_update
     self.episodes.where("start_at > (?)", Time.current)

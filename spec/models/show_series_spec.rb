@@ -48,7 +48,7 @@ RSpec.describe ShowSeries, type: :model do
     end
 
     it "saves yearly show" do
-      show_series = ShowSeries.new title: "annual fest", description: "wow", recurring_interval: "year", recurring_weekday: "Monday", start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month, radio: @radio
+      show_series = ShowSeries.new title: "annual fest", description: "wow", recurring_interval: "year", start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month, radio: @radio
       show_series.users << @dj
       show_series.save!
       expect(show_series.episodes.count).to eq 22
