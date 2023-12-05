@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   has_many :scheduled_show_performers, class_name: "::ScheduledShowPerformer", dependent: :destroy
   has_many :performers, through: :scheduled_show_performers, source: :user
   has_many :scheduled_shows, -> { includes :tracks }, through: :scheduled_show_performers
+  has_many :show_series_hosts, class_name: "::ShowSeriesHost", dependent: :destroy
+  has_many :show_series, through: :show_series_hosts
   has_many :tracks, through: :scheduled_shows
   has_many :track_favorites
   has_many :fruit_summons

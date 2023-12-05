@@ -83,6 +83,8 @@ class ShowSeries < ApplicationRecord
       options[:weekday] = self.recurring_weekday.downcase.to_sym
       options[:on] = self.recurring_cadence.downcase.to_sym
     when :year
+      # FIXME this doesn't seem to create the show for the current year,
+      # it starts on the next one
       options[:on] = [self.start_date.month, self.start_date.day]
     end
     Recurrence.new options
