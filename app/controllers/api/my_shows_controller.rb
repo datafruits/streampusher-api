@@ -1,4 +1,6 @@
 class Api::MyShowsController < ApplicationController
+  include ErrorSerializer
+
   def show
     show_series = ShowSeries.friendly.find params[:id]
 
@@ -39,7 +41,7 @@ class Api::MyShowsController < ApplicationController
         render json: guest_series
       else
         ActiveSupport::Notifications.instrument 'guest_show.create.error', current_user: current_user.email, show_series: episode.title, errors: episode.errors, params: params
-        render json: { errors: episode.errors }, status: 422
+        render json: ErrorSerializer.serialize(episode.errors), status: 422
       end
     else
       show_series = ShowSeries.new my_show_params
@@ -59,7 +61,7 @@ class Api::MyShowsController < ApplicationController
         render json: show_series
       else
         ActiveSupport::Notifications.instrument 'show_series.create.error', current_user: current_user.email, show_series: show_series.title, errors: show_series.errors, params: params
-        render json: { errors: [show_series.errors] }, status: 422
+        render json: ErrorSerializer.serialize(show_series.errors), status: 422
       end
     end
   end
@@ -82,7 +84,7 @@ class Api::MyShowsController < ApplicationController
       render json: show_series
     else
       ActiveSupport::Notifications.instrument 'show_series.update.error', current_user: current_user.email, show_series: show_series.title, errors: show_series.errors, params: params
-      render json: { errors: [show_series.errors] }, status: 422
+      render json: ErrorSerializer.serialize(show_series.errors), status: 422
     end
   end
 
