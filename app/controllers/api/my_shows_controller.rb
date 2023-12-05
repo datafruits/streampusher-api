@@ -35,8 +35,10 @@ class Api::MyShowsController < ApplicationController
         end
       end
       if episode.save
+        ActiveSupport::Notifications.instrument 'guest_show.created', current_user: current_user.email, show_series: episode.title
         render json: guest_series
       else
+        ActiveSupport::Notifications.instrument 'guest_show.create.error', current_user: current_user.email, show_series: episode.title, errors: episode.errors
         render json: { errors: episode.errors }, status: 422
       end
     else
@@ -56,6 +58,7 @@ class Api::MyShowsController < ApplicationController
         ActiveSupport::Notifications.instrument 'show_series.created', current_user: current_user.email, show_series: show_series.title
         render json: show_series
       else
+        ActiveSupport::Notifications.instrument 'show_series.create.error', current_user: current_user.email, show_series: show_series.title, errors: show_series.errors
         render json: { errors: [show_series.errors] }, status: 422
       end
     end

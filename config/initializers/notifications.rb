@@ -27,6 +27,10 @@ if Rails.env.production?
             "wiki_page.updated",
             "forum_thread.created",
             "post.created",
+            "show_series.created",
+            "show_series.create.error",
+            "guest_show.created",
+            "guest_show.create.error",
            ]
 
   events.each do |event|
