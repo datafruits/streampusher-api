@@ -81,6 +81,7 @@ class Api::MyShowsController < ApplicationController
       ActiveSupport::Notifications.instrument 'show_series.updated', current_user: current_user.email, show_series: show_series.title
       render json: show_series
     else
+      ActiveSupport::Notifications.instrument 'show_series.update.error', current_user: current_user.email, show_series: show_series.title, errors: show_series.errors, params: params
       render json: { errors: [show_series.errors] }, status: 422
     end
   end
