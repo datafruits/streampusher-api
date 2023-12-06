@@ -18,7 +18,8 @@ class Api::MyShows::EpisodesController < ApplicationController
       ActiveSupport::Notifications.instrument 'scheduled_show.updated', current_user: current_user.email, radio: @current_radio.name, show: @scheduled_show.title, params: create_params
       render json: @scheduled_show
     else
-      render json: @scheduled_show.errors, status: :unprocessable_entity
+      ActiveSupport::Notifications.instrument 'scheduled_show.update.error', current_user: current_user.email, radio: @current_radio.name, show: @scheduled_show.title, params: create_params, errors: @scheduled_show.errors
+      render json: ErrorSerializer.serialize(@scheduled_show.errors), status: :unprocessable_entity
     end
   end
 
