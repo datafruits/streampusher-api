@@ -23,6 +23,7 @@ if Rails.env.production?
             "radio.down",
             "microtext.created",
             "listener.created",
+            "listener.create.error",
             "live_now",
             "wiki_page.created",
             "wiki_page.updated",

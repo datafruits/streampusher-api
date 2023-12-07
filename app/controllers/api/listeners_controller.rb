@@ -7,6 +7,7 @@ class Api::ListenersController < ApplicationController
       ActiveSupport::Notifications.instrument 'listener.created', radio: @current_radio.name, username: @user.username
       render json: @user
     else
+      ActiveSupport::Notifications.instrument 'listener.create.error', radio: @current_radio.name, username: @user.username, errors: @user.errors, params: params
       respond_with_errors(@user)
     end
   end
