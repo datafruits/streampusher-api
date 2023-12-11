@@ -100,13 +100,14 @@ class ScheduledShow < ActiveRecord::Base
   def queue_playlist!
     liquidsoap = LiquidsoapRequests.new radio.id
     # should this always happen ?
-    if self.playlist.present? && self.playlist.redis_length < 1 && self.playlist.tracks.length > 0
+    playlist = self.playlist || self.show_series.default_playlist
+    if playlist.present? && playlist.redis_length < 1 && playlist.tracks.length > 0
       puts "playlist empty in redis for some reason, persisting to redis!"
       PersistPlaylistToRedis.perform self.playlist
     end
-    if self.playlist.present? && self.playlist.redis_length > 0
-      while self.playlist.redis_length > 0
-        track_id = self.playlist.pop_next_track
+    if playlist.present? && playlist.redis_length > 0
+      while playlist.redis_length > 0
+        track_id = playlist.pop_next_track
         puts "popped next track: #{track_id}"
         if track_id.present?
           track = Track.find track_id
