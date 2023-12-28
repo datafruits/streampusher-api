@@ -69,6 +69,8 @@ class User < ActiveRecord::Base
 
   after_create :send_notification
 
+  after_update :maybe_send_update_notification
+
   def login=(login)
     @login = login
   end
@@ -125,5 +127,13 @@ class User < ActiveRecord::Base
 
   def send_notification
     Notification.create! notification_type: "new_datafruiter", source: self, send_to_chat: true, send_to_user: false, user: self
+  end
+
+  def maybe_send_update_notification
+    if self.saved_change_to_bio?
+      Notification.create! notification_type: "profile_update", source: self, send_to_chat: true, send_to_user: false, user: self
+    elsif self.saved_change_to_image_file_name?
+      Notification.create! notification_type: "avatar_update", source: self, send_to_chat: true, send_to_user: false, user: self
+    end
   end
 end

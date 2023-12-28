@@ -26,6 +26,6 @@ describe BadgeAwardsWorker do
     BadgeAwardsWorker.perform_now radio.id
     user.reload
     expect(user.roles).to include("strawberry")
-    expect(Notification.count).to eq 1
+    expect(Notification.count).to eq 2
   end
 end

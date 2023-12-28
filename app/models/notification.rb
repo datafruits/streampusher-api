@@ -30,6 +30,8 @@ class Notification < ApplicationRecord
     :new_wiki_page,
     :wiki_page_update,
     :new_datafruiter,
+    :profile_update,
+    :avatar_update,
   ]
 
   private
@@ -85,6 +87,10 @@ class Notification < ApplicationRecord
       "wiki page #{self.source.title} was updated!"
     when "new_datafruiter"
       "new datafruiter on the loose, #{self.source.username} joined!"
+    when "profile_update"
+      "#{self.source.username}'s bio was updated!"
+    when "avatar_update"
+      "#{self.source.username}'s fruitification emblem was updated"
     end
   end
 
