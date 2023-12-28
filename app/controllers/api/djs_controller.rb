@@ -9,7 +9,10 @@ class Api::DjsController < ApplicationController
     if params[:published]
       @djs = @djs.where(profile_publish: true)
     end
-    render json: @djs.page(params[:page])
+
+    options = {}
+    options[:meta] = { page: params[:page], total_pages: @djs.page.total_pages.to_i }
+    render json: Fast::DjSerializer.new(@djs.page(params[:page]), options).serializable_hash.to_json
   end
 
   def show
