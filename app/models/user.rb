@@ -67,6 +67,8 @@ class User < ActiveRecord::Base
 
   before_validation :set_username, :set_initial_time_zone
 
+  after_create :send_notification
+
   def login=(login)
     @login = login
   end
@@ -119,5 +121,9 @@ class User < ActiveRecord::Base
     unless self.time_zone.present?
       self.time_zone = Time.zone.name
     end
+  end
+
+  def send_notification
+    Notification.create! notification_type: "new_datafruiter", source: self, send_to_chat: true, send_to_user: false, user: self
   end
 end

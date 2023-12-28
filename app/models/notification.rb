@@ -29,6 +29,7 @@ class Notification < ApplicationRecord
     :new_thread_reply,
     :new_wiki_page,
     :wiki_page_update,
+    :new_datafruiter,
   ]
 
   private
@@ -82,6 +83,8 @@ class Notification < ApplicationRecord
       "New wiki page created: #{self.source.title}"
     when "wiki_page_update"
       "wiki page #{self.source.title} was updated!"
+    when "new_datafruiter"
+      "new datafruiter on the loose, #{self.source.username} joined!"
     end
   end
 
