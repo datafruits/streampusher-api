@@ -21,6 +21,7 @@ class Notification < ApplicationRecord
     :supporter_badge_award,
     :emerald_supporter_badge_award,
     :gold_supporter_badge_award,
+    :duckle_badge_award,
     :level_up,
     :experience_point_award,
     :fruit_ticket_gift,
@@ -64,6 +65,8 @@ class Notification < ApplicationRecord
       "#{self.user.username} got the gold supporter badge!"
     when "emerald_supporter_badge_award"
       "#{self.user.username} got the emerald supporter badge!"
+    when "duckle_badge_award"
+      "#{self.user.username} got the duckle badge! :duckle: what the heck..."
     when "level_up"
       "#{self.user.username} reached level #{self.user.level}!"
     when "experience_point_award"
