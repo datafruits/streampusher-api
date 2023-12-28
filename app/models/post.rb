@@ -10,8 +10,10 @@ class Post < ApplicationRecord
     if self.postable_type === "ScheduledShow"
       show = self.postable
       show.performers.each do |user|
-        Notification.create notification_type: :show_comment, source: show, user: user, send_to_chat: false
+        Notification.create! notification_type: :show_comment, source: show, user: user, send_to_chat: true
       end
+    elsif self.postable_type === "ForumThread"
+      Notification.create! notification_type: :new_thread_reply, source: self.postable, user: user, send_to_chat: true, send_to_user: false
     end
   end
 end
