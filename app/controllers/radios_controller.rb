@@ -25,7 +25,7 @@ class RadiosController < ApplicationController
   end
 
   def queue_current_show
-    @radio = @current_scheduled_show
+    @radio = @current_radio
     current_show = @radio.current_scheduled_show
     if current_shows && (current_show.playlist_id != @radio.default_playlist_id)
       current_show.queue_playlist!
