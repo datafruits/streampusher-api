@@ -32,6 +32,7 @@ class Notification < ApplicationRecord
     :new_datafruiter,
     :profile_update,
     :avatar_update,
+    :new_podcast,
   ]
 
   private
@@ -91,6 +92,8 @@ class Notification < ApplicationRecord
       "#{self.source.username}'s bio was updated!"
     when "avatar_update"
       "#{self.source.username}'s fruitification emblem was updated"
+    when "new_podcast"
+      "New archive published: #{self.source.title}"
     end
   end
 
