@@ -353,6 +353,7 @@ class ScheduledShow < ActiveRecord::Base
       self.tracks.each do |t|
         unless self.radio.default_playlist.tracks.include? t
           self.radio.default_playlist.tracks << t
+          Notification.create notification_type: "new_podcast", user: self.performers.first, source: self, send_to_chat: true, send_to_user: false
         end
       end
     end
