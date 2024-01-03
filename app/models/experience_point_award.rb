@@ -33,5 +33,6 @@ class ExperiencePointAward < ApplicationRecord
     if self.award_type === "glorppy" || self.award_type === "gloppy"
       Notification.create! source: self, notification_type: "glorp_lottery_winner", user: self.user, send_to_chat: true, send_to_user: false
     end
+    ActiveSupport::Notifications.instrument 'user.xp_award', username: self.user.username, award_type: self.award_type, amount: self.amount
   end
 end
