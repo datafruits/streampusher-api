@@ -16,7 +16,7 @@ if Rails.env.production?
             "dj.added_to_radio",
             "podcast.created",
             "scheduled_show.created",
-            "scheduled_show.update",
+            "scheduled_show.updated",
             "scheduled_show.update.error",
             "scheduled_show.deleted",
             "subscription.updated",
