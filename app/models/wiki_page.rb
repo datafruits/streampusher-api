@@ -7,6 +7,8 @@ class WikiPage < ApplicationRecord
 
   before_validation :update_slug, if: :title_changed?
 
+  after_create :send_notification
+
   default_scope { where(deleted_at: nil) }
 
   def save_new_edit! params, user_id
@@ -19,5 +21,10 @@ class WikiPage < ApplicationRecord
 
   def update_slug
     self.slug = nil
+  end
+
+  private
+  def send_notification
+    Notification.create notification_type: "new_wiki_page", source: self, send_to_chat: true, send_to_user: false
   end
 end
