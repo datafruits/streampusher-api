@@ -22,14 +22,14 @@
     <% @podcast.extra_tags.each do |key,value| %>
       <<%=key%>><%=value%></<%=key%>>
     <% end %>
-    <% @podcast.playlist.playlist_tracks.order("podcast_published_date ASC").each do |playlist_track| %>
-      <% track = playlist_track.track %>
+    <% @archives.each do |show| %>
+      <% track = show.tracks.first %>
       <item>
-        <title><%=track.title%></title>
+        <title><%=show.title%></title>
         <description>
-          <%=track.try(:description).to_s%>
+          <%=show.description.to_s%>
         </description>
-        <pubDate><%=(playlist_track.podcast_published_date || track.created_at).strftime("%a, %d %b %Y %H:%M:%S %Z")%></pubDate>
+        <pubDate><%=show.start_at.strftime("%a, %d %b %Y %H:%M:%S %Z")%></pubDate>
         <enclosure url="<%=track.audio_file_name%>" length="" type="audio/mpeg"/>
         <guid><%=track.audio_file_name%></guid>
       </item>
