@@ -108,7 +108,12 @@ class Notification < ApplicationRecord
 
   def send_notification
     if self.send_to_chat?
-      redis.publish "datafruits:user_notifications", self.message
+      if self.url.present?
+        msg = "#{self.message} - #{self.url}"
+      else
+        msg = self.message
+      end
+      redis.publish "datafruits:user_notifications", msg
     end
   end
 end
