@@ -23,16 +23,18 @@
       <<%=key%>><%=value%></<%=key%>>
     <% end %>
     <% @archives.each do |show| %>
-      <% track = show.tracks.first %>
-      <item>
-        <title><%=show.title%></title>
-        <description>
-          <%=show.description.to_s%>
-        </description>
-        <pubDate><%=show.start_at.strftime("%a, %d %b %Y %H:%M:%S %Z")%></pubDate>
-        <enclosure url="<%=track.audio_file_name%>" length="" type="audio/mpeg"/>
-        <guid><%=track.audio_file_name%></guid>
-      </item>
+      <% if show.tracks.any? %>
+        <% track = show.tracks.first %>
+        <item>
+          <title><%=show.title%></title>
+          <description>
+            <%=show.description.to_s%>
+          </description>
+          <pubDate><%=show.start_at.strftime("%a, %d %b %Y %H:%M:%S %Z")%></pubDate>
+          <enclosure url="<%=track.audio_file_name%>" length="" type="audio/mpeg"/>
+          <guid><%=track.audio_file_name%></guid>
+        </item>
+      <% end %>
     <% end %>
   </channel>
 </rss>
