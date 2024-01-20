@@ -12,11 +12,13 @@ class PlaylistTrack < ActiveRecord::Base
   end
 
   def maybe_give_xp
-    if (self.playlist.id == self.track.radio.default_playlist_id) && self.track.uploaded_by.present?
+    if (self.playlist.id == self.track.radio.default_playlist_id) && self.track.uploaded_by.present? && ExperiencePointAward.where(source_id: self.id, user_id: self.track.uploaded_by.id).none?
       amount = 20
+      # TODO check scheduled show instead of track???
       if self.track.artwork.present?
         amount += 15
       end
+      # TODO don't need this anymore
       if self.track.scheduled_show.present?
         amount += 15
       end

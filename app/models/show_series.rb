@@ -37,9 +37,27 @@ class ShowSeries < ApplicationRecord
   validates_presence_of :title, :description
   # TODO this doesn't check for overlapping times at all, disabling for now
   # validate :recurring_cadence_is_unique
+  validates_presence_of :time_zone
+  validates_inclusion_of :time_zone, :in => ActiveSupport::TimeZone.all.map { |m| m.name }, :message => "is not a valid Time Zone"
+
 
   after_create :save_recurrences_in_background_on_create, if: :recurring?
   after_update :update_episodes_in_background, if: :should_update_episodes?
+
+  before_save :set_required_columns
+
+  # very destructive
+  def convert_to! interval, new_start_date
+    case interval.to_sym
+    when :biweek
+      # TODO sometimes have to subtract 2 weeks for recurrences to generate properly???
+      # will investigate further
+      # self.update start_date: new_start_date - 2.weeks, recurring_interval: interval
+      self.update start_date: new_start_date, recurring_interval: interval
+      self.episodes.where("start_at >= ?", new_start_date).destroy_all
+      self.save_episodes
+    end
+  end
 
   def image_url
     self.image.url(:original)
@@ -64,6 +82,10 @@ class ShowSeries < ApplicationRecord
     when :month
       options[:weekday] = self.recurring_weekday.downcase.to_sym
       options[:on] = self.recurring_cadence.downcase.to_sym
+    when :year
+      # FIXME this doesn't seem to create the show for the current year,
+      # it starts on the next one
+      options[:on] = [self.start_date.month, self.start_date.day]
     end
     Recurrence.new options
   end
@@ -77,21 +99,44 @@ class ShowSeries < ApplicationRecord
 
   def save_episodes
     if recurring?
+      start_day = DateTime.new recurrences.first.year,
+                               recurrences.first.month,
+                               recurrences.first.day,
+                               self.start_time.in_time_zone(self.time_zone).hour,
+                               self.start_time.in_time_zone(self.time_zone).min,
+                               0,
+                               ActiveSupport::TimeZone[self.time_zone].formatted_offset
+
       recurrences.each do |r|
         scheduled_show = self.episodes.new
         scheduled_show.radio = self.radio
         scheduled_show.dj = self.users.first # TODO drop dj_id from ScheduledShow?
-        scheduled_show.image = self.image if self.image.present?
-        scheduled_show.start_at = DateTime.new r.year, r.month, r.day, self.start_time.hour, self.start_time.min, self.start_time.sec, self.start_time.zone
-        scheduled_show.end_at = DateTime.new r.year, r.month, r.day, self.end_time.hour, self.end_time.min, self.end_time.sec, self.end_time.zone
-        scheduled_show.slug = nil
-        scheduled_show.title = self.title
-        if self.default_playlist.present?
-          scheduled_show.playlist = self.default_playlist
-        else
-          scheduled_show.playlist = self.radio.default_playlist
+        # TODO use a reference instead of copying a million new images
+        # scheduled_show.image = self.image if self.image.present?
+        new_start_at = DateTime.new(
+          r.year,
+          r.month,
+          r.day,
+          self.start_time.in_time_zone(self.time_zone).hour,
+          self.start_time.in_time_zone(self.time_zone).min,
+          0,
+          ActiveSupport::TimeZone[self.time_zone].formatted_offset)
+        if new_start_at > Time.now
+          difference_in_days = (new_start_at - start_day).to_i
+          # have to calculate time with .advance to preserve correct hour across time zone boundry
+          start_at = start_day.in_time_zone(self.time_zone).advance(days: difference_in_days)
+
+          scheduled_show.start_at = start_at
+          scheduled_show.end_at = start_at + (((self.end_time - self.start_time).seconds / 60) / 60).round.hours
+          scheduled_show.slug = nil
+          scheduled_show.title = self.title
+          if self.default_playlist.present?
+            scheduled_show.playlist = self.default_playlist
+          else
+            scheduled_show.playlist = self.radio.default_playlist
+          end
+          scheduled_show.save!
         end
-        scheduled_show.save!
       end
     end
   end
@@ -111,6 +156,12 @@ class ShowSeries < ApplicationRecord
   end
 
   private
+
+  def set_required_columns
+    if self.year? && self.recurring_weekday.blank?
+      self.recurring_weekday = 'Sunday'
+    end
+  end
 
   def episodes_to_update
     self.episodes.where("start_at > (?)", Time.current)

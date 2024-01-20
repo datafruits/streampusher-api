@@ -1,4 +1,6 @@
 class Api::MyShowsController < ApplicationController
+  include ErrorSerializer
+
   def show
     show_series = ShowSeries.friendly.find params[:id]
 
@@ -18,8 +20,21 @@ class Api::MyShowsController < ApplicationController
     if my_show_params[:recurring_interval] === "not_recurring"
       guest_series = ShowSeries.find_by(title: "GuestFruits")
       episode = guest_series.episodes.new my_show_params.except(:recurring_interval, :recurring_cadence, :recurring_weekday, :start_date, :end_date, :start_time, :end_time)
-      episode.start_at = my_show_params[:start_time]
-      episode.end_at = my_show_params[:end_time]
+      start_time = DateTime.parse my_show_params[:start_time]
+      end_time = DateTime.parse my_show_params[:end_time]
+      start_date = DateTime.parse my_show_params[:start_date]
+      episode.start_at = DateTime.new start_date.year,
+                                      start_date.month,
+                                      start_date.day,
+                                      start_time.hour
+                                      start_time.min
+                                      0
+      episode.end_at = DateTime.new start_date.year,
+                                    start_date.month,
+                                    start_date.day,
+                                    end_time.hour
+                                    end_time.min
+                                    0
       episode.playlist = guest_series.radio.default_playlist
       episode.dj_id = users_params[:user_ids].first
       episode.radio_id = guest_series.radio_id
@@ -35,9 +50,11 @@ class Api::MyShowsController < ApplicationController
         end
       end
       if episode.save
+        ActiveSupport::Notifications.instrument 'guest_show.created', current_user: current_user.email, show_series: episode.title
         render json: guest_series
       else
-        render json: { errors: episode.errors }, status: 422
+        ActiveSupport::Notifications.instrument 'guest_show.create.error', current_user: current_user.email, show_series: episode.title, errors: episode.errors, params: params
+        render json: ErrorSerializer.serialize(episode.errors), status: 422
       end
     else
       show_series = ShowSeries.new my_show_params
@@ -51,11 +68,13 @@ class Api::MyShowsController < ApplicationController
           show_series.show_series_labels.build label_id: label_id
         end
       end
+      show_series.time_zone = current_user.time_zone
       if show_series.save
-      ActiveSupport::Notifications.instrument 'show_series.created', current_user: current_user.email, show_series: show_series.title
+        ActiveSupport::Notifications.instrument 'show_series.created', current_user: current_user.email, show_series: show_series.title
         render json: show_series
       else
-        render json: { errors: [show_series.errors] }, status: 422
+        ActiveSupport::Notifications.instrument 'show_series.create.error', current_user: current_user.email, show_series: show_series.title, errors: show_series.errors, params: params
+        render json: ErrorSerializer.serialize(show_series.errors), status: 422
       end
     end
   end
@@ -77,7 +96,8 @@ class Api::MyShowsController < ApplicationController
       ActiveSupport::Notifications.instrument 'show_series.updated', current_user: current_user.email, show_series: show_series.title
       render json: show_series
     else
-      render json: { errors: [show_series.errors] }, status: 422
+      ActiveSupport::Notifications.instrument 'show_series.update.error', current_user: current_user.email, show_series: show_series.title, errors: show_series.errors, params: params
+      render json: ErrorSerializer.serialize(show_series.errors), status: 422
     end
   end
 

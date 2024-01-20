@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   has_many :scheduled_show_performers, class_name: "::ScheduledShowPerformer", dependent: :destroy
   has_many :performers, through: :scheduled_show_performers, source: :user
   has_many :scheduled_shows, -> { includes :tracks }, through: :scheduled_show_performers
+  has_many :show_series_hosts, class_name: "::ShowSeriesHost", dependent: :destroy
+  has_many :show_series, through: :show_series_hosts
   has_many :tracks, through: :scheduled_shows
   has_many :track_favorites
   has_many :fruit_summons
@@ -67,6 +69,10 @@ class User < ActiveRecord::Base
 
   before_validation :set_username, :set_initial_time_zone
 
+  after_create :send_notification
+
+  after_update :maybe_send_update_notification
+
   def login=(login)
     @login = login
   end
@@ -118,6 +124,18 @@ class User < ActiveRecord::Base
     # TODO should set time zone from browser timezone in form
     unless self.time_zone.present?
       self.time_zone = Time.zone.name
+    end
+  end
+
+  def send_notification
+    Notification.create! notification_type: "new_datafruiter", source: self, send_to_chat: true, send_to_user: false, user: self
+  end
+
+  def maybe_send_update_notification
+    if self.saved_change_to_bio?
+      Notification.create! notification_type: "profile_update", source: self, send_to_chat: true, send_to_user: false, user: self
+    elsif self.saved_change_to_image_file_name?
+      Notification.create! notification_type: "avatar_update", source: self, send_to_chat: true, send_to_user: false, user: self
     end
   end
 end

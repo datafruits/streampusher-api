@@ -8,6 +8,22 @@ class Api::ArchivesController < ApplicationController
       order("start_at DESC").
       page(params[:page])
 
+    if params[:query]
+      shows = shows.where("title ILIKE (?)", "%#{params[:query]}%")
+    end
+
+    if params[:tags].is_a? String
+      tags = Array(params[:tags].split(","))
+    else
+      tags = Array(params[:tags])
+    end
+    if tags.present?
+      labels = tags.map{|t| Label.where("name ilike (?)", t).first }
+      show_ids = labels.map{|l| l.scheduled_show_ids}.inject(:&)
+
+      shows = shows.where("id in (?)", show_ids)
+    end
+
     options = {}
     options[:meta] = { total_pages: shows.page.total_pages.to_i, page: params[:page] }
     options[:include] = ['tracks']

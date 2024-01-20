@@ -169,11 +169,15 @@ class Radio < ActiveRecord::Base
   end
 
   def current_scheduled_show now=Time.now
-    self.scheduled_shows.where("start_at <= ? AND end_at >= ?", now, now).first
+    self.scheduled_shows
+      .where.not(show_series_id: nil)
+      .joins(:show_series)
+      .where(show_series: { status: :active })
+      .where("start_at <= ? AND end_at >= ?", now, now).first
   end
 
   def next_scheduled_show now=Time.now
-    self.scheduled_shows.where("start_at >= ?", now).order("start_at ASC").first
+    self.scheduled_shows.where("start_at >= ?", now).where("show_series_id in (?)", ShowSeries.active.pluck(:id)).order("start_at ASC").first
   end
 
   def disk_usage

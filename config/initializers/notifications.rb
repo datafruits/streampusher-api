@@ -17,16 +17,22 @@ if Rails.env.production?
             "podcast.created",
             "scheduled_show.created",
             "scheduled_show.updated",
+            "scheduled_show.update.error",
             "scheduled_show.deleted",
             "subscription.updated",
             "radio.down",
             "microtext.created",
             "listener.created",
+            "listener.create.error",
             "live_now",
             "wiki_page.created",
             "wiki_page.updated",
             "forum_thread.created",
             "post.created",
+            "show_series.created",
+            "show_series.create.error",
+            "guest_show.created",
+            "guest_show.create.error",
            ]
 
   events.each do |event|

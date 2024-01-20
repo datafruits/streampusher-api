@@ -48,6 +48,7 @@ class ScheduledShow < ActiveRecord::Base
   before_destroy :clear_redis_if_playing
 
   after_update :maybe_process_recording
+  after_update :maybe_add_to_default_playlist
   #
   def clear_redis_if_playing
     if self.radio.current_show_playing.to_i == self.id
@@ -68,7 +69,7 @@ class ScheduledShow < ActiveRecord::Base
   def use_prerecorded_file_for_archive= y
     if y && self.prerecord_track_id.present?
       track = Track.find self.prerecord_track_id
-      self.tracks << track      
+      self.tracks << track
     end
   end
 
@@ -99,13 +100,14 @@ class ScheduledShow < ActiveRecord::Base
   def queue_playlist!
     liquidsoap = LiquidsoapRequests.new radio.id
     # should this always happen ?
-    if self.playlist.present? && self.playlist.redis_length < 1 && self.playlist.tracks.length > 0
+    playlist = self.playlist || self.show_series.default_playlist
+    if playlist.present? && playlist.redis_length < 1 && playlist.tracks.length > 0
       puts "playlist empty in redis for some reason, persisting to redis!"
       PersistPlaylistToRedis.perform self.playlist
     end
-    if self.playlist.present? && self.playlist.redis_length > 0
-      while self.playlist.redis_length > 0
-        track_id = self.playlist.pop_next_track
+    if playlist.present? && playlist.redis_length > 0
+      while playlist.redis_length > 0
+        track_id = playlist.pop_next_track
         puts "popped next track: #{track_id}"
         if track_id.present?
           track = Track.find track_id
@@ -346,7 +348,18 @@ class ScheduledShow < ActiveRecord::Base
   # end
   #
   private
-  def maybe_process_recording 
+  def maybe_add_to_default_playlist
+    if self.archive_published?
+      self.tracks.each do |t|
+        unless self.radio.default_playlist.tracks.include? t
+          self.radio.default_playlist.tracks << t
+          Notification.create notification_type: "new_podcast", user: self.performers.first, source: self, send_to_chat: true, send_to_user: false
+        end
+      end
+    end
+  end
+
+  def maybe_process_recording
     if self.recording && self.recording.processing_status === 'unprocessed'
       ProcessRecordingWorker.perform_later self.recording.id, self.id
     end

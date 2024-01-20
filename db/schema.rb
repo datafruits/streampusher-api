@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_15_032113) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_15_225919) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -195,6 +195,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_032113) do
     t.string "message", null: false
     t.string "source_type"
     t.boolean "read", default: false, null: false
+    t.string "url"
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
@@ -352,6 +353,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_032113) do
     t.integer "status", default: 0, null: false
     t.integer "recording_id"
     t.string "youtube_link"
+    t.string "mixcloud_link"
+    t.string "soundcloud_link"
     t.index ["dj_id"], name: "index_scheduled_shows_on_dj_id"
     t.index ["playlist_id"], name: "index_scheduled_shows_on_playlist_id"
     t.index ["radio_id"], name: "index_scheduled_shows_on_radio_id"
@@ -379,6 +382,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_032113) do
     t.integer "status", default: 0, null: false
     t.integer "radio_id", default: 1, null: false
     t.integer "default_playlist_id"
+    t.string "time_zone", default: "UTC", null: false
     t.index ["slug"], name: "index_show_series_on_slug", unique: true
   end
 

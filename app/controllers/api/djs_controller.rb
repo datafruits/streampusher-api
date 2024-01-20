@@ -2,14 +2,17 @@ class Api::DjsController < ApplicationController
   serialization_scope :serializer_scope
 
   def index
-    @djs = @current_radio.active_djs.order("username DESC")
+    @djs = @current_radio.active_djs.unscoped.order("username ASC")
     if params[:search]
       @djs = @djs.where("username ilike (?)", "%#{params[:search].permit(:keyword)[:keyword]}%")
     end
     if params[:published]
       @djs = @djs.where(profile_publish: true)
     end
-    render json: @djs.page(params[:page])
+
+    options = {}
+    options[:meta] = { page: params[:page], total_pages: @djs.page.total_pages.to_i }
+    render json: Fast::DjSerializer.new(@djs, options).serializable_hash.to_json
   end
 
   def show

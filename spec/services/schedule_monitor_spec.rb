@@ -100,9 +100,12 @@ describe ScheduleMonitor do
   end
   describe "if current show is_live" do
     it "does nothing" do
+      show_series = ShowSeries.new title: "monthly jammer jam", description: "wow", recurring_interval: "month", recurring_weekday: 'Sunday', recurring_cadence: 'First', start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month, radio: radio
+      show_series.users << dj
+      show_series.save!
       scheduled_show1 = FactoryBot.create :scheduled_show, playlist: playlist, radio: radio,
         start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 1st 2090 at 11:00 pm"),
-        dj: dj, is_live: true
+        dj: dj, is_live: true, show_series: show_series
       Timecop.travel Chronic.parse("January 1st 2090 at 10:32 pm") do
         allow(liquidsoap_requests_class).to receive(:new).with(radio.id).and_return(liquidsoap)
         expect(liquidsoap).not_to receive(:skip)
@@ -114,9 +117,12 @@ describe ScheduleMonitor do
   end
   describe "if current show's playlist is the default one" do
     it "does nothing except set current_playing_show_in_redis" do
+      show_series = ShowSeries.new title: "monthly jammer jam", description: "wow", recurring_interval: "month", recurring_weekday: 'Sunday', recurring_cadence: 'First', start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month, radio: radio
+      show_series.users << dj
+      show_series.save!
       scheduled_show1 = FactoryBot.create :scheduled_show, playlist: playlist, radio: radio,
         start_at: Chronic.parse("January 1st 2090 at 10:30 pm"), end_at: Chronic.parse("January 1st 2090 at 11:00 pm"),
-        dj: dj, is_live: true
+        dj: dj, is_live: true, show_series: show_series
       radio.update default_playlist: playlist
       Timecop.travel Chronic.parse("January 1st 2090 at 10:32 pm") do
         allow(liquidsoap_requests_class).to receive(:new).with(radio.id).and_return(liquidsoap)

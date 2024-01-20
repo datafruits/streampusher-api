@@ -19,12 +19,23 @@ class Notification < ApplicationRecord
     :dj_badge_award,
     :vj_badge_award,
     :supporter_badge_award,
+    :emerald_supporter_badge_award,
+    :gold_supporter_badge_award,
+    :duckle_badge_award,
     :level_up,
     :experience_point_award,
     :fruit_ticket_gift,
     :supporter_fruit_ticket_stipend,
     :glorp_lottery_winner,
-    :show_comment
+    :show_comment,
+    :new_thread,
+    :new_thread_reply,
+    :new_wiki_page,
+    :wiki_page_update,
+    :new_datafruiter,
+    :profile_update,
+    :avatar_update,
+    :new_podcast,
   ]
 
   private
@@ -58,6 +69,12 @@ class Notification < ApplicationRecord
       "#{self.user.username} got the VJ badge!"
     when "supporter_badge_award"
       "#{self.user.username} got the supporter badge!"
+    when "gold_supporter_badge_award"
+      "#{self.user.username} got the gold supporter badge!"
+    when "emerald_supporter_badge_award"
+      "#{self.user.username} got the emerald supporter badge!"
+    when "duckle_badge_award"
+      "#{self.user.username} got the duckle badge! :duckle: what the heck..."
     when "level_up"
       "#{self.user.username} reached level #{self.user.level}!"
     when "experience_point_award"
@@ -70,12 +87,33 @@ class Notification < ApplicationRecord
       ":#{self.source.award_type.split("py").first}:!!! #{self.user.username} got #{self.source.amount} #{self.source.award_type} points!"
     when "show_comment"
       "#{self.source.title} has a new comment!"
+    when "new_thread"
+      "New thread posted in da fruit standz: #{self.source.title}"
+    when "new_thread_reply"
+      "New reply to thread #{self.source.title}"
+    when "new_wiki_page"
+      "New wiki page created: #{self.source.title}"
+    when "wiki_page_update"
+      "wiki page #{self.source.title} was updated!"
+    when "new_datafruiter"
+      "new datafruiter on the loose, #{self.source.username} joined!"
+    when "profile_update"
+      "#{self.source.username}'s bio was updated!"
+    when "avatar_update"
+      "#{self.source.username}'s fruitification emblem was updated"
+    when "new_podcast"
+      "New archive published: #{self.source.title}"
     end
   end
 
   def send_notification
     if self.send_to_chat?
-      redis.publish "datafruits:user_notifications", self.message
+      if self.url.present?
+        msg = "#{self.message} - #{self.url}"
+      else
+        msg = self.message
+      end
+      redis.publish "datafruits:user_notifications", msg
     end
   end
 end

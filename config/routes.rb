@@ -136,6 +136,7 @@ Rails.application.routes.draw do
     resources :tracks, only: [:show, :index, :create]
     resources :djs, id: /[A-Za-z0-9_\.]+?/, only: [:show, :index] do
       resources :tracks, only: [:index], controller: 'djs/tracks'
+      resources :episodes, only: [:index], controller: 'djs/episodes'
     end
     resources :listeners, only: [:create] do
       collection do
