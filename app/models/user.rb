@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   has_many :show_series, through: :show_series_hosts
   has_many :tracks, through: :scheduled_shows
   has_many :track_favorites
+  has_many :scheduled_show_favorites
   has_many :fruit_summons
   has_many :posts
   has_many :notifications
