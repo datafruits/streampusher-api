@@ -1,0 +1,2 @@
+class ShrimpoVote < ApplicationRecord
+end
