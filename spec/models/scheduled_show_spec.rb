@@ -300,11 +300,14 @@ RSpec.describe ScheduledShow, :type => :model do
     end
 
     it "starts processing the recording after assigning a recording, then assigns the track to the show" do
+      show_series = ShowSeries.new title: "monthly jammer jam", description: "wow", recurring_interval: "month", recurring_weekday: 'Sunday', recurring_cadence: 'First', start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month, radio: @radio
+      show_series.users << @dj
+      show_series.save!
       VCR.use_cassette(RSpec.current_example.metadata[:full_description].to_s, match_requests_on: [:method, :host, :uri], preserve_exact_body_bytes: true) do
         recording1 = FactoryBot.create :recording, path: "spec/fixtures/the_cowbell.mp3", radio: @radio
         start_at = 4.hours.from_now.utc
         end_at = 6.hours.from_now.utc
-        @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey hey", dj: @dj, recording: recording1
+        @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey hey", dj: @dj, recording: recording1, show_series: show_series
         @scheduled_show.save!
         expect(@scheduled_show.tracks.count).to eq 1
         @scheduled_show.update status: :archive_published
