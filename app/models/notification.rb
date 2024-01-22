@@ -94,7 +94,7 @@ class Notification < ApplicationRecord
     when "new_wiki_page"
       "New wiki page created: #{self.source.title}"
     when "wiki_page_update"
-      "wiki page #{self.source.title} was updated!"
+      "wiki page #{self.source.wiki_page.title} was updated!"
     when "new_datafruiter"
       "new datafruiter on the loose, #{self.source.username} joined!"
     when "profile_update"
