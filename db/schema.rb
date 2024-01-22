@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_15_225919) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_20_021024) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -304,6 +304,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_15_225919) do
     t.index ["dj_id"], name: "index_recordings_on_dj_id"
     t.index ["radio_id"], name: "index_recordings_on_radio_id"
     t.index ["track_id"], name: "index_recordings_on_track_id"
+  end
+
+  create_table "scheduled_show_favorites", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "scheduled_show_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["scheduled_show_id"], name: "index_scheduled_show_favorites_on_scheduled_show_id"
+    t.index ["user_id", "scheduled_show_id"], name: "index_scheduled_show_favorites_on_user_id_and_scheduled_show_id", unique: true
+    t.index ["user_id"], name: "index_scheduled_show_favorites_on_user_id"
   end
 
   create_table "scheduled_show_labels", id: :serial, force: :cascade do |t|
