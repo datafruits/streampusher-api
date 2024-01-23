@@ -15,6 +15,8 @@ class Shrimpo < ApplicationRecord
 
   attr_accessor :duration
 
+  after_create :queue_end_shrimpo_job
+
   VALID_DURATIONS = [
     "1 hour",
     "2 hours",
@@ -42,4 +44,8 @@ class Shrimpo < ApplicationRecord
     ]
   end
 
+  private
+  def queue_end_shrimpo_job
+    EndShrimpoWorker.set(wait: duration).perform_later(self)
+  end
 end
