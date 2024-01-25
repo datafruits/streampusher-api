@@ -1,4 +1,4 @@
-class EndShrimpoWorker < ActiveJob::base
+class EndShrimpoWorker < ActiveJob::Base
   queue_as :default
 
   def perform shrimpo_id
