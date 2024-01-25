@@ -160,7 +160,7 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def url
-    "https://datafruits.fm/shows/#{self.show_series.slug}/#{self.slug}"
+    "https://datafruits.fm/shows/#{self.show_series.slug}/episodes/#{self.slug}"
   end
 
   private
