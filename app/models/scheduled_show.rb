@@ -14,7 +14,7 @@ class ScheduledShow < ActiveRecord::Base
 
   has_attached_file :image,
     styles: { :thumb => "x300", :medium => "x600" },
-    path: ":attachment/:style/:basename.:extension",
+    path: ":attachment/:style/:basename_:timestamp.:extension",
     validate_media_type: false # TODO comment out for prod
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
@@ -201,6 +201,7 @@ class ScheduledShow < ActiveRecord::Base
     end
   end
 
+  # this needs to happen after maybe_process_recording finishes
   def maybe_add_to_default_playlist
     if self.archive_published?
       self.tracks.each do |t|
