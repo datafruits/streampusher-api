@@ -14,7 +14,7 @@ class ScheduledShow < ActiveRecord::Base
 
   has_attached_file :image,
     styles: { :thumb => "x300", :medium => "x600" },
-    path: ":attachment/:style/:basename_:timestamp.:extension",
+    path: ":attachment/:style/:basename_:updated_at.:extension",
     validate_media_type: false # TODO comment out for prod
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
