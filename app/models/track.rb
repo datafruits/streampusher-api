@@ -20,7 +20,7 @@ class Track < ActiveRecord::Base
                       access_key_id: ENV['S3_KEY'],
                       secret_access_key: ENV['S3_SECRET'],
                       s3_region: ENV['S3_REGION'] },
-    path: ":attachment/:style/:basename_:updated_at.:extension"
+    path: ":attachment/:style/:basename.:extension"
 
   validates_attachment_content_type :artwork, content_type: /\Aimage\/.*\Z/
 
