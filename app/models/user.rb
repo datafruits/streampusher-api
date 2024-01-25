@@ -22,7 +22,8 @@ class User < ActiveRecord::Base
   has_many :notifications
 
   has_attached_file :image, styles: { :thumb => "150x150#", :medium => "250x250#" },
-    path: ":attachment/:style/:basename_:updated_at.:extension"
+    path: ":attachment/:style/:basename_:updated_at.:extension",
+    validate_media_type: false # TODO comment out for prod
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
   default_scope { order(created_at: :desc) }
