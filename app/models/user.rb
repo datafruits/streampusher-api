@@ -132,11 +132,15 @@ class User < ActiveRecord::Base
     Notification.create! notification_type: "new_datafruiter", source: self, send_to_chat: true, send_to_user: false, user: self
   end
 
+  def url
+    "https://datafruits.fm/djs/#{self.username}"
+  end
+
   def maybe_send_update_notification
     if self.saved_change_to_bio?
-      Notification.create! notification_type: "profile_update", source: self, send_to_chat: true, send_to_user: false, user: self
+      Notification.create! notification_type: "profile_update", source: self, send_to_chat: true, send_to_user: false, user: self, url: url
     elsif self.saved_change_to_image_file_name?
-      Notification.create! notification_type: "avatar_update", source: self, send_to_chat: true, send_to_user: false, user: self
+      Notification.create! notification_type: "avatar_update", source: self, send_to_chat: true, send_to_user: false, user: self, url: url
     end
   end
 end
