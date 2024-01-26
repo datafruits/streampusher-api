@@ -15,7 +15,7 @@ class ScheduledShow < ActiveRecord::Base
   has_attached_file :image,
     styles: { :thumb => "x300", :medium => "x600" },
     path: ":attachment/:style/:basename.:extension",
-    validate_media_type: false # TODO comment out for prod
+    validate_media_type: false # TODO comment out for prod ???? idk
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
   has_many :scheduled_show_labels, dependent: :destroy
@@ -163,6 +163,17 @@ class ScheduledShow < ActiveRecord::Base
     "https://datafruits.fm/shows/#{self.show_series.slug}/episodes/#{self.slug}"
   end
 
+  def maybe_add_to_default_playlist
+    if self.archive_published? && self.tracks.any?
+      self.tracks.each do |t|
+        unless self.radio.default_playlist.tracks.include? t
+          self.radio.default_playlist.tracks << t
+          Notification.create notification_type: "new_podcast", user: self.performers.first, source: self, send_to_chat: true, send_to_user: false, url: url
+        end
+      end
+    end
+  end
+
   private
 
   def add_performers
@@ -198,17 +209,6 @@ class ScheduledShow < ActiveRecord::Base
   def end_at_cannot_be_before_start_at
     if end_at < start_at
       errors.add(:end_at, "cannot be before start at")
-    end
-  end
-
-  def maybe_add_to_default_playlist
-    if self.archive_published?
-      self.tracks.each do |t|
-        unless self.radio.default_playlist.tracks.include? t
-          self.radio.default_playlist.tracks << t
-          Notification.create notification_type: "new_podcast", user: self.performers.first, source: self, send_to_chat: true, send_to_user: false, url: url
-        end
-      end
     end
   end
 

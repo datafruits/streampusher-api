@@ -314,6 +314,8 @@ RSpec.describe ScheduledShow, :type => :model do
       end
 
       expect(@scheduled_show.radio.default_playlist.tracks.include?(@scheduled_show.tracks.first)).to eq true
+
+      expect(Notification.last.notification_type).to eq("new_podcast")
     end
   end
 
