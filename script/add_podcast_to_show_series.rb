@@ -13,6 +13,7 @@ CSV.foreach(csv_path, headers: true) do |row|
       episode = show_series.scheduled_shows.new title: title, start_at: row[:created_at], end_at: row[:created_at], status: "archive_published"
       episode.save!
       track.update scheduled_show: episode
+      episode.labels << track.labels
     end
   else
     title = row[:show_series]
