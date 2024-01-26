@@ -100,7 +100,7 @@ class Notification < ApplicationRecord
     when "profile_update"
       "#{self.source.username}'s bio was updated!"
     when "avatar_update"
-      "#{self.source.username}'s fruitification emblem was updated"
+      "#{self.source.username}'s fruitification emblem was updated: #{self.source.image.url}"
     when "new_podcast"
       "New archive published: #{self.source.title}"
     end
