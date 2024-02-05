@@ -7,7 +7,7 @@ class Post < ApplicationRecord
 
   def url
     if self.postable_type === "ScheduledShow"
-      "https://datafruits.fm/shows/#{self.postable.show_series.slug}/#{self.postable.slug}"
+      self.postable.url
     elsif self.postable_type === "ForumThread"
       "https://datafruits.fm/forum/#{self.postable.slug}"
     end
