@@ -10,6 +10,12 @@ class Api::DjsController < ApplicationController
       @djs = @djs.where(profile_publish: true)
     end
 
+    if params[:tags]
+      for tag in params[:tags].split(",")
+        @djs = @djs.where("role ilike (?)", "%#{tag}%")
+      end
+    end
+    
     options = {}
     options[:meta] = { page: params[:page], total_pages: @djs.page.total_pages.to_i }
     render json: Fast::DjSerializer.new(@djs, options).serializable_hash.to_json
