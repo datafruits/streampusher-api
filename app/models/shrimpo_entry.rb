@@ -9,10 +9,14 @@ class ShrimpoEntry < ApplicationRecord
 
   has_one_attached :audio
 
+  def username
+    self.user.username
+  end
+
   def slug_candidates
     [
-      [:title],
-      [:title, :id]
+      [:title, :username],
+      [:title, :username, :id],
     ]
   end
 end

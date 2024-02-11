@@ -151,7 +151,7 @@ Rails.application.routes.draw do
     resources :track_favorites, only: [:create, :destroy]
     resources :notifications, only: [:index]
     resources :shrimpos, only: [:index, :show, :create] do
-      resources :shrimpo_entries, only: [:create], controller: 'shrimpos/shrimpo_entries'
+      resources :shrimpo_entries, only: [:create, :show], controller: 'shrimpos/shrimpo_entries'
 
     end
     resources :labels, only: [:create, :index, :show]

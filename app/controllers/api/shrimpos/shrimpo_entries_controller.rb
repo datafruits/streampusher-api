@@ -1,4 +1,9 @@
 class Api::Shrimpos::ShrimpoEntriesController < ApplicationController
+  def show
+    entry = ::Shrimpo.friendly.find(params[:shrimpo_id]).shrimpo_entries.friendly.find(params[:id])
+    render json: entry
+  end
+
   def create
     shrimpo = Shrimpo.friendly.find params[:shrimpo_id]
     entry = shrimpo.shrimpo_entries.new shrimpo_entry_params
