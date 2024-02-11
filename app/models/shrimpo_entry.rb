@@ -1,8 +1,18 @@
 class ShrimpoEntry < ApplicationRecord
+  extend FriendlyId
+  friendly_id :slug_candidates, use: :slugged
+
   belongs_to :shrimpo
   belongs_to :user
 
   validates :title, presence: true
 
   has_one_attached :audio
+
+  def slug_candidates
+    [
+      [:title],
+      [:title, :id]
+    ]
+  end
 end
