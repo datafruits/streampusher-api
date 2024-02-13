@@ -6,5 +6,6 @@ RSpec.describe Shrimpo, type: :model do
     shrimpo = Shrimpo.new start_at: Time.now, duration: "2 hours", title: "Shrimp Champions", rule_pack: "dont use pokemon samples", user: dj
     shrimpo.save!
     expect(shrimpo.end_at).to eq shrimpo.start_at + 2.hours
+    expect(shrimpo.duration).to eq "about 2 hours"
   end
 end

@@ -27,7 +27,7 @@ class Shrimpo < ApplicationRecord
   ]
 
   def duration
-    time_ago_in_words(self.end_at - self.start_at)
+    time_ago_in_words(self.end_at)
   end
 
   def duration= d
@@ -46,6 +46,6 @@ class Shrimpo < ApplicationRecord
 
   private
   def queue_end_shrimpo_job
-    EndShrimpoWorker.set(wait: duration).perform_later(self)
+    EndShrimpoWorker.set(wait_until: self.end_at).perform_later(self)
   end
 end
