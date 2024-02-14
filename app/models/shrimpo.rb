@@ -8,6 +8,7 @@ class Shrimpo < ApplicationRecord
   has_many :shrimpo_entries
 
   has_one_attached :zip
+  has_one_attached :shrimpo_cover_art
 
   validates :title, presence: true
 
@@ -46,6 +47,6 @@ class Shrimpo < ApplicationRecord
 
   private
   def queue_end_shrimpo_job
-    EndShrimpoWorker.set(wait_until: self.end_at).perform_later(self)
+    EndShrimpoWorker.set(wait_until: self.end_at).perform_later(self.id)
   end
 end
