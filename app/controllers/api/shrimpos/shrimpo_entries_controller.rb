@@ -21,6 +21,6 @@ class Api::Shrimpos::ShrimpoEntriesController < ApplicationController
   def shrimpo_entry_params
     ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
       :title, :audio
-  ])
+    ])
   end
 end

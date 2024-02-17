@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_11_063948) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_17_170715) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -453,6 +453,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_11_063948) do
     t.datetime "updated_at", null: false
     t.index ["shrimpo_entry_id"], name: "index_shrimpo_votes_on_shrimpo_entry_id"
     t.index ["shrimpo_voting_category_id"], name: "index_shrimpo_votes_on_shrimpo_voting_category_id"
+    t.index ["user_id", "shrimpo_entry_id"], name: "index_shrimpo_votes_on_user_id_and_shrimpo_entry_id", unique: true
     t.index ["user_id"], name: "index_shrimpo_votes_on_user_id"
   end
 
@@ -475,6 +476,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_11_063948) do
     t.datetime "updated_at", null: false
     t.integer "status", default: 0, null: false
     t.string "slug"
+    t.string "emoji"
     t.index ["slug"], name: "index_shrimpos_on_slug", unique: true
     t.index ["user_id"], name: "index_shrimpos_on_user_id"
   end
