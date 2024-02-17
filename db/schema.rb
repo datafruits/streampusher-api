@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_17_170715) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_17_215725) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -445,7 +445,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_17_170715) do
   end
 
   create_table "shrimpo_votes", force: :cascade do |t|
-    t.bigint "shrimpo_voting_category_id", null: false
+    t.bigint "shrimpo_voting_category_id"
     t.bigint "shrimpo_entry_id", null: false
     t.bigint "user_id", null: false
     t.integer "score", null: false
