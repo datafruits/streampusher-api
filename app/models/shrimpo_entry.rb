@@ -11,6 +11,20 @@ class ShrimpoEntry < ApplicationRecord
 
   has_one_attached :audio
 
+  def previous_entry
+    previous, nextious = self.shrimpo.sorted_entries.split(self)
+    if previous.any?
+      return previous.last
+    end
+  end
+
+  def next_entry
+    previous, nextious = self.shrimpo.sorted_entries.split(self)
+    if nextious.any?
+      return nextious.first
+    end
+  end
+
   def username
     self.user.username
   end

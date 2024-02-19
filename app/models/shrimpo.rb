@@ -8,7 +8,7 @@ class Shrimpo < ApplicationRecord
   has_many :shrimpo_entries
 
   has_one_attached :zip
-  has_one_attached :shrimpo_cover_art
+  has_one_attached :cover_art
 
   validates :title, presence: true
 
@@ -26,6 +26,10 @@ class Shrimpo < ApplicationRecord
     "2 days",
     "1 week",
   ]
+
+  def sorted_entries
+    self.shrimpo_entries.sort_by(&:created_at)
+  end
 
   def duration
     time_ago_in_words(self.end_at)
