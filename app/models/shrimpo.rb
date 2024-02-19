@@ -45,6 +45,23 @@ class Shrimpo < ApplicationRecord
     ]
   end
 
+  def tally_results!
+    return unless self.voting? # && total_votes > 0
+
+    ActiveRecord::Base.transaction do
+      self.shrimpo_entries.each do |entry|
+        total_score = entry.shrimpo_votes.sum(:score)
+        entry.update! total_score: total_score
+      end
+
+      self.shrimpo_entries.sort_by(&:total_score).reverse.each_with_index do |entry, index|
+        entry.update! ranking: index + 1
+      end
+
+      self.completed!
+    end
+  end
+
   private
   def queue_end_shrimpo_job
     EndShrimpoWorker.set(wait_until: self.end_at).perform_later(self.id)
