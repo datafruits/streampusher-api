@@ -50,7 +50,7 @@ class Shrimpo < ApplicationRecord
   end
 
   def tally_results!
-    return unless self.voting? # && total_votes > 0
+    return unless self.voting? && self.shrimpo_entries.any?
 
     ActiveRecord::Base.transaction do
       self.shrimpo_entries.each do |entry|
@@ -62,6 +62,7 @@ class Shrimpo < ApplicationRecord
         entry.update! ranking: index + 1
       end
 
+      self.update! ended_at: Time.now
       self.completed!
     end
   end

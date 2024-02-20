@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_19_000257) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_20_030402) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -479,6 +479,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_19_000257) do
     t.integer "status", default: 0, null: false
     t.string "slug"
     t.string "emoji"
+    t.datetime "ended_at"
     t.index ["slug"], name: "index_shrimpos_on_slug", unique: true
     t.index ["user_id"], name: "index_shrimpos_on_user_id"
   end

@@ -1,5 +1,5 @@
 class ShrimpoEntrySerializer < ActiveModel::Serializer
-  attributes :title, :audio_file_url, :username, :user_avatar, :slug, :user_role, :cdn_url, :shrimpo_emoji, :shrimpo_slug, :created_at, :previous_shrimpo_entry_slug, :next_shrimpo_entry_slug
+  attributes :title, :audio_file_url, :username, :user_avatar, :slug, :user_role, :cdn_url, :shrimpo_emoji, :shrimpo_slug, :created_at, :previous_shrimpo_entry_slug, :next_shrimpo_entry_slug, :total_score, :ranking
   belongs_to :shrimpo
   has_many :shrimpo_votes, embed: :ids, key: :shrimpo_votes, embed_in_root: true, each_serializer: ShrimpoVoteSerializer
 
