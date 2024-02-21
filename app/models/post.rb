@@ -10,6 +10,10 @@ class Post < ApplicationRecord
       "https://datafruits.fm/shows/#{self.postable.show_series.slug}/#{self.postable.slug}"
     elsif self.postable_type === "ForumThread"
       "https://datafruits.fm/forum/#{self.postable.slug}"
+    elsif self.postable_type === "Shrimpo"
+      "https://datafruits.fm/shrimpos/#{self.postable.slug}"
+    elsif self.postable_type === "ShrimpoEntry"
+      "https://datafruits.fm/shrimpos/#{self.postable.shrimpo.slug}/entries/#{self.postable.slug}"
     end
   end
 

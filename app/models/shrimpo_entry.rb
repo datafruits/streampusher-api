@@ -6,6 +6,7 @@ class ShrimpoEntry < ApplicationRecord
   belongs_to :user
 
   has_many :shrimpo_votes
+  has_many :posts, as: :postable
 
   validates :title, presence: true
 

@@ -6,6 +6,7 @@ class Shrimpo < ApplicationRecord
 
   belongs_to :user
   has_many :shrimpo_entries
+  has_many :posts, as: :postable
 
   has_one_attached :zip
   has_one_attached :cover_art
@@ -64,6 +65,9 @@ class Shrimpo < ApplicationRecord
 
       self.update! ended_at: Time.now
       self.completed!
+      # TODO award xp/fruit tix
+      #
+      # TODO return deposit
     end
   end
 
