@@ -39,8 +39,8 @@ Rails.application.configure do
   #
   config.hosts << "rails"
 
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.rails_logger = true
-  end
+  # config.after_initialize do
+  #   Bullet.enable = true
+  #   Bullet.rails_logger = true
+  # end
 end
