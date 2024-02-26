@@ -3,8 +3,8 @@ class FruitTicketTransaction < ApplicationRecord
   belongs_to :to_user, class_name: "User" # null means bought something from the website
 
   validate :to_or_from_user_is_present
-  validates :amount, 
-    numericality: { only_integer: true, greater_than: 0 }, 
+  validates :amount,
+    numericality: { only_integer: true, greater_than: 0 },
     if: Proc.new { |t| !t.fruit_summon? }
 
   after_create :maybe_send_notification
@@ -27,7 +27,12 @@ class FruitTicketTransaction < ApplicationRecord
     :fruit_summon, # metal pineapple, real lemoner, XL shrimp shake
     :profile_sticker,
 
-    :user_gift
+    :user_gift,
+
+    :shrimpo_deposit,
+    :shrimpo_deposit_return,
+    :shrimpo_award,
+    :shrimpo_playback,
   ]
 
   def transact_and_save!

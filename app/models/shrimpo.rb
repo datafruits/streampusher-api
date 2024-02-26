@@ -26,7 +26,30 @@ class Shrimpo < ApplicationRecord
     "1 day",
     "2 days",
     "1 week",
+    "1 month",
+    "3 months",
   ]
+
+  def fruit_ticket_deposit_amount
+    case self.duration
+    when '1 hour'
+      500
+    when '2 hours'
+      750
+    when '4 hours'
+      1000
+    when '1 day'
+      1500
+    when '2 days'
+      1750
+    when '1 week'
+      2000
+    when '1 month'
+      5000
+    when '3 months'
+      7500
+    end
+  end
 
   def sorted_entries
     self.shrimpo_entries.sort_by(&:created_at)
@@ -50,6 +73,13 @@ class Shrimpo < ApplicationRecord
     ]
   end
 
+  def save_and_deposit_fruit_tickets!
+    ActiveRecord::Base.transaction do
+      FruitTicketTransaction.create! from_user: self.user, amount: self.fruit_ticket_deposit_amount, transaction_type: :shrimpo_deposit, source: self
+      self.save!
+    end
+  end
+
   def tally_results!
     return unless self.voting? && self.shrimpo_entries.any?
 
@@ -68,6 +98,7 @@ class Shrimpo < ApplicationRecord
       # TODO award xp/fruit tix
       #
       # TODO return deposit
+
     end
   end
 
