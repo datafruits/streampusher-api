@@ -22,8 +22,19 @@ class Api::MyShowsController < ApplicationController
       episode = guest_series.episodes.new my_show_params.except(:recurring_interval, :recurring_cadence, :recurring_weekday, :start_date, :end_date, :start_time, :end_time)
       start_time = DateTime.parse my_show_params[:start_time]
       end_time = DateTime.parse my_show_params[:end_time]
-      episode.start_at = start_time
-      episode.end_at = end_time
+      start_date = DateTime.parse my_show_params[:start_date]
+      episode.start_at = DateTime.new start_date.year,
+                                      start_date.month,
+                                      start_date.day,
+                                      start_time.hour
+                                      start_time.min
+                                      0
+      episode.end_at = DateTime.new start_date.year,
+                                    start_date.month,
+                                    start_date.day,
+                                    end_time.hour
+                                    end_time.min
+                                    0
       episode.playlist = guest_series.radio.default_playlist
       episode.dj_id = users_params[:user_ids].first
       episode.radio_id = guest_series.radio_id
