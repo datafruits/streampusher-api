@@ -12,6 +12,8 @@ class Shrimpo < ApplicationRecord
   has_one_attached :cover_art
 
   validates :title, presence: true
+  validates :emoji, presence: true
+  validates :rule_pack, presence: true
 
   enum status: [:running, :voting, :completed]
 
