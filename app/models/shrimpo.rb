@@ -103,7 +103,9 @@ class Shrimpo < ApplicationRecord
       end
       #
       # return deposit
-      FruitTicketTransaction.create! to_user: self.user, amount: self.fruit_ticket_deposit_amount, transaction_type: :shrimpo_deposit_return
+      if self.shrimpo_entries.count > 2
+        FruitTicketTransaction.create! to_user: self.user, amount: self.fruit_ticket_deposit_amount, transaction_type: :shrimpo_deposit_return
+      end
     end
   end
 
