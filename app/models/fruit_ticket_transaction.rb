@@ -65,6 +65,15 @@ class FruitTicketTransaction < ApplicationRecord
           self.from_user.update fruit_ticket_balance: self.from_user.fruit_ticket_balance - self.amount
           self.to_user.update fruit_ticket_balance: self.to_user.fruit_ticket_balance + self.amount
           self.save!
+        when "shrimpo_deposit"
+          if self.from_user.fruit_ticket_balance < self.amount
+            raise "not enough balance"
+          end
+          self.from_user.update fruit_ticket_balance: self.from_user.fruit_ticket_balance - self.amount
+          self.save!
+        when "shrimpo_deposit_return"
+          self.to_user.update fruit_ticket_balance: self.to_user.fruit_ticket_balance + self.amount
+          self.save!
         else
           raise "invalid transaction_type"
         end

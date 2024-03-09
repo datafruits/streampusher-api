@@ -20,12 +20,15 @@ class Shrimpo < ApplicationRecord
   after_create :queue_end_shrimpo_job
 
   VALID_DURATIONS = [
+    # minors
     "1 hour",
     "2 hours",
     "4 hours",
     "1 day",
     "2 days",
     "1 week",
+    "2 weeks",
+    # majors
     "1 month",
     "3 months",
   ]
@@ -75,8 +78,8 @@ class Shrimpo < ApplicationRecord
 
   def save_and_deposit_fruit_tickets!
     ActiveRecord::Base.transaction do
-      FruitTicketTransaction.create! from_user: self.user, amount: self.fruit_ticket_deposit_amount, transaction_type: :shrimpo_deposit
-      self.save!
+      transaction = FruitTicketTransaction.new from_user: self.user, amount: self.fruit_ticket_deposit_amount, transaction_type: :shrimpo_deposit
+      transaction.transact_and_save! && self.save!
     end
   end
 
@@ -104,7 +107,8 @@ class Shrimpo < ApplicationRecord
       #
       # return deposit
       if self.shrimpo_entries.count > 2
-        FruitTicketTransaction.create! to_user: self.user, amount: self.fruit_ticket_deposit_amount, transaction_type: :shrimpo_deposit_return
+        transaction = FruitTicketTransaction.new to_user: self.user, amount: self.fruit_ticket_deposit_amount, transaction_type: :shrimpo_deposit_return
+        transaction.transact_and_save!
       end
     end
   end

@@ -4,6 +4,13 @@ class ShrimpoSerializer < ActiveModel::Serializer
   has_many :posts, embed: :ids, key: :posts, embed_in_root: true, each_serializer: PostSerializer
 
   def cover_art_url
+    if object.cover_art.present?
+      if ::Rails.env != "production"
+        ::Rails.application.routes.url_helpers.rails_blob_path(object.cover_art, only_path: true, disposition: 'attachment')
+      else
+        object.cover_art.url
+      end
+    end
   end
 
   def zip_file_url

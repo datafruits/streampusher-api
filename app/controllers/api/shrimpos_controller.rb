@@ -7,7 +7,7 @@ class Api::ShrimposController < ApplicationController
   def create
     shrimpo = Shrimpo.new shrimpo_params
     shrimpo.user = current_user
-    if shrimpo.save
+    if shrimpo.save_and_deposit_fruit_tickets!
       ActiveSupport::Notifications.instrument 'shrimpo.created', username: shrimpo.user.username, title: shrimpo.title
       render json: shrimpo
     else
@@ -23,7 +23,7 @@ class Api::ShrimposController < ApplicationController
   private
   def shrimpo_params
     ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
-      :title, :start_at, :end_at, :rule_pack, :duration
+      :title, :start_at, :end_at, :rule_pack, :duration, :cover_art, :zip
     ])
   end
 end
