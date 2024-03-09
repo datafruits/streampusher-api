@@ -27,7 +27,7 @@ RSpec.describe Shrimpo, type: :model do
     dj3 = User.create role: 'dj', username: 'djnameko', email: "djnameko@gmail.com", password: "2boobies", time_zone: "UTC"
     dj4 = User.create role: 'dj', username: 'djgoodbye', email: "djgoodbye@gmail.com", password: "2boobies", time_zone: "UTC"
     shrimpo = Shrimpo.new start_at: Time.now, duration: "2 hours", title: "Shrimp Champions 2", rule_pack: "dont use pokemon samples", user: dj1
-    shrimpo.save!
+    shrimpo.save_and_deposit_fruit_tickets!
 
     entry1 = shrimpo.shrimpo_entries.create! title: "zolo zoodo", user: dj1
     entry2 = shrimpo.shrimpo_entries.create! title: "mega banger 4000", user: dj2
@@ -61,5 +61,8 @@ RSpec.describe Shrimpo, type: :model do
     expect(entry3.ranking).to eq 3
     expect(entry4.total_score).to eq 12
     expect(entry4.ranking).to eq 2
+    puts ExperiencePointAward.pluck :amount
+    expect(ExperiencePointAward.count).to eq 4
+    expect(FruitTicketTransaction.count).to eq 2
   end
 end

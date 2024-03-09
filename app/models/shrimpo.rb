@@ -31,7 +31,7 @@ class Shrimpo < ApplicationRecord
   ]
 
   def fruit_ticket_deposit_amount
-    case self.duration
+    case self.duration.gsub(/about /, '')
     when '1 hour'
       500
     when '2 hours'
@@ -75,7 +75,7 @@ class Shrimpo < ApplicationRecord
 
   def save_and_deposit_fruit_tickets!
     ActiveRecord::Base.transaction do
-      FruitTicketTransaction.create! from_user: self.user, amount: self.fruit_ticket_deposit_amount, transaction_type: :shrimpo_deposit, source: self
+      FruitTicketTransaction.create! from_user: self.user, amount: self.fruit_ticket_deposit_amount, transaction_type: :shrimpo_deposit
       self.save!
     end
   end
@@ -95,10 +95,15 @@ class Shrimpo < ApplicationRecord
 
       self.update! ended_at: Time.now
       self.completed!
-      # TODO award xp/fruit tix
+      # award xp
+      self.shrimpo_entries.sort_by(&:ranking).each_with_index do |entry, index|
+        total_points = 2000 + (25 * self.shrimpo_entries.count)
+        points = (total_points * ((8 - entry.ranking) * 0.04)).round
+        ExperiencePointAward.create! user: entry.user, amount: points, award_type: :shrimpo_prize
+      end
       #
-      # TODO return deposit
-
+      # return deposit
+      FruitTicketTransaction.create! to_user: self.user, amount: self.fruit_ticket_deposit_amount, transaction_type: :shrimpo_deposit_return
     end
   end
 
