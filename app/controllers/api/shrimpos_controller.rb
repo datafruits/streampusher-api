@@ -23,7 +23,7 @@ class Api::ShrimposController < ApplicationController
   private
   def shrimpo_params
     ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
-      :title, :start_at, :end_at, :rule_pack, :duration, :cover_art, :zip
+      :title, :start_at, :end_at, :rule_pack, :duration, :cover_art, :zip, :emoji
     ])
   end
 end
