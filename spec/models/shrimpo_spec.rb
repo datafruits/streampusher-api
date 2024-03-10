@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Shrimpo, type: :model do
   it 'costs fruit tix based on duration' do
     dj = User.create role: 'dj', username: 'dakota', email: "dakota@gmail.com", password: "2boobies", time_zone: "UTC", fruit_ticket_balance: 1000
-    shrimpo = Shrimpo.new start_at: Time.now, duration: "2 hours", title: "Shrimp Champions", rule_pack: "dont use pokemon samples", user: dj
+    shrimpo = Shrimpo.new start_at: Time.now, duration: "2 hours", title: "Shrimp Champions", rule_pack: "dont use pokemon samples", user: dj, emoji: ":bgs:"
     shrimpo.save_and_deposit_fruit_tickets!
   end
 
@@ -11,7 +11,7 @@ RSpec.describe Shrimpo, type: :model do
 
   it 'sets end_at from duration' do
     dj = User.create role: 'dj', username: 'dakota', email: "dakota@gmail.com", password: "2boobies", time_zone: "UTC"
-    shrimpo = Shrimpo.new start_at: Time.now, duration: "2 hours", title: "Shrimp Champions", rule_pack: "dont use pokemon samples", user: dj
+    shrimpo = Shrimpo.new start_at: Time.now, duration: "2 hours", title: "Shrimp Champions", rule_pack: "dont use pokemon samples", user: dj, emoji: ":bgs:"
     shrimpo.save!
     expect(shrimpo.end_at).to eq shrimpo.start_at + 2.hours
     expect(shrimpo.duration).to eq "about 2 hours"
@@ -28,7 +28,7 @@ RSpec.describe Shrimpo, type: :model do
     dj2 = User.create role: 'dj', username: 'seacuke', email: "seacuke@gmail.com", password: "2boobies", time_zone: "UTC"
     dj3 = User.create role: 'dj', username: 'djnameko', email: "djnameko@gmail.com", password: "2boobies", time_zone: "UTC"
     dj4 = User.create role: 'dj', username: 'djgoodbye', email: "djgoodbye@gmail.com", password: "2boobies", time_zone: "UTC"
-    shrimpo = Shrimpo.new start_at: Time.now, duration: "2 hours", title: "Shrimp Champions 2", rule_pack: "dont use pokemon samples", user: dj1
+    shrimpo = Shrimpo.new start_at: Time.now, duration: "2 hours", title: "Shrimp Champions 2", rule_pack: "dont use pokemon samples", user: dj1, emoji: ":bgs:"
     shrimpo.save_and_deposit_fruit_tickets!
 
     entry1 = shrimpo.shrimpo_entries.create! title: "zolo zoodo", user: dj1
