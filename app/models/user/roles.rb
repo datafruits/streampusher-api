@@ -39,6 +39,13 @@ module User::Roles
     end
   end
 
+  def remove_role role
+    roles = self.roles
+    roles.delete role
+    self.role = roles.join(" ")
+    self.save!
+  end
+
   private
 
   def valid_role

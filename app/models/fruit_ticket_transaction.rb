@@ -96,6 +96,8 @@ class FruitTicketTransaction < ApplicationRecord
       Notification.create! source: self, send_to_chat: false, user: to_user, notification_type: "fruit_ticket_gift"
     when "supporter_membership"
       Notification.create! source: self, send_to_chat: false, user: to_user, notification_type: "supporter_fruit_ticket_stipend"
+    when "archive_playback"
+      Notification.create! source: self, send_to_chat: false, user: to_user, notification_type: "track_playback_ticket_payment"
     end
   end
 end

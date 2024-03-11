@@ -26,6 +26,15 @@ RSpec.describe User, :type => :model do
       expect(user.roles.include?("admin")).to eq true
       expect(user.roles.include?("dj")).to eq true
     end
+
+    it "removes a role" do
+      user.add_role "supporter"
+      expect(user.roles.include?("supporter")).to eq true
+      user.add_role "gold_supporter"
+      expect(user.roles.include?("gold_supporter")).to eq true
+      user.remove_role "supporter"
+      expect(user.roles.include?("supporter")).to eq false
+    end
   end
 
   describe "soft delete" do

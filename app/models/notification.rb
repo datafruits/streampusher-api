@@ -26,6 +26,7 @@ class Notification < ApplicationRecord
     :experience_point_award,
     :fruit_ticket_gift,
     :supporter_fruit_ticket_stipend,
+    :track_playback_ticket_payment,
     :glorp_lottery_winner,
     :show_comment,
     :new_thread,
@@ -83,6 +84,8 @@ class Notification < ApplicationRecord
       "#{self.source.from_user.username} sent you Ƒ#{self.source.amount} fruit tickets!"
     when "supporter_fruit_ticket_stipend"
       "You got Ƒ#{self.source.amount} fruit tickets for supporting datafruits. The bank of fruit tickets thanks you for your support!"
+    when "track_playback_ticket_payment"
+      "You got Ƒ#{self.source.amount} fruit tickets for your contributions!"
     when "glorp_lottery_winner"
       ":#{self.source.award_type.split("py").first}:!!! #{self.user.username} got #{self.source.amount} #{self.source.award_type} points!"
     when "show_comment"
@@ -100,7 +103,7 @@ class Notification < ApplicationRecord
     when "profile_update"
       "#{self.source.username}'s bio was updated!"
     when "avatar_update"
-      "#{self.source.username}'s fruitification emblem was updated"
+      "#{self.source.username}'s fruitification emblem was updated: #{self.source.image.url}"
     when "new_podcast"
       "New archive published: #{self.source.title}"
     end

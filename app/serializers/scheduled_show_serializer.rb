@@ -7,7 +7,9 @@ class ScheduledShowSerializer < ActiveModel::Serializer
     :show_series_title, :show_series_slug,
     :prerecord_track_id,
     :prerecord_track_filename,
-    :youtube_link
+    :youtube_link,
+    :mixcloud_link,
+    :soundcloud_link
 
   has_many :tracks, embed: :ids, key: :tracks
   has_many :djs, embed: :ids, key: :djs
