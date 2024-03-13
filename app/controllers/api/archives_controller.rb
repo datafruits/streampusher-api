@@ -25,7 +25,7 @@ class Api::ArchivesController < ApplicationController
     end
 
     options = {}
-    options[:meta] = { total_pages: shows.page.total_pages.to_i, page: params[:page] }
+    options[:meta] = { total_pages: shows.page.total_pages.to_i, page: params[:page].to_i }
     options[:include] = ['tracks']
     render json: Fast::ScheduledShowSerializer.new(shows, options).serializable_hash.to_json
   end
