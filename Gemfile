@@ -80,7 +80,7 @@ gem "kt-paperclip", "~> 6.4", ">= 6.4.1"
 gem "image_processing", ">= 1.2"
 
 gem 'rupeepeethree', github: "datafruits/rupeepeethree"
-gem "so_id3", github: "streampusher/so_id3", branch: "rp3-bump"
+gem "so_id3", github: "streampusher/so_id3", branch: "fix-artwork-download-https"
 
 gem 'whenever', require: false
 

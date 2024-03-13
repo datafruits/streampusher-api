@@ -23,8 +23,8 @@ GIT
 
 GIT
   remote: https://github.com/streampusher/so_id3.git
-  revision: bdaa2530bc60d2c22497e5d625433484dfda1f32
-  branch: rp3-bump
+  revision: 810830db286467f0dcfbabe604c6ee67cbb32fb9
+  branch: fix-artwork-download-https
   specs:
     so_id3 (0.0.1)
       activejob
