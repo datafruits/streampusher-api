@@ -104,7 +104,7 @@ class Shrimpo < ApplicationRecord
       self.shrimpo_entries.sort_by(&:ranking).each_with_index do |entry, index|
         total_points = 2000 + (25 * self.shrimpo_entries.count)
         points = (total_points * ((8 - entry.ranking) * 0.04)).round
-        ExperiencePointAward.create! user: entry.user, amount: points, award_type: :shrimpo_prize
+        ExperiencePointAward.create! user: entry.user, amount: points, award_type: :shrimpo
       end
       #
       # return deposit
