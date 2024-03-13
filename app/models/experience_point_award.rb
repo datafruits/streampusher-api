@@ -15,7 +15,7 @@ class ExperiencePointAward < ApplicationRecord
     :streamingatron, # streaming live
     :glorppy, # daily glorp lottery
     :gloppy, # daily glop lottery
-    :shrimpo_prize, # winning shrimpo
+    :shrimpo, # winning shrimpo
   ]
 
   private
