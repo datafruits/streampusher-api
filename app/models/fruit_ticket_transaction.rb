@@ -27,7 +27,12 @@ class FruitTicketTransaction < ApplicationRecord
     :fruit_summon, # metal pineapple, real lemoner, XL shrimp shake
     :profile_sticker,
 
-    :user_gift
+    :user_gift,
+
+    :shrimpo_deposit,
+    :shrimpo_deposit_return,
+    :shrimpo_award,
+    :shrimpo_playback,
   ]
 
   def transact_and_save!
@@ -58,6 +63,15 @@ class FruitTicketTransaction < ApplicationRecord
             raise "not enough balance"
           end
           self.from_user.update fruit_ticket_balance: self.from_user.fruit_ticket_balance - self.amount
+          self.to_user.update fruit_ticket_balance: self.to_user.fruit_ticket_balance + self.amount
+          self.save!
+        when "shrimpo_deposit"
+          if self.from_user.fruit_ticket_balance < self.amount
+            raise "not enough balance"
+          end
+          self.from_user.update fruit_ticket_balance: self.from_user.fruit_ticket_balance - self.amount
+          self.save!
+        when "shrimpo_deposit_return"
           self.to_user.update fruit_ticket_balance: self.to_user.fruit_ticket_balance + self.amount
           self.save!
         else

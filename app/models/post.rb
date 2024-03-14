@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
   after_create :maybe_send_notification
 
-  VALID_POSTABLE_TYPES = ['ForumThread', 'ScheduledShow']
+  VALID_POSTABLE_TYPES = ['ForumThread', 'ScheduledShow', 'Shrimpo', 'ShrimpoEntry']
   belongs_to :postable, polymorphic: true, touch: true
   belongs_to :user
 
@@ -10,6 +10,10 @@ class Post < ApplicationRecord
       self.postable.url
     elsif self.postable_type === "ForumThread"
       "https://datafruits.fm/forum/#{self.postable.slug}"
+    elsif self.postable_type === "Shrimpo"
+      "https://datafruits.fm/shrimpos/#{self.postable.slug}"
+    elsif self.postable_type === "ShrimpoEntry"
+      "https://datafruits.fm/shrimpos/#{self.postable.shrimpo.slug}/entries/#{self.postable.slug}"
     end
   end
 

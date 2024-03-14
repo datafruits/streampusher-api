@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_20_021024) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_20_030402) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -438,8 +438,34 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_20_021024) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
+    t.integer "total_score"
+    t.integer "ranking"
     t.index ["shrimpo_id"], name: "index_shrimpo_entries_on_shrimpo_id"
+    t.index ["slug"], name: "index_shrimpo_entries_on_slug", unique: true
     t.index ["user_id"], name: "index_shrimpo_entries_on_user_id"
+  end
+
+  create_table "shrimpo_votes", force: :cascade do |t|
+    t.bigint "shrimpo_voting_category_id"
+    t.bigint "shrimpo_entry_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "score", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shrimpo_entry_id"], name: "index_shrimpo_votes_on_shrimpo_entry_id"
+    t.index ["shrimpo_voting_category_id"], name: "index_shrimpo_votes_on_shrimpo_voting_category_id"
+    t.index ["user_id", "shrimpo_entry_id"], name: "index_shrimpo_votes_on_user_id_and_shrimpo_entry_id", unique: true
+    t.index ["user_id"], name: "index_shrimpo_votes_on_user_id"
+  end
+
+  create_table "shrimpo_voting_categories", force: :cascade do |t|
+    t.bigint "shrimpo_id", null: false
+    t.string "name"
+    t.string "emoji"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shrimpo_id"], name: "index_shrimpo_voting_categories_on_shrimpo_id"
   end
 
   create_table "shrimpos", force: :cascade do |t|
@@ -452,6 +478,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_20_021024) do
     t.datetime "updated_at", null: false
     t.integer "status", default: 0, null: false
     t.string "slug"
+    t.string "emoji"
+    t.datetime "ended_at"
     t.index ["slug"], name: "index_shrimpos_on_slug", unique: true
     t.index ["user_id"], name: "index_shrimpos_on_user_id"
   end

@@ -151,6 +151,12 @@ Rails.application.routes.draw do
     resources :track_favorites, only: [:create, :destroy]
     resources :scheduled_show_favorites, only: [:create, :destroy]
     resources :notifications, only: [:index]
+    resources :shrimpos, only: [:index, :show, :create] do
+      resources :shrimpo_entries, only: [:create, :show], controller: 'shrimpos/shrimpo_entries' do
+        resources :shrimpo_votes, only: [:create], controller: 'shrimpos/shrimpo_entries/votes'
+      end
+
+    end
     resources :labels, only: [:create, :index, :show]
   end
 
@@ -158,6 +164,8 @@ Rails.application.routes.draw do
   get "/setup/allowed" => "setup#allowed"
 
   get '/performance_tests', to: 'performance_tests#index'
+
+  post '/rails/active_storage/direct_uploads' => 'direct_uploads#create'
 
   root 'landing#index'
 end
