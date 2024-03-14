@@ -15,6 +15,8 @@ class Shrimpo < ApplicationRecord
   validates :emoji, presence: true
   validates :rule_pack, presence: true
 
+  validate :user_level
+
   enum status: [:running, :voting, :completed]
 
   attr_accessor :duration
@@ -116,6 +118,12 @@ class Shrimpo < ApplicationRecord
   end
 
   private
+  def user_level
+    unless self.user.level > 2
+      self.errors.add(:user, " should be level 3 or higher")
+    end
+  end
+
   def queue_end_shrimpo_job
     EndShrimpoWorker.set(wait_until: self.end_at).perform_later(self.id)
   end
