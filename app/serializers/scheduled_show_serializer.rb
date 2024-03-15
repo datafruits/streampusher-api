@@ -1,8 +1,5 @@
 class ScheduledShowSerializer < ActiveModel::Serializer
-  include ScheduledShowsHelper
-  include ApplicationHelper
-  include ActionView::Helpers::SanitizeHelper
-  attributes :id, :start, :end, :title, :image_url, :thumb_image_url, :tweet_content, :description,
+  attributes :id, :start, :end, :title, :image_url, :thumb_image_url, :description,
     :slug, :recurring_interval, :hosted_by, :is_guest, :guest, :playlist_id, :image_filename, :formatted_episode_title, :status,
     :show_series_title, :show_series_slug,
     :prerecord_track_id,
@@ -84,9 +81,5 @@ class ScheduledShowSerializer < ActiveModel::Serializer
     if object.image.present?
       object.image_file_name
     end
-  end
-
-  def tweet_content
-    tweet_text(object)
   end
 end
