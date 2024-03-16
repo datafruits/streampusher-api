@@ -37,6 +37,11 @@ class Notification < ApplicationRecord
     :profile_update,
     :avatar_update,
     :new_podcast,
+    :shrimpo_started,
+    :shrimpo_deadline_soon,
+    :shrimpo_voting_started,
+    :shripo_ended,
+    :shrimpo_entry,
   ]
 
   private
@@ -106,6 +111,8 @@ class Notification < ApplicationRecord
       "#{self.source.username}'s fruitification emblem was updated: #{self.source.image.url}"
     when "new_podcast"
       "New archive published: #{self.source.title}"
+    when "shrimpo_entry"
+      "#{self.source.shrimpo.emoji} Someone shrimpoed for #{self.source.shrimpo.title} ! There are #{self.source.shrimpo.entries.count} total entries now."
     end
   end
 
