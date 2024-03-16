@@ -2,9 +2,12 @@ require 'rails_helper'
 
 RSpec.describe Shrimpo, type: :model do
   it 'costs fruit tix based on duration' do
-    dj = User.create role: 'dj', username: 'dakota', email: "dakota@gmail.com", password: "2boobies", time_zone: "UTC", fruit_ticket_balance: 1000, level: 3
+    dj = User.create role: 'dj', username: 'dakota', email: "dakota@gmail.com", password: "2boobies", time_zone: "UTC", fruit_ticket_balance: 5000, level: 3
     shrimpo = Shrimpo.new start_at: Time.now, duration: "2 hours", title: "Shrimp Champions", rule_pack: "dont use pokemon samples", user: dj, emoji: ":bgs:"
     shrimpo.save_and_deposit_fruit_tickets!
+
+    shrimpo2 = Shrimpo.new start_at: Time.now, duration: "1 week", title: "Shrimp Champions 1 week", rule_pack: "dont use pokemon samples", user: dj, emoji: ":bgs:"
+    shrimpo2.save_and_deposit_fruit_tickets!
   end
 
   xit 'no deposit returned if less than 3 entries'

@@ -49,7 +49,7 @@ class Shrimpo < ApplicationRecord
       1500
     when '2 days'
       1750
-    when '1 week'
+    when '7 days'
       2000
     when '1 month'
       5000
