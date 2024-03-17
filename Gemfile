@@ -69,7 +69,6 @@ gem 'slackistrano', require: false
 gem 'httparty'
 gem 'exception_notification', github: "mcfiredrill/exception_notification"
 
-gem 'groupdate'
 gem 'acts_as_list'
 gem 'kaminari'
 gem 'active_model_serializers', '~> 0.10.0'

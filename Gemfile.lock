@@ -1615,8 +1615,6 @@ GEM
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    groupdate (6.2.1)
-      activesupport (>= 5.2)
     hashdiff (1.0.1)
     hashie (5.0.0)
     headless (2.3.1)
@@ -1913,7 +1911,6 @@ DEPENDENCIES
   exception_notification!
   factory_bot_rails
   friendly_id
-  groupdate
   headless
   httparty
   image_processing (>= 1.2)
