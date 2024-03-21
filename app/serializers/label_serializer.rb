@@ -1,5 +1,3 @@
-class LabelSerializer
-  include JSONAPI::Serializer
-
+class LabelSerializer < ActiveModel::Serializer
   attributes :id, :name
 end
