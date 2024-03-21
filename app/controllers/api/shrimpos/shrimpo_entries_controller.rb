@@ -13,6 +13,7 @@ class Api::Shrimpos::ShrimpoEntriesController < ApplicationController
       ActiveSupport::Notifications.instrument 'shrimpo.entry.created', title: entry.title, username: entry.user.username
       render json: entry
     else
+      ActiveSupport::Notifications.instrument 'shrimpo.entry.create.error', title: entry.title, username: entry.user.username, errors: entry.errors, params: params
       render json: { errors: entry.errors }, status: 422
     end
   end

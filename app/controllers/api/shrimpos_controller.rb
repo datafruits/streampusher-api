@@ -11,6 +11,7 @@ class Api::ShrimposController < ApplicationController
       ActiveSupport::Notifications.instrument 'shrimpo.created', username: shrimpo.user.username, title: shrimpo.title
       render json: shrimpo
     else
+      ActiveSupport::Notifications.instrument 'shrimpo.create.error', username: shrimpo.user.username, title: shrimpo.title, errors: shrimpo.errors, params: params
       render json: { errors: shrimpo.errors }, status: 422
     end
   end

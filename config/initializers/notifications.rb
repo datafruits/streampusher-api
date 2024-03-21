@@ -33,6 +33,12 @@ if Rails.env.production?
             "show_series.create.error",
             "guest_show.created",
             "guest_show.create.error",
+            "shrimpo.created",
+            "shrimpo.create.error",
+            "shrimpo.entry.created",
+            "shrimpo.entry.create.error",
+            "shrimpo.vote.created",
+            "shrimpo.vote.create.error",
            ]
 
   events.each do |event|
