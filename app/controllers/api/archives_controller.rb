@@ -4,6 +4,7 @@ class Api::ArchivesController < ApplicationController
 
   def index
     shows = @current_radio.scheduled_shows.
+      includes([:tracks, :show_series, :performers]).
       where(status: :archive_published).
       order("start_at DESC").
       page(params[:page])
