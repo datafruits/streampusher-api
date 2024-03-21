@@ -4,6 +4,6 @@ class Api::LabelsController < ApplicationController
     if params[:term]
       @labels = @labels.where("name ilike (?)", "%#{params.permit(:term)[:term]}%")
     end
-    render json: @labels
+    render json: LabelSerializer.new(@labels).serializable_hash.to_json
   end
 end
