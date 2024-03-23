@@ -70,4 +70,21 @@ RSpec.describe Shrimpo, type: :model do
     expect(ExperiencePointAward.count).to eq 4
     expect(FruitTicketTransaction.count).to eq 2
   end
+
+  it 'cant vote on own entry' do
+    dj1 = User.create role: 'dj', username: 'dakota', email: "dakota@gmail.com", password: "2boobies", time_zone: "UTC", fruit_ticket_balance: 1000, level: 3
+    dj2 = User.create role: 'dj', username: 'seacuke', email: "seacuke@gmail.com", password: "2boobies", time_zone: "UTC"
+    dj3 = User.create role: 'dj', username: 'djnameko', email: "djnameko@gmail.com", password: "2boobies", time_zone: "UTC"
+    dj4 = User.create role: 'dj', username: 'djgoodbye', email: "djgoodbye@gmail.com", password: "2boobies", time_zone: "UTC"
+    shrimpo = Shrimpo.new start_at: Time.now, duration: "2 hours", title: "Shrimp Champions 2", rule_pack: "dont use pokemon samples", user: dj1, emoji: ":bgs:"
+    shrimpo.save_and_deposit_fruit_tickets!
+
+    entry1 = shrimpo.shrimpo_entries.create! title: "zolo zoodo", user: dj1
+    entry2 = shrimpo.shrimpo_entries.create! title: "mega banger 4000", user: dj2
+    entry3 = shrimpo.shrimpo_entries.create! title: "donkey kong club", user: dj3
+    entry4 = shrimpo.shrimpo_entries.create! title: "fish pizza", user: dj4
+
+    vote = entry1.shrimpo_votes.new score: 1, user: dj1
+    expect(vote.valid?).to eq false
+  end
 end
