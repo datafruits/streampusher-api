@@ -113,6 +113,8 @@ class Notification < ApplicationRecord
       "New archive published: #{self.source.title}"
     when "shrimpo_entry"
       "#{self.source.shrimpo.emoji} Someone shrimpoed for #{self.source.shrimpo.title} ! There are #{self.source.shrimpo.shrimpo_entries.count} total entries now."
+    when "shrimpo_voting_started"
+      "#{self.source.title} shrimpo ended! Time to vote!"
     end
   end
 
