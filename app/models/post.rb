@@ -13,7 +13,7 @@ class Post < ApplicationRecord
     elsif self.postable_type === "Shrimpo"
       "https://datafruits.fm/shrimpos/#{self.postable.slug}"
     elsif self.postable_type === "ShrimpoEntry"
-      "https://datafruits.fm/shrimpos/#{self.postable.shrimpo.slug}/entries/#{self.postable.slug}"
+      "https://datafruits.fm/shrimpos/#{self.postable.shrimpo.slug}/entry/#{self.postable.slug}"
     end
   end
 
@@ -27,9 +27,9 @@ class Post < ApplicationRecord
     elsif self.postable_type === "ForumThread"
       Notification.create! notification_type: :new_thread_reply, source: self.postable, user: user, send_to_chat: true, send_to_user: false, url: url
     elsif self.postable_type === "Shrimpo"
-      Notification.create! notification_type: :shrimpo_comment, source: self.postable, user: user, send_to_chat: true, send_to_user: false, url: url
+      Notification.create! notification_type: :shrimpo_comment, source: self.postable, user: self.postable.user, send_to_chat: true, send_to_user: false, url: url
     elsif self.postable_type === "ShrimpoEntry"
-      Notification.create! notification_type: :shrimpo_entry_comment, source: self.postable, user: user, send_to_chat: true, send_to_user: true, url: url
+      Notification.create! notification_type: :shrimpo_entry_comment, source: self.postable, user: self.postable.user, send_to_chat: true, send_to_user: true, url: url
     end
   end
 end
