@@ -117,6 +117,10 @@ class Notification < ApplicationRecord
       "#{self.source.shrimpo.emoji} Someone shrimpoed for #{self.source.shrimpo.title} ! There are #{self.source.shrimpo.shrimpo_entries.count} total entries now."
     when "shrimpo_voting_started"
       "#{self.source.title} shrimpo ended! Time to vote!"
+    when "shrimpo_comment"
+      "#{self.source.title} has a new comment!"
+    when "shrimpo_entry_comment"
+      "#{self.source.title} has a new comment!"
     end
   end
 
