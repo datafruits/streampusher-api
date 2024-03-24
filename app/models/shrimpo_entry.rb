@@ -34,8 +34,8 @@ class ShrimpoEntry < ApplicationRecord
 
   def slug_candidates
     [
-      [:title, :username],
-      [:title, :username, :id],
+      [:title],
+      [:title, :id],
     ]
   end
 
