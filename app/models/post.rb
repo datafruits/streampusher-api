@@ -13,7 +13,7 @@ class Post < ApplicationRecord
     elsif self.postable_type === "Shrimpo"
       "https://datafruits.fm/shrimpos/#{self.postable.slug}"
     elsif self.postable_type === "ShrimpoEntry"
-      "https://datafruits.fm/shrimpos/#{self.postable.shrimpo.slug}/entries/#{self.postable.slug}"
+      "https://datafruits.fm/shrimpos/#{self.postable.shrimpo.slug}/entry/#{self.postable.slug}"
     end
   end
 
