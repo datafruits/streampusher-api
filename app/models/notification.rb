@@ -42,6 +42,8 @@ class Notification < ApplicationRecord
     :shrimpo_voting_started,
     :shripo_ended,
     :shrimpo_entry,
+    :shrimpo_entry_comment,
+    :shrimpo_comment,
   ]
 
   private

@@ -3,6 +3,7 @@ class ShrimpoEntrySerializer < ActiveModel::Serializer
   belongs_to :shrimpo
   has_many :shrimpo_votes, embed: :ids, key: :shrimpo_votes, embed_in_root: true, each_serializer: ShrimpoVoteSerializer
   has_many :posts, embed: :ids, key: :posts, embed_in_root: true, each_serializer: PostSerializer
+  has_many :posts, embed: :ids, key: :posts, embed_in_root: true, each_serializer: PostSerializer
 
   def previous_shrimpo_entry_slug
     if object.previous_entry.present?
@@ -47,5 +48,9 @@ class ShrimpoEntrySerializer < ActiveModel::Serializer
 
   def user_avatar
     CGI.unescape(object.user.image.url(:thumb))
+  end
+
+  def posts
+    object.posts
   end
 end
