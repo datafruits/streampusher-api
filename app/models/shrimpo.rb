@@ -116,6 +116,8 @@ class Shrimpo < ApplicationRecord
         points = (total_points * ((8 - entry.ranking) * 0.04)).round
         ExperiencePointAward.create! user: entry.user, amount: points, award_type: :shrimpo
 
+        consolation_max = self.shrimpo_entries.count / 2
+
         case entry.ranking
         when 1
           TrophyAward.create! user: entry.user, trophy: self.gold_trophy, shrimpo_entry: entry
@@ -125,9 +127,17 @@ class Shrimpo < ApplicationRecord
           TrophyAward.create! user: entry.user, trophy: self.bronze_trophy, shrimpo_entry: entry
         # TODO consolation_trophy
         when 4
+          amount = rand(1..consolation_max)
+          TrophyAward.create! user: entry.user, trophy: self.consolation_trophy, shrimpo_entry: entry
         when 5
+          amount = rand(1..consolation_max)
+          TrophyAward.create! user: entry.user, trophy: self.consolation_trophy, shrimpo_entry: entry
         when 6
+          amount = rand(1..consolation_max)
+          TrophyAward.create! user: entry.user, trophy: self.consolation_trophy, shrimpo_entry: entry
         when 7
+          amount = rand(1..consolation_max)
+          TrophyAward.create! user: entry.user, trophy: self.consolation_trophy, shrimpo_entry: entry
         end
       end
       #
