@@ -40,4 +40,8 @@ class ShrimpoSerializer < ActiveModel::Serializer
   def shrimpo_entries
     object.shrimpo_entries
   end
+
+  def posts
+    object.posts
+  end
 end
