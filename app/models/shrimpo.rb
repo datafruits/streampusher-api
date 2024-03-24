@@ -11,6 +11,12 @@ class Shrimpo < ApplicationRecord
   has_one_attached :zip
   has_one_attached :cover_art
 
+  belongs_to :gold_trophy, class_name: "Trophy"
+  belongs_to :silver_trophy, class_name: "Trophy"
+  belongs_to :bronze_trophy, class_name: "Trophy"
+
+  belongs_to :consolation_trophy, class_name: "Trophy"
+
   validates :title, presence: true
   validates :emoji, presence: true
   validates :rule_pack, presence: true
@@ -55,6 +61,8 @@ class Shrimpo < ApplicationRecord
       5000
     when '3 months'
       7500
+    else
+      'invalid duration'
     end
   end
 
@@ -102,11 +110,25 @@ class Shrimpo < ApplicationRecord
 
       self.update! ended_at: Time.now
       self.completed!
-      # award xp
+      # award xp & trophies
       self.shrimpo_entries.sort_by(&:ranking).each_with_index do |entry, index|
         total_points = 2000 + (25 * self.shrimpo_entries.count)
         points = (total_points * ((8 - entry.ranking) * 0.04)).round
         ExperiencePointAward.create! user: entry.user, amount: points, award_type: :shrimpo
+
+        case entry.ranking
+        when 1
+          TrophyAward.create! user: entry.user, trophy: self.gold_trophy, shrimpo_entry: entry
+        when 2
+          TrophyAward.create! user: entry.user, trophy: self.silver_trophy, shrimpo_entry: entry
+        when 3
+          TrophyAward.create! user: entry.user, trophy: self.bronze_trophy, shrimpo_entry: entry
+        # TODO consolation_trophy
+        when 4
+        when 5
+        when 6
+        when 7
+        end
       end
       #
       # return deposit
@@ -114,6 +136,12 @@ class Shrimpo < ApplicationRecord
         transaction = FruitTicketTransaction.new to_user: self.user, amount: self.fruit_ticket_deposit_amount, transaction_type: :shrimpo_deposit_return
         transaction.transact_and_save!
       end
+      # award trophies
+      #
+      # 1st place gold
+      # 2nd place silver
+      # 3rd place bronze
+      # 4th-7th random amount of consolation trophies
     end
   end
 
