@@ -76,6 +76,9 @@ RSpec.describe Shrimpo, type: :model do
 
     # trophies ???
     expect(TrophyAward.where(user: entry2.user, shrimpo_entry: entry2, trophy: gold_trophy).count).to eq 1
+    expect(TrophyAward.where(user: entry4.user, shrimpo_entry: entry4, trophy: silver_trophy).count).to eq 1
+    expect(TrophyAward.where(user: entry3.user, shrimpo_entry: entry3, trophy: bronze_trophy).count).to eq 1
+    expect(TrophyAward.where(user: entry1.user, shrimpo_entry: entry1, trophy: consolation_trophy).count).to be >= 1
   end
 
   it 'cant vote on own entry' do
