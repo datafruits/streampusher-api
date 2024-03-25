@@ -128,16 +128,24 @@ class Shrimpo < ApplicationRecord
         # TODO consolation_trophy
         when 4
           amount = rand(1..consolation_max)
-          TrophyAward.create! user: entry.user, trophy: self.consolation_trophy, shrimpo_entry: entry
+          amount.times do
+            TrophyAward.create! user: entry.user, trophy: self.consolation_trophy, shrimpo_entry: entry
+          end
         when 5
           amount = rand(1..consolation_max)
-          TrophyAward.create! user: entry.user, trophy: self.consolation_trophy, shrimpo_entry: entry
+          amount.times do
+            TrophyAward.create! user: entry.user, trophy: self.consolation_trophy, shrimpo_entry: entry
+          end
         when 6
           amount = rand(1..consolation_max)
-          TrophyAward.create! user: entry.user, trophy: self.consolation_trophy, shrimpo_entry: entry
+          amount.times do
+            TrophyAward.create! user: entry.user, trophy: self.consolation_trophy, shrimpo_entry: entry
+          end
         when 7
           amount = rand(1..consolation_max)
-          TrophyAward.create! user: entry.user, trophy: self.consolation_trophy, shrimpo_entry: entry
+          amount.times do
+            TrophyAward.create! user: entry.user, trophy: self.consolation_trophy, shrimpo_entry: entry
+          end
         end
       end
       #
