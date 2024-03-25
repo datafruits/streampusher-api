@@ -5,6 +5,9 @@ class ExperiencePointAward < ApplicationRecord
   after_save :maybe_level_up
   after_save :send_notification
 
+  validates :amount,
+    numericality: { only_integer: true, greater_than: 0 }
+
   enum award_type: [
     :chat_lurker, # lurking in chat TODO implement
     :music_enjoyer, # listening to stream or podcasts TODO implement???
