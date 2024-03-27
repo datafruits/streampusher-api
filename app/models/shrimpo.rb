@@ -113,8 +113,10 @@ class Shrimpo < ApplicationRecord
       # award xp & trophies
       self.shrimpo_entries.sort_by(&:ranking).each_with_index do |entry, index|
         total_points = 2000 + (25 * self.shrimpo_entries.count)
-        points = (total_points * ((8 - entry.ranking) * 0.04)).round
-        ExperiencePointAward.create! user: entry.user, amount: points, award_type: :shrimpo
+        points = ((total_points * 0.0849) / Math.log(entry.ranking + 1)).round
+        if (points > 0)
+          ExperiencePointAward.create! user: entry.user, amount: points, award_type: :shrimpo, source: self
+        end
 
         consolation_max = self.shrimpo_entries.count / 2
 
@@ -125,7 +127,6 @@ class Shrimpo < ApplicationRecord
           TrophyAward.create! user: entry.user, trophy: self.silver_trophy, shrimpo_entry: entry
         when 3
           TrophyAward.create! user: entry.user, trophy: self.bronze_trophy, shrimpo_entry: entry
-        # TODO consolation_trophy
         when 4
           amount = rand(1..consolation_max)
           TrophyAward.create! user: entry.user, trophy: self.consolation_trophy, shrimpo_entry: entry
@@ -146,12 +147,6 @@ class Shrimpo < ApplicationRecord
         transaction = FruitTicketTransaction.new to_user: self.user, amount: self.fruit_ticket_deposit_amount, transaction_type: :shrimpo_deposit_return
         transaction.transact_and_save!
       end
-      # award trophies
-      #
-      # 1st place gold
-      # 2nd place silver
-      # 3rd place bronze
-      # 4th-7th random amount of consolation trophies
     end
   end
 
