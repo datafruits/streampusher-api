@@ -7,6 +7,12 @@ class Api::ShrimposController < ApplicationController
   def create
     shrimpo = Shrimpo.new shrimpo_params
     shrimpo.user = current_user
+    # TODO allow user to select trophies
+    # ["golden shrimpo", "silveren shrimpo", "bronzeen shrimpo", "good beverage"]
+    shrimpo.gold_trophy = Trophy.find_by(name: "golden shrimpo")
+    shrimpo.silver_trophy = Trophy.find_by(name: "silveren shrimpo")
+    shrimpo.bronze_trophy = Trophy.find_by(name: "bronzeen shrimpo")
+    shrimpo.consolation_trophy = Trophy.find_by(name: "good beverage")
     if shrimpo.save_and_deposit_fruit_tickets!
       ActiveSupport::Notifications.instrument 'shrimpo.created', username: shrimpo.user.username, title: shrimpo.title
       render json: shrimpo
