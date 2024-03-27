@@ -4,8 +4,9 @@ class ShrimpoVote < ApplicationRecord
 
   validates :score, numericality: { in: 1..6 }
 
-  # TODO validate not voting on own entry
   validate :cant_vote_on_own_entry
+
+  # TODO validate that shrimpo is in voting status
 
   private
   def cant_vote_on_own_entry

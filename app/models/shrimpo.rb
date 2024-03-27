@@ -23,6 +23,9 @@ class Shrimpo < ApplicationRecord
 
   validate :user_level
 
+  validate :start_at_cannot_be_in_the_past, on: :create
+  validate :end_at_cannot_be_in_the_past, on: :create
+
   enum status: [:running, :voting, :completed]
 
   attr_accessor :duration
@@ -151,6 +154,18 @@ class Shrimpo < ApplicationRecord
   end
 
   private
+  def start_at_cannot_be_in_the_past
+    if start_at < Time.current
+      errors.add(:start_at, "cannot be in the past")
+    end
+  end
+
+  def end_at_cannot_be_in_the_past
+    if end_at < Time.current
+      errors.add(:end_at, "cannot be in the past")
+    end
+  end
+
   def user_level
     unless self.user.level > 2
       self.errors.add(:user, " should be level 3 or higher")
