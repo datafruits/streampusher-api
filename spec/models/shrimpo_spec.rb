@@ -1,12 +1,22 @@
 require 'rails_helper'
 
 RSpec.describe Shrimpo, type: :model do
+  before do
+    Time.zone = 'UTC'
+    Timecop.freeze Time.local(2015)
+    @start_at = Chronic.parse("today at 1:15 pm").utc
+  end
+
+  after do
+    Timecop.return
+  end
+
   it 'costs fruit tix based on duration' do
     dj = User.create role: 'dj', username: 'dakota', email: "dakota@gmail.com", password: "2boobies", time_zone: "UTC", fruit_ticket_balance: 5000, level: 3
-    shrimpo = Shrimpo.new start_at: Time.now, duration: "2 hours", title: "Shrimp Champions", rule_pack: "dont use pokemon samples", user: dj, emoji: ":bgs:"
+    shrimpo = Shrimpo.new start_at: @start_at, duration: "2 hours", title: "Shrimp Champions", rule_pack: "dont use pokemon samples", user: dj, emoji: ":bgs:"
     shrimpo.save_and_deposit_fruit_tickets!
 
-    shrimpo2 = Shrimpo.new start_at: Time.now, duration: "1 week", title: "Shrimp Champions 1 week", rule_pack: "dont use pokemon samples", user: dj, emoji: ":bgs:"
+    shrimpo2 = Shrimpo.new start_at: @start_at, duration: "1 week", title: "Shrimp Champions 1 week", rule_pack: "dont use pokemon samples", user: dj, emoji: ":bgs:"
     shrimpo2.save_and_deposit_fruit_tickets!
   end
 
@@ -14,18 +24,18 @@ RSpec.describe Shrimpo, type: :model do
 
   it 'sets end_at from duration' do
     dj = User.create role: 'dj', username: 'dakota', email: "dakota@gmail.com", password: "2boobies", time_zone: "UTC", level: 3
-    shrimpo = Shrimpo.new start_at: Time.now, duration: "2 hours", title: "Shrimp Champions", rule_pack: "dont use pokemon samples", user: dj, emoji: ":bgs:"
+    shrimpo = Shrimpo.new start_at: @start_at, duration: "2 hours", title: "Shrimp Champions", rule_pack: "dont use pokemon samples", user: dj, emoji: ":bgs:"
     shrimpo.save!
     expect(shrimpo.end_at).to eq shrimpo.start_at + 2.hours
     expect(shrimpo.duration).to eq "about 2 hours"
   end
 
-  # it 'sets voting_end_at when changed to voting status' do
-  #   dj = User.create role: 'dj', username: 'dakota', email: "dakota@gmail.com", password: "2boobies", time_zone: "UTC"
-  #   shrimpo = Shrimpo.new start_at: Time.now, duration: "2 hours", title: "Shrimp Champions", rule_pack: "dont use pokemon samples", user: dj
-  #   shrimpo.save!
-  # end
-  #
+  xit 'sets voting_end_at when changed to voting status' do
+    dj = User.create role: 'dj', username: 'dakota', email: "dakota@gmail.com", password: "2boobies", time_zone: "UTC"
+    shrimpo = Shrimpo.new start_at: Time.now, duration: "2 hours", title: "Shrimp Champions", rule_pack: "dont use pokemon samples", user: dj
+    shrimpo.save!
+  end
+
   it 'tallys the results' do
     gold_trophy = Trophy.create! name: "golden shrimpo"
     silver_trophy = Trophy.create! name: "silveren shrimpo"
@@ -35,7 +45,7 @@ RSpec.describe Shrimpo, type: :model do
     dj2 = User.create! role: 'dj', username: 'seacuke', email: "seacuke@gmail.com", password: "2boobies", time_zone: "UTC"
     dj3 = User.create! role: 'dj', username: 'djnameko', email: "djnameko@gmail.com", password: "2boobies", time_zone: "UTC"
     dj4 = User.create! role: 'dj', username: 'djgoodbye', email: "djgoodbye@gmail.com", password: "2boobies", time_zone: "UTC"
-    shrimpo = Shrimpo.new start_at: Time.now, duration: "2 hours", title: "Shrimp Champions 2", rule_pack: "dont use pokemon samples", user: dj1, emoji: ":bgs:", gold_trophy: gold_trophy, silver_trophy: silver_trophy, bronze_trophy: bronze_trophy, consolation_trophy: consolation_trophy
+    shrimpo = Shrimpo.new start_at: @start_at, duration: "2 hours", title: "Shrimp Champions 2", rule_pack: "dont use pokemon samples", user: dj1, emoji: ":bgs:", gold_trophy: gold_trophy, silver_trophy: silver_trophy, bronze_trophy: bronze_trophy, consolation_trophy: consolation_trophy
     shrimpo.save_and_deposit_fruit_tickets!
 
     entry1 = shrimpo.shrimpo_entries.create! title: "zolo zoodo", user: dj1
@@ -88,7 +98,7 @@ RSpec.describe Shrimpo, type: :model do
     dj2 = User.create role: 'dj', username: 'seacuke', email: "seacuke@gmail.com", password: "2boobies", time_zone: "UTC"
     dj3 = User.create role: 'dj', username: 'djnameko', email: "djnameko@gmail.com", password: "2boobies", time_zone: "UTC"
     dj4 = User.create role: 'dj', username: 'djgoodbye', email: "djgoodbye@gmail.com", password: "2boobies", time_zone: "UTC"
-    shrimpo = Shrimpo.new start_at: Time.now, duration: "2 hours", title: "Shrimp Champions 2", rule_pack: "dont use pokemon samples", user: dj1, emoji: ":bgs:"
+    shrimpo = Shrimpo.new start_at: @start_at, duration: "2 hours", title: "Shrimp Champions 2", rule_pack: "dont use pokemon samples", user: dj1, emoji: ":bgs:"
     shrimpo.save_and_deposit_fruit_tickets!
 
     entry1 = shrimpo.shrimpo_entries.create! title: "zolo zoodo", user: dj1

@@ -74,7 +74,7 @@ class Shrimpo < ApplicationRecord
   end
 
   def duration
-    time_ago_in_words(self.end_at)
+    distance_of_time_in_words(self.end_at, self.start_at)
   end
 
   def duration= d
