@@ -23,6 +23,9 @@ class Shrimpo < ApplicationRecord
 
   validate :user_level
 
+  validate :start_at_cannot_be_in_the_past, on: :create
+  validate :end_at_cannot_be_in_the_past, on: :create
+
   enum status: [:running, :voting, :completed]
 
   attr_accessor :duration
@@ -71,7 +74,7 @@ class Shrimpo < ApplicationRecord
   end
 
   def duration
-    time_ago_in_words(self.end_at)
+    distance_of_time_in_words(self.end_at, self.start_at)
   end
 
   def duration= d
@@ -113,8 +116,10 @@ class Shrimpo < ApplicationRecord
       # award xp & trophies
       self.shrimpo_entries.sort_by(&:ranking).each_with_index do |entry, index|
         total_points = 2000 + (25 * self.shrimpo_entries.count)
-        points = (total_points * ((8 - entry.ranking) * 0.04)).round
-        ExperiencePointAward.create! user: entry.user, amount: points, award_type: :shrimpo
+        points = ((total_points * 0.0849) / Math.log(entry.ranking + 1)).round
+        if (points > 0)
+          ExperiencePointAward.create! user: entry.user, amount: points, award_type: :shrimpo, source: self
+        end
 
         consolation_max = self.shrimpo_entries.count / 2
 
@@ -125,7 +130,6 @@ class Shrimpo < ApplicationRecord
           TrophyAward.create! user: entry.user, trophy: self.silver_trophy, shrimpo_entry: entry
         when 3
           TrophyAward.create! user: entry.user, trophy: self.bronze_trophy, shrimpo_entry: entry
-        # TODO consolation_trophy
         when 4
           amount = rand(1..consolation_max)
           amount.times do
@@ -154,16 +158,22 @@ class Shrimpo < ApplicationRecord
         transaction = FruitTicketTransaction.new to_user: self.user, amount: self.fruit_ticket_deposit_amount, transaction_type: :shrimpo_deposit_return
         transaction.transact_and_save!
       end
-      # award trophies
-      #
-      # 1st place gold
-      # 2nd place silver
-      # 3rd place bronze
-      # 4th-7th random amount of consolation trophies
     end
   end
 
   private
+  def start_at_cannot_be_in_the_past
+    if start_at < Time.current
+      errors.add(:start_at, "cannot be in the past")
+    end
+  end
+
+  def end_at_cannot_be_in_the_past
+    if end_at < Time.current
+      errors.add(:end_at, "cannot be in the past")
+    end
+  end
+
   def user_level
     unless self.user.level > 2
       self.errors.add(:user, " should be level 3 or higher")

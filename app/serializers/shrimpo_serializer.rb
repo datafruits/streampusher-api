@@ -18,7 +18,7 @@ class ShrimpoSerializer < ActiveModel::Serializer
   def cover_art_url
     if object.cover_art.present?
       if ::Rails.env != "production"
-        path = ::Rails.application.routes.url_helpers.rails_blob_path(object.cover_art, only_path: true)
+        path = ::Rails.application.routes.url_helpers.rails_blob_path(object.cover_art, only_path: true, disposition: :inline)
         "http://localhost:3000#{path}"
       else
         object.cover_art.url
