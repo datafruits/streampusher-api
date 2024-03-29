@@ -10,7 +10,7 @@ class TrophyAwardSerializer < ActiveModel::Serializer
       if ::Rails.env != "production"
         ::Rails.application.routes.url_helpers.rails_blob_path(object.trophy.image, only_path: true, disposition: 'attachment')
       else
-        object.image.url
+        object.trophy.image.url
       end
     end
   end
@@ -20,7 +20,7 @@ class TrophyAwardSerializer < ActiveModel::Serializer
       if ::Rails.env != "production"
         ::Rails.application.routes.url_helpers.rails_blob_path(object.trophy.model, only_path: true, disposition: 'attachment')
       else
-        object.model.url
+        object.trophy.model.url
       end
     end
   end
