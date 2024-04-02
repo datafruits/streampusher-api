@@ -13,6 +13,7 @@ RSpec.describe ShowSeries, type: :model do
 
       @radio = Radio.create name: 'datafruits'
       @dj = User.create role: 'dj', username: 'dakota', email: "dakota@gmail.com", password: "2boobies", time_zone: "UTC"
+      @dj2 = User.create! role: 'dj', username: 'seacuke', email: "seacuke@gmail.com", password: "2boobies", time_zone: "UTC"
     end
 
     after do
@@ -23,6 +24,7 @@ RSpec.describe ShowSeries, type: :model do
     it "saves recurring shows" do
       show_series = ShowSeries.new title: "monthly jammer jam", description: "wow", recurring_interval: "month", recurring_weekday: 'Sunday', recurring_cadence: 'First', start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month, radio: @radio
       show_series.users << @dj
+      show_series.users << @dj2
       show_series.save!
       expect(show_series.episodes.count).to eq 276
       expect(show_series.episodes.future.pluck(:start_at).map {|m| m.hour }.uniq.count).to eq 1
@@ -31,6 +33,8 @@ RSpec.describe ShowSeries, type: :model do
       expect(show_series.episodes.first.end_at).to eq(Time.zone.parse('2015-01-04') + 1.hours)
 
       expect(show_series.episodes.future.pluck(:start_at).map{|m| m.strftime("%a")}.uniq.first).to eq "Sun"
+
+      expect(show_series.episodes.map{|m| m.performers.pluck(:id)}.flatten.uniq.count).to eq 2
 
       # test biweek
       show_series = ShowSeries.new title: "biweekly jammer jam", description: "wow", recurring_interval: "biweek", recurring_weekday: "Tuesday", start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month, radio: @radio, time_zone: "Eastern Time (US & Canada)"
