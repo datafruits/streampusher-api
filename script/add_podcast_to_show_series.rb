@@ -22,6 +22,7 @@ show_series_user_mapping = {
   "solar system" => "",
   "mint jams" => "slugga",
   "flat402" => "hyuga daichi",
+  "softserve" => "gearshfft",
 }
 
 # if there's a slug, find the show series and add a new episode
@@ -46,11 +47,25 @@ CSV.foreach(csv_path, headers: true) do |row|
   elsif title
     show_series = ShowSeries.find_by title: title
     if show_series
+      episode = show_series.episodes.new
     else
       # create it
-      #
       # find user by show_series_user_mapping
-      # ShowSeries.create user: ???
+      username = show_series_user_mapping[title]
+      if username.blank?
+        puts "couldn't find username for #{title}"
+        next
+      end
+      user = User.find_by(username: username)
+      if !user
+        puts "couldn't find user with username: #{username}"
+        next
+      end
+      #
+      show_series = ShowSeries.new user: user, title: title, status: "archived"
+      show_series.save!
+      # add episode
+      episode = show_series.episodes.new
     end
   else
     # add to guest fruits
