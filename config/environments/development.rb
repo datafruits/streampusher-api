@@ -37,6 +37,9 @@ Rails.application.configure do
   # }
   #
   #
+  #
+  config.active_storage.service = :local
+
   config.hosts << "rails"
 
   # config.after_initialize do

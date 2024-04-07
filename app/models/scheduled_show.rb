@@ -51,6 +51,7 @@ class ScheduledShow < ActiveRecord::Base
 
   after_update :maybe_process_recording
   after_update :maybe_add_to_default_playlist
+  after_update :sync_track_title
   #
   def clear_redis_if_playing
     if self.radio.current_show_playing.to_i == self.id
@@ -215,6 +216,13 @@ class ScheduledShow < ActiveRecord::Base
   def maybe_process_recording
     if self.recording && self.recording.processing_status === 'unprocessed'
       ProcessRecordingWorker.perform_later self.recording.id, self.id
+    end
+  end
+
+  def sync_track_title
+    if self.tracks.any?
+      track = self.tracks.first
+      track.update title: self.formatted_episode_title
     end
   end
 end

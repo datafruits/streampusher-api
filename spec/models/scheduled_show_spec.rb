@@ -337,6 +337,16 @@ RSpec.describe ScheduledShow, :type => :model do
       expect(@scheduled_show.prerecord_track_id).to eq(track.id)
     end
 
+    it "syncs track title after update" do
+      track = FactoryBot.create :track, radio: @radio, audio_file_name: "http://s3.amazonaws.com/streampusher/doo.mp3"
+      @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: @start_at, end_at: @end_at, title: "hey hey", dj: @dj
+      @scheduled_show.save!
+      track.update scheduled_show: @scheduled_show
+      @scheduled_show.save!
+      track.reload
+      expect(track.title).to eq @scheduled_show.formatted_episode_title
+    end
+
     it "assigns prerecord file to archive" do
       track = FactoryBot.create :track, radio: @radio, audio_file_name: "http://s3.amazonaws.com/streampusher/doo.mp3"
       @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: @start_at, end_at: @end_at, title: "hey hey", dj: @dj
