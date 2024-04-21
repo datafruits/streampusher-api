@@ -79,9 +79,8 @@ CSV.foreach(csv_path, headers: true) do |row|
           puts "couldn't find user with username: #{username}"
           next
         end
-        # TODO need start_time end_time etc
-        show_series = ShowSeries.new title: show_series_name, status: "archived", radio: datafruits, time_zone: user.time_zone, description: show_series_name
-        show_series.users << user
+        show_series = ShowSeries.new title: show_series_name, status: "archived", radio: datafruits, time_zone: user.time_zone, description: show_series_name, start_time: Time.now, end_time: Time.now + 2.hours, status: "archived", start_date: Date.parse(created_at), end_date: Date.parse(created_at) + 2.hours, recurring_interval: :not_recurring
+        show_series.show_series_hosts.build user: user
         show_series.save!
         # add episode
         episode = show_series.episodes.new title: title, start_at: created_at, end_at: created_at, status: "archive_published", playlist: datafruits.default_playlist, dj: show_series.users.first, radio: datafruits
