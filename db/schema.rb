@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_15_172735) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_24_190944) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -195,6 +195,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_15_172735) do
     t.string "message", null: false
     t.string "source_type"
     t.boolean "read", default: false, null: false
+    t.string "url"
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
@@ -303,6 +304,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_15_172735) do
     t.index ["dj_id"], name: "index_recordings_on_dj_id"
     t.index ["radio_id"], name: "index_recordings_on_radio_id"
     t.index ["track_id"], name: "index_recordings_on_track_id"
+  end
+
+  create_table "scheduled_show_favorites", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "scheduled_show_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["scheduled_show_id"], name: "index_scheduled_show_favorites_on_scheduled_show_id"
+    t.index ["user_id", "scheduled_show_id"], name: "index_scheduled_show_favorites_on_user_id_and_scheduled_show_id", unique: true
+    t.index ["user_id"], name: "index_scheduled_show_favorites_on_user_id"
   end
 
   create_table "scheduled_show_labels", id: :serial, force: :cascade do |t|
@@ -427,8 +438,34 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_15_172735) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
+    t.integer "total_score"
+    t.integer "ranking"
     t.index ["shrimpo_id"], name: "index_shrimpo_entries_on_shrimpo_id"
+    t.index ["slug"], name: "index_shrimpo_entries_on_slug", unique: true
     t.index ["user_id"], name: "index_shrimpo_entries_on_user_id"
+  end
+
+  create_table "shrimpo_votes", force: :cascade do |t|
+    t.bigint "shrimpo_voting_category_id"
+    t.bigint "shrimpo_entry_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "score", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shrimpo_entry_id"], name: "index_shrimpo_votes_on_shrimpo_entry_id"
+    t.index ["shrimpo_voting_category_id"], name: "index_shrimpo_votes_on_shrimpo_voting_category_id"
+    t.index ["user_id", "shrimpo_entry_id"], name: "index_shrimpo_votes_on_user_id_and_shrimpo_entry_id", unique: true
+    t.index ["user_id"], name: "index_shrimpo_votes_on_user_id"
+  end
+
+  create_table "shrimpo_voting_categories", force: :cascade do |t|
+    t.bigint "shrimpo_id", null: false
+    t.string "name"
+    t.string "emoji"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shrimpo_id"], name: "index_shrimpo_voting_categories_on_shrimpo_id"
   end
 
   create_table "shrimpos", force: :cascade do |t|
@@ -441,6 +478,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_15_172735) do
     t.datetime "updated_at", null: false
     t.integer "status", default: 0, null: false
     t.string "slug"
+    t.string "emoji"
+    t.datetime "ended_at"
+    t.integer "gold_trophy_id"
+    t.integer "silver_trophy_id"
+    t.integer "bronze_trophy_id"
+    t.integer "consolation_trophy_id"
     t.index ["slug"], name: "index_shrimpos_on_slug", unique: true
     t.index ["user_id"], name: "index_shrimpos_on_user_id"
   end
@@ -506,6 +549,23 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_15_172735) do
     t.index ["radio_id"], name: "index_tracks_on_radio_id"
     t.index ["scheduled_show_id"], name: "index_tracks_on_scheduled_show_id"
     t.index ["uploaded_by_id"], name: "index_tracks_on_uploaded_by_id"
+  end
+
+  create_table "trophies", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "trophy_awards", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "trophy_id", null: false
+    t.bigint "shrimpo_entry_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shrimpo_entry_id"], name: "index_trophy_awards_on_shrimpo_entry_id"
+    t.index ["trophy_id"], name: "index_trophy_awards_on_trophy_id"
+    t.index ["user_id"], name: "index_trophy_awards_on_user_id"
   end
 
   create_table "user_radios", id: :serial, force: :cascade do |t|

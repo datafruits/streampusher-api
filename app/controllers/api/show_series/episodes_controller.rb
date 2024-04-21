@@ -10,8 +10,9 @@ class Api::ShowSeries::EpisodesController < ApplicationController
       episodes = episodes.where("start_at > ?", Time.now).order("start_at ASC")
     end
     episodes = episodes.page(params[:page])
-    meta = { page: params[:page], total_pages: episodes.total_pages.to_i }
-    render json: episodes, meta: meta
+    options = {}
+    options[:meta] = { page: params[:page], total_pages: episodes.total_pages.to_i }
+    render json: Fast::ScheduledShowSerializer.new(episodes, options).serializable_hash.to_json
   end
 
   def show

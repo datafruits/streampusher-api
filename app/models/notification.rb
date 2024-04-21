@@ -19,10 +19,14 @@ class Notification < ApplicationRecord
     :dj_badge_award,
     :vj_badge_award,
     :supporter_badge_award,
+    :emerald_supporter_badge_award,
+    :gold_supporter_badge_award,
+    :duckle_badge_award,
     :level_up,
     :experience_point_award,
     :fruit_ticket_gift,
     :supporter_fruit_ticket_stipend,
+    :track_playback_ticket_payment,
     :glorp_lottery_winner,
     :show_comment,
     :new_thread,
@@ -32,6 +36,14 @@ class Notification < ApplicationRecord
     :new_datafruiter,
     :profile_update,
     :avatar_update,
+    :new_podcast,
+    :shrimpo_started,
+    :shrimpo_deadline_soon,
+    :shrimpo_voting_started,
+    :shripo_ended,
+    :shrimpo_entry,
+    :shrimpo_entry_comment,
+    :shrimpo_comment,
   ]
 
   private
@@ -65,6 +77,12 @@ class Notification < ApplicationRecord
       "#{self.user.username} got the VJ badge!"
     when "supporter_badge_award"
       "#{self.user.username} got the supporter badge!"
+    when "gold_supporter_badge_award"
+      "#{self.user.username} got the gold supporter badge!"
+    when "emerald_supporter_badge_award"
+      "#{self.user.username} got the emerald supporter badge!"
+    when "duckle_badge_award"
+      "#{self.user.username} got the duckle badge! :duckle: what the heck..."
     when "level_up"
       "#{self.user.username} reached level #{self.user.level}!"
     when "experience_point_award"
@@ -73,6 +91,8 @@ class Notification < ApplicationRecord
       "#{self.source.from_user.username} sent you Ƒ#{self.source.amount} fruit tickets!"
     when "supporter_fruit_ticket_stipend"
       "You got Ƒ#{self.source.amount} fruit tickets for supporting datafruits. The bank of fruit tickets thanks you for your support!"
+    when "track_playback_ticket_payment"
+      "You got Ƒ#{self.source.amount} fruit tickets for your contributions!"
     when "glorp_lottery_winner"
       ":#{self.source.award_type.split("py").first}:!!! #{self.user.username} got #{self.source.amount} #{self.source.award_type} points!"
     when "show_comment"
@@ -90,13 +110,28 @@ class Notification < ApplicationRecord
     when "profile_update"
       "#{self.source.username}'s bio was updated!"
     when "avatar_update"
-      "#{self.source.username}'s fruitification emblem was updated"
+      "#{self.source.username}'s fruitification emblem was updated: #{self.source.image.url(:thumb)}"
+    when "new_podcast"
+      "New archive published: #{self.source.title}"
+    when "shrimpo_entry"
+      "#{self.source.shrimpo.emoji} Someone shrimpoed for #{self.source.shrimpo.title} ! There are #{self.source.shrimpo.shrimpo_entries.count} total entries now."
+    when "shrimpo_voting_started"
+      "#{self.source.title} shrimpo ended! Time to vote!"
+    when "shrimpo_comment"
+      "#{self.source.title} has a new comment!"
+    when "shrimpo_entry_comment"
+      "#{self.source.title} has a new comment!"
     end
   end
 
   def send_notification
     if self.send_to_chat?
-      redis.publish "datafruits:user_notifications", self.message
+      if self.url.present?
+        msg = "#{self.message} - #{self.url}"
+      else
+        msg = self.message
+      end
+      redis.publish "datafruits:user_notifications", msg
     end
   end
 end

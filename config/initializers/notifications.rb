@@ -16,7 +16,7 @@ if Rails.env.production?
             "dj.added_to_radio",
             "podcast.created",
             "scheduled_show.created",
-            "scheduled_show.update",
+            "scheduled_show.updated",
             "scheduled_show.update.error",
             "scheduled_show.deleted",
             "subscription.updated",
@@ -33,6 +33,12 @@ if Rails.env.production?
             "show_series.create.error",
             "guest_show.created",
             "guest_show.create.error",
+            "shrimpo.created",
+            "shrimpo.create.error",
+            "shrimpo.entry.created",
+            "shrimpo.entry.create.error",
+            "shrimpo.vote.created",
+            "shrimpo.vote.create.error",
            ]
 
   events.each do |event|

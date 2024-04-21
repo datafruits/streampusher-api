@@ -27,6 +27,8 @@ class ScheduledShow < ActiveRecord::Base
   accepts_nested_attributes_for :scheduled_show_performers
   has_many :posts, as: :postable
 
+  has_many :scheduled_show_favorites
+
   scope :future, -> { where("start_at > ?", Time.now) }
   scope :past, -> { where("start_at < ?", Time.now) }
 
@@ -49,6 +51,7 @@ class ScheduledShow < ActiveRecord::Base
 
   after_update :maybe_process_recording
   after_update :maybe_add_to_default_playlist
+  after_update :sync_track_title
   #
   def clear_redis_if_playing
     if self.radio.current_show_playing.to_i == self.id
@@ -146,81 +149,6 @@ class ScheduledShow < ActiveRecord::Base
     end
   end
 
-  # def recurrences
-  #   self.class.where(recurrant_original_id: self.id)
-  # end
-  #
-  # def recurring?
-  #   !self.not_recurring? && !self.recurrence?
-  # end
-  #
-  # def recurring_or_recurrence?
-  #   recurring? || self.recurrence?
-  # end
-  #
-  # def human_readable_recurring
-  #   case self.recurring_interval.to_sym
-  #   when :day
-  #     "daily"
-  #   when :week
-  #     "weekly"
-  #   when :biweek
-  #     "bi-weekly"
-  #   when :month
-  #     "monthly"
-  #   when :year
-  #     "yearly"
-  #   end
-  # end
-  #
-  # def save_recurrences_in_background_on_create
-  #   SaveRecurringShowsWorker.perform_later self.id
-  # end
-  #
-  # def update_recurrences_in_background
-  #   # if the recurring interval was changed, we need to destroy all the recurring shows and call save_recurrences again
-  #   if self.saved_changes.include?("recurring_interval") && !self.saved_changes.include?("id")
-  #     self.recurrences.destroy_all
-  #     SaveRecurringShowsWorker.perform_later self.id
-  #   elsif update_all_recurrences?
-  #     UpdateRecurringShowsWorker.perform_later self.id
-  #   end
-  # end
-  #
-  # def do_destroy_recurrences
-  #   recurrences_to_update.destroy_all
-  # end
-
-  # def save_recurrences
-  #   if recurring?
-  #     start_and_end_recurrences.each do |s,e|
-  #       scheduled_show = self.dup
-  #       scheduled_show.image = self.image if self.image.present?
-  #       scheduled_show.recurring_interval = self.recurring_interval
-  #       scheduled_show.recurrence = true
-  #       scheduled_show.recurrant_original_id = self.id
-  #       scheduled_show.start_at = DateTime.new s.year, s.month, s.day, self.start_at.hour, self.start_at.min, self.start_at.sec, self.start_at.zone
-  #       scheduled_show.end_at = DateTime.new e.year, e.month, e.day, self.end_at.hour, self.end_at.min, self.end_at.sec, self.end_at.zone
-  #       scheduled_show.slug = nil
-  #       next if scheduled_show.start_at == self.start_at
-  #       scheduled_show.save!
-  #     end
-  #   end
-  # end
-
-  # def update_recurrences
-  #   recurrences_to_update.each do |r|
-  #     r.attributes = self.attributes.except("id","created_at","updated_at","start_at","end_at","recurring_interval","recurrence", "recurrant_original_id", "slug", "image")
-  #     new_start_at = DateTime.new r.start_at.year, r.start_at.month, r.start_at.day, self.start_at.hour, self.start_at.min, self.start_at.sec, self.start_at.zone
-  #     r.start_at = new_start_at
-  #     new_end_at = DateTime.new r.end_at.year, r.end_at.month, r.end_at.day, self.end_at.hour, self.end_at.min, self.end_at.sec, self.end_at.zone
-  #     r.end_at = new_end_at
-  #     r.image = self.image if self.image.present?
-  #     r.update_all_recurrences = false
-  #     r.save!
-  #   end
-  # end
-  #
   def formatted_date
     "#{self.start_at.strftime("%m%d%Y")}"
   end
@@ -232,17 +160,9 @@ class ScheduledShow < ActiveRecord::Base
     ]
   end
 
-  # def fall_forward_recurrances_for_dst!
-  #   recurrences_to_update.each do |r|
-  #     r.update start_at: r.start_at+1.hour, end_at: r.end_at+1.hour
-  #   end
-  # end
-  #
-  # def fall_back_recurrances_for_dst!
-  #   recurrences_to_update.each do |r|
-  #     r.update start_at: r.start_at-1.hour, end_at: r.end_at-1.hour
-  #   end
-  # end
+  def url
+    "https://datafruits.fm/shows/#{self.show_series.slug}/episodes/#{self.slug}"
+  end
 
   private
 
@@ -251,17 +171,6 @@ class ScheduledShow < ActiveRecord::Base
       self.performers << self.dj
     end
   end
-
-  # def recurring_interval_changed?
-  #   self.changes.has_key? "recurring_interval"
-  # end
-  #
-  # def maybe_destroy_recurrences
-  #   id = self.recurrant_original_id || self.id
-  #   if destroy_recurrences
-  #     DestroyRecurringShowsWorker.perform_later id
-  #   end
-  # end
 
   def ensure_time_zone
     unless self.time_zone.blank?
@@ -293,66 +202,12 @@ class ScheduledShow < ActiveRecord::Base
     end
   end
 
-  # def start_and_end_recurrences options={}
-  #   starts = recurrence_times(options.merge(starts: self.start))
-  #   ends = recurrence_times(options.merge(starts: self.end))
-  #   if starts.length != ends.length
-  #     while starts.length != ends.length
-  #       if starts.length > ends.length
-  #         starts.pop
-  #       else
-  #         ends.pop
-  #       end
-  #     end
-  #   end
-  #   starts.zip(ends)
-  # end
-
-  # def recurrence_times options={}
-  #   options = {:every => self.recurring_interval}.merge(options)
-  #   options[:on] = case options[:every]
-  #   when 'year'
-  #     [options[:starts].month, options[:starts].day]
-  #   when 'week', 'biweek'
-  #     options[:starts].strftime('%A').downcase.to_sym
-  #   when 'day'
-  #     options[:starts].day
-  #   when 'month'
-  #     TimeUtils.week_of_month_for_date(self.start_at)
-  #   end
-  #   if options[:every] == "month"
-  #     options[:weekday] = self.start_at.strftime("%A").downcase.to_sym
-  #   elsif options[:every] == "biweek"
-  #     options[:interval] = 2
-  #     options[:every] = "week"
-  #   end
-  #   Recurrence.new(options).events
-  # end
-
-  # def recurrences_to_update
-  #   if !is_original_recurrant?
-  #     self.radio.scheduled_shows.where(recurrant_original_id: self.recurrant_original_id).where("start_at > (?)", Time.current)
-  #   else # this is the original recurring show!
-  #     recurrences.where("start_at > (?)", Time.current)
-  #   end
-  # end
-  #
-  # def update_all_recurrences?
-  #   ActiveModel::Type::Boolean.new.cast update_all_recurrences
-  # end
-  #
-  # private
-  #
-  # def is_original_recurrant?
-  #   !self.recurrant_original_id.present?
-  # end
-  #
-  private
   def maybe_add_to_default_playlist
     if self.archive_published?
       self.tracks.each do |t|
         unless self.radio.default_playlist.tracks.include? t
           self.radio.default_playlist.tracks << t
+          Notification.create notification_type: "new_podcast", user: self.performers.first, source: self, send_to_chat: true, send_to_user: false, url: url
         end
       end
     end
@@ -361,6 +216,13 @@ class ScheduledShow < ActiveRecord::Base
   def maybe_process_recording
     if self.recording && self.recording.processing_status === 'unprocessed'
       ProcessRecordingWorker.perform_later self.recording.id, self.id
+    end
+  end
+
+  def sync_track_title
+    if self.tracks.any?
+      track = self.tracks.first
+      track.update title: self.formatted_episode_title
     end
   end
 end
