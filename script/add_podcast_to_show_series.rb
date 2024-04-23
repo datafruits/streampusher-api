@@ -45,7 +45,7 @@ CSV.foreach(csv_path, headers: true) do |row|
       puts "looking for show series with slug: #{slug}"
       show_series = ShowSeries.friendly.find slug
       if show_series
-        # strip date from show if it exists, somehow
+        # TODO strip date from show if it exists, somehow
         episode = show_series.episodes.new start_at: created_at, end_at: created_at, status: "archive_published", playlist: datafruits.default_playlist, dj: show_series.users.first, radio: datafruits
         if !title.blank?
           episode.title = title
@@ -57,9 +57,9 @@ CSV.foreach(csv_path, headers: true) do |row|
         track.update scheduled_show: episode
         episode.labels << track.labels
       else
-        puts "couldn't find show series with slug: #{slug}"
+        raise "couldn't find show series with slug: #{slug}"
       end
-    elsif title
+    elsif !title.blank?
       show_series = ShowSeries.find_by title: show_series_name
       if show_series
         episode = show_series.episodes.new title: title, start_at: created_at, end_at: created_at, status: "archive_published", playlist: datafruits.default_playlist, dj: show_series.users.first, radio: datafruits
