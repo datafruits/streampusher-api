@@ -101,7 +101,7 @@ CSV.foreach(csv_path, headers: true) do |row|
         user = User.find_by username: username
         if !user
           puts "couldn't find user: #{username}, creating"
-          user = User.create username: username
+            user = datafruits.users.create! username: username, password: "", password_confirmation: "", email: "test@datafruits.fm"
         end
         episode.dj = user
         episode.save!
