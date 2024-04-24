@@ -11,10 +11,12 @@ shows_to_create = [
   {title: "dj supermarket", dj: "mcfiredrill", description: "international DJ supermarket a URL/VR and sometimes it was IRL extravaganza"},
 ]
 
+datafruits = Radio.first
+
 shows_to_create.each do |show|
-  user = User.find_by(username: show.dj)
+  user = User.find_by(username: show[:dj])
   time = Time.now
-  show_series = ShowSeries.new title: show.title, status: "archived", radio: datafruits, time_zone: user.time_zone, description: show.description, start_time: time, end_time: time + 2.hours, status: "archived", start_date: Date.parse(time), end_date: Date.parse(time) + 2.hours, recurring_interval: :not_recurring
+  show_series = ShowSeries.new title: show[:title], status: "archived", radio: datafruits, time_zone: user.time_zone, description: show[:description], start_time: time, end_time: time + 2.hours, status: "archived", start_date: time, end_date: time + 2.hours, recurring_interval: :not_recurring
   show_series.show_series_hosts.build user: user
   show_series.save!
 end
