@@ -119,5 +119,6 @@ CSV.foreach(csv_path, headers: true) do |row|
     if show_series
       show_series.episodes << track.scheduled_show
     end
+    track.scheduled_show.update! status: "archive_published"
   end
 end
