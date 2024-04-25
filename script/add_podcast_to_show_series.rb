@@ -74,7 +74,7 @@ CSV.foreach(csv_path, headers: true) do |row|
           puts "couldn't find username for #{show_series_name}"
           next
         end
-        user = User.find_by(username: username)
+        user = datafruits.users.where("username ilike ?", "%#{username.strip}%").first
         if !user
           puts "couldn't find user with username: #{username}"
           next
@@ -98,10 +98,12 @@ CSV.foreach(csv_path, headers: true) do |row|
         episode.title = episode.formatted_episode_title
       end
       if !username.blank?
-        user = User.find_by username: username
+        user = datafruits.users.where("username ilike ?", "%#{username.strip}%").first
         if !user
           puts "couldn't find user: #{username}, creating"
-            user = datafruits.users.create! username: username, password: "", password_confirmation: "", email: "test@datafruits.fm"
+          rand1 = SecureRandom.hex(10)
+          rand2 = SecureRandom.hex(10)
+          user = datafruits.users.create! username: username.strip, password: rand1, password_confirmation: rand1, email: "test#{rand2}@datafruits.fm"
         end
         episode.dj = user
         episode.save!
