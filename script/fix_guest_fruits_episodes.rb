@@ -6,7 +6,7 @@ datafruits = Radio.first
 
 # TODO transaction?
 CSV.foreach(csv_path, headers: true) do |row|
-  show_series_slug = row["show_series_slug"].strip
+  show_series_slug = row["show_series_slug"]
   username = row["show_dj"]
   if !show_series_slug.blank?
     slug = row["show_slug"].strip
