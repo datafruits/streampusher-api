@@ -5,9 +5,9 @@ csv_path = "/tmp/guestfruits.csv"
 datafruits = Radio.first
 
 CSV.foreach(csv_path, headers: true) do |row|
-  show_series_slug = row["show_series_slug"]
+  show_series_slug = row["show_series_slug"].strip
   username = row["show_dj"]
-  if show_series_slug
+  if !show_series_slug.blank?
     slug = row["show_slug"]
     episode = ScheduledShow.friendly.find slug
     show_series = ShowSeries.friendly.find show_series_slug
