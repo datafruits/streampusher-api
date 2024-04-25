@@ -9,6 +9,7 @@ shows_to_create = [
   {title: "Happy Hyrbids", dj: "tim", description: "A journey through some happily hybrid dance music"},
   {title: "vibesmeme's Fuck Real Life!", dj: "vibesmeme", description: "vibesmeme's Fuck Real Life"},
   {title: "dj supermarket", dj: "mcfiredrill", description: "international DJ supermarket a URL/VR and sometimes it was IRL extravaganza"},
+  {title: "dunka dunka", dj: "sumorai", description: "dunka"},
 ]
 
 datafruits = Radio.first
