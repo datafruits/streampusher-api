@@ -4,11 +4,13 @@ csv_path = "/tmp/guestfruits.csv"
 
 datafruits = Radio.first
 
+# TODO transaction?
 CSV.foreach(csv_path, headers: true) do |row|
   show_series_slug = row["show_series_slug"].strip
   username = row["show_dj"]
   if !show_series_slug.blank?
-    slug = row["show_slug"]
+    slug = row["show_slug"].strip
+    puts "looking for #{slug} show series: #{show_series_slug}"
     episode = ScheduledShow.friendly.find slug
     show_series = ShowSeries.friendly.find show_series_slug
     episode.update! show_series_id: show_series.id, status: "archive_published"
