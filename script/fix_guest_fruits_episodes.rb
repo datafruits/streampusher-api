@@ -23,7 +23,7 @@ CSV.foreach(csv_path, headers: true) do |row|
     end
     show = ScheduledShow.friendly.find(row["show_slug"])
     if show.dj.id != user.id
-      show.update! dj: user
+      show.update! dj: user, status: "archive_published"
     end
   end
 end
