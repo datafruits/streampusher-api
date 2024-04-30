@@ -119,9 +119,7 @@ class Shrimpo < ApplicationRecord
         self.shrimpo_entries.sort_by(&:ranking).each_with_index do |entry, index|
           total_points = 2000 + (25 * self.shrimpo_entries.count)
           points = ((total_points * 0.0849) / Math.log(entry.ranking + 1)).round
-          puts "points for entry: #{points}"
           if (points > 0)
-            puts "creating XP award"
             ExperiencePointAward.create! user: entry.user, amount: points, award_type: :shrimpo, source: self
           end
 
@@ -162,7 +160,7 @@ class Shrimpo < ApplicationRecord
           transaction = FruitTicketTransaction.new to_user: self.user, amount: self.fruit_ticket_deposit_amount, transaction_type: :shrimpo_deposit_return
           transaction.transact_and_save!
         end
-        CreateEntriesZipWorker.perform_later(self.id)
+        ::CreateEntriesZipWorker.perform_later(self.id)
       end
     rescue => e
       puts "Tally results failed: #{e.message}"
@@ -175,7 +173,6 @@ class Shrimpo < ApplicationRecord
       file = entry.audio
       filename = entry.audio.filename.to_s
       filepath = File.join zip_dir, filename
-      puts filepath
       File.open(filepath, "wb") { |f| f.write(file.service.download(file.key)) }
     end
 
