@@ -9,6 +9,7 @@ class Shrimpo < ApplicationRecord
   has_many :posts, as: :postable
 
   has_one_attached :zip
+  has_one_attached :entries_zip
   has_one_attached :cover_art
 
   belongs_to :gold_trophy, class_name: "Trophy"
@@ -159,10 +160,40 @@ class Shrimpo < ApplicationRecord
           transaction = FruitTicketTransaction.new to_user: self.user, amount: self.fruit_ticket_deposit_amount, transaction_type: :shrimpo_deposit_return
           transaction.transact_and_save!
         end
+        CreateEntriesZipWorker.perform_later(self.id)
       end
     rescue => e
       puts "Tally results failed: #{e.message}"
     end
+  end
+
+  def create_entries_zip
+    zip_dir = Dir.mktmpdir self.slug
+    # zip = ???
+    self.shrimpo_entries.each do |entry|
+      file = entry.audio
+      filename = entry.audio.filename.to_s
+      filepath = File.join zip_dir, filename
+      puts filepath
+      File.open(filepath, "wb") { |f| f.write(file.service.download(file.key)) }
+    end
+
+    temp_file = Tempfile.new("#{self.slug}.zip")
+    folderpath_glob = File.join zip_dir, "**", "*"
+
+    files = Dir.glob(folderpath_glob).reject { |e| File.directory? e }
+
+    Zip::OutputStream.open(temp_file) { |zos| }
+
+    Zip::File.open(temp_file.path, Zip::File::CREATE) do |zip|
+      files.each do |filepath|
+        filepath_zip = filepath.sub(zip_dir, '').sub(File::SEPARATOR, '')
+        zip.add filepath_zip, filepath
+      end
+    end
+
+    self.entries_zip.attach io: File.open(temp_file), filename: "#{self.slug}.zip"
+    self.save!
   end
 
   private
