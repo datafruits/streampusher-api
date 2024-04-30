@@ -119,7 +119,9 @@ class Shrimpo < ApplicationRecord
         self.shrimpo_entries.sort_by(&:ranking).each_with_index do |entry, index|
           total_points = 2000 + (25 * self.shrimpo_entries.count)
           points = ((total_points * 0.0849) / Math.log(entry.ranking + 1)).round
+          puts "points for entry: #{points}"
           if (points > 0)
+            puts "creating XP award"
             ExperiencePointAward.create! user: entry.user, amount: points, award_type: :shrimpo, source: self
           end
 
@@ -169,7 +171,6 @@ class Shrimpo < ApplicationRecord
 
   def create_entries_zip
     zip_dir = Dir.mktmpdir self.slug
-    # zip = ???
     self.shrimpo_entries.each do |entry|
       file = entry.audio
       filename = entry.audio.filename.to_s
