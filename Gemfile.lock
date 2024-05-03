@@ -1935,6 +1935,7 @@ DEPENDENCIES
   rubocop
   ruby-liquidsoap!
   ruby-lsp
+  rubyzip
   rupeepeethree!
   selenium-webdriver (< 3.0)
   sidekiq
