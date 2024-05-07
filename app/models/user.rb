@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   has_many :fruit_summons
   has_many :posts
   has_many :notifications
+  has_many :trophy_awards
 
   has_attached_file :image, styles: { :thumb => "150x150#", :medium => "250x250#" },
     path: ":attachment/:style/:basename.:extension"
