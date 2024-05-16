@@ -81,7 +81,7 @@ RSpec.describe Shrimpo, type: :model do
     expect(entry4.total_score).to eq 12
     expect(entry4.ranking).to eq 2
     puts ExperiencePointAward.pluck :amount
-    expect(ExperiencePointAward.count).to eq 4
+    expect(ExperiencePointAward.count).to eq 16 # for voting and winning
     expect(FruitTicketTransaction.count).to eq 2
 
     # trophies ???

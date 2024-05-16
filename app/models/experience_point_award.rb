@@ -19,6 +19,7 @@ class ExperiencePointAward < ApplicationRecord
     :glorppy, # daily glorp lottery
     :gloppy, # daily glop lottery
     :shrimpo, # winning shrimpo
+    :shrimpo_appreciator, # voting shrimpo
   ]
 
   private
