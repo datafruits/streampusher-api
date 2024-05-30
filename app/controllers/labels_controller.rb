@@ -23,6 +23,8 @@ class LabelsController < ApplicationController
 
   private
   def label_params
-    params.require(:label).permit(:name)
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :name
+    ])
   end
 end

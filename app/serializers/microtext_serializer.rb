@@ -1,5 +1,5 @@
 class MicrotextSerializer < ActiveModel::Serializer
-  attributes :content, :id, :username, :avatar_url
+  attributes :content, :id, :username, :avatar_url, :created_at
 
   def username
     object.user.username
@@ -7,7 +7,7 @@ class MicrotextSerializer < ActiveModel::Serializer
 
   def avatar_url
     if object.user.image.present?
-      object.user.image.url(:thumb)
+      CGI.unescape(object.user.image.url(:thumb))
     end
   end
 end

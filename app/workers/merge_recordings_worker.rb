@@ -1,5 +1,4 @@
 require 'uri'
-require_relative '../../lib/sox'
 
 class MergeRecordingsWorker < ActiveJob::Base
   queue_as :default

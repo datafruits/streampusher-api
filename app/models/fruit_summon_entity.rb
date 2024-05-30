@@ -1,0 +1,2 @@
+class FruitSummonEntity < ApplicationRecord
+end

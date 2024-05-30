@@ -6,6 +6,10 @@ describe CheckRadioIsUp do
   before do
     Sidekiq::Testing.inline!
   end
+  after do
+    Sidekiq::Testing.disable!
+  end
+
   xit "sends alert emails if the radio is down" do
     radio = FactoryBot.create :radio, name: "garf_radio"
     url = radio.icecast_json

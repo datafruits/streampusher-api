@@ -1,5 +1,4 @@
 class Plan < ActiveRecord::Base
-  has_paper_trail
   include ActionView::Helpers::NumberHelper
 
   def name_and_price

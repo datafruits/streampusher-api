@@ -3,15 +3,27 @@
   - mailers
   - monitor
   - process_recordings
-:schedule:
-  collect_recordings:
-    every: 1h
-    class: CollectRecordingsWorker
-  # collect_stats:
-  #  every: 1m   # Runs once per minute
-  #  class: CollectStatsWorker
-  schedule_monitor:
-    every: 1m
-    class: ScheduleMonitorWorker
+:scheduler:
+  :schedule:
+    badge_awards:
+      every: 24h
+      class: BadgeAwardsWorker
+      args: [1]
+    payout_fruit_ticket_track_plays:
+      every: 24h
+      class: PayoutFruitTicketTrackPlaysWorker
+    monthly_supporters_payout:
+      cron: '0 0 1 * *'
+      class: SupportersMonthlyFruitTicketsWorker
+      args: [1]
+    collect_recordings:
+      every: 1h
+      class: CollectRecordingsWorker
+    schedule_monitor:
+      every: 1m
+      class: ScheduleMonitorWorker
+    daily_glorp_lottery:
+      every: 24h
+      class: DailyGlorpLotteryWorker
 production:
   :concurrency: 5

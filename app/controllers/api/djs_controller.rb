@@ -2,18 +2,39 @@ class Api::DjsController < ApplicationController
   serialization_scope :serializer_scope
 
   def index
-    @djs = @current_radio.djs.order("username DESC")
+    @djs_per_page = 150
+    @djs = @current_radio.active_djs.
+      order("username ASC").
+      page(params[:page]).
+      per(@djs_per_page)
+
     if params[:search]
       @djs = @djs.where("username ilike (?)", "%#{params[:search].permit(:keyword)[:keyword]}%")
     end
-    @djs = @current_radio.active_djs
-    render json: @djs, each_serializer: DjSerializer
+    if params[:published]
+      @djs = @djs.where(profile_publish: true)
+    end
+
+    if params[:tags]
+      for tag in params[:tags].split(",")
+        @djs = @djs.where("role ilike (?)", "%#{tag}%")
+      end
+    end
+    
+    options = {}
+    options[:meta] = { 
+      page: params[:page].to_i,
+      total_pages: @djs
+        .page.per(@djs_per_page)
+        .total_pages.to_i 
+    }
+    render json: Fast::DjSerializer.new(@djs, options).serializable_hash.to_json
   end
 
   def show
     djs = @current_radio.djs
       .includes([:scheduled_show_performers,
-                 scheduled_shows: [ { performers: :links }, :radio, { tracks: [ :radio, :uploaded_by, :labels ] } ]]).where(enabled: true)
+                 scheduled_shows: [ :performers, :radio, { tracks: [ :radio, :uploaded_by, :labels ] } ]]).where(enabled: true)
     if params[:name].present?
       @dj = djs.find_by(username: params[:name])
     else

@@ -8,7 +8,7 @@
     <copyright/>
     <lastBuildDate>Tue, 16 Jul 2013 11:54:39 PDT</lastBuildDate>
     <ttl>1</ttl>
-    <atom:link href="<%= podcast_url(id: @podcast.name, format: :xml) %>" rel="self" type="application/rss+xml"/>
+    <atom:link href="<%= Rails.application.routes.url_helpers.podcast_url(id: @podcast.name, format: :xml, host: ActionMailer::Base.default_url_options[:host]) %>" rel="self" type="application/rss+xml"/>
     <itunes:image href="<%= @podcast.image.url %>"/>
     <itunes:summary>
       DATAFRUITS.FM podcast latest mixes from datafruits.fm internet radio station
@@ -22,17 +22,19 @@
     <% @podcast.extra_tags.each do |key,value| %>
       <<%=key%>><%=value%></<%=key%>>
     <% end %>
-    <% @podcast.playlist.playlist_tracks.order("podcast_published_date ASC").each do |playlist_track| %>
-      <% track = playlist_track.track %>
-      <item>
-        <title><%=track.title%></title>
-        <description>
-          <%=track.try(:description).to_s%>
-        </description>
-        <pubDate><%=(playlist_track.podcast_published_date || track.created_at).strftime("%a, %d %b %Y %H:%M:%S %Z")%></pubDate>
-        <enclosure url="<%=track.audio_file_name%>" length="" type="audio/mpeg"/>
-        <guid><%=track.audio_file_name%></guid>
-      </item>
+    <% @archives.each do |show| %>
+      <% if show.tracks.any? %>
+        <% track = show.tracks.first %>
+        <item>
+          <title><%=show.title%></title>
+          <description>
+            <%=show.description.to_s%>
+          </description>
+          <pubDate><%=show.start_at.strftime("%a, %d %b %Y %H:%M:%S %Z")%></pubDate>
+          <enclosure url="<%=track.audio_file_name%>" length="" type="audio/mpeg"/>
+          <guid><%=track.audio_file_name%></guid>
+        </item>
+      <% end %>
     <% end %>
   </channel>
 </rss>

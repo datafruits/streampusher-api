@@ -1,4 +1,8 @@
 class PodcastsController < ApplicationController
+  include ActionController::MimeResponds
+  include ActionView::Layouts
+  include ActionController::Rendering
+
   load_and_authorize_resource except: [:show]
   before_action :current_radio_required, only: [:show]
   serialization_scope :serializer_scope
@@ -6,12 +10,7 @@ class PodcastsController < ApplicationController
   def index
     @podcasts = @current_radio.podcasts
     @podcast = Podcast.new
-    respond_to do |format|
-      format.html
-      format.json  {
-        render json: @podcasts
-      }
-    end
+    render json: @podcasts
   end
 
   def create
@@ -40,11 +39,14 @@ class PodcastsController < ApplicationController
 
   def show
     @podcast = @current_radio.podcasts.find_by_name(params[:id])
+
+    @archives = @current_radio.scheduled_shows.
+      where(status: :archive_published).
+      order("start_at DESC")
+
     respond_to do |format|
-      format.xml { render 'show', layout: false }
-      format.json {
-        response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
-        render json: @podcast
+      format.xml {
+        render 'show', layout: false
       }
     end
   end

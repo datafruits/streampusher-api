@@ -1,8 +1,6 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  mount_ember_assets :frontend, to: "/"
-  # mount_ember_app :frontend, to: "/playlists", controller: "playlists", action: "index"
   authenticate :user, lambda { |u| u.admin? } do
       mount Sidekiq::Web => '/sidekiq'
   end
@@ -10,6 +8,7 @@ Rails.application.routes.draw do
   resources :recordings, only: [:index, :show] do
     resources :process_recordings, only: [:create]
   end
+
   resources :podcasts
 
   resources :scheduled_shows do
@@ -22,9 +21,12 @@ Rails.application.routes.draw do
   resources :stats, only: [:index]
   resources :listens, only: [:index]
 
-  resources :radios, only: [:index, :edit, :update] do
+  resources :radios, only: [:index, :update] do
     member do
       get 'next'
+    end
+    collection do
+      post 'queue_current_show'
     end
   end
 
@@ -37,8 +39,6 @@ Rails.application.routes.draw do
     omniauth_callbacks: "users/omniauth_callbacks",
     passwords: "passwords"
   }
-
-  resources :password_resets, only: [:create]
 
   resources :anniversary_slots do
     collection do
@@ -106,6 +106,7 @@ Rails.application.routes.draw do
   resources :current_user, only: [:index, :update]
   get "/users/current_user" => "current_user#index"
   put "/users/current_user" => "current_user#update"
+  patch "/users/current_user" => "current_user#update"
   resources :profile, only: [:index, :create]
 
   resources :blog_posts, only: [:index, :create, :show, :update]
@@ -119,9 +120,23 @@ Rails.application.routes.draw do
 
   # meant only for consumption by datafruits frontend app
   namespace :api do
+    resources :my_shows, only: [:index, :create, :update, :destroy, :show] do
+      resources :episodes, only: [:update], controller: 'my_shows/episodes'
+    end
+    resources :show_series, only: [:index, :show] do
+      resources :episodes, only: [:index, :show], controller: 'show_series/episodes'
+    end
+    resources :posts, only: [:create]
+    resources :forum_threads, only: [:index, :show, :create]
+    resources :fruit_summons, only: [:create]
+    resources :fruit_ticket_gifts, only: [:create]
+
+    resources :archives, only: [:index]
     resources :blog_posts, only: [:show, :index]
-    resources :djs, only: [:show, :index] do
+    resources :tracks, only: [:show, :index, :create]
+    resources :djs, id: /[A-Za-z0-9_\.]+?/, only: [:show, :index] do
       resources :tracks, only: [:index], controller: 'djs/tracks'
+      resources :episodes, only: [:index], controller: 'djs/episodes'
     end
     resources :listeners, only: [:create] do
       collection do
@@ -131,10 +146,26 @@ Rails.application.routes.draw do
     end
     resources :microtexts, only: [:create, :index]
     resources :schedule, only: [:index]
+    resources :wiki_pages, only: [:create, :destroy, :show, :index, :update]
+    resources :scheduled_shows, only: [:show, :index]
+    resources :track_favorites, only: [:create, :destroy]
+    resources :scheduled_show_favorites, only: [:create, :destroy]
+    resources :notifications, only: [:index]
+    resources :shrimpos, only: [:index, :show, :create] do
+      resources :shrimpo_entries, only: [:create, :show], controller: 'shrimpos/shrimpo_entries' do
+        resources :shrimpo_votes, only: [:create], controller: 'shrimpos/shrimpo_entries/votes'
+      end
+
+    end
+    resources :labels, only: [:create, :index, :show]
   end
 
   post "/setup" => "setup#create"
   get "/setup/allowed" => "setup#allowed"
+
+  get '/performance_tests', to: 'performance_tests#index'
+
+  post '/rails/active_storage/direct_uploads' => 'direct_uploads#create'
 
   root 'landing#index'
 end

@@ -1,11 +1,9 @@
 require 'uri'
-require_relative '../../lib/docker_wrapper'
-require_relative '../../lib/ufw'
 
 class RadioBooter
   def self.boot radio
     radio_name = radio.container_name
-    redis = Redis.current
+    redis = StreamPusher.redis
 
     image = radio.docker_image_name.present? ? radio.docker_image_name : 'mcfiredrill/liquidsoap:latest'
     name = "#{radio_name}_liquidsoap"
@@ -35,7 +33,7 @@ class RadioBooter
     if ::Rails.env.production?
      port = redis.hget "proxy-domain", radio.liquidsoap_proxy_key
      if port.present?
-       UFW.close_port port
+       Ufw.close_port port
      end
     end
     liquidsoap_container.stop
@@ -51,7 +49,7 @@ class RadioBooter
     if ::Rails.env.production?
      port = liquidsoap_container.host_port(9000)
      if port.present?
-       UFW.open_port port
+       Ufw.open_port port
      end
     end
     radio.update enabled: true

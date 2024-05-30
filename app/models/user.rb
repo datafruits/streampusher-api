@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include ::User::Roles
+  include ::User::Rpg
 
   has_one :subscription
   has_many :microtexts
@@ -8,11 +9,18 @@ class User < ActiveRecord::Base
   has_many :shows, foreign_key: :dj_id
   has_many :recordings
   has_many :social_identities
-  has_many :links
   has_many :scheduled_show_performers, class_name: "::ScheduledShowPerformer", dependent: :destroy
   has_many :performers, through: :scheduled_show_performers, source: :user
   has_many :scheduled_shows, -> { includes :tracks }, through: :scheduled_show_performers
+  has_many :show_series_hosts, class_name: "::ShowSeriesHost", dependent: :destroy
+  has_many :show_series, through: :show_series_hosts
   has_many :tracks, through: :scheduled_shows
+  has_many :track_favorites
+  has_many :scheduled_show_favorites
+  has_many :fruit_summons
+  has_many :posts
+  has_many :notifications
+  has_many :trophy_awards
 
   has_secure_password :stream_key
 
@@ -24,7 +32,32 @@ class User < ActiveRecord::Base
 
   scope :profile_published, -> { where(profile_publish: true) }
 
-  enum style: [ :unknown, :cold, :gooey, :party, :doom, :funky, :fruity, :sadness, :grumpy, :sexy, :chill, :freaky, :fancy ]
+  enum style: [
+    :funny,
+    :gooey,
+    :party,
+    :fruity,
+    :prickly,
+    :cold,
+    :goofy,
+    :funky,
+    :freaky,
+    :fishy,
+    :undefined,
+    :chunky,
+    :doom,
+    :sleepy,
+    :thinking,
+    :slimey,
+    :pokey,
+    :grumpy,
+    :fancy,
+    :sexy,
+    :sadness,
+    :chill,
+    :layzee,
+    :unknown,
+  ]
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -43,6 +76,10 @@ class User < ActiveRecord::Base
   def generate_stream_key
     self.stream_key = SecureRandom.uuid
   end
+
+  after_create :send_notification
+
+  after_update :maybe_send_update_notification
 
   def login=(login)
     @login = login
@@ -95,6 +132,22 @@ class User < ActiveRecord::Base
     # TODO should set time zone from browser timezone in form
     unless self.time_zone.present?
       self.time_zone = Time.zone.name
+    end
+  end
+
+  def send_notification
+    Notification.create! notification_type: "new_datafruiter", source: self, send_to_chat: true, send_to_user: false, user: self
+  end
+
+  def url
+    "https://datafruits.fm/djs/#{self.username}"
+  end
+
+  def maybe_send_update_notification
+    if self.saved_change_to_bio?
+      Notification.create! notification_type: "profile_update", source: self, send_to_chat: true, send_to_user: false, user: self, url: url
+    elsif self.saved_change_to_image_file_name?
+      Notification.create! notification_type: "avatar_update", source: self, send_to_chat: true, send_to_user: false, user: self, url: url
     end
   end
 end

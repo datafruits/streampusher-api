@@ -1,6 +1,8 @@
 module User::Roles
   extend ActiveSupport::Concern
-  VALID_ROLES = %w[admin dj manager listener]
+  VALID_ROLES = %w[admin dj manager listener vj supporter emerald_supporter gold_supporter strawberry lemon orange cabbage banana watermelon pineapple limer dragionfruit blueberrinies beamsprout duckle]
+
+  BADGE_ROLES = VALID_ROLES - %w[admin manager listener]
 
   included do
     validate :valid_role
@@ -21,8 +23,27 @@ module User::Roles
   end
 
   def add_role new_role
-    self.role << " #{new_role}"
-    self.save
+    if self.role.blank?
+      self.role = ""
+    end
+    unless self.role.include? new_role
+      self.role << " #{new_role}"
+      self.save!
+      if BADGE_ROLES.include? new_role
+        Notification.create! notification_type: "#{new_role}_badge_award", user_id: self.id, send_to_chat: true
+        ActiveSupport::Notifications.instrument 'user.badge_award', username: self.username, badge: new_role
+      end
+      if new_role === "dj"
+        DjAccountMailer.welcome_email(self, '', self.radios.first).deliver_later
+      end
+    end
+  end
+
+  def remove_role role
+    roles = self.roles
+    roles.delete role
+    self.role = roles.join(" ")
+    self.save!
   end
 
   private

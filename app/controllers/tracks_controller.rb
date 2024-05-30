@@ -11,22 +11,13 @@ class TracksController < ApplicationController
                              "%#{params[:search].permit(:keyword)[:keyword]}%")
     end
     @tracks = @tracks.page(params[:page])
-    respond_to do |format|
-      format.html
-      format.json {
-        meta = { page: params[:page], total_pages: @tracks.total_pages.to_i }
-        render json: @tracks, meta: meta
-      }
-    end
+    meta = { page: params[:page], total_pages: @tracks.total_pages.to_i }
+    render json: @tracks, meta: meta
   end
 
   def show
     @track = @current_radio.tracks.find params[:id]
-    respond_to do |format|
-      format.json {
-        render json: @track
-      }
-    end
+    render json: @track
   end
 
   def edit
@@ -35,7 +26,7 @@ class TracksController < ApplicationController
 
   def update
     @track = @current_radio.tracks.find params[:id]
-    if update_params[:artwork].present?
+    if update_params[:artwork].present? && !update_params[:artwork].is_a?(Hash)
       artwork = Paperclip.io_adapters.for(update_params[:artwork])
       artwork.original_filename = update_params.delete(:artwork_filename)
       @track.attributes = update_params.except(:artwork_filename).merge({artwork: artwork})
@@ -78,12 +69,17 @@ class TracksController < ApplicationController
 
   private
   def create_params
-    params.require(:track).permit(:radio_id, :audio_file_name, :filesize, label_ids: [])
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :radio_id, :audio_file_name, :filesize, :label_ids
+    ])
   end
 
   def update_params
-    params.require(:track).permit(:artist, :title, :album, :artwork, :audio_file_name,
-                                  :artwork_filename, :scheduled_show_id, label_ids: [])
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :artist, :title, :album, :artwork, :audio_file_name,
+      :youtube_link, :soundcloud_key, :mixcloud_key,
+      :artwork_filename, :scheduled_show_id, :label_ids
+    ])
   end
 
   def set_frame_headers

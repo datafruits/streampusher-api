@@ -16,6 +16,10 @@ class LiquidsoapRequests
     @liquidsoap_socket.write("request.metadata #{rid}").force_encoding("UTF-8")
   end
 
+  def request_metadatas requests
+    requests.map {|r| self.metadata(r) }
+  end
+
   # TODO
   # def on_air_filename
   #   on_air_rid = on_air radio
@@ -30,6 +34,18 @@ class LiquidsoapRequests
   end
 
   def skip
-    @liquidsoap_socket.write("icecast.1.skip").encode("UTF-8")
+    @liquidsoap_socket.write("icecast.skip").encode("UTF-8")
+  end
+
+  def scheduled_shows_queue
+    queue = @liquidsoap_socket.write "scheduled_shows.queue"
+    rids = queue.split(" ")[0..-2]
+
+    metadatas = rids.map { |rid| self.metadata(rid) }
+    metadatas.map {|m| self.metadata_to_hash(m) }
+  end
+
+  def metadata_to_hash m
+    Hash[m.each_line.map { |line| line.chomp.gsub("\"", "").split("=", 2) }]
   end
 end

@@ -1,6 +1,6 @@
-require_relative '../../lib/docker_wrapper'
-
 class Radio < ActiveRecord::Base
+  include RedisConnection
+
   has_many :user_radios
   has_many :users, through: :user_radios
   has_many :scheduled_shows
@@ -28,7 +28,8 @@ class Radio < ActiveRecord::Base
   end
 
   def active_djs
-    self.users.where(enabled: true).profile_published
+    dj_roles = ["dj", "vj"]
+    self.users.where(enabled: true).where(dj_roles.map { |r| "role ILIKE ?" }.join(" OR "), *dj_roles.map { |r| "%#{r}%" })
   end
 
   def boot_radio
@@ -140,11 +141,11 @@ class Radio < ActiveRecord::Base
   end
 
   def set_current_show_playing show_id
-    Redis.current.set "#{self.name}:current_show_playing", show_id
+    redis.set "#{self.name}:current_show_playing", show_id
   end
 
   def current_show_playing
-    Redis.current.get current_show_playing_key
+    redis.get current_show_playing_key
   end
 
   def current_show_playing?
@@ -156,11 +157,11 @@ class Radio < ActiveRecord::Base
   end
 
   def set_current_track_playing track_id
-    Redis.current.set "#{self.name}:current_track_playing", track_id
+    redis.set "#{self.name}:current_track_playing", track_id
   end
 
   def current_track_playing
-    Redis.current.get current_track_playing_key
+    redis.get current_track_playing_key
   end
 
   def liquidsoap_harbor_port
@@ -168,11 +169,15 @@ class Radio < ActiveRecord::Base
   end
 
   def current_scheduled_show now=Time.now
-    self.scheduled_shows.where("start_at <= ? AND end_at >= ?", now, now).first
+    self.scheduled_shows
+      .where.not(show_series_id: nil)
+      .joins(:show_series)
+      .where(show_series: { status: :active })
+      .where("start_at <= ? AND end_at >= ?", now, now).first
   end
 
   def next_scheduled_show now=Time.now
-    self.scheduled_shows.where("start_at >= ?", now).order("start_at ASC").first
+    self.scheduled_shows.where("start_at >= ?", now).where("show_series_id in (?)", ShowSeries.active.pluck(:id)).order("start_at ASC").first
   end
 
   def disk_usage

@@ -1,5 +1,3 @@
-require_relative '../../lib/docker_wrapper'
-
 class RadioDisableWorker < ActiveJob::Base
   queue_as :default
 

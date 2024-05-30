@@ -9,6 +9,9 @@ class Track < ActiveRecord::Base
   has_many :playlists, through: :playlist_tracks
   has_many :track_labels, dependent: :destroy
   has_many :labels, through: :track_labels
+  has_many :track_favorites
+  has_many :posts, as: :postable
+
   has_attached_file :artwork,
     storage: :s3,
     s3_protocol: :https,
@@ -30,6 +33,8 @@ class Track < ActiveRecord::Base
                              secret_access_key: ENV['S3_SECRET'],
                              region: ENV['S3_REGION'] }
 
+  after_create :sync_tags_in_background
+
   default_scope { order(updated_at: :desc) }
 
   accepts_nested_attributes_for :labels
@@ -39,6 +44,7 @@ class Track < ActiveRecord::Base
   enum soundcloud_upload_status: ['soundcloud_not_uploaded', 'soundcloud_uploading', 'soundcloud_upload_complete', 'soundcloud_upload_failed']
 
   before_save :set_tags_from_scheduled_show
+  after_commit :sync_tags_in_background, on: :update, if: :saved_change_to_audio_file_name?
 
   def url
     if ::Rails.env.production?
@@ -95,6 +101,10 @@ class Track < ActiveRecord::Base
       hours = self.length / (60 * 60)
       format("%02d:%02d:%02d", hours, minutes, seconds)
     end
+  end
+
+  def thumb_artwork_url
+    self.artwork.url(:thumb)
   end
 
   private

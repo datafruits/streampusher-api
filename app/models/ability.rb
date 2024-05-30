@@ -12,6 +12,10 @@ class Ability
       can :manage, :all
       can :update, :metadata
       can :index, :current_user
+      can :create, ForumThread
+      can :create, ShowSeries
+      can :update, ShowSeries
+      can :index, :my_shows
     elsif user.manager?
       can :index, :current_user
       can :update, :current_user
@@ -49,12 +53,16 @@ class Ability
       can :create, :profile
 
       can :manage, HostApplication if can_manage_radio?(user, radio)
+      can :create, WikiPage
+      can :update, WikiPage
+      can :create, ForumThread
+      can :create, ShowSeries
+      can :index, :my_shows
     elsif user.dj?
       can :index, :current_user
       can :update, :current_user
 
       can :index, Radio if can_manage_radio?(user, radio)
-      can :read, Podcast if radio.podcasts_enabled?
       can :index, :stats if can_manage_radio?(user, radio)
 
       can :edit, ScheduledShow do |scheduled_show|
@@ -120,6 +128,17 @@ class Ability
       can :create, Microtext if can_manage_radio?(user, radio)
 
       can :index, :dj
+      can :show, :dj
+
+      can :create, WikiPage
+      can :update, WikiPage
+      can :create, ForumThread
+      can :create, ShowSeries
+      can :update, ShowSeries do |show_series|
+        show_series.users.include?(user)
+      end
+
+      can :index, :my_shows
 
       cannot :admin, :dashboard
       cannot :admin, :radios
@@ -141,6 +160,7 @@ class Ability
       cannot :index, :stats
       can :index, Label if format == "json"
       can :show, Label if format == "json"
+      can :create, ForumThread
 
       cannot :admin, :dashboard
       cannot :admin, :radios

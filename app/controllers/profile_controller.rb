@@ -9,10 +9,8 @@ class ProfileController < ApplicationController
     @dj = current_user
     @dj.attributes = update_params
     if @dj.save
-      flash[:notice] = "Updated profile"
       redirect_to profile_index_path
     else
-      flash[:notice] = "Couldn't update profile"
       render :index
     end
   end

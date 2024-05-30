@@ -1,5 +1,3 @@
-require './lib/download_tempfile'
-
 class UploadTrackToSoundcloud
   def perform track, soundcloud_token
     track.soundcloud_upload_status = "soundcloud_uploading"
@@ -11,7 +9,7 @@ class UploadTrackToSoundcloud
 
     begin
       if track.artwork.present?
-        artwork = download_tempfile track.artwork.url
+        artwork = Utils.download_tempfile track.artwork.url
         # upload a new track with audio.mp3 as audio and image.jpg as artwork
         result = client.post('/tracks', :track => {
           :title      => track.title,

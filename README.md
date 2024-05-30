@@ -27,3 +27,12 @@ run app with docker-compose
 ```
 $ ./script/app
 ```
+
+You may have to build the streampusher/streampusher container to get the correct
+docker group ID from your host machine.
+
+```
+docker build \ 
+  --build-arg DOCKER_GROUP_ID=`getent group docker | \ 
+  cut -d: -f3` -t streampusher/streampusher:latest .
+```

@@ -2,12 +2,7 @@ class RadiosController < ApplicationController
   load_and_authorize_resource except: :next
   def index
     @radio = @current_radio
-    respond_to do |format|
-      format.html
-      format.json {
-        render json: @radio
-      }
-    end
+    render json: @radio
   end
 
   def edit
@@ -18,10 +13,8 @@ class RadiosController < ApplicationController
     @radio.attributes = update_params
     if @radio.save
       SaveRadioSettingsToRedisWorker.perform_later @radio.id
-      flash[:notice] = "radio settings updated."
       redirect_to edit_radio_path(@radio)
     else
-      flash[:error] = "error updating radio settings."
       render 'edit'
     end
   end
@@ -29,6 +22,15 @@ class RadiosController < ApplicationController
   def next
     @radio = Radio.find_by_name(params[:id])
     render json: NextTrack.perform(@radio)
+  end
+
+  def queue_current_show
+    @radio = @current_radio
+    current_show = @radio.current_scheduled_show
+    if current_show && (current_show.playlist_id != @radio.default_playlist_id)
+      current_show.queue_playlist!
+      render head: :ok
+    end
   end
 
   private

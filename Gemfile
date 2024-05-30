@@ -1,19 +1,7 @@
 source 'https://rubygems.org/'
 
-gem 'rails', '5.1.7'
+gem 'rails', '7.0.5'
 gem 'pg'
-gem 'sass-rails'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails'
-gem 'sprockets', '3.7.0'
-
-# assets gems
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
-gem 'less-rails'
-gem 'twitter-bootstrap-rails', '~> 3.2.2'
-gem 'font-awesome-sass', '~> 4.6.0'
-gem 'chosen-rails'
 
 gem 'spring',        group: :development
 
@@ -21,24 +9,22 @@ gem 'devise'
 gem 'devise-jwt'
 gem 'warden-jwt_auth', github: "waiting-for-dev/warden-jwt_auth"
 gem 'omniauth'
-gem 'omniauth-soundcloud', github: "mcfiredrill/omniauth-soundcloud"
-gem 'omniauth-mixcloud', github: "streampusher/omniauth-mixcloud"
-gem 'mixcloud', github: 'streampusher/mixcloud-ruby'
-gem 'soundcloud'
-gem 'omniauth-tumblr'
-gem 'tumblr_client'
+#gem 'omniauth-soundcloud', github: "mcfiredrill/omniauth-soundcloud"
+#gem 'omniauth-mixcloud', github: "streampusher/omniauth-mixcloud"
+# gem 'mixcloud', github: 'streampusher/mixcloud-ruby'
+# gem 'soundcloud'
 gem 'cancancan'
-gem 'docker-api', '~> 1.22.4', require: 'docker'
-gem 'simple_form'
+gem 'docker-api', '~> 2.2.0', require: 'docker'
 gem 'terrapin'
 gem 'lograge'
 gem 'rack-cors', :require => 'rack/cors'
 
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
-gem 'execjs'
-gem 'therubyracer'
 gem 'rspec-rails', '~> 3.5.2', :group => [:development, :test]
+
+gem 'redis'
+gem 'connection_pool'
 
 gem 'dotenv-rails'
 gem 'unicorn'
@@ -69,6 +55,11 @@ group :test, :development do
   gem 'tzinfo-data'
 end
 
+group :development do
+  gem 'bullet'
+  gem "ruby-lsp", require: false
+end
+
 group :production do
   gem 'remote_syslog_logger'
 end
@@ -76,52 +67,45 @@ end
 gem 'byebug'
 gem 'slackistrano', require: false
 gem 'httparty'
-gem 'exception_notification'
+gem 'exception_notification', github: "mcfiredrill/exception_notification"
 
-gem 'groupdate'
 gem 'acts_as_list'
 gem 'kaminari'
-gem 'active_model_serializers', '< 0.10'
+gem 'active_model_serializers', '~> 0.10.0'
+gem 'jsonapi-serializer'
 gem 'chronic'
 gem 'aws-sdk'
-gem 'paperclip'
+gem "kt-paperclip", "~> 6.4", ">= 6.4.1"
+gem "image_processing", ">= 1.2"
 
 gem 'rupeepeethree', github: "datafruits/rupeepeethree"
-gem "so_id3", github: "streampusher/so_id3"
-
-source 'https://rails-assets.org/' do
-  gem 'rails-assets-countUp.js', '1.8.2'
-  gem 'rails-assets-moment'
-  gem 'rails-assets-moment-timezone'
-  gem 'rails-assets-fullcalendar', '3.2.0'
-  gem 'rails-assets-jplayer'
-  gem 'rails-assets-BaremetricsCalendar'
-  gem 'rails-assets-underscore'
-  gem 'rails-assets-bootstrap-tour'
-  gem 'rails-assets-spectrum'
-end
+gem "so_id3", github: "streampusher/so_id3", branch: "fix-artwork-download-https"
 
 gem 'whenever', require: false
-# gem 'sinatra', :require => nil
 
 gem 'recurrence'
 
-gem 'html-pipeline'
-gem 'commonmarker'
-gem 'github-markdown'
-gem 'ember-cli-rails'
-gem 'high_voltage'
-
-gem 'geocoder'
 gem 'ruby-liquidsoap', github: 'streampusher/ruby-liquidsoap', :require => 'liquidsoap'
-gem 'paper_trail'
 
 gem 'friendly_id'
 
 gem 'discord-notifier'
+gem 'slack-notifier'
 
 # gem 'bootsnap', require: false
 gem 'thwait'
 gem 'e2mmap'
 
 gem 'bcrypt', '~> 3.1.7'
+gem 'rack-mini-profiler'
+
+gem 'net-smtp', require: false
+gem 'net-imap', require: false
+gem 'net-pop', require: false
+
+gem 'ed25519', '>= 1.2', '< 2.0'
+gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0'
+
+gem "skylight"
+
+gem "rubyzip"
