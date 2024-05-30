@@ -43,4 +43,10 @@ RSpec.describe User, :type => :model do
       expect(user.deleted_at).to_not eq nil
     end
   end
+
+  describe "stream_key" do
+    it "sets a stream key before validation" do
+      expect(user.stream_key.blank?).to eq false
+    end
+  end
 end
