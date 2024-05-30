@@ -610,6 +610,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_24_190944) do
     t.integer "fruit_ticket_balance", default: 0, null: false
     t.integer "experience_points", default: 0, null: false
     t.integer "level", default: 0, null: false
+    t.string "stream_key"
+    t.string "stream_key_digest"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
