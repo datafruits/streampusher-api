@@ -18,7 +18,7 @@ class FruitTicketTransaction < ApplicationRecord
   #
   enum transaction_type: [
     # receiving
-    :show_listeners_count, # how ?
+    :show_listeners_count, # how ? TBD
     :archive_playback, # 1 ticket per playback
     :supporter_membership,
     :code_contribution,
@@ -33,6 +33,8 @@ class FruitTicketTransaction < ApplicationRecord
     :shrimpo_deposit_return,
     :shrimpo_award,
     :shrimpo_playback,
+
+    :stimulus, # a stimulus from the bank of fruit tickets
   ]
 
   def transact_and_save!
