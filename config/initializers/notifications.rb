@@ -34,6 +34,8 @@ if Rails.env.production?
             "guest_show.created",
             "guest_show.create.error",
             "shrimpo.created",
+            "shrimpo.ended",
+            "shrimpo.ended.error",
             "shrimpo.create.error",
             "shrimpo.entry.created",
             "shrimpo.entry.create.error",
