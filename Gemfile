@@ -96,6 +96,7 @@ gem 'slack-notifier'
 gem 'thwait'
 gem 'e2mmap'
 
+gem 'bcrypt', '~> 3.1.7'
 gem 'rack-mini-profiler'
 
 gem 'net-smtp', require: false
