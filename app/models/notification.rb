@@ -44,6 +44,8 @@ class Notification < ApplicationRecord
     :shrimpo_entry,
     :shrimpo_entry_comment,
     :shrimpo_comment,
+    :shrimpo_deposit_return,
+    :fruit_ticket_stimulus
   ]
 
   private
@@ -121,6 +123,10 @@ class Notification < ApplicationRecord
       "#{self.source.title} has a new comment!"
     when "shrimpo_entry_comment"
       "#{self.source.title} has a new comment!"
+    when "fruit_ticket_stimulus"
+      "You received a stimulus from the bank of fruit tix: Ƒ#{self.source.amount}"
+    when "shrimpo_deposit_return"
+      "Your shrimpo deposit was returned for Ƒ#{self.source.amount}"
     end
   end
 
