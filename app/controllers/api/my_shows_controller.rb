@@ -31,13 +31,14 @@ class Api::MyShowsController < ApplicationController
                                       0,
                                       0,
                                       current_user.time_zone
-      episode.end_at = DateTime.new start_date.year,
-                                    start_date.month,
-                                    start_date.day,
-                                    end_time.hour,
-                                    0,
-                                    0,
-                                    current_user.time_zone
+      # episode.end_at = DateTime.new end_time.year,
+      #                               end_time.month,
+      #                               end_time.day,
+      #                               end_time.hour,
+      #                               0,
+      #                               0,
+      #                               current_user.time_zone
+      episode.end_at = episode.start_at + ((end_time - start_time) * 24).to_i.hours
       episode.playlist = guest_series.radio.default_playlist
       episode.dj_id = users_params[:user_ids].first
       episode.radio_id = guest_series.radio_id
@@ -52,6 +53,7 @@ class Api::MyShowsController < ApplicationController
           episode.scheduled_show_labels.build label_id: label_id
         end
       end
+      # binding.pry
       if episode.save
         ActiveSupport::Notifications.instrument 'guest_show.created', current_user: current_user.email, show_series: episode.title
         render json: guest_series
