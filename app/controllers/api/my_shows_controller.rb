@@ -31,13 +31,6 @@ class Api::MyShowsController < ApplicationController
                                       0,
                                       0,
                                       current_user.time_zone
-      # episode.end_at = DateTime.new end_time.year,
-      #                               end_time.month,
-      #                               end_time.day,
-      #                               end_time.hour,
-      #                               0,
-      #                               0,
-      #                               current_user.time_zone
       episode.end_at = episode.start_at + ((end_time - start_time) * 24).to_i.hours
       episode.playlist = guest_series.radio.default_playlist
       episode.dj_id = users_params[:user_ids].first
