@@ -45,6 +45,7 @@ class Notification < ApplicationRecord
     :shrimpo_entry_comment,
     :shrimpo_comment,
     :shrimpo_deposit_return,
+    :shrimpo_trophy_award,
     :fruit_ticket_stimulus
   ]
 
@@ -127,6 +128,8 @@ class Notification < ApplicationRecord
       "You received a stimulus from the bank of fruit tix: Ƒ#{self.source.amount}"
     when "shrimpo_deposit_return"
       "Your shrimpo deposit was returned for Ƒ#{self.source.amount}"
+    when "shrimpo_trophy_award"
+      "Conglorpulations! You got the #{self.source.trophy.name} shrimpo trophy!!"
     end
   end
 
