@@ -31,6 +31,8 @@ class Shrimpo < ApplicationRecord
 
   enum status: [:running, :voting, :completed]
 
+  enum shrimpo_type: [:normal, :mega]
+
   attr_accessor :duration
 
   after_create :queue_end_shrimpo_job

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_24_190944) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_21_171936) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -484,6 +484,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_24_190944) do
     t.integer "silver_trophy_id"
     t.integer "bronze_trophy_id"
     t.integer "consolation_trophy_id"
+    t.string "shrimpo_type"
     t.index ["slug"], name: "index_shrimpos_on_slug", unique: true
     t.index ["user_id"], name: "index_shrimpos_on_user_id"
   end
@@ -610,6 +611,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_24_190944) do
     t.integer "fruit_ticket_balance", default: 0, null: false
     t.integer "experience_points", default: 0, null: false
     t.integer "level", default: 0, null: false
+    t.string "stream_key"
+    t.string "stream_key_digest"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
