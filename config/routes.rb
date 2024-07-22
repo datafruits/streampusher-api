@@ -152,6 +152,7 @@ Rails.application.routes.draw do
     resources :scheduled_show_favorites, only: [:create, :destroy]
     resources :notifications, only: [:index]
     resources :shrimpos, only: [:index, :show, :create] do
+      resources :end_shrimpo, only: [:create]
       resources :shrimpo_entries, only: [:create, :show], controller: 'shrimpos/shrimpo_entries' do
         resources :shrimpo_votes, only: [:create], controller: 'shrimpos/shrimpo_entries/votes'
       end
