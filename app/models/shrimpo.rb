@@ -9,6 +9,7 @@ class Shrimpo < ApplicationRecord
   belongs_to :user
   has_many :shrimpo_entries
   has_many :posts, as: :postable
+  has_many :shrimpo_voting_categories
 
   has_one_attached :zip
   has_one_attached :entries_zip

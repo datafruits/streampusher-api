@@ -484,7 +484,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_21_171936) do
     t.integer "silver_trophy_id"
     t.integer "bronze_trophy_id"
     t.integer "consolation_trophy_id"
-    t.string "shrimpo_type"
+    t.integer "shrimpo_type"
     t.index ["slug"], name: "index_shrimpos_on_slug", unique: true
     t.index ["user_id"], name: "index_shrimpos_on_user_id"
   end
