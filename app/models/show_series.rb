@@ -198,7 +198,7 @@ class ShowSeries < ApplicationRecord
   def should_update_episodes?
     return saved_change_to_start_time? ||
       saved_change_to_end_time? ||
-      saved_change_to_image_update_at? ||
+      saved_change_to_image_updated_at? ||
       saved_change_to_description? ||
       saved_change_to_title?
   end
