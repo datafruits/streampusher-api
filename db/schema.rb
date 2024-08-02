@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_21_171936) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_25_042029) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -378,7 +378,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_21_171936) do
     t.string "image_file_name"
     t.integer "image_file_size"
     t.string "image_content_type"
-    t.datetime "image_update_at", precision: nil
+    t.datetime "image_updated_at", precision: nil
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "recurring_interval", default: 0, null: false
