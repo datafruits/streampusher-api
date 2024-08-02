@@ -9,6 +9,7 @@ class Shrimpo < ApplicationRecord
   belongs_to :user
   has_many :shrimpo_entries
   has_many :posts, as: :postable
+  has_many :shrimpo_voting_categories
 
   has_one_attached :zip
   has_one_attached :entries_zip
@@ -30,6 +31,8 @@ class Shrimpo < ApplicationRecord
   validate :end_at_cannot_be_in_the_past, on: :create
 
   enum status: [:running, :voting, :completed]
+
+  enum shrimpo_type: [:normal, :mega]
 
   attr_accessor :duration
 

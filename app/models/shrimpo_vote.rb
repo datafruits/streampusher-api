@@ -1,6 +1,7 @@
 class ShrimpoVote < ApplicationRecord
   belongs_to :shrimpo_entry
   belongs_to :user
+  belongs_to :shrimpo_voting_category
 
   validates :score, numericality: { in: 1..6 }
 
