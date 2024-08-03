@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_25_042029) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_03_191628) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -484,7 +484,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_25_042029) do
     t.integer "silver_trophy_id"
     t.integer "bronze_trophy_id"
     t.integer "consolation_trophy_id"
-    t.integer "shrimpo_type"
+    t.integer "shrimpo_type", default: 0
     t.index ["slug"], name: "index_shrimpos_on_slug", unique: true
     t.index ["user_id"], name: "index_shrimpos_on_user_id"
   end
