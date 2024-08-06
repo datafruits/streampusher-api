@@ -9,10 +9,7 @@ class ScheduledShowSerializer < ActiveModel::Serializer
     :soundcloud_link
 
   has_many :tracks, embed: :ids, key: :tracks
-  has_many :djs, embed: :ids, key: :djs
-  belongs_to :playlist
-  belongs_to :show_series
-  belongs_to :recording
+  has_many :djs, embed: :ids, key: :djs, embed_in_root: true, each_serializer: DjSerializer
   has_many :posts, embed: :ids, key: :posts, embed_in_root: true, each_serializer: PostSerializer
   has_many :labels, embed: :ids, key: :labels, embed_in_root: true
 
