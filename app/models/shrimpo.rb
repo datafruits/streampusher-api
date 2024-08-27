@@ -24,6 +24,7 @@ class Shrimpo < ApplicationRecord
   validates :title, presence: true
   validates :emoji, presence: true
   validates :rule_pack, presence: true
+  validates :deposit_amount, presence: true
 
   validate :user_level
 
@@ -36,6 +37,7 @@ class Shrimpo < ApplicationRecord
 
   attr_accessor :duration
 
+  before_create :set_deposit_amount
   after_create :queue_end_shrimpo_job
 
   VALID_DURATIONS = [
@@ -222,5 +224,9 @@ class Shrimpo < ApplicationRecord
 
   def queue_end_shrimpo_job
     EndShrimpoWorker.set(wait_until: self.end_at).perform_later(self.id)
+  end
+
+  def set_deposit_amount
+    self.deposit_amount = fruit_ticket_deposit_amount
   end
 end
