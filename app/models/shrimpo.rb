@@ -169,6 +169,8 @@ class Shrimpo < ApplicationRecord
       end
     rescue => e
       puts "Tally results failed: #{e.message}"
+      puts e.backtrace
+      raise
     end
   end
 
