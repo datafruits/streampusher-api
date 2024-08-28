@@ -24,6 +24,7 @@ class Shrimpo < ApplicationRecord
   validates :title, presence: true
   validates :emoji, presence: true
   validates :rule_pack, presence: true
+  validates :deposit_amount, presence: true
 
   validate :user_level
 
@@ -36,6 +37,7 @@ class Shrimpo < ApplicationRecord
 
   attr_accessor :duration
 
+  before_validation :set_deposit_amount
   after_create :queue_end_shrimpo_job
 
   VALID_DURATIONS = [
@@ -98,8 +100,9 @@ class Shrimpo < ApplicationRecord
   end
 
   def save_and_deposit_fruit_tickets!
+    set_deposit_amount
     ActiveRecord::Base.transaction do
-      transaction = FruitTicketTransaction.new from_user: self.user, amount: self.fruit_ticket_deposit_amount, transaction_type: :shrimpo_deposit
+      transaction = FruitTicketTransaction.new from_user: self.user, amount: self.deposit_amount, transaction_type: :shrimpo_deposit
       transaction.transact_and_save! && self.save!
     end
   end
@@ -162,7 +165,7 @@ class Shrimpo < ApplicationRecord
         #
         # return deposit
         if self.shrimpo_entries.count > 2
-          transaction = FruitTicketTransaction.new to_user: self.user, amount: self.fruit_ticket_deposit_amount, transaction_type: :shrimpo_deposit_return
+          transaction = FruitTicketTransaction.new to_user: self.user, amount: self.deposit_amount, transaction_type: :shrimpo_deposit_return
           transaction.transact_and_save!
         end
         ::CreateEntriesZipWorker.perform_later(self.id)
@@ -222,5 +225,11 @@ class Shrimpo < ApplicationRecord
 
   def queue_end_shrimpo_job
     EndShrimpoWorker.set(wait_until: self.end_at).perform_later(self.id)
+  end
+
+  def set_deposit_amount
+    if !self.deposit_amount
+      self.deposit_amount = fruit_ticket_deposit_amount
+    end
   end
 end
