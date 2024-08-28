@@ -101,7 +101,7 @@ class Shrimpo < ApplicationRecord
 
   def save_and_deposit_fruit_tickets!
     ActiveRecord::Base.transaction do
-      transaction = FruitTicketTransaction.new from_user: self.user, amount: self.fruit_ticket_deposit_amount, transaction_type: :shrimpo_deposit
+      transaction = FruitTicketTransaction.new from_user: self.user, amount: self.deposit_amount, transaction_type: :shrimpo_deposit
       transaction.transact_and_save! && self.save!
     end
   end
@@ -164,7 +164,7 @@ class Shrimpo < ApplicationRecord
         #
         # return deposit
         if self.shrimpo_entries.count > 2
-          transaction = FruitTicketTransaction.new to_user: self.user, amount: self.fruit_ticket_deposit_amount, transaction_type: :shrimpo_deposit_return
+          transaction = FruitTicketTransaction.new to_user: self.user, amount: self.deposit_amount, transaction_type: :shrimpo_deposit_return
           transaction.transact_and_save!
         end
         ::CreateEntriesZipWorker.perform_later(self.id)
