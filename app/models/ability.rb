@@ -16,6 +16,7 @@ class Ability
       can :create, ShowSeries
       can :update, ShowSeries
       can :index, :my_shows
+      can :vote, :shrimpo
     elsif user.manager?
       can :index, :current_user
       can :update, :current_user
@@ -58,6 +59,7 @@ class Ability
       can :create, ForumThread
       can :create, ShowSeries
       can :index, :my_shows
+      can :vote, :shrimpo
     elsif user.dj?
       can :index, :current_user
       can :update, :current_user
@@ -139,6 +141,7 @@ class Ability
       end
 
       can :index, :my_shows
+      can :vote, :shrimpo
 
       cannot :admin, :dashboard
       cannot :admin, :radios
@@ -161,6 +164,7 @@ class Ability
       can :index, Label if format == "json"
       can :show, Label if format == "json"
       can :create, ForumThread
+      can :vote, :shrimpo
 
       cannot :admin, :dashboard
       cannot :admin, :radios
@@ -183,6 +187,8 @@ class Ability
       cannot :admin, :radios
       cannot :admin, :sign_in_as
       can :sign_up, :anniversary_slot if is_datafruits?(radio)
+
+      cannot :vote, :shrimpo
     end
   end
 
