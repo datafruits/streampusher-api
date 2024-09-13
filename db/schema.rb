@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_27_013541) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_10_235047) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -455,7 +455,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_27_013541) do
     t.datetime "updated_at", null: false
     t.index ["shrimpo_entry_id"], name: "index_shrimpo_votes_on_shrimpo_entry_id"
     t.index ["shrimpo_voting_category_id"], name: "index_shrimpo_votes_on_shrimpo_voting_category_id"
-    t.index ["user_id", "shrimpo_entry_id"], name: "index_shrimpo_votes_on_user_id_and_shrimpo_entry_id", unique: true
+    t.index ["user_id", "shrimpo_entry_id", "shrimpo_voting_category_id"], name: "index_shrimpo_votes_uid_seid_svcid", unique: true
     t.index ["user_id"], name: "index_shrimpo_votes_on_user_id"
   end
 
@@ -612,8 +612,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_27_013541) do
     t.integer "fruit_ticket_balance", default: 0, null: false
     t.integer "experience_points", default: 0, null: false
     t.integer "level", default: 0, null: false
-    t.string "stream_key"
-    t.string "stream_key_digest"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

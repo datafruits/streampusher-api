@@ -155,6 +155,7 @@ Rails.application.routes.draw do
       resources :end_shrimpos, only: [:create], controller: 'shrimpos/end_shrimpos'
       resources :shrimpo_entries, only: [:create, :show], controller: 'shrimpos/shrimpo_entries' do
         resources :shrimpo_votes, only: [:create], controller: 'shrimpos/shrimpo_entries/votes'
+        resources :voting_categories, only: [:create], controller: 'shrimpos/shrimpo_entries/voting_categories'
       end
 
     end
