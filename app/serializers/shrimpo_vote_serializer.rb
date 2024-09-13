@@ -5,10 +5,14 @@ class ShrimpoVoteSerializer < ActiveModel::Serializer
   belongs_to :shrimpo_voting_category
 
   def voting_category_name
-    object.shrimpo_voting_category.name
+    if object.shrimpo_voting_category.present?
+      object.shrimpo_voting_category.name
+    end
   end
 
   def voting_category_emoji
-    object.shrimpo_voting_category.emoji
+    if object.shrimpo_voting_category.present?
+      object.shrimpo_voting_category.emoji
+    end
   end
 end
