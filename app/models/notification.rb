@@ -24,11 +24,13 @@ class Notification < ApplicationRecord
     :fruit_ticket_gift,
     :supporter_fruit_ticket_stipend,
     :glorp_lottery_winner,
-    :show_comment
+    :show_comment,
+    :patreon_sub,
   ]
 
   private
   def set_message
+    # TODO i18n
     self.message = case self.notification_type
     when "strawberry_badge_award"
       "#{self.user.username} got the strawbur badge!"
@@ -70,6 +72,8 @@ class Notification < ApplicationRecord
       ":#{self.source.award_type.split("py").first}:!!! #{self.user.username} got #{self.source.amount} #{self.source.award_type} points!"
     when "show_comment"
       "#{self.source.title} has a new comment!"
+    when "patreon_sub"
+      "#{self.source.username} subscribed to the #{self.source.tier_name} tier on patreon!"
     end
   end
 

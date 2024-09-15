@@ -152,6 +152,8 @@ Rails.application.routes.draw do
     resources :labels, only: [:create, :index, :show]
   end
 
+  resources :patreon_webhooks, only: [:create]
+
   post "/setup" => "setup#create"
   get "/setup/allowed" => "setup#allowed"
 
