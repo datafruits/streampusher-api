@@ -235,6 +235,6 @@ class Shrimpo < ApplicationRecord
   end
 
   def send_notification
-    Notification.create! send_to_chat: true, send_to_user: false, notification_type: "shrimpo_started", source: self
+    Notification.create! send_to_chat: true, send_to_user: false, notification_type: "shrimpo_started", source: self, user: self.user
   end
 end
