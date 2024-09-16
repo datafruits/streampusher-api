@@ -39,6 +39,7 @@ class Shrimpo < ApplicationRecord
 
   before_validation :set_deposit_amount
   after_create :queue_end_shrimpo_job
+  after_create :send_notification
 
   VALID_DURATIONS = [
     # minors
@@ -231,5 +232,9 @@ class Shrimpo < ApplicationRecord
     if !self.deposit_amount
       self.deposit_amount = fruit_ticket_deposit_amount
     end
+  end
+
+  def send_notification
+    Notification.create! send_to_chat: true, send_to_user: false, notification_type: "shrimpo_started", source: self, user: self.user
   end
 end
