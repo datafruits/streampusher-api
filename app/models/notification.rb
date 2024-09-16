@@ -29,6 +29,7 @@ class Notification < ApplicationRecord
     :track_playback_ticket_payment,
     :glorp_lottery_winner,
     :show_comment,
+    :patreon_sub,
     :new_thread,
     :new_thread_reply,
     :new_wiki_page,
@@ -50,6 +51,7 @@ class Notification < ApplicationRecord
 
   private
   def set_message
+    # TODO i18n
     self.message = case self.notification_type
     when "strawberry_badge_award"
       "#{self.user.username} got the strawbur badge!"
@@ -99,6 +101,10 @@ class Notification < ApplicationRecord
       ":#{self.source.award_type.split("py").first}:!!! #{self.user.username} got #{self.source.amount} #{self.source.award_type} points!"
     when "show_comment"
       "#{self.source.title} has a new comment!"
+    when "patreon_sub"
+      # TODO figure out which tier somehow
+      # "#{self.source.name} subscribed to the #{self.source.tier_name} tier on patreon!"
+      "#{self.source.name} subscribed to the on patreon!"
     when "new_thread"
       "New thread posted in da fruit standz: #{self.source.title}"
     when "new_thread_reply"
