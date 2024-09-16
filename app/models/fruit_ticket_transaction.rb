@@ -3,8 +3,8 @@ class FruitTicketTransaction < ApplicationRecord
   belongs_to :to_user, class_name: "User" # null means bought something from the website
 
   validate :to_or_from_user_is_present
-  validates :amount, 
-    numericality: { only_integer: true, greater_than: 0 }, 
+  validates :amount,
+    numericality: { only_integer: true, greater_than: 0 },
     if: Proc.new { |t| !t.fruit_summon? }
 
   after_create :maybe_send_notification
@@ -18,7 +18,7 @@ class FruitTicketTransaction < ApplicationRecord
   #
   enum transaction_type: [
     # receiving
-    :show_listeners_count, # how ?
+    :show_listeners_count, # how ? TBD
     :archive_playback, # 1 ticket per playback
     :supporter_membership,
     :code_contribution,
@@ -27,7 +27,14 @@ class FruitTicketTransaction < ApplicationRecord
     :fruit_summon, # metal pineapple, real lemoner, XL shrimp shake
     :profile_sticker,
 
-    :user_gift
+    :user_gift,
+
+    :shrimpo_deposit,
+    :shrimpo_deposit_return,
+    :shrimpo_award,
+    :shrimpo_playback,
+
+    :stimulus, # a stimulus from the bank of fruit tickets
   ]
 
   def transact_and_save!
@@ -60,6 +67,18 @@ class FruitTicketTransaction < ApplicationRecord
           self.from_user.update fruit_ticket_balance: self.from_user.fruit_ticket_balance - self.amount
           self.to_user.update fruit_ticket_balance: self.to_user.fruit_ticket_balance + self.amount
           self.save!
+        when "shrimpo_deposit"
+          if self.from_user.fruit_ticket_balance < self.amount
+            raise "not enough balance"
+          end
+          self.from_user.update fruit_ticket_balance: self.from_user.fruit_ticket_balance - self.amount
+          self.save!
+        when "shrimpo_deposit_return"
+          self.to_user.update fruit_ticket_balance: self.to_user.fruit_ticket_balance + self.amount
+          self.save!
+        when "stimulus"
+          self.to_user.update fruit_ticket_balance: self.to_user.fruit_ticket_balance + self.amount
+          self.save!
         else
           raise "invalid transaction_type"
         end
@@ -82,6 +101,12 @@ class FruitTicketTransaction < ApplicationRecord
       Notification.create! source: self, send_to_chat: false, user: to_user, notification_type: "fruit_ticket_gift"
     when "supporter_membership"
       Notification.create! source: self, send_to_chat: false, user: to_user, notification_type: "supporter_fruit_ticket_stipend"
+    when "archive_playback"
+      Notification.create! source: self, send_to_chat: false, user: to_user, notification_type: "track_playback_ticket_payment"
+    when "stimulus"
+      Notification.create! source: self, send_to_chat: false, user: to_user, notification_type: "fruit_ticket_stimulus"
+    when "shrimpo_deposit_return"
+      Notification.create! source: self, send_to_chat: false, user: to_user, notification_type: "shrimpo_deposit_return"
     end
   end
 end

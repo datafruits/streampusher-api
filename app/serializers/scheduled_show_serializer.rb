@@ -1,19 +1,21 @@
 class ScheduledShowSerializer < ActiveModel::Serializer
-  include ScheduledShowsHelper
-  include ApplicationHelper
-  include ActionView::Helpers::SanitizeHelper
-  attributes :id, :start, :end, :title, :image_url, :thumb_image_url, :tweet_content, :description,
+  attributes :id, :start, :end, :title, :image_url, :thumb_image_url, :description,
     :slug, :recurring_interval, :hosted_by, :is_guest, :guest, :playlist_id, :image_filename, :formatted_episode_title, :status,
     :show_series_title, :show_series_slug,
     :prerecord_track_id,
-    :prerecord_track_filename
+    :prerecord_track_filename,
+    :youtube_link,
+    :mixcloud_link,
+    :soundcloud_link
 
   has_many :tracks, embed: :ids, key: :tracks
-  has_many :djs, embed: :ids, key: :djs
-  belongs_to :playlist
-  belongs_to :show_series
-  belongs_to :recording
+  has_many :djs, embed: :ids, key: :djs, embed_in_root: true, each_serializer: DjSerializer
   has_many :posts, embed: :ids, key: :posts, embed_in_root: true, each_serializer: PostSerializer
+  has_many :labels, embed: :ids, key: :labels, embed_in_root: true
+
+  def labels
+    object.labels
+  end
 
   def prerecord_track_filename
     if object.prerecord_track_id.present?
@@ -38,7 +40,7 @@ class ScheduledShowSerializer < ActiveModel::Serializer
   end
 
   def formatted_episode_title
-    "#{object.title} - #{object.start.strftime("%m%d%Y")}"
+    object.formatted_episode_title
   end
 
   def hosted_by
@@ -76,9 +78,5 @@ class ScheduledShowSerializer < ActiveModel::Serializer
     if object.image.present?
       object.image_file_name
     end
-  end
-
-  def tweet_content
-    tweet_text(object)
   end
 end

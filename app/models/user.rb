@@ -12,11 +12,15 @@ class User < ActiveRecord::Base
   has_many :scheduled_show_performers, class_name: "::ScheduledShowPerformer", dependent: :destroy
   has_many :performers, through: :scheduled_show_performers, source: :user
   has_many :scheduled_shows, -> { includes :tracks }, through: :scheduled_show_performers
+  has_many :show_series_hosts, class_name: "::ShowSeriesHost", dependent: :destroy
+  has_many :show_series, through: :show_series_hosts
   has_many :tracks, through: :scheduled_shows
   has_many :track_favorites
+  has_many :scheduled_show_favorites
   has_many :fruit_summons
   has_many :posts
   has_many :notifications
+  has_many :trophy_awards
 
   has_attached_file :image, styles: { :thumb => "150x150#", :medium => "250x250#" },
     path: ":attachment/:style/:basename.:extension"
@@ -66,6 +70,10 @@ class User < ActiveRecord::Base
   validates_inclusion_of :time_zone, :in => ActiveSupport::TimeZone.all.map { |m| m.name }, :message => "is not a valid Time Zone"
 
   before_validation :set_username, :set_initial_time_zone
+
+  after_create :send_notification
+
+  after_update :maybe_send_update_notification
 
   def login=(login)
     @login = login
@@ -118,6 +126,22 @@ class User < ActiveRecord::Base
     # TODO should set time zone from browser timezone in form
     unless self.time_zone.present?
       self.time_zone = Time.zone.name
+    end
+  end
+
+  def send_notification
+    Notification.create! notification_type: "new_datafruiter", source: self, send_to_chat: true, send_to_user: false, user: self
+  end
+
+  def url
+    "https://datafruits.fm/djs/#{self.username}"
+  end
+
+  def maybe_send_update_notification
+    if self.saved_change_to_bio?
+      Notification.create! notification_type: "profile_update", source: self, send_to_chat: true, send_to_user: false, user: self, url: url
+    elsif self.saved_change_to_image_file_name?
+      Notification.create! notification_type: "avatar_update", source: self, send_to_chat: true, send_to_user: false, user: self, url: url
     end
   end
 end

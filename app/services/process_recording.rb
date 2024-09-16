@@ -1,5 +1,5 @@
 class ProcessRecording
-  def perform recording, scheduled_show: nil
+  def perform recording, scheduled_show= nil
     recording.update processing_status: 'processing'
 
     begin
@@ -24,16 +24,11 @@ class ProcessRecording
 
       date = Chronic.parse basename.split("datafruits-").last.split("-")[1..3].join('-')
 
-      show = ScheduledShow.where(dj: user).where(start_at: (date-2.days)..(date+2.days))
-      if show.any?
-        track.update scheduled_show_id: show.first.id
+      if scheduled_show.present?
+        # grab scheduled show's info to use metadata and artwork
+        track.update scheduled_show_id: scheduled_show.id, title: scheduled_show.formatted_episode_title
       end
       StreamingExpAwardWorker.set(wait: 15.minute).perform_later(track.id)
-
-      # if scheduled_show.present?
-      #   # grab scheduled show's info to use metadata and artwork
-      #   track.fill_metadata_from_show
-      # end
     rescue Exception => e
       recording.update processing_status: 'processing_failed'
       raise e

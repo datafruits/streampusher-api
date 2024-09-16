@@ -3,7 +3,7 @@ class CurrentUserController < ApplicationController
     authorize! :index, :current_user
     user = current_user
 
-    render json: user, serializer: UserSerializer, include: 'track_favorites'
+    render json: user, serializer: UserSerializer, include: 'scheduled_show_favorites'
   end
 
   def update
@@ -31,7 +31,7 @@ class CurrentUserController < ApplicationController
   private
   def user_params
     ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
-      :style, :avatar, :avatar_filename, :pronouns, :bio, :homepage, :time_zone
+      :style, :avatar, :avatar_filename, :pronouns, :bio, :homepage, :time_zone, :username
     ])
   end
 end

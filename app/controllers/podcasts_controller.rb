@@ -39,13 +39,14 @@ class PodcastsController < ApplicationController
 
   def show
     @podcast = @current_radio.podcasts.find_by_name(params[:id])
+
+    @archives = @current_radio.scheduled_shows.
+      where(status: :archive_published).
+      order("start_at DESC")
+
     respond_to do |format|
       format.xml {
         render 'show', layout: false
-      }
-      format.json {
-        response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
-        render json: @podcast, include: 'tracks', meta: { total_pages: @podcast.playlist.playlist_tracks.page.total_pages.to_i, page: params[:page] }, serializer: PodcastSerializer, layout: false
       }
     end
   end

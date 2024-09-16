@@ -22,7 +22,7 @@ describe Track do
                }
 
       track = Track.create params
-      expect(track.labels.first.name).to eq "Vaporwave"
+      expect(track.labels.first.name).to eq "vaporwave"
     end
   end
 

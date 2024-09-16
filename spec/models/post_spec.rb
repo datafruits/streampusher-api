@@ -27,5 +27,6 @@ RSpec.describe Post, type: :model do
     notification = Notification.last
     expect(notification.user).to eq @dj
     expect(notification.source).to eq show_series.episodes.last
+    expect(notification.url).to eq("https://datafruits.fm/shows/#{show_series.slug}/episodes/#{show_series.episodes.last.slug}")
   end
 end

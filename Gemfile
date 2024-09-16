@@ -69,7 +69,6 @@ gem 'slackistrano', require: false
 gem 'httparty'
 gem 'exception_notification', github: "mcfiredrill/exception_notification"
 
-gem 'groupdate'
 gem 'acts_as_list'
 gem 'kaminari'
 gem 'active_model_serializers', '~> 0.10.0'
@@ -80,7 +79,7 @@ gem "kt-paperclip", "~> 6.4", ">= 6.4.1"
 gem "image_processing", ">= 1.2"
 
 gem 'rupeepeethree', github: "datafruits/rupeepeethree"
-gem "so_id3", github: "streampusher/so_id3", branch: "rp3-bump"
+gem "so_id3", github: "streampusher/so_id3", branch: "fix-artwork-download-https"
 
 gem 'whenever', require: false
 
@@ -106,3 +105,6 @@ gem 'net-pop', require: false
 gem 'ed25519', '>= 1.2', '< 2.0'
 gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0'
 
+gem "skylight"
+
+gem "rubyzip"

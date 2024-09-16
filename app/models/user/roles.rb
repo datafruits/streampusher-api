@@ -1,6 +1,6 @@
 module User::Roles
   extend ActiveSupport::Concern
-  VALID_ROLES = %w[admin dj manager listener vj supporter strawberry lemon orange cabbage banana watermelon pineapple limer dragionfruit blueberrinies beamsprout]
+  VALID_ROLES = %w[admin dj manager listener vj supporter emerald_supporter gold_supporter strawberry lemon orange cabbage banana watermelon pineapple limer dragionfruit blueberrinies beamsprout duckle]
 
   BADGE_ROLES = VALID_ROLES - %w[admin manager listener]
 
@@ -37,6 +37,13 @@ module User::Roles
         DjAccountMailer.welcome_email(self, '', self.radios.first).deliver_later
       end
     end
+  end
+
+  def remove_role role
+    roles = self.roles
+    roles.delete role
+    self.role = roles.join(" ")
+    self.save!
   end
 
   private

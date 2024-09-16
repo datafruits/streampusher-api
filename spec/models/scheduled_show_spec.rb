@@ -164,7 +164,7 @@ RSpec.describe ScheduledShow, :type => :model do
   #     expect(recurring_show.recurrences.pluck(:slug).uniq.count).to eq count
   #   end
   #
-  #   # FIXME end_at cannot be before start_at 
+  #   # FIXME end_at cannot be before start_at
   #   #
   #   # updating recurrances needs to take into account that end_at should update as well
   #   xit "updates all recurring shows attributes" do
@@ -292,7 +292,29 @@ RSpec.describe ScheduledShow, :type => :model do
   end
 
   describe "archive recordings" do
-    xit "starts processing the recording after assigning a recording"
+    before do
+      Sidekiq::Testing.inline!
+    end
+    after do
+      Sidekiq::Testing.disable!
+    end
+
+    it "starts processing the recording after assigning a recording, then assigns the track to the show" do
+      show_series = ShowSeries.new title: "monthly jammer jam", description: "wow", recurring_interval: "month", recurring_weekday: 'Sunday', recurring_cadence: 'First', start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month, radio: @radio
+      show_series.users << @dj
+      show_series.save!
+      VCR.use_cassette(RSpec.current_example.metadata[:full_description].to_s, match_requests_on: [:method, :host, :uri], preserve_exact_body_bytes: true) do
+        recording1 = FactoryBot.create :recording, path: "spec/fixtures/the_cowbell.mp3", radio: @radio
+        start_at = 4.hours.from_now.utc
+        end_at = 6.hours.from_now.utc
+        @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey hey", dj: @dj, recording: recording1, show_series: show_series
+        @scheduled_show.save!
+        expect(@scheduled_show.tracks.count).to eq 1
+        @scheduled_show.update status: :archive_published
+      end
+
+      expect(@scheduled_show.radio.default_playlist.tracks.include?(@scheduled_show.tracks.first)).to eq true
+    end
   end
 
   describe "prerecord_file" do
@@ -313,6 +335,29 @@ RSpec.describe ScheduledShow, :type => :model do
       @scheduled_show.save!
       expect(@scheduled_show.playlist.tracks.first.id).to eq(track.id)
       expect(@scheduled_show.prerecord_track_id).to eq(track.id)
+    end
+
+    it "syncs track title after update" do
+      track = FactoryBot.create :track, radio: @radio, audio_file_name: "http://s3.amazonaws.com/streampusher/doo.mp3"
+      @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: @start_at, end_at: @end_at, title: "hey hey", dj: @dj
+      @scheduled_show.save!
+      track.update scheduled_show: @scheduled_show
+      @scheduled_show.save!
+      track.reload
+      expect(track.title).to eq @scheduled_show.formatted_episode_title
+    end
+
+    it "assigns prerecord file to archive" do
+      track = FactoryBot.create :track, radio: @radio, audio_file_name: "http://s3.amazonaws.com/streampusher/doo.mp3"
+      @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: @start_at, end_at: @end_at, title: "hey hey", dj: @dj
+      @scheduled_show.prerecord_track_id = track.id
+      @scheduled_show.save!
+      expect(@scheduled_show.tracks.count).to eq 0
+      expect(@scheduled_show.playlist.tracks.first.id).to eq(track.id)
+      expect(@scheduled_show.prerecord_track_id).to eq(track.id)
+      @scheduled_show.use_prerecorded_file_for_archive = true
+      @scheduled_show.save!
+      expect(@scheduled_show.tracks.first).to eq track
     end
   end
 end
