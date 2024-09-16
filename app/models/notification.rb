@@ -73,7 +73,7 @@ class Notification < ApplicationRecord
     when "show_comment"
       "#{self.source.title} has a new comment!"
     when "patreon_sub"
-      "#{self.source.username} subscribed to the #{self.source.tier_name} tier on patreon!"
+      "#{self.source.name} subscribed to the #{self.source.tier_name} tier on patreon!"
     end
   end
 

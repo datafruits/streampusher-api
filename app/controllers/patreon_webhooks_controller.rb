@@ -4,6 +4,6 @@ class PatreonWebhooksController < ApplicationController
     # X-Patreon-Event: [trigger]
     # X-Patreon-Signature: [message signature]
     puts params.inspect
-    # PatreonWebhookHandler.perform params
+    PatreonWebhookHandler.perform params["data"]
   end
 end
