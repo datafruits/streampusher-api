@@ -93,6 +93,9 @@ RSpec.describe Shrimpo, type: :model do
     expect(TrophyAward.where(user: entry1.user, shrimpo_entry: entry1, trophy: consolation_trophy).count).to be >= 1
   end
 
+  xit 'tallys results for mega shrimpo' do
+  end
+
   it 'cant vote on own entry' do
     dj1 = User.create role: 'dj', username: 'dakota', email: "dakota@gmail.com", password: "2boobies", time_zone: "UTC", fruit_ticket_balance: 1000, level: 3
     dj2 = User.create role: 'dj', username: 'seacuke', email: "seacuke@gmail.com", password: "2boobies", time_zone: "UTC"

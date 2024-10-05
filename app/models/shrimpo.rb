@@ -116,6 +116,20 @@ class Shrimpo < ApplicationRecord
         self.shrimpo_entries.each do |entry|
           total_score = entry.shrimpo_votes.sum(:score)
           entry.update! total_score: total_score
+
+          if self.mega?
+            # calculate score for each category
+            self.shrimpo_voting_categories.each do |voting_category|
+              total = entry.shrimpo_votes.where(shrimpo_voting_category: voting_category).sum(:score)
+              # create shrimpo_voting_category_score
+              # ShrimpoEntryVotingCategoryScore.create entry: entry, shrimpo_voting_category: voting_category, score: total
+            end
+
+            # calculate rank for each category
+            # ShrimpoEntryVotingCategoryScore.where(shrimpo_voting_category: voting_category).sort_by(&:score).reverse.each_with_index do |voting_cat_score, index|
+            #   voting_cat_score.update! ranking: index + 1
+            # end
+          end
         end
 
         self.shrimpo_entries.sort_by(&:total_score).reverse.each_with_index do |entry, index|
