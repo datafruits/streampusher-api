@@ -206,9 +206,9 @@ class Shrimpo < ApplicationRecord
   end
 
   def voting_completion user
-    voted_count = ShrimpoVote.where(user: user).where("shrimpo_entry_id in (?)", self.shrimpo_entries.pluck(:id)).count
+    voted_count = ShrimpoVote.where(user: user).where("shrimpo_entry_id in (?)", self.shrimpo_entries.pluck(:id)).select(:shrimpo_entry_id).distinct.count
     total_count = self.shrimpo_entries.count
-    (voted_count.to_f / total_count.to_f) * 100
+    ((voted_count.to_f / total_count.to_f) * 100).round(2)
   end
 
   private
