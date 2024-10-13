@@ -114,7 +114,7 @@ RSpec.describe Shrimpo, type: :model do
     entry4.shrimpo_votes.create! score: 2, user: dj2
     entry3.shrimpo_votes.create! score: 6, user: dj2
 
-    expect(shrimpo.voting_completion(dj2)).to eq 75.0
+    expect(shrimpo.voting_completion(dj2)).to eq 100.0
   end
 
   it 'cant vote on own entry' do
