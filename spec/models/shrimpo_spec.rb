@@ -94,6 +94,62 @@ RSpec.describe Shrimpo, type: :model do
   end
 
   xit 'tallys results for mega shrimpo' do
+    # gold_trophy = Trophy.create! name: "golden shrimpo"
+    # silver_trophy = Trophy.create! name: "silveren shrimpo"
+    # bronze_trophy = Trophy.create! name: "bronzeen shrimpo"
+    consolation_trophy = Trophy.create! name: "good beverage"
+    # create voting category trophies
+    dj1 = User.create! role: 'dj', username: 'dakota', email: "dakota@gmail.com", password: "2boobies", time_zone: "UTC", fruit_ticket_balance: 1000, level: 3
+    dj2 = User.create! role: 'dj', username: 'seacuke', email: "seacuke@gmail.com", password: "2boobies", time_zone: "UTC"
+    dj3 = User.create! role: 'dj', username: 'djnameko', email: "djnameko@gmail.com", password: "2boobies", time_zone: "UTC"
+    dj4 = User.create! role: 'dj', username: 'djgoodbye', email: "djgoodbye@gmail.com", password: "2boobies", time_zone: "UTC"
+    shrimpo = Shrimpo.new start_at: @start_at, duration: "2 hours", title: "Shrimp Champions 2", rule_pack: "dont use pokemon samples", user: dj1, emoji: ":bgs:", gold_trophy: gold_trophy, silver_trophy: silver_trophy, bronze_trophy: bronze_trophy, consolation_trophy: consolation_trophy
+    shrimpo.save_and_deposit_fruit_tickets!
+    ShrimpoVotingCategory.create! shrimpo: shrimpo, name: "massive", emoji: ":bgs_pog:"
+
+    entry1 = shrimpo.shrimpo_entries.create! title: "zolo zoodo", user: dj1
+    entry2 = shrimpo.shrimpo_entries.create! title: "mega banger 4000", user: dj2
+    entry3 = shrimpo.shrimpo_entries.create! title: "donkey kong club", user: dj3
+    entry4 = shrimpo.shrimpo_entries.create! title: "fish pizza", user: dj4
+
+    entry1.shrimpo_votes.create score: 1, user: dj2
+    entry1.shrimpo_votes.create score: 2, user: dj3
+    entry1.shrimpo_votes.create score: 2, user: dj4
+
+    entry2.shrimpo_votes.create score: 6, user: dj1
+    entry2.shrimpo_votes.create score: 6, user: dj3
+    entry2.shrimpo_votes.create score: 5, user: dj4
+
+    entry3.shrimpo_votes.create score: 2, user: dj1
+    entry3.shrimpo_votes.create score: 3, user: dj2
+    entry3.shrimpo_votes.create score: 3, user: dj4
+
+    entry4.shrimpo_votes.create score: 4, user: dj1
+    entry4.shrimpo_votes.create score: 4, user: dj2
+    entry4.shrimpo_votes.create score: 4, user: dj3
+
+    shrimpo.voting!
+    shrimpo.tally_results!
+
+    expect(entry1.total_score).to eq 5
+    expect(entry1.ranking).to eq 4
+    expect(entry2.total_score).to eq 17
+    expect(entry2.ranking).to eq 1
+    expect(entry3.total_score).to eq 8
+    expect(entry3.ranking).to eq 3
+    expect(entry4.total_score).to eq 12
+    expect(entry4.ranking).to eq 2
+    puts ExperiencePointAward.pluck :amount
+    expect(ExperiencePointAward.count).to eq 16 # for voting and winning
+    expect(FruitTicketTransaction.count).to eq 2
+
+    # trophies ???
+    expect(TrophyAward.where(user: entry2.user, shrimpo_entry: entry2, trophy: gold_trophy).count).to eq 1
+    expect(TrophyAward.where(user: entry4.user, shrimpo_entry: entry4, trophy: silver_trophy).count).to eq 1
+    expect(TrophyAward.where(user: entry3.user, shrimpo_entry: entry3, trophy: bronze_trophy).count).to eq 1
+    good_bev_count = TrophyAward.where(user: entry1.user, shrimpo_entry: entry1, trophy: consolation_trophy).count
+    puts "got #{good_bev_count} good beverages!"
+    expect(TrophyAward.where(user: entry1.user, shrimpo_entry: entry1, trophy: consolation_trophy).count).to be >= 1
   end
 
   it 'cant vote on own entry' do
