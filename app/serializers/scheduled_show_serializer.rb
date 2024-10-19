@@ -1,7 +1,7 @@
 class ScheduledShowSerializer < ActiveModel::Serializer
   attributes :id, :start, :end, :title, :image_url, :thumb_image_url, :description,
     :slug, :recurring_interval, :hosted_by, :is_guest, :guest, :playlist_id, :image_filename, :formatted_episode_title, :status,
-    :show_series_title, :show_series_slug,
+    :show_series_title, :show_series_slug, :hosts,
     :prerecord_track_id,
     :prerecord_track_filename,
     :youtube_link,
@@ -46,6 +46,12 @@ class ScheduledShowSerializer < ActiveModel::Serializer
   def hosted_by
     if object.performers.any?
       object.performers.first.username
+    end
+  end
+
+  def hosts
+    if object.performers.any?
+      object.performers.pluck :username
     end
   end
 
