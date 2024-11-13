@@ -14,7 +14,7 @@ class FruitSummonTransaction
         # see https://stackoverflow.com/a/73621642
         fruit_summon
       rescue
-        puts "fruit summon failed, user #{user.name} entity #{entity.name}"
+        puts "fruit summon failed, user #{user.username} entity #{entity.name}"
       end
     end
   end
