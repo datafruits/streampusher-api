@@ -477,7 +477,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_13_185449) do
     t.index ["shrimpo_id"], name: "index_shrimpo_voting_categories_on_shrimpo_id"
   end
 
-  create_table "shrimpo_voting_cateogry_scores", force: :cascade do |t|
+  create_table "shrimpo_voting_category_scores", force: :cascade do |t|
     t.bigint "shrimpo_entry_id", null: false
     t.bigint "shrimpo_voting_category_id", null: false
     t.integer "score"
