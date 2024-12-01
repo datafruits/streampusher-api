@@ -94,9 +94,11 @@ RSpec.describe Shrimpo, type: :model do
   end
 
   it 'tallys results for mega shrimpo' do
-    # gold_trophy = Trophy.create! name: "golden shrimpo"
-    # silver_trophy = Trophy.create! name: "silveren shrimpo"
-    # bronze_trophy = Trophy.create! name: "bronzeen shrimpo"
+    gold_trophy = Trophy.create! name: "golden shrimpo"
+    silver_trophy = Trophy.create! name: "silveren shrimpo"
+    bronze_trophy = Trophy.create! name: "bronzeen shrimpo"
+    glop_trophy = Trophy.create! name: "glop"
+
     consolation_trophy = Trophy.create! name: "good beverage"
     # create voting category trophies
     dj1 = User.create! role: 'dj', username: 'dakota', email: "dakota@gmail.com", password: "2boobies", time_zone: "UTC", fruit_ticket_balance: 20000, level: 3

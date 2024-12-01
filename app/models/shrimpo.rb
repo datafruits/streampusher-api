@@ -122,7 +122,7 @@ class Shrimpo < ApplicationRecord
             self.shrimpo_voting_categories.each do |voting_category|
               total = entry.shrimpo_votes.where(shrimpo_voting_category: voting_category).sum(:score)
               # create shrimpo_voting_category_score
-              ShrimpoVotingCategoryScore.create entry: entry, shrimpo_voting_category: voting_category, score: total
+              ShrimpoVotingCategoryScore.create shrimpo_entry: entry, shrimpo_voting_category: voting_category, score: total
             end
 
             # calculate rank for each category
