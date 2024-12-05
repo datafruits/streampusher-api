@@ -125,10 +125,15 @@ class Shrimpo < ApplicationRecord
               ShrimpoVotingCategoryScore.create shrimpo_entry: entry, shrimpo_voting_category: voting_category, score: total
             end
 
-            # calculate rank for each category
-            # ShrimpoVotingCategoryScore.where(shrimpo_voting_category: voting_category).sort_by(&:score).reverse.each_with_index do |voting_cat_score, index|
-            #   voting_cat_score.update! ranking: index + 1
-            # end
+          end
+        end
+
+        if self.mega?
+          # calculate rank for each category
+          self.shrimpo_voting_categories.each do |voting_category|
+            ShrimpoVotingCategoryScore.where(shrimpo_voting_category: voting_category).sort_by(&:score).reverse.each_with_index do |voting_cat_score, index|
+              voting_cat_score.update! ranking: index + 1
+            end
           end
         end
 
@@ -174,6 +179,20 @@ class Shrimpo < ApplicationRecord
             amount = rand(1..consolation_max)
             amount.times do
               TrophyAward.create! user: entry.user, trophy: self.consolation_trophy, shrimpo_entry: entry
+            end
+          end
+        end
+        # award trophy for each category
+        self.shrimpo_voting_categories.each do |voting_category|
+          ShrimpoVotingCategoryScore.where(shrimpo_voting_category: voting_category).sort_by(&:score).reverse.each_with_index do |voting_cat_score, index|
+            entry  = voting_cat_score.shrimpo_entry
+            case voting_cat_score.ranking
+            when 1
+              TrophyAward.create! user: entry.user, trophy: voting_cat_score.shrimpo_voting_category.gold_trophy, shrimpo_entry: entry
+            when 2
+              TrophyAward.create! user: entry.user, trophy: voting_cat_score.shrimpo_voting_category.silver_trophy, shrimpo_entry: entry
+            when 3
+              TrophyAward.create! user: entry.user, trophy: voting_cat_score.shrimpo_voting_category.bronze_trophy, shrimpo_entry: entry
             end
           end
         end

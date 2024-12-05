@@ -473,7 +473,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_13_185449) do
     t.string "emoji"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "trophy_id"
+    t.integer "gold_trophy_id"
+    t.integer "silver_trophy_id"
+    t.integer "bronze_trophy_id"
     t.index ["shrimpo_id"], name: "index_shrimpo_voting_categories_on_shrimpo_id"
   end
 
