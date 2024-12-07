@@ -241,6 +241,12 @@ class Shrimpo < ApplicationRecord
     self.save!
   end
 
+  def voting_completion user
+    voted_count = ShrimpoVote.where(user: user).where("shrimpo_entry_id in (?)", self.shrimpo_entries.pluck(:id)).select(:shrimpo_entry_id).distinct.count
+    total_count = self.shrimpo_entries.count - 1 # subtract 1 cuz can't vote on own shrimpo
+    ((voted_count.to_f / total_count.to_f) * 100).round(2)
+  end
+
   private
   def start_at_cannot_be_in_the_past
     if start_at < Time.current

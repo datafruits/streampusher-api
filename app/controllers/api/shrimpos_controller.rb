@@ -24,7 +24,7 @@ class Api::ShrimposController < ApplicationController
 
   def show
     shrimpo = Shrimpo.friendly.find params[:id]
-    render json: shrimpo, include: ['shrimpo_entries', 'posts', 'shrimpo_entries.trophy_awards', 'shrimpo_voting_categories']
+    render json: shrimpo, serializer: ShrimpoSerializer, current_user: current_user, include: ['shrimpo_entries', 'posts', 'shrimpo_entries.trophy_awards', 'shrimpo_voting_categories']
   end
 
   private

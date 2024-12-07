@@ -30,6 +30,10 @@ class Api::ScheduledShowsController < ApplicationController
         includes(:performers, :scheduled_show_performers, :show_series)
     end
 
+    if params[:id]
+      @scheduled_shows = @current_radio.scheduled_shows.where("id in (?)", params[:id])
+    end
+
     render json: Fast::ScheduledShowSerializer.new(@scheduled_shows).serializable_hash.to_json
   end
 end
