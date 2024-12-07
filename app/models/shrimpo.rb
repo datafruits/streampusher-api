@@ -113,9 +113,29 @@ class Shrimpo < ApplicationRecord
 
     begin
       ActiveRecord::Base.transaction do
+        # total score and optionally category score for each entry
         self.shrimpo_entries.each do |entry|
           total_score = entry.shrimpo_votes.sum(:score)
           entry.update! total_score: total_score
+
+          if self.mega?
+            # calculate score for each category
+            self.shrimpo_voting_categories.each do |voting_category|
+              total = entry.shrimpo_votes.where(shrimpo_voting_category: voting_category).sum(:score)
+              # create shrimpo_voting_category_score
+              ShrimpoVotingCategoryScore.create shrimpo_entry: entry, shrimpo_voting_category: voting_category, score: total
+            end
+
+          end
+        end
+
+        if self.mega?
+          # calculate rank for each category
+          self.shrimpo_voting_categories.each do |voting_category|
+            ShrimpoVotingCategoryScore.where(shrimpo_voting_category: voting_category).sort_by(&:score).reverse.each_with_index do |voting_cat_score, index|
+              voting_cat_score.update! ranking: index + 1
+            end
+          end
         end
 
         self.shrimpo_entries.sort_by(&:total_score).reverse.each_with_index do |entry, index|
@@ -160,6 +180,22 @@ class Shrimpo < ApplicationRecord
             amount = rand(1..consolation_max)
             amount.times do
               TrophyAward.create! user: entry.user, trophy: self.consolation_trophy, shrimpo_entry: entry
+            end
+          end
+        end
+        # award trophy for each category
+        if self.mega?
+          self.shrimpo_voting_categories.each do |voting_category|
+            ShrimpoVotingCategoryScore.where(shrimpo_voting_category: voting_category).sort_by(&:score).reverse.each_with_index do |voting_cat_score, index|
+              entry  = voting_cat_score.shrimpo_entry
+              case voting_cat_score.ranking
+              when 1
+                TrophyAward.create! user: entry.user, trophy: voting_cat_score.shrimpo_voting_category.gold_trophy, shrimpo_entry: entry
+              when 2
+                TrophyAward.create! user: entry.user, trophy: voting_cat_score.shrimpo_voting_category.silver_trophy, shrimpo_entry: entry
+              when 3
+                TrophyAward.create! user: entry.user, trophy: voting_cat_score.shrimpo_voting_category.bronze_trophy, shrimpo_entry: entry
+              end
             end
           end
         end
