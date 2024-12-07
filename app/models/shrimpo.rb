@@ -113,6 +113,7 @@ class Shrimpo < ApplicationRecord
 
     begin
       ActiveRecord::Base.transaction do
+        # total score and optionally category score for each entry
         self.shrimpo_entries.each do |entry|
           total_score = entry.shrimpo_votes.sum(:score)
           entry.update! total_score: total_score
@@ -183,16 +184,18 @@ class Shrimpo < ApplicationRecord
           end
         end
         # award trophy for each category
-        self.shrimpo_voting_categories.each do |voting_category|
-          ShrimpoVotingCategoryScore.where(shrimpo_voting_category: voting_category).sort_by(&:score).reverse.each_with_index do |voting_cat_score, index|
-            entry  = voting_cat_score.shrimpo_entry
-            case voting_cat_score.ranking
-            when 1
-              TrophyAward.create! user: entry.user, trophy: voting_cat_score.shrimpo_voting_category.gold_trophy, shrimpo_entry: entry
-            when 2
-              TrophyAward.create! user: entry.user, trophy: voting_cat_score.shrimpo_voting_category.silver_trophy, shrimpo_entry: entry
-            when 3
-              TrophyAward.create! user: entry.user, trophy: voting_cat_score.shrimpo_voting_category.bronze_trophy, shrimpo_entry: entry
+        if self.mega?
+          self.shrimpo_voting_categories.each do |voting_category|
+            ShrimpoVotingCategoryScore.where(shrimpo_voting_category: voting_category).sort_by(&:score).reverse.each_with_index do |voting_cat_score, index|
+              entry  = voting_cat_score.shrimpo_entry
+              case voting_cat_score.ranking
+              when 1
+                TrophyAward.create! user: entry.user, trophy: voting_cat_score.shrimpo_voting_category.gold_trophy, shrimpo_entry: entry
+              when 2
+                TrophyAward.create! user: entry.user, trophy: voting_cat_score.shrimpo_voting_category.silver_trophy, shrimpo_entry: entry
+              when 3
+                TrophyAward.create! user: entry.user, trophy: voting_cat_score.shrimpo_voting_category.bronze_trophy, shrimpo_entry: entry
+              end
             end
           end
         end
