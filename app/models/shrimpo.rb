@@ -247,6 +247,15 @@ class Shrimpo < ApplicationRecord
     ((voted_count.to_f / total_count.to_f) * 100).round(2)
   end
 
+  def create_category_trophies!
+    self.shrimpo_voting_categories.each do |category|
+      gold = Trophy.create! name: "gold #{category.name}"
+      silver = Trophy.create! name: "silver #{category.name}"
+      bronze = Trophy.create! name: "bronze #{category.name}"
+      category.update! gold_trophy: gold, silver_trophy: silver, bronze_trophy: bronze
+    end
+  end
+
   private
   def start_at_cannot_be_in_the_past
     if start_at < Time.current

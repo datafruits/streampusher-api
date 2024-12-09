@@ -113,12 +113,11 @@ RSpec.describe Shrimpo, type: :model do
     dj4 = User.create! role: 'dj', username: 'djgoodbye', email: "djgoodbye@gmail.com", password: "2boobies", time_zone: "UTC"
     shrimpo = Shrimpo.new start_at: @start_at, duration: "3 months", title: "Shrimp Champions 2000 mega", rule_pack: "dont use pokemon samples", user: dj1, emoji: ":bgs:", shrimpo_type: :mega, gold_trophy: gold_trophy, silver_trophy: silver_trophy, bronze_trophy: bronze_trophy, consolation_trophy: consolation_trophy
     shrimpo.save_and_deposit_fruit_tickets!
+
     categories.each do |category|
-      gold = Trophy.create! name: "gold #{category}"
-      silver = Trophy.create! name: "silver #{category}"
-      bronze = Trophy.create! name: "bronze #{category}"
-      ShrimpoVotingCategory.create! shrimpo: shrimpo, name: category, emoji: ":#{category}:", gold_trophy: gold, silver_trophy: silver, bronze_trophy: bronze
+      ShrimpoVotingCategory.create! shrimpo: shrimpo, name: category, emoji: ":#{category}:"
     end
+    shrimpo.create_category_trophies!
 
     entry1 = shrimpo.shrimpo_entries.create! title: "zolo zoodo", user: dj1
     entry2 = shrimpo.shrimpo_entries.create! title: "mega banger 4000", user: dj2
