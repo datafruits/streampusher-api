@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_15_231634) do
+ActiveRecord::Schema[7.0].define(version: 2024_12_11_184351) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -473,7 +473,23 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_15_231634) do
     t.string "emoji"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "gold_trophy_id"
+    t.integer "silver_trophy_id"
+    t.integer "bronze_trophy_id"
     t.index ["shrimpo_id"], name: "index_shrimpo_voting_categories_on_shrimpo_id"
+  end
+
+  create_table "shrimpo_voting_category_scores", force: :cascade do |t|
+    t.bigint "shrimpo_entry_id", null: false
+    t.bigint "shrimpo_voting_category_id", null: false
+    t.integer "score"
+    t.integer "ranking"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "shrimpo_id"
+    t.index ["shrimpo_entry_id"], name: "shrimpo_entry_score"
+    t.index ["shrimpo_id"], name: "index_shrimpo_voting_category_scores_on_shrimpo_id"
+    t.index ["shrimpo_voting_category_id"], name: "voting_cat_score"
   end
 
   create_table "shrimpos", force: :cascade do |t|

@@ -93,6 +93,97 @@ RSpec.describe Shrimpo, type: :model do
     expect(TrophyAward.where(user: entry1.user, shrimpo_entry: entry1, trophy: consolation_trophy).count).to be >= 1
   end
 
+  it 'tallys results for mega shrimpo' do
+    gold_trophy = Trophy.create! name: "golden shrimpo"
+    silver_trophy = Trophy.create! name: "silveren shrimpo"
+    bronze_trophy = Trophy.create! name: "bronzeen shrimpo"
+
+    categories = [
+      "glop",
+      "massive",
+      "hacker",
+      "anysong",
+      "boing"
+    ]
+
+    consolation_trophy = Trophy.create! name: "good beverage"
+    dj1 = User.create! role: 'dj', username: 'dakota', email: "dakota@gmail.com", password: "2boobies", time_zone: "UTC", fruit_ticket_balance: 20000, level: 3
+    dj2 = User.create! role: 'dj', username: 'seacuke', email: "seacuke@gmail.com", password: "2boobies", time_zone: "UTC"
+    dj3 = User.create! role: 'dj', username: 'djnameko', email: "djnameko@gmail.com", password: "2boobies", time_zone: "UTC"
+    dj4 = User.create! role: 'dj', username: 'djgoodbye', email: "djgoodbye@gmail.com", password: "2boobies", time_zone: "UTC"
+    shrimpo = Shrimpo.new start_at: @start_at, duration: "3 months", title: "Shrimp Champions 2000 mega", rule_pack: "dont use pokemon samples", user: dj1, emoji: ":bgs:", shrimpo_type: :mega, gold_trophy: gold_trophy, silver_trophy: silver_trophy, bronze_trophy: bronze_trophy, consolation_trophy: consolation_trophy
+    shrimpo.save_and_deposit_fruit_tickets!
+
+    categories.each do |category|
+      ShrimpoVotingCategory.create! shrimpo: shrimpo, name: category, emoji: ":#{category}:"
+    end
+    shrimpo.create_category_trophies!
+
+    entry1 = shrimpo.shrimpo_entries.create! title: "zolo zoodo", user: dj1
+    entry2 = shrimpo.shrimpo_entries.create! title: "mega banger 4000", user: dj2
+    entry3 = shrimpo.shrimpo_entries.create! title: "donkey kong club", user: dj3
+    entry4 = shrimpo.shrimpo_entries.create! title: "fish pizza", user: dj4
+
+    categories.each do |category|
+      shrimpo_voting_category = shrimpo.shrimpo_voting_categories.find_by name: category
+      entry1.shrimpo_votes.create score: rand(1..6), shrimpo_voting_category: shrimpo_voting_category, user: dj2
+      entry1.shrimpo_votes.create score: rand(1..6), shrimpo_voting_category: shrimpo_voting_category, user: dj3
+      entry1.shrimpo_votes.create score: rand(1..6), shrimpo_voting_category: shrimpo_voting_category, user: dj4
+    end
+
+    categories.each do |category|
+      shrimpo_voting_category = shrimpo.shrimpo_voting_categories.find_by name: category
+      entry2.shrimpo_votes.create score: rand(1..6), shrimpo_voting_category: shrimpo_voting_category, user: dj1
+      entry2.shrimpo_votes.create score: rand(1..6), shrimpo_voting_category: shrimpo_voting_category, user: dj3
+      entry2.shrimpo_votes.create score: rand(1..6), shrimpo_voting_category: shrimpo_voting_category, user: dj4
+    end
+
+    categories.each do |category|
+      shrimpo_voting_category = shrimpo.shrimpo_voting_categories.find_by name: category
+      entry3.shrimpo_votes.create score: rand(1..6), shrimpo_voting_category: shrimpo_voting_category, user: dj1
+      entry3.shrimpo_votes.create score: rand(1..6), shrimpo_voting_category: shrimpo_voting_category, user: dj2
+      entry3.shrimpo_votes.create score: rand(1..6), shrimpo_voting_category: shrimpo_voting_category, user: dj4
+    end
+
+    categories.each do |category|
+      shrimpo_voting_category = shrimpo.shrimpo_voting_categories.find_by name: category
+      entry4.shrimpo_votes.create score: rand(1..6), shrimpo_voting_category: shrimpo_voting_category, user: dj1
+      entry4.shrimpo_votes.create score: rand(1..6), shrimpo_voting_category: shrimpo_voting_category, user: dj2
+      entry4.shrimpo_votes.create score: rand(1..6), shrimpo_voting_category: shrimpo_voting_category, user: dj3
+    end
+
+    shrimpo.voting!
+    shrimpo.tally_results!
+
+    # expect(entry1.total_score).to eq 5
+    # expect(entry1.ranking).to eq 4
+    # expect(entry2.total_score).to eq 17
+    # expect(entry2.ranking).to eq 1
+    # expect(entry3.total_score).to eq 8
+    # expect(entry3.ranking).to eq 3
+    # expect(entry4.total_score).to eq 12
+    # expect(entry4.ranking).to eq 2
+    puts ExperiencePointAward.pluck :amount
+    expect(ExperiencePointAward.count).to eq 64 # for voting and winning
+    expect(FruitTicketTransaction.count).to eq 2
+
+    # trophies ???
+    # expect(TrophyAward.where(user: entry2.user, shrimpo_entry: entry2, trophy: gold_trophy).count).to eq 1
+    # expect(TrophyAward.where(user: entry4.user, shrimpo_entry: entry4, trophy: silver_trophy).count).to eq 1
+    # expect(TrophyAward.where(user: entry3.user, shrimpo_entry: entry3, trophy: bronze_trophy).count).to eq 1
+    # good_bev_count = TrophyAward.where(user: entry1.user, shrimpo_entry: entry1, trophy: consolation_trophy).count
+    # puts "got #{good_bev_count} good beverages!"
+    expect(TrophyAward.where(trophy: consolation_trophy).count).to be >= 1
+    categories.each do |category|
+      gold = Trophy.find_by name: "gold #{category}"
+      silver = Trophy.find_by name: "silver #{category}"
+      bronze = Trophy.find_by name: "bronze #{category}"
+      expect(TrophyAward.where(trophy: gold).count).to be 1
+      expect(TrophyAward.where(trophy: silver).count).to be 1
+      expect(TrophyAward.where(trophy: bronze).count).to be 1
+    end
+  end
+
   it 'shows voting completion as percentage' do
     gold_trophy = Trophy.create! name: "golden shrimpo"
     silver_trophy = Trophy.create! name: "silveren shrimpo"
