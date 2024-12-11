@@ -10,6 +10,7 @@ class Shrimpo < ApplicationRecord
   has_many :shrimpo_entries
   has_many :posts, as: :postable
   has_many :shrimpo_voting_categories
+  has_many :shrimpo_voting_category_scores
 
   has_one_attached :zip
   has_one_attached :entries_zip
@@ -123,7 +124,7 @@ class Shrimpo < ApplicationRecord
             self.shrimpo_voting_categories.each do |voting_category|
               total = entry.shrimpo_votes.where(shrimpo_voting_category: voting_category).sum(:score)
               # create shrimpo_voting_category_score
-              ShrimpoVotingCategoryScore.create shrimpo_entry: entry, shrimpo_voting_category: voting_category, score: total
+              self.shrimpo_voting_category_scores.create shrimpo_entry: entry, shrimpo_voting_category: voting_category, score: total
             end
 
           end
@@ -132,7 +133,7 @@ class Shrimpo < ApplicationRecord
         if self.mega?
           # calculate rank for each category
           self.shrimpo_voting_categories.each do |voting_category|
-            ShrimpoVotingCategoryScore.where(shrimpo_voting_category: voting_category).sort_by(&:score).reverse.each_with_index do |voting_cat_score, index|
+            self.shrimpo_voting_category_scores.where(shrimpo_voting_category: voting_category).sort_by(&:score).reverse.each_with_index do |voting_cat_score, index|
               voting_cat_score.update! ranking: index + 1
             end
           end
@@ -186,7 +187,7 @@ class Shrimpo < ApplicationRecord
         # award trophy for each category
         if self.mega?
           self.shrimpo_voting_categories.each do |voting_category|
-            ShrimpoVotingCategoryScore.where(shrimpo_voting_category: voting_category).sort_by(&:score).reverse.each_with_index do |voting_cat_score, index|
+            self.shrimpo_voting_category_scores.where(shrimpo_voting_category: voting_category).sort_by(&:score).reverse.each_with_index do |voting_cat_score, index|
               entry  = voting_cat_score.shrimpo_entry
               case voting_cat_score.ranking
               when 1

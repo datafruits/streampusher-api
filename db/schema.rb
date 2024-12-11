@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_13_185449) do
+ActiveRecord::Schema[7.0].define(version: 2024_12_11_184351) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -486,7 +486,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_13_185449) do
     t.integer "ranking"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "shrimpo_id"
     t.index ["shrimpo_entry_id"], name: "shrimpo_entry_score"
+    t.index ["shrimpo_id"], name: "index_shrimpo_voting_category_scores_on_shrimpo_id"
     t.index ["shrimpo_voting_category_id"], name: "voting_cat_score"
   end
 
