@@ -11,6 +11,6 @@ class Api::Shrimpos::ShrimpoEntries::VotingCategoriesController < ApplicationCon
         vote.save!
       end
     end
-    render head: :ok
+    render json: shrimpo, serializer: ShrimpoSerializer, current_user: current_user
   end
 end
