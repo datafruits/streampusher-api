@@ -10,6 +10,7 @@ class Shrimpo < ApplicationRecord
   has_many :shrimpo_entries
   has_many :posts, as: :postable
   has_many :shrimpo_voting_categories
+  has_many :shrimpo_voting_category_scores
 
   has_one_attached :zip
   has_one_attached :entries_zip
@@ -113,9 +114,29 @@ class Shrimpo < ApplicationRecord
 
     begin
       ActiveRecord::Base.transaction do
+        # total score and optionally category score for each entry
         self.shrimpo_entries.each do |entry|
           total_score = entry.shrimpo_votes.sum(:score)
           entry.update! total_score: total_score
+
+          if self.mega?
+            # calculate score for each category
+            self.shrimpo_voting_categories.each do |voting_category|
+              total = entry.shrimpo_votes.where(shrimpo_voting_category: voting_category).sum(:score)
+              # create shrimpo_voting_category_score
+              self.shrimpo_voting_category_scores.create shrimpo_entry: entry, shrimpo_voting_category: voting_category, score: total
+            end
+
+          end
+        end
+
+        if self.mega?
+          # calculate rank for each category
+          self.shrimpo_voting_categories.each do |voting_category|
+            self.shrimpo_voting_category_scores.where(shrimpo_voting_category: voting_category).sort_by(&:score).reverse.each_with_index do |voting_cat_score, index|
+              voting_cat_score.update! ranking: index + 1
+            end
+          end
         end
 
         self.shrimpo_entries.sort_by(&:total_score).reverse.each_with_index do |entry, index|
@@ -160,6 +181,22 @@ class Shrimpo < ApplicationRecord
             amount = rand(1..consolation_max)
             amount.times do
               TrophyAward.create! user: entry.user, trophy: self.consolation_trophy, shrimpo_entry: entry
+            end
+          end
+        end
+        # award trophy for each category
+        if self.mega?
+          self.shrimpo_voting_categories.each do |voting_category|
+            self.shrimpo_voting_category_scores.where(shrimpo_voting_category: voting_category).sort_by(&:score).reverse.each_with_index do |voting_cat_score, index|
+              entry  = voting_cat_score.shrimpo_entry
+              case voting_cat_score.ranking
+              when 1
+                TrophyAward.create! user: entry.user, trophy: voting_cat_score.shrimpo_voting_category.gold_trophy, shrimpo_entry: entry
+              when 2
+                TrophyAward.create! user: entry.user, trophy: voting_cat_score.shrimpo_voting_category.silver_trophy, shrimpo_entry: entry
+              when 3
+                TrophyAward.create! user: entry.user, trophy: voting_cat_score.shrimpo_voting_category.bronze_trophy, shrimpo_entry: entry
+              end
             end
           end
         end
@@ -209,6 +246,15 @@ class Shrimpo < ApplicationRecord
     voted_count = ShrimpoVote.where(user: user).where("shrimpo_entry_id in (?)", self.shrimpo_entries.pluck(:id)).select(:shrimpo_entry_id).distinct.count
     total_count = self.shrimpo_entries.count - 1 # subtract 1 cuz can't vote on own shrimpo
     ((voted_count.to_f / total_count.to_f) * 100).round(2)
+  end
+
+  def create_category_trophies!
+    self.shrimpo_voting_categories.each do |category|
+      gold = Trophy.create! name: "gold #{category.name}"
+      silver = Trophy.create! name: "silver #{category.name}"
+      bronze = Trophy.create! name: "bronze #{category.name}"
+      category.update! gold_trophy: gold, silver_trophy: silver, bronze_trophy: bronze
+    end
   end
 
   private

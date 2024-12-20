@@ -24,13 +24,19 @@ class Api::ShrimposController < ApplicationController
 
   def show
     shrimpo = Shrimpo.friendly.find params[:id]
-    render json: shrimpo, serializer: ShrimpoSerializer, current_user: current_user, include: ['shrimpo_entries', 'posts', 'shrimpo_entries.trophy_awards', 'shrimpo_voting_categories']
+    render json: shrimpo, serializer: ShrimpoSerializer, current_user: current_user, include: ['shrimpo_entries', 'posts', 'shrimpo_entries.trophy_awards', 'shrimpo_voting_categories', 'shrimpo_voting_categories.shrimpo_voting_category_scores']
   end
 
   private
   def shrimpo_params
     ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
       :title, :start_at, :end_at, :rule_pack, :duration, :cover_art, :zip, :emoji
+    ])
+  end
+
+  def shrimpo_voting_categories_params
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :shrimpo_voting_categories
     ])
   end
 end
