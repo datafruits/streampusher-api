@@ -39,6 +39,12 @@ class ScheduledShowsController < ApplicationController
     render json: @scheduled_show
   end
 
+  def current
+    current = StreamPusher.redis.hgetall "#{@curent_radio.name}:current_show"
+    # if no current show, return current archive + episode id info
+    render json: current
+  end
+
   def create
     authorize! :create, ScheduledShow
     if create_params[:image].present?
