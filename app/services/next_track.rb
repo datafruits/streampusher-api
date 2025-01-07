@@ -8,6 +8,12 @@ class NextTrack
       return { error: "No tracks!" }
     end
     track = Track.find track_id
+    meta = { track: track.title }
+    if track.scheduled_show.present?
+      meta[:episode] = track.scheduled_show.slug.to_s
+      meta[:show_series] = track.scheduled_show&.show_series&.slug.to_s
+    end
+    StreamPusher.redis.hset "#{radio.name}:current_archive", meta
     # liquidsoap's json parser wants strings
     { cue_out: 0.to_i.to_s, cue_in: 0.to_s, fade_out: 0.to_s, fade_in: 0.to_s, track: track.url }
   end
