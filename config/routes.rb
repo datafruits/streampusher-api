@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :scheduled_shows do
     collection do
       get 'next'
+      get 'current'
     end
   end
   get "/schedule", to: "scheduled_shows#index", as: :schedule
