@@ -1,5 +1,5 @@
 class ScheduledShowsController < ApplicationController
-  load_and_authorize_resource except: [:create, :edit, :update, :destroy]
+  load_and_authorize_resource except: [:create, :edit, :update, :destroy, :current]
   before_action :current_radio_required, only: [:index, :edit]
 
   def new
