@@ -13,6 +13,6 @@ class LiveNotification
       current_show[:scheduled_show] = s.id
     end
 
-    Streampusher.redis.hset "#{radio}:current_show", current_show
+    ::StreamPusher.redis.hset "#{radio}:current_show", current_show
   end
 end
