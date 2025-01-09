@@ -11,6 +11,8 @@ class LiveNotification
     s = r.current_scheduled_show
     if s
       current_show[:scheduled_show] = s.id
+    else
+      current_show[:scheduled_show] = nil
     end
 
     ::StreamPusher.redis.hset "#{radio}:current_show", current_show
