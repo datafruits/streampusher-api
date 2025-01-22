@@ -111,7 +111,8 @@ class Api::MyShowsController < ApplicationController
       :recurring_interval,
       :recurring_cadence,
       :recurring_weekday,
-      :start, :end
+      :start, :end,
+      :status
     ])
     if p[:image].present?
       image = Paperclip.io_adapters.for(p[:image])
