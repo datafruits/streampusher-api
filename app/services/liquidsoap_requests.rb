@@ -5,7 +5,7 @@ class LiquidsoapRequests
   end
 
   def alive
-    @liquidsoap_socket.write("request.alive").gsub(/END/, "").split(" ")
+    @liquidsoap_socket.write("request.all").gsub(/END/, "").split(" ")
   end
 
   def on_air
