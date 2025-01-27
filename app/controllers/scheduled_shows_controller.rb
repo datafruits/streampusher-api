@@ -45,7 +45,7 @@ class ScheduledShowsController < ApplicationController
     # if no current show, return current archive + episode id info
     if current.empty?
       archive = StreamPusher.redis.hgetall "#{@current_radio.name}:current_archive"
-      show = ScheduledShow.find archive["episode"]
+      show = ScheduledShow.friendly.find archive["episode"]
       render json: show
     else
       show = ScheduledShow.find current["scheduled_show"]
