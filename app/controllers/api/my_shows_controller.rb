@@ -56,6 +56,7 @@ class Api::MyShowsController < ApplicationController
       end
     else
       show_series = ShowSeries.new my_show_params
+      show_series.status = 'active'
       if users_params.has_key? :user_ids
         users_params[:user_ids].each do |user_id|
           show_series.show_series_hosts.build user_id: user_id
