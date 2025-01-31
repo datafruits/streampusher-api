@@ -46,7 +46,7 @@ class Api::MyShowsController < ApplicationController
           episode.scheduled_show_labels.build label_id: label_id
         end
       end
-      # binding.pry
+      episode.status = 'archive_unpublished'
       if episode.save
         ActiveSupport::Notifications.instrument 'guest_show.created', current_user: current_user.email, show_series: episode.title
         render json: guest_series
