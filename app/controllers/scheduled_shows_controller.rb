@@ -43,7 +43,7 @@ class ScheduledShowsController < ApplicationController
     response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
     current = StreamPusher.redis.hgetall "#{@current_radio.name}:current_show"
     # if no current show, return current archive + episode id info
-    if current.empty?
+    if current.empty? || current["scheduled_show"].blank?
       archive = StreamPusher.redis.hgetall "#{@current_radio.name}:current_archive"
       show = ScheduledShow.friendly.find archive["episode"]
       render json: show
