@@ -18,35 +18,8 @@ class Api::MyShowsController < ApplicationController
   def create
     authorize! :create, ShowSeries
     if my_show_params[:recurring_interval] === "not_recurring"
+      episode = GuestShowBuilder.perform current_user, my_show_params, users_params, labels_params
       guest_series = ShowSeries.find_by(title: "GuestFruits")
-      episode = guest_series.episodes.new my_show_params.except(:recurring_interval, :recurring_cadence, :recurring_weekday, :start_date, :end_date, :start_time, :end_time)
-      start_time = DateTime.parse my_show_params[:start_time]
-      end_time = DateTime.parse my_show_params[:end_time]
-      start_date = DateTime.parse my_show_params[:start_date]
-      time_zone = current_user.time_zone
-      episode.start_at = DateTime.new start_date.year,
-                                      start_date.month,
-                                      start_date.day,
-                                      start_time.hour,
-                                      0,
-                                      0,
-                                      current_user.time_zone
-      episode.end_at = episode.start_at + ((end_time - start_time) * 24).to_i.hours
-      episode.playlist = guest_series.radio.default_playlist
-      episode.dj_id = users_params[:user_ids].first
-      episode.radio_id = guest_series.radio_id
-      # TODO add hosts
-      # if users_params.has_key? :user_ids
-      #   users_params[:user_ids].each do |user_id|
-      #     show_series.show_series_hosts.build user_id: user_id
-      #   end
-      # end
-      if labels_params.has_key? :label_ids
-        labels_params[:label_ids].each do |label_id|
-          episode.scheduled_show_labels.build label_id: label_id
-        end
-      end
-      episode.status = 'archive_unpublished'
       if episode.save
         ActiveSupport::Notifications.instrument 'guest_show.created', current_user: current_user.email, show_series: episode.title
         render json: guest_series
