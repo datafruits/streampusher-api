@@ -8,12 +8,12 @@ class PatreonPledge < ApplicationRecord
     # but maybe one day we can actually fetch them from the API again
     # if they ever change
    {
-     "2707958" => "it's just a website" =>,
-     "3525904" => "This is amazing" =>,
-     "7252475" => "duckle" =>,
-     "2647278" => "Datafruits Premium" =>,
-     "3045500" => "emerald fruitizen" =>,
-     "2707792" => "golden fruitizard" =>,
+     "2707958" => "it's just a website",
+     "3525904" => "This is amazing",
+     "7252475" => "duckle",
+     "2647278" => "Datafruits Premium",
+     "3045500" => "emerald fruitizen",
+     "2707792" => "golden fruitizard",
      "2985324" => "omnipresent fruit guru K.O.",
    }
   end
