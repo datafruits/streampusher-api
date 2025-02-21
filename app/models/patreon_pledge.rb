@@ -1,5 +1,4 @@
 class PatreonPledge < ApplicationRecord
-  # TODO
   after_create :add_role_to_user
 
   def tier_mappings
@@ -30,8 +29,10 @@ class PatreonPledge < ApplicationRecord
   end
 
   def tier_name
-    tier_id = parsed_json["relationships"]["currently_entitled_tiers"]["data"][0]["id"]
-    tier_mappings[tier_id]
+    if parsed_json["relationships"]["currently_entitled_tiers"].present?
+      tier_id = parsed_json["relationships"]["currently_entitled_tiers"]["data"][0]["id"]
+      tier_mappings[tier_id]
+    end
   end
 
   private
@@ -39,7 +40,7 @@ class PatreonPledge < ApplicationRecord
     email = parsed_json["attributes"]["email"]
     user = User.find_by email: email
     # if we can't find the user by the email, will have to assign later manually
-    if user.present?
+    if tier_name.present? && user.present?
       user.add_role_to_user
       case tier_name
       # TODO
