@@ -34,7 +34,8 @@ class LiquidsoapRequests
   end
 
   def skip
-    @liquidsoap_socket.write("icecast.skip").encode("UTF-8")
+    # @liquidsoap_socket.write("icecast.skip").encode("UTF-8")
+    @liquidsoap_socket.write("backup_playlist.flush_and_skip").encode("UTF-8")
   end
 
   def scheduled_shows_queue
