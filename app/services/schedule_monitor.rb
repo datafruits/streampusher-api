@@ -27,7 +27,7 @@ class ScheduleMonitor
       # TODO when to clear this ??
       #
       # on fallback switch???
-      current_show = { title: current_scheduled_show_in_db.title, user: current_scheduled_show_in_db.user.username }
+      current_show = { title: current_scheduled_show_in_db.title, user: current_scheduled_show_in_db.dj.username }
       StreamPusher.redis.hset "#{radio}:current_show", current_show
     else
       puts "current show is already playing and queued?"
