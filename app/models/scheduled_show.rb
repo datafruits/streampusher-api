@@ -117,6 +117,7 @@ class ScheduledShow < ActiveRecord::Base
         end
         puts "found track: #{track}"
         if track
+          # should be audio_file_name in dev ???
           liquidsoap.add_to_queue track.url
           puts "added to queue: #{track.url}"
           ScheduledShowExpAwardWorker.perform_later self.id
