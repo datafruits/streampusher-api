@@ -102,7 +102,7 @@ class Notification < ApplicationRecord
     when "show_comment"
       "#{self.source.title} has a new comment!"
     when "patreon_sub"
-      # TODO figure out which tier somehow
+      # TODO
       # "#{self.source.name} subscribed to the #{self.source.tier_name} tier on patreon!"
       "#{self.source.name} subscribed to the patreon!"
     when "new_thread"
