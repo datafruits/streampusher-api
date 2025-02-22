@@ -12,10 +12,9 @@ class LiveNotification
     if s.present? && s.dj.username == user
       current_show[:scheduled_show] = s.id
     else
-      current_show[:scheduled_show] = nil
+      current_show[:scheduled_show] = ""
     end
 
-    # why does this fail
     ::StreamPusher.redis.hset "#{radio}:current_show", current_show
   end
 end
