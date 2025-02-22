@@ -102,7 +102,12 @@ class Notification < ApplicationRecord
     when "show_comment"
       "#{self.source.title} has a new comment!"
     when "patreon_sub"
-      "#{self.source.name} subscribed to the #{self.source.tier_name} tier on patreon!"
+      gif_url = GiphyTextAnimator.animate_text self.source.name
+      if gif_url.is_a? String
+        "#{self.source.name} subscribed to the #{self.source.tier_name} tier on patreon! #{gif_url}"
+      else
+        "#{self.source.name} subscribed to the #{self.source.tier_name} tier on patreon!"
+      end
     when "new_thread"
       "New thread posted in da fruit standz: #{self.source.title}"
     when "new_thread_reply"

@@ -1,0 +1,72 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.giphy.com/v1/text/animate?api_key=OJAyf3JHblNAu9hHhmccbPrH4wCN0pJQ&limit=50&m=Anthony%20subscribed%20to%20the%20patreon
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 403
+      message: Forbidden
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '108'
+      Content-Type:
+      - application/json
+      X-Response-Time:
+      - 0ms
+      X-Kong-Request-Id:
+      - 6527945ecf98b05a0018c72c1890085d
+      X-Cachiness-Shield-Rule:
+      - fastly_default
+      X-Cachiness-Shield-Desired-Ttl:
+      - 1200s
+      X-Cachiness-Shield-Actual-Ttl:
+      - '1200.000'
+      Accept-Ranges:
+      - bytes
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Authorization, Content-Type, Accept, x-requested-with, cache-control, X-GIPHY-SDK-NAME,
+        X-GIPHY-SDK-VERSION, X-GIPHY-SDK-PLATFORM, X-CSRFToken
+      X-Rule-Debug:
+      - '1'
+      X-Cachiness-Edge-Rule:
+      - fastly_default
+      X-Cachiness-Edge-Desired-Ttl:
+      - 1200s
+      X-Cachiness-Edge-Actual-Ttl:
+      - '1200.000'
+      Date:
+      - Sat, 22 Feb 2025 00:16:35 GMT
+      X-Served-By:
+      - cache-iad-kjyo7100085-IAD, cache-bfi-krnt7300112-BFI
+      X-Cache-Hits:
+      - 0, 0
+      X-Timer:
+      - S1740183395.134419,VS0,VE66
+      Strict-Transport-Security:
+      - max-age=15465600
+      Alt-Svc:
+      - h3=":443";ma=86400,h3-29=":443";ma=86400,h3-27=":443";ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: '{"data":[],"meta":{"status":403,"msg":"Forbidden","response_id":"bcjrg5mwk4ckvkdrkijgqy571hfpelwzk8ex4lv3"}}'
+  recorded_at: Sat, 22 Feb 2025 00:16:36 GMT
+recorded_with: VCR 6.1.0
