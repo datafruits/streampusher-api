@@ -4,7 +4,7 @@ require 'json'
 
 class GiphyTextAnimator
   BASE_URL = "https://api.giphy.com/v1/text/animate"
-  API_KEY = "OJAyf3JHblNAu9hHhmccbPrH4wCN0pJQ"
+  API_KEY = "t1Ct6FjNhjrMMO8HH7Ak6vUdqCrECvY0"
 
   def self.animate_text(username, message="subscribed to the patreon", limit=50)
     uri = URI(BASE_URL)
