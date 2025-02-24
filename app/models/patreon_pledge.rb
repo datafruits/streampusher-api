@@ -41,7 +41,7 @@ class PatreonPledge < ApplicationRecord
     email = parsed_json["attributes"]["email"]
     user = User.find_by email: email
     # if we can't find the user by the email, will have to assign later manually
-    if tier_name.present? && user.present?
+    if user.present? && tier_name.present?
       user.add_role_to_user
       case tier_name
       # TODO make new badges for these??
