@@ -29,8 +29,9 @@ class PatreonPledge < ApplicationRecord
   end
 
   def tier_name
-    if parsed_json["relationships"]["currently_entitled_tiers"].present?
-      tier_id = parsed_json["relationships"]["currently_entitled_tiers"]["data"][0]["id"]
+    current_tiers = parsed_json["relationships"]["currently_entitled_tiers"]
+    if current_tiers.present? && current_tiers["data"].any?
+      tier_id = current_tiers["data"][0]["id"]
       tier_mappings[tier_id]
     end
   end
@@ -43,7 +44,7 @@ class PatreonPledge < ApplicationRecord
     if tier_name.present? && user.present?
       user.add_role_to_user
       case tier_name
-      # TODO
+      # TODO make new badges for these??
       # when "it's just a website"
       # when "this is amazing"
       when "duckle"
