@@ -48,7 +48,7 @@ class ScheduledShowsController < ApplicationController
       show = ScheduledShow.friendly.find archive["episode"]
       render json: show
     # if no scheduled_show id, it's a renegade show B-)
-    elsif current["title"].present && current["scheduled_show"].blank?
+    elsif current["title"].present? && current["scheduled_show"].blank?
       render json: { title: current["title"], renegade: true }
     # otherwise its a live show and on the timetable, so return the show json
     else
