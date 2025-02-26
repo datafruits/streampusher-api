@@ -17,6 +17,11 @@ class PatreonPledge < ApplicationRecord
    }
   end
 
+  def patreon_checkout_link
+    tier_id = tier_mappings.key(tier_name)
+    "https://www.patreon.com/checkout/datafruits?rid=#{tier_id}"
+  end
+
   def parsed_json
     valid_json_string = self.json_blob
       .gsub("=>", ": ") # Convert hash rocket `=>` to JSON `:`

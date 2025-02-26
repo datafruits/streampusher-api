@@ -104,9 +104,9 @@ class Notification < ApplicationRecord
     when "patreon_sub"
       gif_url = GiphyTextAnimator.animate_text self.source.name
       if gif_url.is_a? String
-        "#{self.source.name} subscribed to the #{self.source.tier_name} tier on patreon! #{gif_url}"
+        "#{self.source.name} subscribed to the #{self.source.tier_name} tier on patreon! #{gif_url} #{self.source.patreon_checkout_link}"
       else
-        "#{self.source.name} subscribed to the #{self.source.tier_name} tier on patreon!"
+        "#{self.source.name} subscribed to the #{self.source.tier_name} tier on patreon! #{self.source.patreon_checkout_link}"
       end
     when "new_thread"
       "New thread posted in da fruit standz: #{self.source.title}"
