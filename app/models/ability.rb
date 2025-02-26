@@ -17,6 +17,8 @@ class Ability
       can :update, ShowSeries
       can :index, :my_shows
       can :vote, :shrimpo
+
+      can :create, TreasureChest
     elsif user.manager?
       can :index, :current_user
       can :update, :current_user
@@ -60,6 +62,8 @@ class Ability
       can :create, ShowSeries
       can :index, :my_shows
       can :vote, :shrimpo
+
+      can :create, TreasureChest
     elsif user.dj?
       can :index, :current_user
       can :update, :current_user
@@ -143,6 +147,8 @@ class Ability
       can :index, :my_shows
       can :vote, :shrimpo
 
+      can :create, TreasureChest
+
       cannot :admin, :dashboard
       cannot :admin, :radios
       cannot :admin, :sign_in_as
@@ -165,6 +171,8 @@ class Ability
       can :show, Label if format == "json"
       can :create, ForumThread
       can :vote, :shrimpo
+
+      can :create, TreasureChest
 
       cannot :admin, :dashboard
       cannot :admin, :radios

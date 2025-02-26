@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_01_27_015236) do
+ActiveRecord::Schema[7.0].define(version: 2025_02_26_015843) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -196,6 +196,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_27_015236) do
     t.string "source_type"
     t.boolean "read", default: false, null: false
     t.string "url"
+    t.string "message_key"
+    t.jsonb "message_params", default: {}
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
@@ -576,6 +578,16 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_27_015236) do
     t.index ["radio_id"], name: "index_tracks_on_radio_id"
     t.index ["scheduled_show_id"], name: "index_tracks_on_scheduled_show_id"
     t.index ["uploaded_by_id"], name: "index_tracks_on_uploaded_by_id"
+  end
+
+  create_table "treasure_chests", force: :cascade do |t|
+    t.string "treasure_name"
+    t.integer "amount"
+    t.bigint "user_id"
+    t.string "treasure_uid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_treasure_chests_on_user_id"
   end
 
   create_table "trophies", force: :cascade do |t|

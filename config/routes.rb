@@ -162,6 +162,8 @@ Rails.application.routes.draw do
 
     end
     resources :labels, only: [:create, :index, :show]
+
+    resources :treasure_chests, only: [:create]
   end
 
   resources :patreon_webhooks, only: [:create]
