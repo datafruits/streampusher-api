@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_02_26_015843) do
+ActiveRecord::Schema[7.0].define(version: 2025_02_27_221736) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -584,9 +584,10 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_26_015843) do
     t.string "treasure_name"
     t.integer "amount"
     t.bigint "user_id"
-    t.string "treasure_uid"
+    t.string "treasure_uuid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["treasure_uuid"], name: "index_treasure_chests_on_treasure_uuid", unique: true
     t.index ["user_id"], name: "index_treasure_chests_on_user_id"
   end
 

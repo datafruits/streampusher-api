@@ -17,7 +17,7 @@ class Api::TreasureChestsController < ApplicationController
   private
   def treasure_chest_params
     ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
-      :treasure_name, :amount, :username, :treasure_uid
+      :treasure_name, :amount, :username, :treasure_uuid
     ])
   end
 end
