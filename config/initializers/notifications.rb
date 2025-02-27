@@ -41,6 +41,8 @@ if Rails.env.production?
             "shrimpo.entry.create.error",
             "shrimpo.vote.created",
             "shrimpo.vote.create.error",
+            "treasure_chest.opened",
+            "treasure_chest.open.error",
            ]
 
   events.each do |event|
