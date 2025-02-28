@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_02_27_221736) do
+ActiveRecord::Schema[7.0].define(version: 2025_02_28_205204) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -581,10 +581,10 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_27_221736) do
   end
 
   create_table "treasure_chests", force: :cascade do |t|
-    t.string "treasure_name"
+    t.string "treasure_name", null: false
     t.integer "amount"
-    t.bigint "user_id"
-    t.string "treasure_uuid"
+    t.bigint "user_id", null: false
+    t.string "treasure_uuid", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["treasure_uuid"], name: "index_treasure_chests_on_treasure_uuid", unique: true
