@@ -8,6 +8,7 @@ class LiquidsoapRequests
     @liquidsoap_socket.write("request.all").gsub(/END/, "").split(" ")
   end
 
+  # FIXME this API no longer exists
   def on_air
     @liquidsoap_socket.write("request.on_air").gsub(/END/, "").split(" ")
   end
@@ -48,5 +49,17 @@ class LiquidsoapRequests
 
   def metadata_to_hash m
     Hash[m.each_line.map { |line| line.chomp.gsub("\"", "").split("=", 2) }]
+  end
+
+  def current_source
+    source = @liquidsoap_socket.write "fallback.current_source"
+    case source
+    when source.include?("live_dj")
+      "live_dj"
+    when source.include?("scheduled_shows")
+      "scheduled_shows"
+    when source.include?("backup_playlist")
+      "backup_playlist"
+    end
   end
 end

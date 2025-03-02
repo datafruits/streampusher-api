@@ -41,6 +41,7 @@ class ScheduledShowsController < ApplicationController
 
   def current
     response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
+    # TODO grab from datafruits:canonical_metadata
     current = StreamPusher.redis.hgetall "#{@current_radio.name}:current_show"
     # if no current show, return current archive + episode id info
     if current.empty?

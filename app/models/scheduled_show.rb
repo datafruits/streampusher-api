@@ -123,6 +123,11 @@ class ScheduledShow < ActiveRecord::Base
           ScheduledShowExpAwardWorker.perform_later self.id
         end
       end
+      # TODO when to clear this ??
+      #
+      # on fallback switch???
+      current_show = { title: self.title, user: self.dj.username, scheduled_show: self }
+      StreamPusher.redis.hset "#{radio}:current_show", current_show
     else
       puts "tried to queue #{self.inspect}'s playlist, but playlist empty in redis!"
     end
