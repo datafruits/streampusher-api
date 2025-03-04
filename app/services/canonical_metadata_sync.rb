@@ -21,7 +21,9 @@ class CanonicalMetadataSync
       canonical_metadata["show_series_id"] = StreamPusher.redis.hget "#{radio.name}:current_archive", "show_series"
       canonical_metadata["episode_id"] = StreamPusher.redis.hget "#{radio.name}:current_archive", "episode"
     end
-    # { current_source: "live", title: "LIVE -- oven", show_series_id: "123124123", episode_id: "123123", dj: "oven" }
+    # { current_source: "live", title: "LIVE -- oven", show_series_id: "fruits-2nite", episode_id: "fruits-2nite-12312023", dj: "oven" }
+    # { current_source: "scheduled_shows", title: "DHL - 09272025", show_series_id: "digital-high-life", episode_id: "digital-high-life-08282025", dj: "mitsuco" }
+    # { current_source: "backup_playlist", title: "DHL - 09272025", show_series_id: "digital-high-life", episode_id: "digital-high-life-08282025", dj: "mitsuco" }
     # set canonical metadata
     StreamPusher.redis.hset "#{radio.name}:canonical_metadata", canonical_metadata
   end
