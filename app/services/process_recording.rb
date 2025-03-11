@@ -27,6 +27,7 @@ class ProcessRecording
       if scheduled_show.present?
         # grab scheduled show's info to use metadata and artwork
         track.update scheduled_show_id: scheduled_show.id, title: scheduled_show.formatted_episode_title
+        scheduled_show.maybe_add_to_default_playlist
       end
       StreamingExpAwardWorker.set(wait: 15.minute).perform_later(track.id)
     rescue Exception => e
