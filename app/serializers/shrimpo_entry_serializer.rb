@@ -6,6 +6,10 @@ class ShrimpoEntrySerializer < ActiveModel::Serializer
   has_many :posts, embed: :ids, key: :posts, embed_in_root: true, each_serializer: PostSerializer
   has_many :trophy_awards, embed: :ids, key: :trophy_awards, embed_in_root: true, each_serializer: TrophyAwardSerializer
 
+  def shrimpo_id
+    object.shrimpo.slug
+  end
+
   def previous_shrimpo_entry_slug
     if object.previous_entry.present?
       object.previous_entry.slug
