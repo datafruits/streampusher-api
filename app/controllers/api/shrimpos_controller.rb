@@ -1,7 +1,7 @@
 class Api::ShrimposController < ApplicationController
   def index
     shrimpos = Shrimpo.all
-    render json: shrimpos, include: ['shrimpo_entries', 'posts', 'shrimpo_entries.trophy_awards', 'shrimpo_voting_categories', 'shrimpo_voting_categories.shrimpo_voting_category_scores']
+    render json: shrimpos
 
   end
 
