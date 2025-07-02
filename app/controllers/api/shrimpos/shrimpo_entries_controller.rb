@@ -1,7 +1,7 @@
 class Api::Shrimpos::ShrimpoEntriesController < ApplicationController
   def show
     entry = ::Shrimpo.friendly.find(params[:shrimpo_id]).shrimpo_entries.friendly.find(params[:id])
-    render json: entry, include: ['shrimpo_votes', 'posts', 'trophy_awards']
+    render json: entry, current_user: current_user, include: ['shrimpo_votes', 'posts', 'trophy_awards', 'user']
   end
 
   def create

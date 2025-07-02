@@ -1,10 +1,31 @@
 class ShrimpoEntrySerializer < ActiveModel::Serializer
-  attributes :title, :audio_file_url, :username, :user_avatar, :slug, :user_role, :cdn_url, :shrimpo_emoji, :shrimpo_slug, :created_at, :previous_shrimpo_entry_slug, :next_shrimpo_entry_slug, :total_score, :ranking
+  attributes :title, :audio_file_url, :username, :user_avatar, :slug, :user_role, :cdn_url, :shrimpo_emoji, :shrimpo_slug, :created_at, :previous_shrimpo_entry_slug, :next_shrimpo_entry_slug, :total_score, :ranking, :shrimpo_status, :shrimpo_type,
+    :shrimpo_title, :shrimpo_total_entries, :shrimpo_voting_completion_percentage
   belongs_to :shrimpo
   has_many :shrimpo_votes, embed: :ids, key: :shrimpo_votes, embed_in_root: true, each_serializer: ShrimpoVoteSerializer
   has_many :posts, embed: :ids, key: :posts, embed_in_root: true, each_serializer: PostSerializer
   has_many :posts, embed: :ids, key: :posts, embed_in_root: true, each_serializer: PostSerializer
   has_many :trophy_awards, embed: :ids, key: :trophy_awards, embed_in_root: true, each_serializer: TrophyAwardSerializer
+
+  def shrimpo_voting_completion_percentage
+    object.shrimpo.voting_completion instance_options[:current_user]
+  end
+
+  def shrimpo_total_entries
+    object.shrimpo.shrimpo_entries.count
+  end
+
+  def shrimpo_title
+    object.shrimpo.title
+  end
+
+  def shrimpo_status
+    object.shrimpo.status
+  end
+
+  def shrimpo_type
+    object.shrimpo.shrimpo_type
+  end
 
   def shrimpo_id
     object.shrimpo.slug
