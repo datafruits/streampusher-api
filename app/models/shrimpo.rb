@@ -42,6 +42,8 @@ class Shrimpo < ApplicationRecord
   after_create :queue_end_shrimpo_job
   after_create :send_notification
 
+  after_create :create_category_trophies!, if: -> { self.mega? }
+
   VALID_DURATIONS = [
     # minors
     "1 hour",
