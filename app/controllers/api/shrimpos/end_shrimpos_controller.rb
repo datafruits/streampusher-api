@@ -2,9 +2,9 @@ class Api::Shrimpos::EndShrimposController < ApplicationController
   def create
     # TODO auth
     shrimpo = Shrimpo.friendly.find params[:shrimpo_id]
-    # if !shrimpo.voting? && (!current_user != shrimpo.user || !current_user.admin?)
-    #   render status: :unprocessable_entity
-    # end
+    if !shrimpo.voting? && (!current_user != shrimpo.user || !current_user.admin?)
+      render head: :forbidden
+    end
 
     if shrimpo.tally_results!
       ActiveSupport::Notifications.instrument 'shrimpo.ended', title: shrimpo.title
