@@ -5,7 +5,7 @@ class ShrimpoEntrySerializer < ActiveModel::Serializer
   has_many :shrimpo_votes, embed: :ids, key: :shrimpo_votes, embed_in_root: true, each_serializer: ShrimpoVoteSerializer
   has_many :posts, embed: :ids, key: :posts, embed_in_root: true, each_serializer: PostSerializer
   has_many :trophy_awards, embed: :ids, key: :trophy_awards, embed_in_root: true, each_serializer: TrophyAwardSerializer
-  has_many :shrimpo_voting_category_scores, :ids, key: :shrimpo_voting_category_scores, embed_in_root: true, each_serializer: ShrimpoVotingCategoryScoreSerializer
+  has_many :shrimpo_voting_category_scores, embed: :ids, key: :shrimpo_voting_category_scores, embed_in_root: true, each_serializer: ShrimpoVotingCategoryScoreSerializer
 
   def shrimpo_voting_completion_percentage
     object.shrimpo.voting_completion instance_options[:current_user]
