@@ -83,4 +83,8 @@ class ShrimpoEntrySerializer < ActiveModel::Serializer
   def trophy_awards
     object.trophy_awards
   end
+
+  def shrimpo_voting_category_scores
+    object.shrimpo_voting_category_scores
+  end
 end
