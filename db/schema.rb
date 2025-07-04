@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_02_28_205204) do
+ActiveRecord::Schema[7.0].define(version: 2025_07_04_000936) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -491,7 +491,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_28_205204) do
     t.bigint "shrimpo_id"
     t.index ["shrimpo_entry_id"], name: "shrimpo_entry_score"
     t.index ["shrimpo_id"], name: "index_shrimpo_voting_category_scores_on_shrimpo_id"
-    t.index ["shrimpo_voting_category_id"], name: "voting_cat_score"
+    t.index ["shrimpo_voting_category_id", "shrimpo_entry_id"], name: "voting_cat_score", unique: true
   end
 
   create_table "shrimpos", force: :cascade do |t|
