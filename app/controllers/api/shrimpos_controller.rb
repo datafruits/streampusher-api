@@ -2,6 +2,7 @@ class Api::ShrimposController < ApplicationController
   def index
     shrimpos = Shrimpo.all
     render json: shrimpos
+
   end
 
   def create
@@ -13,12 +14,20 @@ class Api::ShrimposController < ApplicationController
     shrimpo.silver_trophy = Trophy.find_by(name: "silveren shrimpo")
     shrimpo.bronze_trophy = Trophy.find_by(name: "bronzeen shrimpo")
     shrimpo.consolation_trophy = Trophy.find_by(name: "good beverage")
-    if shrimpo.save_and_deposit_fruit_tickets!
+    if shrimpo.valid? && shrimpo.save_and_deposit_fruit_tickets!
       ActiveSupport::Notifications.instrument 'shrimpo.created', username: shrimpo.user.username, title: shrimpo.title
       render json: shrimpo
     else
       ActiveSupport::Notifications.instrument 'shrimpo.create.error', username: shrimpo.user.username, title: shrimpo.title, errors: shrimpo.errors, params: params
-      render json: { errors: shrimpo.errors }, status: 422
+      errors = shrimpo.errors.map do |error|
+        {
+          status: "422",
+          source: { pointer: "/data/attributes/#{error.attribute}" },
+          title: "Invalid Attribute",
+          detail: error.full_message
+        }
+      end
+      render json: { errors: errors }, status: 422
     end
   end
 

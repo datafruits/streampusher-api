@@ -8,6 +8,8 @@ class ExperiencePointAward < ApplicationRecord
   validates :amount,
     numericality: { only_integer: true, greater_than: 0 }
 
+  validates :award_type, presence: true
+
   enum award_type: [
     :chat_lurker, # lurking in chat TODO implement
     :music_enjoyer, # listening to stream or podcasts TODO implement???

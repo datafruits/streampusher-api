@@ -220,7 +220,7 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def maybe_process_recording
-    if self.recording && self.recording.processing_status === 'unprocessed'
+    if self.recording
       ProcessRecordingWorker.perform_later self.recording.id, self.id
     end
   end

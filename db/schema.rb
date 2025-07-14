@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_01_27_015236) do
+ActiveRecord::Schema[7.0].define(version: 2025_07_04_000936) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -196,6 +196,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_27_015236) do
     t.string "source_type"
     t.boolean "read", default: false, null: false
     t.string "url"
+    t.string "message_key"
+    t.jsonb "message_params", default: {}
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
@@ -489,7 +491,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_27_015236) do
     t.bigint "shrimpo_id"
     t.index ["shrimpo_entry_id"], name: "shrimpo_entry_score"
     t.index ["shrimpo_id"], name: "index_shrimpo_voting_category_scores_on_shrimpo_id"
-    t.index ["shrimpo_voting_category_id"], name: "voting_cat_score"
+    t.index ["shrimpo_voting_category_id", "shrimpo_entry_id"], name: "voting_cat_score", unique: true
   end
 
   create_table "shrimpos", force: :cascade do |t|
@@ -576,6 +578,17 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_27_015236) do
     t.index ["radio_id"], name: "index_tracks_on_radio_id"
     t.index ["scheduled_show_id"], name: "index_tracks_on_scheduled_show_id"
     t.index ["uploaded_by_id"], name: "index_tracks_on_uploaded_by_id"
+  end
+
+  create_table "treasure_chests", force: :cascade do |t|
+    t.string "treasure_name", null: false
+    t.integer "amount"
+    t.bigint "user_id", null: false
+    t.string "treasure_uuid", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["treasure_uuid"], name: "index_treasure_chests_on_treasure_uuid", unique: true
+    t.index ["user_id"], name: "index_treasure_chests_on_user_id"
   end
 
   create_table "trophies", force: :cascade do |t|

@@ -35,6 +35,8 @@ class FruitTicketTransaction < ApplicationRecord
     :shrimpo_playback,
 
     :stimulus, # a stimulus from the bank of fruit tickets
+
+    :treasure_reward,
   ]
 
   def transact_and_save!
@@ -79,6 +81,8 @@ class FruitTicketTransaction < ApplicationRecord
         when "stimulus"
           self.to_user.update fruit_ticket_balance: self.to_user.fruit_ticket_balance + self.amount
           self.save!
+        when "treasure_reward"
+          self.to_user.update fruit_ticket_balance: self.to_user.fruit_ticket_balance + self.amount
         else
           raise "invalid transaction_type"
         end
@@ -107,6 +111,8 @@ class FruitTicketTransaction < ApplicationRecord
       Notification.create! source: self, send_to_chat: false, user: to_user, notification_type: "fruit_ticket_stimulus"
     when "shrimpo_deposit_return"
       Notification.create! source: self, send_to_chat: false, user: to_user, notification_type: "shrimpo_deposit_return"
+    when "treasure_reward"
+      Notification.create! source: self, send_to_chat: false, user: to_user, notification_type: "treasure_fruit_tix_reward"
     end
   end
 end

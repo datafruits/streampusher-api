@@ -8,7 +8,7 @@ class ShrimpoEntry < ApplicationRecord
   has_many :shrimpo_votes
   has_many :posts, as: :postable
   has_many :trophy_awards
-  has_many :shrimpo_voting_category_score
+  has_many :shrimpo_voting_category_scores
 
   validates :title, presence: true
 
