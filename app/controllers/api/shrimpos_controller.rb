@@ -14,6 +14,13 @@ class Api::ShrimposController < ApplicationController
     shrimpo.silver_trophy = Trophy.find_by(name: "silveren shrimpo")
     shrimpo.bronze_trophy = Trophy.find_by(name: "bronzeen shrimpo")
     shrimpo.consolation_trophy = Trophy.find_by(name: "good beverage")
+
+    if shrimpo.mega? && shrimpo_voting_categories_params
+      shrimpo_voting_categories_params.each do |category|
+        shrimpo.shrimpo_voting_categories.build name: category, emoji: ":#{category}:"
+      end
+    end
+
     if shrimpo.valid? && shrimpo.save_and_deposit_fruit_tickets!
       ActiveSupport::Notifications.instrument 'shrimpo.created', username: shrimpo.user.username, title: shrimpo.title
       render json: shrimpo
