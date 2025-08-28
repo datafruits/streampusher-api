@@ -157,11 +157,12 @@ class ScheduledShow < ActiveRecord::Base
     # Prefer Active Storage attachment if available
     if active_storage_image.attached?
       # For Active Storage, we'll need to create a variant for thumbnail
+      # Using resize_to_limit to match Paperclip's "x300" style (max height 300, maintain aspect ratio)
       if ::Rails.env != "production"
-        path = ::Rails.application.routes.url_helpers.rails_blob_path(active_storage_image.variant(resize_to_limit: [300, 300]), only_path: true, disposition: :inline)
+        path = ::Rails.application.routes.url_helpers.rails_blob_path(active_storage_image.variant(resize_to_limit: [nil, 300]), only_path: true, disposition: :inline)
         "http://localhost:3000#{path}"
       else
-        active_storage_image.variant(resize_to_limit: [300, 300]).url
+        active_storage_image.variant(resize_to_limit: [nil, 300]).url
       end
     elsif self.image.present?
       # Fallback to legacy Paperclip

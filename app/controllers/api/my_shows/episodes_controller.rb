@@ -4,8 +4,8 @@ class Api::MyShows::EpisodesController < ApplicationController
     authorize! :update, @scheduled_show
     if create_params[:image].present? && !create_params[:image].is_a?(Hash)
       # Handle both Active Storage signed IDs and legacy Paperclip data URIs
-      if create_params[:image].is_a?(String) && create_params[:image].match?(/\A[\w-]+\z/)
-        # Active Storage signed ID
+      if create_params[:image].is_a?(String) && create_params[:image].match?(/\A[\w-]+\z/) && create_params[:image].length > 10
+        # Active Storage signed ID (longer than 10 chars, only word chars and hyphens)
         @scheduled_show.attributes = create_params.except(:image_filename).except(:image)
         @scheduled_show.active_storage_image.attach(create_params[:image])
       else
