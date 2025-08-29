@@ -19,10 +19,21 @@ duplicate_groups = Label.select(:radio_id, :name)
                         .group(:radio_id, :name)
                         .having("count(*) > 1")
 
+total_groups = duplicate_groups.count
+if total_groups == 0
+  puts "No duplicate labels found. Database is clean!"
+  exit 0
+end
+
+puts "Found #{total_groups} duplicate label groups to process..."
+
 duplicate_count = 0
 consolidated_count = 0
+group_counter = 0
 
 duplicate_groups.find_each do |duplicate_group|
+  group_counter += 1
+  
   # Get all labels with this radio_id and name
   labels_to_consolidate = Label.where(
     radio_id: duplicate_group.radio_id,
@@ -35,7 +46,7 @@ duplicate_groups.find_each do |duplicate_group|
   label_to_keep = labels_to_consolidate.first
   labels_to_remove = labels_to_consolidate[1..-1]
   
-  puts "\nConsolidating #{labels_to_consolidate.count} duplicate labels for radio #{duplicate_group.radio_id}, name: '#{duplicate_group.name}'"
+  puts "\n[#{group_counter}/#{total_groups}] Consolidating #{labels_to_consolidate.count} duplicate labels for radio #{duplicate_group.radio_id}, name: '#{duplicate_group.name}'"
   puts "  Keeping label ID #{label_to_keep.id} (created: #{label_to_keep.created_at})"
   puts "  Removing label IDs: #{labels_to_remove.map(&:id).join(', ')}"
   
