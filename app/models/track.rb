@@ -24,6 +24,11 @@ class Track < ActiveRecord::Base
 
   validates_attachment_content_type :artwork, content_type: /\Aimage\/.*\Z/
 
+  # Prevent duplicate audio files for the same scheduled show
+  validates :audio_file_name, uniqueness: { scope: :scheduled_show_id, 
+                                           message: "already exists for this scheduled show" }, 
+                              allow_blank: true
+
   before_post_process :transliterate_file_name
 
   has_tags column: :s3_filepath, storage: :s3,

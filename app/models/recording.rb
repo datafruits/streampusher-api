@@ -3,6 +3,9 @@ class Recording < ActiveRecord::Base
   belongs_to :dj, class_name: "User"
   belongs_to :track
 
+  # Ensure one-to-one relationship between recording and track
+  validates :track_id, uniqueness: true, allow_nil: true
+
   enum processing_status: ['unprocessed', 'processing', 'processed', 'processing_failed']
 
   default_scope { order(created_at: :desc) }
