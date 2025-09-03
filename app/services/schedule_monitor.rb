@@ -23,12 +23,6 @@ class ScheduleMonitor
       end
       # current_scheduled_show_in_db and redis should sync
       radio.set_current_show_playing current_scheduled_show_in_db.id
-      # TODO set current_show metadata here
-      # TODO when to clear this ??
-      #
-      # on fallback switch???
-      current_show = { title: current_scheduled_show_in_db.title, user: current_scheduled_show_in_db.dj.username }
-      StreamPusher.redis.hset "#{radio}:current_show", current_show
     else
       puts "current show is already playing and queued?"
     end

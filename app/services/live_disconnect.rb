@@ -2,6 +2,7 @@ class LiveDisconnect
   def self.perform radio
     r = Radio.find_by name: radio
     s = r.current_scheduled_show
+    # TODO what if they disconnected early??
     if s.present?
       current_show = { title: s.title, user: s.dj.username }
       current_show[:scheduled_show] = s.id

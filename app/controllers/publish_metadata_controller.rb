@@ -4,6 +4,7 @@ class PublishMetadataController < ApplicationController
     if liq_authorized?
       MetadataPublisher.perform @current_radio.name, params[:metadata]
       MetadataUpdate.perform(@current_radio, { title: params[:metadata] })
+      CanonicalMetadataSync.perform(@current_radio.id, { title: params[:metadata] })
       head :ok
     else
       render json: "not permitted", status: :unauthorized
