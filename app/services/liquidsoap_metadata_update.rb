@@ -1,7 +1,7 @@
-class MetadataUpdate
+class LiquidsoapMetadataUpdate
   def self.perform radio, metadata, liquidsoap_socket_class=Liquidsoap::Socket
     metadata = massage_metadata metadata
-    raise "blank title passed to MetadataUpdate" if metadata[:title].blank?
+    raise "blank title passed to LiquidsoapMetadataUpdate" if metadata[:title].blank?
     liquidsoap_socket = liquidsoap_socket_class.new(radio.liquidsoap_socket_path)
     liquidsoap_socket.write "metadata.update #{equalify_hash(metadata)}"
   end
