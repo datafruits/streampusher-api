@@ -32,15 +32,20 @@ class Shrimpo < ApplicationRecord
   validate :start_at_cannot_be_in_the_past, on: :create
   validate :end_at_cannot_be_in_the_past, on: :create
 
-  enum status: [:running, :voting, :completed]
+  # abandoned is when no one entered the shrimpo and its over
+  enum status: [:running, :voting, :completed, :abandoned]
 
   enum shrimpo_type: [:normal, :mega]
 
   attr_accessor :duration
 
+  accepts_nested_attributes_for :shrimpo_voting_categories
+
   before_validation :set_deposit_amount
   after_create :queue_end_shrimpo_job
   after_create :send_notification
+
+  after_create :create_category_trophies!, if: -> { self.mega? }
 
   VALID_DURATIONS = [
     # minors
@@ -124,7 +129,7 @@ class Shrimpo < ApplicationRecord
             self.shrimpo_voting_categories.each do |voting_category|
               total = entry.shrimpo_votes.where(shrimpo_voting_category: voting_category).sum(:score)
               # create shrimpo_voting_category_score
-              self.shrimpo_voting_category_scores.create shrimpo_entry: entry, shrimpo_voting_category: voting_category, score: total
+              self.shrimpo_voting_category_scores.create! shrimpo_entry: entry, shrimpo_voting_category: voting_category, score: total
             end
 
           end
