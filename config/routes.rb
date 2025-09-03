@@ -122,6 +122,10 @@ Rails.application.routes.draw do
 
   # meant only for consumption by datafruits frontend app
   namespace :api do
+    namespace :admin do
+      resources :user_signups, only: [:index]
+    end
+    
     resources :my_shows, only: [:index, :create, :update, :destroy, :show] do
       resources :episodes, only: [:update, :destroy], controller: 'my_shows/episodes'
     end
