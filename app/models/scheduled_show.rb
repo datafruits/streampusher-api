@@ -126,7 +126,9 @@ class ScheduledShow < ActiveRecord::Base
       # TODO when to clear this ??
       #
       # on fallback switch???
-      current_show = { title: self.title, user: self.dj.username, scheduled_show: self }
+      #
+      # this key is for compatibility
+      current_show = { title: self.title, user: self.dj.username, scheduled_show: self.id }
       StreamPusher.redis.hset "#{radio}:current_show", current_show
     else
       puts "tried to queue #{self.inspect}'s playlist, but playlist empty in redis!"
