@@ -16,6 +16,9 @@ class Notification < ApplicationRecord
     :watermelon_badge_award,
     :pineapple_badge_award,
     :limer_badge_award,
+    :dragionfruit_badge_award,
+    :blueberrinies_badge_award,
+    :beamsprout_badge_award,
     :dj_badge_award,
     :vj_badge_award,
     :supporter_badge_award,
@@ -52,96 +55,121 @@ class Notification < ApplicationRecord
 
   private
   def set_message
-    # TODO i18n
-    self.message = case self.notification_type
+    case self.notification_type
     when "strawberry_badge_award"
-      "#{self.user.username} got the strawbur badge!"
+      set_translation_key("notifications.badge_award.strawberry", { username: self.user.username })
     when "lemon_badge_award"
-      "#{self.user.username} got the lemoner badge!"
+      set_translation_key("notifications.badge_award.lemon", { username: self.user.username })
     when "orange_badge_award"
-      "#{self.user.username} got the orangey badge!"
+      set_translation_key("notifications.badge_award.orange", { username: self.user.username })
     when "banana_badge_award"
-      "#{self.user.username} got the banaynay badge!"
+      set_translation_key("notifications.badge_award.banana", { username: self.user.username })
     when "cabbage_badge_award"
-      "#{self.user.username} got the evil cabbage badge!"
+      set_translation_key("notifications.badge_award.cabbage", { username: self.user.username })
     when "watermelon_badge_award"
-      "#{self.user.username} got the watermel badge!"
+      set_translation_key("notifications.badge_award.watermelon", { username: self.user.username })
     when "pineapple_badge_award"
-      "#{self.user.username} got the pineapplee badge!"
+      set_translation_key("notifications.badge_award.pineapple", { username: self.user.username })
     when "limer_badge_award"
-      "#{self.user.username} got the limer badge!"
-    when "dragionfruit badge_award"
-      "#{self.user.username} got the dragionfruit badge!"
-    when "blueberrinies badge_award"
-      "#{self.user.username} got the blueberrinies badge!"
+      set_translation_key("notifications.badge_award.limer", { username: self.user.username })
+    when "dragionfruit_badge_award"
+      set_translation_key("notifications.badge_award.dragionfruit", { username: self.user.username })
+    when "blueberrinies_badge_award"
+      set_translation_key("notifications.badge_award.blueberrinies", { username: self.user.username })
     when "beamsprout_badge_award"
-      "#{self.user.username} got the beamsprout badge!"
+      set_translation_key("notifications.badge_award.beamsprout", { username: self.user.username })
     when "dj_badge_award"
-      "#{self.user.username} got the DJ badge!"
+      set_translation_key("notifications.badge_award.dj", { username: self.user.username })
     when "vj_badge_award"
-      "#{self.user.username} got the VJ badge!"
+      set_translation_key("notifications.badge_award.vj", { username: self.user.username })
     when "supporter_badge_award"
-      "#{self.user.username} got the supporter badge!"
+      set_translation_key("notifications.badge_award.supporter", { username: self.user.username })
     when "gold_supporter_badge_award"
-      "#{self.user.username} got the gold supporter badge!"
+      set_translation_key("notifications.badge_award.gold_supporter", { username: self.user.username })
     when "emerald_supporter_badge_award"
-      "#{self.user.username} got the emerald supporter badge!"
+      set_translation_key("notifications.badge_award.emerald_supporter", { username: self.user.username })
     when "duckle_badge_award"
-      "#{self.user.username} got the duckle badge! :duckle: what the heck..."
+      set_translation_key("notifications.badge_award.duckle", { username: self.user.username })
     when "level_up"
-      "#{self.user.username} reached level #{self.user.level}!"
+      set_translation_key("notifications.level_up", { username: self.user.username, level: self.user.level })
     when "experience_point_award"
-      "You got #{self.source.amount} #{self.source.award_type} points!"
+      set_translation_key("notifications.experience_point_award", { amount: self.source.amount, award_type: self.source.award_type })
     when "fruit_ticket_gift"
-      "#{self.source.from_user.username} sent you Ƒ#{self.source.amount} fruit tickets!"
+      set_translation_key("notifications.fruit_ticket_gift", { from_username: self.source.from_user.username, amount: self.source.amount })
     when "supporter_fruit_ticket_stipend"
-      "You got Ƒ#{self.source.amount} fruit tickets for supporting datafruits. The bank of fruit tickets thanks you for your support!"
+      set_translation_key("notifications.supporter_fruit_ticket_stipend", { amount: self.source.amount })
     when "track_playback_ticket_payment"
-      "You got Ƒ#{self.source.amount} fruit tickets for your contributions!"
+      set_translation_key("notifications.track_playback_ticket_payment", { amount: self.source.amount })
     when "glorp_lottery_winner"
-      ":#{self.source.award_type.split("py").first}:!!! #{self.user.username} got #{self.source.amount} #{self.source.award_type} points!"
+      award_emoji = self.source.award_type.split("py").first
+      set_translation_key("notifications.glorp_lottery_winner", { 
+        username: self.user.username, 
+        amount: self.source.amount, 
+        award_type: self.source.award_type,
+        award_emoji: award_emoji
+      })
     when "show_comment"
-      "#{self.source.title} has a new comment!"
+      set_translation_key("notifications.show_comment", { title: self.source.title })
     when "patreon_sub"
       gif_url = GiphyTextAnimator.animate_text self.source.name
+      params = { 
+        name: self.source.name, 
+        tier_name: self.source.tier_name, 
+        patreon_checkout_link: self.source.patreon_checkout_link
+      }
       if gif_url.is_a? String
-        "#{self.source.name} subscribed to the #{self.source.tier_name} tier on patreon! #{gif_url} #{self.source.patreon_checkout_link}"
+        params[:gif_url] = gif_url
+        set_translation_key("notifications.patreon_sub.with_gif", params)
       else
-        "#{self.source.name} subscribed to the #{self.source.tier_name} tier on patreon! #{self.source.patreon_checkout_link}"
+        set_translation_key("notifications.patreon_sub.without_gif", params)
       end
     when "new_thread"
-      "New thread posted in da fruit standz: #{self.source.title}"
+      set_translation_key("notifications.new_thread", { title: self.source.title })
     when "new_thread_reply"
-      "New reply to thread #{self.source.title}"
+      set_translation_key("notifications.new_thread_reply", { title: self.source.title })
     when "new_wiki_page"
-      "New wiki page created: #{self.source.title}"
+      set_translation_key("notifications.new_wiki_page", { title: self.source.title })
     when "wiki_page_update"
-      "wiki page #{self.source.title} was updated!"
+      set_translation_key("notifications.wiki_page_update", { title: self.source.title })
     when "new_datafruiter"
-      "new datafruiter on the loose, #{self.source.username} joined!"
+      set_translation_key("notifications.new_datafruiter", { username: self.source.username })
     when "profile_update"
-      "#{self.source.username}'s bio was updated!"
+      set_translation_key("notifications.profile_update", { username: self.source.username })
     when "avatar_update"
-      "#{self.source.username}'s fruitification emblem was updated: #{self.source.image.url(:thumb)}"
+      set_translation_key("notifications.avatar_update", { 
+        username: self.source.username, 
+        image_url: self.source.image.url(:thumb)
+      })
     when "new_podcast"
-      "New archive published: #{self.source.title}"
+      set_translation_key("notifications.new_podcast", { title: self.source.title })
     when "shrimpo_started"
-      "#{self.source.title} shrimpo started!!!!!"
+      set_translation_key("notifications.shrimpo_started", { title: self.source.title })
     when "shrimpo_entry"
-      "#{self.source.shrimpo.emoji} Someone shrimpoed for #{self.source.shrimpo.title} ! There are #{self.source.shrimpo.shrimpo_entries.count} total entries now."
+      set_translation_key("notifications.shrimpo_entry", { 
+        emoji: self.source.shrimpo.emoji, 
+        title: self.source.shrimpo.title, 
+        entry_count: self.source.shrimpo.shrimpo_entries.count
+      })
     when "shrimpo_voting_started"
-      "#{self.source.title} shrimpo ended! Time to vote!"
+      set_translation_key("notifications.shrimpo_voting_started", { title: self.source.title })
     when "shrimpo_comment"
-      "#{self.source.title} has a new comment!"
+      set_translation_key("notifications.shrimpo_comment", { title: self.source.title })
     when "shrimpo_entry_comment"
-      "#{self.source.title} has a new comment!"
+      set_translation_key("notifications.shrimpo_entry_comment", { title: self.source.title })
     when "fruit_ticket_stimulus"
-      "You received a stimulus from the bank of fruit tix: Ƒ#{self.source.amount}"
+      set_translation_key("notifications.fruit_ticket_stimulus", { amount: self.source.amount })
     when "treasure_fruit_tix_reward"
-      "You found Ƒ#{self.source.amount} in a treasure chest!"
+      set_translation_key("notifications.treasure_fruit_tix_reward", { amount: self.source.amount })
     when "shrimpo_deposit_return"
-      "Your shrimpo deposit was returned for Ƒ#{self.source.amount}"
+      set_translation_key("notifications.shrimpo_deposit_return", { amount: self.source.amount })
     end
+  end
+
+  def set_translation_key(key, params = {})
+    self.message_key = key
+    self.message_params = params
+    # Keep the message field for backward compatibility, but it will be empty for new notifications
+    self.message = ""
   end
 
   def send_notification
