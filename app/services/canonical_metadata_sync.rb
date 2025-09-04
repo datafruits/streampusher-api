@@ -3,7 +3,7 @@ class CanonicalMetadataSync
     radio = Radio.find radio_id
     canonical_metadata = {}
     canonical_metadata["title"] = metadata.strip
-    liq = LiquidsoapRequests.new r.id
+    liq = LiquidsoapRequests.new radio_id
     current_source = liq.current_source
     canonical_metadata["current_source"] = current_source
     if(["live_dj", "scheduled_shows"].include?(current_source))
