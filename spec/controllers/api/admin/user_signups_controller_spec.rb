@@ -33,6 +33,80 @@ RSpec.describe Api::Admin::UserSignupsController, type: :controller do
         expect(json_response).to have_key('user_signups')
         expect(json_response['user_signups']).to be_an(Array)
       end
+
+      it 'filters by start date when provided' do
+        # Create users in different months
+        Timecop.freeze(Date.new(2023, 1, 15)) do
+          User.create!(username: 'user1', email: 'user1@test.com', password: 'password123', time_zone: 'UTC')
+        end
+        
+        Timecop.freeze(Date.new(2023, 2, 10)) do
+          User.create!(username: 'user2', email: 'user2@test.com', password: 'password123', time_zone: 'UTC')
+        end
+
+        # Request data starting from February 1st
+        get :index, params: { start: '2023-02-01' }, format: :json
+
+        expect(response).to have_http_status(:success)
+        json_response = JSON.parse(response.body)
+        expect(json_response['user_signups']).to be_an(Array)
+        
+        # Should only include February data, not January
+        months = json_response['user_signups'].map { |item| item['month'] }
+        expect(months).to include('2023-02')
+        expect(months).not_to include('2023-01')
+      end
+
+      it 'filters by end date when provided' do
+        # Create users in different months
+        Timecop.freeze(Date.new(2023, 1, 15)) do
+          User.create!(username: 'user1', email: 'user1@test.com', password: 'password123', time_zone: 'UTC')
+        end
+        
+        Timecop.freeze(Date.new(2023, 2, 10)) do
+          User.create!(username: 'user2', email: 'user2@test.com', password: 'password123', time_zone: 'UTC')
+        end
+
+        # Request data ending at January 31st
+        get :index, params: { end: '2023-01-31' }, format: :json
+
+        expect(response).to have_http_status(:success)
+        json_response = JSON.parse(response.body)
+        expect(json_response['user_signups']).to be_an(Array)
+        
+        # Should only include January data, not February
+        months = json_response['user_signups'].map { |item| item['month'] }
+        expect(months).to include('2023-01')
+        expect(months).not_to include('2023-02')
+      end
+
+      it 'filters by both start and end dates when provided' do
+        # Create users in different months
+        Timecop.freeze(Date.new(2023, 1, 15)) do
+          User.create!(username: 'user1', email: 'user1@test.com', password: 'password123', time_zone: 'UTC')
+        end
+        
+        Timecop.freeze(Date.new(2023, 2, 10)) do
+          User.create!(username: 'user2', email: 'user2@test.com', password: 'password123', time_zone: 'UTC')
+        end
+
+        Timecop.freeze(Date.new(2023, 3, 5)) do
+          User.create!(username: 'user3', email: 'user3@test.com', password: 'password123', time_zone: 'UTC')
+        end
+
+        # Request data for February only
+        get :index, params: { start: '2023-02-01', end: '2023-02-28' }, format: :json
+
+        expect(response).to have_http_status(:success)
+        json_response = JSON.parse(response.body)
+        expect(json_response['user_signups']).to be_an(Array)
+        
+        # Should only include February data
+        months = json_response['user_signups'].map { |item| item['month'] }
+        expect(months).to include('2023-02')
+        expect(months).not_to include('2023-01')
+        expect(months).not_to include('2023-03')
+      end
     end
 
     context 'when user is not admin' do
