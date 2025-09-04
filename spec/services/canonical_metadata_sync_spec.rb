@@ -1,5 +1,5 @@
 require 'rails_helper'
-# warning this was written by copilo
+# warning this was written by copilot
 
 describe CanonicalMetadataSync do
   include RedisConnection
