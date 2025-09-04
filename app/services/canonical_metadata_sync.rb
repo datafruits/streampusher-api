@@ -26,5 +26,6 @@ class CanonicalMetadataSync
     # { current_source: "backup_playlist", title: "DHL - 09272025", show_series_id: "digital-high-life", episode_id: "digital-high-life-08282025", dj: "mitsuco" }
     # set canonical metadata
     StreamPusher.redis.hset "#{radio.name}:canonical_metadata", canonical_metadata
+    StreamPusher.redis.publish "#{radio.name}:canonical_metadata", canonical_metadata
   end
 end
