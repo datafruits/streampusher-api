@@ -133,5 +133,23 @@ describe CanonicalMetadataSync do
       stored_data = redis.hgetall("#{radio.name}:canonical_metadata")
       expect(stored_data["title"]).to eq("Spaced Title")
     end
+
+    it 'finds the correct radio by id' do
+      # Create a second radio to ensure we're finding the right one
+      radio2 = FactoryBot.create(:radio, name: 'second_radio')
+      liquidsoap_requests2 = instance_double("LiquidsoapRequests")
+      allow(LiquidsoapRequests).to receive(:new).with(radio2.id).and_return(liquidsoap_requests2)
+      allow(liquidsoap_requests2).to receive(:current_source).and_return('backup_playlist')
+      
+      CanonicalMetadataSync.perform(radio2.id, "Radio 2 Song")
+
+      # Verify data is stored for the correct radio
+      stored_data = redis.hgetall("#{radio2.name}:canonical_metadata")
+      expect(stored_data["title"]).to eq("Radio 2 Song")
+      
+      # Verify the first radio doesn't have this data
+      first_radio_data = redis.hgetall("#{radio.name}:canonical_metadata")
+      expect(first_radio_data["title"]).not_to eq("Radio 2 Song")
+    end
   end
 end
