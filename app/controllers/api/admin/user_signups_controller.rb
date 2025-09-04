@@ -5,13 +5,13 @@ class Api::Admin::UserSignupsController < ApplicationController
     # Build query with optional date filtering
     users_query = User
     
-    if params[:start]
-      start_date = DateTime.parse(params[:start])
+    if filter_params[:start]
+      start_date = DateTime.parse(filter_params[:start])
       users_query = users_query.where("created_at >= ?", start_date)
     end
     
-    if params[:end]
-      end_date = DateTime.parse(params[:end])
+    if filter_params[:end]
+      end_date = DateTime.parse(filter_params[:end])
       users_query = users_query.where("created_at <= ?", end_date)
     end
 
@@ -30,5 +30,11 @@ class Api::Admin::UserSignupsController < ApplicationController
     end
 
     render json: { user_signups: formatted_data }
+  end
+
+  private
+
+  def filter_params
+    params.permit(:start, :end)
   end
 end
