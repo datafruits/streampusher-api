@@ -53,13 +53,14 @@ class LiquidsoapRequests
 
   def current_source
     source = @liquidsoap_socket.write "fallback.current_source"
-    case source
-    when source.include?("live_dj")
+    if source.include?("live_dj")
       "live_dj"
-    when source.include?("scheduled_shows")
+    elsif source.include?("scheduled_shows")
       "scheduled_shows"
-    when source.include?("backup_playlist")
+    elsif source.include?("backup_playlist")
       "backup_playlist"
+    else
+      "unknown"
     end
   end
 end
