@@ -4,6 +4,7 @@ class LiveNotification
     user = notification.split("--").last.strip
     ::StreamPusher.redis.publish "#{radio}:notifications", notification
     ActiveSupport::Notifications.instrument 'live_now', radio: radio, user: user
+    # TODO this is unneeded???
     # store current live and show id in redis
     current_show = { title: title, user: user }
 
