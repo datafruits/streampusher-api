@@ -123,11 +123,8 @@ class ScheduledShow < ActiveRecord::Base
           ScheduledShowExpAwardWorker.perform_later self.id
         end
       end
-      # TODO when to clear this ??
-      #
-      # on fallback switch???
-      #
-      # this key is for compatibility
+      # TODO what consumes this key
+      # this key is for compatibility ???? or what
       current_show = { title: self.title, user: self.dj.username, scheduled_show: self.id }
       StreamPusher.redis.hset "#{radio}:current_show", current_show
     else
