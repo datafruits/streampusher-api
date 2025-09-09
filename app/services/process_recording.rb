@@ -3,6 +3,23 @@ class ProcessRecording
     recording.update processing_status: 'processing'
 
     begin
+      # Check if this recording already has a track to prevent duplicates
+      if recording.track.present?
+        Rails.logger.info "Recording #{recording.id} already has track #{recording.track.id}, skipping processing"
+        recording.update processing_status: 'processed'
+        return recording.track
+      end
+
+      # Check for existing track with same audio file for same scheduled show to prevent duplicates
+      if scheduled_show.present?
+        existing_track = scheduled_show.tracks.find_by(audio_file_name: audio_file_name)
+        if existing_track.present?
+          Rails.logger.info "Track with audio file #{audio_file_name} already exists for scheduled show #{scheduled_show.id}"
+          recording.update processing_status: 'processed', track: existing_track
+          return existing_track
+        end
+      end
+
       trimmed_file_path = Sox.trim recording.path
 
       radio = recording.radio
