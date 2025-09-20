@@ -104,6 +104,7 @@ class Notification < ApplicationRecord
       "#{self.source.title} has a new comment!"
     when "patreon_sub"
       gif_url = GiphyTextAnimator.animate_text self.source.name
+      name = self.source.user?.username || self.source.name
       if gif_url.is_a? String
         "#{self.source.name} subscribed to the #{self.source.tier_name} tier on patreon! #{gif_url} #{self.source.patreon_checkout_link}"
       else
