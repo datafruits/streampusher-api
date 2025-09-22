@@ -1,5 +1,6 @@
 class PatreonPledge < ApplicationRecord
   after_create :add_role_to_user
+  belongs_to :user
 
   def tier_mappings
     # FIXME
