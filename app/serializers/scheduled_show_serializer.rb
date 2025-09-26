@@ -69,19 +69,25 @@ class ScheduledShowSerializer < ActiveModel::Serializer
   end
 
   def image_url
-    if object.image.present?
+    # Use model method which handles Active Storage + Paperclip fallback
+    if object.image_url.present?
       CGI.unescape(object.image_url)
     end
   end
 
   def thumb_image_url
-    if object.image.present?
+    # Use model method which handles Active Storage + Paperclip fallback  
+    if object.thumb_image_url.present?
       CGI.unescape(object.thumb_image_url)
     end
   end
 
   def image_filename
-    if object.image.present?
+    # Prefer Active Storage attachment if available
+    if object.active_storage_image.attached?
+      object.active_storage_image.filename.to_s
+    elsif object.image.present?
+      # Fallback to legacy Paperclip
       object.image_file_name
     end
   end
