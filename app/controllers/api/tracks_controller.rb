@@ -3,8 +3,22 @@ class Api::TracksController < ApplicationController
   before_action :current_radio_required
 
   def index
-    @tracks = @current_radio.tracks.where("id in (?)", params[:id])
+    @tracks = @current_radio.tracks.order("created_at DESC")
 
+    if params[:id]
+      @tracks = @current_radio.tracks.where("id in (?)", params[:id])
+    end
+
+    if params[:my] && !current_user.has_role?("admin")
+      @tracks = @tracks.where(uploaded_by: current_user)
+    end
+
+    if params[:term]
+      @tracks = @tracks.where("audio_file_name ilike (?) OR title ilike (?)", "%params.permit(:term)[:term]$", "%params.permit(:term)[:term]$")
+    end
+
+    @tracks = @tracks.page(params[:page])
+    meta = { page: params[:page], total_pages: @tracks.total_pages.to_i }
     render json: @tracks
   end
 
