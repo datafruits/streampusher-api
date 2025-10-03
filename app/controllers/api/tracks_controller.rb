@@ -14,7 +14,7 @@ class Api::TracksController < ApplicationController
     end
 
     if params[:term]
-      @tracks = @tracks.where("audio_file_name ilike (?) OR title ilike (?)", "%params.permit(:term)[:term]$", "%params.permit(:term)[:term]$")
+      @tracks = @tracks.where("audio_file_name ilike (?) OR title ilike (?)", "%#{params.permit(:term)[:term]}%", "%#{params.permit(:term)[:term]}%")
     end
 
     @tracks = @tracks.page(params[:page])
