@@ -1,9 +1,12 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  authenticate :user, lambda { |u| u.admin? } do
-      mount Sidekiq::Web => '/sidekiq'
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    # Very simple auth
+    username == ENV["SIDEKIQ_USERNAME"] && password == ENV["SIDEKIQ_PASSWORD"]
   end
+
+  mount Sidekiq::Web => '/sidekiq'
 
   resources :recordings, only: [:index, :show] do
     resources :process_recordings, only: [:create]
@@ -125,7 +128,7 @@ Rails.application.routes.draw do
     namespace :admin do
       resources :user_signups, only: [:index]
     end
-    
+
     resources :my_shows, only: [:index, :create, :update, :destroy, :show] do
       resources :episodes, only: [:update, :destroy], controller: 'my_shows/episodes'
     end
