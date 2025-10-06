@@ -43,5 +43,6 @@ describe ProcessRecording do
   end
 
   # TODO
-  xit 'doesnt create duplicate if existing track exists'
+  xit 'doesnt create duplicate track if existing track exists in show'
+  xit 'doesnt create duplicate track if recording already has a track'
 end
