@@ -4,6 +4,8 @@ class Label < ActiveRecord::Base
   has_many :tracks, through: :track_labels
   has_many :scheduled_show_labels, dependent: :destroy
   has_many :scheduled_shows, through: :scheduled_show_labels
+  has_many :show_series_labels, dependent: :destroy
+  has_many :show_series, through: :show_series_labels
   belongs_to :radio
 
   before_save :downcase_name
