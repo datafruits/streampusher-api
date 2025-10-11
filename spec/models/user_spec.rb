@@ -43,4 +43,11 @@ RSpec.describe User, :type => :model do
       expect(user.deleted_at).to_not eq nil
     end
   end
+
+  describe "default avatar" do
+    it "sets a random default avatar if none is set" do
+      user = User.create email: "mcfiredrill@gmail.com", time_zone: "Tokyo", role: "admin"
+      expect(user.image.path).to include("default_avatar")
+    end
+  end
 end
