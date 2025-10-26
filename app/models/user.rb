@@ -149,7 +149,7 @@ class User < ActiveRecord::Base
 
   def set_default_avatar
     unless self.image.present?
-      random_avatar = File.new ::Rails.root.join("config/default_avatars/default_avatar_#{rand(5)}.png")
+      random_avatar = File.new ::Rails.root.join("config/default_avatars/default_avatar_#{rand(1..5)}.png")
       self.image = random_avatar
     end
   end
