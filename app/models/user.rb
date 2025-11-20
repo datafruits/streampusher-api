@@ -75,7 +75,7 @@ class User < ActiveRecord::Base
 
   after_update :maybe_send_update_notification
 
-  before_save :set_default_avatar
+  before_save :set_default_avatar, unless: -> { ::Rails.env.test? }
 
   def login=(login)
     @login = login
@@ -149,8 +149,14 @@ class User < ActiveRecord::Base
 
   def set_default_avatar
     unless self.image.present?
-      random_avatar = File.new ::Rails.root.join("config/default_avatars/default_avatar_#{rand(1..5)}.png")
-      self.image = random_avatar
+      # TODO use in test when we switch to active storage
+      if ::Rails.env === "test"
+        random_avatar = File.new ::Rails.root.join("config/default_avatars/default_avatar_1.png")
+        self.image = random_avatar
+      else
+        random_avatar = File.new ::Rails.root.join("config/default_avatars/default_avatar_#{rand(1..5)}.png")
+        self.image = random_avatar
+      end
     end
   end
 end
