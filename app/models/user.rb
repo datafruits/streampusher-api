@@ -75,6 +75,8 @@ class User < ActiveRecord::Base
 
   after_update :maybe_send_update_notification
 
+  before_save :set_default_avatar, unless: -> { ::Rails.env.test? }
+
   def login=(login)
     @login = login
   end
@@ -142,6 +144,19 @@ class User < ActiveRecord::Base
       Notification.create! notification_type: "profile_update", source: self, send_to_chat: true, send_to_user: false, user: self, url: url
     elsif self.saved_change_to_image_file_name?
       Notification.create! notification_type: "avatar_update", source: self, send_to_chat: true, send_to_user: false, user: self, url: url
+    end
+  end
+
+  def set_default_avatar
+    unless self.image.present?
+      # TODO use in test when we switch to active storage
+      if ::Rails.env === "test"
+        random_avatar = File.new ::Rails.root.join("config/default_avatars/default_avatar_1.png")
+        self.image = random_avatar
+      else
+        random_avatar = File.new ::Rails.root.join("config/default_avatars/default_avatar_#{rand(1..5)}.png")
+        self.image = random_avatar
+      end
     end
   end
 end
