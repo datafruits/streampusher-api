@@ -12,6 +12,10 @@ class ScheduledShow < ActiveRecord::Base
   belongs_to :recurrant_original, class_name: "ScheduledShow"
   belongs_to :recording
 
+  # Active Storage attachment for new images
+  has_one_attached :active_storage_image
+
+  # Legacy Paperclip configuration (preserved for backward compatibility)
   has_attached_file :image,
     styles: { :thumb => "x300", :medium => "x600" },
     path: ":attachment/:style/:basename.:extension",
@@ -139,11 +143,35 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def image_url
-    self.image.url(:original)
+    # Prefer Active Storage attachment if available
+    if active_storage_image.attached?
+      if ::Rails.env != "production"
+        path = ::Rails.application.routes.url_helpers.rails_blob_path(active_storage_image, only_path: true, disposition: :inline)
+        "http://localhost:3000#{path}"
+      else
+        active_storage_image.url
+      end
+    elsif self.image.present?
+      # Fallback to legacy Paperclip
+      self.image.url(:original)
+    end
   end
 
   def thumb_image_url
-    self.image.url(:thumb)
+    # Prefer Active Storage attachment if available
+    if active_storage_image.attached?
+      # For Active Storage, we'll need to create a variant for thumbnail
+      # Using resize_to_limit to match Paperclip's "x300" style (max height 300, maintain aspect ratio)
+      if ::Rails.env != "production"
+        path = ::Rails.application.routes.url_helpers.rails_blob_path(active_storage_image.variant(resize_to_limit: [nil, 300]), only_path: true, disposition: :inline)
+        "http://localhost:3000#{path}"
+      else
+        active_storage_image.variant(resize_to_limit: [nil, 300]).url
+      end
+    elsif self.image.present?
+      # Fallback to legacy Paperclip
+      self.image.url(:thumb)
+    end
   end
 
   def schedule_cannot_conflict
