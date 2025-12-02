@@ -12,13 +12,13 @@ class ShowSeries < ApplicationRecord
 
   has_many :episodes, class_name: "::ScheduledShow"
 
-  # TODO move to active storage I guess?
-  # has_one_attached :image
   has_attached_file :image,
     styles: { :thumb => "x300", :medium => "x600" },
     path: ":attachment/:style/:basename.:extension",
     validate_media_type: false # TODO comment out for prod
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+
+  has_one_attached :as_image
 
   enum status: [:active, :archived, :disabled]
 

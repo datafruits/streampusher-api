@@ -23,6 +23,7 @@ class Track < ActiveRecord::Base
     path: ":attachment/:style/:basename.:extension"
 
   validates_attachment_content_type :artwork, content_type: /\Aimage\/.*\Z/
+  has_one_attached :as_image
 
   # Prevent duplicate audio files for the same scheduled show
   validates :audio_file_name, uniqueness: { scope: :scheduled_show_id,
