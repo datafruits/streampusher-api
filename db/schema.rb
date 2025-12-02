@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_08_26_162148) do
+ActiveRecord::Schema[7.0].define(version: 2025_09_20_032802) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -214,6 +214,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_08_26_162148) do
     t.integer "pledge_amount_cents"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
   end
 
   create_table "plans", id: :serial, force: :cascade do |t|
@@ -321,6 +322,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_08_26_162148) do
     t.index ["dj_id"], name: "index_recordings_on_dj_id"
     t.index ["radio_id"], name: "index_recordings_on_radio_id"
     t.index ["track_id"], name: "index_recordings_on_track_id"
+    t.index ["track_id"], name: "index_recordings_on_track_id_unique", unique: true
   end
 
   create_table "scheduled_show_favorites", force: :cascade do |t|
