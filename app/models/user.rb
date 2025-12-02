@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
   has_attached_file :image, styles: { :thumb => "150x150#", :medium => "250x250#" },
     path: ":attachment/:style/:basename.:extension"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+  has_one_attached :as_image
 
   default_scope { order(created_at: :desc) }
 

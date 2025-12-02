@@ -18,6 +18,9 @@ class ScheduledShow < ActiveRecord::Base
     validate_media_type: false # TODO comment out for prod
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
+  # TODO will rename to image when migration completes
+  has_one_attached :as_image
+
   has_many :scheduled_show_labels, dependent: :destroy
   has_many :labels, through: :scheduled_show_labels
 
