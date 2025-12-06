@@ -27,7 +27,9 @@ class Track < ActiveRecord::Base
   # Prevent duplicate audio files for the same scheduled show
   validates :audio_file_name, uniqueness: { scope: :scheduled_show_id,
                                             message: "already exists for this scheduled show" },
-                                            allow_blank: true
+                                            allow_blank: true,
+                                            if: -> { scheduled_show_id.present? }
+
 
   before_post_process :transliterate_file_name
 
