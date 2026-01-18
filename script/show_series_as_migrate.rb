@@ -1,6 +1,6 @@
 def download_image url
   begin
-    temp_file = Tempfile.new(['scheduled_show_image', File.extname(url)])
+    temp_file = Tempfile.new(['show_series_image', File.extname(url)])
     temp_file.binmode
 
     URI.open(url) do |image|
@@ -21,8 +21,7 @@ migrated_count = 0
 error_count = 0
 skipped_count = 0
 
-# scheduled shows
-shows_to_migrate = Radio.first.scheduled_shows.where.not(image_file_name: nil)
+shows_to_migrate = Radio.first.show_series.where.not(image_file_name: nil)
                                 .where.not(image_file_name: '')
                                 .includes(as_image_attachment: :blob)
 
@@ -32,7 +31,7 @@ shows_needing_migration = shows_to_migrate.reject do |show|
 end
 
 total_shows = shows_needing_migration.count
-puts "Found #{total_shows} scheduled shows with Paperclip images that need migration to Active Storage"
+puts "Found #{total_shows} shows series with Paperclip images that need migration to Active Storage"
 
 if total_shows == 0
   puts "No migration needed. All shows either have Active Storage images or no images at all."
@@ -41,12 +40,12 @@ end
 
 shows_needing_migration.each do |show|
   if show.image_file_name.blank?
-    puts " SKIPPED: ScheduledShow #{show.id}: #{show.title} - no Paperclip image"
+    puts " SKIPPED: ShowSeries #{show.id}: #{show.slug} - no Paperclip image"
       skipped_count += 1
   end
 
   paperclip_url = show.image.url(:original)
-  puts " Migrating ScheduledShow #{show.id}: #{show.title}"
+  puts " Migrating ScheduledShow #{show.id}: #{show.slug}"
   puts "  Source: #{paperclip_url}"
 
   temp_file = download_image(paperclip_url)
@@ -74,9 +73,3 @@ puts "  Successfully migrated: #{migrated_count}"
   puts "  Skipped (already migrated): #{skipped_count}"
   puts "  Total processed: #{migrated_count + error_count + skipped_count}/#{total_shows}"
   puts "=" * 60
-
-# show series
-
-# track artwork
-
-# user avatars
