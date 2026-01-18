@@ -85,4 +85,15 @@ class ScheduledShowSerializer < ActiveModel::Serializer
       object.image_file_name
     end
   end
+
+  def as_image
+    if object.as_image.present?
+      if ::Rails.env != "production"
+        path = ::Rails.application.routes.url_helpers.rails_blob_path(object.as_image, only_path: true, disposition: 'attachment')
+        "http://localhost:3000#{path}"
+      else
+        object.as_image.url
+      end
+    end
+  end
 end
