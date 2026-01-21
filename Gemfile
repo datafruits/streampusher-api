@@ -1,6 +1,6 @@
 source 'https://rubygems.org/'
 
-gem 'rails', '7.0.5'
+gem 'rails', '7.1.3.1'
 gem 'pg'
 
 gem 'spring',        group: :development
@@ -56,7 +56,7 @@ group :test, :development do
 end
 
 group :development do
-  gem 'bullet'
+  # gem 'bullet'
   gem "ruby-lsp", require: false
 end
 
