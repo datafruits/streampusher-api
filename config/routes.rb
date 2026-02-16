@@ -139,6 +139,11 @@ Rails.application.routes.draw do
     resources :forum_threads, only: [:index, :show, :create]
     resources :fruit_summons, only: [:create]
     resources :fruit_ticket_gifts, only: [:create]
+    resources :gift_subscriptions, only: [:create, :index, :show] do
+      collection do
+        post 'webhook'
+      end
+    end
 
     resources :archives, only: [:index]
     resources :blog_posts, only: [:show, :index]
