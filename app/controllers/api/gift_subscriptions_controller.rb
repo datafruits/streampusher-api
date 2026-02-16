@@ -1,6 +1,7 @@
 class Api::GiftSubscriptionsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :current_radio_required
+  before_action :authenticate_user!, except: [:webhook]
+  before_action :current_radio_required, except: [:webhook]
+  skip_before_action :verify_authenticity_token, only: [:webhook]
 
   def create
     gift_subscription = GiftSubscription.new(gift_subscription_params)
