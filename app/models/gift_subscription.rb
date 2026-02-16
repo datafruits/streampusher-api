@@ -14,7 +14,7 @@ class GiftSubscription < ActiveRecord::Base
 
   # Activate the gift subscription
   def activate!
-    return false if active? || expired?
+    return false if active? || expired? || canceled?
     
     transaction do
       if giftee.blank?
