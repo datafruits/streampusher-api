@@ -1,6 +1,8 @@
 class Api::GiftSubscriptionsController < ApplicationController
   before_action :authenticate_user!, except: [:webhook]
   before_action :current_radio_required, except: [:webhook]
+  # CSRF protection is disabled for webhook endpoint because Stripe webhooks
+  # don't include CSRF tokens. Security is ensured through Stripe signature verification.
   skip_before_action :verify_authenticity_token, only: [:webhook]
 
   def create
