@@ -6,11 +6,9 @@ module User::Rpg
   end
 
   def xp_required_for_level(level)
-    if level <= 0
-      0
-    elsif level == 1
+    if level == 0
       32
-    elsif level == 2
+    elsif level == 1
       500
     else
       500 * (level ** 2) - (500 * level)
