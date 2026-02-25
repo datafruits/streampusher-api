@@ -31,6 +31,6 @@ module User::Rpg
   end
 
   def xp_progress_percentage
-    (self.experience_points.to_f / self.next_level) * 100
+    ((self.experience_points.to_f / self.next_level) * 100).to_i
   end
 end
