@@ -25,5 +25,8 @@
     daily_glorp_lottery:
       every: 24h
       class: DailyGlorpLotteryWorker
+    expire_gift_subscriptions:
+      every: 1h
+      class: ExpireGiftSubscriptionsWorker
 production:
   :concurrency: 5
