@@ -1,5 +1,5 @@
 class ScheduledShowSerializer < ActiveModel::Serializer
-  attributes :id, :start, :end, :title, :image_url, :thumb_image_url, :description,
+  attributes :id, :start, :end, :title, :image_url, :thumb_image_url, :as_image_url, :description,
     :slug, :recurring_interval, :hosted_by, :is_guest, :guest, :playlist_id, :image_filename, :formatted_episode_title, :status,
     :show_series_title, :show_series_slug, :hosts,
     :prerecord_track_id,
@@ -86,7 +86,7 @@ class ScheduledShowSerializer < ActiveModel::Serializer
     end
   end
 
-  def as_image
+  def as_image_url
     if object.as_image.present?
       if ::Rails.env != "production"
         path = ::Rails.application.routes.url_helpers.rails_blob_path(object.as_image, only_path: true, disposition: 'attachment')
