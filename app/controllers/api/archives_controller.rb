@@ -25,6 +25,10 @@ class Api::ArchivesController < ApplicationController
       shows = shows.where("id in (?)", show_ids)
     end
 
+    if params[:id]
+      shows = shows.where("id in (?)", params[:id])
+    end
+
     options = {}
     options[:meta] = { total_pages: shows.page.total_pages.to_i, page: params[:page].to_i }
     options[:include] = ['tracks']
