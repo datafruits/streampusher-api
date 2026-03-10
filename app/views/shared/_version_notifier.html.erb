@@ -1,0 +1,11 @@
+<%#
+  Version notifier partial - converted from Ember OurVersionNotifier component.
+  In the Ember app this checked for app updates and prompted the user to refresh.
+  In the Rails/Hotwire app, Turbo handles page updates automatically.
+  We keep a hidden container that can be shown via a Turbo Stream broadcast
+  when a new deployment is detected.
+%>
+<div id="version-notifier" class="hidden" role="alert" aria-live="polite">
+  <span class="message"></span>
+  <button onclick="window.location.reload()" class="cool-button ml-2">Refresh</button>
+</div>

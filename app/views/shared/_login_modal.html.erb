@@ -1,0 +1,42 @@
+<%#
+  Login modal partial - converted from Ember LoginModal component.
+  Wrapped in a Turbo Frame so it can be shown/hidden without a full page reload.
+  The Stimulus home controller handles showing/hiding the frame.
+%>
+<div id="login-modal"
+     class="hidden modal-overlay"
+     data-home-target="loginModal"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="login-modal-title">
+  <div class="modal-box">
+    <h2 id="login-modal-title">Log In</h2>
+
+    <%= form_with url: user_session_path, method: :post, class: "login-form" do |f| %>
+      <div>
+        <%= f.label :email, "Email or Username" %>
+        <%= f.text_field :email,
+              name: "user[email]",
+              autocomplete: "username email",
+              required: true,
+              placeholder: "username or email" %>
+      </div>
+      <div>
+        <%= f.label :password, "Password" %>
+        <%= f.password_field :password,
+              name: "user[password]",
+              autocomplete: "current-password",
+              required: true,
+              placeholder: "password" %>
+      </div>
+      <div class="flex gap-2 mt-4">
+        <%= f.submit "Log In", class: "cool-button" %>
+        <button type="button"
+                class="cool-button"
+                data-action="click->home#toggleLoginModal">
+          Cancel
+        </button>
+      </div>
+    <% end %>
+  </div>
+</div>
