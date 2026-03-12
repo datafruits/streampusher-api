@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
     path: ":attachment/:style/:basename.:extension"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
   has_one_attached :as_image
+  alias_attribute :avatar, :as_image
 
   default_scope { order(created_at: :desc) }
 
@@ -152,12 +153,11 @@ class User < ActiveRecord::Base
     unless self.image.present?
       # TODO use in test when we switch to active storage
       if ::Rails.env === "test"
-        random_avatar = File.new ::Rails.root.join("config/default_avatars/default_avatar_1.png")
-        self.image = random_avatar
+        random_avatar = File.new(::Rails.root.join("config/default_avatars/default_avatar_1.png"))
       else
         random_avatar = File.new ::Rails.root.join("config/default_avatars/default_avatar_#{rand(1..5)}.png")
-        self.image = random_avatar
       end
+      self.as_image.attach(io: random_avatar, filename: File.basename(random_avatar), content_type: "image/png")
     end
   end
 end
