@@ -4,8 +4,7 @@ class Fast::ScheduledShowSerializer
   has_many :tracks # , serializer: TrackSerializer
 
   attributes :id, :start, :end, :title, :image_url, :thumb_image_url, :description,
-    :slug, :recurring_interval, :is_guest, :guest, :image, :image_filename,
-    :as_image_url
+    :slug, :recurring_interval, :is_guest, :guest
 
   attribute :hosted_by do |object|
     if object.performers.any?
@@ -15,49 +14,34 @@ class Fast::ScheduledShowSerializer
 
   attribute :host_avatar_url do |object|
     if object.performers.any?
-      CGI.unescape(object.performers.first.image.url(:thumb))
-    end
-  end
-
-  attribute :as_image_url do |object|
-    if object.as_image.present?
-      if ::Rails.env != "production"
-        path = ::Rails.application.routes.url_helpers.rails_blob_path(object.as_image, only_path: true, disposition: 'attachment')
-        "http://localhost:3000#{path}"
-      else
-        object.as_image.url
-      end
+      object.performers.first.thumb_avatar_url
     end
   end
 
   attribute :image_url do |object|
-    if object.image.present?
-      CGI.unescape(object.image_url)
-    end
+    object.image_url
   end
 
   attribute :thumb_image_url do |object|
-    if object.image.present?
-      CGI.unescape(object.thumb_image_url)
-    end
+    object.thumb_image_url
   end
 
-  attribute :image do |object|
-    if object.image.present?
-      {
-        basename: object.image_file_name,
-        attachment: "images",
-        updated_at: object.image.updated_at
-      }
-    end
-  end
-
-  attribute :image_filename do |object|
-    if object.image.present?
-      object.image_file_name
-    end
-  end
-
+  # attribute :image do |object|
+  #   if object.image.present?
+  #     {
+  #       basename: object.image_file_name,
+  #       attachment: "images",
+  #       updated_at: object.image.updated_at
+  #     }
+  #   end
+  # end
+  #
+  # attribute :image_filename do |object|
+  #   if object.image.present?
+  #     object.image_file_name
+  #   end
+  # end
+  #
   attribute :show_series_slug do |object|
     if object.show_series.present?
       object.show_series.slug

@@ -22,11 +22,35 @@ class User < ActiveRecord::Base
   has_many :notifications
   has_many :trophy_awards
 
-  has_attached_file :image, styles: { :thumb => "150x150#", :medium => "250x250#" },
-    path: ":attachment/:style/:basename.:extension"
-  validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
-  has_one_attached :as_image
+  # has_attached_file :image, styles: { :thumb => "150x150#", :medium => "250x250#" },
+  #   path: ":attachment/:style/:basename.:extension"
+  # validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+  has_one_attached :as_image do |attachable|
+    attachable.variant :thumb, resize_to_limit: [150, 150]
+  end
+
+  # only called from serializers
+  def thumb_image_url
+    if self.as_image.present?
+      variant = self.as_image.variant(:thumb).processed
+
+      if ::Rails.env != "production"
+        Rails.application.routes.url_helpers.rails_representation_url(
+          variant,
+          host: "http://localhost:3000"
+        )
+      else
+        Rails.application.routes.url_helpers.rails_representation_url(
+          variant,
+          host: Rails.application.config.action_mailer.default_url_options[:host]
+        )
+      end
+    end
+  end
+
   alias_attribute :avatar, :as_image
+  alias_attribute :image, :as_image
+  alias_attribute :thumb_avatar_url, :thumb_image_url
 
   default_scope { order(created_at: :desc) }
 
@@ -150,8 +174,7 @@ class User < ActiveRecord::Base
   end
 
   def set_default_avatar
-    unless self.image.present?
-      # TODO use in test when we switch to active storage
+    unless self.avatar.present?
       if ::Rails.env === "test"
         random_avatar = File.new(::Rails.root.join("config/default_avatars/default_avatar_1.png"))
       else

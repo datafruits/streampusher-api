@@ -1,5 +1,5 @@
 class DjSerializer < ActiveModel::Serializer
-  attributes :id, :username, :image_url, :bio, :image, :style,
+  attributes :id, :username, :image_url, :bio, :style,
     :profile_publish, :pronouns, :role, :fruits_affinity,
     :homepage, :fruit_ticket_balance, :created_at, :last_sign_in_at,
     :level, :experience_points, :xp_needed_for_next_level,

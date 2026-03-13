@@ -21,7 +21,7 @@ class ShrimpoSerializer < ActiveModel::Serializer
   end
 
   def user_avatar
-    CGI.unescape(object.user.image.url(:thumb))
+    object.user.thumb_image_url
   end
 
   def cover_art_url

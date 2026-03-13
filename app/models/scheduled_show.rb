@@ -12,14 +12,18 @@ class ScheduledShow < ActiveRecord::Base
   belongs_to :recurrant_original, class_name: "ScheduledShow"
   belongs_to :recording
 
-  has_attached_file :image,
-    styles: { :thumb => "x300", :medium => "x600" },
-    path: ":attachment/:style/:basename.:extension",
-    validate_media_type: false # TODO comment out for prod
-  validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
-
+  # has_attached_file :image,
+  #   styles: { :thumb => "x300", :medium => "x600" },
+  #   path: ":attachment/:style/:basename.:extension",
+  #   validate_media_type: false # TODO comment out for prod
+  # validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+  #
   # TODO will rename to image when migration completes
-  has_one_attached :as_image
+  has_one_attached :as_image do |attachable|
+    attachable.variant :thumb, resize_to_limit: [300, 300]
+  end
+
+  alias_attribute :image, :as_image
 
   has_many :scheduled_show_labels, dependent: :destroy
   has_many :labels, through: :scheduled_show_labels
@@ -142,11 +146,46 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def image_url
-    self.image.url(:original)
+    if representative_image.present?
+      if ::Rails.env != "production"
+        path = ::Rails.application.routes.url_helpers.rails_blob_path(representative_image, only_path: true, disposition: 'attachment')
+        "http://localhost:3000#{path}"
+      else
+        representative_image.url
+      end
+    end
   end
 
   def thumb_image_url
-    self.image.url(:thumb)
+    if representative_image.present?
+      variant = representative_image.variant(:thumb)
+      if ::Rails.env != "production"
+        path = ::Rails.application.routes.url_helpers.rails_blob_path(variant, only_path: true, disposition: 'attachment')
+        "http://localhost:3000#{path}"
+      else
+        Rails.application.routes.url_helpers.rails_representation_url(
+          variant,
+          host: Rails.application.config.action_mailer.default_url_options[:host]
+        )
+      end
+    end
+  end
+
+  def representative_image
+    i = nil
+    # priority ->
+    # own image
+    # show series image
+    # user image
+    if self.as_image.present?
+      i = self.as_image
+    elsif self.show_series.as_image.present?
+      i = self.show_series.as_image
+    elsif self.performers.any? && self.performers.first.as_image.present?
+      i = self.performers.first.as_image
+    end
+
+    i
   end
 
   def schedule_cannot_conflict
