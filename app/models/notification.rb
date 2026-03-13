@@ -48,6 +48,9 @@ class Notification < ApplicationRecord
     :shrimpo_deposit_return,
     :fruit_ticket_stimulus,
     :treasure_fruit_tix_reward,
+    :gift_subscription_received,
+    :gift_subscription_sent,
+    :gift_subscription_expired,
   ]
 
   private
@@ -142,6 +145,14 @@ class Notification < ApplicationRecord
       "You found Ƒ#{self.source.amount} in a treasure chest!"
     when "shrimpo_deposit_return"
       "Your shrimpo deposit was returned for Ƒ#{self.source.amount}"
+    when "gift_subscription_received"
+      gifter_name = self.source.gifter.username
+      "#{gifter_name} gifted you a premium membership! You now have the supporter badge for 1 month! 🎁"
+    when "gift_subscription_sent"
+      giftee_name = self.source.giftee.username
+      "Your gift subscription was sent to #{giftee_name}! 🎁"
+    when "gift_subscription_expired"
+      "Your gifted premium membership has expired. You can continue your subscription or the supporter badge will be removed."
     end
   end
 
