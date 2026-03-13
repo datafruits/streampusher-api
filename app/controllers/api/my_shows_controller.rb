@@ -104,26 +104,19 @@ class Api::MyShowsController < ApplicationController
 
   private
   def my_show_params
-    p = ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
       :title,
       :start_date,
       :end_date,
       :start_time,
       :end_time,
-      :description, :image, :image_filename,
+      :description, :image,
       :recurring_interval,
       :recurring_cadence,
       :recurring_weekday,
       :start, :end,
       :status
     ])
-    if p[:image].present?
-      image = Paperclip.io_adapters.for(p[:image])
-      image.original_filename = p.delete(:image_filename)
-      return p.except(:image_filename).merge({image: image})
-    else
-      return p.except(:image_filename).except(:image)
-    end
   end
 
   def labels_params
