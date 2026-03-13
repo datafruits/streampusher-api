@@ -49,6 +49,7 @@ class User < ActiveRecord::Base
   end
 
   alias_attribute :avatar, :as_image
+  alias_attribute :image, :as_image
   alias_attribute :thumb_avatar_url, :thumb_image_url
 
   default_scope { order(created_at: :desc) }
