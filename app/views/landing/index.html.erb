@@ -1,0 +1,102 @@
+<%#
+  Home layout converted from datafruits Ember app (app/templates/home.hbs).
+
+  Ember services mapped to Rails equivalents:
+  - session service         → user_signed_in? / current_user (Devise)
+  - currentUser service     → current_user
+  - fastboot service        → not needed (Rails renders server-side)
+  - siteSettings service    → @site_settings instance variable / ENV
+  - metadata service        → ActionCable Turbo Stream (real-time title updates)
+  - chat service            → ActionCable channels (separate concern)
+  - videoStream service     → JavaScript-only (handled in datafruits-player web component)
+  - intl service            → Rails I18n (t() helper)
+
+  Ember components mapped to:
+  - PcNav                   → _pc_nav partial (with Stimulus home controller)
+  - SpNav                   → _sp_nav partial
+  - RandomBannerAd          → _random_banner_ad partial
+  - UserMenu                → _user_menu partial
+  - OurVersionNotifier      → _version_notifier partial
+  - DatafruitsPlayer        → <datafruits-player> web component + _datafruits_player partial
+  - DjDonateModal           → _dj_donate_modal partial (inside player partial)
+  - HackButton              → _hack_button partial (inside player partial)
+  - AudioVisualizer         → <audio-visualizer> web component
+  - AddDatafruit            → _add_datafruit partial (Turbo Frame)
+  - DatafruitsVisuals       → inline div#datafruits-visuals (JS-driven)
+  - Notifications           → inline div#notifications-container
+  - LoginModal              → _login_modal partial (Stimulus-toggled)
+%>
+<section class="h-handle-resize flex flex-col justify-between"
+         data-controller="home"
+         data-action="keydown.esc->home#closeAll">
+  <div class="flex" style="background-color: var(--color-df-pink);">
+    <a class="skip-to-content-link" href="#main-content">
+      Skip to content
+    </a>
+
+    <%# PC navigation (desktop) - Ember PcNav component %>
+    <%= render 'shared/pc_nav' %>
+
+    <%# Mobile navigation - Ember SpNav component %>
+    <%= render 'shared/sp_nav' %>
+  </div>
+
+  <%# Random banner ad shown on mobile - Ember RandomBannerAd component %>
+  <%= render 'shared/random_banner_ad', css_class: 'block lg:hidden' %>
+
+  <%# User dropdown menu - Ember UserMenu component %>
+  <%= render 'shared/user_menu' %>
+
+  <%# Version update notifier - Ember OurVersionNotifier component %>
+  <%= render 'shared/version_notifier' %>
+
+  <div class="overflow-auto min-h-0 text-white flex flex-col flex-grow"
+       id="main-content"
+       style="text-shadow: var(--color-text-shadow);">
+    <%# Main content area - equivalent to Ember {{outlet}} %>
+    <%= yield %>
+  </div>
+
+  <%# Audio player - Ember DatafruitsPlayer component converted to a web component %>
+  <%= render 'shared/datafruits_player' %>
+
+  <%# Audio visualizer - rendered conditionally based on site settings %>
+  <% if @site_settings&.dig(:audio_visualizer_on) %>
+    <div class="flex-row flex" style="background-color: var(--color-df-pink);">
+      <audio-visualizer>
+        <canvas width="4000" height="150" class="h-20" id="visualizer"></canvas>
+      </audio-visualizer>
+    </div>
+  <% end %>
+
+  <%# Bottom bar - Ember AddDatafruit component %>
+  <div class="flex-row flex justify-between text-xl" style="background-color: var(--color-df-green);">
+    <%= render 'shared/add_datafruit' %>
+  </div>
+</section>
+
+<%# Background visuals overlay - Ember DatafruitsVisuals component %>
+<div id="datafruits-visuals"
+     class="block absolute top-0"
+     style="width: 100vw; height: 100vh; pointer-events: none; z-index: 0;">
+</div>
+
+<%# Non-fastboot components (always rendered in Rails since we're always server-side) %>
+<div id="notifications-container"></div>
+
+<%# April Fools easter eggs %>
+<% if @april_fools %>
+  <a href="https://datafruits.bandcamp.com/album/bgs-vs-firedrill-studio-phone-3"
+     rel="noopener noreferrer" target="_blank">
+    <img class="tiny-guy" alt=":bgs:" src="/assets/images/bgs_small.png">
+  </a>
+  <a href="https://www.youtube.com/shorts/9_g8YA_vJzg"
+     rel="noopener noreferrer" target="_blank">
+    <img class="tiny-grumby" alt=":bgs:" src="/assets/images/emojis/grumby.gif">
+  </a>
+<% end %>
+
+<%# Login modal - shown/hidden by Stimulus home controller %>
+<%= render 'shared/login_modal' %>
+
+<div id="modals-container"></div>

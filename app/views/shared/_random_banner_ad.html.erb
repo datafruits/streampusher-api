@@ -1,0 +1,13 @@
+<%#
+  Random banner ad partial - converted from Ember RandomBannerAd component.
+  Renders a placeholder banner ad area. In production this would load from
+  the API or be replaced by a Turbo Frame that updates with a live ad.
+  The css_class local variable maps to the Ember component's class attribute.
+%>
+<% css_class = local_assigns.fetch(:css_class, '') %>
+<div class="random-banner-ad <%= css_class %>">
+  <%# Turbo frame for dynamic ad loading %>
+  <%= turbo_frame_tag "banner-ad", src: "/api/banner_ad", loading: :lazy do %>
+    <%# Placeholder while loading %>
+  <% end %>
+</div>

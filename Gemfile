@@ -3,6 +3,11 @@ source 'https://rubygems.org/'
 gem 'rails', '7.0.5'
 gem 'pg'
 
+gem 'turbo-rails'
+gem 'stimulus-rails'
+gem 'importmap-rails'
+gem 'sprockets-rails'
+
 gem 'spring',        group: :development
 
 gem 'devise'
