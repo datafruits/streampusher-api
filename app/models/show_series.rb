@@ -63,14 +63,6 @@ class ShowSeries < ApplicationRecord
     end
   end
 
-  # def image_url
-  #   self.image.url(:original)
-  # end
-  #
-  # def thumb_image_url
-  #   self.image.url(:thumb)
-  # end
-  #
   def recurrences
     options = { every: self.recurring_interval.to_sym }
     options[:starts] = self.start_date

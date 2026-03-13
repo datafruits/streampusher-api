@@ -40,10 +40,7 @@ class User < ActiveRecord::Base
           host: "http://localhost:3000"
         )
       else
-        Rails.application.routes.url_helpers.rails_representation_url(
-          variant,
-          host: Rails.application.config.action_mailer.default_url_options[:host]
-        )
+        variant.url
       end
     end
   end

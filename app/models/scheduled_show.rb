@@ -163,10 +163,7 @@ class ScheduledShow < ActiveRecord::Base
         path = ::Rails.application.routes.url_helpers.rails_blob_path(variant, only_path: true, disposition: 'attachment')
         "http://localhost:3000#{path}"
       else
-        Rails.application.routes.url_helpers.rails_representation_url(
-          variant,
-          host: Rails.application.config.action_mailer.default_url_options[:host]
-        )
+        variant.url
       end
     end
   end
