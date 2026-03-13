@@ -26,22 +26,6 @@ class Fast::ScheduledShowSerializer
     object.thumb_image_url
   end
 
-  # attribute :image do |object|
-  #   if object.image.present?
-  #     {
-  #       basename: object.image_file_name,
-  #       attachment: "images",
-  #       updated_at: object.image.updated_at
-  #     }
-  #   end
-  # end
-  #
-  # attribute :image_filename do |object|
-  #   if object.image.present?
-  #     object.image_file_name
-  #   end
-  # end
-  #
   attribute :show_series_slug do |object|
     if object.show_series.present?
       object.show_series.slug
