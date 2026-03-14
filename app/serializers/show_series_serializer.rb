@@ -41,8 +41,8 @@ class ShowSeriesSerializer < ActiveModel::Serializer
         else
           variant.url
         end
-      rescue ActiveStorage::InvariableError => e
-        Rails.logger.error("ActiveStorage::InvariableError for show_series id=#{object.id} title=#{object.title}: #{e.message}")
+      rescue ActiveStorage::InvariableError, ActiveStorage::ProcessingError, MiniMagick::Error => e
+        Rails.logger.error("Thumbnail processing failed for show_series id=#{object.id} title=#{object.title}: #{e.class}: #{e.message}")
         image_url
       end
     end
