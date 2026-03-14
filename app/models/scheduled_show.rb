@@ -181,8 +181,8 @@ class ScheduledShow < ActiveRecord::Base
     # user image
     if self.as_image.present?
       i = self.as_image
-    elsif self.show_series.as_image.present?
-      i = self.show_series.as_image
+    elsif self.show_series&.as_image.present?
+      i = self.show_series&.as_image
     elsif self.performers.any? && self.performers.first.as_image.present?
       i = self.performers.first.as_image
     end
