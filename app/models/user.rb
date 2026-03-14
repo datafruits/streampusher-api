@@ -45,15 +45,20 @@ class User < ActiveRecord::Base
 
   def thumb_image_url
     if self.as_image.present?
-      variant = self.as_image.variant(:thumb).processed
+      begin
+        variant = self.as_image.variant(:thumb).processed
 
-      if ::Rails.env != "production"
-        Rails.application.routes.url_helpers.rails_representation_url(
-          variant,
-          host: "http://localhost:3000"
-        )
-      else
-        variant.url
+        if ::Rails.env != "production"
+          Rails.application.routes.url_helpers.rails_representation_url(
+            variant,
+            host: "http://localhost:3000"
+          )
+        else
+          variant.url
+        end
+      rescue ActiveStorage::InvariableError => e
+        Rails.logger.error("ActiveStorage::InvariableError for user id=#{self.id} username=#{self.username}: #{e.message}")
+        image_url
       end
     end
   end
