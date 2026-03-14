@@ -40,7 +40,25 @@ RSpec.describe ShowSeriesSerializer, type: :serializer do
       allow(mock_attachment).to receive(:variant).and_raise(ActiveStorage::InvariableError)
       allow(show_series).to receive(:as_image).and_return(mock_attachment)
       allow(subject).to receive(:image_url).and_return("http://example.com/show.png")
-      expect(Rails.logger).to receive(:error).with(/ActiveStorage::InvariableError.*test show/)
+      expect(Rails.logger).to receive(:error).with(/Thumbnail processing failed.*test show.*ActiveStorage::InvariableError/)
+      expect(subject.thumb_image_url).to eq("http://example.com/show.png")
+    end
+
+    it "returns image_url as fallback when ActiveStorage::ProcessingError is raised" do
+      mock_attachment = double("as_image", present?: true)
+      allow(mock_attachment).to receive(:variant).and_raise(ActiveStorage::ProcessingError)
+      allow(show_series).to receive(:as_image).and_return(mock_attachment)
+      allow(subject).to receive(:image_url).and_return("http://example.com/show.png")
+      expect(Rails.logger).to receive(:error).with(/Thumbnail processing failed.*test show.*ActiveStorage::ProcessingError/)
+      expect(subject.thumb_image_url).to eq("http://example.com/show.png")
+    end
+
+    it "returns image_url as fallback when MiniMagick::Error is raised" do
+      mock_attachment = double("as_image", present?: true)
+      allow(mock_attachment).to receive(:variant).and_raise(MiniMagick::Error)
+      allow(show_series).to receive(:as_image).and_return(mock_attachment)
+      allow(subject).to receive(:image_url).and_return("http://example.com/show.png")
+      expect(Rails.logger).to receive(:error).with(/Thumbnail processing failed.*test show.*MiniMagick::Error/)
       expect(subject.thumb_image_url).to eq("http://example.com/show.png")
     end
   end
