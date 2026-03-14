@@ -30,6 +30,19 @@ class User < ActiveRecord::Base
   end
 
   # only called from serializers
+  def image_url
+    if self.as_image.present?
+      if ::Rails.env != "production"
+        Rails.application.routes.url_helpers.rails_representation_url(
+          self.as_image,
+          host: "http://localhost:3000"
+        )
+      else
+        self.as_image.url
+      end
+    end
+  end
+
   def thumb_image_url
     if self.as_image.present?
       variant = self.as_image.variant(:thumb).processed
