@@ -59,7 +59,7 @@ RSpec.describe User, :type => :model do
 
     it "returns image_url as fallback when ActiveStorage::InvariableError is raised" do
       user = User.create! username: "invariable", time_zone: "Tokyo", role: "admin", email: "invariable@datafruits.fm", password: "abc12345678"
-      mock_attachment = double("as_image", present?: true)
+      mock_attachment = double("as_image", present?: true, attached?: true)
       allow(mock_attachment).to receive(:variant).and_raise(ActiveStorage::InvariableError)
       allow(user).to receive(:as_image).and_return(mock_attachment)
       allow(user).to receive(:image_url).and_return("http://example.com/avatar.png")

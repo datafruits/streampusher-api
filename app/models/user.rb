@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
           host: Rails.application.routes.default_url_options[:host]
         )
       rescue ActiveStorage::InvariableError, ActiveStorage::FileNotFoundError => e
-        Rails.logger.error("ActiveStorage error for user id=#{self.id} username=#{self.username}: #{e.class}:#{e.message}")
+        Rails.logger.error("#{e.class} for user id=#{self.id} username=#{self.username}: #{e.message}")
         image_url
       end
     end
