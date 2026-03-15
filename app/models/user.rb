@@ -31,33 +31,25 @@ class User < ActiveRecord::Base
 
   # only called from serializers
   def image_url
-    if self.as_image.present?
-      if ::Rails.env != "production"
-        Rails.application.routes.url_helpers.rails_representation_url(
-          self.as_image,
-          host: "http://localhost:3000"
-        )
-      else
-        self.as_image.url
-      end
+    if self.as_image.attached?
+      Rails.application.routes.url_helpers.rails_representation_url(
+        self.as_image,
+        host: Rails.application.routes.default_url_options[:host]
+      )
     end
   end
 
   def thumb_image_url
-    if self.as_image.present?
+    if self.as_image.attached?
       begin
-        variant = self.as_image.variant(:thumb).processed
+        variant = self.as_image.variant(:thumb)
 
-        if ::Rails.env != "production"
-          Rails.application.routes.url_helpers.rails_representation_url(
-            variant,
-            host: "http://localhost:3000"
-          )
-        else
-          variant.url
-        end
-      rescue ActiveStorage::InvariableError => e
-        Rails.logger.error("ActiveStorage::InvariableError for user id=#{self.id} username=#{self.username}: #{e.message}")
+        Rails.application.routes.url_helpers.rails_representation_url(
+          variant,
+          host: Rails.application.routes.default_url_options[:host]
+        )
+      rescue ActiveStorage::InvariableError, ActiveStorage::FileNotFoundError => e
+        Rails.logger.error("ActiveStorage error for user id=#{self.id} username=#{self.username}: #{e.class}:#{e.message}")
         image_url
       end
     end

@@ -146,26 +146,22 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def image_url
-    if representative_image.present?
-      if ::Rails.env != "production"
-        path = ::Rails.application.routes.url_helpers.rails_blob_path(representative_image, only_path: true, disposition: 'attachment')
-        "http://localhost:3000#{path}"
-      else
-        representative_image.url
-      end
+    if representative_image.present? && representative_image.attached?
+      Rails.application.routes.url_helpers.rails_representation_url(
+        representative_image,
+        host: Rails.application.routes.default_url_options[:host]
+      )
     end
   end
 
   def thumb_image_url
-    if representative_image.present?
+    if representative_image.present? && representative_image.attached?
       begin
         variant = representative_image.variant(:thumb)
-        if ::Rails.env != "production"
-          path = ::Rails.application.routes.url_helpers.rails_blob_path(variant, only_path: true, disposition: 'attachment')
-          "http://localhost:3000#{path}"
-        else
-          variant.url
-        end
+        Rails.application.routes.url_helpers.rails_representation_url(
+          variant,
+          host: Rails.application.routes.default_url_options[:host]
+        )
       rescue ActiveStorage::InvariableError => e
         Rails.logger.error("ActiveStorage::InvariableError for scheduled_show id=#{self.id} title=#{self.title}: #{e.message}")
         image_url
