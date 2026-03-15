@@ -29,7 +29,7 @@ class ShowSeriesSerializer < ActiveModel::Serializer
   def thumb_image_url
     if object.as_image.attached?
       begin
-        variant = object.as_image.variant(:thumb).processed
+        variant = object.as_image.variant(:thumb)
 
         Rails.application.routes.url_helpers.rails_representation_url(
           variant,
