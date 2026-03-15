@@ -18,29 +18,23 @@ class ShowSeriesSerializer < ActiveModel::Serializer
   end
 
   def image_url
-    if object.as_image.present?
-      if ::Rails.env != "production"
-        path = ::Rails.application.routes.url_helpers.rails_blob_path(object.as_image, only_path: true, disposition: 'attachment')
-        "http://localhost:3000#{path}"
-      else
-        object.as_image.url
-      end
+    if object.as_image.attached?
+      Rails.application.routes.url_helpers.rails_representation_url(
+        object.as_image,
+        host: Rails.application.routes.default_url_options[:host]
+      )
     end
   end
 
   def thumb_image_url
-    if object.as_image.present?
+    if object.as_image.attached?
       begin
-        variant = object.as_image.variant(:thumb).processed
+        variant = object.as_image.variant(:thumb)
 
-        if ::Rails.env != "production"
-          Rails.application.routes.url_helpers.rails_representation_url(
-            variant,
-            host: "http://localhost:3000"
-          )
-        else
-          variant.url
-        end
+        Rails.application.routes.url_helpers.rails_representation_url(
+          variant,
+          host: Rails.application.routes.default_url_options[:host]
+        )
       rescue ActiveStorage::InvariableError => e
         Rails.logger.error("ActiveStorage::InvariableError for show_series id=#{object.id} title=#{object.title}: #{e.message}")
         image_url

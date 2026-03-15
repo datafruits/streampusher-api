@@ -36,7 +36,7 @@ RSpec.describe ShowSeriesSerializer, type: :serializer do
     end
 
     it "returns image_url as fallback when ActiveStorage::InvariableError is raised" do
-      mock_attachment = double("as_image", present?: true)
+      mock_attachment = double("as_image", present?: true, attached?: true)
       allow(mock_attachment).to receive(:variant).and_raise(ActiveStorage::InvariableError)
       allow(show_series).to receive(:as_image).and_return(mock_attachment)
       allow(subject).to receive(:image_url).and_return("http://example.com/show.png")
