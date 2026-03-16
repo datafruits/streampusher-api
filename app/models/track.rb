@@ -32,7 +32,7 @@ class Track < ActiveRecord::Base
                                             if: -> { scheduled_show_id.present? }
 
 
-  before_post_process :transliterate_file_name
+  # before_post_process :transliterate_file_name
 
   has_tags column: :s3_filepath, storage: :s3,
            artwork_column: :artwork,
@@ -121,22 +121,23 @@ class Track < ActiveRecord::Base
       if self.title.blank?
         self.title = "#{self.scheduled_show.title} - #{self.scheduled_show.start_at.strftime("%m%d%Y")}"
       end
-      unless self.artwork.present?
-        if self.scheduled_show.image.present?
-          self.artwork = self.scheduled_show.image
-        elsif self.scheduled_show.dj.image.present?
-          self.artwork = self.scheduled_show.dj.image
-        end
-      end
+      # TODO convert so_id3 to use active_storage
+      # unless self.artwork.present?
+      #   if self.scheduled_show.representative_image.present?
+      #     self.artwork = self.scheduled_show.representative_image
+      #   elsif self.scheduled_show.dj.image.present?
+      #     self.artwork = self.scheduled_show.dj.image
+      #   end
+      # end
     end
   end
 
-  def transliterate_file_name
-    base = "#{self.artist}_#{self.title}_#{self.album}"
-    mime = self.artwork.content_type
-    ext = Rack::Mime::MIME_TYPES.invert[mime]
-
-    new_file_name = "#{base.parameterize}_#{Digest::SHA256.hexdigest(base)}#{ext}"
-    self.artwork.instance_write(:file_name, new_file_name)
-  end
+  # def transliterate_file_name
+  #   base = "#{self.artist}_#{self.title}_#{self.album}"
+  #   mime = self.artwork.content_type
+  #   ext = Rack::Mime::MIME_TYPES.invert[mime]
+  #
+  #   new_file_name = "#{base.parameterize}_#{Digest::SHA256.hexdigest(base)}#{ext}"
+  #   self.artwork.instance_write(:file_name, new_file_name)
+  # end
 end
