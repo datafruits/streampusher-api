@@ -21,7 +21,7 @@ if admin.new_record?
   admin.password             = "password"
   admin.password_confirmation = "password"
   admin.time_zone            = "UTC"
-  admin.role                 = "owner dj"
+  admin.role                 = "admin dj"
   admin.display_name         = "Admin"
   admin.save!
 end
