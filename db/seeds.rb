@@ -32,7 +32,7 @@ if dj1.new_record?
   dj1.username             = "tonyde"
   dj1.password             = "password"
   dj1.password_confirmation = "password"
-  dj1.time_zone            = "America/New_York"
+  dj1.time_zone            = "Eastern Time (US & Canada)"
   dj1.role                 = "dj"
   dj1.display_name         = "Tony de"
   dj1.save!
@@ -44,7 +44,7 @@ if dj2.new_record?
   dj2.username             = "yoshibo"
   dj2.password             = "password"
   dj2.password_confirmation = "password"
-  dj2.time_zone            = "Asia/Tokyo"
+  dj2.time_zone            = "Tokyo"
   dj2.role                 = "dj"
   dj2.display_name         = "Yoshibo"
   dj2.save!
@@ -75,7 +75,7 @@ default_playlist = radio.default_playlist
 series1 = ShowSeries.find_or_initialize_by(title: "Fruit Salad", radio: radio)
 if series1.new_record?
   series1.description         = "A weekly show featuring eclectic electronic music from around the world."
-  series1.time_zone           = "America/New_York"
+  series1.time_zone           = "Eastern Time (US & Canada)"
   series1.start_time          = Time.parse("2025-01-01 20:00:00 UTC")
   series1.end_time            = Time.parse("2025-01-01 22:00:00 UTC")
   series1.start_date          = 1.year.ago
@@ -92,7 +92,7 @@ puts "Show series: #{series1.title}"
 series2 = ShowSeries.find_or_initialize_by(title: "Tokyo Nights", radio: radio)
 if series2.new_record?
   series2.description         = "Late-night ambient and electronic music from Tokyo."
-  series2.time_zone           = "Asia/Tokyo"
+  series2.time_zone           = "Tokyo"
   series2.start_time          = Time.parse("2025-01-01 23:00:00 UTC")
   series2.end_time            = Time.parse("2025-01-02 01:00:00 UTC")
   series2.start_date          = 1.year.ago
