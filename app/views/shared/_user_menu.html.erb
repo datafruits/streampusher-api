@@ -1,0 +1,18 @@
+<%#
+  User menu partial - converted from Ember UserMenu component (app/components/user-menu.hbs).
+  Shown/hidden by the Stimulus home controller via data-home-target="userMenu".
+  Only shown when the user is authenticated.
+%>
+<% if user_signed_in? %>
+  <div id="user-menu"
+       class="hidden"
+       data-home-target="userMenu">
+    <div class="flex flex-col gap-2 p-2 text-white">
+      <% if current_user.respond_to?(:username) %>
+        <div class="font-bold text-xl"><%= current_user.username %></div>
+      <% end %>
+      <a href="/users/edit" class="cool-button">Edit Profile</a>
+      <%= link_to "Log Out", destroy_user_session_path, data: { turbo_method: :delete }, class: "cool-button" %>
+    </div>
+  </div>
+<% end %>

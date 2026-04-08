@@ -1,0 +1,210 @@
+<%#
+  PC navigation partial - converted from Ember PcNav component (app/components/pc-nav.hbs).
+
+  Ember services replaced:
+  - session.isAuthenticated → user_signed_in?
+  - currentUser.user        → current_user
+  - fastboot.isFastBoot     → not needed (always false in Rails)
+  - intl (t helper)         → Rails t() helper with keys matching the Ember intl translations
+
+  Ember actions/toggles handled by the Stimulus home controller.
+%>
+<nav
+  id="desktop-navbar"
+  class="mb-2 hidden md:block overflow-hidden w-full text-3xl relative"
+  style="background-color: var(--color-df-pink);"
+  role="navigation"
+>
+  <ul class="flex flex-wrap mt-2 ml-2">
+    <li class="its-just-a-website-menu-item">
+      <a
+        data-action="mouseenter->home#toggleSubMenu"
+        aria-label="Radio"
+        class="text-white hover:text-white"
+        href="#"
+        style="text-shadow: var(--color-text-shadow);"
+      >
+        Radio ›
+      </a>
+    </li>
+    <li class="its-just-a-website-menu-item">
+      <a
+        class="text-white hover:text-gray-400"
+        aria-label="Chat"
+        href="/#chat"
+        style="text-shadow: var(--color-text-shadow);"
+      >
+        Chat
+      </a>
+    </li>
+    <li class="its-just-a-website-menu-item">
+      <a
+        class="text-white hover:text-gray-400"
+        aria-label="Releases / Label"
+        href="http://releases.datafruits.fm/"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="text-shadow: var(--color-text-shadow);"
+      >
+        Label
+      </a>
+    </li>
+    <li class="its-just-a-website-menu-item">
+      <a
+        class="text-white hover:text-gray-400"
+        aria-label="Shop"
+        href="https://datafruits.bandcamp.com/merch"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="text-shadow: var(--color-text-shadow);"
+      >
+        Shop
+      </a>
+    </li>
+    <li class="its-just-a-website-menu-item">
+      <a
+        class="text-white hover:text-gray-400"
+        aria-label="About"
+        href="/#about"
+        style="text-shadow: var(--color-text-shadow);"
+      >
+        About
+      </a>
+    </li>
+    <li class="its-just-a-website-menu-item">
+      <a
+        class="text-white hover:text-gray-400"
+        aria-label="Shrimpo"
+        href="/#shrimpos"
+        style="text-shadow: var(--color-text-shadow);"
+      >
+        Shrimpo
+      </a>
+    </li>
+    <li class="its-just-a-website-menu-item">
+      <a
+        class="text-white hover:text-gray-400"
+        aria-label="Support"
+        href="/#support"
+        style="text-shadow: var(--color-text-shadow);"
+      >
+        Support
+      </a>
+    </li>
+    <% unless user_signed_in? %>
+      <li class="its-just-a-website-menu-item">
+        <button
+          class="text-white hover:text-gray-400"
+          aria-label="Settings"
+          style="text-shadow: var(--color-text-shadow);"
+        >
+          ⚙
+        </button>
+      </li>
+    <% end %>
+  </ul>
+
+  <%# Submenu - shown when Radio nav item is hovered. Controlled by Stimulus home#toggleSubMenu %>
+  <ul class="flex flex-wrap items-center ml-2 hidden" data-home-target="submenu">
+    <li>
+      <a class="its-just-a-website-sub-menu-item" aria-label="Shows" href="/#shows">
+        Shows
+      </a>
+    </li>
+    <li>
+      <a class="its-just-a-website-sub-menu-item" aria-label="DJs" href="/#djs">
+        DJs
+      </a>
+    </li>
+    <li>
+      <a class="its-just-a-website-sub-menu-item" aria-label="Podcasts" href="/#podcasts">
+        Podcasts
+      </a>
+    </li>
+    <li>
+      <a class="its-just-a-website-sub-menu-item" aria-label="Timetable" href="/#timetable">
+        Timetable
+      </a>
+    </li>
+    <li>
+      <a class="its-just-a-website-sub-menu-item" aria-label="DJ Inquiry" href="/#dj-inquiry">
+        DJ Inquiry
+      </a>
+    </li>
+    <li>
+      <div class="relative">
+        <img class="absolute" style="top: -15px; left: -30px;" src="/assets/images/new.gif" alt="new">
+        <a class="its-just-a-website-sub-menu-item" aria-label="Forum" href="/#forum">
+          Forum
+        </a>
+      </div>
+    </li>
+    <li>
+      <div class="relative">
+        <img class="absolute" style="top: -15px; left: -30px;" src="/assets/images/new.gif" alt="new">
+        <a class="its-just-a-website-sub-menu-item" aria-label="Wiki" href="/#wiki">
+          Wiki
+        </a>
+      </div>
+    </li>
+  </ul>
+</nav>
+
+<%# Shown only on desktop - Ember RandomBannerAd component with hidden lg:block %>
+<%= render 'shared/random_banner_ad', css_class: 'hidden lg:block mt-4' %>
+
+<% if user_signed_in? %>
+  <%# Authenticated desktop nav with user info %>
+  <ul class="hidden md:block px-4 py-4 font-semibold text-3xl">
+    <li class="flex justify-end">
+      <a
+        href="#"
+        class=""
+        role="button"
+        aria-label="User menu"
+        data-action="click->home#toggleUserMenu"
+      >
+        <% if current_user.respond_to?(:avatar_url) && current_user.avatar_url.present? %>
+          <img
+            class="inline rounded-lg"
+            style="height: 3rem;"
+            src="<%= current_user.avatar_url %>"
+            alt="<%= current_user.username %>"
+          >
+        <% end %>
+      </a>
+      <button
+        class="text-white hover:text-gray-400"
+        aria-label="Settings"
+        style="text-shadow: var(--color-text-shadow);"
+      >
+        ⚙
+      </button>
+    </li>
+  </ul>
+<% else %>
+  <%# Unauthenticated - show sign up / login buttons + logo %>
+  <nav class="hidden md:flex flex-row items-start mt-4 mr-8">
+    <a href="/api/listeners/new" class="cool-button mr-2">
+      Sign Up
+    </a>
+    <button
+      data-action="click->home#toggleLoginModal"
+      type="button"
+      class="cool-button"
+      title="Log In"
+      data-test-login-button
+    >
+      Log In
+    </button>
+  </nav>
+  <a
+    aria-label="Datafruits.fm home"
+    class="hidden md:block"
+    href="/"
+  >
+    <h1 class="logo font-debussy text-5xl text-white">
+      DATAFRUITS.FM
+    </h1>
+  </a>
+<% end %>

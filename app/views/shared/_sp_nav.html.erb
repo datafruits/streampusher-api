@@ -1,0 +1,44 @@
+<%#
+  Mobile navigation partial - converted from Ember SpNav component (app/components/sp-nav.hbs).
+  Shown on small screens, hidden on desktop.
+  Stimulus home controller manages the menu open/close state.
+%>
+<div id="mobile-navbar" class="flex justify-between items-center px-2 py-1 md:hidden w-full"
+     style="background-color: var(--color-df-pink);">
+  <a href="/" class="text-white text-2xl font-bold" style="text-shadow: var(--color-text-shadow);">
+    DATAFRUITS.FM
+  </a>
+  <button
+    class="hamburger-button text-white text-3xl"
+    aria-label="Open menu"
+    aria-expanded="false"
+    data-action="click->home#toggleMenu"
+  >
+    ☰
+  </button>
+</div>
+
+<%# Mobile menu dropdown - hidden by default, toggled by Stimulus home controller %>
+<div id="mobile-menu"
+     class="hidden md:hidden w-full"
+     style="background-color: var(--color-df-pink);"
+     data-home-target="mobileMenu">
+  <ul class="flex flex-col gap-2 p-4 text-2xl">
+    <li><a href="/" class="text-white" style="text-shadow: var(--color-text-shadow);">Home</a></li>
+    <li><a href="/#shows" class="text-white" style="text-shadow: var(--color-text-shadow);">Shows</a></li>
+    <li><a href="/#djs" class="text-white" style="text-shadow: var(--color-text-shadow);">DJs</a></li>
+    <li><a href="/#podcasts" class="text-white" style="text-shadow: var(--color-text-shadow);">Podcasts</a></li>
+    <li><a href="/#chat" class="text-white" style="text-shadow: var(--color-text-shadow);">Chat</a></li>
+    <li><a href="http://releases.datafruits.fm/" target="_blank" rel="noopener noreferrer" class="text-white" style="text-shadow: var(--color-text-shadow);">Label</a></li>
+    <li><a href="https://datafruits.bandcamp.com/merch" target="_blank" rel="noopener noreferrer" class="text-white" style="text-shadow: var(--color-text-shadow);">Shop</a></li>
+    <li><a href="/#about" class="text-white" style="text-shadow: var(--color-text-shadow);">About</a></li>
+    <% if user_signed_in? %>
+      <li><%= link_to "Log Out", destroy_user_session_path, data: { turbo_method: :delete }, class: "cool-button" %></li>
+    <% else %>
+      <li>
+        <button data-action="click->home#toggleLoginModal" class="cool-button">Log In</button>
+      </li>
+      <li><a href="/api/listeners/new" class="cool-button">Sign Up</a></li>
+    <% end %>
+  </ul>
+</div>

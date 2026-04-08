@@ -1,0 +1,36 @@
+<%#
+  DJ Donate Modal partial - converted from Ember DjDonateModal component.
+  Shows a donation button that opens a modal with donation links.
+%>
+<% css_class = local_assigns.fetch(:css_class, '') %>
+<div class="dj-donate-modal-wrapper <%= css_class %>">
+  <button
+    class="donate-button"
+    style="text-shadow: var(--color-text-shadow);"
+    data-action="click->home#toggleDonateModal"
+    aria-label="Donate"
+  >
+    Donate 💕
+  </button>
+
+  <div class="modal-overlay hidden" data-home-target="donateModal" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <h2>Support Datafruits</h2>
+      <div class="modal-body m-1 font-bold">
+        <p>
+          Your support helps keep the music playing! Thank you for supporting independent internet radio.
+        </p>
+        <a href="https://patreon.com/datafruits" target="_blank" rel="noopener noreferrer" aria-label="Patreon">
+          <img src="/assets/images/patreon.png" alt="patreon" style="max-width: 18rem;">
+        </a>
+        <p>
+          You can also donate directly to the currently playing DJ via their donation link.
+        </p>
+        <a href="https://paypal.me/datafruitsfm" target="_blank" rel="noopener noreferrer" aria-label="Donate via PayPal">
+          Donate via PayPal
+        </a>
+      </div>
+      <button class="cool-button mt-2" data-action="click->home#toggleDonateModal">Close</button>
+    </div>
+  </div>
+</div>

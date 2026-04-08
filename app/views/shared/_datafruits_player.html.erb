@@ -1,0 +1,135 @@
+<%#
+  Datafruits Player partial - converts Ember DatafruitsPlayer component to:
+  1. Server-rendered HTML structure (ERB)
+  2. <datafruits-player> custom element (Web Component) for client-side behavior
+
+  The Web Component (app/javascript/components/datafruits-player.js) handles:
+  - Audio playback (play/pause/seek/volume)
+  - State management (playing/loading/paused)
+  - Podcast vs. live stream mode
+  - Metadata title updates via DOM events
+
+  Ember services replaced:
+  - metadata service    → CustomEvent "metadataUpdate" from ActionCable/Turbo Stream
+  - eventBus service    → native DOM CustomEvents
+  - fastboot service    → not needed
+  - videoStream service → optional integration via CustomEvent "liveVideoAudio"
+%>
+<datafruits-player
+  class="flex-col flex justify-center text-xl py-2 text-white leading-none"
+  style="background-color: var(--color-df-pink);"
+  data-icecast-host="<%= ENV.fetch('ICECAST_HOST', 'https://streampusher-relay.club') %>"
+>
+  <audio preload="" id="radio-player" class="hidden" crossorigin="anonymous">
+    <source src="<%= ENV.fetch('ICECAST_HOST', 'https://streampusher-relay.club') %>/datafruits.mp3" type="audio/mp3">
+    <source src="<%= ENV.fetch('ICECAST_HOST', 'https://streampusher-relay.club') %>/datafruits.ogg" type="audio/ogg">
+  </audio>
+
+  <div class="radio-container flex flex-row justify-between items-center text-3xl"
+       style="text-shadow: var(--color-text-shadow);">
+    <div class="player-controls mx-2 flex space-x-2">
+      <%# Return to live stream button - shown only when playing a podcast %>
+      <a
+        class="return-to-live hidden"
+        aria-label="Return to live stream"
+        href="#"
+        role="button"
+      >
+        ‹
+      </a>
+
+      <%# Loading indicator - shown while stream is buffering %>
+      <div id="loading-stream"
+           name="loading-stream"
+           class="player-loading hidden">
+        ⟳
+      </div>
+
+      <%# Pause/Stop button - shown when playing %>
+      <a id="pause-stream"
+         name="pause-stream"
+         role="button"
+         aria-label="Stop"
+         class="jp-pause hidden"
+         href="#"
+         tabindex="0"
+      >
+        Stop
+      </a>
+
+      <%# Play button - shown when paused (default state) %>
+      <a id="play-stream"
+         name="play-stream"
+         class="jp-play"
+         href="#"
+         tabindex="0"
+         role="button"
+         aria-label="Play"
+         title="Play"
+      >
+        Play
+      </a>
+
+      <%# Volume control %>
+      <span
+        id="volume-control"
+        name="volume-control"
+        role="button"
+        class="jp-volume-controls"
+        aria-label="Volume"
+      >
+        <%# Unmute button - shown when muted %>
+        <a class="jp-unmute hidden" tabindex="0" role="button"
+           title="Unmute" aria-label="Unmute" href="#">
+          🔇
+        </a>
+
+        <%# Mute button - shown when not muted (default) %>
+        <a class="jp-mute" tabindex="0" role="button"
+           title="Mute" aria-label="Mute" href="#">
+          🔊
+        </a>
+
+        <%# Volume slider - shown on hover %>
+        <span class="hidden">
+          <input
+            class="volume-control"
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            aria-label="Volume"
+            value="0.8"
+          >
+          <span class="hidden md:inline-block volume-string">80%</span>
+        </span>
+      </span>
+    </div>
+
+    <%# Now playing title %>
+    <div class="now-playing flex-grow overflow-hidden text-base sm:text-3xl sm:whitespace-nowrap">
+      <span class="jp-title"></span>
+    </div>
+
+    <%# Podcast play time display - only shown when playing a podcast %>
+    <span class="play-time-display mx-2 text-base leading-4 hidden"></span>
+
+    <%# Slot for additional items (donate button, hack button) %>
+    <div class="flex mr-1 items-center">
+      <%= render 'shared/dj_donate_modal', css_class: 'hidden md:block mr-2' %>
+      <%= render 'shared/hack_button', css_class: 'hidden md:block mr-2' %>
+    </div>
+  </div>
+
+  <%# Podcast seek bar - only shown when playing a podcast episode %>
+  <div class="seek hidden">
+    <div class="seek-bar-wrapper">
+      <input
+        class="seek-bar m-0 sm:mt-4 sm:mb-4"
+        type="range"
+        step="any"
+        value="0"
+      >
+    </div>
+  </div>
+</datafruits-player>

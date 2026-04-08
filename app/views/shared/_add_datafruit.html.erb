@@ -1,0 +1,16 @@
+<%#
+  Add Datafruit partial - converted from Ember AddDatafruit component (app/components/add-datafruit.hbs).
+  The Ember component loaded microtexts (short user messages) via the API and displayed them
+  in a marquee. It also allowed authenticated users to submit new microtexts.
+
+  In Rails:
+  - The microtext list is loaded via a Turbo Frame (with lazy loading from /api/microtexts)
+  - Submission uses a Turbo Stream response to update the frame
+  - The marquee display is kept for visual parity with the Ember app
+%>
+<%= turbo_frame_tag "add-datafruit", src: "/api/microtexts/current", loading: :lazy do %>
+  <div class="text-sm sm:text-xl text-black px-2">
+    <%# Placeholder while Turbo Frame loads %>
+    <span>♪ ♪ ♪</span>
+  </div>
+<% end %>

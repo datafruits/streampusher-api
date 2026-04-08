@@ -11,9 +11,9 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 # require "action_mailbox/engine"
 #require "action_text/engine"
-#require "action_view/railtie"
-#require "action_cable/engine"
-# require "sprockets/railtie"
+require "action_view/railtie"
+require "action_cable/engine"
+require "sprockets/railtie"
 #require "rails/test_unit/railtie"
 
 
@@ -24,6 +24,7 @@ Bundler.require(*Rails.groups)
 module StreamPusher
   class Application < Rails::Application
     config.api_only = true
+    config.assets.paths << Rails.root.join('app', 'javascript')
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
