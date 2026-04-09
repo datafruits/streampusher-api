@@ -3,6 +3,10 @@
 class SessionsController < Devise::SessionsController
 
   def create
+    if @current_radio.present? && @current_radio.current_scheduled_show.present?
+      render json: { success: false, error: "scheduled show in progress" }, status: :unauthorized
+      return
+    end
     resource = warden.authenticate!(:scope => resource_name, :recall => :failure)
     return sign_in_and_redirect(resource_name, resource)
   end
