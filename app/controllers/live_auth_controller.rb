@@ -22,6 +22,6 @@ class LiveAuthController < ApplicationController
 
   def valid_user?
     user = User.find_for_database_authentication(login: params[:user])
-    user.present? && user.valid_password?(params[:password])
+    user&.valid_password?(params[:password])
   end
 end
