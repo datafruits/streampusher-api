@@ -16,7 +16,7 @@ RSpec.describe SessionsController, type: :controller do
         allow(radio).to receive(:current_scheduled_show).and_return(double("ScheduledShow"))
       end
 
-      it "returns unauthorized" do
+      it "returns unauthorized before checking credentials" do
         post :create, params: { user: { login: dj.username, password: "password" } }
         expect(response).to have_http_status(:unauthorized)
       end
@@ -25,18 +25,10 @@ RSpec.describe SessionsController, type: :controller do
         post :create, params: { user: { login: dj.username, password: "password" } }
         expect(JSON.parse(response.body)["success"]).to eq false
       end
-    end
 
-    context "when there is no currently scheduled show" do
-      before do
-        allow(controller).to receive(:current_radio).and_return(radio)
-        controller.instance_variable_set(:@current_radio, radio)
-        allow(radio).to receive(:current_scheduled_show).and_return(nil)
-      end
-
-      it "allows authentication to proceed" do
+      it "does not sign in the user" do
         post :create, params: { user: { login: dj.username, password: "password" } }
-        expect(response).to have_http_status(:ok)
+        expect(warden.authenticated?(:user)).to be_falsey
       end
     end
 
@@ -48,6 +40,7 @@ RSpec.describe SessionsController, type: :controller do
       it "allows authentication to proceed regardless of scheduled shows" do
         post :create, params: { user: { login: dj.username, password: "password" } }
         expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)["success"]).to eq true
       end
     end
   end
