@@ -20,13 +20,13 @@ class Api::DjsController < ApplicationController
         @djs = @djs.where("role ilike (?)", "%#{tag}%")
       end
     end
-    
+
     options = {}
-    options[:meta] = { 
+    options[:meta] = {
       page: params[:page].to_i,
       total_pages: @djs
         .page.per(@djs_per_page)
-        .total_pages.to_i 
+        .total_pages.to_i
     }
     render json: Fast::DjSerializer.new(@djs, options).serializable_hash.to_json
   end

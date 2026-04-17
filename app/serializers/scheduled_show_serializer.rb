@@ -1,6 +1,6 @@
 class ScheduledShowSerializer < ActiveModel::Serializer
   attributes :id, :start, :end, :title, :image_url, :thumb_image_url, :description,
-    :slug, :recurring_interval, :hosted_by, :is_guest, :guest, :playlist_id, :image_filename, :formatted_episode_title, :status,
+    :slug, :recurring_interval, :hosted_by, :is_guest, :guest, :playlist_id, :formatted_episode_title, :status,
     :show_series_title, :show_series_slug, :hosts,
     :prerecord_track_id,
     :prerecord_track_filename,
@@ -69,20 +69,10 @@ class ScheduledShowSerializer < ActiveModel::Serializer
   end
 
   def image_url
-    if object.image.present?
-      CGI.unescape(object.image_url)
-    end
+    object.image_url
   end
 
   def thumb_image_url
-    if object.image.present?
-      CGI.unescape(object.thumb_image_url)
-    end
-  end
-
-  def image_filename
-    if object.image.present?
-      object.image_file_name
-    end
+    object.thumb_image_url
   end
 end

@@ -111,13 +111,14 @@ RSpec.describe Shrimpo, type: :model do
     dj2 = User.create! role: 'dj', username: 'seacuke', email: "seacuke@gmail.com", password: "2boobies", time_zone: "UTC"
     dj3 = User.create! role: 'dj', username: 'djnameko', email: "djnameko@gmail.com", password: "2boobies", time_zone: "UTC"
     dj4 = User.create! role: 'dj', username: 'djgoodbye', email: "djgoodbye@gmail.com", password: "2boobies", time_zone: "UTC"
-    shrimpo = Shrimpo.new start_at: @start_at, duration: "3 months", title: "Shrimp Champions 2000 mega", rule_pack: "dont use pokemon samples", user: dj1, emoji: ":bgs:", shrimpo_type: :mega, gold_trophy: gold_trophy, silver_trophy: silver_trophy, bronze_trophy: bronze_trophy, consolation_trophy: consolation_trophy
+    shrimpo_params = {  start_at: @start_at, duration: "3 months", title: "Shrimp Champions 2000 mega", rule_pack: "dont use pokemon samples", user: dj1, emoji: ":bgs:", shrimpo_type: :mega, gold_trophy: gold_trophy, silver_trophy: silver_trophy, bronze_trophy: bronze_trophy, consolation_trophy: consolation_trophy }
+    shrimpo = Shrimpo.new shrimpo_params
+    categories.each do |category|
+      shrimpo.shrimpo_voting_categories.build name: category, emoji: ":#{category}:"
+    end
     shrimpo.save_and_deposit_fruit_tickets!
 
-    categories.each do |category|
-      ShrimpoVotingCategory.create! shrimpo: shrimpo, name: category, emoji: ":#{category}:"
-    end
-    shrimpo.create_category_trophies!
+    expect(shrimpo.shrimpo_voting_categories.count).to eq 5
 
     entry1 = shrimpo.shrimpo_entries.create! title: "zolo zoodo", user: dj1
     entry2 = shrimpo.shrimpo_entries.create! title: "mega banger 4000", user: dj2

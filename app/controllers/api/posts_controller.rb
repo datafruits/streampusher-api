@@ -9,6 +9,10 @@ class Api::PostsController < ApplicationController
     post = Post.new post_params
     post.user = current_user
 
+    postable = post_params[:postable_type].constantize.friendly.find post_params[:postable_id]
+
+    post.postable_id = postable.id
+
     if post.save
       payload = { username: current_user.username, post: post.body.first(15)+"...", postable_type: post.postable_type, slug: post.postable.slug }
       if post_params[:postable_type] === 'ScheduledShow'

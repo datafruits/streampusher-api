@@ -4,7 +4,7 @@ class Fast::ScheduledShowSerializer
   has_many :tracks # , serializer: TrackSerializer
 
   attributes :id, :start, :end, :title, :image_url, :thumb_image_url, :description,
-    :slug, :recurring_interval, :is_guest, :guest, :image, :image_filename
+    :slug, :recurring_interval, :is_guest, :guest
 
   attribute :hosted_by do |object|
     if object.performers.any?
@@ -14,36 +14,16 @@ class Fast::ScheduledShowSerializer
 
   attribute :host_avatar_url do |object|
     if object.performers.any?
-      CGI.unescape(object.performers.first.image.url(:thumb))
+      object.performers.first.thumb_avatar_url
     end
   end
 
   attribute :image_url do |object|
-    if object.image.present?
-      CGI.unescape(object.image_url)
-    end
+    object.image_url
   end
 
   attribute :thumb_image_url do |object|
-    if object.image.present?
-      CGI.unescape(object.thumb_image_url)
-    end
-  end
-
-  attribute :image do |object|
-    if object.image.present?
-      {
-        basename: object.image_file_name,
-        attachment: "images",
-        updated_at: object.image.updated_at
-      }
-    end
-  end
-
-  attribute :image_filename do |object|
-    if object.image.present?
-      object.image_file_name
-    end
+    object.thumb_image_url
   end
 
   attribute :show_series_slug do |object|

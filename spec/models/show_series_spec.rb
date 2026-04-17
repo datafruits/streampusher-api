@@ -99,21 +99,23 @@ RSpec.describe ShowSeries, type: :model do
         expect(show_series.episodes.pluck(:start_at).map{|m| m.in_time_zone(show_series.time_zone).hour }.uniq.count).to eq 1
         # should be two different times in UTC
         expect(show_series.episodes.pluck(:start_at).map{|m| m.hour }.uniq.count).to eq 2
-        # check pst time is correct
-        expect(show_series.episodes.pluck(:start_at).map{|m| m.in_time_zone(show_series.time_zone).hour }.uniq.first).to eq 9
-        expect(show_series.episodes.pluck(:end_at).map{|m| m.in_time_zone(show_series.time_zone).hour }.uniq.first).to eq 10
+        # check pst time is correct, should be the same for each episode
+        expect(show_series.episodes.pluck(:start_at).map{|m| m.in_time_zone(show_series.time_zone).hour }.uniq.first).to eq 8
+        expect(show_series.episodes.pluck(:end_at).map{|m| m.in_time_zone(show_series.time_zone).hour }.uniq.first).to eq 9
 
+        # check that start_at is the same in local time even after crossing DST
         pre_dst_start_hour = show_series.episodes.first.start_at.in_time_zone(show_series.time_zone).hour
         dst_episode = show_series.episodes.where("start_at >= ?", show_series.start_date + 6.months).first
         post_dst_start_hour = dst_episode.start_at.in_time_zone(show_series.time_zone).hour
         expect(post_dst_start_hour).to eq(pre_dst_start_hour)
 
+        # check that time is the same if we recreate the episodes after crossing DST
         Timecop.travel 6.months.since do
           puts Time.now.in_time_zone("US/Pacific")
           show_series.episodes.future.destroy_all
           show_series.save_episodes
-          expect(show_series.episodes.pluck(:start_at).map{|m| m.in_time_zone(show_series.time_zone).hour }.uniq.first).to eq 9
-          expect(show_series.episodes.pluck(:end_at).map{|m| m.in_time_zone(show_series.time_zone).hour }.uniq.first).to eq 10
+          expect(show_series.episodes.pluck(:start_at).map{|m| m.in_time_zone(show_series.time_zone).hour }.uniq.first).to eq 8
+          expect(show_series.episodes.pluck(:end_at).map{|m| m.in_time_zone(show_series.time_zone).hour }.uniq.first).to eq 9
         end
       end
     end

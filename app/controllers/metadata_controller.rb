@@ -1,8 +1,8 @@
 class MetadataController < ApplicationController
   def create
     authorize! :update, :metadata
-    if MetadataUpdate.perform(@current_radio, metadata_params)
-      MetadataPublisher.perform @current_radio.name, metadata_params[:title]
+    if LiquidsoapMetadataUpdate.perform(@current_radio, metadata_params)
+      RedisMetadataPublisher.perform @current_radio.name, metadata_params[:title]
       head :ok
     else
       head :error

@@ -1,4 +1,6 @@
 Rails.application.configure do
+  Rails.application.routes.default_url_options[:host] = 'datafruits.streampusher.com'
+
   # Settings specified here will take precedence over those in config/application.rb.
   config.lograge.enabled = true
 

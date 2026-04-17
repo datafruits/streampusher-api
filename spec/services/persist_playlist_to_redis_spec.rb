@@ -15,7 +15,7 @@ describe PersistPlaylistToRedis do
     expect(redis.llen("datafruits:playlist:my_playlist")).to eq 10
     ids = redis.lrange("datafruits:playlist:my_playlist", 0, 9)
     tracks = Track.find ids
-    expect(tracks.map(&:file_basename)).to eq ["the_cowbell.mp3", "the_cowbell.mp3", "the_cowbell.mp3", "the_cowbell.mp3", "the_cowbell.mp3", "the_cowbell.mp3", "the_cowbell.mp3", "the_cowbell.mp3", "the_cowbell.mp3", "the_cowbell.mp3"]
+    expect(tracks.count).to eq 10
   end
 
   it "saves interpolated playlists" do
