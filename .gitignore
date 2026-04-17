@@ -27,3 +27,4 @@ config/blog/.sass-cache
 
 **/dump.rdb
 **/.DS_Store
+.bundle/config
