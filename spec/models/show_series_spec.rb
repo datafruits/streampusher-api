@@ -122,39 +122,42 @@ RSpec.describe ShowSeries, type: :model do
 
     it "saves monthly show on correct weekday across DST boundaries" do
       Timecop.travel Time.zone.parse("2015-11-01") do
+        time_zone = "Central Time (US & Canada)"
         start_time = Time.zone.parse("2015-11-01 23:00:00")
-        show_series = ShowSeries.new title: "dst test monthly", description: "test", recurring_interval: "month", recurring_weekday: "Friday", recurring_cadence: "Third", start_time: start_time, end_time: start_time + 2.hours, start_date: Date.today, radio: @radio, time_zone: "Central Time (US & Canada)"
+        show_series = ShowSeries.new title: "dst test monthly", description: "test", recurring_interval: "month", recurring_weekday: "Friday", recurring_cadence: "Third", start_time: start_time, end_time: start_time + 2.hours, start_date: Date.today, radio: @radio, time_zone: time_zone
         show_series.users << @dj
         show_series.save!
 
-        central_weekdays = show_series.episodes.pluck(:start_at).map { |t| t.in_time_zone("Central Time (US & Canada)").strftime("%A") }.uniq
+        central_weekdays = show_series.episodes.pluck(:start_at).map { |t| t.in_time_zone(time_zone).strftime("%A") }.uniq
         expect(central_weekdays).to eq ["Friday"]
 
-        cdt_episodes = show_series.episodes.pluck(:start_at).select { |t| t.in_time_zone("Central Time (US & Canada)").utc_offset == -5 * 3600 }
-        expect(cdt_episodes.map { |t| t.in_time_zone("Central Time (US & Canada)").strftime("%A") }.uniq).to eq ["Friday"]
+        cdt_episodes = show_series.episodes.pluck(:start_at).select { |t| t.in_time_zone(time_zone).utc_offset == -5 * 3600 }
+        expect(cdt_episodes.map { |t| t.in_time_zone(time_zone).strftime("%A") }.uniq).to eq ["Friday"]
       end
     end
 
     it "saves weekly show on correct weekday across DST spring-forward" do
       Timecop.travel Time.zone.parse("2015-02-25") do
+        time_zone = "Eastern Time (US & Canada)"
         start_time = Time.zone.parse("2015-02-25 22:00:00")
-        show_series = ShowSeries.new title: "dst test weekly", description: "test", recurring_interval: "week", recurring_weekday: "Wednesday", start_time: start_time, end_time: start_time + 1.hour, start_date: Date.today, radio: @radio, time_zone: "Eastern Time (US & Canada)"
+        show_series = ShowSeries.new title: "dst test weekly", description: "test", recurring_interval: "week", recurring_weekday: "Wednesday", start_time: start_time, end_time: start_time + 1.hour, start_date: Date.today, radio: @radio, time_zone: time_zone
         show_series.users << @dj
         show_series.save!
 
-        eastern_weekdays = show_series.episodes.future.pluck(:start_at).map { |t| t.in_time_zone("Eastern Time (US & Canada)").strftime("%A") }.uniq
+        eastern_weekdays = show_series.episodes.future.pluck(:start_at).map { |t| t.in_time_zone(time_zone).strftime("%A") }.uniq
         expect(eastern_weekdays).to eq ["Wednesday"]
       end
     end
 
     it "maintains consistent local hour across DST transitions" do
       Timecop.travel Time.zone.parse("2015-11-01") do
+        time_zone = "Central Time (US & Canada)"
         start_time = Time.zone.parse("2015-11-01 23:00:00")
-        show_series = ShowSeries.new title: "dst consistent hour", description: "test", recurring_interval: "month", recurring_weekday: "Friday", recurring_cadence: "Third", start_time: start_time, end_time: start_time + 2.hours, start_date: Date.today, radio: @radio, time_zone: "Central Time (US & Canada)"
+        show_series = ShowSeries.new title: "dst consistent hour", description: "test", recurring_interval: "month", recurring_weekday: "Friday", recurring_cadence: "Third", start_time: start_time, end_time: start_time + 2.hours, start_date: Date.today, radio: @radio, time_zone: time_zone
         show_series.users << @dj
         show_series.save!
 
-        central_hours = show_series.episodes.pluck(:start_at).map { |t| t.in_time_zone("Central Time (US & Canada)").hour }.uniq
+        central_hours = show_series.episodes.pluck(:start_at).map { |t| t.in_time_zone(time_zone).hour }.uniq
         expect(central_hours.count).to eq 1
         expect(central_hours.first).to eq 17
 
