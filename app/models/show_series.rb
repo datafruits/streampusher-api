@@ -130,11 +130,11 @@ class ShowSeries < ApplicationRecord
         end
 
         new_start_at_dt = new_start_at.to_datetime
-        if new_start_at_dt > Time.now
-          difference_in_days = (new_start_at_dt - start_day_dt).to_i
-          # have to calculate time with .advance to preserve correct hour across time zone boundry
-          start_at = start_day_dt.in_time_zone(self.time_zone).advance(days: difference_in_days)
+        difference_in_days = (new_start_at_dt - start_day_dt).to_i
+        # have to calculate time with .advance to preserve correct hour across time zone boundry
+        start_at = start_day_dt.in_time_zone(self.time_zone).advance(days: difference_in_days)
 
+        if start_at > Time.now
           scheduled_show.start_at = start_at
           scheduled_show.end_at = start_at + (((self.end_time - self.start_time).seconds / 60) / 60).round.hours
           scheduled_show.slug = nil
