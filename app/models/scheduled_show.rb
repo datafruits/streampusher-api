@@ -71,7 +71,7 @@ class ScheduledShow < ActiveRecord::Base
 
   # enum recurring_interval: [:not_recurring, :day, :week, :month, :year, :biweek]
 
-  enum status: [:archive_unpublished, :archive_published]
+  enum :status, [:archive_unpublished, :archive_published]
 
   attr_accessor :prerecord_track_id
   attr_accessor :use_prerecorded_file_for_archive

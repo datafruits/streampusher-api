@@ -15,6 +15,6 @@ class PublishMetadataController < ApplicationController
 
   def liq_authorized?
     liq_secret = request.headers["liq-secret"]
-    return liq_secret == Rails.application.secrets.liq_secret
+    return liq_secret == ENV['LIQ_SECRET']
   end
 end

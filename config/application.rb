@@ -1,4 +1,4 @@
-require File.expand_path('../boot', __FILE__)
+require_relative "boot"
 
 # require 'rails/all'
 require "rails"
@@ -23,6 +23,12 @@ Bundler.require(*Rails.groups)
 
 module StreamPusher
   class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 7.0
+
+    # Opt in to new timezone behavior for Rails 8.1
+    config.active_support.to_time_preserves_timezone = :zone
+
     config.api_only = true
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

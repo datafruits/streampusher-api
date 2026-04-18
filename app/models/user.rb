@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
 
   scope :profile_published, -> { where(profile_publish: true) }
 
-  enum style: [
+  enum :style, [
     :funny,
     :gooey,
     :party,

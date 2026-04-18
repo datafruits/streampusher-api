@@ -7,7 +7,7 @@ class Notification < ApplicationRecord
   belongs_to :user
   belongs_to :source, polymorphic: true
 
-  enum notification_type: [
+  enum :notification_type, [
     :strawberry_badge_award,
     :lemon_badge_award,
     :orange_badge_award,
