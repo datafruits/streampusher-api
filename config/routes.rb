@@ -103,6 +103,7 @@ Rails.application.routes.draw do
   post '/donation_link' => "donation_link#create"
   post '/skip_track' => "skip_track#create"
   post '/on_disconnect' => 'on_disconnect#create'
+  post '/login.json' => 'dj_login#create'
 
   resources :host_applications, only: [:create, :index] do
     resources :approvals, only: [:create]
