@@ -95,30 +95,8 @@ class ShowSeries < ApplicationRecord
 
   def save_episodes
     if recurring?
-      start_day = Time.use_zone(self.time_zone) do
-        Time.zone.local(recurrences.first.year,
-                        recurrences.first.month,
-                        recurrences.first.day,
-                        self.start_time.in_time_zone(self.time_zone).hour,
-                        self.start_time.in_time_zone(self.time_zone).min,
-                        0
-                       )
-
-      end
-      start_day_dt = start_day.to_datetime
       recurrences.each do |r|
-        scheduled_show = self.episodes.new
-        scheduled_show.radio = self.radio
-        scheduled_show.dj = self.users.first # TODO drop dj_id from ScheduledShow?
-        # add performers
-        scheduled_show.performers << self.users
-        #
-        # TODO use a reference instead of copying a million new images
-        # scheduled_show.image = self.image if self.image.present?
-        #
-        # take into account the offset of this recurrence (could be DST or not)
-
-        new_start_at = Time.use_zone(self.time_zone) do
+        start_at = Time.use_zone(self.time_zone) do
           Time.zone.local(
             r.year,
             r.month,
@@ -129,12 +107,13 @@ class ShowSeries < ApplicationRecord
           )
         end
 
-        new_start_at_dt = new_start_at.to_datetime
-        difference_in_days = (new_start_at_dt - start_day_dt).to_i
-        # have to calculate time with .advance to preserve correct hour across time zone boundry
-        start_at = start_day_dt.in_time_zone(self.time_zone).advance(days: difference_in_days)
-
         if start_at > Time.now
+          scheduled_show = self.episodes.new
+          scheduled_show.radio = self.radio
+          scheduled_show.dj = self.users.first # TODO drop dj_id from ScheduledShow?
+          # add performers
+          scheduled_show.performers << self.users
+
           scheduled_show.start_at = start_at
           scheduled_show.end_at = start_at + (((self.end_time - self.start_time).seconds / 60) / 60).round.hours
           scheduled_show.slug = nil
