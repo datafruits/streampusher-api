@@ -3,14 +3,17 @@ class DjLoginController < ApplicationController
 
   def create
     if liq_authorized?
-      user = @current_radio.djs.find_by("lower(username) = ?", params[:user].to_s.downcase)
+      if params[:user].blank?
+        return render json: { success: false }, status: :unauthorized
+      end
+      user = @current_radio.djs.find_by("lower(username) = ?", params[:user].downcase)
       if user.present? && user.valid_password?(params[:password])
         render json: { success: true, username: user.username }
       else
         render json: { success: false }, status: :unauthorized
       end
     else
-      render json: "not permitted", status: :unauthorized
+      render json: { success: false, error: "not permitted" }, status: :unauthorized
     end
   end
 
