@@ -7,6 +7,8 @@ RSpec.describe SessionsController, type: :controller do
 
   let(:radio) { FactoryBot.create(:radio) }
   let(:password) { "password123" }
+  let(:json_response) { JSON.parse(response.body) }
+
   let(:dj_user) do
     user = FactoryBot.create(:user, password: password, password_confirmation: password)
     user.role = "dj"
@@ -27,23 +29,19 @@ RSpec.describe SessionsController, type: :controller do
       end
 
       it "returns success" do
-        json = JSON.parse(response.body)
-        expect(json["success"]).to eq(true)
+        expect(json_response["success"]).to eq(true)
       end
 
       it "returns dj_authorized true when user is a DJ on the radio" do
-        json = JSON.parse(response.body)
-        expect(json["dj_authorized"]).to eq(true)
+        expect(json_response["dj_authorized"]).to eq(true)
       end
 
       it "returns the user login" do
-        json = JSON.parse(response.body)
-        expect(json["login"]).to eq(dj_user.username)
+        expect(json_response["login"]).to eq(dj_user.username)
       end
 
       it "returns the user id" do
-        json = JSON.parse(response.body)
-        expect(json["id"]).to eq(dj_user.id)
+        expect(json_response["id"]).to eq(dj_user.id)
       end
     end
 
@@ -58,13 +56,11 @@ RSpec.describe SessionsController, type: :controller do
       end
 
       it "returns success false" do
-        json = JSON.parse(response.body)
-        expect(json["success"]).to eq(false)
+        expect(json_response["success"]).to eq(false)
       end
 
       it "returns an error message" do
-        json = JSON.parse(response.body)
-        expect(json["error"]).to be_present
+        expect(json_response["error"]).to be_present
       end
     end
 
@@ -75,13 +71,50 @@ RSpec.describe SessionsController, type: :controller do
       end
 
       it "returns success" do
-        json = JSON.parse(response.body)
-        expect(json["success"]).to eq(true)
+        expect(json_response["success"]).to eq(true)
       end
 
       it "returns dj_authorized false" do
-        json = JSON.parse(response.body)
-        expect(json["dj_authorized"]).to eq(false)
+        expect(json_response["dj_authorized"]).to eq(false)
+      end
+    end
+
+    context "with valid manager credentials associated with the radio" do
+      let(:manager_user) do
+        user = FactoryBot.create(:user, username: "mgr", email: "mgr@test.com",
+                                 password: password, password_confirmation: password)
+        user.role = "manager"
+        user.user_radios.build(radio: radio)
+        user.save!
+        user
+      end
+
+      before do
+        manager_user
+        post :create, params: { user: { login: manager_user.username, password: password } }, format: :json
+      end
+
+      it "returns dj_authorized true for a manager" do
+        expect(json_response["dj_authorized"]).to eq(true)
+      end
+    end
+
+    context "with valid credentials for a DJ not associated with any radio" do
+      let(:unassigned_dj) do
+        user = FactoryBot.create(:user, username: "unassigned", email: "unassigned@test.com",
+                                 password: password, password_confirmation: password)
+        user.role = "dj"
+        user.save!
+        user
+      end
+
+      before do
+        unassigned_dj
+        post :create, params: { user: { login: unassigned_dj.username, password: password } }, format: :json
+      end
+
+      it "returns dj_authorized false when DJ is not associated with current radio" do
+        expect(json_response["dj_authorized"]).to eq(false)
       end
     end
   end

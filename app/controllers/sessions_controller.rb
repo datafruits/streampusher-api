@@ -7,7 +7,7 @@ class SessionsController < Devise::SessionsController
     if resource
       sign_in_and_redirect(resource_name, resource)
     else
-      render json: { success: false, error: "invalid login or password" }, status: :unauthorized
+      render json: { success: false, error: "Invalid login or password" }, status: :unauthorized
     end
   end
 
