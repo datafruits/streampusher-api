@@ -23,11 +23,14 @@ Bundler.require(*Rails.groups)
 
 module StreamPusher
   class Application < Rails::Application
-    # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
-
     # Opt in to new timezone behavior for Rails 8.1
     config.active_support.to_time_preserves_timezone = :zone
+
+    # The app was originally built without config.load_defaults, so
+    # belongs_to validations were never enforced. Keep that behaviour
+    # to avoid breaking seeds, factories, and runtime code that creates
+    # records without every association pre-set.
+    config.active_record.belongs_to_required_by_default = false
 
     config.api_only = true
     # Settings in config/environments/* take precedence over those specified here.
