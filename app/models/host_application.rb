@@ -13,7 +13,7 @@ class HostApplication < ApplicationRecord
 
   before_validation :process_time_zone
 
-  enum interval: [:daily, :weekly, :biweekly, :monthly, :other]
+  enum :interval, [:daily, :weekly, :biweekly, :monthly, :other]
 
   def approve!
     return false if approved?

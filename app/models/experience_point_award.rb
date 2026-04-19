@@ -10,7 +10,7 @@ class ExperiencePointAward < ApplicationRecord
 
   validates :award_type, presence: true
 
-  enum award_type: [
+  enum :award_type, [
     :chat_lurker, # lurking in chat TODO implement
     :music_enjoyer, # listening to stream or podcasts TODO implement???
     :textbox_like, # posting chats TODO implement???
