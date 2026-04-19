@@ -23,7 +23,8 @@ class ScheduledShow < ActiveRecord::Base
     attachable.variant :thumb, resize_to_limit: [300, 300]
   end
 
-  alias_attribute :image, :as_image
+  alias_method :image, :as_image
+  alias_method :image=, :as_image=
 
   has_many :scheduled_show_labels, dependent: :destroy
   has_many :labels, through: :scheduled_show_labels

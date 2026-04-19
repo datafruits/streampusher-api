@@ -18,11 +18,12 @@ class ShowSeries < ApplicationRecord
   #   validate_media_type: false # TODO comment out for prod
   # validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
   #
-  alias_attribute :image, :as_image
 
   has_one_attached :as_image do |attachable|
     attachable.variant :thumb, resize_to_limit: [300, 300]
   end
+
+  alias_method :image, :as_image
 
   enum :status, [:active, :archived, :disabled]
 
