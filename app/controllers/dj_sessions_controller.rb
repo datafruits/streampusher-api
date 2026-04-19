@@ -8,7 +8,7 @@ class DjSessionsController < Devise::SessionsController
     end
 
     unless resource.dj? || resource.manager? || resource.admin?
-      render json: { success: false, error: "User is not a DJ" }, status: :unauthorized
+      render json: { success: false, error: "User does not have DJ privileges" }, status: :unauthorized
       return
     end
 

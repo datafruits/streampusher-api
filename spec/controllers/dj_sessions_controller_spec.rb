@@ -76,7 +76,7 @@ RSpec.describe DjSessionsController, type: :controller do
       end
 
       it "returns not a DJ error" do
-        expect(json_response["error"]).to eq("User is not a DJ")
+        expect(json_response["error"]).to eq("User does not have DJ privileges")
       end
     end
 
