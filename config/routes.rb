@@ -104,6 +104,8 @@ Rails.application.routes.draw do
   post '/skip_track' => "skip_track#create"
   post '/on_disconnect' => 'on_disconnect#create'
 
+  post '/dj_login' => 'dj_sessions#create'
+
   resources :host_applications, only: [:create, :index] do
     resources :approvals, only: [:create]
   end
