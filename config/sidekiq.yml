@@ -25,5 +25,8 @@
     daily_glorp_lottery:
       every: 24h
       class: DailyGlorpLotteryWorker
+    list_archives:
+      every: 30m
+      class: ListArchivesWorker
 production:
   :concurrency: 5
