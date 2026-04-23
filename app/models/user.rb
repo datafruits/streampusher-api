@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   include ::User::Rpg
 
   has_one :subscription
+  has_many :sent_gift_subscriptions, class_name: 'GiftSubscription', foreign_key: 'gifter_id'
+  has_many :received_gift_subscriptions, class_name: 'GiftSubscription', foreign_key: 'giftee_id'
   has_many :microtexts
   has_many :user_radios
   has_many :radios, through: :user_radios
