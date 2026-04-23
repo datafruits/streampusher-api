@@ -2,9 +2,9 @@ require 'factory_bot'
 
 FactoryBot.define do
   factory :user do
-    username { 'yoshibo' }
+    sequence(:username) { |n| "yoshibo#{n}" }
     time_zone { 'Tokyo' }
-    email { 'yoshino@malboro.info' }
+    sequence(:email) { |n| "yoshino#{n}@malboro.info" }
     password { "password" }
     password_confirmation { "password" }
   end
