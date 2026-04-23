@@ -39,7 +39,12 @@ Rails.application.configure do
   #
   #
   #
-  config.active_storage.service = :amazon
+  if ENV['USE_AMAZON'] == "1"
+    puts "Development Amazon ActiveStorage enabled"
+    config.active_storage.service = :amazon
+  else
+    config.active_storage.service = :local
+  end
 
   config.hosts << "rails"
 
