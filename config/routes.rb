@@ -44,6 +44,10 @@ Rails.application.routes.draw do
     passwords: "passwords"
   }
 
+  devise_scope :user do
+    post '/dj_login' => 'dj_sessions#create'
+  end
+
   resources :anniversary_slots do
     collection do
       post "sign_up"
@@ -103,8 +107,6 @@ Rails.application.routes.draw do
   post '/donation_link' => "donation_link#create"
   post '/skip_track' => "skip_track#create"
   post '/on_disconnect' => 'on_disconnect#create'
-
-  post '/dj_login' => 'dj_sessions#create'
 
   resources :host_applications, only: [:create, :index] do
     resources :approvals, only: [:create]
