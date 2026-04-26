@@ -40,7 +40,7 @@ class PodcastsController < ApplicationController
   def show
     @podcast = @current_radio.podcasts.find_by_name(params[:id])
 
-    @archives = Rails.cache.fetch("chronological_archives/#{current_radio.id}") {
+    @archives = Rails.cache.fetch("chronological_archives/#{@current_radio.id}") {
       Rails.log.info("Recaching archives....")
       @current_radio.scheduled_shows.
         where(status: :archive_published).
