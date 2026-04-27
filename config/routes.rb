@@ -175,6 +175,7 @@ Rails.application.routes.draw do
     resources :labels, only: [:create, :index, :show]
 
     resources :treasure_chests, only: [:create]
+    resources :user_emojis, only: [:create]
   end
 
   resources :patreon_webhooks, only: [:create]
