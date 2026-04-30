@@ -42,7 +42,9 @@ class PodcastsController < ApplicationController
 
     @archives = Rails.cache.fetch("chronological_archives/#{@current_radio.id}") {
       Rails.log.info("Recaching archives....")
+
       @current_radio.scheduled_shows.
+        includes([:tracks]).
         where(status: :archive_published).
         order("start_at DESC")
     }
