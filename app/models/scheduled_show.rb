@@ -12,11 +12,18 @@ class ScheduledShow < ActiveRecord::Base
   belongs_to :recurrant_original, class_name: "ScheduledShow"
   belongs_to :recording
 
-  has_attached_file :image,
-    styles: { :thumb => "x300", :medium => "x600" },
-    path: ":attachment/:style/:basename.:extension",
-    validate_media_type: false # TODO comment out for prod
-  validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+  # has_attached_file :image,
+  #   styles: { :thumb => "x300", :medium => "x600" },
+  #   path: ":attachment/:style/:basename.:extension",
+  #   validate_media_type: false # TODO comment out for prod
+  # validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+  #
+  # TODO will rename to image when migration completes
+  has_one_attached :as_image do |attachable|
+    attachable.variant :thumb, resize_to_limit: [300, 300]
+  end
+
+  alias_attribute :image, :as_image
 
   has_many :scheduled_show_labels, dependent: :destroy
   has_many :labels, through: :scheduled_show_labels
@@ -123,6 +130,10 @@ class ScheduledShow < ActiveRecord::Base
           ScheduledShowExpAwardWorker.perform_later self.id
         end
       end
+      # TODO what consumes this key
+      # this key is for compatibility ???? or what
+      current_show = { title: self.title, user: self.dj.username, scheduled_show: self.id }
+      StreamPusher.redis.hset "#{radio}:current_show", current_show
     else
       puts "tried to queue #{self.inspect}'s playlist, but playlist empty in redis!"
     end
@@ -135,11 +146,44 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def image_url
-    self.image.url(:original)
+    if representative_image.present? && representative_image.attached?
+      Rails.application.routes.url_helpers.rails_representation_url(
+        representative_image,
+        host: Rails.application.routes.default_url_options[:host]
+      )
+    end
   end
 
   def thumb_image_url
-    self.image.url(:thumb)
+    if representative_image.present? && representative_image.attached?
+      begin
+        variant = representative_image.variant(:thumb)
+        Rails.application.routes.url_helpers.rails_representation_url(
+          variant,
+          host: Rails.application.routes.default_url_options[:host]
+        )
+      rescue ActiveStorage::InvariableError => e
+        Rails.logger.error("ActiveStorage::InvariableError for scheduled_show id=#{self.id} title=#{self.title}: #{e.message}")
+        image_url
+      end
+    end
+  end
+
+  def representative_image
+    i = nil
+    # priority ->
+    # own image
+    # show series image
+    # user image
+    if self.as_image.present?
+      i = self.as_image
+    elsif self.show_series&.as_image.present?
+      i = self.show_series&.as_image
+    elsif self.performers.any? && self.performers.first.as_image.present?
+      i = self.performers.first.as_image
+    end
+
+    i
   end
 
   def schedule_cannot_conflict

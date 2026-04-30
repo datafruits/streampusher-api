@@ -10,9 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_07_04_000936) do
+ActiveRecord::Schema[7.0].define(version: 2026_04_26_181859) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accessories", force: :cascade do |t|
+    t.string "name"
+    t.integer "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -131,6 +138,14 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_04_000936) do
     t.datetime "updated_at", precision: nil, null: false
   end
 
+  create_table "glorp_lotteries", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "amount", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_glorp_lotteries_on_user_id"
+  end
+
   create_table "host_applications", id: :serial, force: :cascade do |t|
     t.integer "radio_id", null: false
     t.string "email", null: false
@@ -196,8 +211,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_04_000936) do
     t.string "source_type"
     t.boolean "read", default: false, null: false
     t.string "url"
-    t.string "message_key"
-    t.jsonb "message_params", default: {}
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
@@ -207,6 +220,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_04_000936) do
     t.integer "pledge_amount_cents"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
   end
 
   create_table "plans", id: :serial, force: :cascade do |t|
@@ -606,6 +620,30 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_04_000936) do
     t.index ["shrimpo_entry_id"], name: "index_trophy_awards_on_shrimpo_entry_id"
     t.index ["trophy_id"], name: "index_trophy_awards_on_trophy_id"
     t.index ["user_id"], name: "index_trophy_awards_on_user_id"
+  end
+
+  create_table "user_accessories", force: :cascade do |t|
+    t.bigint "accessory_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["accessory_id"], name: "index_user_accessories_on_accessory_id"
+    t.index ["user_id"], name: "index_user_accessories_on_user_id"
+  end
+
+  create_table "user_emojis", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_emojis_on_user_id"
+  end
+
+  create_table "user_live_bars", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_live_bars_on_user_id"
   end
 
   create_table "user_radios", id: :serial, force: :cascade do |t|

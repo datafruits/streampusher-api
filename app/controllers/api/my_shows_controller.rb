@@ -24,13 +24,15 @@ class Api::MyShowsController < ApplicationController
       end_time = DateTime.parse my_show_params[:end_time]
       start_date = DateTime.parse my_show_params[:start_date]
       time_zone = current_user.time_zone
-      episode.start_at = DateTime.new start_date.year,
-                                      start_date.month,
-                                      start_date.day,
-                                      start_time.hour,
-                                      0,
-                                      0,
-                                      current_user.time_zone
+      start =  Time.use_zone(time_zone) do
+        Time.zone.local start_date.year,
+                        start_date.month,
+                        start_date.day,
+                        start_time.in_time_zone(time_zone).hour,
+                        0,
+                        0
+      end
+      episode.start_at = start.to_datetime
       episode.end_at = episode.start_at + ((end_time - start_time) * 24).to_i.hours
       episode.playlist = guest_series.radio.default_playlist
       episode.dj_id = users_params[:user_ids].first
@@ -102,26 +104,19 @@ class Api::MyShowsController < ApplicationController
 
   private
   def my_show_params
-    p = ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
       :title,
       :start_date,
       :end_date,
       :start_time,
       :end_time,
-      :description, :image, :image_filename,
+      :description, :image,
       :recurring_interval,
       :recurring_cadence,
       :recurring_weekday,
       :start, :end,
       :status
     ])
-    if p[:image].present?
-      image = Paperclip.io_adapters.for(p[:image])
-      image.original_filename = p.delete(:image_filename)
-      return p.except(:image_filename).merge({image: image})
-    else
-      return p.except(:image_filename).except(:image)
-    end
   end
 
   def labels_params

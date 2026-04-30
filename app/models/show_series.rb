@@ -12,13 +12,17 @@ class ShowSeries < ApplicationRecord
 
   has_many :episodes, class_name: "::ScheduledShow"
 
-  # TODO move to active storage I guess?
-  # has_one_attached :image
-  has_attached_file :image,
-    styles: { :thumb => "x300", :medium => "x600" },
-    path: ":attachment/:style/:basename.:extension",
-    validate_media_type: false # TODO comment out for prod
-  validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+  # has_attached_file :image,
+  #   styles: { :thumb => "x300", :medium => "x600" },
+  #   path: ":attachment/:style/:basename.:extension",
+  #   validate_media_type: false # TODO comment out for prod
+  # validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+  #
+  alias_attribute :image, :as_image
+
+  has_one_attached :as_image do |attachable|
+    attachable.variant :thumb, resize_to_limit: [300, 300]
+  end
 
   enum status: [:active, :archived, :disabled]
 
@@ -59,14 +63,6 @@ class ShowSeries < ApplicationRecord
     end
   end
 
-  def image_url
-    self.image.url(:original)
-  end
-
-  def thumb_image_url
-    self.image.url(:thumb)
-  end
-
   def recurrences
     options = { every: self.recurring_interval.to_sym }
     options[:starts] = self.start_date
@@ -99,35 +95,24 @@ class ShowSeries < ApplicationRecord
 
   def save_episodes
     if recurring?
-      start_day = DateTime.new recurrences.first.year,
-                               recurrences.first.month,
-                               recurrences.first.day,
-                               self.start_time.in_time_zone(self.time_zone).hour,
-                               self.start_time.in_time_zone(self.time_zone).min,
-                               0,
-                               ActiveSupport::TimeZone[self.time_zone].formatted_offset
-
       recurrences.each do |r|
-        scheduled_show = self.episodes.new
-        scheduled_show.radio = self.radio
-        scheduled_show.dj = self.users.first # TODO drop dj_id from ScheduledShow?
-        # add performers
-        scheduled_show.performers << self.users
-        #
-        # TODO use a reference instead of copying a million new images
-        # scheduled_show.image = self.image if self.image.present?
-        new_start_at = DateTime.new(
-          r.year,
-          r.month,
-          r.day,
-          self.start_time.in_time_zone(self.time_zone).hour,
-          self.start_time.in_time_zone(self.time_zone).min,
-          0,
-          ActiveSupport::TimeZone[self.time_zone].formatted_offset)
-        if new_start_at > Time.now
-          difference_in_days = (new_start_at - start_day).to_i
-          # have to calculate time with .advance to preserve correct hour across time zone boundry
-          start_at = start_day.in_time_zone(self.time_zone).advance(days: difference_in_days)
+        start_at = Time.use_zone(self.time_zone) do
+          Time.zone.local(
+            r.year,
+            r.month,
+            r.day,
+            self.start_time.in_time_zone(self.time_zone).hour,
+            self.start_time.in_time_zone(self.time_zone).min,
+            0
+          )
+        end
+
+        if start_at > Time.now
+          scheduled_show = self.episodes.new
+          scheduled_show.radio = self.radio
+          scheduled_show.dj = self.users.first # TODO drop dj_id from ScheduledShow?
+          # add performers
+          scheduled_show.performers << self.users
 
           scheduled_show.start_at = start_at
           scheduled_show.end_at = start_at + (((self.end_time - self.start_time).seconds / 60) / 60).round.hours

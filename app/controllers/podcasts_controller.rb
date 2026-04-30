@@ -40,9 +40,14 @@ class PodcastsController < ApplicationController
   def show
     @podcast = @current_radio.podcasts.find_by_name(params[:id])
 
-    @archives = @current_radio.scheduled_shows.
-      where(status: :archive_published).
-      order("start_at DESC")
+    @archives = Rails.cache.fetch("chronological_archives/#{@current_radio.id}") {
+      Rails.log.info("Recaching archives....")
+
+      @current_radio.scheduled_shows.
+        includes([:tracks]).
+        where(status: :archive_published).
+        order("start_at DESC")
+    }
 
     respond_to do |format|
       format.xml {
