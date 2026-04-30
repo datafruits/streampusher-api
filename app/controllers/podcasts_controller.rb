@@ -5,6 +5,9 @@ class PodcastsController < ApplicationController
 
   load_and_authorize_resource except: [:show]
   before_action :current_radio_required, only: [:show]
+  before_action do
+        Rack::MiniProfiler.authorize_request
+  end
   serialization_scope :serializer_scope
 
   def index
