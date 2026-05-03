@@ -33,4 +33,15 @@ module User::Rpg
   def xp_progress_percentage
     ((self.experience_points.to_f / self.next_level) * 100).to_i
   end
+
+  def emoji_slots
+    @emoji_slots ||= begin
+      if !dj? || self.level < 3
+        0
+      else
+        max_level = [self.level, 30].min
+        (3..max_level).sum { |lvl| Math.ceil(Math.sqrt(lvl - 2)) }
+      end
+    end
+  end
 end
