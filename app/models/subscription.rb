@@ -4,7 +4,7 @@ class Subscription < ActiveRecord::Base
   belongs_to :user
   has_many :radios
   attr_accessor :stripe_card_token, :coupon
-  enum status: [:on_trial, :on_paid_plan, :trial_ended, :canceled]
+  enum :status, [:on_trial, :on_paid_plan, :trial_ended, :canceled]
 
   def trial_days_left
     (Date.parse(Time.at(self.trial_ends_at.to_i).to_s) - Date.today).to_i

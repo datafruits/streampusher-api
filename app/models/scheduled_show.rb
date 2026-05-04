@@ -23,7 +23,8 @@ class ScheduledShow < ActiveRecord::Base
     attachable.variant :thumb, resize_to_limit: [300, 300]
   end
 
-  alias_attribute :image, :as_image
+  alias_method :image, :as_image
+  alias_method :image=, :as_image=
 
   has_many :scheduled_show_labels, dependent: :destroy
   has_many :labels, through: :scheduled_show_labels
@@ -71,7 +72,7 @@ class ScheduledShow < ActiveRecord::Base
 
   # enum recurring_interval: [:not_recurring, :day, :week, :month, :year, :biweek]
 
-  enum status: [:archive_unpublished, :archive_published]
+  enum :status, [:archive_unpublished, :archive_published]
 
   attr_accessor :prerecord_track_id
   attr_accessor :use_prerecorded_file_for_archive

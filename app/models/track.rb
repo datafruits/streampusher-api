@@ -47,9 +47,9 @@ class Track < ActiveRecord::Base
 
   accepts_nested_attributes_for :labels
 
-  enum tag_processing_status: ['unprocessed', 'processing', 'done', 'failed']
-  enum mixcloud_upload_status: ['mixcloud_not_uploaded', 'mixcloud_uploading', 'mixcloud_upload_complete', 'mixcloud_upload_failed']
-  enum soundcloud_upload_status: ['soundcloud_not_uploaded', 'soundcloud_uploading', 'soundcloud_upload_complete', 'soundcloud_upload_failed']
+  enum :tag_processing_status, ['unprocessed', 'processing', 'done', 'failed']
+  enum :mixcloud_upload_status, ['mixcloud_not_uploaded', 'mixcloud_uploading', 'mixcloud_upload_complete', 'mixcloud_upload_failed']
+  enum :soundcloud_upload_status, ['soundcloud_not_uploaded', 'soundcloud_uploading', 'soundcloud_upload_complete', 'soundcloud_upload_failed']
 
   before_save :set_tags_from_scheduled_show
   after_commit :sync_tags_in_background, on: :update, if: :saved_change_to_audio_file_name?

@@ -18,16 +18,17 @@ class ShowSeries < ApplicationRecord
   #   validate_media_type: false # TODO comment out for prod
   # validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
   #
-  alias_attribute :image, :as_image
 
   has_one_attached :as_image do |attachable|
     attachable.variant :thumb, resize_to_limit: [300, 300]
   end
 
-  enum status: [:active, :archived, :disabled]
+  alias_method :image, :as_image
 
-  enum recurring_interval: [:not_recurring, :day, :week, :month, :year, :biweek]
-  enum recurring_weekday: [
+  enum :status, [:active, :archived, :disabled]
+
+  enum :recurring_interval, [:not_recurring, :day, :week, :month, :year, :biweek]
+  enum :recurring_weekday, [
     'Sunday',
     'Monday',
     'Tuesday',
@@ -36,7 +37,7 @@ class ShowSeries < ApplicationRecord
     'Friday',
     'Saturday'
   ]
-  enum recurring_cadence: ['First', 'Second', 'Third', 'Fourth', 'Last']
+  enum :recurring_cadence, ['First', 'Second', 'Third', 'Fourth', 'Last']
 
   validates_presence_of :title, :description
   # TODO this doesn't check for overlapping times at all, disabling for now

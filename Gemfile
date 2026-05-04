@@ -1,9 +1,7 @@
 source 'https://rubygems.org/'
 
-gem 'rails', '7.0.5'
+gem 'rails', '~> 8.0.5'
 gem 'pg'
-
-gem 'spring',        group: :development
 
 gem 'devise'
 gem 'devise-jwt'
@@ -21,7 +19,7 @@ gem 'rack-cors', :require => 'rack/cors'
 
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
-gem 'rspec-rails', '~> 3.5.2', :group => [:development, :test]
+gem 'rspec-rails', '~> 7.0', :group => [:development, :test]
 
 gem 'redis'
 gem 'connection_pool'
@@ -45,8 +43,7 @@ group :test do
   gem 'timecop'
   gem 'capybara'
   gem 'database_rewinder'
-  gem 'selenium-webdriver', '< 3.0'
-  gem 'headless'
+  gem 'selenium-webdriver'
 end
 
 group :test, :development do
@@ -67,15 +64,15 @@ end
 gem 'byebug'
 gem 'slackistrano', require: false
 gem 'httparty'
-gem 'exception_notification', github: "mcfiredrill/exception_notification"
+gem 'exception_notification', '~> 5.0'
 
 gem 'acts_as_list'
 gem 'kaminari'
-gem 'active_model_serializers', '~> 0.10.0'
+gem 'active_model_serializers', '~> 0.10.14'
 gem 'jsonapi-serializer'
 gem 'chronic'
 gem 'aws-sdk'
-gem "kt-paperclip", "~> 6.4", ">= 6.4.1"
+gem "kt-paperclip", "~> 7.0"
 gem "image_processing", ">= 1.2"
 
 gem 'rupeepeethree', github: "datafruits/rupeepeethree"

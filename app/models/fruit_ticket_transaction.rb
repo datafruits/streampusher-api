@@ -16,7 +16,7 @@ class FruitTicketTransaction < ApplicationRecord
   #   - donate to patreon/ampled
   #   - commit on github
   #
-  enum transaction_type: [
+  enum :transaction_type, [
     # receiving
     :show_listeners_count, # how ? TBD
     :archive_playback, # 1 ticket per playback

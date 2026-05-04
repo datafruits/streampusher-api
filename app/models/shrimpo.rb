@@ -33,9 +33,9 @@ class Shrimpo < ApplicationRecord
   validate :end_at_cannot_be_in_the_past, on: :create
 
   # abandoned is when no one entered the shrimpo and its over
-  enum status: [:running, :voting, :completed, :abandoned]
+  enum :status, [:running, :voting, :completed, :abandoned]
 
-  enum shrimpo_type: [:normal, :mega]
+  enum :shrimpo_type, [:normal, :mega]
 
   attr_accessor :duration
 
