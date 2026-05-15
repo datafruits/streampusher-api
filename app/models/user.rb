@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   has_many :notifications
   has_many :trophy_awards
   has_many :user_emojis
+  has_many :custom_emojis
 
   # has_attached_file :image, styles: { :thumb => "150x150#", :medium => "250x250#" },
   #   path: ":attachment/:style/:basename.:extension"
@@ -196,7 +197,7 @@ class User < ActiveRecord::Base
   # - emoji_slots_total: total allowed
   # - emoji_slots_used: current count
   # - emoji_slots_available: remaining slots
-  # - can_create_user_emoji?: permission guard (requires DJ role + available slots)
+  # - can_create_custom_emoji?: permission guard (requires DJ role + available slots)
   def emoji_slots_base
     1
   end
@@ -223,7 +224,7 @@ class User < ActiveRecord::Base
     emoji_slots_total - emoji_slots_used
   end
 
-  def can_create_user_emoji?
+  def can_create_custom_emoji?
     has_role?("dj") && emoji_slots_available > 0
   end
 end

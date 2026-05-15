@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_09_20_032802) do
+ActiveRecord::Schema[7.0].define(version: 2026_04_26_181859) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -138,6 +138,14 @@ ActiveRecord::Schema[7.0].define(version: 2025_09_20_032802) do
     t.datetime "updated_at", precision: nil, null: false
   end
 
+  create_table "glorp_lotteries", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "amount", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_glorp_lotteries_on_user_id"
+  end
+
   create_table "host_applications", id: :serial, force: :cascade do |t|
     t.integer "radio_id", null: false
     t.string "email", null: false
@@ -203,8 +211,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_09_20_032802) do
     t.string "source_type"
     t.boolean "read", default: false, null: false
     t.string "url"
-    t.string "message_key"
-    t.jsonb "message_params", default: {}
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
@@ -322,7 +328,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_09_20_032802) do
     t.index ["dj_id"], name: "index_recordings_on_dj_id"
     t.index ["radio_id"], name: "index_recordings_on_radio_id"
     t.index ["track_id"], name: "index_recordings_on_track_id"
-    t.index ["track_id"], name: "index_recordings_on_track_id_unique", unique: true
   end
 
   create_table "scheduled_show_favorites", force: :cascade do |t|
@@ -624,14 +629,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_09_20_032802) do
     t.datetime "updated_at", null: false
     t.index ["accessory_id"], name: "index_user_accessories_on_accessory_id"
     t.index ["user_id"], name: "index_user_accessories_on_user_id"
-  end
-
-  create_table "user_emojis", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_user_emojis_on_user_id"
   end
 
   create_table "user_live_bars", force: :cascade do |t|
