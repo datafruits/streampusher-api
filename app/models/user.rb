@@ -151,6 +151,10 @@ class User < ActiveRecord::Base
     { 'username' => self.username }
   end
 
+  def can_create_custom_emoji?
+    has_role?("dj") && emoji_slots_available > 0
+  end
+
   private
   def set_username
     if email.present?
@@ -208,9 +212,5 @@ class User < ActiveRecord::Base
 
   def emoji_slots_available
     emoji_slots_total - emoji_slots_used
-  end
-
-  def can_create_custom_emoji?
-    has_role?("dj") && emoji_slots_available > 0
   end
 end
