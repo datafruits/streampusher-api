@@ -194,30 +194,16 @@ class User < ActiveRecord::Base
   end
 
   # Emoji slot system
-  # - emoji_slots_total: total allowed
-  # - emoji_slots_used: current count
+  # - emoji_slots_total: total allowed (delegates to User::Rpg#emoji_slots)
+  # - emoji_slots_used: number of custom emojis already created
   # - emoji_slots_available: remaining slots
   # - can_create_custom_emoji?: permission guard (requires DJ role + available slots)
-  def emoji_slots_base
-    1
-  end
-
-  def emoji_slots_from_level
-    lvl = (respond_to?(:level) ? level.to_i : (self[:level] || 0)).to_i
-
-    return 0 if lvl < 3
-
-    # Gentle curve: every 2 levels beyond 2 gives +1 extra slot
-    extra = [((lvl - 2) / 2), 28].min
-    extra
-  end
-
   def emoji_slots_total
-    emoji_slots_base + emoji_slots_from_level
+    emoji_slots
   end
 
   def emoji_slots_used
-    user_emojis.count
+    custom_emojis.count
   end
 
   def emoji_slots_available

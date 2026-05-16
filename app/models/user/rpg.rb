@@ -40,7 +40,7 @@ module User::Rpg
         0
       else
         max_level = [self.level, 30].min
-        (3..max_level).sum { |lvl| Math.ceil(Math.sqrt(lvl - 2)) }
+        (3..max_level).sum { |lvl| Math.sqrt(lvl - 2).ceil }
       end
     end
   end

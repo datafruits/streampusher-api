@@ -11,13 +11,13 @@ RSpec.describe UserEmoji, type: :model do
     ).tap { |u| u.update_column(:level, level) }
   end
 
-  describe "validations" do
+  describe "CustomEmoji validations" do
     context "when user does not have the DJ role" do
       it "is invalid" do
         user = create_user(role: "listener", level: 5)
-        emoji = user.user_emojis.build(name: "smile")
+        emoji = user.custom_emojis.build(name: "smile")
         expect(emoji).not_to be_valid
-        expect(emoji.errors[:base]).to include("User must have the DJ role")
+        expect(emoji.errors[:base]).to include("You are not allowed to create more emojis (insufficient slots or missing DJ role)")
       end
     end
 
@@ -25,16 +25,16 @@ RSpec.describe UserEmoji, type: :model do
       context "and has no emoji slots (level < 3)" do
         it "is invalid" do
           user = create_user(role: "dj", level: 2)
-          emoji = user.user_emojis.build(name: "smile")
+          emoji = user.custom_emojis.build(name: "smile")
           expect(emoji).not_to be_valid
-          expect(emoji.errors[:base]).to include("No emoji slots available")
+          expect(emoji.errors[:base]).to include("You are not allowed to create more emojis (insufficient slots or missing DJ role)")
         end
       end
 
       context "and has emoji slots available" do
         it "is valid" do
           user = create_user(role: "dj", level: 3)
-          emoji = user.user_emojis.build(name: "smile")
+          emoji = user.custom_emojis.build(name: "smile")
           expect(emoji).to be_valid
         end
       end
@@ -42,10 +42,10 @@ RSpec.describe UserEmoji, type: :model do
       context "and has used all emoji slots" do
         it "is invalid when no slots remain" do
           user = create_user(role: "dj", level: 3) # 1 slot at level 3
-          user.user_emojis.create!(name: "smile")
-          emoji = user.user_emojis.build(name: "wink")
+          user.custom_emojis.create!(name: "smile")
+          emoji = user.custom_emojis.build(name: "wink")
           expect(emoji).not_to be_valid
-          expect(emoji.errors[:base]).to include("No emoji slots available")
+          expect(emoji.errors[:base]).to include("You are not allowed to create more emojis (insufficient slots or missing DJ role)")
         end
       end
     end
