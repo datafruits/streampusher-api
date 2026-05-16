@@ -1,11 +1,15 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :username, :email, :time_zone, :role, :avatar_url, :style, :pronouns, :scheduled_show_favorites, :fruits_affinity, :bio, :homepage, :fruit_ticket_balance,
+  attributes :id, :username, :email, :time_zone, :role, :avatar_url, :style,
+    :pronouns, :scheduled_show_favorites, :fruits_affinity, :bio, :homepage,
+    :fruit_ticket_balance,
     :image_url,
     :level, :experience_points, :xp_needed_for_next_level,
     :xp_progress_percentage,
-    :has_unread_notifications
+    :has_unread_notifications,
+    :user_emojis
   has_many :scheduled_show_favorites
   has_many :social_identities
+  has_many :user_emojis
 
   def has_unread_notifications
     object.notifications.where(read: false).any?
