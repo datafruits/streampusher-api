@@ -6,10 +6,13 @@ class UserSerializer < ActiveModel::Serializer
     :level, :experience_points, :xp_needed_for_next_level,
     :xp_progress_percentage,
     :has_unread_notifications,
-    :user_emojis
+    :user_emojis, :custom_emojis,
+    :emoji_slots_total,
+    :emoji_slots_available
   has_many :scheduled_show_favorites
   has_many :social_identities
   has_many :user_emojis
+  has_many :custom_emojis
 
   def has_unread_notifications
     object.notifications.where(read: false).any?

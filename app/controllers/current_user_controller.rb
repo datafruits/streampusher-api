@@ -3,7 +3,7 @@ class CurrentUserController < ApplicationController
     authorize! :index, :current_user
     user = current_user
 
-    render json: user, serializer: UserSerializer, include: 'scheduled_show_favorites'
+    render json: user, serializer: UserSerializer, include: ['scheduled_show_favorites', 'custom_emojis', 'user_emojis']
   end
 
   def update

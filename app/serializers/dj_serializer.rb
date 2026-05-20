@@ -3,8 +3,9 @@ class DjSerializer < ActiveModel::Serializer
     :profile_publish, :pronouns, :role, :fruits_affinity,
     :homepage, :fruit_ticket_balance, :created_at, :last_sign_in_at,
     :level, :experience_points, :xp_needed_for_next_level,
-    :trophy_award_counts
+    :trophy_award_counts, :custom_emojis
   has_many :trophy_awards, embed: :ids, key: :trophy_awards, embed_in_root: true, each_serializer: TrophyAwardSerializer
+  has_many :custom_emojis
 
   def image_url
     if object.as_image.present?

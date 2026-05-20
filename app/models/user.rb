@@ -155,6 +155,23 @@ class User < ActiveRecord::Base
     has_role?("dj") && emoji_slots_available > 0
   end
 
+  # Emoji slot system
+  # - emoji_slots_total: total allowed (delegates to User::Rpg#emoji_slots)
+  # - emoji_slots_used: number of custom emojis already created
+  # - emoji_slots_available: remaining slots
+  # - can_create_custom_emoji?: permission guard (requires DJ role + available slots)
+  def emoji_slots_total
+    emoji_slots
+  end
+
+  def emoji_slots_used
+    custom_emojis.count
+  end
+
+  def emoji_slots_available
+    emoji_slots_total - emoji_slots_used
+  end
+
   private
   def set_username
     if email.present?
@@ -195,22 +212,5 @@ class User < ActiveRecord::Base
       end
       self.as_image.attach(io: random_avatar, filename: File.basename(random_avatar), content_type: "image/png")
     end
-  end
-
-  # Emoji slot system
-  # - emoji_slots_total: total allowed (delegates to User::Rpg#emoji_slots)
-  # - emoji_slots_used: number of custom emojis already created
-  # - emoji_slots_available: remaining slots
-  # - can_create_custom_emoji?: permission guard (requires DJ role + available slots)
-  def emoji_slots_total
-    emoji_slots
-  end
-
-  def emoji_slots_used
-    custom_emojis.count
-  end
-
-  def emoji_slots_available
-    emoji_slots_total - emoji_slots_used
   end
 end
