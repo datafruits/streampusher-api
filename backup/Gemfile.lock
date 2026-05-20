@@ -25,8 +25,8 @@ GEM
   remote: http://rubygems.org/
   specs:
     CFPropertyList (2.3.6)
-    addressable (2.8.1)
-      public_suffix (>= 2.0.2, < 6.0)
+    addressable (2.9.0)
+      public_suffix (>= 2.0.2, < 8.0)
     aliyun-sdk (0.8.0)
       nokogiri (~> 1.6)
       rest-client (~> 2.0)
@@ -92,8 +92,7 @@ GEM
       fog-xml (~> 0.1.1)
       ipaddress (~> 0.5)
       json (>= 1.8, < 2.0)
-    fog-aliyun (0.4.0)
-      addressable (~> 2.8.0)
+    fog-aliyun (0.3.19)
       aliyun-sdk (~> 0.8.0)
       fog-core
       fog-json
@@ -262,7 +261,7 @@ GEM
     optimist (3.0.1)
     pagerduty (2.0.0)
       json (>= 1.7.7)
-    public_suffix (5.0.1)
+    public_suffix (7.0.5)
     qiniu (6.9.1)
       mime-types (~> 3.1)
       rest-client (~> 2.0)
