@@ -41,7 +41,7 @@ class Api::DjsController < ApplicationController
       @dj = djs.find(params[:id])
     end
     if @dj
-      render json: @dj, serializer: DjSerializer, root: "dj"
+      render json: @dj, serializer: DjSerializer, root: "dj", include: ['custom_emojis']
     else
       render json: { "error": "not found" } , status: 404
     end
