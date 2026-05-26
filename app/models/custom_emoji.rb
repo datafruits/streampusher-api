@@ -1,5 +1,7 @@
 class CustomEmoji < ApplicationRecord
   belongs_to :user
+  has_many :user_emojis
+  has_many :users, through: :user_emojis
   has_one_attached :image
 
   validates :name, presence: true
