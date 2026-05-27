@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
   has_many :posts
   has_many :notifications
   has_many :trophy_awards
+  has_many :user_emojis
+  has_many :custom_emojis
 
   # has_attached_file :image, styles: { :thumb => "150x150#", :medium => "250x250#" },
   #   path: ":attachment/:style/:basename.:extension"
@@ -147,6 +149,27 @@ class User < ActiveRecord::Base
 
   def jwt_payload
     { 'username' => self.username }
+  end
+
+  def can_create_custom_emoji?
+    has_role?("dj") && emoji_slots_available > 0
+  end
+
+  # Emoji slot system
+  # - emoji_slots_total: total allowed (delegates to User::Rpg#emoji_slots)
+  # - emoji_slots_used: number of custom emojis already created
+  # - emoji_slots_available: remaining slots
+  # - can_create_custom_emoji?: permission guard (requires DJ role + available slots)
+  def emoji_slots_total
+    emoji_slots
+  end
+
+  def emoji_slots_used
+    custom_emojis.count
+  end
+
+  def emoji_slots_available
+    emoji_slots_total - emoji_slots_used
   end
 
   private

@@ -79,6 +79,12 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_26_181859) do
     t.index ["user_id"], name: "index_blog_posts_on_user_id"
   end
 
+  create_table "custom_emojis", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name", null: false
+    t.index ["user_id"], name: "index_custom_emojis_on_user_id"
+  end
+
   create_table "experience_point_awards", force: :cascade do |t|
     t.bigint "user_id"
     t.integer "amount", null: false
@@ -634,9 +640,11 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_26_181859) do
 
   create_table "user_emojis", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "name", null: false
+    t.bigint "custom_emoji_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["custom_emoji_id"], name: "index_user_emojis_on_custom_emoji_id"
+    t.index ["user_id", "custom_emoji_id"], name: "index_user_emojis_on_user_id_and_custom_emoji_id", unique: true
     t.index ["user_id"], name: "index_user_emojis_on_user_id"
   end
 
