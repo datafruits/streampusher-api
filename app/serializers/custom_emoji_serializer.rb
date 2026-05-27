@@ -1,5 +1,9 @@
 class CustomEmojiSerializer < ActiveModel::Serializer
-  attributes :id, :name, :image_url
+  attributes :id, :name, :image_url, :user_emojis_usernames
+
+  def user_emojis_usernames
+    object.user_emojis.map {|m| m.user.username}
+  end
 
   def image_url
     return unless object.image.attached?
