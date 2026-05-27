@@ -1,6 +1,11 @@
 class Api::CustomEmojisController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    @custom_emojis = CustomEmoji.all
+    render json: @custom_emojis, each_serializer: CustomEmojiSerializer
+  end
+
   def create
     unless current_user.can_create_custom_emoji?
       render json: { error: "forbidden" }, status: :forbidden and return
