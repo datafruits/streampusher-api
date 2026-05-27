@@ -2,7 +2,7 @@ class Api::CustomEmojisController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @custom_emojis = CustomEmoji.all
+    @custom_emojis = CustomEmoji.includes([:user_emojis]).all
     render json: @custom_emojis, each_serializer: CustomEmojiSerializer
   end
 
