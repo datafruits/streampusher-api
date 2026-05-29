@@ -1780,6 +1780,7 @@ GEM
       ruby-vips (>= 2.0.17, < 3)
     jmespath (1.6.2)
     json (2.7.2)
+    json-api-vanilla (1.0.4)
     jsonapi-renderer (0.2.2)
     jsonapi-serializer (2.2.0)
       activesupport (>= 4.2)
@@ -1862,6 +1863,9 @@ GEM
     parser (3.3.1.0)
       ast (~> 2.4.1)
       racc
+    patreon (0.5.0)
+      json-api-vanilla (~> 1.0.1)
+      rack
     pg (1.5.6)
     prism (0.29.0)
     pry (0.14.2)
@@ -2081,6 +2085,7 @@ DEPENDENCIES
   net-pop
   net-smtp
   omniauth
+  patreon
   pg
   pry-byebug
   rack-cors

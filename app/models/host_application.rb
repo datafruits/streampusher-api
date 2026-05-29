@@ -35,7 +35,7 @@ class HostApplication < ApplicationRecord
   end
 
   def email_not_taken
-    if User.where(username: username).where.not("role LIKE ?", "%listener%").or(User.where(username: username, role: nil)).any?
+    if User.where(email: email).where.not("role LIKE ?", "%listener%").or(User.where(email: email, role: nil)).any?
       errors.add(:email, "is already taken")
     end
   end

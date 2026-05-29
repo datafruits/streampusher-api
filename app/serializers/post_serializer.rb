@@ -7,7 +7,7 @@ class PostSerializer < ActiveModel::Serializer
   end
 
   def poster_avatar
-    CGI.unescape(object.user.image.url(:thumb))
+    object.user.thumb_image_url
   end
 
   def poster_role

@@ -92,6 +92,8 @@ gem 'friendly_id'
 gem 'discord-notifier'
 gem 'slack-notifier'
 
+gem 'patreon'
+
 # gem 'bootsnap', require: false
 gem 'thwait'
 gem 'e2mmap'

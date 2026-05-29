@@ -238,6 +238,32 @@ RSpec.describe ScheduledShow, :type => :model do
   #   end
   # end
 
+  describe "#thumb_image_url" do
+    before do
+      Time.zone = 'UTC'
+      Timecop.freeze Time.local(2015)
+    end
+
+    after do
+      Timecop.return
+    end
+
+    it "returns nil when no image is attached" do
+      @scheduled_show = ScheduledShow.create! radio: @radio, playlist: @playlist, start_at: @start_at, end_at: @end_at, title: "no image show", dj: @dj
+      expect(@scheduled_show.thumb_image_url).to be_nil
+    end
+
+    it "returns image_url as fallback when ActiveStorage::InvariableError is raised" do
+      @scheduled_show = ScheduledShow.create! radio: @radio, playlist: @playlist, start_at: @start_at, end_at: @end_at, title: "invariable show", dj: @dj
+      mock_attachment = double("as_image", present?: true, attached?: true)
+      allow(mock_attachment).to receive(:variant).and_raise(ActiveStorage::InvariableError)
+      allow(@scheduled_show).to receive(:representative_image).and_return(mock_attachment)
+      allow(@scheduled_show).to receive(:image_url).and_return("http://example.com/show.png")
+      expect(Rails.logger).to receive(:error).with(/ActiveStorage::InvariableError.*invariable show/)
+      expect(@scheduled_show.thumb_image_url).to eq("http://example.com/show.png")
+    end
+  end
+
   describe "dst handling" do
     xit "updates all recurrences +1 hour for DST" do
       start_at = Chronic.parse("today at 1:15 pm").utc
@@ -256,6 +282,15 @@ RSpec.describe ScheduledShow, :type => :model do
   end
 
   describe "queue_playlist!" do
+    before do
+      Time.zone = 'UTC'
+      Timecop.freeze Time.local(2015)
+    end
+
+    after do
+      Timecop.return
+    end
+
     let(:liquidsoap_requests_class) { class_double("LiquidsoapRequests").as_stubbed_const }
     let(:liquidsoap) { instance_double("LiquidsoapRequests") }
     xit "it clears the redis current_show_playing if destroyed and playing"
@@ -267,7 +302,7 @@ RSpec.describe ScheduledShow, :type => :model do
       5.times do |i|
         @playlist.tracks << FactoryBot.create(:track, radio: @radio)
       end
-      @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey", dj: @dj
+      @scheduled_show = ScheduledShow.create! radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey", dj: @dj
       PersistPlaylistToRedis.perform @playlist
       @playlist.tracks.each do |track|
         expect(liquidsoap).to receive(:add_to_queue).with(track.url)

@@ -5,9 +5,10 @@ class LiquidsoapRequests
   end
 
   def alive
-    @liquidsoap_socket.write("request.alive").gsub(/END/, "").split(" ")
+    @liquidsoap_socket.write("request.all").gsub(/END/, "").split(" ")
   end
 
+  # FIXME this API no longer exists
   def on_air
     @liquidsoap_socket.write("request.on_air").gsub(/END/, "").split(" ")
   end
@@ -34,7 +35,8 @@ class LiquidsoapRequests
   end
 
   def skip
-    @liquidsoap_socket.write("icecast.skip").encode("UTF-8")
+    # @liquidsoap_socket.write("icecast.skip").encode("UTF-8")
+    @liquidsoap_socket.write("backup_playlist.flush_and_skip").encode("UTF-8")
   end
 
   def scheduled_shows_queue
@@ -47,5 +49,18 @@ class LiquidsoapRequests
 
   def metadata_to_hash m
     Hash[m.each_line.map { |line| line.chomp.gsub("\"", "").split("=", 2) }]
+  end
+
+  def current_source
+    source = @liquidsoap_socket.write "fallback.current_source"
+    if source.include?("live_dj")
+      "live_dj"
+    elsif source.include?("scheduled_shows")
+      "scheduled_shows"
+    elsif source.include?("backup_playlist")
+      "backup_playlist"
+    else
+      "unknown"
+    end
   end
 end

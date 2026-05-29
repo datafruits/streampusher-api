@@ -27,3 +27,7 @@ config/blog/.sass-cache
 
 **/dump.rdb
 **/.DS_Store
+
+
+#local dev storage
+/storage

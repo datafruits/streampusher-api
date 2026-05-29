@@ -3,10 +3,12 @@ class ExperiencePointAward < ApplicationRecord
   belongs_to :source, polymorphic: true
 
   after_save :maybe_level_up
-  after_save :send_notification
+  after_create :send_notification
 
   validates :amount,
     numericality: { only_integer: true, greater_than: 0 }
+
+  validates :award_type, presence: true
 
   enum award_type: [
     :chat_lurker, # lurking in chat TODO implement

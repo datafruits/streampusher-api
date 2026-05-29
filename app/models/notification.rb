@@ -29,6 +29,7 @@ class Notification < ApplicationRecord
     :track_playback_ticket_payment,
     :glorp_lottery_winner,
     :show_comment,
+    :patreon_sub,
     :new_thread,
     :new_thread_reply,
     :new_wiki_page,
@@ -44,10 +45,14 @@ class Notification < ApplicationRecord
     :shrimpo_entry,
     :shrimpo_entry_comment,
     :shrimpo_comment,
+    :shrimpo_deposit_return,
+    :fruit_ticket_stimulus,
+    :treasure_fruit_tix_reward,
   ]
 
   private
   def set_message
+    # TODO i18n
     self.message = case self.notification_type
     when "strawberry_badge_award"
       "#{self.user.username} got the strawbur badge!"
@@ -97,6 +102,14 @@ class Notification < ApplicationRecord
       ":#{self.source.award_type.split("py").first}:!!! #{self.user.username} got #{self.source.amount} #{self.source.award_type} points!"
     when "show_comment"
       "#{self.source.title} has a new comment!"
+    when "patreon_sub"
+      gif_url = GiphyTextAnimator.animate_text self.source.name
+      name = self.source.user&.username || self.source.name
+      if gif_url.is_a? String
+        "#{name} subscribed to the #{self.source.tier_name} tier on patreon! #{gif_url} #{self.source.patreon_checkout_link}"
+      else
+        "#{name} subscribed to the #{self.source.tier_name} tier on patreon! #{self.source.patreon_checkout_link}"
+      end
     when "new_thread"
       "New thread posted in da fruit standz: #{self.source.title}"
     when "new_thread_reply"
@@ -113,6 +126,8 @@ class Notification < ApplicationRecord
       "#{self.source.username}'s fruitification emblem was updated: #{self.source.image.url(:thumb)}"
     when "new_podcast"
       "New archive published: #{self.source.title}"
+    when "shrimpo_started"
+      "#{self.source.title} shrimpo started!!!!!"
     when "shrimpo_entry"
       "#{self.source.shrimpo.emoji} Someone shrimpoed for #{self.source.shrimpo.title} ! There are #{self.source.shrimpo.shrimpo_entries.count} total entries now."
     when "shrimpo_voting_started"
@@ -121,6 +136,12 @@ class Notification < ApplicationRecord
       "#{self.source.title} has a new comment!"
     when "shrimpo_entry_comment"
       "#{self.source.title} has a new comment!"
+    when "fruit_ticket_stimulus"
+      "You received a stimulus from the bank of fruit tix: Ƒ#{self.source.amount}"
+    when "treasure_fruit_tix_reward"
+      "You found Ƒ#{self.source.amount} in a treasure chest!"
+    when "shrimpo_deposit_return"
+      "Your shrimpo deposit was returned for Ƒ#{self.source.amount}"
     end
   end
 

@@ -37,13 +37,14 @@ describe Track do
 
   describe "scheduled show" do
     # FIXME doesn't pass on CI
-    xit "pulls tags and artwork from scheduled show if not set" do
+    it "pulls tags and artwork from scheduled show if not set" do
       VCR.use_cassette(RSpec.current_example.metadata[:full_description].to_s, match_requests_on: [:s3_image_matcher, :method, :host]) do
         start_at = Chronic.parse("today at 1:15 pm").utc
         end_at = Chronic.parse("today at 3:15 pm").utc
         radio = Radio.create name: 'datafruits'
         track = Track.new audio_file_name: 'http://s3.amazonaws.com/streampusher/doo.mp3'
-        scheduled_show = ScheduledShow.create radio: radio, start_at: start_at, end_at: end_at, title: "hey hey", image: File.new("spec/fixtures/images/pineapple.png")
+        scheduled_show = ScheduledShow.create radio: radio, start_at: start_at, end_at: end_at, title: "hey hey"# , image: File.new("spec/fixtures/images/pineapple.png")
+        scheduled_show.as_image.attach(io: File.open("spec/fixtures/images/pineapple.png"), filename: "pineapple.png")
         track.scheduled_show = scheduled_show
         track.save
         formatted_time = scheduled_show.start_at.strftime("%m%d%Y")

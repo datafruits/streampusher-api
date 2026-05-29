@@ -1,9 +1,12 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  authenticate :user, lambda { |u| u.admin? } do
-      mount Sidekiq::Web => '/sidekiq'
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    # Very simple auth
+    username == ENV["SIDEKIQ_USERNAME"] && password == ENV["SIDEKIQ_PASSWORD"]
   end
+
+  mount Sidekiq::Web => '/sidekiq'
 
   resources :recordings, only: [:index, :show] do
     resources :process_recordings, only: [:create]
@@ -14,6 +17,7 @@ Rails.application.routes.draw do
   resources :scheduled_shows do
     collection do
       get 'next'
+      get 'current'
     end
   end
   get "/schedule", to: "scheduled_shows#index", as: :schedule
@@ -39,6 +43,10 @@ Rails.application.routes.draw do
     omniauth_callbacks: "users/omniauth_callbacks",
     passwords: "passwords"
   }
+
+  devise_scope :user do
+    post '/dj_login' => 'dj_sessions#create'
+  end
 
   resources :anniversary_slots do
     collection do
@@ -98,6 +106,7 @@ Rails.application.routes.draw do
   post '/live_notification' => "live_notification#create"
   post '/donation_link' => "donation_link#create"
   post '/skip_track' => "skip_track#create"
+  post '/on_disconnect' => 'on_disconnect#create'
 
   resources :host_applications, only: [:create, :index] do
     resources :approvals, only: [:create]
@@ -120,8 +129,12 @@ Rails.application.routes.draw do
 
   # meant only for consumption by datafruits frontend app
   namespace :api do
+    namespace :admin do
+      resources :user_signups, only: [:index]
+    end
+
     resources :my_shows, only: [:index, :create, :update, :destroy, :show] do
-      resources :episodes, only: [:update], controller: 'my_shows/episodes'
+      resources :episodes, only: [:update, :destroy], controller: 'my_shows/episodes'
     end
     resources :show_series, only: [:index, :show] do
       resources :episodes, only: [:index, :show], controller: 'show_series/episodes'
@@ -152,13 +165,21 @@ Rails.application.routes.draw do
     resources :scheduled_show_favorites, only: [:create, :destroy]
     resources :notifications, only: [:index]
     resources :shrimpos, only: [:index, :show, :create] do
+      resources :end_shrimpos, only: [:create], controller: 'shrimpos/end_shrimpos'
       resources :shrimpo_entries, only: [:create, :show], controller: 'shrimpos/shrimpo_entries' do
         resources :shrimpo_votes, only: [:create], controller: 'shrimpos/shrimpo_entries/votes'
+        resources :voting_categories, only: [:create], controller: 'shrimpos/shrimpo_entries/voting_categories'
       end
 
     end
     resources :labels, only: [:create, :index, :show]
+
+    resources :treasure_chests, only: [:create]
+    resources :custom_emojis, only: [:index, :create]
+    resources :user_emojis, only: [:create]
   end
+
+  resources :patreon_webhooks, only: [:create]
 
   post "/setup" => "setup#create"
   get "/setup/allowed" => "setup#allowed"

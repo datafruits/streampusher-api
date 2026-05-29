@@ -1,5 +1,5 @@
 class ScheduledShowsController < ApplicationController
-  load_and_authorize_resource except: [:create, :edit, :update, :destroy]
+  load_and_authorize_resource except: [:create, :edit, :update, :destroy, :current]
   before_action :current_radio_required, only: [:index, :edit]
 
   def new
@@ -37,6 +37,12 @@ class ScheduledShowsController < ApplicationController
     @scheduled_show = @current_radio.next_scheduled_show
     response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
     render json: @scheduled_show
+  end
+
+  def current
+    response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
+    current = StreamPusher.redis.hgetall "#{@current_radio.name}:canonical_metadata"
+    render json: current
   end
 
   def create

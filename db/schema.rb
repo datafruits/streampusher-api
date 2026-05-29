@@ -10,9 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_24_190944) do
+ActiveRecord::Schema[7.0].define(version: 2026_04_26_181859) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accessories", force: :cascade do |t|
+    t.string "name"
+    t.integer "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -72,6 +79,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_24_190944) do
     t.index ["user_id"], name: "index_blog_posts_on_user_id"
   end
 
+  create_table "custom_emojis", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name", null: false
+    t.index ["user_id"], name: "index_custom_emojis_on_user_id"
+  end
+
   create_table "experience_point_awards", force: :cascade do |t|
     t.bigint "user_id"
     t.integer "amount", null: false
@@ -80,6 +93,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_24_190944) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "source_type"
+    t.index ["source_id", "award_type", "user_id"], name: "index_xp_awards_on_sid_award_type_uid", unique: true
     t.index ["user_id"], name: "index_experience_point_awards_on_user_id"
   end
 
@@ -129,6 +143,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_24_190944) do
     t.integer "to_user_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+  end
+
+  create_table "glorp_lotteries", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "amount", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_glorp_lotteries_on_user_id"
   end
 
   create_table "host_applications", id: :serial, force: :cascade do |t|
@@ -197,6 +219,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_24_190944) do
     t.boolean "read", default: false, null: false
     t.string "url"
     t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
+  create_table "patreon_pledges", force: :cascade do |t|
+    t.string "json_blob"
+    t.string "name"
+    t.integer "pledge_amount_cents"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
   end
 
   create_table "plans", id: :serial, force: :cascade do |t|
@@ -378,7 +409,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_24_190944) do
     t.string "image_file_name"
     t.integer "image_file_size"
     t.string "image_content_type"
-    t.datetime "image_update_at", precision: nil
+    t.datetime "image_updated_at", precision: nil
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "recurring_interval", default: 0, null: false
@@ -455,7 +486,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_24_190944) do
     t.datetime "updated_at", null: false
     t.index ["shrimpo_entry_id"], name: "index_shrimpo_votes_on_shrimpo_entry_id"
     t.index ["shrimpo_voting_category_id"], name: "index_shrimpo_votes_on_shrimpo_voting_category_id"
-    t.index ["user_id", "shrimpo_entry_id"], name: "index_shrimpo_votes_on_user_id_and_shrimpo_entry_id", unique: true
+    t.index ["user_id", "shrimpo_entry_id", "shrimpo_voting_category_id"], name: "index_shrimpo_votes_uid_seid_svcid", unique: true
     t.index ["user_id"], name: "index_shrimpo_votes_on_user_id"
   end
 
@@ -465,7 +496,23 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_24_190944) do
     t.string "emoji"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "gold_trophy_id"
+    t.integer "silver_trophy_id"
+    t.integer "bronze_trophy_id"
     t.index ["shrimpo_id"], name: "index_shrimpo_voting_categories_on_shrimpo_id"
+  end
+
+  create_table "shrimpo_voting_category_scores", force: :cascade do |t|
+    t.bigint "shrimpo_entry_id", null: false
+    t.bigint "shrimpo_voting_category_id", null: false
+    t.integer "score"
+    t.integer "ranking"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "shrimpo_id"
+    t.index ["shrimpo_entry_id"], name: "shrimpo_entry_score"
+    t.index ["shrimpo_id"], name: "index_shrimpo_voting_category_scores_on_shrimpo_id"
+    t.index ["shrimpo_voting_category_id", "shrimpo_entry_id"], name: "voting_cat_score", unique: true
   end
 
   create_table "shrimpos", force: :cascade do |t|
@@ -484,6 +531,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_24_190944) do
     t.integer "silver_trophy_id"
     t.integer "bronze_trophy_id"
     t.integer "consolation_trophy_id"
+    t.integer "shrimpo_type", default: 0
+    t.integer "deposit_amount"
+    t.boolean "multi_submit_allowed", default: false, null: false
     t.index ["slug"], name: "index_shrimpos_on_slug", unique: true
     t.index ["user_id"], name: "index_shrimpos_on_user_id"
   end
@@ -551,6 +601,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_24_190944) do
     t.index ["uploaded_by_id"], name: "index_tracks_on_uploaded_by_id"
   end
 
+  create_table "treasure_chests", force: :cascade do |t|
+    t.string "treasure_name", null: false
+    t.integer "amount"
+    t.bigint "user_id", null: false
+    t.string "treasure_uuid", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["treasure_uuid"], name: "index_treasure_chests_on_treasure_uuid", unique: true
+    t.index ["user_id"], name: "index_treasure_chests_on_user_id"
+  end
+
   create_table "trophies", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -566,6 +627,32 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_24_190944) do
     t.index ["shrimpo_entry_id"], name: "index_trophy_awards_on_shrimpo_entry_id"
     t.index ["trophy_id"], name: "index_trophy_awards_on_trophy_id"
     t.index ["user_id"], name: "index_trophy_awards_on_user_id"
+  end
+
+  create_table "user_accessories", force: :cascade do |t|
+    t.bigint "accessory_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["accessory_id"], name: "index_user_accessories_on_accessory_id"
+    t.index ["user_id"], name: "index_user_accessories_on_user_id"
+  end
+
+  create_table "user_emojis", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "custom_emoji_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["custom_emoji_id"], name: "index_user_emojis_on_custom_emoji_id"
+    t.index ["user_id", "custom_emoji_id"], name: "index_user_emojis_on_user_id_and_custom_emoji_id", unique: true
+    t.index ["user_id"], name: "index_user_emojis_on_user_id"
+  end
+
+  create_table "user_live_bars", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_live_bars_on_user_id"
   end
 
   create_table "user_radios", id: :serial, force: :cascade do |t|

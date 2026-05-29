@@ -21,12 +21,47 @@ class User < ActiveRecord::Base
   has_many :posts
   has_many :notifications
   has_many :trophy_awards
+  has_many :user_emojis
+  has_many :custom_emojis
 
   has_secure_password :stream_key
 
-  has_attached_file :image, styles: { :thumb => "150x150#", :medium => "250x250#" },
-    path: ":attachment/:style/:basename.:extension"
-  validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+  # has_attached_file :image, styles: { :thumb => "150x150#", :medium => "250x250#" },
+  #   path: ":attachment/:style/:basename.:extension"
+  # validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+  has_one_attached :as_image do |attachable|
+    attachable.variant :thumb, resize_to_limit: [150, 150]
+  end
+
+  # only called from serializers
+  def image_url
+    if self.as_image.attached?
+      Rails.application.routes.url_helpers.rails_representation_url(
+        self.as_image,
+        host: Rails.application.routes.default_url_options[:host]
+      )
+    end
+  end
+
+  def thumb_image_url
+    if self.as_image.attached?
+      begin
+        variant = self.as_image.variant(:thumb)
+
+        Rails.application.routes.url_helpers.rails_representation_url(
+          variant,
+          host: Rails.application.routes.default_url_options[:host]
+        )
+      rescue ActiveStorage::InvariableError, ActiveStorage::FileNotFoundError => e
+        Rails.logger.error("#{e.class} for user id=#{self.id} username=#{self.username}: #{e.message}")
+        image_url
+      end
+    end
+  end
+
+  alias_attribute :avatar, :as_image
+  alias_attribute :image, :as_image
+  alias_attribute :thumb_avatar_url, :thumb_image_url
 
   default_scope { order(created_at: :desc) }
 
@@ -81,6 +116,8 @@ class User < ActiveRecord::Base
 
   after_update :maybe_send_update_notification
 
+  before_save :set_default_avatar, unless: -> { ::Rails.env.test? }
+
   def login=(login)
     @login = login
   end
@@ -120,6 +157,27 @@ class User < ActiveRecord::Base
     { 'username' => self.username }
   end
 
+  def can_create_custom_emoji?
+    has_role?("dj") && emoji_slots_available > 0
+  end
+
+  # Emoji slot system
+  # - emoji_slots_total: total allowed (delegates to User::Rpg#emoji_slots)
+  # - emoji_slots_used: number of custom emojis already created
+  # - emoji_slots_available: remaining slots
+  # - can_create_custom_emoji?: permission guard (requires DJ role + available slots)
+  def emoji_slots_total
+    emoji_slots
+  end
+
+  def emoji_slots_used
+    custom_emojis.count
+  end
+
+  def emoji_slots_available
+    emoji_slots_total - emoji_slots_used
+  end
+
   private
   def set_username
     if email.present?
@@ -148,6 +206,17 @@ class User < ActiveRecord::Base
       Notification.create! notification_type: "profile_update", source: self, send_to_chat: true, send_to_user: false, user: self, url: url
     elsif self.saved_change_to_image_file_name?
       Notification.create! notification_type: "avatar_update", source: self, send_to_chat: true, send_to_user: false, user: self, url: url
+    end
+  end
+
+  def set_default_avatar
+    unless self.avatar.present?
+      if ::Rails.env === "test"
+        random_avatar = File.new(::Rails.root.join("config/default_avatars/default_avatar_1.png"))
+      else
+        random_avatar = File.new ::Rails.root.join("config/default_avatars/default_avatar_#{rand(1..5)}.png")
+      end
+      self.as_image.attach(io: random_avatar, filename: File.basename(random_avatar), content_type: "image/png")
     end
   end
 end

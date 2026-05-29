@@ -9,6 +9,8 @@ class Shrimpo < ApplicationRecord
   belongs_to :user
   has_many :shrimpo_entries
   has_many :posts, as: :postable
+  has_many :shrimpo_voting_categories
+  has_many :shrimpo_voting_category_scores
 
   has_one_attached :zip
   has_one_attached :entries_zip
@@ -23,17 +25,27 @@ class Shrimpo < ApplicationRecord
   validates :title, presence: true
   validates :emoji, presence: true
   validates :rule_pack, presence: true
+  validates :deposit_amount, presence: true
 
   validate :user_level
 
   validate :start_at_cannot_be_in_the_past, on: :create
   validate :end_at_cannot_be_in_the_past, on: :create
 
-  enum status: [:running, :voting, :completed]
+  # abandoned is when no one entered the shrimpo and its over
+  enum status: [:running, :voting, :completed, :abandoned]
+
+  enum shrimpo_type: [:normal, :mega]
 
   attr_accessor :duration
 
+  accepts_nested_attributes_for :shrimpo_voting_categories
+
+  before_validation :set_deposit_amount
   after_create :queue_end_shrimpo_job
+  after_create :send_notification
+
+  after_create :create_category_trophies!, if: -> { self.mega? }
 
   VALID_DURATIONS = [
     # minors
@@ -95,8 +107,9 @@ class Shrimpo < ApplicationRecord
   end
 
   def save_and_deposit_fruit_tickets!
+    set_deposit_amount
     ActiveRecord::Base.transaction do
-      transaction = FruitTicketTransaction.new from_user: self.user, amount: self.fruit_ticket_deposit_amount, transaction_type: :shrimpo_deposit
+      transaction = FruitTicketTransaction.new from_user: self.user, amount: self.deposit_amount, transaction_type: :shrimpo_deposit
       transaction.transact_and_save! && self.save!
     end
   end
@@ -106,9 +119,29 @@ class Shrimpo < ApplicationRecord
 
     begin
       ActiveRecord::Base.transaction do
+        # total score and optionally category score for each entry
         self.shrimpo_entries.each do |entry|
           total_score = entry.shrimpo_votes.sum(:score)
           entry.update! total_score: total_score
+
+          if self.mega?
+            # calculate score for each category
+            self.shrimpo_voting_categories.each do |voting_category|
+              total = entry.shrimpo_votes.where(shrimpo_voting_category: voting_category).sum(:score)
+              # create shrimpo_voting_category_score
+              self.shrimpo_voting_category_scores.create! shrimpo_entry: entry, shrimpo_voting_category: voting_category, score: total
+            end
+
+          end
+        end
+
+        if self.mega?
+          # calculate rank for each category
+          self.shrimpo_voting_categories.each do |voting_category|
+            self.shrimpo_voting_category_scores.where(shrimpo_voting_category: voting_category).sort_by(&:score).reverse.each_with_index do |voting_cat_score, index|
+              voting_cat_score.update! ranking: index + 1
+            end
+          end
         end
 
         self.shrimpo_entries.sort_by(&:total_score).reverse.each_with_index do |entry, index|
@@ -156,16 +189,34 @@ class Shrimpo < ApplicationRecord
             end
           end
         end
+        # award trophy for each category
+        if self.mega?
+          self.shrimpo_voting_categories.each do |voting_category|
+            self.shrimpo_voting_category_scores.where(shrimpo_voting_category: voting_category).sort_by(&:score).reverse.each_with_index do |voting_cat_score, index|
+              entry  = voting_cat_score.shrimpo_entry
+              case voting_cat_score.ranking
+              when 1
+                TrophyAward.create! user: entry.user, trophy: voting_cat_score.shrimpo_voting_category.gold_trophy, shrimpo_entry: entry
+              when 2
+                TrophyAward.create! user: entry.user, trophy: voting_cat_score.shrimpo_voting_category.silver_trophy, shrimpo_entry: entry
+              when 3
+                TrophyAward.create! user: entry.user, trophy: voting_cat_score.shrimpo_voting_category.bronze_trophy, shrimpo_entry: entry
+              end
+            end
+          end
+        end
         #
         # return deposit
         if self.shrimpo_entries.count > 2
-          transaction = FruitTicketTransaction.new to_user: self.user, amount: self.fruit_ticket_deposit_amount, transaction_type: :shrimpo_deposit_return
+          transaction = FruitTicketTransaction.new to_user: self.user, amount: self.deposit_amount, transaction_type: :shrimpo_deposit_return
           transaction.transact_and_save!
         end
         ::CreateEntriesZipWorker.perform_later(self.id)
       end
     rescue => e
       puts "Tally results failed: #{e.message}"
+      puts e.backtrace
+      raise
     end
   end
 
@@ -196,6 +247,21 @@ class Shrimpo < ApplicationRecord
     self.save!
   end
 
+  def voting_completion user
+    voted_count = ShrimpoVote.where(user: user).where("shrimpo_entry_id in (?)", self.shrimpo_entries.pluck(:id)).select(:shrimpo_entry_id).distinct.count
+    total_count = self.shrimpo_entries.count - 1 # subtract 1 cuz can't vote on own shrimpo
+    ((voted_count.to_f / total_count.to_f) * 100).round(2)
+  end
+
+  def create_category_trophies!
+    self.shrimpo_voting_categories.each do |category|
+      gold = Trophy.create! name: "gold #{category.name}"
+      silver = Trophy.create! name: "silver #{category.name}"
+      bronze = Trophy.create! name: "bronze #{category.name}"
+      category.update! gold_trophy: gold, silver_trophy: silver, bronze_trophy: bronze
+    end
+  end
+
   private
   def start_at_cannot_be_in_the_past
     if start_at < Time.current
@@ -217,5 +283,15 @@ class Shrimpo < ApplicationRecord
 
   def queue_end_shrimpo_job
     EndShrimpoWorker.set(wait_until: self.end_at).perform_later(self.id)
+  end
+
+  def set_deposit_amount
+    if !self.deposit_amount
+      self.deposit_amount = fruit_ticket_deposit_amount
+    end
+  end
+
+  def send_notification
+    Notification.create! send_to_chat: true, send_to_user: false, notification_type: "shrimpo_started", source: self, user: self.user
   end
 end

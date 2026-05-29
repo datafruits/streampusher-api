@@ -1,10 +1,36 @@
 class ShrimpoEntrySerializer < ActiveModel::Serializer
-  attributes :title, :audio_file_url, :username, :user_avatar, :slug, :user_role, :cdn_url, :shrimpo_emoji, :shrimpo_slug, :created_at, :previous_shrimpo_entry_slug, :next_shrimpo_entry_slug, :total_score, :ranking
+  attributes :title, :audio_file_url, :username, :user_avatar, :slug, :user_role, :cdn_url, :shrimpo_emoji, :shrimpo_slug, :created_at, :previous_shrimpo_entry_slug, :next_shrimpo_entry_slug, :total_score, :ranking, :shrimpo_status, :shrimpo_type,
+    :shrimpo_title, :shrimpo_total_entries, :shrimpo_voting_completion_percentage
   belongs_to :shrimpo
   has_many :shrimpo_votes, embed: :ids, key: :shrimpo_votes, embed_in_root: true, each_serializer: ShrimpoVoteSerializer
   has_many :posts, embed: :ids, key: :posts, embed_in_root: true, each_serializer: PostSerializer
-  has_many :posts, embed: :ids, key: :posts, embed_in_root: true, each_serializer: PostSerializer
   has_many :trophy_awards, embed: :ids, key: :trophy_awards, embed_in_root: true, each_serializer: TrophyAwardSerializer
+  has_many :shrimpo_voting_category_scores, embed: :ids, key: :shrimpo_voting_category_scores, embed_in_root: true, each_serializer: ShrimpoVotingCategoryScoreSerializer
+  has_many :shrimpo_voting_categories, embed: :ids, key: :shrimpo_voting_categories, embed_in_root: true, each_serializer: ShrimpoVotingCategorySerializer
+
+  def shrimpo_voting_completion_percentage
+    object.shrimpo.voting_completion instance_options[:current_user]
+  end
+
+  def shrimpo_total_entries
+    object.shrimpo.shrimpo_entries.count
+  end
+
+  def shrimpo_title
+    object.shrimpo.title
+  end
+
+  def shrimpo_status
+    object.shrimpo.status
+  end
+
+  def shrimpo_type
+    object.shrimpo.shrimpo_type
+  end
+
+  def shrimpo_id
+    object.shrimpo.slug
+  end
 
   def previous_shrimpo_entry_slug
     if object.previous_entry.present?
@@ -48,7 +74,7 @@ class ShrimpoEntrySerializer < ActiveModel::Serializer
   end
 
   def user_avatar
-    CGI.unescape(object.user.image.url(:thumb))
+    object.user.thumb_image_url
   end
 
   def posts
@@ -57,5 +83,13 @@ class ShrimpoEntrySerializer < ActiveModel::Serializer
 
   def trophy_awards
     object.trophy_awards
+  end
+
+  def shrimpo_voting_category_scores
+    object.shrimpo_voting_category_scores
+  end
+
+  def shrimpo_voting_categories
+    object.shrimpo.shrimpo_voting_categories
   end
 end

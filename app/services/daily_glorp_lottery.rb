@@ -16,14 +16,16 @@ class DailyGlorpLottery
     else
       puts "no winner today!"
     end
- 
+
     if prize
       # pick random winner
       winner_username = current_chat_users.sample
       winner = User.find_by(username: winner_username)
       if winner
         puts "the winner is: #{winner.username}"
-        ExperiencePointAward.create! award_type: prize, user: winner, amount: rand(5) + 1
+        amount = rand(5) + 1
+        lottery = GlorpLottery.create! user: user, amount: amount
+        ExperiencePointAward.create! award_type: prize, user: winner, amount: amount, source: lottery
       end
     end
 

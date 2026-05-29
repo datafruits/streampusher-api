@@ -17,7 +17,7 @@ RSpec.describe HostApplication, type: :model do
 
   it "converts listener account to dj account" do
     user = FactoryBot.create :user, email: "yoshibo@malboro.info", role: "listener"
-    host_application = FactoryBot.build :host_application, email: "yoshibo@malboro.info"
+    host_application = FactoryBot.build :host_application, username: user.username, email: "yoshibo@malboro.info"
     expect(host_application.valid?).to eq true
     host_application.save!
     host_application.approve!
