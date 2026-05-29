@@ -24,8 +24,6 @@ class User < ActiveRecord::Base
   has_many :user_emojis
   has_many :custom_emojis
 
-  has_secure_password :stream_key
-
   # has_attached_file :image, styles: { :thumb => "150x150#", :medium => "250x250#" },
   #   path: ":attachment/:style/:basename.:extension"
   # validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
@@ -109,7 +107,7 @@ class User < ActiveRecord::Base
   before_validation :set_username, :set_initial_time_zone, :generate_stream_key
 
   def generate_stream_key
-    self.stream_key = SecureRandom.uuid
+    self.stream_key = SecureRandom.uuid if stream_key.blank?
   end
 
   after_create :send_notification

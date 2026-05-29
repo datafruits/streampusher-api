@@ -1,6 +1,10 @@
 class DjSessionsController < Devise::SessionsController
 
   def create
+    if params[:call] == "publish"
+      return authenticate_via_stream_key
+    end
+
     resource = warden.authenticate(scope: resource_name)
     if resource.nil?
       render json: { success: false, error: "Invalid login or password" }, status: :unauthorized
@@ -23,5 +27,27 @@ class DjSessionsController < Devise::SessionsController
                    login: resource.username,
                    id: resource.id,
                    token: request.env['warden-jwt_auth.token'] }
+  end
+
+  private
+
+  def authenticate_via_stream_key
+    user = User.find_by(stream_key: params[:name])
+    if user.nil?
+      render json: { success: false, error: "Invalid stream key" }, status: :unauthorized
+      return
+    end
+
+    unless user.dj? || user.manager? || user.admin?
+      render json: { success: false, error: "User does not have DJ privileges" }, status: :unauthorized
+      return
+    end
+
+    # TODO do metadata stuff here???
+    metadata = "LIVE -- #{user.username}"
+    RedisMetadataPublisher.perform @current_radio.name, metadata
+    LiquidsoapMetadataUpdate.perform(@current_radio, { title: metadata })
+    CanonicalMetadataSync.perform(@current_radio.id, metadata )
+    render json: { success: true, login: user.username, id: user.id }
   end
 end
