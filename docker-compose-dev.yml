@@ -1,10 +1,10 @@
 version: "3"
 services:
-  # icecast:
-  #   image: "mcfiredrill/icecast:latest"
-  #   ports:
-  #     - "8000:8000"
-  #   restart: "always"
+  icecast:
+    image: "mcfiredrill/icecast:latest"
+    ports:
+      - "8000:8000"
+    restart: "always"
   redis:
     image: "redis:latest"
     ports:
@@ -57,6 +57,17 @@ services:
       - .:/home/rails/app
       - /var/run/docker.sock:/var/run/docker.sock
       - /tmp:/tmp
+  viz:
+    image: "datafruits/viz:auth"
+    container_name: datafruits_viz
+    ports:
+      - "1935:1935"
+      - "8080:8080"
+      - "16666:4443"
+    volumes:
+      - /tmp/datafruits/hls:/tmp/datafruits_hls
+      - /home/tony/src/streampusher/viz/viz_cert:/etc/letsencrypt/live/viz.streampusher.com/fullchain.pem
+      - /home/tony/src/streampusher/viz/viz_cert:/etc/letsencrypt/live/viz.streampusher.com/privkey.pem
 
 volumes:
   postgres_data_9.4:

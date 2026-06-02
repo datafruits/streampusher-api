@@ -48,3 +48,15 @@ services:
       - .:/home/rails/app
       -  /var/run/docker.sock:/var/run/docker.sock
       - /tmp:/tmp
+  viz:
+    image: "datafruits/viz:auth"
+    container_name: datafruits_viz
+    ports:
+      - "1935:1935"
+      - "8080:8080"
+      - "16666:4443"
+    volumes:
+      - /home/deploy/datafruits/hls:/tmp/datafruits_hls
+      - /home/deploy/viz/fullchain.pem:/etc/letsencrypt/live/viz.streampusher.com/fullchain.pem
+      - /home/deploy/viz/privkey.pem:/etc/letsencrypt/live/viz.streampusher.com/privkey.pem
+    restart: "always"
