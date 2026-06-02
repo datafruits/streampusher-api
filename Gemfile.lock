@@ -2047,7 +2047,6 @@ DEPENDENCIES
   active_model_serializers (~> 0.10.0)
   acts_as_list
   aws-sdk
-  bcrypt (~> 3.1.7)
   bcrypt_pbkdf (>= 1.0, < 2.0)
   bullet
   byebug
