@@ -43,11 +43,17 @@ class DjSessionsController < Devise::SessionsController
       return
     end
 
+    radio = @current_radio || Radio.first
+    unless radio
+      render json: { success: false, error: "Radio not found" }, status: :unprocessable_entity
+      return
+    end
+
     # TODO do metadata stuff here???
     metadata = "LIVE -- #{user.username}"
-    RedisMetadataPublisher.perform @current_radio.name, metadata
-    LiquidsoapMetadataUpdate.perform(@current_radio, { title: metadata })
-    CanonicalMetadataSync.perform(@current_radio.id, metadata )
+    RedisMetadataPublisher.perform radio.name, metadata
+    LiquidsoapMetadataUpdate.perform(radio, { title: metadata })
+    CanonicalMetadataSync.perform(radio.id, metadata)
     render json: { success: true, login: user.username, id: user.id }
   end
 end
