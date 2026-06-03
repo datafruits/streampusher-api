@@ -66,8 +66,8 @@ services:
       - "16666:4443"
     volumes:
       - /tmp/datafruits/hls:/tmp/datafruits_hls
-      - /home/tony/src/streampusher/viz/viz_cert:/etc/letsencrypt/live/viz.streampusher.com/fullchain.pem
-      - /home/tony/src/streampusher/viz/viz_cert:/etc/letsencrypt/live/viz.streampusher.com/privkey.pem
+      - ../viz/viz_cert/fullchain.pem:/etc/letsencrypt/live/viz.streampusher.com/fullchain.pem
+      - ../viz/viz_cert/privkey.pem:/etc/letsencrypt/live/viz.streampusher.com/privkey.pem
 
 volumes:
   postgres_data_9.4:
