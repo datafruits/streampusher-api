@@ -69,8 +69,6 @@ class ScheduledShow < ActiveRecord::Base
   before_save :ensure_time_zone
   before_save :add_performers
 
-  # enum recurring_interval: [:not_recurring, :day, :week, :month, :year, :biweek]
-
   enum status: [:archive_unpublished, :archive_published]
 
   attr_accessor :prerecord_track_id
