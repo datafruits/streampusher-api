@@ -47,6 +47,7 @@ Rails.application.configure do
   end
 
   config.hosts << "rails"
+  config.hosts << "streampusher-rails-1"
 
   config.after_initialize do
     Bullet.enable = true

@@ -8,7 +8,8 @@ class UserSerializer < ActiveModel::Serializer
     :has_unread_notifications,
     :user_emojis, :custom_emojis,
     :emoji_slots_total,
-    :emoji_slots_available
+    :emoji_slots_available,
+    :stream_key
   has_many :scheduled_show_favorites
   has_many :social_identities
   has_many :user_emojis
@@ -38,6 +39,10 @@ class UserSerializer < ActiveModel::Serializer
         object.as_image.url
       end
     end
+  end
+
+  def stream_key
+    object.stream_key if scope == object
   end
 
   def fruits_affinity

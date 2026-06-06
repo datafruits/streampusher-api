@@ -104,7 +104,11 @@ class User < ActiveRecord::Base
   validates_presence_of :time_zone
   validates_inclusion_of :time_zone, :in => ActiveSupport::TimeZone.all.map { |m| m.name }, :message => "is not a valid Time Zone"
 
-  before_validation :set_username, :set_initial_time_zone
+  before_validation :set_username, :set_initial_time_zone, :generate_stream_key
+
+  def generate_stream_key
+    self.stream_key = SecureRandom.uuid if stream_key.blank?
+  end
 
   after_create :send_notification
 

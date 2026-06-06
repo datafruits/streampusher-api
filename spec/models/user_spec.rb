@@ -44,6 +44,12 @@ RSpec.describe User, :type => :model do
     end
   end
 
+  describe "stream_key" do
+    it "sets a stream key before validation" do
+      expect(user.stream_key.blank?).to eq false
+    end
+  end
+
   describe "default avatar" do
     xit "sets a random default avatar if none is set" do
       user = User.create! email: "mcfiredrill@gmail.com", time_zone: "Tokyo", role: "admin", password: "testtest"
