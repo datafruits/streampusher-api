@@ -6,6 +6,12 @@ class Api::ShowSeries::EpisodesController < ApplicationController
     elsif params[:status] === "archive_unpublished"
       episodes = episodes.archive_unpublished.order("start_at ASC")
     end
+    # TODO add future/previous
+    if params[:range] === "past"
+      episodes = episodes.past
+    elsif params[:range] === "future"
+      episodes = episodes.future
+    end
     episodes = episodes.page(params[:page])
     options = {}
     options[:meta] = { page: params[:page], total_pages: episodes.total_pages.to_i }
