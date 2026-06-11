@@ -8,9 +8,9 @@ class Api::ShowSeries::EpisodesController < ApplicationController
     end
     # TODO add future/previous
     if params[:range] === "past"
-      episodes = episodes.past
+      episodes = episodes.past.order("start_at DESC")
     elsif params[:range] === "future"
-      episodes = episodes.future
+      episodes = episodes.future.order("start_at ASC")
     end
     episodes = episodes.page(params[:page])
     options = {}
