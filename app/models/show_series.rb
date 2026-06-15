@@ -120,8 +120,8 @@ class ShowSeries < ApplicationRecord
           # add performers
           scheduled_show.performers << self.users
 
-          scheduled_show.start_at = _start_at
-          scheduled_show.end_at = _end_at
+          scheduled_show.start_at = start_at
+          scheduled_show.end_at = start_at + duration.minutes
           scheduled_show.slug = nil
           scheduled_show.title = self.title
           if self.default_playlist.present?
