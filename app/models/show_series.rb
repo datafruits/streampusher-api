@@ -95,6 +95,12 @@ class ShowSeries < ApplicationRecord
 
   def save_episodes
     if recurring?
+      _start_time = self.start_time.in_time_zone(self.time_zone)
+      _end_time = self.end_time.in_time_zone(self.time_zone)
+
+      duration = (_end_time.hour * 60 + _end_time.min) - (_start_time.hour * 60 + _start_time.min)
+      duration += 24.hours if duration < 0
+
       recurrences.each do |r|
         start_at = Time.use_zone(self.time_zone) do
           Time.zone.local(
@@ -115,7 +121,7 @@ class ShowSeries < ApplicationRecord
           scheduled_show.performers << self.users
 
           scheduled_show.start_at = start_at
-          scheduled_show.end_at = start_at + (((self.end_time - self.start_time).seconds / 60) / 60).round.hours
+          scheduled_show.end_at = start_at + duration.minutes
           scheduled_show.slug = nil
           scheduled_show.title = self.title
           if self.default_playlist.present?
