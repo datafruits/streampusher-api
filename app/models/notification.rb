@@ -39,7 +39,15 @@ class Notification < ApplicationRecord
     :avatar_update,
     :new_podcast,
     :shrimpo_started,
-    :shrimpo_deadline_soon,
+    # normal shrimpo deadline notifs
+    :shrimpo_ends_1_hour,
+    :shrimpo_ends_15_minutes,
+    :shrimpo_ends_5_minutes,
+    :shrimpo_ends_1_minute,
+    # mega shrimpo deadline notifs
+    :shrimpo_ends_1_month,
+    :shrimpo_ends_1_week,
+
     :shrimpo_voting_started,
     :shripo_ended,
     :shrimpo_entry,
