@@ -1,6 +1,8 @@
 class Api::CustomEmojisController < ApplicationController
   before_action :authenticate_user!
 
+  # TODO get rid of this
+  # we can load emojis from hotdog lounge??
   def index
     @custom_emojis = CustomEmoji.includes([:user_emojis]).all
     render json: @custom_emojis, each_serializer: CustomEmojiSerializer
