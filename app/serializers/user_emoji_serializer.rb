@@ -1,5 +1,9 @@
 class UserEmojiSerializer < ActiveModel::Serializer
-  attributes :user_id, :custom_emoji_id, :name, :image_url
+  attributes :user_id, :custom_emoji_id, :name, :image_url, :uploaded_by_user_id
+
+  def uploaded_by_user_id
+    object.custom_emoji.user_id
+  end
 
   def name
     object.custom_emoji.name
