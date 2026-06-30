@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.1
-lock '3.17.3'
+lock '3.18.1'
 
 set :log_level, ENV.fetch('CAP_LOG_LEVEL', :info)
 
