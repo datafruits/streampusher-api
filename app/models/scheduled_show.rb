@@ -133,7 +133,7 @@ class ScheduledShow < ActiveRecord::Base
       current_show = { title: self.title, user: self.dj.username, scheduled_show: self.id }
       StreamPusher.redis.hset "#{radio}:current_show", current_show
       # is this right ? idk?!! argh
-      CanonicalMetadataSync.perform_later(self.radio, self.title)
+      CanonicalMetadataSync.perform(self.radio, self.title)
     else
       puts "tried to queue #{self.inspect}'s playlist, but playlist empty in redis!"
     end
