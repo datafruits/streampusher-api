@@ -1,6 +1,6 @@
 source 'https://rubygems.org/'
 
-gem 'rails', '7.0.5'
+gem 'rails', '7.1.6'
 gem 'pg'
 
 gem 'spring',        group: :development
@@ -35,7 +35,7 @@ gem 'capistrano-bundler'
 gem 'capistrano-rbenv', "~>2.0"
 gem 'capistrano-nvm', require: false
 gem 'capistrano-sidekiq'
-gem 'capistrano-cookbook', require: false, group: :development
+# gem 'capistrano-cookbook', require: false, group: :development
 
 group :test do
   gem 'factory_bot_rails'
@@ -110,3 +110,11 @@ gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0'
 gem "skylight"
 
 gem "rubyzip"
+
+gem "importmap-rails", "~> 2.2"
+
+gem "propshaft", "~> 1.3"
+
+gem "datastar", "~> 1.0"
+
+gem "puma", "~> 6.0"
