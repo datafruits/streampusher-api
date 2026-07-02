@@ -1,8 +1,11 @@
-class ApplicationController < ActionController::API
+class ApplicationController < ActionController::Base
+  protect_from_forgery with: :exception
+
   include ActionController::Serialization
   include ActionController::Cookies
 
   before_action :current_radio
+  before_action :merge_datastar_signals
   around_action :set_time_zone
 
   def next
@@ -63,5 +66,19 @@ class ApplicationController < ActionController::API
 
   def current_ability
     @current_ability ||= Ability.new(current_user, @current_radio, params[:format])
+  end
+
+  def datastar
+    @datastar ||= Datastar.new(request:, response:, view_context:)
+  end
+
+  def datastar_request?
+    request.headers["Datastar-Request"] == "true"
+  end
+
+  def merge_datastar_signals
+    return unless datastar_request?
+
+    params.merge!(datastar.signals)
   end
 end
