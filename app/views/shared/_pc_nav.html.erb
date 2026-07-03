@@ -1,0 +1,258 @@
+<div data-store='{ submenuOpen: false, settingsOpen: false, userMenuOpen: false }'>
+
+  <nav id="desktop-navbar" class="classic:bg-df-pink blm:bg-black trans:bg-df-blue mb-2 hidden md:block overflow-hidden w-full text-3xl relative" role="navigation">
+    <ul class="flex flex-wrap mt-2 ml-2">
+     <li class="its-just-a-website-menu-item">
+       <a href="#radio"
+          @mouseenter="$submenuOpen = !$submenuOpen"
+          aria-label="<%= t('.radio.aria', default: 'Radio') %>"
+          class="text-white text-shadow-light hover:text-white">
+          <%= t('.radio.title', default: 'Radio') %>
+          <svg class="transition-all duration-100 ease-in-out inline w-6 h-6"
+               :class="{ 'rotate-90': $submenuOpen }"
+               aria-hidden="true"
+               fill="none"
+               stroke="currentColor"
+               viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </li>
+    <li class="its-just-a-website-menu-item">
+      <a href="#"
+          class="text-white text-shadow-light hover:text-gray-400"
+          aria-label="<%= t('.chat.aria', default: 'Chat') %>">
+        <%= t('.chat.title', default: 'Chat') %>
+      </a>
+    </li>
+    <li class="its-just-a-website-menu-item">
+      <a href="http://releases.datafruits.fm/"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="text-white text-shadow-light hover:text-gray-400"
+         aria-label="<%= t('.label.aria', default: 'Label') %>">
+        <%= t('.label', default: 'Label') %>
+      </a>
+    </li>
+    <li class="its-just-a-website-menu-item">
+      <a href="https://datafruits.bandcamp.com/merch"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="text-white text-shadow-light hover:text-gray-400"
+         aria-label="<%= t('.shop.aria', default: 'Shop') %>">
+        <%= t('.shop.title', default: 'Shop') %>
+      </a>
+    </li>
+    <li class="its-just-a-website-menu-item">
+      <a href="#about"
+          class="text-white text-shadow-light hover:text-gray-400"
+          aria-label="<%= t('.about.aria', default: 'About') %>">
+        <%= t('.about.title', default: 'About') %>
+      </a>
+    </li>
+    <li class="its-just-a-website-menu-item">
+      <a href="#shrimpos"
+          class="text-white text-shadow-light hover:text-gray-400"
+          aria-label="<%= t('.shrimpo.aria', default: 'Shrimpos') %>">
+        <%= t('.shrimpo.title', default: 'Shrimpos') %>
+      </a>
+    </li>
+    <li class="its-just-a-website-menu-item">
+      <a href="#support"
+          class="text-white text-shadow-light hover:text-gray-400"
+          aria-label="<%= t('.support.aria', default: 'Support') %>">
+        <%= t('.support.title', default: 'Support') %>
+      </a>
+    </li>
+    <% unless user_signed_in? %>
+      <li class="its-just-a-website-menu-item">
+        <button type="button"
+                @click="$settingsOpen = !$settingsOpen"
+                class="text-white text-shadow-light hover:text-gray-400 bg-transparent border-0"
+                aria-label="<%= t('.settings.title', default: 'Settings') %>">
+          <%= t('.settings.icon', default: '⚙️') %>
+        </button>
+      </li>
+    <% end %>
+  </ul>
+
+  <!-- Submenu - conditionally shown -->
+  <ul :class="{ 'hidden': !$submenuOpen }" class="flex flex-wrap items-center ml-2">
+    <li>
+      <a href="#shows"
+          class="its-just-a-website-sub-menu-item"
+          aria-label="<%= t('.shows.aria', default: 'Shows') %>">
+        <%= t('.shows.title', default: 'Shows') %>
+      </a>
+    </li>
+    <li>
+      <a href="#djs"
+          class="its-just-a-website-sub-menu-item"
+          aria-label="<%= t('.djs.aria', default: 'DJs') %>">
+        <%= t('.djs.title', default: 'DJs') %>
+      </a>
+    </li>
+    <li>
+      <a href="#podcasts"
+          class="its-just-a-website-sub-menu-item"
+          aria-label="<%= t('.podcasts.aria', default: 'Podcasts') %>">
+        <%= t('.podcasts.title', default: 'Podcasts') %>
+      </a>
+    </li>
+    <li>
+      <a href="#timetable"
+          class="its-just-a-website-sub-menu-item"
+          aria-label="<%= t('.timetable.aria', default: 'Timetable') %>">
+        <%= t('.timetable.title', default: 'Timetable') %>
+      </a>
+    </li>
+    <li>
+      <a href="#dj-inquiry"
+          class="its-just-a-website-sub-menu-item"
+          aria-label="<%= t('.djinquiry.aria', default: 'DJ Inquiry') %>">
+        <%= t('.djinquiry.title', default: 'DJ Inquiry') %>
+      </a>
+    </li>
+    <li>
+      <div class="relative">
+        <img class="absolute"
+             style="top: -15px; left: -30px;"
+             src="/assets/images/new.gif"
+             alt="<%= t('.new', default: 'New') %>" />
+        <a href="#forum"
+            class="its-just-a-website-sub-menu-item"
+            aria-label="<%= t('.forum.aria', default: 'Forum') %>">
+          <%= t('.forum.title', default: 'Forum') %>
+        </a>
+      </div>
+    </li>
+    <li>
+      <div class="relative">
+        <img class="absolute"
+             style="top: -15px; left: -30px;"
+             src="/assets/images/new.gif"
+             alt="<%= t('.new', default: 'New') %>" />
+        <a href="#wiki"
+            class="its-just-a-website-sub-menu-item"
+            aria-label="<%= t('.wiki.aria', default: 'Wiki') %>">
+          <%= t('.wiki.title', default: 'Wiki') %>
+        </a>
+      </div>
+    </li>
+  </ul>
+</nav>
+
+  <!-- Settings Dialog - conditionally shown for unauthenticated users -->
+  <% unless user_signed_in? %>
+    <div :class="{ 'hidden': !$settingsOpen }"
+         @click="if ($event.target === $event.currentTarget) $settingsOpen = false"
+         class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-gray-900 rounded-lg p-6 max-w-md w-full mx-4">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold text-white"><%= t('.settings.title', default: 'Settings') %></h2>
+          <button type="button"
+                  @click="$settingsOpen = false"
+                  class="text-gray-400 hover:text-white bg-transparent border-0 text-2xl leading-none">
+            ×
+          </button>
+        </div>
+        <div class="text-white">
+          <%= t('.settings.description', default: 'Customize your experience') %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- User Section (authenticated) -->
+  <% if user_signed_in? %>
+    <ul class="hidden md:block px-4 py-4 font-semibold text-3xl">
+      <li class="flex justify-end items-center space-x-2">
+        <a href="#"
+           @click="$userMenuOpen = !$userMenuOpen"
+           role="button"
+           class="mr-2"
+           aria-label="<%= t('.usermenu.dropdown-aria', default: 'User menu') %>">
+          <% if current_user.respond_to?(:avatar_url) && current_user.avatar_url %>
+            <img class="inline rounded-lg"
+                 style="height: 3rem;"
+                 src="<%= current_user.avatar_url %>"
+                 alt="<%= current_user.username %>" />
+          <% else %>
+            <div class="inline rounded-lg"
+                 style="height: 3rem; width: 3rem; background-color: #ccc;">
+            </div>
+          <% end %>
+        </a>
+        <button type="button"
+                @click="$settingsOpen = !$settingsOpen"
+                class="text-white text-shadow-light hover:text-gray-400 bg-transparent border-0"
+                aria-label="<%= t('.settings.title', default: 'Settings') %>">
+          <%= t('.settings.icon', default: '⚙️') %>
+        </button>
+      </li>
+      <li class="flex space-x-2 whitespace-nowrap">
+        <span><%= t('.level', default: 'Lv.') %>
+          <% if current_user.respond_to?(:level) %>
+            <%= current_user.level %>
+          <% else %>
+            1
+          <% end %>
+        </span>
+        <div>
+          <span class="text-xs">Ƒ</span>
+          <% if current_user.respond_to?(:fruit_ticket_balance) %>
+            <%= current_user.fruit_ticket_balance %>
+          <% else %>
+            0
+          <% end %>
+        </div>
+      </li>
+    </ul>
+
+    <!-- User Dropdown Menu -->
+    <div :class="{ 'hidden': !$userMenuOpen }"
+         @click="if ($event.target === $event.currentTarget) $userMenuOpen = false"
+         class="absolute top-32 right-8 bg-gray-900 rounded-lg shadow-lg p-2 z-40">
+      <a href="#profile" class="block px-4 py-2 text-white hover:bg-gray-800 rounded">
+        <%= t('.usermenu.profile', default: 'Profile') %>
+      </a>
+      <a href="#logout" class="block px-4 py-2 text-white hover:bg-gray-800 rounded">
+        <%= t('.usermenu.logout', default: 'Logout') %>
+      </a>
+    </div>
+
+    <!-- Settings Dialog for authenticated users -->
+    <div :class="{ 'hidden': !$settingsOpen }"
+         @click="if ($event.target === $event.currentTarget) $settingsOpen = false"
+         class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-gray-900 rounded-lg p-6 max-w-md w-full mx-4">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold text-white"><%= t('.settings.title', default: 'Settings') %></h2>
+          <button type="button"
+                  @click="$settingsOpen = false"
+                  class="text-gray-400 hover:text-white bg-transparent border-0 text-2xl leading-none">
+            ×
+          </button>
+        </div>
+        <div class="text-white">
+          <%= t('.settings.description', default: 'Customize your experience') %>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <!-- Login/Sign Up Section -->
+    <nav class="hidden md:flex flex-row items-start mt-4 mr-8">
+      <a href="#"
+          class="cool-button mr-2">
+        <%= t('.chat.sign_up', default: 'Sign Up') %>
+      </a>
+      <button type="button"
+              @click="$settingsOpen = !$settingsOpen"
+              class="cool-button bg-transparent border-0"
+              title="<%= t('.chat.titles.login', default: 'Login') %>">
+        <%= t('.chat.login', default: 'Login') %>
+      </button>
+    </nav>
+  <% end %>
+
+</div>

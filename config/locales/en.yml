@@ -21,6 +21,64 @@
 
 en:
   hello: "Hello world"
+  shared:
+    pc_nav:
+      radio:
+        title: "Radio"
+        aria: "Radio"
+      chat:
+        title: "Chat"
+        aria: "Chat"
+        sign_up: "Sign Up"
+        login: "Login"
+        titles:
+          login: "Login"
+      label:
+        aria: "Label"
+      label: "Label"
+      shop:
+        title: "Shop"
+        aria: "Shop"
+      about:
+        title: "About"
+        aria: "About"
+      shrimpo:
+        title: "Shrimpos"
+        aria: "Shrimpos"
+      support:
+        title: "Support"
+        aria: "Support"
+      shows:
+        title: "Shows"
+        aria: "Shows"
+      djs:
+        title: "DJs"
+        aria: "DJs"
+      podcasts:
+        title: "Podcasts"
+        aria: "Podcasts"
+      timetable:
+        title: "Timetable"
+        aria: "Timetable"
+      djinquiry:
+        title: "DJ Inquiry"
+        aria: "DJ Inquiry"
+      forum:
+        title: "Forum"
+        aria: "Forum"
+      wiki:
+        title: "Wiki"
+        aria: "Wiki"
+      new: "New"
+      settings:
+        title: "Settings"
+        icon: "⚙️"
+        description: "Customize your experience"
+      usermenu:
+        dropdown-aria: "User menu"
+        profile: "Profile"
+        logout: "Logout"
+      level: "Lv."
   activerecord:
     errors:
       models:
