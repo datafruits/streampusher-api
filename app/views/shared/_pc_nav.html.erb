@@ -1,23 +1,22 @@
-<div data-store='{ submenuOpen: false, settingsOpen: false, userMenuOpen: false }'>
-
+<div>
   <nav id="desktop-navbar" class="classic:bg-df-pink blm:bg-black trans:bg-df-blue mb-2 hidden md:block overflow-hidden w-full text-3xl relative" role="navigation">
     <ul class="flex flex-wrap mt-2 ml-2">
      <li class="its-just-a-website-menu-item">
        <a href="#radio"
-          @mouseenter="$submenuOpen = !$submenuOpen"
+          data-on:mouseover__debounce.500ms="$submenuOpen = !$submenuOpen"
           aria-label="<%= t('.radio.aria', default: 'Radio') %>"
           class="text-white text-shadow-light hover:text-white">
           <%= t('.radio.title', default: 'Radio') %>
           <svg class="transition-all duration-100 ease-in-out inline w-6 h-6"
-               :class="{ 'rotate-90': $submenuOpen }"
+               data-class:rotate-90="$submenuOpen == true"
                aria-hidden="true"
                fill="none"
                stroke="currentColor"
                viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
           </svg>
-        </a>
-      </li>
+       </a>
+     </li>
     <li class="its-just-a-website-menu-item">
       <a href="#"
           class="text-white text-shadow-light hover:text-gray-400"
@@ -67,7 +66,7 @@
     <% unless user_signed_in? %>
       <li class="its-just-a-website-menu-item">
         <button type="button"
-                @click="$settingsOpen = !$settingsOpen"
+                data-on:click="$settingsModalOpen = !$settingsModalOpen"
                 class="text-white text-shadow-light hover:text-gray-400 bg-transparent border-0"
                 aria-label="<%= t('.settings.title', default: 'Settings') %>">
           <%= t('.settings.icon', default: '⚙️') %>
@@ -77,7 +76,7 @@
   </ul>
 
   <!-- Submenu - conditionally shown -->
-  <ul :class="{ 'hidden': !$submenuOpen }" class="flex flex-wrap items-center ml-2">
+  <ul data-class:hidden="$submenuOpen == false" class="flex flex-wrap items-center ml-2">
     <li>
       <a href="#shows"
           class="its-just-a-website-sub-menu-item"
@@ -142,26 +141,7 @@
   </ul>
 </nav>
 
-  <!-- Settings Dialog - conditionally shown for unauthenticated users -->
-  <% unless user_signed_in? %>
-    <div :class="{ 'hidden': !$settingsOpen }"
-         @click="if ($event.target === $event.currentTarget) $settingsOpen = false"
-         class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div class="bg-gray-900 rounded-lg p-6 max-w-md w-full mx-4">
-        <div class="flex justify-between items-center mb-4">
-          <h2 class="text-xl font-bold text-white"><%= t('.settings.title', default: 'Settings') %></h2>
-          <button type="button"
-                  @click="$settingsOpen = false"
-                  class="text-gray-400 hover:text-white bg-transparent border-0 text-2xl leading-none">
-            ×
-          </button>
-        </div>
-        <div class="text-white">
-          <%= t('.settings.description', default: 'Customize your experience') %>
-        </div>
-      </div>
-    </div>
-  <% end %>
+  <!-- Settings Dialog - handled by <ui-modal> web component via openSettingsModal() -->
 
   <!-- User Section (authenticated) -->
   <% if user_signed_in? %>
@@ -184,7 +164,7 @@
           <% end %>
         </a>
         <button type="button"
-                @click="$settingsOpen = !$settingsOpen"
+                onclick="openSettingsModal()"
                 class="text-white text-shadow-light hover:text-gray-400 bg-transparent border-0"
                 aria-label="<%= t('.settings.title', default: 'Settings') %>">
           <%= t('.settings.icon', default: '⚙️') %>
@@ -221,24 +201,7 @@
       </a>
     </div>
 
-    <!-- Settings Dialog for authenticated users -->
-    <div :class="{ 'hidden': !$settingsOpen }"
-         @click="if ($event.target === $event.currentTarget) $settingsOpen = false"
-         class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div class="bg-gray-900 rounded-lg p-6 max-w-md w-full mx-4">
-        <div class="flex justify-between items-center mb-4">
-          <h2 class="text-xl font-bold text-white"><%= t('.settings.title', default: 'Settings') %></h2>
-          <button type="button"
-                  @click="$settingsOpen = false"
-                  class="text-gray-400 hover:text-white bg-transparent border-0 text-2xl leading-none">
-            ×
-          </button>
-        </div>
-        <div class="text-white">
-          <%= t('.settings.description', default: 'Customize your experience') %>
-        </div>
-      </div>
-    </div>
+    <!-- Settings Dialog for authenticated users - handled by <ui-modal> web component -->
   <% else %>
     <!-- Login/Sign Up Section -->
     <nav class="hidden md:flex flex-row items-start mt-4 mr-8">
@@ -247,7 +210,7 @@
         <%= t('.chat.sign_up', default: 'Sign Up') %>
       </a>
       <button type="button"
-              @click="$settingsOpen = !$settingsOpen"
+              data-on:click="$loginModalOpen = !$loginModalOpen"
               class="cool-button bg-transparent border-0"
               title="<%= t('.chat.titles.login', default: 'Login') %>">
         <%= t('.chat.login', default: 'Login') %>
@@ -255,4 +218,14 @@
     </nav>
   <% end %>
 
+</div>
+
+<div id="modal-portal">
+  <!-- all the modals will live here -->
+  <ui-modal
+     data-class:hidden="$settingsModalOpen == false"
+     data-on:ui-modal:close="$settingsModalOpen = false"
+  >
+    <%= render 'shared/website_settings' %>
+  </ui-modal>
 </div>

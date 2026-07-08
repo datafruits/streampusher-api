@@ -115,6 +115,8 @@ gem "importmap-rails", "~> 2.2"
 
 gem "propshaft", "~> 1.3"
 
+gem "tailwindcss-rails"
+
 gem "datastar", "~> 1.0"
 
 gem "puma", "~> 6.0"
