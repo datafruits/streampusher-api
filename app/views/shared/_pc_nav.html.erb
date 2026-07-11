@@ -228,4 +228,10 @@
   >
     <%= render 'shared/website_settings' %>
   </ui-modal>
+  <ui-modal
+     data-class:hidden="$loginModalOpen == false"
+     data-on:ui-modal:close="$loginModalOpen = false"
+  >
+    <%= render 'shared/login_modal' %>
+  </ui-modal>
 </div>
