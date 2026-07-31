@@ -141,14 +141,14 @@
   </ul>
 </nav>
 
-  <!-- Settings Dialog - handled by <ui-modal> web component via openSettingsModal() -->
+  <!-- Settings Dialog - handled by <ui-modal> web component, toggled via $settingsModalOpen -->
 
   <!-- User Section (authenticated) -->
   <% if user_signed_in? %>
     <ul class="hidden md:block px-4 py-4 font-semibold text-3xl">
       <li class="flex justify-end items-center space-x-2">
         <a href="#"
-           @click="$userMenuOpen = !$userMenuOpen"
+           data-on:click="$userMenuOpen = !$userMenuOpen"
            role="button"
            class="mr-2"
            aria-label="<%= t('.usermenu.dropdown-aria', default: 'User menu') %>">
@@ -164,7 +164,7 @@
           <% end %>
         </a>
         <button type="button"
-                onclick="openSettingsModal()"
+                data-on:click="$settingsModalOpen = !$settingsModalOpen"
                 class="text-white text-shadow-light hover:text-gray-400 bg-transparent border-0"
                 aria-label="<%= t('.settings.title', default: 'Settings') %>">
           <%= t('.settings.icon', default: '⚙️') %>
@@ -190,8 +190,8 @@
     </ul>
 
     <!-- User Dropdown Menu -->
-    <div :class="{ 'hidden': !$userMenuOpen }"
-         @click="if ($event.target === $event.currentTarget) $userMenuOpen = false"
+    <div data-class:hidden="!$userMenuOpen"
+         data-on:click="if ($event.target === $event.currentTarget) $userMenuOpen = false"
          class="absolute top-32 right-8 bg-gray-900 rounded-lg shadow-lg p-2 z-40">
       <a href="#profile" class="block px-4 py-2 text-white hover:bg-gray-800 rounded">
         <%= t('.usermenu.profile', default: 'Profile') %>
@@ -220,18 +220,16 @@
 
 </div>
 
-<div id="modal-portal">
-  <!-- all the modals will live here -->
-  <ui-modal
-     data-class:hidden="$settingsModalOpen == false"
-     data-on:ui-modal:close="$settingsModalOpen = false"
-  >
-    <%= render 'shared/website_settings' %>
-  </ui-modal>
-  <ui-modal
-     data-class:hidden="$loginModalOpen == false"
-     data-on:ui-modal:close="$loginModalOpen = false"
-  >
-    <%= render 'shared/login_modal' %>
-  </ui-modal>
-</div>
+<!-- ui-modal teleports itself into #modals-container (see app/javascript/components/ui-modal.js) -->
+<ui-modal
+   data-class:hidden="$settingsModalOpen == false"
+   data-on:ui-modal:close="$settingsModalOpen = false"
+>
+  <%= render 'shared/website_settings' %>
+</ui-modal>
+<ui-modal
+   data-class:hidden="$loginModalOpen == false"
+   data-on:ui-modal:close="$loginModalOpen = false"
+>
+  <%= render 'shared/login_modal' %>
+</ui-modal>
