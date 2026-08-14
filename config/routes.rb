@@ -128,6 +128,7 @@ Rails.application.routes.draw do
   end
 
   # meant only for consumption by datafruits frontend app
+  # keep the api up while we migrate to datastar
   namespace :api do
     namespace :admin do
       resources :user_signups, only: [:index]
@@ -187,6 +188,15 @@ Rails.application.routes.draw do
   get '/performance_tests', to: 'performance_tests#index'
 
   post '/rails/active_storage/direct_uploads' => 'direct_uploads#create'
+
+  # new routes for server rendered datastar
+  resources :listeners, only: [:create] do
+    collection do
+      get 'validate_email'
+      get 'validate_username'
+    end
+  end
+  get "/sign_up" => "listeners#new"
 
   root 'landing#index'
 end
