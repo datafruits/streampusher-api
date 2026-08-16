@@ -44,7 +44,7 @@ class PatreonPledge < ApplicationRecord
 
   private
   def add_role_to_user
-    email = parsed_json["attributes"]["email"].downcase
+    email = parsed_json["attributes"]["email"].to_s.downcase
     user = User.find_by("email = ? or username = ?", email, name)
     # if we can't find the user by the email, will have to assign later manually
     if user.present? && tier_name.present?
