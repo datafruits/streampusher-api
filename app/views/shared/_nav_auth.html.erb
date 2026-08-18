@@ -1,0 +1,76 @@
+<div id="nav-auth">
+  <!-- User Section (authenticated) -->
+  <% if user_signed_in? %>
+    <ul class="hidden md:block px-4 py-4 font-semibold text-3xl">
+      <li class="flex justify-end items-center space-x-2">
+        <a href="#"
+           data-on:click="$userMenuOpen = !$userMenuOpen"
+           role="button"
+           class="mr-2"
+           aria-label="<%= t('shared.pc_nav.usermenu.dropdown-aria', default: 'User menu') %>">
+          <% if current_user.respond_to?(:avatar_url) && current_user.avatar_url %>
+            <img class="inline rounded-lg"
+                 style="height: 3rem;"
+                 src="<%= current_user.avatar_url %>"
+                 alt="<%= current_user.username %>" />
+          <% else %>
+            <div class="inline rounded-lg"
+                 style="height: 3rem; width: 3rem; background-color: #ccc;">
+            </div>
+          <% end %>
+        </a>
+        <button type="button"
+                data-on:click="$settingsModalOpen = !$settingsModalOpen"
+                class="text-white text-shadow-light hover:text-gray-400 bg-transparent border-0"
+                aria-label="<%= t('shared.pc_nav.settings.title', default: 'Settings') %>">
+          <%= t('shared.pc_nav.settings.icon', default: '⚙️') %>
+        </button>
+      </li>
+      <li class="flex space-x-2 whitespace-nowrap">
+        <span><%= t('shared.pc_nav.level', default: 'Lv.') %>
+          <% if current_user.respond_to?(:level) %>
+            <%= current_user.level %>
+          <% else %>
+            1
+          <% end %>
+        </span>
+        <div>
+          <span class="text-xs">Ƒ</span>
+          <% if current_user.respond_to?(:fruit_ticket_balance) %>
+            <%= current_user.fruit_ticket_balance %>
+          <% else %>
+            0
+          <% end %>
+        </div>
+      </li>
+    </ul>
+
+    <!-- User Dropdown Menu -->
+    <div data-class:hidden="!$userMenuOpen"
+         data-on:click="if ($event.target === $event.currentTarget) $userMenuOpen = false"
+         class="absolute top-32 right-8 bg-gray-900 rounded-lg shadow-lg p-2 z-40">
+      <a href="#profile" class="block px-4 py-2 text-white hover:bg-gray-800 rounded">
+        <%= t('shared.pc_nav.usermenu.profile', default: 'Profile') %>
+      </a>
+      <a href="#logout" class="block px-4 py-2 text-white hover:bg-gray-800 rounded">
+        <%= t('shared.pc_nav.usermenu.logout', default: 'Logout') %>
+      </a>
+    </div>
+
+    <!-- Settings Dialog for authenticated users - handled by <ui-modal> web component -->
+  <% else %>
+    <!-- Login/Sign Up Section -->
+    <nav class="hidden md:flex flex-row items-start mt-4 mr-8">
+      <a href="#"
+          class="cool-button mr-2">
+        <%= t('shared.pc_nav.chat.sign_up', default: 'Sign Up') %>
+      </a>
+      <button type="button"
+              data-on:click="$loginModalOpen = !$loginModalOpen"
+              class="cool-button bg-transparent border-0"
+              title="<%= t('shared.pc_nav.chat.titles.login', default: 'Login') %>">
+        <%= t('shared.pc_nav.chat.login', default: 'Login') %>
+      </button>
+    </nav>
+  <% end %>
+</div>

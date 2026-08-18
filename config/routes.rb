@@ -196,7 +196,21 @@ Rails.application.routes.draw do
       get 'validate_username'
     end
   end
+  get '/chat' => 'chat#index'
+  get '/about' => 'about#index'
+  resources :shrimpos
+  get '/support' => 'support#index'
   get "/sign_up" => "listeners#new"
+  resources :shows, only: [:index, :show] do
+    resources :episodes, only: [:show]
+  end
+  get "/podcasts" => "podcasts#index"
+  get "/timetable" => "timetable#index"
+  get "/dj-inquiry" => "dj_inquiry#index"
+  get "/forum" => "posts#index"
+  resources :posts, only: [:new, :show]
+  get "/wiki" => "wiki#index"
+  resources :wiki_pages, only: [:create, :show, :new]
 
   root 'landing#index'
 end

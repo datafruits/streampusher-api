@@ -1,5 +1,5 @@
 <div class="modal-body m-1">
-  <form data-on:submit="@post('/login')">
+  <form data-on:submit="@post('/login', {filterSignals: {include: /^user\./}})">
     <p class="mt-2 mb-2">
       <%= t "chat.login_why" %>
     </p>
@@ -7,6 +7,8 @@
       <input
         type="text"
         name="username"
+        autocomplete="username"
+        data-bind="user.login"
         autocorrect="off"
         autocapitalize="none"
         placeholder="<%= t "chat.username" %>"
@@ -15,6 +17,8 @@
       <input
         type="password"
         name="pass"
+        autocomplete="current-password"
+        data-bind="user.password"
         autocorrect="off"
         autocapitalize="none"
         placeholder="<%= t "chat.password" %>"
