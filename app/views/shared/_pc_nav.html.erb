@@ -25,7 +25,7 @@
          rel="noopener noreferrer"
          class="text-white text-shadow-light hover:text-gray-400"
          aria-label="<%= t('.label.aria', default: 'Label') %>">
-        <%= t('.label', default: 'Label') %>
+        <%= t('.label.title', default: 'Label') %>
       </a>
     </li>
     <li class="its-just-a-website-menu-item">
@@ -38,25 +38,13 @@
       </a>
     </li>
     <li class="its-just-a-website-menu-item">
-      <a href="#about"
-          class="text-white text-shadow-light hover:text-gray-400"
-          aria-label="<%= t('.about.aria', default: 'About') %>">
-        <%= t('.about.title', default: 'About') %>
-      </a>
+      <%= link_to t("about.title"), about_path, class: "text-white text-shadow-light hover:text-gray-400" %>
     </li>
     <li class="its-just-a-website-menu-item">
-      <a href="#shrimpos"
-          class="text-white text-shadow-light hover:text-gray-400"
-          aria-label="<%= t('.shrimpo.aria', default: 'Shrimpos') %>">
-        <%= t('.shrimpo.title', default: 'Shrimpos') %>
-      </a>
+      <%= link_to t("shrimpo.title"), shrimpos_path, class: "text-white text-shadow-light hover:text-gray-400" %>
     </li>
     <li class="its-just-a-website-menu-item">
-      <a href="#support"
-          class="text-white text-shadow-light hover:text-gray-400"
-          aria-label="<%= t('.support.aria', default: 'Support') %>">
-        <%= t('.support.title', default: 'Support') %>
-      </a>
+      <%= link_to t("support.title"), support_path, class: "text-white text-shadow-light hover:text-gray-400" %>
     </li>
     <% unless user_signed_in? %>
       <li class="its-just-a-website-menu-item">
@@ -73,39 +61,19 @@
   <!-- Submenu - conditionally shown -->
   <ul data-class:hidden="$submenuOpen == false" class="flex flex-wrap items-center ml-2">
     <li>
-      <a href="#shows"
-          class="its-just-a-website-sub-menu-item"
-          aria-label="<%= t('.shows.aria', default: 'Shows') %>">
-        <%= t('.shows.title', default: 'Shows') %>
-      </a>
+      <%= link_to t("shows.title"), shows_path, class: "its-just-a-website-sub-menu-item" %>
     </li>
     <li>
-      <a href="#djs"
-          class="its-just-a-website-sub-menu-item"
-          aria-label="<%= t('.djs.aria', default: 'DJs') %>">
-        <%= t('.djs.title', default: 'DJs') %>
-      </a>
+      <%= link_to t("djs.title"), djs_path, class: "its-just-a-website-sub-menu-item" %>
     </li>
     <li>
-      <a href="#podcasts"
-          class="its-just-a-website-sub-menu-item"
-          aria-label="<%= t('.podcasts.aria', default: 'Podcasts') %>">
-        <%= t('.podcasts.title', default: 'Podcasts') %>
-      </a>
+      <%= link_to t("podcasts.title"), podcasts_path, class: "its-just-a-website-sub-menu-item" %>
     </li>
     <li>
-      <a href="#timetable"
-          class="its-just-a-website-sub-menu-item"
-          aria-label="<%= t('.timetable.aria', default: 'Timetable') %>">
-        <%= t('.timetable.title', default: 'Timetable') %>
-      </a>
+      <%= link_to t("timetable.title"), timetable_path, class: "its-just-a-website-sub-menu-item" %>
     </li>
     <li>
-      <a href="#dj-inquiry"
-          class="its-just-a-website-sub-menu-item"
-          aria-label="<%= t('.djinquiry.aria', default: 'DJ Inquiry') %>">
-        <%= t('.djinquiry.title', default: 'DJ Inquiry') %>
-      </a>
+      <%= link_to t("djinquiry.title"), dj_inqueries_path, class: "its-just-a-website-sub-menu-item" %>
     </li>
     <li>
       <div class="relative">
@@ -113,11 +81,7 @@
              style="top: -15px; left: -30px;"
              src="/assets/images/new.gif"
              alt="<%= t('.new', default: 'New') %>" />
-        <a href="#forum"
-            class="its-just-a-website-sub-menu-item"
-            aria-label="<%= t('.forum.aria', default: 'Forum') %>">
-          <%= t('.forum.title', default: 'Forum') %>
-        </a>
+        <%= link_to t("forum.title"), forum_path, class: "its-just-a-website-sub-menu-item" %>
       </div>
     </li>
     <li>
@@ -126,11 +90,7 @@
              style="top: -15px; left: -30px;"
              src="/assets/images/new.gif"
              alt="<%= t('.new', default: 'New') %>" />
-        <a href="#wiki"
-            class="its-just-a-website-sub-menu-item"
-            aria-label="<%= t('.wiki.aria', default: 'Wiki') %>">
-          <%= t('.wiki.title', default: 'Wiki') %>
-        </a>
+        <%= link_to t("wiki.title"), wiki_path, class: "its-just-a-website-sub-menu-item" %>
       </div>
     </li>
   </ul>

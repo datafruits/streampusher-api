@@ -70,6 +70,26 @@ en:
       emoji: "Post an emoji"
       buddy_list_button: "Show users in the chatroom"
       camera: "Use a camera to share a selfie"
+  about:
+    title: "About"
+  shrimpo:
+    title: "SHRIMPO"
+  support:
+    title: "Support"
+  shows:
+    title: "Shows"
+  djs:
+    title: "Fruits"
+  podcasts:
+    title: "Archives"
+  timetable:
+    title: "Timetable"
+  djinquiry:
+    title: "DJ on Datafruits"
+  forum:
+    title: "da fruit standz"
+  wiki:
+    title: "Fruitstopiyeah"
   shared:
     pc_nav:
       radio:
@@ -83,8 +103,8 @@ en:
         titles:
           login: "Login"
       label:
+        title: "Label"
         aria: "Label"
-      label: "Label"
       shop:
         title: "Shop"
         aria: "Shop"
