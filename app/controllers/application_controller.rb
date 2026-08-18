@@ -69,7 +69,7 @@ class ApplicationController < ActionController::Base
   end
 
   def datastar
-    @datastar ||= Datastar.new(request:, response:, view_context:)
+    @datastar ||= Datastar.new(request:, response:, view_context:, compression: true)
   end
 
   def datastar_request?
