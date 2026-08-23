@@ -36,7 +36,9 @@ Rails.application.routes.draw do
 
   resources :playlists, only: [:show, :index, :create, :update, :destroy]
 
-  resources :djs
+  resources :djs do
+    resources :disables, only: [:create, :delete]
+  end
 
   devise_for :users, skip: 'registrations', controllers: {
     sessions: "sessions",
