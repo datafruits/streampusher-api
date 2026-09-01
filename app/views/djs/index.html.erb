@@ -1,0 +1,14 @@
+<select data-bind:tags data-on:change="@get('/djs')">
+  <option value="">All</option>
+  <option value="dj">DJ</option>
+  <option value="vj">VJ</option>
+</select>
+
+<input
+    type="text"
+    placeholder="Search..."
+    data-bind:search
+    data-on:input__debounce.200ms="@get('/djs')"
+/>
+
+<%= render 'djs/djs', djs: @djs %>

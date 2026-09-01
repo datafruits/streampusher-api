@@ -1,0 +1,12 @@
+<article id="post-<%= post.id %>" class="forum-post bg-df-blue p-4">
+  <header class="mb-3 flex items-center gap-3">
+    <% if post.user.thumb_image_url.present? %>
+      <%= image_tag post.user.thumb_image_url, alt: "", class: "h-10 w-10 rounded-full", loading: "lazy" %>
+    <% end %>
+    <div>
+      <strong><%= post.user.username %></strong>
+      <div class="text-sm"><%= time_ago_in_words(post.created_at) %> ago</div>
+    </div>
+  </header>
+  <div class="whitespace-pre-wrap break-words"><%= post.body %></div>
+</article>

@@ -1,0 +1,38 @@
+es:
+  chat:
+    title: "Charla"
+  about:
+    title: "Sobre DF"
+  shrimpo:
+    title: "SHRIMPO"
+  support:
+    title: "Support"
+  shows:
+    title: "Shows"
+  djs:
+    title: "DJs"
+  podcasts:
+    title: "Archivo"
+  timetable:
+    title: "Calendario"
+  djinquiry:
+    title: "DJ en Datafruits"
+  forum:
+    title: "da fruit standz"
+  wiki:
+    title: "Fruitstopiyeah"
+  shared:
+    pc_nav:
+      radio:
+        title: "Radio"
+        aria: "Radio"
+      label:
+        title: "Label"
+        aria: "Label"
+      shop:
+        title: "Tienda"
+        aria: "Tienda"
+      new: "New"
+      settings:
+        title: "Site Settings"
+        icon: "⚙"

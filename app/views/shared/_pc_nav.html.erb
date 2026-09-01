@@ -1,0 +1,115 @@
+<nav id="desktop-navbar" class="classic:bg-df-pink blm:bg-black trans:bg-df-blue mb-2 hidden md:block overflow-hidden w-full text-3xl relative" role="navigation">
+    <ul class="flex flex-wrap mt-2 ml-2">
+     <li class="its-just-a-website-menu-item">
+       <a href="#radio"
+          data-on:mouseover__debounce.500ms="$submenuOpen = !$submenuOpen"
+          aria-label="<%= t('.radio.aria', default: 'Radio') %>"
+          class="text-white text-shadow-light hover:text-white">
+          <%= t('.radio.title', default: 'Radio') %>
+          <svg class="transition-all duration-100 ease-in-out inline w-6 h-6"
+               data-class:rotate-90="$submenuOpen == true"
+               aria-hidden="true"
+               fill="none"
+               stroke="currentColor"
+               viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+       </a>
+     </li>
+    <li class="its-just-a-website-menu-item">
+      <%= link_to t("chat.title"), chat_path, class: "text-white text-shadow-light hover:text-gray-400" %>
+    </li>
+    <li class="its-just-a-website-menu-item">
+      <a href="http://releases.datafruits.fm/"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="text-white text-shadow-light hover:text-gray-400"
+         aria-label="<%= t('.label.aria', default: 'Label') %>">
+        <%= t('.label.title', default: 'Label') %>
+      </a>
+    </li>
+    <li class="its-just-a-website-menu-item">
+      <a href="https://datafruits.bandcamp.com/merch"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="text-white text-shadow-light hover:text-gray-400"
+         aria-label="<%= t('.shop.aria', default: 'Shop') %>">
+        <%= t('.shop.title', default: 'Shop') %>
+      </a>
+    </li>
+    <li class="its-just-a-website-menu-item">
+      <%= link_to t("about.title"), about_path, class: "text-white text-shadow-light hover:text-gray-400" %>
+    </li>
+    <li class="its-just-a-website-menu-item">
+      <%= link_to t("shrimpo.title"), shrimpos_path, class: "text-white text-shadow-light hover:text-gray-400" %>
+    </li>
+    <li class="its-just-a-website-menu-item">
+      <%= link_to t("support.title"), support_path, class: "text-white text-shadow-light hover:text-gray-400" %>
+    </li>
+    <% unless user_signed_in? %>
+      <li class="its-just-a-website-menu-item">
+        <button type="button"
+                data-on:click="$settingsModalOpen = !$settingsModalOpen"
+                class="text-white text-shadow-light hover:text-gray-400 bg-transparent border-0"
+                aria-label="<%= t('.settings.title', default: 'Settings') %>">
+          <%= t('.settings.icon', default: '⚙️') %>
+        </button>
+      </li>
+    <% end %>
+  </ul>
+
+  <!-- Submenu - conditionally shown -->
+  <ul data-class:hidden="$submenuOpen == false" class="flex flex-wrap items-center ml-2">
+    <li>
+      <%= link_to t("shows.title"), shows_path, class: "its-just-a-website-sub-menu-item" %>
+    </li>
+    <li>
+      <%= link_to t("djs.title"), djs_path, class: "its-just-a-website-sub-menu-item" %>
+    </li>
+    <li>
+      <%= link_to t("podcasts.title"), podcasts_path, class: "its-just-a-website-sub-menu-item" %>
+    </li>
+    <li>
+      <%= link_to t("timetable.title"), timetable_path, class: "its-just-a-website-sub-menu-item" %>
+    </li>
+    <li>
+      <%= link_to t("djinquiry.title"), dj_inqueries_path, class: "its-just-a-website-sub-menu-item" %>
+    </li>
+    <li>
+      <div class="relative">
+        <img class="absolute"
+             style="top: -15px; left: -30px;"
+             src="/assets/images/new.gif"
+             alt="<%= t('.new', default: 'New') %>" />
+        <%= link_to t("forum.title"), forum_threads_path, class: "its-just-a-website-sub-menu-item" %>
+      </div>
+    </li>
+    <li>
+      <div class="relative">
+        <img class="absolute"
+             style="top: -15px; left: -30px;"
+             src="/assets/images/new.gif"
+             alt="<%= t('.new', default: 'New') %>" />
+        <%= link_to t("wiki.title"), wiki_path, class: "its-just-a-website-sub-menu-item" %>
+      </div>
+    </li>
+  </ul>
+</nav>
+
+  <!-- Settings Dialog - handled by <ui-modal> web component, toggled via $settingsModalOpen -->
+
+  <%= render 'shared/nav_auth' %>
+
+<!-- ui-modal teleports itself into #modals-container (see app/javascript/components/ui-modal.js) -->
+<ui-modal
+   data-class:hidden="$settingsModalOpen == false"
+   data-on:ui-modal:close="$settingsModalOpen = false"
+>
+  <%= render 'shared/website_settings' %>
+</ui-modal>
+<ui-modal
+   data-class:hidden="$loginModalOpen == false"
+   data-on:ui-modal:close="$loginModalOpen = false"
+>
+  <%= render 'shared/login_modal' %>
+</ui-modal>

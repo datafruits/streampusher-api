@@ -1,0 +1,38 @@
+zh-cn:
+  chat:
+    title: "聊天室"
+  about:
+    title: "datafruits是什麼?"
+  shrimpo:
+    title: "SHRIMPO"
+  support:
+    title: "Support"
+  shows:
+    title: "Shows"
+  djs:
+    title: "DJs"
+  podcasts:
+    title: "存檔"
+  timetable:
+    title: "時間表"
+  djinquiry:
+    title: "DJ案件"
+  forum:
+    title: "da fruit standz"
+  wiki:
+    title: "Fruitstopiyeah"
+  shared:
+    pc_nav:
+      radio:
+        title: "電台"
+        aria: "電台"
+      label:
+        title: "Label"
+        aria: "Label"
+      shop:
+        title: "商店"
+        aria: "商店"
+      new: "New"
+      settings:
+        title: "網站設置"
+        icon: "⚙"
