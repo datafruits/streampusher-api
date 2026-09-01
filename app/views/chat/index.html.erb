@@ -1,1 +1,22 @@
-chat
+<div
+  data-signals="{chat: {body: '', error: null}}"
+  data-init="@get('/chat_messages', {
+    openWhenHidden: true,
+    filterSignals: {include: /^chat\\./},
+    requestCancellation: 'cleanup'
+  })"
+>
+  <ul id="messages"></ul>
+
+  <form data-on:submit="@post('/chat_messages')">
+    <input
+      name="chat[body]"
+      data-bind:chat.body
+      autocomplete="off"
+    >
+
+    <button type="submit">Send</button>
+  </form>
+
+  <p data-show="$chat.error" data-text="$chat.error"></p>
+</div>

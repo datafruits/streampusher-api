@@ -1,0 +1,16 @@
+<li class="tier-col">
+  <h3 class="tier-header">
+    <a href="<%= url %>" target="_blank" rel="noopener noreferrer" aria-label="<%= aria %>"><%= name %></a>
+  </h3>
+  <span class="font-extrabold text-2xl">$<%= price %>/ mo</span>
+  <a class="flex justify-center" href="<%= url %>" target="_blank" rel="noopener noreferrer" aria-label="<%= aria %>">
+    <%= image_tag image, alt: aria, width: local_assigns[:image_width] %>
+  </a>
+  <div class="tier-benefits">
+    <ul>
+      <% benefits.each do |benefit| %>
+        <li>* <%= benefit %></li>
+      <% end %>
+    </ul>
+  </div>
+</li>
