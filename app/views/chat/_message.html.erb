@@ -1,0 +1,14 @@
+<li id="chat-message-<%= message.fetch(:id) %>" class="message">
+  <time class="mr-2">
+    <%= Time.zone.parse(message.fetch(:timestamp)).strftime("%H:%M") %>
+  </time>
+
+  <strong class="mr-2">
+    <%= message.fetch(:user) %>
+  </strong>
+
+  <span>
+    <%= message.fetch(:body) %>
+  </span>
+</li>
+

@@ -1,0 +1,25 @@
+<main class="mx-auto w-full max-w-4xl p-4 md:p-8" data-signals="{reply: {body: '', error: null}}">
+  <%= link_to "← All threads", forum_threads_path, class: "underline" %>
+  <h1 class="my-6 text-3xl font-bold"><%= @forum_thread.title %></h1>
+
+  <section id="forum-posts" class="space-y-6" aria-label="Posts">
+    <% @forum_thread.posts.each do |post| %>
+      <%= render "forum_threads/post", post: post %>
+    <% end %>
+  </section>
+
+  <% if user_signed_in? %>
+    <form class="forum-post mt-8 bg-df-blue p-4" data-on:submit="@post('<%= forum_thread_posts_path(@forum_thread) %>', {filterSignals: {include: /^reply\./}})">
+      <label class="mb-2 block text-xl font-bold" for="reply-body">Reply</label>
+      <textarea id="reply-body" class="mb-3 min-h-28 w-full text-black" data-bind:reply.body required></textarea>
+      <button class="rounded bg-df-green px-4 py-2 font-bold text-black" type="submit">Post reply</button>
+      <p class="mt-2 text-yellow-300" data-show="$reply.error" data-text="$reply.error"></p>
+    </form>
+  <% else %>
+    <button
+      type="button"
+      data-on:click="$loginModalOpen = true"
+      class="mt-8 underline"
+    >Log in to reply</button>
+  <% end %>
+</main>

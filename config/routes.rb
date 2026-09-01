@@ -197,6 +197,7 @@ Rails.application.routes.draw do
     end
   end
   get '/chat' => 'chat#index'
+  resources :chat_messages, only: [:index, :create]
   get '/about' => 'about#index'
   resources :shrimpos
   get '/support' => 'support#index'
@@ -206,9 +207,11 @@ Rails.application.routes.draw do
   end
   get "/podcasts" => "podcasts#index"
   get "/timetable" => "timetable#index"
+  resources :dj_inqueries, only: [:index, :create]
   get "/dj-inquiry" => "dj_inquiry#index"
-  get "/forum" => "posts#index"
-  resources :posts, only: [:new, :show]
+  resources :forum_threads, path: "forum", only: [:index, :show, :create] do
+    resources :posts, only: [:create]
+  end
   get "/wiki" => "wiki#index"
   resources :wiki_pages, only: [:create, :show, :new]
 
