@@ -119,6 +119,8 @@ gem "tailwindcss-rails"
 
 gem "datastar", "~> 1.0"
 
+gem "commonmarker", "~> 0.23"
+
 gem "brotli"
 
 gem "puma", "~> 6.0"

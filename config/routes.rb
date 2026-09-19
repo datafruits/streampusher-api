@@ -212,8 +212,14 @@ Rails.application.routes.draw do
   resources :forum_threads, path: "forum", only: [:index, :show, :create] do
     resources :posts, only: [:create]
   end
-  get "/wiki" => "wiki#index"
-  resources :wiki_pages, only: [:create, :show, :new]
+  resources :wiki_pages, path: "wiki", only: [:index, :show, :new, :create, :edit, :update] do
+    member do
+      get :history
+    end
+    collection do
+      post :preview
+    end
+  end
 
   root 'landing#index'
 end
