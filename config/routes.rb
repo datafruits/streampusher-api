@@ -90,10 +90,6 @@ Rails.application.routes.draw do
 
   resources :social_identities
 
-  authenticated :user do
-    root :to =>  "radios#index", as: :authenticated_root
-  end
-
   get '/next' => 'application#next'
 
   get "/vj" => "vj#index"
