@@ -123,4 +123,4 @@ gem "commonmarker", "~> 0.23"
 
 gem "brotli"
 
-gem "puma", "~> 6.0"
+gem "falcon"

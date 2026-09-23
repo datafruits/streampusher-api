@@ -6,7 +6,7 @@ class ChatMessagesController < ApplicationController
       subscriber.close
     end
 
-    datastar.stream(heartbeat: 15) do |sse|
+    datastar.stream(heartbeat: 5) do |sse|
       subscriber.subscribe("datafruits:chat:messages") do |events|
         events.message do |_channel, payload|
           message = JSON.parse(payload, symbolize_names: true)
