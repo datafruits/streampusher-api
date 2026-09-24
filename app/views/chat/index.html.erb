@@ -1,22 +1,51 @@
-<div
-  data-signals="{chat: {body: '', error: null}}"
-  data-init="@get('/chat_messages', {
-    openWhenHidden: true,
-    filterSignals: {include: /^chat\\./},
-    requestCancellation: 'cleanup'
-  })"
->
-  <ul id="messages"></ul>
+<div class="flex flex-col flex-grow min-h-0 flex-basis-0 overflow-hidden md:px-8 mt-5"
+     data-signals="{chat: {body: '', error: null}}"
+     data-init="@get('/chat_messages', {
+       openWhenHidden: true,
+       filterSignals: {include: /^chat\\./},
+       requestCancellation: 'cleanup'
+     })">
+  <div id="chat-area"
+       class="font-bold flex flex-row flex-grow min-h-0 text-shadow mb-5 flex-basis-0">
+    <chat-message-list class="relative block h-full min-h-0 w-full">
+      <ul id="messages"
+          class="h-full overflow-y-auto w-full border-none md:border-r-2 border-white border-solid"
+          aria-live="polite"
+          aria-label="<%= t('chat.title') %>"></ul>
 
-  <form data-on:submit="@post('/chat_messages')">
-    <input
-      name="chat[body]"
-      data-bind:chat.body
-      autocomplete="off"
-    >
+      <div class="chat-new-messages text-white bg-df-green/75 absolute bottom-0 left-0 w-full px-2 py-1"
+           hidden>
+        <%= t('chat.new_messages') %>
+      </div>
+    </chat-message-list>
+  </div>
 
-    <button type="submit">Send</button>
-  </form>
+  <div class="flex flex-col justify-center items-center w-full">
+    <form class="mb-3 w-full text-center"
+          data-on:submit="@post('/chat_messages')">
+      <span class="chat-input flex items-center justify-center gap-2 w-full">
+        <input
+          id="input-message"
+          class="w-full sm:w-1/2 md:w-3/5 lg:w-3/4 bg-white text-black border-2 border-gray-300 rounded-sm p-1"
+          name="chat[body]"
+          data-bind:chat.body
+          autocomplete="off"
+          aria-label="<%= t('chat.label.input') %>"
+          placeholder="<%= t('chat.message_placeholder') %>"
+        >
 
-  <p data-show="$chat.error" data-text="$chat.error"></p>
+        <button class="cool-button"
+                type="submit"
+                title="<%= t('chat.titles.send') %>"
+                aria-label="<%= t('chat.titles.send') %>">
+          <span aria-hidden="true">&#8594;</span>
+        </button>
+      </span>
+    </form>
+
+    <p class="mb-3 rounded-sm bg-red px-3 py-2 font-bold text-white"
+       role="alert"
+       data-show="$chat.error"
+       data-text="$chat.error"></p>
+  </div>
 </div>

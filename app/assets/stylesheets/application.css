@@ -731,6 +731,7 @@ a:hover {
 }
 
 input {
+  background-color: white;
   color: black;
   border-style: solid;
   border-width: 2px;

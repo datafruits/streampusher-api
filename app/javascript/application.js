@@ -2,3 +2,4 @@
 import "datastar"
 import "csrf"
 import "components/ui-modal"
+import "components/chat-message-list"
