@@ -1,0 +1,43 @@
+<div class="modal-body m-1 text-white">
+  <div class="grid grid-cols-1 space-y-3">
+
+    <div>
+      <label class="block mb-2 text-df-yellow font-semibold" for="theme-selector">
+        <%= t('settings.theme', default: 'Theme') %>
+      </label>
+      <select id="theme-selector" name="theme-selector"
+              class="bg-df-pink text-black w-full p-2 rounded">
+        <option value="classic"><%= t('settings.themes.classic', default: 'Classic') %></option>
+        <option value="blm"><%= t('settings.themes.blm', default: 'BLM') %></option>
+        <option value="trans"><%= t('settings.themes.trans', default: 'Trans') %></option>
+      </select>
+    </div>
+
+    <div>
+      <label class="block mb-2 text-df-yellow font-semibold" for="locale-selector">
+        <%= t('settings.locale', default: 'Language') %>
+      </label>
+      <select id="locale-selector" name="locale-selector"
+              class="bg-df-pink text-black w-full p-2 rounded">
+        <option value="en">English</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+        <option value="es">Español</option>
+        <option value="zh-cn">中文</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="block mb-2 text-df-yellow font-semibold" for="weather-selector">
+        <%= t('settings.weather', default: 'Weather') %>
+      </label>
+      <select id="weather-selector" name="weather-selector"
+              class="bg-df-pink text-black w-full p-2 rounded">
+        <option value="cloudy">☁</option>
+        <option value="snowy">🌨</option>
+        <option value="cats-dogs">🐈🐕</option>
+      </select>
+    </div>
+
+  </div>
+</div>

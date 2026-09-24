@@ -1,0 +1,28 @@
+<% signal_values = { wiki: { title: wiki_page.title.to_s, body: wiki_page.body.to_s, summary: "", error: nil } } %>
+<% submit_action = wiki_page.persisted? ? "@patch('#{wiki_page_path(wiki_page)}', {filterSignals: {include: /^wiki\\./}})" : "@post('#{wiki_pages_path}', {filterSignals: {include: /^wiki\\./}})" %>
+<% preview_url = wiki_page.persisted? ? preview_wiki_pages_path(id: wiki_page.slug) : preview_wiki_pages_path %>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-2" data-signals="<%= signal_values.to_json %>">
+  <div>
+    <span>You can format this article with <a href="https://www.markdownguide.org/basic-syntax" target="_blank" rel="noopener noreferrer">Markdown</a>.</span>
+    <form data-on:submit="<%= submit_action %>">
+      <div class="mb-2">
+        <label for="wiki-title"><%= t("wiki.form.title") %></label>
+        <input id="wiki-title" class="block w-full text-black" data-bind:wiki.title data-on:input__debounce.250ms="@post('<%= preview_url %>', {filterSignals: {include: /^wiki\\./}})" required>
+      </div>
+      <div class="mb-2">
+        <label for="wiki-body"><%= t("wiki.form.body") %></label>
+        <textarea id="wiki-body" class="block w-full text-black" data-bind:wiki.body data-on:input__debounce.250ms="@post('<%= preview_url %>', {filterSignals: {include: /^wiki\\./}})" rows="20" cols="50" required></textarea>
+      </div>
+      <% if wiki_page.persisted? %>
+        <div class="mb-2">
+          <label for="wiki-summary"><%= t("wiki.form.summary") %></label>
+          <input id="wiki-summary" class="block w-full text-black" data-bind:wiki.summary required>
+        </div>
+      <% end %>
+      <button type="submit" class="cool-button"><%= t("wiki.form.submit") %></button>
+      <p class="mt-2 text-yellow-300" data-show="$wiki.error" data-text="$wiki.error"></p>
+    </form>
+  </div>
+  <%= render "wiki_pages/preview", title: wiki_page.title, body: wiki_page.body %>
+</div>

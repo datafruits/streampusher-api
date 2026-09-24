@@ -1,0 +1,38 @@
+ko:
+  chat:
+    title: "채팅"
+  about:
+    title: "우리에 관하여"
+  shrimpo:
+    title: "SHRIMPO"
+  support:
+    title: "Support"
+  shows:
+    title: "Shows"
+  djs:
+    title: "DJs"
+  podcasts:
+    title: "아카이브"
+  timetable:
+    title: "타임 테이블"
+  djinquiry:
+    title: "DJ문의"
+  forum:
+    title: "da fruit standz"
+  wiki:
+    title: "Fruitstopiyeah"
+  shared:
+    pc_nav:
+      radio:
+        title: "라디오"
+        aria: "라디오"
+      label:
+        title: "Label"
+        aria: "Label"
+      shop:
+        title: "샵"
+        aria: "샵"
+      new: "New"
+      settings:
+        title: "Site Settings"
+        icon: "⚙"

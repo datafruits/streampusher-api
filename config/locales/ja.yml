@@ -1,0 +1,38 @@
+ja:
+  chat:
+    title: "チャット"
+  about:
+    title: "datafruitsとは？"
+  shrimpo:
+    title: "SHRIMPO"
+  support:
+    title: "サポート"
+  shows:
+    title: "番組"
+  djs:
+    title: "DJs"
+  podcasts:
+    title: "アーカイブ"
+  timetable:
+    title: "タイムテーブル"
+  djinquiry:
+    title: "DJ案件"
+  forum:
+    title: "da fruit standz"
+  wiki:
+    title: "Fruitstopiyeah"
+  shared:
+    pc_nav:
+      radio:
+        title: "ラジオ"
+        aria: "ラジオ"
+      label:
+        title: "Label"
+        aria: "Label"
+      shop:
+        title: "買い物"
+        aria: "買い物"
+      new: "New"
+      settings:
+        title: "サイト設定"
+        icon: "⚙"

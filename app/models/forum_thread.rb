@@ -8,10 +8,12 @@ class ForumThread < ApplicationRecord
   after_create :send_notification
 
   def save_new_thread! user, title, body
-    self.title = title
-    post = self.posts.new body: body
-    post.user = user
-    self.save! && post.save!
+    transaction do
+      self.title = title
+      post = posts.new(body: body, user: user)
+      save!
+      post.save!
+    end
   end
 
   private

@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@custom-variant classic (&:is(.theme-classic, .theme-classic *));
+@custom-variant blm (&:is(.theme-blm, .theme-blm *));
+@custom-variant trans (&:is(.theme-trans, .theme-trans *));
+
+@theme {
+  /* Datafruits brand colors */
+  --color-df-pink: #cf79e9;
+  --color-df-yellow: #fff94f;
+  --color-df-yellow-dark: #e8e000;
+  --color-df-blue: #00b4ff;
+  --color-df-blue-dark: #007eb3;
+  --color-df-green: #41d069;
+  --color-df-green-dark: #289244;
+  --color-red: red;
+
+  /* Datafruits fonts */
+  --font-debussy: "Debussy", sans-serif;
+  --font-topaz: "Topaz";
+  --font-helvetica: "Helvetica", "Arial", sans-serif;
+  --font-cursive: cursive;
+}
+
+@font-face {
+  font-family: "Debussy";
+  src: url("/vendor/hinted-Debussy.woff2") format("woff2"),
+       url("/vendor/hinted-Debussy.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Topaz";
+  src: url("/vendor/TopazPlus_a1200.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: none;
+}
