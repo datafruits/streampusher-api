@@ -33,7 +33,6 @@ gem 'capistrano'
 gem 'capistrano-rails'
 gem 'capistrano-bundler'
 gem 'capistrano-rbenv', "~>2.0"
-gem 'capistrano-nvm', require: false
 gem 'capistrano-sidekiq'
 # gem 'capistrano-cookbook', require: false, group: :development
 

@@ -1893,8 +1893,6 @@ GEM
       sshkit (>= 1.9.0)
     capistrano-bundler (2.2.0)
       capistrano (~> 3.1)
-    capistrano-nvm (0.0.7)
-      capistrano (~> 3.1)
     capistrano-rails (1.7.0)
       capistrano (~> 3.1)
       capistrano-bundler (>= 1.1, < 3)
@@ -2369,7 +2367,6 @@ DEPENDENCIES
   cancancan
   capistrano
   capistrano-bundler
-  capistrano-nvm
   capistrano-rails
   capistrano-rbenv (~> 2.0)
   capistrano-sidekiq
@@ -2439,4 +2436,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   2.2.30
+   2.5.22

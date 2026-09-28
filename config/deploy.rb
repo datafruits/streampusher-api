@@ -1,5 +1,5 @@
-# config valid only for Capistrano 3.1
-lock '3.18.1'
+# Keep this aligned with the version resolved in Gemfile.lock.
+lock '3.20.1'
 
 set :log_level, ENV.fetch('CAP_LOG_LEVEL', :info)
 
@@ -8,15 +8,12 @@ set :repo_url, 'git@github.com:streampusher/api.git'
 
 # setup rbenv
 set :rbenv_type, :system
-set :rbenv_ruby, '3.2.2'
+set :rbenv_ruby, '3.3.10'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 
 set :slack_webhook, ENV['DEPLOY_NOTIFY_URL']
 
 set :deploy_user, "deploy"
-
-set :nvm_type, :user # or :system, depends on your nvm setup
-set :nvm_node, 'v6.17.1'
 
 # Default branch is :main
 set :branch, ENV['DEPLOY_BRANCH'] || "main"
@@ -113,10 +110,7 @@ namespace :deploy do
 
   desc 'Restart application'
   task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      # Your restart mechanism here, for example:
-      # execute :touch, release_path.join('tmp/restart.txt')
-    end
+    invoke 'falcon:restart' if fetch(:falcon_service_name, nil)
   end
 
   after :publishing, :restart
@@ -137,6 +131,7 @@ namespace :deploy do
   # after 'deploy:symlink:shared', 'deploy:compile_assets_locally'
   after :finishing, 'deploy:cleanup'
   after 'deploy:setup_config', 'nginx:reload'
+  after 'deploy:setup_config', 'falcon:install'
   # after 'deploy:setup_config', 'monit:restart'
   # after "deploy:setup_config", "backup:setup"
 
