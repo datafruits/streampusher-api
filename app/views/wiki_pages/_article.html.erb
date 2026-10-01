@@ -1,0 +1,11 @@
+<h1 class="text-3xl font-cursive text-center pb-2"><%= wiki_page.title %></h1>
+<article class="bg-df-blue-dark wiki-article p-1">
+  <div class="flex pb-2">
+    <div class="m-2"><%= link_to "BACK", wiki_pages_path, class: "cool-button" %></div>
+    <% if can?(:update, wiki_page) %>
+      <div class="m-2"><%= link_to "EDIT", edit_wiki_page_path(wiki_page), class: "cool-button" %></div>
+    <% end %>
+    <div class="m-2"><%= link_to "HISTORY", history_wiki_page_path(wiki_page), class: "cool-button" %></div>
+  </div>
+  <div class="wiki-body"><%= render_wiki_markdown(wiki_page.body) %></div>
+</article>

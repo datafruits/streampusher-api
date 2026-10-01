@@ -1,0 +1,14 @@
+<div class="mt-5 pt-2 px-5">
+  <h1 class="text-3xl"><%= @wiki_page.title %> history</h1>
+  <article class="bg-df-pink wiki-article p-1">
+    <ul>
+      <% @wiki_page_edits.each do |edit| %>
+        <li>
+          <span><%= l(edit.created_at, format: :long) %></span>
+          <span class="italic"><%= edit.summary %></span>
+          <strong><%= edit.user.username %></strong>
+        </li>
+      <% end %>
+    </ul>
+  </article>
+</div>

@@ -4,7 +4,15 @@ class SessionsController < Devise::SessionsController
 
   def create
     resource = warden.authenticate!(:scope => resource_name, :recall => :failure)
-    return sign_in_and_redirect(resource_name, resource)
+    if datastar_request?
+      sign_in(resource_name, resource) unless warden.user(resource_name) == resource
+      datastar.stream do |sse|
+        sse.patch_elements(render_to_string(partial: "shared/nav_auth"))
+        sse.patch_signals(loginModalOpen: false)
+      end
+    else
+      return sign_in_and_redirect(resource_name, resource)
+    end
   end
 
   def sign_in_and_redirect(resource_or_scope, resource=nil)

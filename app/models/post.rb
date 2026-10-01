@@ -4,6 +4,7 @@ class Post < ApplicationRecord
   VALID_POSTABLE_TYPES = ['ForumThread', 'ScheduledShow', 'Shrimpo', 'ShrimpoEntry']
   belongs_to :postable, polymorphic: true, touch: true
   belongs_to :user
+  validates :body, presence: true
 
   def url
     if self.postable_type === "ScheduledShow"

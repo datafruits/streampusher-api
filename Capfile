@@ -20,7 +20,6 @@ install_plugin Capistrano::SCM::Git
 #
 # require 'capistrano/rvm'
 require 'capistrano/rbenv'
-require 'capistrano/nvm'
 # require 'capistrano/chruby'
 require 'capistrano/bundler'
 # require 'capistrano/rails/assets'
@@ -34,7 +33,7 @@ require 'whenever/capistrano'
 
 #require 'capistrano/cookbook/check_revision'
 #require 'capistrano/cookbook/compile_assets_locally'
-require 'capistrano/cookbook/create_database'
+# require 'capistrano/cookbook/create_database'
 #require 'capistrano/cookbook/logs'
 #require 'capistrano/cookbook/monit'
 #require 'capistrano/cookbook/nginx'
@@ -44,5 +43,5 @@ require 'capistrano/cookbook/create_database'
 
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.
 Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }
-Dir.glob('lib/capistrano/tasks/*.cap').each { |r| import r }
+Dir.glob('lib/capistrano/tasks/*.cap').each { |r| load File.expand_path(r) }
 Dir.glob('lib/capistrano/**/*.rb').each { |r| import r }

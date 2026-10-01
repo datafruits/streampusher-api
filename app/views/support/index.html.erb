@@ -1,0 +1,32 @@
+<section class="page-spacing">
+  <h1 class="debussy-header">SUPPORT</h1>
+  <div class="page-bg bg-df-blue-dark wiki-article">
+    <div class="support-section">
+      <div class="support-section-text">
+        <p>Datafruits.fm is possible thanks to the generous support of the listeners. The best way to support us is with a monthly pledge of your choosing on Patreon. You'll get exclusive posts along with a monthly update video. You will also get a stipend of fruit tickets per month, along with a cool supporter badge in your profile. Donate at least $7/mo or higher and receive a pack of stickers to your mail every other month. Neato!</p>
+        <p><a href="https://datafruits.fm/wiki/fruit-tickets" target="_blank" rel="noopener noreferrer">About fruit tickets</a></p>
+      </div>
+
+      <ul class="flex space-x-4">
+        <%= render "support/tier", name: "DATAFRUITS PREMIUM", price: 7, url: "https://www.patreon.com/checkout/datafruits?rid=2647278", image: "images/datafruits_premium_membership_card.gif", aria: "Become a datafruits premium member", benefits: ["You'll get a Ƒ700 fruit tickets stipend every month.", "Discord access"] %>
+        <%= render "support/tier", name: "EMERALD FRUITIZEN", price: 14, url: "https://www.patreon.com/checkout/datafruits?rid=3045500", image: "images/emerald_fruitizen.gif", aria: "Become an emerald fruitizen", benefits: ["You'll get a Ƒ1400 fruit tickets stipend every month.", "Discord access"] %>
+        <%= render "support/tier", name: "GOLDEN FRUITIZARD", price: 28, url: "https://www.patreon.com/checkout/datafruits?rid=2707792", image: "images/datafruits_gold_card.gif", aria: "Become a golden fruitizard", benefits: ["You'll get a Ƒ3000 fruit tickets stipend every month.", "Discord access"] %>
+      </ul>
+    </div>
+
+    <div class="support-section">
+      <h2 class="debussy-header">Hate fruit tickets? Still want to support?</h2>
+      <ul class="flex space-x-4">
+        <%= render "support/tier", name: "it's just a website", price: 1, url: "https://www.patreon.com/checkout/datafruits?rid=2707958", image: "images/thanks.gif", image_width: 460, aria: "Support the it's just a website tier", benefits: ["Discord access"] %>
+        <%= render "support/tier", name: "this is amazing", price: 2, url: "https://www.patreon.com/checkout/datafruits?rid=3525904", image: "images/shrimpshakecereal_spin.gif", image_width: 460, aria: "Support the this is amazing tier", benefits: ["1 dollar more than the it's just a website tier", "Discord access"] %>
+        <%= render "support/tier", name: "the duckle tier", price: 3, url: "https://www.patreon.com/datafruits", image: "images/emojis/duckle.png", aria: "Support the duckle tier", benefits: ["Only 1 person can be on the duckle tier at a time. Maybe you'll get it if you're lucky.", "You'll get a Ƒ101 fruit tickets stipend every month.", "Discord access"] %>
+      </ul>
+    </div>
+
+    <div class="support-section">
+      <a class="flex justify-center" href="https://patreon.com/datafruits" target="_blank" rel="noopener noreferrer" aria-label="Patreon">
+        <%= image_tag "images/patreon.png", alt: "patreon", class: "md:w-72" %>
+      </a>
+    </div>
+  </div>
+</section>

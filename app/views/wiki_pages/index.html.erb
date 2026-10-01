@@ -1,0 +1,16 @@
+<div class="page-spacing">
+  <h1 class="debussy-header"><%= t("wiki.welcome") %></h1>
+  <div class="page-bg">
+    <% if can?(:create, WikiPage) %>
+      <div class="pt-6 my-4 mx-4"><%= link_to "NEW ARTICLE", new_wiki_page_path, class: "cool-button" %></div>
+    <% end %>
+    <section>
+      <h2 class="text-3xl font-cursive md:pl-2"><%= t("wiki.latest") %></h2>
+      <ul class="text-2xl bold underline md:pl-4">
+        <% @wiki_pages.each do |wiki_page| %>
+          <li><%= link_to wiki_page.title, wiki_page_path(wiki_page) %></li>
+        <% end %>
+      </ul>
+    </section>
+  </div>
+</div>
