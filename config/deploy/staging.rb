@@ -20,6 +20,7 @@ server staging_host,
 set :full_app_name, "#{fetch(:application)}_#{fetch(:stage)}"
 set :deploy_to, "/var/www/#{fetch(:full_app_name)}"
 set :server_name, ENV.fetch('STAGING_SERVER_NAME', staging_host)
+set :linked_files, %w[config/database.yml config/application.yml]
 
 # Nginx terminates TLS/HTTP2 and talks HTTP/1.1 to Falcon on localhost.
 set :falcon_host, '127.0.0.1'
@@ -60,7 +61,9 @@ set :symlinks, fetch(:symlinks).reject { |link| link[:source].start_with?('unico
 #   }
 # dont try and infer something as important as environment from
 # stage name.
-set :rails_env, :staging
+# Use Rails' production settings while keeping the Capistrano stage, database,
+# credentials, hostname, and services isolated from production.
+set :rails_env, :production
 
 # number of unicorn workers, this will be reflected in
 # the unicorn.rb and the monit configs
