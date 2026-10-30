@@ -108,11 +108,6 @@ set(:symlinks, [
 
 namespace :deploy do
 
-  desc 'Restart application'
-  task :restart do
-    invoke 'falcon:restart' if fetch(:falcon_service_name, nil)
-  end
-
   after :publishing, :restart
 
   after :restart, :clear_cache do
