@@ -52,9 +52,11 @@
       <a href="#profile" class="block px-4 py-2 text-white hover:bg-gray-800 rounded">
         <%= t('shared.pc_nav.usermenu.profile', default: 'Profile') %>
       </a>
-      <a href="#logout" class="block px-4 py-2 text-white hover:bg-gray-800 rounded">
+      <button type="button"
+              data-on:click="@delete('/logout', {filterSignals: {include: /^$/}})"
+              class="block w-full px-4 py-2 text-left text-white hover:bg-gray-800 rounded">
         <%= t('shared.pc_nav.usermenu.logout', default: 'Logout') %>
-      </a>
+      </button>
     </div>
 
     <!-- Settings Dialog for authenticated users - handled by <ui-modal> web component -->
