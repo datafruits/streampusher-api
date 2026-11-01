@@ -6,7 +6,11 @@ class SessionsController < Devise::SessionsController
     resource = warden.authenticate!(:scope => resource_name, :recall => :failure)
     if datastar_request?
       sign_in(resource_name, resource) unless warden.user(resource_name) == resource
+      # Devise resets the CSRF token on login. Generate its replacement before
+      # streaming so Rails can persist it in the session cookie.
+      csrf_meta_tag = helpers.tag.meta(name: "csrf-token", content: form_authenticity_token)
       datastar.stream do |sse|
+        sse.patch_elements(csrf_meta_tag, selector: 'meta[name="csrf-token"]', mode: "replace")
         sse.patch_elements(render_to_string(partial: "shared/nav_auth"))
         sse.patch_signals(loginModalOpen: false)
       end
