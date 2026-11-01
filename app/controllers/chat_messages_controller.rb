@@ -1,5 +1,6 @@
 class ChatMessagesController < ApplicationController
-  around_action :record_chat_timings, only: :create
+  prepend_around_action :record_chat_timings, only: :create
+  around_action :record_chat_action_timing, only: :create
 
   def index
     subscriber = chat_redis_connection
@@ -54,7 +55,7 @@ class ChatMessagesController < ApplicationController
       body: body,
       timestamp: Time.current.iso8601,
       role: user&.role,
-      avatar_url: measure_chat_step(:avatar) { user&.avatar_url }
+      avatar_url: measure_chat_step(:avatar) { chat_avatar_url(user) }
     }
 
     payload = JSON.generate(message)
@@ -75,12 +76,25 @@ class ChatMessagesController < ApplicationController
 
   private
 
+  def chat_avatar_url(user)
+    avatar = user&.as_image
+    return unless avatar&.attached?
+
+    # Resolve the storage URL when the browser loads the image, keeping S3
+    # client initialization and credential lookup out of message publishing.
+    rails_blob_path(avatar, only_path: true)
+  end
+
   def record_chat_timings
     @chat_timings = {}
-    measure_chat_step(:action) { yield }
+    measure_chat_step(:controller) { yield }
   ensure
     timings = @chat_timings.map { |name, duration| "chat_#{name};dur=#{duration}" }.join(", ")
     response.headers["Server-Timing"] = [response.headers["Server-Timing"], timings].compact.join(", ")
+  end
+
+  def record_chat_action_timing
+    measure_chat_step(:action) { yield }
   end
 
   def measure_chat_step(name)
