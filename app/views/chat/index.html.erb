@@ -1,5 +1,5 @@
 <div class="flex flex-col flex-grow min-h-0 flex-basis-0 overflow-hidden md:px-8 mt-5"
-     data-signals="{chat: {body: '', error: null}}"
+     data-signals="{chat: {body: '', error: null, nickname: '', joining: false, joined: <%= user_signed_in? || session[:chat_nickname].present? %>}}"
      data-init="@get('/chat_messages', {
        openWhenHidden: true,
        filterSignals: {include: /^chat\\./},
@@ -21,8 +21,11 @@
   </div>
 
   <div class="flex flex-col justify-center items-center w-full">
+    <%= render "chat/join_form" %>
+
     <form class="mb-3 w-full text-center"
-          data-on:submit="@post('/chat_messages')">
+          data-show="$chat.joined"
+          data-on:submit="@post('/chat_messages', {filterSignals: {include: /^chat\.body$/}})">
       <span class="chat-input flex items-center justify-center gap-2 w-full">
         <input
           id="input-message"

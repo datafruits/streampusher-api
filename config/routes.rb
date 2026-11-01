@@ -193,6 +193,7 @@ Rails.application.routes.draw do
     end
   end
   get '/chat' => 'chat#index'
+  post '/chat/join', to: 'chat#join', as: :join_chat
   resources :chat_messages, only: [:index, :create]
   get '/about' => 'about#index'
   resources :shrimpos

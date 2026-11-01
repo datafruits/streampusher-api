@@ -45,6 +45,12 @@ en:
     forgot_password: "Forgot your password?"
     username: "username"
     nickname: "nickname"
+    errors:
+      nickname_required: "Enter a nickname to join the chat."
+      nickname_too_long: "Nicknames can be at most %{count} characters."
+      nickname_invalid: "Nicknames cannot contain control characters."
+      nickname_registered: "That nickname belongs to a registered account. Log in or choose another nickname."
+      join_required: "Choose a nickname or log in before sending a message."
     password: "password"
     search: "\"dancing\", \"music\", ..."
     settings:

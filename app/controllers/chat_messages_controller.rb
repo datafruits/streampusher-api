@@ -30,6 +30,12 @@ class ChatMessagesController < ApplicationController
   end
 
   def create
+    username = current_user&.username || session[:chat_nickname]
+    if username.blank?
+      datastar.patch_signals(chat: { joined: false, error: t("chat.errors.join_required") })
+      return
+    end
+
     body = params.dig(:chat, :body).to_s.strip
 
     if body.blank?
@@ -41,11 +47,11 @@ class ChatMessagesController < ApplicationController
 
     message = {
       id: SecureRandom.uuid,
-      user: current_user.username,
+      user: username,
       body: body,
       timestamp: Time.current.iso8601,
-      role: current_user.role,
-      avatar_url: current_user.avatar_url
+      role: current_user&.role,
+      avatar_url: current_user&.avatar_url
     }
 
     StreamPusher.redis.publish(

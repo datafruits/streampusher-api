@@ -6,6 +6,7 @@ class SessionsController < Devise::SessionsController
     resource = warden.authenticate!(:scope => resource_name, :recall => :failure)
     if datastar_request?
       sign_in(resource_name, resource) unless warden.user(resource_name) == resource
+      session.delete(:chat_nickname)
       render_auth_navigation(loginModalOpen: false)
     else
       return sign_in_and_redirect(resource_name, resource)
@@ -28,6 +29,7 @@ class SessionsController < Devise::SessionsController
   def respond_to_on_destroy(non_navigational_status: :no_content)
     return super unless datastar_request?
 
+    session.delete(:chat_nickname)
     render_auth_navigation(loginModalOpen: false, userMenuOpen: false, settingsModalOpen: false)
   end
 
@@ -36,6 +38,12 @@ class SessionsController < Devise::SessionsController
     # before streaming so Rails can persist it in the session cookie.
     csrf_meta_tag = helpers.tag.meta(name: "csrf-token", content: form_authenticity_token)
     nav_auth = render_to_string(partial: "shared/nav_auth")
+    signals[:chat] = {
+      joined: user_signed_in? || session[:chat_nickname].present?,
+      nickname: "",
+      body: "",
+      error: nil
+    }
     datastar.stream do |sse|
       sse.patch_elements(csrf_meta_tag, selector: 'meta[name="csrf-token"]', mode: "replace")
       sse.patch_elements(nav_auth)
