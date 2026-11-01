@@ -20,7 +20,7 @@ server staging_host,
 set :full_app_name, "#{fetch(:application)}_#{fetch(:stage)}"
 set :deploy_to, "/var/www/#{fetch(:full_app_name)}"
 set :server_name, ENV.fetch('STAGING_SERVER_NAME', staging_host)
-set :linked_files, %w[config/database.yml config/application.yml]
+set :linked_files, %w[config/database.yml config/application.yml .env]
 
 # Nginx terminates TLS/HTTP2 and talks HTTP/1.1 to Falcon on localhost.
 set :falcon_host, '127.0.0.1'
