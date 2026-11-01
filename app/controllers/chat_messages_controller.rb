@@ -1,4 +1,6 @@
 class ChatMessagesController < ApplicationController
+  around_action :record_chat_timings, only: :create
+
   def index
     subscriber = chat_redis_connection
 
@@ -30,7 +32,8 @@ class ChatMessagesController < ApplicationController
   end
 
   def create
-    username = current_user&.username || session[:chat_nickname]
+    user = measure_chat_step(:identity) { current_user }
+    username = user&.username || session[:chat_nickname]
     if username.blank?
       datastar.patch_signals(chat: { joined: false, error: t("chat.errors.join_required") })
       return
@@ -50,25 +53,50 @@ class ChatMessagesController < ApplicationController
       user: username,
       body: body,
       timestamp: Time.current.iso8601,
-      role: current_user&.role,
-      avatar_url: current_user&.avatar_url
+      role: user&.role,
+      avatar_url: measure_chat_step(:avatar) { user&.avatar_url }
     }
 
-    StreamPusher.redis.publish(
-      "datafruits:chat:messages",
-      JSON.generate(message)
-    )
+    payload = JSON.generate(message)
+    measure_chat_step(:redis_publish) do
+      StreamPusher.redis.publish("datafruits:chat:messages", payload)
+    end
 
-    datastar.patch_signals(
-      chat: {
-        body: "",
-        error: nil
-      }
-    )
+    measure_chat_step(:response_setup) do
+      datastar.patch_signals(
+        chat: {
+          body: "",
+          error: nil
+        }
+      )
+    end
 
   end
 
   private
+
+  def record_chat_timings
+    @chat_timings = {}
+    measure_chat_step(:action) { yield }
+  ensure
+    timings = @chat_timings.map { |name, duration| "chat_#{name};dur=#{duration}" }.join(", ")
+    response.headers["Server-Timing"] = [response.headers["Server-Timing"], timings].compact.join(", ")
+  end
+
+  def measure_chat_step(name)
+    started = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+    yield
+  ensure
+    @chat_timings[name] = ((Process.clock_gettime(Process::CLOCK_MONOTONIC) - started) * 1000).round(2)
+  end
+
+  def append_info_to_payload(payload)
+    super
+    # Lograge includes custom_payload in the existing request log line.
+    payload[:custom_payload] = (payload[:custom_payload] || {}).merge(
+      (@chat_timings || {}).transform_keys { |name| :"chat_#{name}_ms" }
+    )
+  end
 
   def chat_redis_connection
     Redis.new(
