@@ -76,6 +76,24 @@ class ChatMessagesController < ApplicationController
 
   private
 
+  def verify_authenticity_token
+    return super unless @chat_timings
+
+    measure_chat_step(:csrf) { super }
+  end
+
+  def current_radio
+    return super unless @chat_timings
+
+    measure_chat_step(:radio_lookup) { super }
+  end
+
+  def merge_datastar_signals
+    return super unless @chat_timings
+
+    measure_chat_step(:signals_setup) { super }
+  end
+
   def chat_avatar_url(user)
     avatar = user&.as_image
     return unless avatar&.attached?
