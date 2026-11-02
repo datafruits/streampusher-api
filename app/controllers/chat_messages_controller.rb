@@ -1,4 +1,6 @@
 class ChatMessagesController < ApplicationController
+  # Messages use the shared chat channel and do not depend on a radio lookup.
+  skip_before_action :current_radio, only: :create
   prepend_around_action :record_chat_timings, only: :create
   around_action :record_chat_action_timing, only: :create
 
@@ -80,12 +82,6 @@ class ChatMessagesController < ApplicationController
     return super unless @chat_timings
 
     measure_chat_step(:csrf) { super }
-  end
-
-  def current_radio
-    return super unless @chat_timings
-
-    measure_chat_step(:radio_lookup) { super }
   end
 
   def merge_datastar_signals
