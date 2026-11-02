@@ -90,6 +90,7 @@ en:
     title: "Archives"
   timetable:
     title: "Timetable"
+    timezone: "Times shown in"
   djinquiry:
     title: "DJ on Datafruits"
   forum:
