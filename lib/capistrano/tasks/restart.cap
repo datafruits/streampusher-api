@@ -1,8 +1,12 @@
 namespace :deploy do
-  desc 'Restart unicorn application'
+  desc 'Restart the application server'
   task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      sudo "/etc/init.d/unicorn_#{fetch(:full_app_name)} restart"
+    if fetch(:falcon_service_name, nil)
+      invoke 'falcon:restart'
+    else
+      on roles(:app), in: :sequence, wait: 5 do
+        sudo "/etc/init.d/unicorn_#{fetch(:full_app_name)} restart"
+      end
     end
   end
 end

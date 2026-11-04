@@ -31,3 +31,6 @@ config/blog/.sass-cache
 
 #local dev storage
 /storage
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

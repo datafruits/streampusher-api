@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="overflow-hidden theme-classic">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="keywords"
+      content="radio, online radio, streaming, internet radio, music, jpop, jersey club, italo disco, breakin, kpop, city pop, skweee, chiptune, club music, grime"
+    />
+
+    <meta property="og:url" content="http://datafruits.fm/" />
+
+    <!-- <meta name="google-site-verification" content="Jp5po5r_gfgc5F2hVy713i9SI5hMYUFmM6MC8R3bMNg" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5.0, user-scalable=0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- <link rel="manifest" href="{{rootURL}}manifest.webmanifest" /> -->
+    <!-- <meta name="msapplication-config" content="{{rootURL}}browserconfig.xml" /> -->
+
+    <!-- {{content-for 'head'}} -->
+    <!--  -->
+
+    <!-- <link rel="stylesheet" href="{{rootURL}}assets/vendor.css" /> -->
+    <!-- <link rel="stylesheet" href="{{rootURL}}assets/datafruits13.css" /> -->
+    <!-- <link rel="icon" href="{{rootURL}}assets/favicon.ico" /> -->
+    <!-- <link rel="apple-touch-icon" href="{{rootURL}}apple-touch-icon-precomposed.png" /> -->
+    <!--  -->
+    <!-- <link -->
+    <!--   href="{{rootURL}}assets/splashscreens/iphone5_splash.png" -->
+    <!--   media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" -->
+    <!--   rel="apple-touch-startup-image" -->
+    <!-- /> -->
+    <!-- <link -->
+    <!--   href="{{rootURL}}assets/splashscreens/iphone6_splash.png" -->
+    <!--   media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" -->
+    <!--   rel="apple-touch-startup-image" -->
+    <!-- /> -->
+    <!-- <link -->
+    <!--   href="{{rootURL}}assets/splashscreens/iphoneplus_splash.png" -->
+    <!--   media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)" -->
+    <!--   rel="apple-touch-startup-image" -->
+    <!-- /> -->
+    <!-- <link -->
+    <!--   href="{{rootURL}}assets/splashscreens/iphonex_splash.png" -->
+    <!--   media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" -->
+    <!--   rel="apple-touch-startup-image" -->
+    <!-- /> -->
+    <!-- <link -->
+    <!--   href="{{rootURL}}assets/splashscreens/iphonexr_splash.png" -->
+    <!--   media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" -->
+    <!--   rel="apple-touch-startup-image" -->
+    <!-- /> -->
+    <!-- <link -->
+    <!--   href="{{rootURL}}assets/splashscreens/iphonexsmax_splash.png" -->
+    <!--   media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" -->
+    <!--   rel="apple-touch-startup-image" -->
+    <!-- /> -->
+    <!-- <link -->
+    <!--   href="{{rootURL}}assets/splashscreens/ipad_splash.png" -->
+    <!--   media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" -->
+    <!--   rel="apple-touch-startup-image" -->
+    <!-- /> -->
+    <!-- <link -->
+    <!--   href="{{rootURL}}assets/splashscreens/ipadpro1_splash.png" -->
+    <!--   media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" -->
+    <!--   rel="apple-touch-startup-image" -->
+    <!-- /> -->
+    <!-- <link -->
+    <!--   href="{{rootURL}}assets/splashscreens/ipadpro3_splash.png" -->
+    <!--   media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" -->
+    <!--   rel="apple-touch-startup-image" -->
+    <!-- /> -->
+    <!-- <link -->
+    <!--   href="{{rootURL}}assets/splashscreens/ipadpro2_splash.png" -->
+    <!--   media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" -->
+    <!--   rel="apple-touch-startup-image" -->
+    <!-- /> -->
+    <!--  -->
+    <!-- {{content-for 'head-footer'}} -->
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", media: "all" %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <body class="h-screen classic:bg-df-blue blm:bg-black trans:theme-trans text-white font-helvetica overflow-hidden fixed md:static">
+    <section class="h-screen flex flex-col justify-between">
+      <div class="flex classic:bg-df-pink blm:bg-black trans:bg-df-blue">
+        <a class="skip-to-content-link" href="#main-content">
+          <!-- {{t "skip_to_content"}} -->
+        </a>
+        <%= render 'shared/pc_nav' %>
+        <!-- <SpNav -->
+        <!--   @toggleMenu={{this.toggleMenu}} -->
+        <!--   @toggleUserMenu={{this.toggleUserMenu}} -->
+        <!--   @menuOpen={{this.menuOpen}} /> -->
+      </div>
+      <!-- <RandomBannerAd class="block lg:hidden" /> -->
+      <!-- <UserMenu -->
+      <!--   @showing={{this.isShowingUserMenu}} -->
+      <!--   @toggleUserMenu={{this.toggleUserMenu}} /> -->
+      <!-- <OurVersionNotifier -->
+      <!--   @updateMessage="Updates have been made to datafruits! Refresh to stay up-to-date 💻" -->
+      <!--   @reloadButtonText="Refresh" /> -->
+      <div class="overflow-auto text-white text-shadow flex flex-col h-full" id="main-content">
+        <%= yield %>
+      </div>
+    <!--   <DatafruitsPlayer -->
+    <!--     class="flex-col flex justify-center classic:bg-df-pink blm:bg-black trans:bg-df-blue text-xl py-2 text-white leading-none" -->
+    <!--   > -->
+    <!--     <DjDonateModal class="hidden md:block mr-2" /> -->
+    <!--     <HackButton class="hidden md:block mr-2" /> -->
+    <!--   </DatafruitsPlayer> -->
+    <!--   {{#if this.siteSettings.audioVisualizerOn}} -->
+    <!--     <div class="flex-row flex bg-df-pink"> -->
+    <!--       <AudioVisualizer /> -->
+    <!--     </div> -->
+    <!--   {{/if}} -->
+    <!--   <div class="flex-row flex justify-between text-xl classic:bg-df-green blm:bg-black trans:bg-df-blue"> -->
+    <!--     <AddDatafruit /> -->
+    <!--   </div> -->
+    <!-- </section> -->
+    <!-- <DatafruitsVisuals -->
+    <!--   class="block absolute top-0 w-screen h-screen h-handle-resize" -->
+    <!-- /> -->
+    <!-- {{#unless this.fastboot.isFastBoot}} -->
+    <!--   <Notifications /> -->
+    <!--   <WindowResizeHandler /> -->
+    <!--   {{#if this.showingPixi}} -->
+    <!--     <Pixi /> -->
+    <!--   {{/if}} -->
+    <!-- {{/unless}} -->
+    <!--  -->
+    <!-- {{#if this.aprilFools}} -->
+    <!--   {{!-- bgs --}} -->
+    <!--   <a href="https://datafruits.bandcamp.com/album/bgs-vs-firedrill-studio-phone-3" rel="noopener noreferrer" target="_blank"><img class="tiny-guy" alt=":bgs:" src="/assets/images/bgs_small.png" /></a> -->
+    <!--   {{!-- grumby --}} -->
+    <!--   <a href="https://www.youtube.com/shorts/9_g8YA_vJzg" rel="noopener noreferrer" target="_blank"><img class="tiny-grumby" alt=":bgs:" src="/assets/images/emojis/grumby.gif" /></a> -->
+    <!-- {{/if}} -->
+    <!--  -->
+    <!-- {{#if this.showingLoginModal}} -->
+    <!--   <LoginModal -->
+    <!--     @login={{this.authenticate}} -->
+    <!--     @toggleModal={{this.toggleLoginModal}} -->
+    <!--   /> -->
+    <!-- {{/if}} -->
+
+    <div id="modals-container">
+    </div>
+  </body>
+</html>

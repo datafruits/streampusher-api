@@ -116,6 +116,17 @@ class User < ActiveRecord::Base
 
   before_save :set_default_avatar, unless: -> { ::Rails.env.test? }
 
+  def avatar_url
+    if as_image.present?
+      if ::Rails.env != "production"
+        path = ::Rails.application.routes.url_helpers.rails_blob_path(as_image, only_path: true, disposition: 'attachment')
+        "http://localhost:3000#{path}"
+      else
+        as_image.url
+      end
+    end
+  end
+
   def login=(login)
     @login = login
   end

@@ -1,0 +1,23 @@
+[Unit]
+Description=Falcon application server for <%= fetch(:full_app_name) %>
+After=network.target
+
+[Service]
+Type=simple
+User=<%= fetch(:deploy_user) %>
+Group=<%= fetch(:deploy_user) %>
+WorkingDirectory=<%= current_path %>
+Environment=RAILS_ENV=<%= fetch(:rails_env) %>
+Environment=RACK_ENV=<%= fetch(:rails_env) %>
+Environment=RBENV_ROOT=<%= fetch(:rbenv_path) %>
+Environment=RBENV_VERSION=<%= fetch(:rbenv_ruby) %>
+Environment=FALCON_BIND=http://<%= fetch(:falcon_host) %>:<%= fetch(:falcon_port) %>
+ExecStart=<%= fetch(:rbenv_path) %>/bin/rbenv exec bundle exec falcon host config/falcon.rb
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+KillSignal=SIGTERM
+SyslogIdentifier=<%= fetch(:falcon_service_name) %>
+
+[Install]
+WantedBy=multi-user.target

@@ -21,6 +21,11 @@ services:
     environment:
       POSTGRES_HOST_AUTH_METHOD: trust
   rails:
+    build:
+      context: .
+      target: development
+      args:
+        DOCKER_GROUP_ID: ${DOCKER_GROUP_ID:-}
     image: "streampusher/streampusher:latest"
     user: rails
     working_dir: /home/rails/app
@@ -42,32 +47,32 @@ services:
       - "3000:3000"
     tty: true
     stdin_open: true
-  sidekiq:
-    image: "streampusher/streampusher:latest"
-    user: root
-    working_dir: /home/rails/app
-    command: ./docker_wrapper.sh bundle exec sidekiq
-    env_file: .env
-    environment:
-      <<: *shared_env
-    depends_on:
-      - postgres
-      - redis
-    volumes:
-      - .:/home/rails/app
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /tmp:/tmp
-  viz:
-    image: "datafruits/viz:auth"
-    container_name: datafruits_viz
-    ports:
-      - "1935:1935"
-      - "8080:8080"
-      - "16666:4443"
-    volumes:
-      - /tmp/datafruits/hls:/tmp/datafruits_hls
-      - ../viz/viz_cert/fullchain.pem:/etc/letsencrypt/live/viz.streampusher.com/fullchain.pem
-      - ../viz/viz_cert/privkey.pem:/etc/letsencrypt/live/viz.streampusher.com/privkey.pem
+  # sidekiq:
+  #   image: "streampusher/streampusher:latest"
+  #   user: root
+  #   working_dir: /home/rails/app
+  #   command: ./docker_wrapper.sh bundle exec sidekiq
+  #   env_file: .env
+  #   environment:
+  #     <<: *shared_env
+  #   depends_on:
+  #     - postgres
+  #     - redis
+  #   volumes:
+  #     - .:/home/rails/app
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - /tmp:/tmp
+  # viz:
+  #   image: "datafruits/viz:auth"
+  #   container_name: datafruits_viz
+  #   ports:
+  #     - "1935:1935"
+  #     - "8080:8080"
+  #     - "16666:4443"
+  #   volumes:
+  #     - /tmp/datafruits/hls:/tmp/datafruits_hls
+  #     - ../viz/viz_cert/fullchain.pem:/etc/letsencrypt/live/viz.streampusher.com/fullchain.pem
+  #     - ../viz/viz_cert/privkey.pem:/etc/letsencrypt/live/viz.streampusher.com/privkey.pem
 
 volumes:
   postgres_data_9.4:

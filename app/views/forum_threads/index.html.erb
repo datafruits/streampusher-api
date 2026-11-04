@@ -1,0 +1,34 @@
+<main class="mx-auto w-full max-w-5xl p-4 md:p-8" data-signals="{forum: {title: '', body: '', error: null}}">
+  <div class="mb-6 flex items-center justify-between gap-4">
+    <h1 class="text-3xl font-bold"><%= t("forum.title") %></h1>
+    <% unless user_signed_in? %>
+      <button
+        type="button"
+        data-on:click="$loginModalOpen = true"
+        class="rounded bg-df-green px-4 py-2 font-bold text-black"
+      >Log in to post</button>
+    <% end %>
+  </div>
+
+  <% if user_signed_in? %>
+    <form class="forum-post mb-8 bg-df-blue p-4" data-on:submit="@post('<%= forum_threads_path %>', {filterSignals: {include: /^forum\./}})">
+      <h2 class="mb-3 text-xl font-bold">Start a thread</h2>
+      <label class="mb-1 block" for="forum-title">Title</label>
+      <input id="forum-title" class="mb-3 w-full text-black" data-bind:forum.title required>
+      <label class="mb-1 block" for="forum-body">Post</label>
+      <textarea id="forum-body" class="mb-3 min-h-28 w-full text-black" data-bind:forum.body required></textarea>
+      <button class="rounded bg-df-green px-4 py-2 font-bold text-black" type="submit">Post thread</button>
+      <p class="mt-2 text-yellow-300" data-show="$forum.error" data-text="$forum.error"></p>
+    </form>
+  <% end %>
+
+  <section id="forum-threads" class="space-y-4" aria-label="Forum threads">
+    <% @forum_threads.each do |forum_thread| %>
+      <%= render "forum_threads/forum_thread", forum_thread: forum_thread %>
+    <% end %>
+
+    <% if @forum_threads.empty? %>
+      <p>No threads yet. Plant the first one!</p>
+    <% end %>
+  </section>
+</main>

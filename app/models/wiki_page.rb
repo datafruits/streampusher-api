@@ -10,11 +10,11 @@ class WikiPage < ApplicationRecord
   default_scope { where(deleted_at: nil) }
 
   def save_new_edit! params, user_id
-    edit = self.wiki_page_edits.new params
-    edit.user_id = user_id
-    self.update! title: edit.title, body: edit.body
-    edit.wiki_page = self
-    edit.save!
+    transaction do
+      edit = wiki_page_edits.new(params.merge(user_id: user_id))
+      update!(title: edit.title, body: edit.body)
+      edit.save!
+    end
   end
 
   def update_slug
