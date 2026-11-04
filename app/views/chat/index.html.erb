@@ -2,7 +2,9 @@
      data-signals="{chat: {body: '', error: null, nickname: '', joining: false, joined: <%= user_signed_in? || session[:chat_nickname].present? %>}}"
      data-init="@get('/chat_messages', {
        openWhenHidden: true,
-       filterSignals: {include: /^chat\\./},
+       filterSignals: {include: /^$/},
+       retry: 'always',
+       retryMaxCount: Infinity,
        requestCancellation: 'cleanup'
      })">
   <div id="chat-area"
