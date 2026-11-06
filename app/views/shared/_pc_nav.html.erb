@@ -2,7 +2,7 @@
     <ul class="flex flex-wrap mt-2 ml-2">
      <li class="its-just-a-website-menu-item">
        <a href="#radio"
-          data-on:mouseover__debounce.500ms="$submenuOpen = !$submenuOpen"
+          data-on:click="$submenuOpen = !$submenuOpen"
           aria-label="<%= t('.radio.aria', default: 'Radio') %>"
           class="text-white text-shadow-light hover:text-white">
           <%= t('.radio.title', default: 'Radio') %>

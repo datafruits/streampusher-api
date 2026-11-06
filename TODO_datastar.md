@@ -26,7 +26,7 @@ Preserve public URLs or add explicit redirects when replacing them.
 | Timetable | ERB day groups, timezone, links and live highlight implemented; Debussy assets copied | Browser/timezone verification and working episode destinations |
 | DJs `/djs` | ERB directory and Datastar filtering exist | Profile links, HTML detail page, bio/badges/affinity, archive list and ticket gifts; `show` still returns JSON |
 | Shows and episodes | Public routes declared; corresponding HTML controllers/views missing | Series directory/detail, episode detail, playback, labels, hosts, comments and favorites |
-| Archives `/podcasts` | Existing controller returns JSON; RSS XML view exists | Archive HTML listing, search, labels, pagination and player integration; preserve feeds |
+| Archives `/podcasts` | ERB published-episode listing, title search, label filters, pagination, RSS links and shared-player controls implemented; Datastar updates preserve audio | Database-backed and browser acceptance checks; artwork, episode/host links and favorites |
 | Forum | ERB list/detail, thread creation and streamed replies exist | Parity review, standalone `/forum/new` compatibility, pagination/empty/error states and markdown/emoji rendering |
 | Wiki | ERB list/read/create/edit/history and Datastar preview/save exist | Parity review, authorization/errors, history content and rendering |
 | About and support | ERB pages exist | Links/assets/translations and responsive acceptance checks |
