@@ -103,12 +103,8 @@
       <div class="overflow-auto text-white text-shadow flex flex-col h-full" id="main-content">
         <%= yield %>
       </div>
-    <!--   <DatafruitsPlayer -->
-    <!--     class="flex-col flex justify-center classic:bg-df-pink blm:bg-black trans:bg-df-blue text-xl py-2 text-white leading-none" -->
-    <!--   > -->
-    <!--     <DjDonateModal class="hidden md:block mr-2" /> -->
-    <!--     <HackButton class="hidden md:block mr-2" /> -->
-    <!--   </DatafruitsPlayer> -->
+      <%= render 'shared/player' %>
+    </section>
     <!--   {{#if this.siteSettings.audioVisualizerOn}} -->
     <!--     <div class="flex-row flex bg-df-pink"> -->
     <!--       <AudioVisualizer /> -->

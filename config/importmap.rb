@@ -1,6 +1,7 @@
 # Pin npm packages by running ./bin/importmap
 
 pin "application"
+pin "components/datafruits-player", to: "components/datafruits-player.js"
 pin "datastar", to: "datastar.js"
 pin "csrf", to: "csrf.js"
 pin "components/ui-modal", to: "components/ui-modal.js"
