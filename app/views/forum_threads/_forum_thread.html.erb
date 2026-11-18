@@ -1,0 +1,13 @@
+<article id="forum-thread-<%= forum_thread.id %>" class="forum-post bg-df-blue p-4">
+  <h2 class="text-xl font-bold">
+    <%= link_to forum_thread.title, forum_thread_path(forum_thread), class: "underline" %>
+  </h2>
+  <% first_post = forum_thread.posts.first %>
+  <p class="mt-2 text-sm">
+    <% if first_post %>
+      Started by <%= first_post.user.username %> ·
+    <% end %>
+    <%= pluralize([forum_thread.posts.size - 1, 0].max, "reply") %> ·
+    updated <%= time_ago_in_words(forum_thread.updated_at) %> ago
+  </p>
+</article>

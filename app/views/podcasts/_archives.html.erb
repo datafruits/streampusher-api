@@ -1,0 +1,68 @@
+<section id="archives" class="page-bg p-4" aria-label="Archives">
+  <form action="<%= podcasts_path %>" method="get" class="flex flex-wrap items-end gap-3 mb-4"
+        data-on:submit="evt.preventDefault(); @get(evt.target.action + '?' + new URLSearchParams(new FormData(evt.target)).toString())">
+    <label class="flex flex-col gap-1">
+      <span>Search archives</span>
+      <input type="search" name="query" value="<%= @query %>" class="text-black bg-white p-2" placeholder="Show title">
+    </label>
+    <label class="flex flex-col gap-1">
+      <span>Labels (choose one or more)</span>
+      <select name="tags[]" multiple class="text-black bg-white p-2">
+        <% @labels.each do |label| %>
+          <option value="<%= label.name %>" <%= 'selected' if @tags.any? { |tag| tag.casecmp?(label.name) } %>><%= label.name %></option>
+        <% end %>
+      </select>
+    </label>
+    <button type="submit" class="cool-button">Search</button>
+    <%= link_to 'Clear filters', podcasts_path, class: 'cool-button', data: { 'on:click' => "evt.preventDefault(); @get(evt.currentTarget.href)" } %>
+  </form>
+
+  <nav aria-label="Subscribe to archives" class="flex flex-wrap gap-3 mb-4">
+    <% @podcasts.each do |podcast| %>
+      <%= link_to "#{podcast.name} RSS", podcast_path(podcast.name, format: :xml) %>
+    <% end %>
+  </nav>
+
+  <p role="status" class="mb-3"><%= pluralize(@archives.total_count, 'archive') %> found</p>
+  <div class="flex flex-col gap-3">
+    <% @archives.each do |show| %>
+      <% track = show.tracks.select { |item| item.radio_id == @current_radio.id && item.audio_file_name.present? }.min_by(&:id) %>
+      <article class="classic:bg-df-pink blm:bg-black trans:bg-df-blue rounded-lg p-3 flex flex-wrap items-center gap-3">
+        <button type="button" class="cool-button"
+                data-recording-url="<%= track.cdn_url %>" data-recording-title="<%= show.title %>" data-recording-id="<%= track.id %>"
+                data-on:click="document.dispatchEvent(new CustomEvent('datafruits:play', {detail: {url: evt.currentTarget.dataset.recordingUrl, title: evt.currentTarget.dataset.recordingTitle, id: evt.currentTarget.dataset.recordingId}}))"
+                aria-label="Play <%= show.title %>">Play</button>
+        <div class="flex-1">
+          <h2 class="text-xl">
+            <% if show.show_series.present? && !show.show_series.disabled? %>
+              <%= link_to show.title, show_episode_path(show.show_series.slug, show.slug) %>
+            <% else %>
+              <%= show.title %>
+            <% end %>
+          </h2>
+          <time datetime="<%= show.start_at.iso8601 %>"><%= show.start_at.in_time_zone.strftime('%B %-d, %Y') %></time>
+          <p><%= show.performers.map(&:username).join(', ') %></p>
+          <div class="flex flex-wrap gap-2">
+            <% show.labels.each do |label| %>
+              <%= link_to label.name, podcasts_path(query: @query.presence, tags: (@tags + [label.name]).uniq), data: { 'on:click' => "evt.preventDefault(); @get(evt.currentTarget.href)" } %>
+            <% end %>
+          </div>
+        </div>
+        <span><%= track.formatted_duration %></span>
+        <%= link_to 'Download', track.cdn_url, download: '', class: 'cool-button' %>
+      </article>
+    <% end %>
+  </div>
+  <% if @archives.empty? %>
+    <p>No archives found. Try another title or fewer labels.</p>
+  <% end %>
+  <nav aria-label="Archive pages" class="flex items-center gap-3 mt-4">
+    <% if @archives.prev_page %>
+      <%= link_to 'Previous', podcasts_path(query: @query.presence, tags: @tags.presence, page: @archives.prev_page), data: { 'on:click' => "evt.preventDefault(); @get(evt.currentTarget.href)" } %>
+    <% end %>
+    <span>Page <%= @archives.current_page %> of <%= [@archives.total_pages, 1].max %></span>
+    <% if @archives.next_page %>
+      <%= link_to 'Next', podcasts_path(query: @query.presence, tags: @tags.presence, page: @archives.next_page), data: { 'on:click' => "evt.preventDefault(); @get(evt.currentTarget.href)" } %>
+    <% end %>
+  </nav>
+</section>

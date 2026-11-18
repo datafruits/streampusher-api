@@ -1,14 +1,33 @@
 class DjsController < ApplicationController
   def index
-    authorize! :index, :dj
-    @djs = @current_radio.djs.order("username DESC")
+    @djs_per_page = 150
+    @djs = @current_radio.active_djs.
+      order("username ASC").
+      page(params[:page]).
+      per(@djs_per_page)
+
     if params[:search]
-      @djs = @djs.where("username ilike (?)", "%#{params[:search].permit(:keyword)[:keyword]}%")
+      @djs = @djs.where("username ilike (?)", "%#{params[:search]}%")
     end
-    @djs = @djs.page(params[:page])
-    response.headers["Access-Control-Allow-Origin"] = "*" # This is a public API, maybe I should namespace it later
-    meta = { page: params[:page], total_pages: @djs.total_pages.to_i }
-    render json: @djs, meta: meta
+    if params[:published]
+      @djs = @djs.where(profile_publish: true)
+    end
+
+    if params[:tags]
+      for tag in params[:tags].split(",")
+        @djs = @djs.where("role ilike (?)", "%#{tag}%")
+      end
+    end
+
+    @djs = @djs.page(params[:page]).per(@djs_per_page)
+    # meta = { page: params[:page], total_pages: @djs.total_pages.to_i }
+    # render json: @djs, meta: meta
+    #
+    if datastar_request?
+      datastar.patch_elements(render_to_string(partial: "djs", locals: { djs: @djs }))
+    else
+      render :index
+    end
   end
 
   def show

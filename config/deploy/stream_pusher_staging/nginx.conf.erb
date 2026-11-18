@@ -1,0 +1,89 @@
+upstream <%= fetch(:full_app_name) %>_falcon {
+  server <%= fetch(:falcon_host) %>:<%= fetch(:falcon_port) %> fail_timeout=0;
+  keepalive 32;
+}
+
+server {
+  listen 80;
+  listen [::]:80;
+  server_name <%= fetch(:server_name) %>;
+
+  location /.well-known/acme-challenge/ {
+    root /var/www/letsencrypt;
+  }
+
+<% if fetch(:enable_ssl) %>
+  location / {
+    return 301 https://$host$request_uri;
+  }
+<% else %>
+  root <%= fetch(:deploy_to) %>/current/public;
+
+  location / {
+    try_files $uri @falcon;
+  }
+
+  location @falcon {
+    proxy_pass http://<%= fetch(:full_app_name) %>_falcon;
+    proxy_http_version 1.1;
+    proxy_set_header Connection "";
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_buffering off;
+    proxy_cache off;
+    proxy_read_timeout 1h;
+    proxy_send_timeout 1h;
+  }
+<% end %>
+}
+
+<% if fetch(:enable_ssl) %>
+server {
+  listen 443 ssl http2;
+  listen [::]:443 ssl http2;
+  server_name <%= fetch(:server_name) %>;
+
+  root <%= fetch(:deploy_to) %>/current/public;
+
+  ssl_certificate /etc/letsencrypt/live/<%= fetch(:ssl_certificate_name) %>/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/<%= fetch(:ssl_certificate_name) %>/privkey.pem;
+
+  access_log /var/log/nginx/<%= fetch(:full_app_name) %>.access.log;
+  error_log /var/log/nginx/<%= fetch(:full_app_name) %>.error.log;
+
+  client_max_body_size 4G;
+  keepalive_timeout 65;
+
+  location ^~ /assets/ {
+    gzip_static on;
+    expires max;
+    add_header Cache-Control "public, immutable";
+  }
+
+  location / {
+    try_files $uri @falcon;
+  }
+
+  location @falcon {
+    proxy_pass http://<%= fetch(:full_app_name) %>_falcon;
+    proxy_http_version 1.1;
+    proxy_set_header Connection "";
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header X-Forwarded-Proto https;
+    proxy_set_header X-Real-IP $remote_addr;
+
+    # Stream SSE responses to clients as soon as Falcon emits them.
+    proxy_buffering off;
+    proxy_cache off;
+    proxy_read_timeout 1h;
+    proxy_send_timeout 1h;
+  }
+
+  error_page 500 502 503 504 /500.html;
+}
+<% end %>

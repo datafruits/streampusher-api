@@ -1,0 +1,50 @@
+<form class="mb-3 text-center"
+      data-show="!$chat.joined"
+      data-indicator:chat.joining
+      data-on:submit="@post('<%= join_chat_path %>', {filterSignals: {include: /^chat\.nickname$/}})">
+  <div class="flex items-center justify-center gap-2 flex-col md:flex-row">
+    <label for="chat-nickname"><%= t("chat.label.nick") %></label>
+    <input id="chat-nickname"
+           type="text"
+           name="chat[nickname]"
+           data-bind:chat.nickname
+           autocomplete="nickname"
+           autocorrect="off"
+           autocapitalize="none"
+           maxlength="<%= ChatController::MAX_NICKNAME_LENGTH %>"
+           required
+           class="max-h-full mx-2 bg-white text-black border-2 border-gray-300 rounded-sm p-1"
+           placeholder="<%= t('chat.nickname') %>">
+    <button type="submit"
+            class="cool-button"
+            data-test-join-chat
+            data-attr:disabled="$chat.nickname.trim().length === 0 || $chat.joining"
+            title="<%= t('chat.titles.enter') %>">
+      <%= t("chat.join_anonymously") %>
+    </button>
+    <button type="button"
+            class="cool-button"
+            data-on:click="$settingsModalOpen = true"
+            aria-label="<%= t('shared.pc_nav.settings.title', default: 'Site Settings') %>"
+            title="<%= t('shared.pc_nav.settings.title', default: 'Site Settings') %>">
+      <span aria-hidden="true">⚙️</span>
+    </button>
+  </div>
+
+  <p class="my-2 text-xs">
+    <%= t("chat.coc_label") %>
+    <a class="text-sm underline" href="https://datafruits.fm/coc" target="_blank" rel="noopener noreferrer">
+      <abbr title="<%= t('code_of_conduct', default: 'Code of Conduct') %>"><%= t("chat.label.coc") %></abbr>
+    </a>
+  </p>
+
+  <div class="flex justify-center">
+    <button type="button"
+            class="cool-button"
+            data-test-login-button
+            data-on:click="$loginModalOpen = true"
+            title="<%= t('chat.titles.login') %>">
+      <%= t("chat.login") %>
+    </button>
+  </div>
+</form>

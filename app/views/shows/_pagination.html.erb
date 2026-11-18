@@ -1,0 +1,11 @@
+<% if collection.total_pages > 1 %>
+  <nav aria-label="Pages" class="flex gap-3 my-4">
+    <% if collection.prev_page %>
+      <%= link_to 'Previous', "#{base_path}?#{ { query: query, page: collection.prev_page }.compact.to_query }" %>
+    <% end %>
+    <span>Page <%= collection.current_page %> of <%= collection.total_pages %></span>
+    <% if collection.next_page %>
+      <%= link_to 'Next', "#{base_path}?#{ { query: query, page: collection.next_page }.compact.to_query }" %>
+    <% end %>
+  </nav>
+<% end %>

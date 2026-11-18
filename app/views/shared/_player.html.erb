@@ -1,0 +1,32 @@
+<% if @current_radio %>
+  <datafruits-player
+    id="now-playing-bar"
+    class="block shrink-0 classic:bg-df-pink blm:bg-black trans:bg-df-blue px-3 py-2 text-white"
+    data-stream-url="<%= @current_radio.mp3_url %>"
+    data-metadata-url="<%= current_scheduled_shows_path %>"
+    data-play-label="<%= t('player.play', default: 'Play') %>"
+    data-stop-label="<%= t('player.stop', default: 'Stop') %>"
+    data-pause-label="<%= t('player.pause', default: 'Pause') %>"
+    data-loading-label="<%= t('player.loading', default: 'Loading…') %>"
+    data-error-label="<%= t('player.error', default: 'Unable to play audio. Try again.') %>">
+    <audio id="radio-player" preload="none"></audio>
+    <div class="flex flex-wrap items-center gap-3">
+      <button type="button" data-player-live hidden class="cool-button"><%= t('player.return_to_live', default: 'Return to live') %></button>
+      <button type="button" data-player-toggle class="cool-button"><%= t('player.play', default: 'Play') %></button>
+      <button type="button" data-player-mute aria-pressed="false" class="cool-button"><%= t('player.mute', default: 'Mute') %></button>
+      <label class="flex items-center gap-2">
+        <span><%= t('player.volume', default: 'Volume') %></span>
+        <input data-player-volume type="range" min="0" max="1" step="0.01" value="0.8">
+      </label>
+      <span data-player-title class="flex-1">DATAFRUITS.FM</span>
+      <span data-player-status role="status"></span>
+    </div>
+    <div data-player-progress hidden>
+      <label class="flex items-center gap-2">
+        <span><%= t('player.seek', default: 'Seek') %></span>
+        <input data-player-seek class="flex-1" type="range" min="0" max="100" step="0.1" value="0" disabled>
+        <span data-player-time>00:00 / 00:00</span>
+      </label>
+    </div>
+  </datafruits-player>
+<% end %>

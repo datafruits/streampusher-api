@@ -1,0 +1,3 @@
+<% if hosts.any? %>
+  <p class="my-2">Hosted by <%= hosts.map(&:username).join(', ') %></p>
+<% end %>
