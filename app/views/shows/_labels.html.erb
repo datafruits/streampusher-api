@@ -1,0 +1,5 @@
+<div class="flex flex-wrap gap-2 my-2">
+  <% labels.each do |label| %>
+    <%= link_to label.name, podcasts_path(tags: [label.name]), class: 'track-label border-2 border-white p-1 uppercase' %>
+  <% end %>
+</div>

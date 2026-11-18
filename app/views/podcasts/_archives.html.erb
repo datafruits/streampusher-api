@@ -33,7 +33,13 @@
                 data-on:click="document.dispatchEvent(new CustomEvent('datafruits:play', {detail: {url: evt.currentTarget.dataset.recordingUrl, title: evt.currentTarget.dataset.recordingTitle, id: evt.currentTarget.dataset.recordingId}}))"
                 aria-label="Play <%= show.title %>">Play</button>
         <div class="flex-1">
-          <h2 class="text-xl"><%= show.title %></h2>
+          <h2 class="text-xl">
+            <% if show.show_series.present? && !show.show_series.disabled? %>
+              <%= link_to show.title, show_episode_path(show.show_series.slug, show.slug) %>
+            <% else %>
+              <%= show.title %>
+            <% end %>
+          </h2>
           <time datetime="<%= show.start_at.iso8601 %>"><%= show.start_at.in_time_zone.strftime('%B %-d, %Y') %></time>
           <p><%= show.performers.map(&:username).join(', ') %></p>
           <div class="flex flex-wrap gap-2">

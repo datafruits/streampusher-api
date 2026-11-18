@@ -200,7 +200,9 @@ Rails.application.routes.draw do
   get '/support' => 'support#index'
   get "/sign_up" => "listeners#new"
   resources :shows, only: [:index, :show] do
-    resources :episodes, only: [:show]
+    resources :episodes, only: [:show] do
+      resources :comments, only: [:create], controller: 'episode_comments'
+    end
   end
   get "/podcasts" => "podcasts#index"
   get "/timetable" => "timetable#index"

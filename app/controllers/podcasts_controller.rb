@@ -22,7 +22,7 @@ class PodcastsController < ApplicationController
         @archives = @current_radio.scheduled_shows.archive_published.
           where('end_at < ?', Time.current).
           where(id: Track.where(radio_id: @current_radio.id).where.not(audio_file_name: [nil, '']).select(:scheduled_show_id)).
-          includes(:labels, :performers, :tracks).
+          includes(:labels, :performers, :tracks, :show_series).
           order(start_at: :desc, id: :desc)
         if @query.present?
           @archives = @archives.where('title ILIKE ?', "%#{ActiveRecord::Base.sanitize_sql_like(@query)}%")
