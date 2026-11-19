@@ -2095,6 +2095,7 @@ DEPENDENCIES
   recurrence
   redis
   remote_syslog_logger
+  rexml
   rspec-rails (~> 3.5.2)
   rubocop
   ruby-liquidsoap!
