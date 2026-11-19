@@ -1,4 +1,6 @@
 class LiveNotificationController < ApplicationController
+  include LiquidsoapAuthentication
+
   before_action :current_radio_required
   def create
     if liq_authorized?
@@ -7,12 +9,5 @@ class LiveNotificationController < ApplicationController
     else
       render json: "not permitted", status: :unauthorized
     end
-  end
-
-  private
-
-  def liq_authorized?
-    liq_secret = request.headers["liq-secret"]
-    return liq_secret == Rails.application.secrets.liq_secret
   end
 end
