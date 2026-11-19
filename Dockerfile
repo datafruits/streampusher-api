@@ -20,9 +20,14 @@ RUN apt-get install -y --force-yes autoconf patch build-essential rustc libssl-d
 
 # RUN apt-get clean
 
-# add user
-RUN groupadd -g 1000 rails && useradd --create-home -s /bin/bash -u 1000 -g 1000 rails ;\
- adduser rails sudo
+# Reuse Ubuntu's default account to keep UID/GID 1000 for bind mounts.
+RUN if getent passwd ubuntu >/dev/null; then \
+      groupmod --new-name rails ubuntu && \
+      usermod --login rails --home /home/rails --move-home --shell /bin/bash ubuntu; \
+    else \
+      groupadd --gid 1000 rails && \
+      useradd --create-home --shell /bin/bash --uid 1000 --gid rails rails; \
+    fi && adduser rails sudo
 RUN echo "Defaults    !requiretty" >> /etc/sudoers
 RUN echo "%sudo ALL=NOPASSWD: ALL" >> /etc/sudoers
 RUN if [ -n "$DOCKER_GROUP_ID" ]; then \
