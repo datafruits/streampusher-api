@@ -1738,6 +1738,7 @@ GEM
     dotenv-rails (3.1.2)
       dotenv (= 3.1.2)
       railties (>= 6.1)
+    drb (2.2.3)
     dry-auto_inject (1.0.1)
       dry-core (~> 1.0)
       zeitwerk (~> 2.6)
@@ -2067,6 +2068,7 @@ DEPENDENCIES
   discord-notifier
   docker-api (~> 2.2.0)
   dotenv-rails
+  drb
   e2mmap
   ed25519 (>= 1.2, < 2.0)
   exception_notification!
