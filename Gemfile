@@ -79,6 +79,8 @@ gem 'active_model_serializers', '~> 0.10.0'
 gem 'jsonapi-serializer'
 gem 'chronic'
 gem 'aws-sdk'
+# Provide a pure-Ruby XML parser for AWS SDK in production.
+gem 'rexml'
 gem "kt-paperclip", "~> 6.4", ">= 6.4.1"
 gem "image_processing", ">= 1.2"
 

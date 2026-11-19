@@ -1,11 +1,12 @@
-FROM ubuntu:latest
+# Keep TagLib 1.x for rupeepeethree's taglib-ruby 1.x dependency.
+FROM ubuntu:24.04
 
 # locale
 # RUN locale-gen ja_JP.UTF-8 && \
 #     locale-gen en_US.UTF-8
 # ENV LANG en_US.UTF-8
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 ARG DOCKER_GROUP_ID
 
 RUN apt update
@@ -24,20 +25,24 @@ RUN groupadd -g 1000 rails && useradd --create-home -s /bin/bash -u 1000 -g 1000
  adduser rails sudo
 RUN echo "Defaults    !requiretty" >> /etc/sudoers
 RUN echo "%sudo ALL=NOPASSWD: ALL" >> /etc/sudoers
-RUN groupadd -g $DOCKER_GROUP_ID docker
+RUN if [ -n "$DOCKER_GROUP_ID" ]; then \
+      groupadd -g "$DOCKER_GROUP_ID" docker; \
+    else \
+      groupadd docker; \
+    fi
 RUN gpasswd -a rails docker
 
 USER rails
-ENV HOME /home/rails
+ENV HOME=/home/rails
 # Install rbenv and ruby-build
-ENV RUBY_VERSION 3.4.13
+ENV RUBY_VERSION=3.4.13
 RUN git clone https://github.com/rbenv/rbenv.git /home/rails/.rbenv
 RUN git clone https://github.com/rbenv/ruby-build.git /home/rails/.rbenv/plugins/ruby-build
 RUN echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> /home/rails/.bashrc
 RUN echo 'eval "$(rbenv init -)"' >> /home/rails/.bashrc
-ENV PATH /home/rails/.rbenv/bin:$PATH
+ENV PATH=/home/rails/.rbenv/shims:/home/rails/.rbenv/bin:$PATH
 
-ENV CONFIGURE_OPTS --disable-install-doc
+ENV CONFIGURE_OPTS=--disable-install-doc
 RUN rbenv install $RUBY_VERSION
 RUN rbenv global $RUBY_VERSION
 RUN echo 'gem: --no-rdoc --no-ri' >> /home/rails/.gemrc

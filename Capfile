@@ -20,6 +20,8 @@ install_plugin Capistrano::SCM::Git
 #
 # require 'capistrano/rvm'
 require 'capistrano/rbenv'
+# capistrano-nvm uses StringIO to upload its wrapper without requiring it.
+require 'stringio'
 require 'capistrano/nvm'
 # require 'capistrano/chruby'
 require 'capistrano/bundler'
