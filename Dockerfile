@@ -30,7 +30,7 @@ RUN gpasswd -a rails docker
 USER rails
 ENV HOME /home/rails
 # Install rbenv and ruby-build
-ENV RUBY_VERSION 3.2.2
+ENV RUBY_VERSION 3.4.13
 RUN git clone https://github.com/rbenv/rbenv.git /home/rails/.rbenv
 RUN git clone https://github.com/rbenv/ruby-build.git /home/rails/.rbenv/plugins/ruby-build
 RUN echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> /home/rails/.bashrc
@@ -42,7 +42,7 @@ RUN rbenv install $RUBY_VERSION
 RUN rbenv global $RUBY_VERSION
 RUN echo 'gem: --no-rdoc --no-ri' >> /home/rails/.gemrc
 RUN rbenv exec gem update --system
-RUN rbenv exec gem install bundler
+RUN rbenv exec gem install bundler -v 2.5.22
 RUN rbenv rehash
 RUN rbenv exec bundle config --global github.https true
 
