@@ -2,12 +2,15 @@
 env:
   RUBY_VERSION: '3.4.13'
   TEST_REDIS_PASS: testpass
+  # ruby-lsp/Prism are editor dependencies, not test dependencies.
+  BUNDLE_WITHOUT: 'development:production'
 
 name: CI
 on: [push, pull_request]
 jobs:
   test:
-    runs-on: ubuntu-latest
+    # rupeepeethree requires taglib-ruby 1.x and the TagLib 1.x system library.
+    runs-on: ubuntu-24.04
     services:
       db:
         image: postgres:11
