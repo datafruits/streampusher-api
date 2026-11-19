@@ -21,6 +21,33 @@ RSpec.describe ShowSeries, type: :model do
       Sidekiq::Testing.disable!
     end
 
+    context "overnight episodes" do
+      let(:zone) { ActiveSupport::TimeZone["Pacific Time (US & Canada)"] }
+
+      def create_overnight_series(date, end_hour)
+        allow(Recurrence).to receive(:default_until_date).and_return(date)
+        ShowSeries.create!(
+          title: "Night shift", description: "Overnight radio", radio: @radio, users: [@dj],
+          recurring_interval: "day", start_date: date, time_zone: zone.name,
+          start_time: zone.local(2015, 1, 10, 23), end_time: zone.local(2015, 1, 11, end_hour)
+        )
+      end
+
+      it "ends a 23:00–01:00 show two hours after it starts" do
+        series = create_overnight_series(Date.new(2015, 1, 10), 1)
+        expect(series.episodes.pluck(:start_at, :end_at)).to eq([
+          [zone.local(2015, 1, 10, 23), zone.local(2015, 1, 11, 1)]
+        ])
+      end
+
+      it "ends at the scheduled local time after the spring clock change" do
+        series = create_overnight_series(Date.new(2015, 3, 7), 4)
+        expect(series.episodes.pluck(:start_at, :end_at)).to eq([
+          [zone.local(2015, 3, 7, 23), zone.local(2015, 3, 8, 4)]
+        ])
+      end
+    end
+
     it "saves recurring shows" do
       show_series = ShowSeries.new title: "monthly jammer jam", description: "wow", recurring_interval: "month", recurring_weekday: 'Sunday', recurring_cadence: 'First', start_time: Date.today.beginning_of_month, end_time: Date.today.beginning_of_month + 1.hours, start_date: Date.today.beginning_of_month, radio: @radio
       show_series.users << @dj
