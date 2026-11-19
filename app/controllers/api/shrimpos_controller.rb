@@ -43,6 +43,19 @@ class Api::ShrimposController < ApplicationController
     render json: shrimpo, serializer: ShrimpoSerializer, current_user: current_user, include: ['shrimpo_entries', 'posts', 'shrimpo_entries.trophy_awards', 'shrimpo_voting_categories', 'shrimpo_voting_categories.shrimpo_voting_category_scores']
   end
 
+  def update
+    shrimpo = Shrimpo.friendly.find params[:id]
+    unless current_user && (current_user == shrimpo.user || current_user.admin?)
+      return head :forbidden
+    end
+
+    if shrimpo.update(shrimpo_params)
+      render json: shrimpo, current_user: current_user
+    else
+      respond_with_errors(shrimpo)
+    end
+  end
+
   private
   def shrimpo_params
     ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
