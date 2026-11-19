@@ -95,23 +95,8 @@ class ShowSeries < ApplicationRecord
 
   def save_episodes
     if recurring?
-      _start_time = self.start_time.in_time_zone(self.time_zone)
-      _end_time = self.end_time.in_time_zone(self.time_zone)
-
-      duration = (_end_time.hour * 60 + _end_time.min) - (_start_time.hour * 60 + _start_time.min)
-      duration += 24.hours if duration < 0
-
-      recurrences.each do |r|
-        start_at = Time.use_zone(self.time_zone) do
-          Time.zone.local(
-            r.year,
-            r.month,
-            r.day,
-            self.start_time.in_time_zone(self.time_zone).hour,
-            self.start_time.in_time_zone(self.time_zone).min,
-            0
-          )
-        end
+      recurrences.each do |date|
+        start_at, end_at = episode_times_on(date)
 
         if start_at > Time.now
           scheduled_show = self.episodes.new
@@ -121,7 +106,7 @@ class ShowSeries < ApplicationRecord
           scheduled_show.performers << self.users
 
           scheduled_show.start_at = start_at
-          scheduled_show.end_at = start_at + duration.minutes
+          scheduled_show.end_at = end_at
           scheduled_show.slug = nil
           scheduled_show.title = self.title
           if self.default_playlist.present?
@@ -136,10 +121,9 @@ class ShowSeries < ApplicationRecord
   end
 
   def update_episodes
-    # TODO what if start time needs to change???
     episodes_to_update.each do |episode|
-      episode.start_at = DateTime.new episode.start_at.year, episode.start_at.month, episode.start_at.day, self.start_time.hour, self.start_time.min, self.start_time.sec, self.start_time.zone
-      episode.end_at = DateTime.new episode.end_at.year, episode.end_at.month, episode.end_at.day, self.end_time.hour, self.end_time.min, self.end_time.sec, self.end_time.zone
+      date = episode.start_at.in_time_zone(time_zone).to_date
+      episode.start_at, episode.end_at = episode_times_on(date)
       # TODO title, description
       # not sure how that should work
       unless episode.image.present?
@@ -150,6 +134,24 @@ class ShowSeries < ApplicationRecord
   end
 
   private
+
+  def episode_times_on(date)
+    zone = Time.find_zone!(time_zone)
+    local_start = start_time.in_time_zone(zone)
+    local_end = end_time.in_time_zone(zone)
+    start_at = zone.local(date.year, date.month, date.day, local_start.hour, local_start.min)
+    duration_minutes = (local_end.hour * 60 + local_end.min) - (local_start.hour * 60 + local_start.min)
+
+    end_at = if duration_minutes.negative?
+      # Resolve the end on the next calendar day so it uses that day's UTC offset.
+      next_date = date.next_day
+      zone.local(next_date.year, next_date.month, next_date.day, local_end.hour, local_end.min)
+    else
+      start_at + duration_minutes.minutes
+    end
+
+    [start_at, end_at]
+  end
 
   def set_required_columns
     if self.year? && self.recurring_weekday.blank?
