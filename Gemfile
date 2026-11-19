@@ -81,6 +81,8 @@ gem 'chronic'
 gem 'aws-sdk'
 # Provide a pure-Ruby XML parser for AWS SDK in production.
 gem 'rexml'
+# Production glibc is too old for Nokogiri's precompiled Linux gem.
+gem 'nokogiri', force_ruby_platform: true
 gem "kt-paperclip", "~> 6.4", ">= 6.4.1"
 gem "image_processing", ">= 1.2"
 
