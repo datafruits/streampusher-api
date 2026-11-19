@@ -4,6 +4,7 @@ services:
   - redis
 
 variables:
+  RBENV_VERSION: "3.4.13"
   CI: "true"
   S3_KEY: "xxxxxxxxxxxxxxxxxxxxx"
   S3_SECRET: "xxxxxxxxxxxxxxxxxxxxx"
@@ -14,6 +15,7 @@ variables:
 
 job1:
   cache:
+    key: "ruby-3.4.13"
     paths:
       - "frontend/node_modules"
       - "vendor/bundle"
