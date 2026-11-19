@@ -1,6 +1,10 @@
 source 'https://rubygems.org/'
 
+ruby '3.4.13'
+
 gem 'rails', '7.0.5'
+# Rails 7.0 loads DRb through ActiveSupport; Ruby 3.4 no longer includes it by default.
+gem 'drb'
 gem 'pg'
 
 gem 'spring',        group: :development
@@ -75,6 +79,10 @@ gem 'active_model_serializers', '~> 0.10.0'
 gem 'jsonapi-serializer'
 gem 'chronic'
 gem 'aws-sdk'
+# Provide a pure-Ruby XML parser for AWS SDK in production.
+gem 'rexml'
+# Production glibc is too old for Nokogiri's precompiled Linux gem.
+gem 'nokogiri', force_ruby_platform: true
 gem "kt-paperclip", "~> 6.4", ">= 6.4.1"
 gem "image_processing", ">= 1.2"
 

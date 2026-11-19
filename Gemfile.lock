@@ -1738,6 +1738,7 @@ GEM
     dotenv-rails (3.1.2)
       dotenv (= 3.1.2)
       railties (>= 6.1)
+    drb (2.2.3)
     dry-auto_inject (1.0.1)
       dry-core (~> 1.0)
       zeitwerk (~> 2.6)
@@ -1830,6 +1831,7 @@ GEM
       rake
     mini_magick (4.12.0)
     mini_mime (1.1.5)
+    mini_portile2 (2.8.9)
     minitest (5.23.1)
     mock_redis (0.44.0)
     multi_json (1.15.0)
@@ -1851,7 +1853,8 @@ GEM
       net-protocol
     net-ssh (7.2.3)
     nio4r (2.7.3)
-    nokogiri (1.16.5-x86_64-linux)
+    nokogiri (1.19.7)
+      mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     omniauth (2.1.2)
       hashie (>= 3.4.6)
@@ -2067,6 +2070,7 @@ DEPENDENCIES
   discord-notifier
   docker-api (~> 2.2.0)
   dotenv-rails
+  drb
   e2mmap
   ed25519 (>= 1.2, < 2.0)
   exception_notification!
@@ -2083,6 +2087,7 @@ DEPENDENCIES
   net-imap
   net-pop
   net-smtp
+  nokogiri
   omniauth
   patreon
   pg
@@ -2093,6 +2098,7 @@ DEPENDENCIES
   recurrence
   redis
   remote_syslog_logger
+  rexml
   rspec-rails (~> 3.5.2)
   rubocop
   ruby-liquidsoap!
@@ -2117,5 +2123,8 @@ DEPENDENCIES
   webmock
   whenever
 
+RUBY VERSION
+   ruby 3.4.13
+
 BUNDLED WITH
-   2.2.30
+   2.5.22

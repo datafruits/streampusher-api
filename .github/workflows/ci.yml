@@ -1,13 +1,16 @@
 # .github/workflows/ci.yml
 env:
-  RUBY_VERSION: 3.2.2
+  RUBY_VERSION: '3.4.13'
   TEST_REDIS_PASS: testpass
+  # ruby-lsp/Prism are editor dependencies, not test dependencies.
+  BUNDLE_WITHOUT: 'development:production'
 
 name: CI
 on: [push, pull_request]
 jobs:
   test:
-    runs-on: ubuntu-latest
+    # rupeepeethree requires taglib-ruby 1.x and the TagLib 1.x system library.
+    runs-on: ubuntu-24.04
     services:
       db:
         image: postgres:11
@@ -33,6 +36,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
+          bundler: '2.5.22'
       - name: Update Ubuntu Repos
         run: sudo apt-get update
       - name: Install deps
@@ -50,7 +54,6 @@ jobs:
         run: |
           cp config/database.example.yml config/database.yml
           cp .env.sample .env
-          gem install bundler
           bundle install --jobs 4 --retry 3
           bundle exec rails db:setup RAILS_ENV=test
           bundle exec rspec -f j -o tmp/rspec_results.json -f p
