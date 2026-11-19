@@ -2,7 +2,7 @@ source 'https://rubygems.org/'
 
 ruby '3.4.13'
 
-gem 'rails', '7.1.6'
+gem 'rails', '7.2.4'
 # Rails 7.0 loads DRb through ActiveSupport; Ruby 3.4 no longer includes it by default.
 gem 'drb'
 gem 'pg'
