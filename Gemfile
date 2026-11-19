@@ -25,7 +25,7 @@ gem 'rack-cors', :require => 'rack/cors'
 
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
-gem 'rspec-rails', '~> 3.5.2', :group => [:development, :test]
+gem 'rspec-rails', '~> 7.1', :group => [:development, :test]
 
 gem 'redis'
 gem 'connection_pool'
