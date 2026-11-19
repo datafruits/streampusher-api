@@ -2,7 +2,7 @@ source 'https://rubygems.org/'
 
 ruby '3.4.13'
 
-gem 'rails', '7.0.5'
+gem 'rails', '7.1.6'
 # Rails 7.0 loads DRb through ActiveSupport; Ruby 3.4 no longer includes it by default.
 gem 'drb'
 gem 'pg'
@@ -118,3 +118,7 @@ gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0'
 gem "skylight"
 
 gem "rubyzip"
+
+# clear warnings about ruby 4
+gem 'ostruct'
+gem 'logger'
