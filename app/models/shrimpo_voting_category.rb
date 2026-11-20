@@ -7,4 +7,14 @@ class ShrimpoVotingCategory < ApplicationRecord
 
   validates :name, presence: true
   validates :emoji, presence: true
+
+  before_create :build_trophies, if: -> { shrimpo.mega? }
+
+  private
+
+  def build_trophies
+    self.gold_trophy = Trophy.create!(name: "gold #{name}")
+    self.silver_trophy = Trophy.create!(name: "silver #{name}")
+    self.bronze_trophy = Trophy.create!(name: "bronze #{name}")
+  end
 end

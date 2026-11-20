@@ -6,7 +6,7 @@ class Api::ShrimposController < ApplicationController
   end
 
   def create
-    shrimpo = Shrimpo.new shrimpo_params
+    shrimpo = Shrimpo.new shrimpo_params(:shrimpo_type)
     shrimpo.user = current_user
     # TODO allow user to select trophies
     # ["golden shrimpo", "silveren shrimpo", "bronzeen shrimpo", "good beverage"]
@@ -14,12 +14,6 @@ class Api::ShrimposController < ApplicationController
     shrimpo.silver_trophy = Trophy.find_by(name: "silveren shrimpo")
     shrimpo.bronze_trophy = Trophy.find_by(name: "bronzeen shrimpo")
     shrimpo.consolation_trophy = Trophy.find_by(name: "good beverage")
-
-    if shrimpo.mega? && shrimpo_voting_categories_params
-      shrimpo_voting_categories_params.each do |category|
-        shrimpo.shrimpo_voting_categories.build name: category, emoji: ":#{category}:"
-      end
-    end
 
     if shrimpo.valid? && shrimpo.save_and_deposit_fruit_tickets!
       ActiveSupport::Notifications.instrument 'shrimpo.created', username: shrimpo.user.username, title: shrimpo.title
@@ -57,15 +51,17 @@ class Api::ShrimposController < ApplicationController
   end
 
   private
-  def shrimpo_params
-    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
-      :title, :start_at, :end_at, :rule_pack, :duration, :cover_art, :zip, :emoji
+  def shrimpo_params(*extra_fields)
+    attributes = ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+      :title, :start_at, :end_at, :rule_pack, :duration, :cover_art, :zip, :emoji, *extra_fields
     ])
-  end
-
-  def shrimpo_voting_categories_params
-    ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
-      :shrimpo_voting_categories
-    ])
+    nested = params.dig(:data, :attributes)
+    if nested.is_a?(ActionController::Parameters)
+      categories = nested.permit(shrimpo_voting_categories: [:id, :name, :emoji],
+                                 shrimpo_voting_categories_attributes: [:id, :name, :emoji])
+      rows = categories[:shrimpo_voting_categories_attributes] || categories[:shrimpo_voting_categories]
+      attributes[:shrimpo_voting_categories_attributes] = rows if rows
+    end
+    attributes
   end
 end
