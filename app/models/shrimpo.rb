@@ -45,7 +45,6 @@ class Shrimpo < ApplicationRecord
   after_create :queue_end_shrimpo_job
   after_create :send_notification
 
-  after_create :create_category_trophies!, if: -> { self.mega? }
 
   VALID_DURATIONS = [
     # minors
@@ -251,15 +250,6 @@ class Shrimpo < ApplicationRecord
     voted_count = ShrimpoVote.where(user: user).where("shrimpo_entry_id in (?)", self.shrimpo_entries.pluck(:id)).select(:shrimpo_entry_id).distinct.count
     total_count = self.shrimpo_entries.count - 1 # subtract 1 cuz can't vote on own shrimpo
     ((voted_count.to_f / total_count.to_f) * 100).round(2)
-  end
-
-  def create_category_trophies!
-    self.shrimpo_voting_categories.each do |category|
-      gold = Trophy.create! name: "gold #{category.name}"
-      silver = Trophy.create! name: "silver #{category.name}"
-      bronze = Trophy.create! name: "bronze #{category.name}"
-      category.update! gold_trophy: gold, silver_trophy: silver, bronze_trophy: bronze
-    end
   end
 
   private
