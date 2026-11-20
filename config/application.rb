@@ -46,6 +46,11 @@ module StreamPusher
       end if File.exist?(env_file)
     end
 
+    config.x.liquidsoap = config_for(:liquidsoap)
+    if Rails.env.local?
+      config.secret_key_base = ENV["SECRET_KEY_BASE"] || Rails.application.credentials.secret_key_base || config_for(:local_signing).secret_key_base
+    end
+
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
 

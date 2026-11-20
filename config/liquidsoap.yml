@@ -1,0 +1,7 @@
+development:
+  liq_secret: 9f3a34b2d0176806b4545f5a21a123abae4cf0dfddc77cc9e6bdc92eb263c4c06bd0ff2967f8049a538f6274ca242d89fb0c227e425dbb9cf1fc336f38ab1295
+test:
+  liq_secret: 9f3a34b2d0176806b4545f5a21a123abae4cf0dfddc77cc9e6bdc92eb263c4c06bd0ff2967f8049a538f6274ca242d89fb0c227e425dbb9cf1fc336f38ab1295
+production:
+  liq_secret:  <%= ENV["LIQ_SECRET"] %>
+  stereo_tool_key: <%= ENV["STEREO_TOOL_KEY"] %>

@@ -2,7 +2,7 @@ source 'https://rubygems.org/'
 
 ruby '3.4.13'
 
-gem 'rails', '7.0.5'
+gem 'rails', '7.2.4'
 # Rails 7.0 loads DRb through ActiveSupport; Ruby 3.4 no longer includes it by default.
 gem 'drb'
 gem 'pg'
@@ -25,7 +25,7 @@ gem 'rack-cors', :require => 'rack/cors'
 
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
-gem 'rspec-rails', '~> 3.5.2', :group => [:development, :test]
+gem 'rspec-rails', '~> 7.1', :group => [:development, :test]
 
 gem 'redis'
 gem 'connection_pool'
@@ -118,3 +118,7 @@ gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0'
 gem "skylight"
 
 gem "rubyzip"
+
+# clear warnings about ruby 4
+gem 'ostruct'
+gem 'logger'
