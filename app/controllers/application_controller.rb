@@ -4,6 +4,7 @@ class ApplicationController < ActionController::API
 
   before_action :current_radio
   around_action :set_time_zone
+  around_action { |_controller, action| ArtworkUrls.set(cache: {}, &action) }
 
   def next
     render json: NextTrack.perform(@current_radio)
