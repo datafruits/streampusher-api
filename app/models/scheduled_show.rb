@@ -37,6 +37,12 @@ class ScheduledShow < ActiveRecord::Base
 
   has_many :scheduled_show_favorites
 
+  scope :with_calendar_associations, -> {
+    preload(:tracks, { as_image_attachment: :blob },
+            { show_series: { as_image_attachment: :blob } },
+            { performers: { as_image_attachment: :blob } })
+  }
+
   scope :future, -> { where("start_at > ?", Time.now) }
   scope :past, -> { where("start_at < ?", Time.now) }
 
@@ -145,27 +151,14 @@ class ScheduledShow < ActiveRecord::Base
   end
 
   def image_url
-    if representative_image.present? && representative_image.attached?
-      Rails.application.routes.url_helpers.rails_representation_url(
-        representative_image,
-        host: Rails.application.routes.default_url_options[:host]
-      )
-    end
+    ArtworkUrls.url(representative_image, :original)
   end
 
   def thumb_image_url
-    if representative_image.present? && representative_image.attached?
-      begin
-        variant = representative_image.variant(:thumb)
-        Rails.application.routes.url_helpers.rails_representation_url(
-          variant,
-          host: Rails.application.routes.default_url_options[:host]
-        )
-      rescue ActiveStorage::InvariableError => e
-        Rails.logger.error("ActiveStorage::InvariableError for scheduled_show id=#{self.id} title=#{self.title}: #{e.message}")
-        image_url
-      end
-    end
+    ArtworkUrls.url(representative_image, :thumb)
+  rescue ActiveStorage::InvariableError => e
+    Rails.logger.error("#{e.class} for scheduled_show id=#{id} title=#{title}: #{e.message}")
+    image_url
   end
 
   def representative_image

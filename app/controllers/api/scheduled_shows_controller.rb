@@ -14,8 +14,7 @@ class Api::ScheduledShowsController < ApplicationController
         where.not(show_series_id: nil).
         joins(:show_series).where(show_series: { status: :active }).
         where("title ilike ?", "%#{params[:term]}%").
-        order("start_at DESC").
-        includes(:performers, :scheduled_show_performers, :show_series)
+        order("start_at DESC")
     else
       if params[:start]
         start_at = DateTime.parse(params[:start]).in_time_zone(Time.zone.name)
@@ -26,14 +25,14 @@ class Api::ScheduledShowsController < ApplicationController
         where.not(show_series_id: nil).
         joins(:show_series).where(show_series: { status: :active }).
         where("start_at >= ? AND end_at <= ?", start_at, params[:end]).
-        order("start_at ASC").
-        includes(:performers, :scheduled_show_performers, :show_series)
+        order("start_at ASC")
     end
 
     if params[:id]
       @scheduled_shows = @current_radio.scheduled_shows.where("id in (?)", params[:id])
     end
 
+    @scheduled_shows = @scheduled_shows.with_calendar_associations
     render json: Fast::ScheduledShowSerializer.new(@scheduled_shows).serializable_hash.to_json
   end
 end

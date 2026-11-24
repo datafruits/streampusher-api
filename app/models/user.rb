@@ -31,30 +31,15 @@ class User < ActiveRecord::Base
     attachable.variant :thumb, resize_to_limit: [150, 150]
   end
 
-  # only called from serializers
   def image_url
-    if self.as_image.attached?
-      Rails.application.routes.url_helpers.rails_representation_url(
-        self.as_image,
-        host: Rails.application.routes.default_url_options[:host]
-      )
-    end
+    ArtworkUrls.url(as_image, :original)
   end
 
   def thumb_image_url
-    if self.as_image.attached?
-      begin
-        variant = self.as_image.variant(:thumb)
-
-        Rails.application.routes.url_helpers.rails_representation_url(
-          variant,
-          host: Rails.application.routes.default_url_options[:host]
-        )
-      rescue ActiveStorage::InvariableError, ActiveStorage::FileNotFoundError => e
-        Rails.logger.error("#{e.class} for user id=#{self.id} username=#{self.username}: #{e.message}")
-        image_url
-      end
-    end
+    ArtworkUrls.url(as_image, :thumb)
+  rescue ActiveStorage::InvariableError, ActiveStorage::FileNotFoundError => e
+    Rails.logger.error("#{e.class} for user id=#{id} username=#{username}: #{e.message}")
+    image_url
   end
 
   alias_method :avatar, :as_image
