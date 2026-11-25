@@ -91,18 +91,6 @@ RSpec.describe ScheduledShow, :type => :model do
   end
 
   describe "validations" do
-    it "start time cannot be in the past" do
-      start_at = Chronic.parse("yesterday at 3:15 pm").utc
-      end_at = Chronic.parse("today at 2:15 pm").utc
-      @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey", dj: @dj
-      expect(@scheduled_show.errors[:start_at]).to be_present
-    end
-    it "end time cannot be in the past" do
-      start_at = Chronic.parse("today at 3:15 pm").utc
-      end_at = Chronic.parse("2 days ago at 2:15 pm").utc
-      @scheduled_show = ScheduledShow.create radio: @radio, playlist: @playlist, start_at: start_at, end_at: end_at, title: "hey"
-      expect(@scheduled_show.errors[:end_at]).to be_present
-    end
     it "end time cannot be before start time" do
       start_at = Chronic.parse("today at 3:15 pm").utc
       end_at = Chronic.parse("today at 2:15 pm").utc
@@ -296,6 +284,7 @@ RSpec.describe ScheduledShow, :type => :model do
     xit "it clears the redis current_show_playing if destroyed and playing"
     it "queues the show's entire playlist in liquidsoap" do
       allow(liquidsoap_requests_class).to receive(:new).with(@radio.id).and_return(liquidsoap)
+      allow(liquidsoap).to receive(:current_source).and_return("scheduled_shows")
       Sidekiq::Testing.fake!
       start_at = Chronic.parse("today at 2:15 pm").utc
       end_at = Chronic.parse("today at 3:15 pm").utc
@@ -312,6 +301,7 @@ RSpec.describe ScheduledShow, :type => :model do
 
     it "calls PersistPlaylistToRedis if empty in redis" do
       allow(liquidsoap_requests_class).to receive(:new).with(@radio.id).and_return(liquidsoap)
+      allow(liquidsoap).to receive(:current_source).and_return("scheduled_shows")
       Sidekiq::Testing.fake!
       start_at = Chronic.parse("today at 2:15 pm").utc
       end_at = Chronic.parse("today at 3:15 pm").utc

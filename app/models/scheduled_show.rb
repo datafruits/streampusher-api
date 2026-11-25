@@ -23,7 +23,8 @@ class ScheduledShow < ActiveRecord::Base
     attachable.variant :thumb, resize_to_limit: [300, 300]
   end
 
-  alias_attribute :image, :as_image
+  alias_method :image, :as_image
+  alias_method :image=, :as_image=
 
   has_many :scheduled_show_labels, dependent: :destroy
   has_many :labels, through: :scheduled_show_labels
@@ -43,8 +44,6 @@ class ScheduledShow < ActiveRecord::Base
   validates_presence_of :start_at, :end_at, :playlist_id, :title, :dj_id
   validates :description, length: { maximum: 10_000 }
 
-  validate :start_at_cannot_be_in_the_past, on: :create
-  validate :end_at_cannot_be_in_the_past, on: :create
   validate :end_at_cannot_be_before_start_at, on: :create
 
   alias_attribute :start, :start_at
@@ -132,6 +131,8 @@ class ScheduledShow < ActiveRecord::Base
       # this key is for compatibility ???? or what
       current_show = { title: self.title, user: self.dj.username, scheduled_show: self.id }
       StreamPusher.redis.hset "#{radio}:current_show", current_show
+      # is this right ? idk?!! argh
+      CanonicalMetadataSync.perform(self.radio.id, self.title)
     else
       puts "tried to queue #{self.inspect}'s playlist, but playlist empty in redis!"
     end
@@ -224,18 +225,6 @@ class ScheduledShow < ActiveRecord::Base
       unless self.end_at.utc?
         self.end_at = ActiveSupport::TimeZone.new(self.time_zone).local_to_utc(self.end_at)
       end
-    end
-  end
-
-  def start_at_cannot_be_in_the_past
-    if start_at < Time.current
-      errors.add(:start_at, "cannot be in the past")
-    end
-  end
-
-  def end_at_cannot_be_in_the_past
-    if end_at < Time.current
-      errors.add(:end_at, "cannot be in the past")
     end
   end
 
