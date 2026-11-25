@@ -41,7 +41,7 @@ class PodcastsController < ApplicationController
     @podcast = @current_radio.podcasts.find_by_name(params[:id])
 
     @archives = Rails.cache.fetch("chronological_archives/#{@current_radio.id}") {
-      Rails.log.info("Recaching archives....")
+      Rails.logger.info("Recaching archives....")
 
       @current_radio.scheduled_shows.
         includes([:tracks]).
