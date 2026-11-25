@@ -1,0 +1,43 @@
+<section class="page-spacing" data-signals="{comment: {body: '', error: null}}">
+  <%= link_to "← #{@show.title}", show_path(@show.slug) %>
+  <article class="page-bg p-4 mt-4">
+    <% if (image = @episode.representative_image)&.attached? %>
+      <%= image_tag image, alt: '', class: 'w-full md:w-1/2 rounded-lg mb-4', loading: 'lazy' %>
+    <% end %>
+    <h1 class="text-3xl"><%= @episode.title %></h1>
+    <p>Air date: <time datetime="<%= @episode.start_at.iso8601 %>"><%= @episode.start_at.in_time_zone.strftime('%B %-d, %Y · %H:%M %Z') %></time></p>
+    <%= render 'shows/hosts', hosts: @episode.performers %>
+    <div class="wiki-article break-words"><%= render_wiki_markdown(@episode.description.presence || @show.description) %></div>
+    <%= render 'shows/labels', labels: @episode.labels %>
+    <% @tracks.each do |track| %>
+      <%= render 'shared/recording_controls', track: track, title: @episode.title %>
+    <% end %>
+    <% if @tracks.empty? %>
+      <p class="my-4"><%= @episode.start_at > Time.current ? 'This episode has not aired yet.' : 'The recording is not available yet.' %></p>
+    <% end %>
+    <div class="flex flex-wrap gap-3 my-3">
+      <% episode_external_links(@episode).each do |name, url| %>
+        <%= link_to name, url, target: '_blank', rel: 'noopener noreferrer', class: 'cool-button' %>
+      <% end %>
+    </div>
+    <p class="my-4"><%= link_to "More episodes of #{@show.title}", show_path(@show.slug) %></p>
+  </article>
+  <section class="mt-6" aria-label="Episode comments">
+    <h2 class="text-2xl mb-3">Comments</h2>
+    <div id="episode-comments" class="space-y-4">
+      <% @episode.posts.sort_by { |post| [post.created_at, post.id] }.each do |post| %>
+        <%= render 'forum_threads/post', post: post %>
+      <% end %>
+    </div>
+    <% if user_signed_in? %>
+      <form class="mt-4 page-bg p-4" data-on:submit="@post('<%= show_episode_comments_path(@show.slug, @episode.slug) %>', {filterSignals: {include: /^comment\./}})">
+        <label for="episode-comment-body" class="block">Leave a comment</label>
+        <textarea id="episode-comment-body" class="w-full text-black bg-white min-h-28" data-bind:comment.body required></textarea>
+        <button type="submit" class="cool-button">Post comment</button>
+        <p role="alert" data-show="$comment.error" data-text="$comment.error"></p>
+      </form>
+    <% else %>
+      <p class="my-4"><%= link_to 'Log in to leave a comment', new_user_session_path %></p>
+    <% end %>
+  </section>
+</section>

@@ -1,24 +1,41 @@
 # Keep TagLib 1.x for rupeepeethree's taglib-ruby 1.x dependency.
 FROM ubuntu:24.04
 
-# locale
-# RUN locale-gen ja_JP.UTF-8 && \
-#     locale-gen en_US.UTF-8
-# ENV LANG en_US.UTF-8
+ARG RUBY_VERSION=3.3.10
 
 ENV DEBIAN_FRONTEND=noninteractive
 ARG DOCKER_GROUP_ID
 
-RUN apt update
-RUN apt upgrade -y
-RUN apt-get install -y build-essential libtag1-dev libffi-dev \
-  xvfb firefox git curl sox libsox-fmt-mp3 libpq-dev imagemagick sudo postgresql-client
+ENV APP_HOME=/home/rails/app \
+    BUNDLE_PATH=/usr/local/bundle \
+    BUNDLE_JOBS=4 \
+    BUNDLE_RETRY=3 \
+    LANG=C.UTF-8
 
-# for ruby
-RUN apt-get install -y --force-yes autoconf patch build-essential rustc libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libgmp-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev uuid-dev
+RUN apt-get update && \
+    apt-get install --yes --no-install-recommends \
+      ca-certificates \
+      curl \
+      imagemagick \
+      libpq5 \
+      libtag1v5 \
+      libyaml-0-2 \
+      postgresql-client \
+      shared-mime-info \
+      sox \
+      libsox-fmt-mp3 \
+      webp && \
+    rm -rf /var/lib/apt/lists/* && \
+    groupadd --gid 1000 rails && \
+    useradd --create-home --uid 1000 --gid 1000 --shell /bin/bash rails && \
+    mkdir -p "${APP_HOME}" "${BUNDLE_PATH}" && \
+    chown rails:rails "${APP_HOME}" "${BUNDLE_PATH}"
+
+WORKDIR ${APP_HOME}
 
 
-# RUN apt-get clean
+# Installs native build dependencies and produces the production bundle/assets.
+FROM base AS build
 
 # Reuse Ubuntu's default account to keep UID/GID 1000 for bind mounts.
 RUN if getent passwd ubuntu >/dev/null; then \
@@ -66,8 +83,40 @@ WORKDIR /home/rails/app
 # from the outside.
 EXPOSE 3000
 
-# The main command to run when the container starts. Also
-# tell the Rails dev server to bind to all interfaces by
-# default.
+CMD ["bundle", "exec", "falcon", "host", "config/falcon.rb"]
+
+
+# Local development target. Source and gems remain bind-mounted by Compose.
+FROM base AS development
+
+ARG DOCKER_GROUP_ID
+ARG BUNDLER_VERSION=2.5.22
+
+RUN apt-get update && \
+    apt-get install --yes --no-install-recommends \
+      build-essential \
+      firefox-esr \
+      git \
+      libffi-dev \
+      libgdbm-dev \
+      libgmp-dev \
+      libpq-dev \
+      libssl-dev \
+      libtag1-dev \
+      libyaml-dev \
+      pkg-config \
+      rustc \
+      sudo \
+      xvfb \
+      zlib1g-dev && \
+    rm -rf /var/lib/apt/lists/* && \
+    if [ -n "${DOCKER_GROUP_ID}" ]; then groupadd --gid "${DOCKER_GROUP_ID}" docker; else groupadd docker; fi && \
+    usermod --append --groups docker,sudo rails && \
+    printf '%%sudo ALL=(ALL) NOPASSWD: ALL\n' >/etc/sudoers.d/rails && \
+    gem install bundler --version "${BUNDLER_VERSION}" --no-document
+
+USER rails
+
+EXPOSE 3000
 
 CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]

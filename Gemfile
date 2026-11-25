@@ -37,9 +37,8 @@ gem 'capistrano'
 gem 'capistrano-rails'
 gem 'capistrano-bundler'
 gem 'capistrano-rbenv', "~>2.0"
-gem 'capistrano-nvm', require: false
 gem 'capistrano-sidekiq'
-gem 'capistrano-cookbook', require: false, group: :development
+# gem 'capistrano-cookbook', require: false, group: :development
 
 group :test do
   gem 'factory_bot_rails'
@@ -118,6 +117,20 @@ gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0'
 gem "skylight"
 
 gem "rubyzip"
+
+gem "importmap-rails", "~> 2.2"
+
+gem "propshaft", "~> 1.3"
+
+gem "tailwindcss-rails"
+
+gem "datastar", "~> 1.0"
+
+gem "commonmarker", "~> 0.23"
+
+gem "brotli"
+
+gem "falcon"
 
 # clear warnings about ruby 4
 gem 'ostruct'

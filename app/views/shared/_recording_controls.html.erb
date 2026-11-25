@@ -1,0 +1,8 @@
+<div class="flex flex-wrap items-center gap-3 my-3">
+  <button type="button" class="cool-button"
+          data-recording-url="<%= track.cdn_url %>" data-recording-title="<%= title %>" data-recording-id="<%= track.id %>"
+          data-on:click="document.dispatchEvent(new CustomEvent('datafruits:play', {detail: {url: evt.currentTarget.dataset.recordingUrl, title: evt.currentTarget.dataset.recordingTitle, id: evt.currentTarget.dataset.recordingId}}))"
+          aria-label="Play <%= title %>">Play</button>
+  <span><%= track.formatted_duration %></span>
+  <%= link_to 'Download', track.cdn_url, download: '', class: 'cool-button' %>
+</div>

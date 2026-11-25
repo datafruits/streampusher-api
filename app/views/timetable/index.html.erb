@@ -1,0 +1,33 @@
+<div class="page-spacing">
+  <h1 class="debussy-header"><%= t "timetable.title" %></h1>
+  <% now = Time.current %>
+  <table class="page-bg block px-6 py-4">
+    <thead>
+      <tr>
+        <th scope="col" colspan="2">
+          <%= t "timetable.timezone" %>
+          <span class="italic"><%= Time.zone.name %></span>
+        </th>
+      </tr>
+    </thead>
+    <% @scheduled_shows.group_by { |show| show.start_at.in_time_zone.to_date }.each do |day, shows| %>
+      <tbody>
+        <tr>
+          <th scope="rowgroup" colspan="2" class="text-xl font-debussy text-left">
+            <%= day == now.to_date ? "Today, #{day.strftime('%B %-d')}" : day.strftime('%A, %B %-d') %>
+          </th>
+        </tr>
+        <tr><td colspan="2"><hr /></td></tr>
+        <% shows.each do |show| %>
+          <tr>
+            <td><%= show.start_at.in_time_zone.strftime('%H:%M %Z') %> ~ <%= show.end_at.in_time_zone.strftime('%H:%M %Z') %></td>
+            <td class="<%= 'bleed' if now.between?(show.start_at, show.end_at) %>">
+              <%= link_to show.title, show_episode_path(show.show_series.slug, show.slug), title: show.title %>
+            </td>
+          </tr>
+        <% end %>
+        <tr aria-hidden="true"><td colspan="2" class="h-4"></td></tr>
+      </tbody>
+    <% end %>
+  </table>
+</div>

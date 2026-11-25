@@ -3,14 +3,47 @@ class PodcastsController < ApplicationController
   include ActionView::Layouts
   include ActionController::Rendering
 
-  load_and_authorize_resource except: [:show]
-  before_action :current_radio_required, only: [:show]
+  load_and_authorize_resource except: [:index, :show]
+  before_action :current_radio_required, only: [:index, :show]
   serialization_scope :serializer_scope
 
   def index
     @podcasts = @current_radio.podcasts
     @podcast = Podcast.new
-    render json: @podcasts
+    respond_to do |format|
+      format.json do
+        authorize! :index, Podcast
+        render json: @podcasts
+      end
+      format.html do
+        @query = params[:query].to_s.strip
+        @tags = Array(params[:tags]).flat_map { |tag| tag.to_s.split(',') }.map(&:strip).reject(&:blank?).uniq
+        @labels = @current_radio.labels.order(:name)
+        @archives = @current_radio.scheduled_shows.archive_published.
+          where('end_at < ?', Time.current).
+          where(id: Track.where(radio_id: @current_radio.id).where.not(audio_file_name: [nil, '']).select(:scheduled_show_id)).
+          includes(:labels, :performers, :tracks, :show_series).
+          order(start_at: :desc, id: :desc)
+        if @query.present?
+          @archives = @archives.where('title ILIKE ?', "%#{ActiveRecord::Base.sanitize_sql_like(@query)}%")
+        end
+        @tags.each do |tag|
+          label_ids = @current_radio.labels.where('LOWER(name) = ?', tag.downcase).select(:id)
+          @archives = @archives.where(id: ScheduledShowLabel.where(label_id: label_ids).select(:scheduled_show_id))
+        end
+        @archives = @archives.page(params[:page]).per(20)
+        if datastar_request?
+          html = render_to_string(partial: 'archives')
+          url = podcasts_path(query: @query.presence, tags: @tags.presence, page: params[:page])
+          datastar.stream do |sse|
+            sse.patch_elements(html)
+            sse.execute_script("history.replaceState(null, '', #{url.to_json});")
+          end
+        else
+          render :index
+        end
+      end
+    end
   end
 
   def create

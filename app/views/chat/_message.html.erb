@@ -1,0 +1,22 @@
+<li id="chat-message-<%= message.fetch(:id) %>" class="message">
+  <time class="mr-2 text-white/75"
+        datetime="<%= message.fetch(:timestamp) %>">
+    <%= Time.zone.parse(message.fetch(:timestamp)).strftime("%H:%M") %>
+  </time>
+
+  <% if message[:avatar_url].present? %>
+    <span class="mr-2">
+      <%= image_tag message[:avatar_url],
+                    alt: message.fetch(:user),
+                    class: "inline-block h-5 w-5 rounded-md object-cover align-text-bottom" %>
+    </span>
+  <% end %>
+
+  <strong class="mr-2" data-role="<%= message[:role] %>">
+    <%= message.fetch(:user) %>
+  </strong>
+
+  <span class="chat-message-body">
+    <%= message.fetch(:body) %>
+  </span>
+</li>

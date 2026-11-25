@@ -1,0 +1,38 @@
+namespace :falcon do
+  desc 'Reload systemd and enable the Falcon service'
+  task :install do
+    next unless fetch(:falcon_service_name, nil)
+
+    on roles(:app) do
+      unit_name = "#{fetch(:falcon_service_name)}.service"
+      unit_path = "/etc/systemd/system/#{unit_name}"
+      # Older deployments created this as an invalid alias symlink. Replace it
+      # with a real unit file whose basename matches the systemd unit name.
+      sudo :rm, '-f', unit_path
+      sudo :install,
+           '-o root -g root -m 0644',
+           "#{shared_path}/config/falcon.service",
+           unit_path
+      sudo :systemctl, 'daemon-reload'
+      sudo :systemctl, 'enable', unit_name
+    end
+  end
+
+  desc 'Restart the Falcon service'
+  task :restart do
+    next unless fetch(:falcon_service_name, nil)
+
+    on roles(:app) do
+      sudo :systemctl, 'restart', "#{fetch(:falcon_service_name)}.service"
+    end
+  end
+
+  desc 'Show the Falcon service status'
+  task :status do
+    next unless fetch(:falcon_service_name, nil)
+
+    on roles(:app) do
+      sudo :systemctl, 'status', "#{fetch(:falcon_service_name)}.service", '--no-pager'
+    end
+  end
+end

@@ -1,0 +1,37 @@
+<main class="md:grid md:grid-cols-3 md:gap-4 page-spacing">
+  <div>
+    <h2 class="text-2xl text-shadow my-2 mt-5 px-5"><%= t("home.upcoming_shows") %></h2>
+    <%= render partial: "episode", collection: @upcoming %>
+    <h2 class="text-2xl text-shadow my-2 mt-5 px-5"><%= t("home.latest_wiki") %></h2>
+    <% @wiki_pages.each do |page| %>
+      <%= link_to page.title, wiki_page_path(page), class: "block bg-df-pink text-2xl rounded-lg border-4 border-white p-2 mb-2" %>
+    <% end %>
+  </div>
+  <div>
+    <h2 class="text-2xl text-shadow my-2 mt-5 px-5"><%= t("home.latest_podcasts") %></h2>
+    <%= render partial: "episode", collection: @archives %>
+    <h2 class="text-2xl text-shadow my-2 mt-5 px-5"><%= t("home.latest_posts") %></h2>
+    <%= render partial: "forum_threads/forum_thread", collection: @threads %>
+  </div>
+  <div>
+    <%= link_to "https://datafruits.bandcamp.com/merch", target: "_blank", rel: "noopener noreferrer", class: "block border-4 border-white rounded-lg" do %>
+      <%= image_tag "images/fruits_merch.png", alt: "Datafruits merch", class: "w-full" %>
+    <% end %>
+    <% if @video_id.present? %>
+      <h2 class="text-2xl text-shadow my-2 mt-5 px-5">LATEST VID</h2>
+      <iframe src="https://www.youtube.com/embed/<%= @video_id %>" title="Latest Datafruits video" class="w-full aspect-video" loading="lazy" allowfullscreen></iframe>
+    <% end %>
+    <h2 class="text-2xl text-shadow my-2 mt-5 px-5"><%= t("home.latest_shrimpo") %></h2>
+    <% @shrimpos.each do |shrimpo| %>
+      <%= link_to shrimpo_url(shrimpo, host: "datafruits.fm", protocol: "https"), class: "flex justify-between bg-df-pink rounded-lg border-4 border-white p-2 mb-2" do %>
+        <div>
+          <% art = shrimpo.cover_art.attached? ? shrimpo.cover_art : shrimpo.user&.as_image %>
+          <%= image_tag art, alt: "", class: "h-24 rounded-lg", loading: "lazy" if art&.attached? %>
+          <h3 class="text-xl"><%= shrimpo.title %></h3>
+          <%= @entry_counts.fetch(shrimpo.id, 0) %> <%= t("shrimpo_card.entries") %>
+        </div>
+        <div><strong><%= t("home.completed") %></strong><br><%= t("shrimpo_card.host") %> <%= shrimpo.user&.username %></div>
+      <% end %>
+    <% end %>
+  </div>
+</main>

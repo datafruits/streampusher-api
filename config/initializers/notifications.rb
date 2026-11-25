@@ -86,7 +86,7 @@ if Rails.env.production?
     DiscordNotifier.perform_later "New wiki page created by #{event.payload[:username]}: #{event.payload[:wiki_page]} \n #{link}", ENV['DISCORD_WIKI_BOT_WEBHOOK_URL']
   end
 
-  ActiveSupport::Notifications.subscribe "wiki_page.update" do |*args|
+  ActiveSupport::Notifications.subscribe "wiki_page.updated" do |*args|
     event = ActiveSupport::Notifications::Event.new *args
     link = "https://datafruits.fm/wiki/#{event.payload[:slug]}"
     DiscordNotifier.perform_later "Wiki page updated by #{event.payload[:username]}: #{event.payload[:wiki_page]} \n #{link}", ENV['DISCORD_WIKI_BOT_WEBHOOK_URL']
