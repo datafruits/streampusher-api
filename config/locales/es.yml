@@ -36,3 +36,15 @@ es:
       settings:
         title: "Site Settings"
         icon: "⚙"
+
+  home:
+    upcoming_shows: "PRÓXIMOS PROGRAMAS"
+    latest_wiki: "WIKI UPDATES"
+    latest_podcasts: "ÚLTIMOS ARCHIVOS"
+    latest_posts: "FORUM POSTS"
+    latest_shrimpo: "SHRIMPOS"
+    completed: "completed"
+
+  shrimpo_card:
+    host: "Host:"
+    entries: "entries"

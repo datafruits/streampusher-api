@@ -36,3 +36,15 @@ zh-cn:
       settings:
         title: "網站設置"
         icon: "⚙"
+
+  home:
+    upcoming_shows: "即將推出"
+    latest_wiki: "WIKI UPDATES"
+    latest_podcasts: "最新存檔"
+    latest_posts: "FORUM POSTS"
+    latest_shrimpo: "SHRIMPOS"
+    completed: "completed"
+
+  shrimpo_card:
+    host: "Host:"
+    entries: "entries"

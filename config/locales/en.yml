@@ -177,3 +177,15 @@ en:
           month: "Month"
           year: "Year"
           biweek: "Bi-weekly"
+
+  home:
+    upcoming_shows: "UPCOMING SHOWS"
+    latest_wiki: "WIKI UPDATES"
+    latest_podcasts: "LATEST ARCHIVES"
+    latest_posts: "FORUM POSTS"
+    latest_shrimpo: "SHRIMPOS"
+    completed: "completed"
+
+  shrimpo_card:
+    host: "Host:"
+    entries: "entries"

@@ -36,3 +36,15 @@ ja:
       settings:
         title: "サイト設定"
         icon: "⚙"
+
+  home:
+    upcoming_shows: "近日放送予定"
+    latest_wiki: "WIKI UPDATES"
+    latest_podcasts: "最新のアーカイブ"
+    latest_posts: "FORUM POSTS"
+    latest_shrimpo: "SHRIMPOS"
+    completed: "完了"
+
+  shrimpo_card:
+    host: "ホスト:"
+    entries: "エントリー数"

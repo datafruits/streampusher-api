@@ -1,0 +1,7 @@
+<article class="m-3 bg-df-blue-dark rounded-lg border-4 border-white md:w-3/4 p-2 shadow-md">
+  <%= link_to show_episode_path(episode.show_series.slug, episode.slug), class: "block text-2xl" do %>
+    <%= episode.formatted_episode_title %>
+    <%= image_tag episode.representative_image || "images/show_placeholder.jpg", alt: "", loading: "lazy", class: "w-full h-40 object-cover rounded-xl" %>
+  <% end %>
+  <%= render "shows/labels", labels: episode.labels %>
+</article>

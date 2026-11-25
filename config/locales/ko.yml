@@ -36,3 +36,15 @@ ko:
       settings:
         title: "Site Settings"
         icon: "⚙"
+
+  home:
+    upcoming_shows: "다음 스케줄"
+    latest_wiki: "WIKI UPDATES"
+    latest_podcasts: "최신 아카이브"
+    latest_posts: "FORUM POSTS"
+    latest_shrimpo: "SHRIMPOS"
+    completed: "completed"
+
+  shrimpo_card:
+    host: "Host:"
+    entries: "entries"
